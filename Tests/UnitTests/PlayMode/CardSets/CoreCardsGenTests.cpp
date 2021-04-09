@@ -133,3 +133,45 @@ TEST_CASE("[Druid : Spell] - CORE_CS2_009 : Mark of the Wild")
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
+
+// ------------------------------------------ SPELL - DRUID
+// [CORE_CS2_013] Wild Growth - COST:3
+// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Gain an empty Mana Crystal.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - CORE_CS2_013 : Wild Growth")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(9);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wild Growth"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wild Growth"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
+}
