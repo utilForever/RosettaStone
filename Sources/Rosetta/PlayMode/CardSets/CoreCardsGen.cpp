@@ -98,6 +98,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_158e", EntityType::MINIONS));
+    cards.emplace("CORE_EX1_158", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_160] Power of the Wild - COST:2
