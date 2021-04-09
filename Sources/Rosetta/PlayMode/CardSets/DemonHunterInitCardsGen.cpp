@@ -7,22 +7,7 @@
 #include <Rosetta/PlayMode/CardSets/DemonHunterInitCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageNumberTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FuncNumberTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/MathAddTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionNumberTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagNumberTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SilenceTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode;

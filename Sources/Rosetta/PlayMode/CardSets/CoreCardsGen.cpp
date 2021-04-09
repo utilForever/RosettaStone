@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 namespace RosettaStone::PlayMode
 {

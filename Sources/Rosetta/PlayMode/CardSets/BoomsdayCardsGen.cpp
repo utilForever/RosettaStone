@@ -4,8 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 

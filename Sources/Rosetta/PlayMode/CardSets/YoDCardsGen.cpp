@@ -5,28 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddLackeyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddStackToTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageNumberTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/GetGameTagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomMinionTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonCopyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
