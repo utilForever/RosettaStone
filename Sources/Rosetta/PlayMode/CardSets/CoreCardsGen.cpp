@@ -6,8 +6,12 @@
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- HERO - WARLOCK
@@ -31,6 +35,8 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [CORE_BOT_420] Landscaping - COST:3
     // - Set: CORE, Rarity: Common
@@ -38,6 +44,14 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 2));
+    cards.emplace(
+        "CORE_BOT_420",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_CS2_009] Mark of the Wild - COST:2
