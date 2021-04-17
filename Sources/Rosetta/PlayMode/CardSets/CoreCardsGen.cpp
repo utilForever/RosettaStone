@@ -149,6 +149,11 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "OG_044a"));
+    cards.emplace("CORE_EX1_165",
+                  CardDef(power, ChooseCardIDs{ "EX1_165a", "EX1_165b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_169] Innervate - COST:0
