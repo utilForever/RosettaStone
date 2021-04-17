@@ -162,6 +162,9 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TempManaTask>(1));
+    cards.emplace("CORE_EX1_169", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]

@@ -432,3 +432,63 @@ TEST_CASE("[Druid : Minion] - CORE_EX1_165 : Druid of the Claw")
     CHECK_FALSE(curField[1]->CanAttack());
     CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
 }
+
+// ------------------------------------------ SPELL - DRUID
+// [CORE_EX1_169] Innervate - COST:0
+// - Set: CORE, Rarity: Rare
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Gain 1 Mana Crystal this turn only.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - CORE_EX1_169 : Innervate")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(9);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Innervate"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Innervate"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dragonling Mechanic"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 1);
+    CHECK_EQ(curPlayer->GetTotalMana(), 9);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+    CHECK_EQ(curPlayer->GetTotalMana(), 9);
+    CHECK_EQ(curPlayer->GetUsedMana(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
+}
