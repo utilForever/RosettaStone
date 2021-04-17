@@ -545,3 +545,63 @@ TEST_CASE("[Druid : Minion] - CORE_EX1_178 : Ancient of War")
     game.Process(opPlayer, PlayCardTask::Minion(card2, 2));
     CHECK_EQ(opField[0]->GetAttack(), 10);
 }
+
+// ------------------------------------------ SPELL - DRUID
+// [CORE_EX1_571] Force of Nature - COST:5
+// - Set: CORE, Rarity: Epic
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Summon three 2/2 Treants.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - CORE_EX1_571 : Force of Nature")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Force of Nature"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Force of Nature"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 6);
+    CHECK_EQ(curField[3]->card->name, "Treant");
+    CHECK_EQ(curField[4]->card->name, "Treant");
+    CHECK_EQ(curField[5]->card->name, "Treant");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[6]->card->name, "Treant");
+}
