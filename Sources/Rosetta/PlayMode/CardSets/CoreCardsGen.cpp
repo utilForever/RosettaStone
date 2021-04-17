@@ -214,6 +214,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_573",
+                  CardDef(power, ChooseCardIDs{ "EX1_573a", "EX1_573b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_KAR_065] Menagerie Warden - COST:5 [ATK:4/HP:4]
