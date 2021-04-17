@@ -6,8 +6,12 @@
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void KaraCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -20,8 +24,10 @@ void KaraCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
-    // [KAR_065] Menagerie Warden - COST:6 [ATK:5/HP:5]
+    // [KAR_065] Menagerie Warden - COST:5 [ATK:4/HP:4]
     // - Set: Kara, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Choose a friendly Beast.
@@ -36,6 +42,14 @@ void KaraCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_WITH_RACE = 20
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
+    cards.emplace(
+        "KAR_065",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [KAR_075] Moonglade Portal - COST:6
