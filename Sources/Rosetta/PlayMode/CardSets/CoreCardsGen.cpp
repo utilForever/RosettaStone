@@ -179,6 +179,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_178",
+                  CardDef(power, ChooseCardIDs{ "EX1_178a", "EX1_178b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_571] Force of Nature - COST:5
