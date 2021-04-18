@@ -262,6 +262,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_OG_047",
+                  CardDef(power, ChooseCardIDs{ "OG_047a", "OG_047b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_TRL_243] Pounce - COST:0

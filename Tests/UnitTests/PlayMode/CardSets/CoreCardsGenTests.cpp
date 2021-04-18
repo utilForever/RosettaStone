@@ -754,3 +754,51 @@ TEST_CASE("[Druid : Minion] - CORE_KAR_300 : Enchanted Raven")
 {
     // Do nothing
 }
+
+// ------------------------------------------ SPELL - DRUID
+// [CORE_OG_047] Feral Rage - COST:3
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Give your hero +4 Attack this turn;
+//       or Gain 8 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - CORE_OG_047 : Feral Rage")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Rage"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Rage"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
