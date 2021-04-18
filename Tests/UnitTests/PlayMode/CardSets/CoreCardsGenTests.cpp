@@ -745,3 +745,12 @@ TEST_CASE("[Druid : Minion] - CORE_KAR_065 : Menagerie Warden")
     CHECK_EQ(curField[2]->card->name, "Menagerie Warden");
     CHECK_EQ(curField[3]->card->name, "Bloodfen Raptor");
 }
+
+// ----------------------------------------- MINION - DRUID
+// [CORE_KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]
+// - Race: Beast, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - CORE_KAR_300 : Enchanted Raven")
+{
+    // Do nothing
+}

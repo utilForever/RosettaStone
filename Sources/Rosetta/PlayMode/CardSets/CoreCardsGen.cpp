@@ -248,6 +248,9 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [CORE_KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]
     // - Race: Beast, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_KAR_300", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_OG_047] Feral Rage - COST:3
