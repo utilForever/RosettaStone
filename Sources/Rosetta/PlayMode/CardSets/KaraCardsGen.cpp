@@ -65,6 +65,9 @@ void KaraCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]
     // - Race: Beast, Set: Kara, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("KAR_300", CardDef(power));
 }
 
 void KaraCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
