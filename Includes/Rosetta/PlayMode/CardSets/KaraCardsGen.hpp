@@ -139,4 +139,4 @@ class KaraCardsGen
 };
 }  // namespace RosettaStone::PlayMode
 
-#endif  // ROSETTASTONE_VANILLA_CARDS_GEN_HPP
+#endif  // ROSETTASTONE_KARA_CARDS_GEN_HPP
