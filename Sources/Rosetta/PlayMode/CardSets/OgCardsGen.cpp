@@ -4,10 +4,15 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using ChooseCardIDs = std::vector<std::string>;
+
 void OgCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -29,6 +34,8 @@ void OgCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [OG_044] Fandral Staghelmh - COST:4 [ATK:3/HP:5]
     // - Set: Og, Rarity: Legendary
@@ -51,6 +58,10 @@ void OgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("OG_047",
+                  CardDef(power, ChooseCardIDs{ "OG_047a", "OG_047b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [OG_048] Mark of Y'Shaarj - COST:2
@@ -133,6 +144,8 @@ void OgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - DRUID
     // [OG_045a] Nerubian Spores (*) - COST:0
     // - Set: Og, Rarity: Common
@@ -146,6 +159,10 @@ void OgCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("OG_047e", EntityType::HERO));
+    cards.emplace("OG_047a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [OG_047b] Evolve Scales (*) - COST:0
@@ -153,6 +170,9 @@ void OgCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 8 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("OG_047b", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [OG_047e] Spines (*) - COST:0
@@ -163,6 +183,9 @@ void OgCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("OG_047e"));
+    cards.emplace("OG_047e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [OG_048e] Mark of Y'Shaarj (*) - COST:0
