@@ -273,6 +273,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("TRL_243e", EntityType::HERO));
+    cards.emplace("CORE_TRL_243", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [CS3_012] Nordrassil Druid - COST:4 [ATK:3/HP:5]
