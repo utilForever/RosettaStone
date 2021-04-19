@@ -260,9 +260,9 @@ TEST_CASE("[Druid : Spell] - EX1_158 : Soul of the Forest")
     game.Process(opPlayer, PlayCardTask::Minion(card6));
 
     game.Process(opPlayer, PlayCardTask::Spell(card7));
-    CHECK(!opField[0]->appliedEnchantments.empty());
-    CHECK(!opField[1]->appliedEnchantments.empty());
-    CHECK(!opField[2]->appliedEnchantments.empty());
+    CHECK_FALSE(opField[0]->appliedEnchantments.empty());
+    CHECK_FALSE(opField[1]->appliedEnchantments.empty());
+    CHECK_FALSE(opField[2]->appliedEnchantments.empty());
 
     game.Process(opPlayer, PlayCardTask::Spell(card8));
     CHECK_EQ(curField.GetCount(), 0);
@@ -362,11 +362,11 @@ TEST_CASE("[Druid : Spell] - EX1_164 : Nourish")
     auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_164"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nourish"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_164"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nourish"));
     const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByID("EX1_164"));
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Nourish"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
     CHECK_EQ(curPlayer->GetTotalMana(), 8);

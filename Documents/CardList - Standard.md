@@ -19,7 +19,7 @@ CORE | CORE_AT_061 | Lock and Load |
 CORE | CORE_AT_075 | Warhorse Trainer |  
 CORE | CORE_AT_092 | Ice Rager |  
 CORE | CORE_BOT_083 | Toxicologist |  
-CORE | CORE_BOT_420 | Landscaping |  
+CORE | CORE_BOT_420 | Landscaping | O
 CORE | CORE_BOT_453 | Shooting Star |  
 CORE | CORE_BOT_533 | Menacing Nimbus |  
 CORE | CORE_BRM_013 | Quick Shot |  
@@ -38,8 +38,8 @@ CORE | CORE_BT_801 | Eye Beam |
 CORE | CORE_BT_921 | Aldrachi Warblades |  
 CORE | CORE_CS1_112 | Holy Nova |  
 CORE | CORE_CS1_130 | Holy Smite |  
-CORE | CORE_CS2_009 | Mark of the Wild |  
-CORE | CORE_CS2_013 | Wild Growth |  
+CORE | CORE_CS2_009 | Mark of the Wild | O
+CORE | CORE_CS2_013 | Wild Growth | O
 CORE | CORE_CS2_023 | Arcane Intellect |  
 CORE | CORE_CS2_029 | Fireball |  
 CORE | CORE_CS2_032 | Flamestrike |  
@@ -101,13 +101,13 @@ CORE | CORE_EX1_130 | Noble Sacrifice |
 CORE | CORE_EX1_134 | SI:7 Agent |  
 CORE | CORE_EX1_144 | Shadowstep |  
 CORE | CORE_EX1_145 | Preparation |  
-CORE | CORE_EX1_158 | Soul of the Forest |  
-CORE | CORE_EX1_160 | Power of the Wild |  
+CORE | CORE_EX1_158 | Soul of the Forest | O
+CORE | CORE_EX1_160 | Power of the Wild | O
 CORE | CORE_EX1_162 | Dire Wolf Alpha |  
-CORE | CORE_EX1_164 | Nourish |  
-CORE | CORE_EX1_165 | Druid of the Claw |  
-CORE | CORE_EX1_169 | Innervate |  
-CORE | CORE_EX1_178 | Ancient of War |  
+CORE | CORE_EX1_164 | Nourish | O
+CORE | CORE_EX1_165 | Druid of the Claw | O
+CORE | CORE_EX1_169 | Innervate | O
+CORE | CORE_EX1_178 | Ancient of War | O
 CORE | CORE_EX1_186 | SI:7 Infiltrator |  
 CORE | CORE_EX1_187 | Arcane Devourer |  
 CORE | CORE_EX1_188 | Barrens Stablehand |  
@@ -156,8 +156,8 @@ CORE | CORE_EX1_543 | King Krush |
 CORE | CORE_EX1_554 | Snake Trap |  
 CORE | CORE_EX1_564 | Faceless Manipulator |  
 CORE | CORE_EX1_567 | Doomhammer |  
-CORE | CORE_EX1_571 | Force of Nature |  
-CORE | CORE_EX1_573 | Cenarius |  
+CORE | CORE_EX1_571 | Force of Nature | O
+CORE | CORE_EX1_573 | Cenarius | O
 CORE | CORE_EX1_575 | Mana Tide Totem |  
 CORE | CORE_EX1_603 | Cruel Taskmaster |  
 CORE | CORE_EX1_604 | Frothing Berserker |  
@@ -189,9 +189,9 @@ CORE | CORE_ICC_419 | Bearshark |
 CORE | CORE_ICC_809 | Plague Scientist |  
 CORE | CORE_KAR_009 | Babbling Book |  
 CORE | CORE_KAR_036 | Arcane Anomaly |  
-CORE | CORE_KAR_065 | Menagerie Warden |  
+CORE | CORE_KAR_065 | Menagerie Warden | O
 CORE | CORE_KAR_069 | Swashburglar |  
-CORE | CORE_KAR_300 | Enchanted Raven |  
+CORE | CORE_KAR_300 | Enchanted Raven | O
 CORE | CORE_LOE_003 | Ethereal Conjurer |  
 CORE | CORE_LOE_012 | Tomb Pillager |  
 CORE | CORE_LOEA10_3 | Murloc Tinyfin |  
@@ -202,12 +202,12 @@ CORE | CORE_NEW1_010 | Al'Akir the Windlord |
 CORE | CORE_NEW1_018 | Bloodsail Raider |  
 CORE | CORE_NEW1_026 | Violet Teacher |  
 CORE | CORE_NEW1_027 | Southsea Captain |  
-CORE | CORE_OG_047 | Feral Rage |  
+CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_070 | Bladed Cultist |  
 CORE | CORE_OG_241 | Possessed Villager |  
 CORE | CORE_OG_273 | Stand Against Darkness |  
 CORE | CORE_TRL_111 | Headhunter's Hatchet |  
-CORE | CORE_TRL_243 | Pounce |  
+CORE | CORE_TRL_243 | Pounce | O
 CORE | CORE_tt_004 | Flesheating Ghoul |  
 CORE | CORE_UNG_020 | Arcanologist |  
 CORE | CORE_UNG_813 | Stormwatcher |  
@@ -221,7 +221,7 @@ CORE | CS3_005 | Vanessa VanCleef |
 CORE | CS3_007 | Novice Zapper |  
 CORE | CS3_008 | Bloodsail Deckhand |  
 CORE | CS3_009 | War Cache |  
-CORE | CS3_012 | Nordrassil Druid |  
+CORE | CS3_012 | Nordrassil Druid | O
 CORE | CS3_013 | Shadowed Spirit |  
 CORE | CS3_014 | Crimson Clergy |  
 CORE | CS3_015 | Selective Breeder |  
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 0% (0 of 235 Cards)
+- Progress: 6% (16 of 235 Cards)
 
 ## Ashes of Outland
 

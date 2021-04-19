@@ -93,10 +93,13 @@
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/TrollCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
@@ -150,11 +153,13 @@
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/EventMetaData.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/ChooseTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/HeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateDeathrattleTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddAuraEffectTask.hpp>

@@ -4,9 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageNumberTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/MathRandTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 

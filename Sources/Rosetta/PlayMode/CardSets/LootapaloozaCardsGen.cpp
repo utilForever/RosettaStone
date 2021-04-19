@@ -5,12 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeEntityTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/CopyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FuncPlayableTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;

@@ -5,7 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 

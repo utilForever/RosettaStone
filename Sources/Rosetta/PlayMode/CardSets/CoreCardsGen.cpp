@@ -4,9 +4,17 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Effects.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
+
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- HERO - WARLOCK
@@ -30,6 +38,8 @@ void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [CORE_BOT_420] Landscaping - COST:3
     // - Set: CORE, Rarity: Common
@@ -37,6 +47,14 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 2));
+    cards.emplace(
+        "CORE_BOT_420",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_CS2_009] Mark of the Wild - COST:2
@@ -46,9 +64,20 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a minion <b>Taunt</b> and +2/+3.<i>
     //       (+2 Attack/+3 Health)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_009e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_009",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_CS2_013] Wild Growth - COST:3
@@ -57,6 +86,9 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain an empty Mana Crystal.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false));
+    cards.emplace("CORE_CS2_013", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_158] Soul of the Forest - COST:4
@@ -69,6 +101,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_158e", EntityType::MINIONS));
+    cards.emplace("CORE_EX1_158", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_160] Power of the Wild - COST:2
@@ -80,6 +116,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_160",
+                  CardDef(power, ChooseCardIDs{ "EX1_160a", "EX1_160b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_164] Nourish - COST:6
@@ -92,6 +132,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_164",
+                  CardDef(power, ChooseCardIDs{ "EX1_164a", "EX1_164b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_EX1_165] Druid of the Claw - COST:5 [ATK:5/HP:4]
@@ -107,6 +151,11 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "OG_044a"));
+    cards.emplace("CORE_EX1_165",
+                  CardDef(power, ChooseCardIDs{ "EX1_165a", "EX1_165b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_169] Innervate - COST:0
@@ -115,6 +164,9 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TempManaTask>(1));
+    cards.emplace("CORE_EX1_169", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
@@ -129,6 +181,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_178",
+                  CardDef(power, ChooseCardIDs{ "EX1_178a", "EX1_178b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_571] Force of Nature - COST:5
@@ -137,6 +193,14 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon three 2/2 Treants.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 3));
+    cards.emplace(
+        "CORE_EX1_571",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_EX1_573] Cenarius - COST:8 [ATK:5/HP:8]
@@ -152,22 +216,43 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_573",
+                  CardDef(power, ChooseCardIDs{ "EX1_573a", "EX1_573b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_KAR_065] Menagerie Warden - COST:5 [ATK:4/HP:4]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Choose a friendly Beast.
-    //       Summon a copy of it.
+    //       Summon a copy of it.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
+    cards.emplace(
+        "CORE_KAR_065",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]
     // - Race: Beast, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_KAR_300", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_OG_047] Feral Rage - COST:3
@@ -179,6 +264,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_OG_047",
+                  CardDef(power, ChooseCardIDs{ "OG_047a", "OG_047b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_TRL_243] Pounce - COST:0
@@ -186,6 +275,10 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("TRL_243e", EntityType::HERO));
+    cards.emplace("CORE_TRL_243", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [CS3_012] Nordrassil Druid - COST:4 [ATK:3/HP:5]
@@ -197,10 +290,16 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS3_012e", EntityType::PLAYER));
+    cards.emplace("CS3_012", CardDef(power));
 }
 
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS3_012e] Nature's Rite - COST:0
     // - Set: CORE
@@ -210,6 +309,16 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(3) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
+    }
+    cards.emplace("CS3_012e", CardDef(power));
 }
 
 void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)

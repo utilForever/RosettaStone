@@ -6,6 +6,10 @@
 * [Classic](#classic)
 * [Demon Hunter Initiate](#demon-hunter-initiate)
 * [Hall of Fame](#hall-of-fame)
+* [Whispers of the Old Gods](#whispers-of-the-old-gods)
+* [One Night in Karazhan](#one-night-in-karazhan)
+* [The Boomsday Project](#the-boomsday-project)
+* [Rastakhan's Rumble](#rastakhans-rumble)
 * [Rise of Shadows](#rise-of-shadows)
 * [Saviors of Uldum](#saviors-of-uldum)
 * [Descent of Dragons](#descent-of-dragons)
@@ -476,6 +480,484 @@ HOF | NEW1_016 | Captain's Parrot |
 HOF | PRO_001 | Elite Tauren Chieftain |  
 
 - Progress: 71% (25 of 35 Cards)
+
+## Whispers of the Old Gods
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+OG | OG_006 | Vilefin Inquisitor |  
+OG | OG_023 | Primal Fusion |  
+OG | OG_024 | Flamewreathed Faceless |  
+OG | OG_026 | Eternal Sentinel |  
+OG | OG_027 | Evolve |  
+OG | OG_028 | Thing from Below |  
+OG | OG_031 | Hammer of Twilight |  
+OG | OG_033 | Tentacles for Arms |  
+OG | OG_034 | Silithid Swarmer |  
+OG | OG_042 | Y'Shaarj, Rage Unbound |  
+OG | OG_044 | Fandral Staghelm |  
+OG | OG_045 | Infest |  
+OG | OG_047 | Feral Rage | O
+OG | OG_048 | Mark of Y'Shaarj |  
+OG | OG_051 | Forbidden Ancient |  
+OG | OG_061 | On the Hunt |  
+OG | OG_070 | Bladed Cultist |  
+OG | OG_072 | Journey Below |  
+OG | OG_073 | Thistle Tea |  
+OG | OG_080 | Xaril, Poisoned Mind |  
+OG | OG_081 | Shatter |  
+OG | OG_082 | Evolved Kobold |  
+OG | OG_083 | Twilight Flamecaller |  
+OG | OG_085 | Demented Frostcaller |  
+OG | OG_086 | Forbidden Flame |  
+OG | OG_087 | Servant of Yogg-Saron |  
+OG | OG_090 | Cabalist's Tome |  
+OG | OG_094 | Power Word: Tentacles |  
+OG | OG_096 | Twilight Darkmender |  
+OG | OG_100 | Shadow Word: Horror |  
+OG | OG_101 | Forbidden Shaping |  
+OG | OG_102 | Darkspeaker |  
+OG | OG_104 | Embrace the Shadow |  
+OG | OG_109 | Darkshire Librarian |  
+OG | OG_113 | Darkshire Councilman |  
+OG | OG_114 | Forbidden Ritual |  
+OG | OG_116 | Spreading Madness |  
+OG | OG_118 | Renounce Darkness |  
+OG | OG_120 | Anomalus |  
+OG | OG_121 | Cho'gall |  
+OG | OG_122 | Mukla, Tyrant of the Vale |  
+OG | OG_123 | Shifter Zerus |  
+OG | OG_131 | Twin Emperor Vek'lor |  
+OG | OG_133 | N'Zoth, the Corruptor |  
+OG | OG_134 | Yogg-Saron, Hope's End |  
+OG | OG_138 | Nerubian Prophet |  
+OG | OG_141 | Faceless Behemoth |  
+OG | OG_142 | Eldritch Horror |  
+OG | OG_145 | Psych-o-Tron |  
+OG | OG_147 | Corrupted Healbot |  
+OG | OG_149 | Ravaging Ghoul |  
+OG | OG_150 | Aberrant Berserker |  
+OG | OG_151 | Tentacle of N'Zoth |  
+OG | OG_152 | Grotesque Dragonhawk |  
+OG | OG_153 | Bog Creeper |  
+OG | OG_156 | Bilefin Tidehunter |  
+OG | OG_158 | Zealous Initiate |  
+OG | OG_161 | Corrupted Seer |  
+OG | OG_162 | Disciple of C'Thun |  
+OG | OG_173 | Blood of The Ancient One |  
+OG | OG_174 | Faceless Shambler |  
+OG | OG_176 | Shadow Strike |  
+OG | OG_179 | Fiery Bat |  
+OG | OG_188 | Klaxxi Amber-Weaver |  
+OG | OG_195 | Wisps of the Old Gods |  
+OG | OG_198 | Forbidden Healing |  
+OG | OG_200 | Validated Doomsayer |  
+OG | OG_202 | Mire Keeper |  
+OG | OG_206 | Stormcrack |  
+OG | OG_207 | Faceless Summoner |  
+OG | OG_209 | Hallazeal the Ascended |  
+OG | OG_211 | Call of the Wild |  
+OG | OG_216 | Infested Wolf |  
+OG | OG_218 | Bloodhoof Brave |  
+OG | OG_220 | Malkorok |  
+OG | OG_221 | Selfless Hero |  
+OG | OG_222 | Rallying Blade |  
+OG | OG_223 | Divine Strength |  
+OG | OG_229 | Ragnaros, Lightlord |  
+OG | OG_234 | Darkshire Alchemist |  
+OG | OG_239 | DOOM! |  
+OG | OG_241 | Possessed Villager |  
+OG | OG_247 | Twisted Worgen |  
+OG | OG_248 | Am'gam Rager |  
+OG | OG_249 | Infested Tauren |  
+OG | OG_254 | Eater of Secrets |  
+OG | OG_255 | Doomcaller |  
+OG | OG_256 | Spawn of N'Zoth |  
+OG | OG_267 | Southsea Squidface |  
+OG | OG_271 | Scaled Nightmare |  
+OG | OG_272 | Twilight Summoner |  
+OG | OG_273 | Stand Against Darkness |  
+OG | OG_276 | Blood Warriors |  
+OG | OG_280 | C'Thun |  
+OG | OG_281 | Beckoner of Evil |  
+OG | OG_282 | Blade of C'Thun |  
+OG | OG_283 | C'Thun's Chosen |  
+OG | OG_284 | Twilight Geomancer |  
+OG | OG_286 | Twilight Elder |  
+OG | OG_290 | Ancient Harbinger |  
+OG | OG_291 | Shadowcaster |  
+OG | OG_292 | Forlorn Stalker |  
+OG | OG_293 | Dark Arakkoa |  
+OG | OG_295 | Cult Apothecary |  
+OG | OG_300 | The Boogeymonster |  
+OG | OG_301 | Ancient Shieldbearer |  
+OG | OG_302 | Usher of Souls |  
+OG | OG_303 | Cult Sorcerer |  
+OG | OG_308 | Giant Sand Worm |  
+OG | OG_309 | Princess Huhuran |  
+OG | OG_310 | Steward of Darkshire |  
+OG | OG_311 | A Light in the Darkness |  
+OG | OG_312 | N'Zoth's First Mate |  
+OG | OG_313 | Addled Grizzly |  
+OG | OG_314 | Blood To Ichor |  
+OG | OG_315 | Bloodsail Cultist |  
+OG | OG_316 | Herald Volazj |  
+OG | OG_317 | Deathwing, Dragonlord |  
+OG | OG_318 | Hogger, Doom of Elwynn |  
+OG | OG_320 | Midnight Drake |  
+OG | OG_321 | Crazed Worshipper |  
+OG | OG_322 | Blackwater Pirate |  
+OG | OG_323 | Polluted Hoarder |  
+OG | OG_325 | Carrion Grub |  
+OG | OG_326 | Duskboar |  
+OG | OG_327 | Squirming Tentacle |  
+OG | OG_328 | Master of Evolution |  
+OG | OG_330 | Undercity Huckster |  
+OG | OG_334 | Hooded Acolyte |  
+OG | OG_335 | Shifting Shade |  
+OG | OG_337 | Cyclopian Horror |  
+OG | OG_338 | Nat, the Darkfisher |  
+OG | OG_339 | Skeram Cultist |  
+OG | OG_340 | Soggoth the Slitherer |  
+
+- Progress: 0% (1 of 134 Cards)
+
+## One Night in Karazhan
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+KARA | KAR_004 | Cat Trick |  
+KARA | KAR_005 | Kindly Grandmother |  
+KARA | KAR_006 | Cloaked Huntress |  
+KARA | KAR_009 | Babbling Book |  
+KARA | KAR_010 | Nightbane Templar |  
+KARA | KAR_011 | Pompous Thespian |  
+KARA | KAR_013 | Purify |  
+KARA | KAR_021 | Wicked Witchdoctor |  
+KARA | KAR_025 | Kara Kazham! |  
+KARA | KAR_026 | Protect the King! |  
+KARA | KAR_028 | Fool's Bane |  
+KARA | KAR_029 | Runic Egg |  
+KARA | KAR_030a | Pantry Spider |  
+KARA | KAR_033 | Book Wyrm |  
+KARA | KAR_035 | Priest of the Feast |  
+KARA | KAR_036 | Arcane Anomaly |  
+KARA | KAR_037 | Avian Watcher |  
+KARA | KAR_041 | Moat Lurker |  
+KARA | KAR_044 | Moroes |  
+KARA | KAR_057 | Ivory Knight |  
+KARA | KAR_061 | The Curator |  
+KARA | KAR_062 | Netherspite Historian |  
+KARA | KAR_063 | Spirit Claws |  
+KARA | KAR_065 | Menagerie Warden | O
+KARA | KAR_069 | Swashburglar |  
+KARA | KAR_070 | Ethereal Peddler |  
+KARA | KAR_073 | Maelstrom Portal |  
+KARA | KAR_075 | Moonglade Portal |  
+KARA | KAR_076 | Firelands Portal |  
+KARA | KAR_077 | Silvermoon Portal |  
+KARA | KAR_089 | Malchezaar's Imp |  
+KARA | KAR_091 | Ironforge Portal |  
+KARA | KAR_092 | Medivh's Valet |  
+KARA | KAR_094 | Deadly Fork |  
+KARA | KAR_095 | Zoobot |  
+KARA | KAR_096 | Prince Malchezaar |  
+KARA | KAR_097 | Medivh, the Guardian |  
+KARA | KAR_114 | Barnes |  
+KARA | KAR_204 | Onyx Bishop |  
+KARA | KAR_205 | Silverware Golem |  
+KARA | KAR_300 | Enchanted Raven | O
+KARA | KAR_702 | Menagerie Magician |  
+KARA | KAR_710 | Arcanosmith |  
+KARA | KAR_711 | Arcane Giant |  
+KARA | KAR_712 | Violet Illusionist |  
+
+- Progress: 4% (2 of 45 Cards)
+
+## The Boomsday Project
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+BOOMSDAY | BOT_020 | Skaterbot |  
+BOOMSDAY | BOT_021 | Bronze Gatekeeper |  
+BOOMSDAY | BOT_031 | Goblin Bomb |  
+BOOMSDAY | BOT_033 | Bomb Toss |  
+BOOMSDAY | BOT_034 | Boommaster Flark |  
+BOOMSDAY | BOT_035 | Venomizer |  
+BOOMSDAY | BOT_038 | Fireworks Tech |  
+BOOMSDAY | BOT_039 | Necromechanic |  
+BOOMSDAY | BOT_042 | Weapons Project |  
+BOOMSDAY | BOT_050 | Rusty Recycler |  
+BOOMSDAY | BOT_054 | Biology Project |  
+BOOMSDAY | BOT_059 | Eternium Rover |  
+BOOMSDAY | BOT_066 | Mechanical Whelp |  
+BOOMSDAY | BOT_067 | Rocket Boots |  
+BOOMSDAY | BOT_069 | The Boomship |  
+BOOMSDAY | BOT_079 | Faithful Lumi |  
+BOOMSDAY | BOT_083 | Toxicologist |  
+BOOMSDAY | BOT_084 | Violet Haze |  
+BOOMSDAY | BOT_087 | Academic Espionage |  
+BOOMSDAY | BOT_093 | Elementary Reaction |  
+BOOMSDAY | BOT_098 | Unpowered Mauler |  
+BOOMSDAY | BOT_099 | Eureka! |  
+BOOMSDAY | BOT_101 | Astral Rift |  
+BOOMSDAY | BOT_102 | Spark Drill |  
+BOOMSDAY | BOT_103 | Stargazer Luna |  
+BOOMSDAY | BOT_104 | Dyn-o-matic |  
+BOOMSDAY | BOT_107 | Missile Launcher |  
+BOOMSDAY | BOT_216 | Omega Medic |  
+BOOMSDAY | BOT_218 | Security Rover |  
+BOOMSDAY | BOT_219 | Extra Arms |  
+BOOMSDAY | BOT_222 | Spirit Bomb |  
+BOOMSDAY | BOT_224 | Doubling Imp |  
+BOOMSDAY | BOT_226 | Nethersoul Buster |  
+BOOMSDAY | BOT_234 | Shrink Ray |  
+BOOMSDAY | BOT_236 | Crystalsmith Kangor |  
+BOOMSDAY | BOT_237 | Beryllium Nullifier |  
+BOOMSDAY | BOT_238 | Dr. Boom, Mad Genius |  
+BOOMSDAY | BOT_242 | Myra's Unstable Element |  
+BOOMSDAY | BOT_243 | Myra Rotspring |  
+BOOMSDAY | BOT_245 | The Storm Bringer |  
+BOOMSDAY | BOT_246 | Beakered Lightning |  
+BOOMSDAY | BOT_251 | Spider Bomb |  
+BOOMSDAY | BOT_254 | Unexpected Results |  
+BOOMSDAY | BOT_256 | Astromancer |  
+BOOMSDAY | BOT_257 | Luna's Pocket Galaxy |  
+BOOMSDAY | BOT_258 | Zerek, Master Cloner |  
+BOOMSDAY | BOT_263 | Soul Infusion |  
+BOOMSDAY | BOT_267 | Piloted Reaper |  
+BOOMSDAY | BOT_270 | Giggling Inventor |  
+BOOMSDAY | BOT_280 | Holomancer |  
+BOOMSDAY | BOT_283 | Pogo-Hopper |  
+BOOMSDAY | BOT_286 | Necrium Blade |  
+BOOMSDAY | BOT_288 | Lab Recruiter |  
+BOOMSDAY | BOT_291 | Storm Chaser |  
+BOOMSDAY | BOT_296 | Omega Defender |  
+BOOMSDAY | BOT_299 | Omega Assembly |  
+BOOMSDAY | BOT_308 | Spring Rocket |  
+BOOMSDAY | BOT_309 | Upgradeable Framebot |  
+BOOMSDAY | BOT_312 | Replicating Menace |  
+BOOMSDAY | BOT_401 | Weaponized Piñata |  
+BOOMSDAY | BOT_402 | Secret Plan |  
+BOOMSDAY | BOT_404 | Juicy Psychmelon |  
+BOOMSDAY | BOT_406 | Supercollider |  
+BOOMSDAY | BOT_407 | Thunderhead |  
+BOOMSDAY | BOT_411 | Electra Stormsurge |  
+BOOMSDAY | BOT_413 | Brainstormer |  
+BOOMSDAY | BOT_414 | Cloakscale Chemist |  
+BOOMSDAY | BOT_419 | Dendrologist |  
+BOOMSDAY | BOT_420 | Landscaping | O
+BOOMSDAY | BOT_422 | Tending Tauren |  
+BOOMSDAY | BOT_423 | Dreampetal Florist |  
+BOOMSDAY | BOT_424 | Mecha'thun |  
+BOOMSDAY | BOT_429 | Flark's Boom-Zooka |  
+BOOMSDAY | BOT_431 | Whirliglider |  
+BOOMSDAY | BOT_433 | Dr. Morrigan |  
+BOOMSDAY | BOT_434 | Flobbidinous Floop |  
+BOOMSDAY | BOT_435 | Cloning Device |  
+BOOMSDAY | BOT_436 | Prismatic Lens |  
+BOOMSDAY | BOT_437 | Goblin Prank |  
+BOOMSDAY | BOT_438 | Cybertech Chip |  
+BOOMSDAY | BOT_443 | Void Analyst |  
+BOOMSDAY | BOT_444 | Floop's Glorious Gloop |  
+BOOMSDAY | BOT_445 | Mecharoo |  
+BOOMSDAY | BOT_447 | Crystallizer |  
+BOOMSDAY | BOT_448 | Damaged Stegotron |  
+BOOMSDAY | BOT_451 | Voltaic Burst |  
+BOOMSDAY | BOT_453 | Shooting Star |  
+BOOMSDAY | BOT_507 | Gloop Sprayer |  
+BOOMSDAY | BOT_508 | Necrium Vial |  
+BOOMSDAY | BOT_509 | Dead Ringer |  
+BOOMSDAY | BOT_511 | Seaforium Bomber |  
+BOOMSDAY | BOT_517 | Topsy Turvy |  
+BOOMSDAY | BOT_521 | Ectomancy |  
+BOOMSDAY | BOT_523 | Mulchmuncher |  
+BOOMSDAY | BOT_529 | Power Word: Replicate |  
+BOOMSDAY | BOT_531 | Celestial Emissary |  
+BOOMSDAY | BOT_532 | Explodinator |  
+BOOMSDAY | BOT_533 | Menacing Nimbus |  
+BOOMSDAY | BOT_534 | Bull Dozer |  
+BOOMSDAY | BOT_535 | Microtech Controller |  
+BOOMSDAY | BOT_536 | Omega Agent |  
+BOOMSDAY | BOT_537 | Mechano-Egg |  
+BOOMSDAY | BOT_538 | Spark Engine |  
+BOOMSDAY | BOT_539 | Arcane Dynamo |  
+BOOMSDAY | BOT_540 | E.M.P. Operative |  
+BOOMSDAY | BOT_543 | Omega Mind |  
+BOOMSDAY | BOT_544 | Loose Specimen |  
+BOOMSDAY | BOT_548 | Zilliax |  
+BOOMSDAY | BOT_550 | Electrowright |  
+BOOMSDAY | BOT_552 | Star Aligner |  
+BOOMSDAY | BOT_555 | Harbinger Celestia |  
+BOOMSDAY | BOT_558 | Test Subject |  
+BOOMSDAY | BOT_559 | Augmented Elekk |  
+BOOMSDAY | BOT_562 | Coppertail Imposter |  
+BOOMSDAY | BOT_563 | Wargear |  
+BOOMSDAY | BOT_565 | Blightnozzle Crawler |  
+BOOMSDAY | BOT_566 | Reckless Experimenter |  
+BOOMSDAY | BOT_567 | Zerek's Cloning Gallery |  
+BOOMSDAY | BOT_568 | The Soularium |  
+BOOMSDAY | BOT_573 | Subject 9 |  
+BOOMSDAY | BOT_576 | Crazed Chemist |  
+BOOMSDAY | BOT_600 | Research Project |  
+BOOMSDAY | BOT_601 | Meteorologist |  
+BOOMSDAY | BOT_603 | Steel Rager |  
+BOOMSDAY | BOT_604 | Cosmic Anomaly |  
+BOOMSDAY | BOT_606 | Kaboom Bot |  
+BOOMSDAY | BOT_700 | SN1P-SN4P |  
+BOOMSDAY | BOT_906 | Glow-Tron |  
+BOOMSDAY | BOT_907 | Galvanizer |  
+BOOMSDAY | BOT_908 | Autodefense Matrix |  
+BOOMSDAY | BOT_909 | Crystology |  
+BOOMSDAY | BOT_910 | Glowstone Technician |  
+BOOMSDAY | BOT_911 | Annoy-o-Module |  
+BOOMSDAY | BOT_912 | Kangor's Endless Army |  
+BOOMSDAY | BOT_913 | Demonic Project |  
+BOOMSDAY | BOT_914 | Whizbang the Wonderful |  
+
+- Progress: 0% (1 of 136 Cards)
+
+## Rastakhan's Rumble
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+TROLL | TRL_010 | Half-Time Scavenger |  
+TROLL | TRL_012 | Totemic Smash |  
+TROLL | TRL_015 | Ticket Scalper |  
+TROLL | TRL_020 | Sightless Ranger |  
+TROLL | TRL_057 | Serpent Ward |  
+TROLL | TRL_058 | Haunting Visions |  
+TROLL | TRL_059 | Bog Slosher |  
+TROLL | TRL_060 | Spirit of the Frog |  
+TROLL | TRL_065 | Zul'jin |  
+TROLL | TRL_071 | Bloodsail Howler |  
+TROLL | TRL_074 | Serrated Tooth |  
+TROLL | TRL_077 | Gurubashi Hypemon |  
+TROLL | TRL_082 | Big Bad Voodoo |  
+TROLL | TRL_085 | Zentimo |  
+TROLL | TRL_092 | Spirit of the Shark |  
+TROLL | TRL_096 | Griftah |  
+TROLL | TRL_097 | Seance |  
+TROLL | TRL_111 | Headhunter's Hatchet |  
+TROLL | TRL_119 | The Beast Within |  
+TROLL | TRL_124 | Raiding Party |  
+TROLL | TRL_126 | Captain Hooktusk |  
+TROLL | TRL_127 | Cannon Barrage |  
+TROLL | TRL_128 | Regenerate |  
+TROLL | TRL_131 | Sand Drudge |  
+TROLL | TRL_151 | Former Champ |  
+TROLL | TRL_156 | Stolen Steel |  
+TROLL | TRL_157 | Walk the Plank |  
+TROLL | TRL_223 | Spirit of the Raptor |  
+TROLL | TRL_232 | Ironhide Direhorn |  
+TROLL | TRL_240 | Savage Striker |  
+TROLL | TRL_241 | Gonk, the Raptor |  
+TROLL | TRL_243 | Pounce | O
+TROLL | TRL_244 | Predatory Instincts |  
+TROLL | TRL_245 | Shriek |  
+TROLL | TRL_246 | Void Contract |  
+TROLL | TRL_247 | Soulwarden |  
+TROLL | TRL_249 | Grim Rally |  
+TROLL | TRL_251 | Spirit of the Bat |  
+TROLL | TRL_252 | High Priestess Jeklik |  
+TROLL | TRL_253 | Hir'eek, the Bat |  
+TROLL | TRL_254 | Mark of the Loa |  
+TROLL | TRL_255 | Stampeding Roar |  
+TROLL | TRL_257 | Blood Troll Sapper |  
+TROLL | TRL_258 | Mass Hysteria |  
+TROLL | TRL_259 | Princess Talanji |  
+TROLL | TRL_260 | Bwonsamdi, the Dead |  
+TROLL | TRL_300 | Shirvallah, the Tiger |  
+TROLL | TRL_302 | Time Out! |  
+TROLL | TRL_304 | Farraki Battleaxe |  
+TROLL | TRL_305 | A New Challenger... |  
+TROLL | TRL_306 | Immortal Prelate |  
+TROLL | TRL_307 | Flash of Light |  
+TROLL | TRL_308 | High Priest Thekal |  
+TROLL | TRL_309 | Spirit of the Tiger |  
+TROLL | TRL_310 | Elemental Evocation |  
+TROLL | TRL_311 | Arcanosaur |  
+TROLL | TRL_312 | Spellzerker |  
+TROLL | TRL_313 | Scorch |  
+TROLL | TRL_315 | Pyromaniac |  
+TROLL | TRL_316 | Jan'alai, the Dragonhawk |  
+TROLL | TRL_317 | Blast Wave |  
+TROLL | TRL_318 | Hex Lord Malacrass |  
+TROLL | TRL_319 | Spirit of the Dragonhawk |  
+TROLL | TRL_321 | Devastate |  
+TROLL | TRL_323 | Emberscale Drake |  
+TROLL | TRL_324 | Heavy Metal! |  
+TROLL | TRL_325 | Sul'thraze |  
+TROLL | TRL_326 | Smolderthorn Lancer |  
+TROLL | TRL_327 | Spirit of the Rhino |  
+TROLL | TRL_328 | War Master Voone |  
+TROLL | TRL_329 | Akali, the Rhino |  
+TROLL | TRL_339 | Master's Call |  
+TROLL | TRL_341 | Treespeaker |  
+TROLL | TRL_343 | Wardruid Loti |  
+TROLL | TRL_345 | Krag'wa, the Frog |  
+TROLL | TRL_347 | Baited Arrow |  
+TROLL | TRL_348 | Springpaw |  
+TROLL | TRL_349 | Bloodscalp Strategist |  
+TROLL | TRL_351 | Rain of Toads |  
+TROLL | TRL_352 | Likkim |  
+TROLL | TRL_360 | Overlord's Whip |  
+TROLL | TRL_362 | Dragon Roar |  
+TROLL | TRL_363 | Saronite Taskmaster |  
+TROLL | TRL_390 | Daring Fire-Eater |  
+TROLL | TRL_400 | Splitting Image |  
+TROLL | TRL_405 | Untamed Beastmaster |  
+TROLL | TRL_406 | Dozing Marksman |  
+TROLL | TRL_407 | Waterboy |  
+TROLL | TRL_408 | Grave Horror |  
+TROLL | TRL_409 | Gral, the Shark |  
+TROLL | TRL_500 | Surrender to Madness |  
+TROLL | TRL_501 | Auchenai Phantasm |  
+TROLL | TRL_502 | Spirit of the Dead |  
+TROLL | TRL_503 | Scarab Egg |  
+TROLL | TRL_504 | Booty Bay Bookie |  
+TROLL | TRL_505 | Helpless Hatchling |  
+TROLL | TRL_506 | Gurubashi Chicken |  
+TROLL | TRL_507 | Sharkfin Fan |  
+TROLL | TRL_508 | Regeneratin' Thug |  
+TROLL | TRL_509 | Banana Buffoon |  
+TROLL | TRL_512 | Cheaty Anklebiter |  
+TROLL | TRL_513 | Mosh'Ogg Enforcer |  
+TROLL | TRL_514 | Belligerent Gnome |  
+TROLL | TRL_515 | Rabble Bouncer |  
+TROLL | TRL_516 | Gurubashi Offering |  
+TROLL | TRL_517 | Arena Fanatic |  
+TROLL | TRL_520 | Murloc Tastyfin |  
+TROLL | TRL_521 | Arena Patron |  
+TROLL | TRL_522 | Wartbringer |  
+TROLL | TRL_523 | Firetree Witchdoctor |  
+TROLL | TRL_524 | Shieldbreaker |  
+TROLL | TRL_525 | Arena Treasure Chest |  
+TROLL | TRL_526 | Dragonmaw Scorcher |  
+TROLL | TRL_527 | Drakkari Trickster |  
+TROLL | TRL_528 | Linecracker |  
+TROLL | TRL_530 | Masked Contender |  
+TROLL | TRL_531 | Rumbletusk Shaker |  
+TROLL | TRL_532 | Mosh'Ogg Announcer |  
+TROLL | TRL_533 | Ice Cream Peddler |  
+TROLL | TRL_535 | Snapjaw Shellfighter |  
+TROLL | TRL_537 | Da Undatakah |  
+TROLL | TRL_541 | Hakkar, the Soulflayer |  
+TROLL | TRL_542 | Oondasta |  
+TROLL | TRL_543 | Bloodclaw |  
+TROLL | TRL_545 | Zandalari Templar |  
+TROLL | TRL_546 | Ornery Tortoise |  
+TROLL | TRL_550 | Amani War Bear |  
+TROLL | TRL_551 | Reckless Diretroll |  
+TROLL | TRL_555 | Demonbolt |  
+TROLL | TRL_564 | Mojomaster Zihi |  
+TROLL | TRL_566 | Revenge of the Wild |  
+TROLL | TRL_569 | Crowd Roaster |  
+TROLL | TRL_570 | Soup Vendor |  
+TROLL | TRL_900 | Halazzi, the Lynx |  
+TROLL | TRL_901 | Spirit of the Lynx |  
+
+- Progress: 0% (1 of 135 Cards)
 
 ## Rise of Shadows
 

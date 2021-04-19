@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MathNumberIndexTask.hpp>
+#include <Rosetta/PlayMode/Tasks/TaskStack.hpp>
 
 #include <stdexcept>
 
