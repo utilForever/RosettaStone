@@ -4,7 +4,10 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/TrollCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
@@ -40,6 +43,8 @@ void TrollCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [TRL_223] Spirit of the Raptor - COST:1 [ATK:0/HP:3]
     // - Set: Troll, Rarity: Rare
@@ -95,6 +100,10 @@ void TrollCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("TRL_243e", EntityType::HERO));
+    cards.emplace("TRL_243", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [TRL_244] Predatory Instincts - COST:4
@@ -1925,6 +1934,8 @@ void TrollCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [TRL_020t] Bat (*) - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Troll
@@ -2004,6 +2015,9 @@ void TrollCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("TRL_243e"));
+    cards.emplace("TRL_243e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [TRL_244e] Predatory Instincts (*) - COST:0
