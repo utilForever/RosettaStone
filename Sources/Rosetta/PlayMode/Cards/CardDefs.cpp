@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/CardSets/BasicCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
@@ -39,6 +40,7 @@ CardDefs::CardDefs()
     DemonHunterInitCardsGen::AddAll(m_data);
     HoFCardsGen::AddAll(m_data);
     GvgCardsGen::AddAll(m_data);
+    BrmCardsGen::AddAll(m_data);
     TgtCardsGen::AddAll(m_data);
     OgCardsGen::AddAll(m_data);
     KaraCardsGen::AddAll(m_data);
