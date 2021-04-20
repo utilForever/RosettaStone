@@ -13,6 +13,7 @@ namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -346,6 +347,20 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHandEmpty()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace(
+        "CORE_BRM_013",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_DS1_184] Tracking - COST:1
