@@ -6,8 +6,13 @@
 #include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+
 void BrmCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- HERO - NEUTRAL
@@ -97,6 +102,8 @@ void BrmCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [BRM_013] Quick Shot - COST:2
     // - Set: Brm, Rarity: Common
@@ -110,6 +117,17 @@ void BrmCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHandEmpty()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace(
+        "BRM_013",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [BRM_014] Core Rager - COST:4 [ATK:4/HP:4]
