@@ -333,6 +333,8 @@ void TgtCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [AT_010] Ram Wrangler - COST:5 [ATK:3/HP:3]
     // - Set: Tgt, Rarity: Rare
@@ -417,6 +419,10 @@ void TgtCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Each time you cast a spell this turn,
     //       add a random Hunter card to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("AT_061e", EntityType::PLAYER));
+    cards.emplace("AT_061", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [AT_062] Ball of Spiders - COST:6
@@ -452,6 +458,8 @@ void TgtCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AT_057o] Groomed (*) - COST:0
     // - Set: Tgt
@@ -469,6 +477,13 @@ void TgtCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomCardTask>(CardType::INVALID, CardClass::HUNTER),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("AT_061e", CardDef(power));
 }
 
 void TgtCardsGen::AddMage(std::map<std::string, CardDef>& cards)
