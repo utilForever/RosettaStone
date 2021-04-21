@@ -544,6 +544,23 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Give a Beast +3/+3.
     //       Shuffle 3 copies into your deck with +3/+3.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("GIL_828e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<CopyTask>(EntityType::TARGET,
+                                                  ZoneType::DECK, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("GIL_828e", EntityType::STACK));
+    cards.emplace(
+        "CORE_GIL_828",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_ICC_419] Bearshark - COST:3 [ATK:4/HP:3]
