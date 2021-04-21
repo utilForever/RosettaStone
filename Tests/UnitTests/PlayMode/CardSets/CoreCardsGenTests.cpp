@@ -1571,7 +1571,7 @@ TEST_CASE("[Hunter : Minion] - CORE_FP1_011 : Webspinner")
 {
     GameConfig config;
     config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::DRUID;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
