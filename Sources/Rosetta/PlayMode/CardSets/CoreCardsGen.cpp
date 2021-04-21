@@ -419,6 +419,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_534t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("CORE_EX1_534", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_EX1_543] King Krush - COST:9 [ATK:8/HP:8]

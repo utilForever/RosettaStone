@@ -924,10 +924,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<SummonTask>(
-            SummonSide::DEATHRATTLE, Cards::FindCardByID("EX1_534t")) },
-        2));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_534t", 2, SummonSide::DEATHRATTLE));
     cards.emplace("EX1_534", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
