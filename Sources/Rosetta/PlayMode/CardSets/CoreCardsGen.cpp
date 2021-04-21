@@ -506,10 +506,18 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_EX1_617] Deadly Shot - COST:3
-    // - Set: CORE, Rarity: Common
+    // - Faction: Neutral, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Destroy a random enemy minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace(
+        "CORE_EX1_617",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_FP1_011] Webspinner - COST:1 [ATK:1/HP:1]
