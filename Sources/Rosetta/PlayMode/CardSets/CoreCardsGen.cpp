@@ -426,7 +426,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_EX1_543] King Krush - COST:9 [ATK:8/HP:8]
-    // - Race: Beast, Set: CORE, Rarity: Legendary
+    // - Race: Beast, Faction: Neutral, Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -434,6 +434,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_543", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_EX1_554] Snake Trap - COST:2

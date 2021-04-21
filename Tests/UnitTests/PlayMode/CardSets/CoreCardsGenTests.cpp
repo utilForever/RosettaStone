@@ -1256,3 +1256,18 @@ TEST_CASE("[Hunter : Minion] - CORE_EX1_534 : Savannah Highmane")
     CHECK_EQ(curField[3]->GetAttack(), 2);
     CHECK_EQ(curField[3]->GetHealth(), 1);
 }
+
+// ---------------------------------------- MINION - HUNTER
+// [CORE_EX1_543] King Krush - COST:9 [ATK:8/HP:8]
+// - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - CORE_EX1_543 : King Krush")
+{
+    // Do nothing
+}
