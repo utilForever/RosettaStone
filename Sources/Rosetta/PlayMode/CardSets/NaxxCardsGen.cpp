@@ -6,8 +6,12 @@
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
+
 void NaxxCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -39,6 +43,8 @@ void NaxxCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [FP1_011] Webspinner - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Naxx, Rarity: Common
@@ -49,6 +55,12 @@ void NaxxCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddDeathrattleTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("FP1_011", CardDef(power));
 }
 
 void NaxxCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
