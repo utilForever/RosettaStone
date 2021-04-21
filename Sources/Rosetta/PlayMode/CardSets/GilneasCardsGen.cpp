@@ -4,10 +4,15 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void GilneasCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ HERO - SHAMAN
@@ -198,6 +203,8 @@ void GilneasCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void GilneasCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [GIL_128] Emeriss - COST:10 [ATK:8/HP:8]
     // - Race: Dragon, Set: Gilneas, Rarity: Legendary
@@ -306,6 +313,18 @@ void GilneasCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_WITH_RACE = 20
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("GIL_828e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<CopyTask>(EntityType::TARGET,
+                                                  ZoneType::DECK, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("GIL_828e", EntityType::STACK));
+    cards.emplace(
+        "GIL_828",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [GIL_905] Carrion Drake - COST:5 [ATK:3/HP:7]
@@ -1743,6 +1762,8 @@ void GilneasCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void GilneasCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [GIL_000] Echo Enchant (*) - COST:0
     // - Set: Gilneas
@@ -2080,6 +2101,9 @@ void GilneasCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("GIL_828e"));
+    cards.emplace("GIL_828e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [GIL_837e] Moth Dust (*) - COST:0
