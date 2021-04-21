@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -440,7 +441,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_EX1_554] Snake Trap - COST:2
-    // - Set: CORE, Rarity: Epic
+    // - Faction: Neutral, Set: CORE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When one of your minions is attacked,
     //       summon three 1/1 Snakes.
@@ -448,6 +449,14 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
+    cards.emplace("CORE_EX1_554", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_EX1_610] Explosive Trap - COST:2
