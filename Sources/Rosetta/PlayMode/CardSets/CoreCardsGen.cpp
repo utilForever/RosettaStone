@@ -371,6 +371,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DECK));
+    cards.emplace("CORE_DS1_184", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_DS1_185] Arcane Shot - COST:1
