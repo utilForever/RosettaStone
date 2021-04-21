@@ -17,6 +17,7 @@
 #include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
@@ -39,6 +40,7 @@ CardDefs::CardDefs()
     Expert1CardsGen::AddAll(m_data);
     DemonHunterInitCardsGen::AddAll(m_data);
     HoFCardsGen::AddAll(m_data);
+    NaxxCardsGen::AddAll(m_data);
     GvgCardsGen::AddAll(m_data);
     BrmCardsGen::AddAll(m_data);
     TgtCardsGen::AddAll(m_data);
