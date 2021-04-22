@@ -49,6 +49,7 @@ enum class ChoiceAction
     INVALID,             //!< Invalid action.
     CHANGE_HERO_POWER,   //!< Change hero power.
     HAND,                //!< Hand.
+    HAND_COPY,           //!< Hand by copying.
     HAND_AND_STACK,      //!< Hand and stack.
     DECK,                //!< Deck.
     ENCHANTMENT,         //!< Enchantment.
