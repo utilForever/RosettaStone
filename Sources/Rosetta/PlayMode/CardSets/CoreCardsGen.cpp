@@ -608,6 +608,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SELECTIVE_BREEDER));
+    cards.emplace("CS3_015", CardDef(power));
 }
 
 void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
