@@ -6,8 +6,13 @@
 * [Classic](#classic)
 * [Demon Hunter Initiate](#demon-hunter-initiate)
 * [Hall of Fame](#hall-of-fame)
+* [Curse of Naxxramas](#curse-of-naxxramas)
+* [Blackrock Mountain](#blackrock-mountain)
+* [The Grand Tournament](#the-grand-tournament)
 * [Whispers of the Old Gods](#whispers-of-the-old-gods)
 * [One Night in Karazhan](#one-night-in-karazhan)
+* [Knights of the Frozen Throne](#knights-of-the-frozen-throne)
+* [The Witchwood](#the-witchwood)
 * [The Boomsday Project](#the-boomsday-project)
 * [Rastakhan's Rumble](#rastakhans-rumble)
 * [Rise of Shadows](#rise-of-shadows)
@@ -481,6 +486,220 @@ HOF | PRO_001 | Elite Tauren Chieftain |
 
 - Progress: 71% (25 of 35 Cards)
 
+## Curse of Naxxramas
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+NAXX | FP1_001 | Zombie Chow |  
+NAXX | FP1_002 | Haunted Creeper |  
+NAXX | FP1_003 | Echoing Ooze |  
+NAXX | FP1_004 | Mad Scientist |  
+NAXX | FP1_005 | Shade of Naxxramas |  
+NAXX | FP1_007 | Nerubian Egg |  
+NAXX | FP1_008 | Spectral Knight |  
+NAXX | FP1_009 | Deathlord |  
+NAXX | FP1_010 | Maexxna |  
+NAXX | FP1_011 | Webspinner | O
+NAXX | FP1_012 | Sludge Belcher |  
+NAXX | FP1_013 | Kel'Thuzad |  
+NAXX | FP1_014 | Stalagg |  
+NAXX | FP1_015 | Feugen |  
+NAXX | FP1_016 | Wailing Soul |  
+NAXX | FP1_017 | Nerub'ar Weblord |  
+NAXX | FP1_018 | Duplicate |  
+NAXX | FP1_019 | Poison Seeds |  
+NAXX | FP1_020 | Avenge |  
+NAXX | FP1_021 | Death's Bite |  
+NAXX | FP1_022 | Voidcaller |  
+NAXX | FP1_023 | Dark Cultist |  
+NAXX | FP1_024 | Unstable Ghoul |  
+NAXX | FP1_025 | Reincarnate |  
+NAXX | FP1_026 | Anub'ar Ambusher |  
+NAXX | FP1_027 | Stoneskin Gargoyle |  
+NAXX | FP1_028 | Undertaker |  
+NAXX | FP1_029 | Dancing Swords |  
+NAXX | FP1_030 | Loatheb |  
+NAXX | FP1_031 | Baron Rivendare |  
+
+- Progress: 3% (1 of 30 Cards)
+
+## Blackrock Mountain
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+BRM | BRM_001 | Solemn Vigil |  
+BRM | BRM_002 | Flamewaker |  
+BRM | BRM_003 | Dragon's Breath |  
+BRM | BRM_004 | Twilight Whelp |  
+BRM | BRM_005 | Demonwrath |  
+BRM | BRM_006 | Imp Gang Boss |  
+BRM | BRM_007 | Gang Up |  
+BRM | BRM_008 | Dark Iron Skulker |  
+BRM | BRM_009 | Volcanic Lumberer |  
+BRM | BRM_010 | Druid of the Flame |  
+BRM | BRM_011 | Lava Shock |  
+BRM | BRM_012 | Fireguard Destroyer |  
+BRM | BRM_013 | Quick Shot | O
+BRM | BRM_014 | Core Rager |  
+BRM | BRM_015 | Revenge |  
+BRM | BRM_016 | Axe Flinger |  
+BRM | BRM_017 | Resurrect |  
+BRM | BRM_018 | Dragon Consort |  
+BRM | BRM_019 | Grim Patron |  
+BRM | BRM_020 | Dragonkin Sorcerer |  
+BRM | BRM_022 | Dragon Egg |  
+BRM | BRM_024 | Drakonid Crusher |  
+BRM | BRM_025 | Volcanic Drake |  
+BRM | BRM_026 | Hungry Dragon |  
+BRM | BRM_027 | Majordomo Executus |  
+BRM | BRM_028 | Emperor Thaurissan |  
+BRM | BRM_029 | Rend Blackhand |  
+BRM | BRM_030 | Nefarian |  
+BRM | BRM_031 | Chromaggus |  
+BRM | BRM_033 | Blackwing Technician |  
+BRM | BRM_034 | Blackwing Corruptor |  
+
+- Progress: 3% (1 of 31 Cards)
+
+## The Grand Tournament
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+TGT | AT_001 | Flame Lance |  
+TGT | AT_002 | Effigy |  
+TGT | AT_003 | Fallen Hero |  
+TGT | AT_004 | Arcane Blast |  
+TGT | AT_005 | Polymorph: Boar |  
+TGT | AT_006 | Dalaran Aspirant |  
+TGT | AT_007 | Spellslinger |  
+TGT | AT_008 | Coldarra Drake |  
+TGT | AT_009 | Rhonin |  
+TGT | AT_010 | Ram Wrangler |  
+TGT | AT_011 | Holy Champion |  
+TGT | AT_012 | Spawn of Shadows |  
+TGT | AT_013 | Power Word: Glory |  
+TGT | AT_014 | Shadowfiend |  
+TGT | AT_015 | Convert |  
+TGT | AT_016 | Confuse |  
+TGT | AT_017 | Twilight Guardian |  
+TGT | AT_018 | Confessor Paletress |  
+TGT | AT_019 | Dreadsteed |  
+TGT | AT_020 | Fearsome Doomguard |  
+TGT | AT_021 | Tiny Knight of Evil |  
+TGT | AT_022 | Fist of Jaraxxus |  
+TGT | AT_023 | Void Crusher |  
+TGT | AT_024 | Demonfuse |  
+TGT | AT_025 | Dark Bargain |  
+TGT | AT_026 | Wrathguard |  
+TGT | AT_027 | Wilfred Fizzlebang |  
+TGT | AT_028 | Shado-Pan Rider |  
+TGT | AT_029 | Buccaneer |  
+TGT | AT_030 | Undercity Valiant |  
+TGT | AT_031 | Cutpurse |  
+TGT | AT_032 | Shady Dealer |  
+TGT | AT_033 | Burgle |  
+TGT | AT_034 | Poisoned Blade |  
+TGT | AT_035 | Beneath the Grounds |  
+TGT | AT_036 | Anub'arak |  
+TGT | AT_037 | Living Roots |  
+TGT | AT_038 | Darnassus Aspirant |  
+TGT | AT_039 | Savage Combatant |  
+TGT | AT_040 | Wildwalker |  
+TGT | AT_041 | Knight of the Wild |  
+TGT | AT_042 | Druid of the Saber |  
+TGT | AT_043 | Astral Communion |  
+TGT | AT_044 | Mulch |  
+TGT | AT_045 | Aviana |  
+TGT | AT_046 | Tuskarr Totemic |  
+TGT | AT_047 | Draenei Totemcarver |  
+TGT | AT_048 | Healing Wave |  
+TGT | AT_049 | Thunder Bluff Valiant |  
+TGT | AT_050 | Charged Hammer |  
+TGT | AT_051 | Elemental Destruction |  
+TGT | AT_052 | Totem Golem |  
+TGT | AT_053 | Ancestral Knowledge |  
+TGT | AT_054 | The Mistcaller |  
+TGT | AT_055 | Flash Heal |  
+TGT | AT_056 | Powershot |  
+TGT | AT_057 | Stablemaster |  
+TGT | AT_058 | King's Elekk |  
+TGT | AT_059 | Brave Archer |  
+TGT | AT_060 | Bear Trap |  
+TGT | AT_061 | Lock and Load | O
+TGT | AT_062 | Ball of Spiders |  
+TGT | AT_063 | Acidmaw |  
+TGT | AT_063t | Dreadscale |  
+TGT | AT_064 | Bash |  
+TGT | AT_065 | King's Defender |  
+TGT | AT_066 | Orgrimmar Aspirant |  
+TGT | AT_067 | Magnataur Alpha |  
+TGT | AT_068 | Bolster |  
+TGT | AT_069 | Sparring Partner |  
+TGT | AT_070 | Skycap'n Kragg |  
+TGT | AT_071 | Alexstrasza's Champion |  
+TGT | AT_072 | Varian Wrynn |  
+TGT | AT_073 | Competitive Spirit |  
+TGT | AT_074 | Seal of Champions |  
+TGT | AT_075 | Warhorse Trainer |  
+TGT | AT_076 | Murloc Knight |  
+TGT | AT_077 | Argent Lance |  
+TGT | AT_078 | Enter the Coliseum |  
+TGT | AT_079 | Mysterious Challenger |  
+TGT | AT_080 | Garrison Commander |  
+TGT | AT_081 | Eadric the Pure |  
+TGT | AT_082 | Lowly Squire |  
+TGT | AT_083 | Dragonhawk Rider |  
+TGT | AT_084 | Lance Carrier |  
+TGT | AT_085 | Maiden of the Lake |  
+TGT | AT_086 | Saboteur |  
+TGT | AT_087 | Argent Horserider |  
+TGT | AT_088 | Mogor's Champion |  
+TGT | AT_089 | Boneguard Lieutenant |  
+TGT | AT_090 | Mukla's Champion |  
+TGT | AT_091 | Tournament Medic |  
+TGT | AT_092 | Ice Rager |  
+TGT | AT_093 | Frigid Snobold |  
+TGT | AT_094 | Flame Juggler |  
+TGT | AT_095 | Silent Knight |  
+TGT | AT_096 | Clockwork Knight |  
+TGT | AT_097 | Tournament Attendee |  
+TGT | AT_098 | Sideshow Spelleater |  
+TGT | AT_099 | Kodorider |  
+TGT | AT_100 | Silver Hand Regent |  
+TGT | AT_101 | Pit Fighter |  
+TGT | AT_102 | Captured Jormungar |  
+TGT | AT_103 | North Sea Kraken |  
+TGT | AT_104 | Tuskarr Jouster |  
+TGT | AT_105 | Injured Kvaldir |  
+TGT | AT_106 | Light's Champion |  
+TGT | AT_108 | Armored Warhorse |  
+TGT | AT_109 | Argent Watchman |  
+TGT | AT_110 | Coliseum Manager |  
+TGT | AT_111 | Refreshment Vendor |  
+TGT | AT_112 | Master Jouster |  
+TGT | AT_113 | Recruiter |  
+TGT | AT_114 | Evil Heckler |  
+TGT | AT_115 | Fencing Coach |  
+TGT | AT_116 | Wyrmrest Agent |  
+TGT | AT_117 | Master of Ceremonies |  
+TGT | AT_118 | Grand Crusader |  
+TGT | AT_119 | Kvaldir Raider |  
+TGT | AT_120 | Frost Giant |  
+TGT | AT_121 | Crowd Favorite |  
+TGT | AT_122 | Gormok the Impaler |  
+TGT | AT_123 | Chillmaw |  
+TGT | AT_124 | Bolf Ramshield |  
+TGT | AT_125 | Icehowl |  
+TGT | AT_127 | Nexus-Champion Saraad |  
+TGT | AT_128 | The Skeleton Knight |  
+TGT | AT_129 | Fjola Lightbane |  
+TGT | AT_130 | Sea Reaver |  
+TGT | AT_131 | Eydis Darkbane |  
+TGT | AT_132 | Justicar Trueheart |  
+TGT | AT_133 | Gadgetzan Jouster |  
+
+- Progress: 0% (1 of 132 Cards)
+
 ## Whispers of the Old Gods
 
 Set | ID | Name | Implemented
@@ -674,6 +893,284 @@ KARA | KAR_712 | Violet Illusionist |
 
 - Progress: 4% (2 of 45 Cards)
 
+## Knights of the Frozen Throne
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+ICECROWN | ICC_018 | Phantom Freebooter |  
+ICECROWN | ICC_019 | Skelemancer |  
+ICECROWN | ICC_021 | Exploding Bloatbat |  
+ICECROWN | ICC_023 | Snowflipper Penguin |  
+ICECROWN | ICC_025 | Rattling Rascal |  
+ICECROWN | ICC_026 | Grim Necromancer |  
+ICECROWN | ICC_027 | Bone Drake |  
+ICECROWN | ICC_028 | Sunborne Val'kyr |  
+ICECROWN | ICC_029 | Cobalt Scalebane |  
+ICECROWN | ICC_031 | Night Howler |  
+ICECROWN | ICC_032 | Venomancer |  
+ICECROWN | ICC_034 | Arrogant Crusader |  
+ICECROWN | ICC_038 | Righteous Protector |  
+ICECROWN | ICC_039 | Dark Conviction |  
+ICECROWN | ICC_041 | Defile |  
+ICECROWN | ICC_047 | Fatespinner |  
+ICECROWN | ICC_049 | Toxic Arrow |  
+ICECROWN | ICC_050 | Webweave |  
+ICECROWN | ICC_051 | Druid of the Swarm |  
+ICECROWN | ICC_052 | Play Dead |  
+ICECROWN | ICC_054 | Spreading Plague |  
+ICECROWN | ICC_055 | Drain Soul |  
+ICECROWN | ICC_056 | Cryostasis |  
+ICECROWN | ICC_058 | Brrrloc |  
+ICECROWN | ICC_062 | Mountainfire Armor |  
+ICECROWN | ICC_064 | Blood Razor |  
+ICECROWN | ICC_065 | Bone Baron |  
+ICECROWN | ICC_067 | Vryghoul |  
+ICECROWN | ICC_068 | Ice Walker |  
+ICECROWN | ICC_069 | Ghastly Conjurer |  
+ICECROWN | ICC_071 | Light's Sorrow |  
+ICECROWN | ICC_075 | Despicable Dreadlord |  
+ICECROWN | ICC_078 | Avalanche |  
+ICECROWN | ICC_079 | Gnash |  
+ICECROWN | ICC_081 | Drakkari Defender |  
+ICECROWN | ICC_082 | Frozen Clone |  
+ICECROWN | ICC_083 | Doomed Apprentice |  
+ICECROWN | ICC_085 | Ultimate Infestation |  
+ICECROWN | ICC_086 | Glacial Mysteries |  
+ICECROWN | ICC_088 | Voodoo Hexxer |  
+ICECROWN | ICC_089 | Ice Fishing |  
+ICECROWN | ICC_090 | Snowfury Giant |  
+ICECROWN | ICC_091 | Dead Man's Hand |  
+ICECROWN | ICC_092 | Acherus Veteran |  
+ICECROWN | ICC_093 | Tuskarr Fisherman |  
+ICECROWN | ICC_094 | Fallen Sun Cleric |  
+ICECROWN | ICC_096 | Furnacefire Colossus |  
+ICECROWN | ICC_097 | Grave Shambler |  
+ICECROWN | ICC_098 | Tomb Lurker |  
+ICECROWN | ICC_099 | Ticking Abomination |  
+ICECROWN | ICC_200 | Venomstrike Trap |  
+ICECROWN | ICC_201 | Roll the Bones |  
+ICECROWN | ICC_204 | Professor Putricide |  
+ICECROWN | ICC_206 | Treachery |  
+ICECROWN | ICC_207 | Devour Mind |  
+ICECROWN | ICC_210 | Shadow Ascendant |  
+ICECROWN | ICC_212 | Acolyte of Agony |  
+ICECROWN | ICC_213 | Eternal Servitude |  
+ICECROWN | ICC_214 | Obsidian Statue |  
+ICECROWN | ICC_215 | Archbishop Benedictus |  
+ICECROWN | ICC_218 | Howlfiend |  
+ICECROWN | ICC_220 | Deadscale Knight |  
+ICECROWN | ICC_221 | Leeching Poison |  
+ICECROWN | ICC_233 | Doomerang |  
+ICECROWN | ICC_235 | Shadow Essence |  
+ICECROWN | ICC_236 | Ice Breaker |  
+ICECROWN | ICC_238 | Animated Berserker |  
+ICECROWN | ICC_240 | Runeforge Haunter |  
+ICECROWN | ICC_243 | Corpse Widow |  
+ICECROWN | ICC_244 | Desperate Stand |  
+ICECROWN | ICC_245 | Blackguard |  
+ICECROWN | ICC_252 | Coldwraith |  
+ICECROWN | ICC_257 | Corpse Raiser |  
+ICECROWN | ICC_281 | Forge of Souls |  
+ICECROWN | ICC_289 | Moorabi |  
+ICECROWN | ICC_314 | The Lich King |  
+ICECROWN | ICC_405 | Rotface |  
+ICECROWN | ICC_407 | Gnomeferatu |  
+ICECROWN | ICC_408 | Val'kyr Soulclaimer |  
+ICECROWN | ICC_415 | Stitched Tracker |  
+ICECROWN | ICC_419 | Bearshark | O
+ICECROWN | ICC_450 | Death Revenant |  
+ICECROWN | ICC_466 | Saronite Chain Gang |  
+ICECROWN | ICC_467 | Deathspeaker |  
+ICECROWN | ICC_468 | Wretched Tiller |  
+ICECROWN | ICC_469 | Unwilling Sacrifice |  
+ICECROWN | ICC_481 | Thrall, Deathseer |  
+ICECROWN | ICC_700 | Happy Ghoul |  
+ICECROWN | ICC_701 | Skulking Geist |  
+ICECROWN | ICC_702 | Shallow Gravedigger |  
+ICECROWN | ICC_705 | Bonemare |  
+ICECROWN | ICC_706 | Nerubian Unraveler |  
+ICECROWN | ICC_801 | Howling Commander |  
+ICECROWN | ICC_802 | Spirit Lash |  
+ICECROWN | ICC_807 | Strongshell Scavenger |  
+ICECROWN | ICC_808 | Crypt Lord |  
+ICECROWN | ICC_809 | Plague Scientist |  
+ICECROWN | ICC_810 | Deathaxe Punisher |  
+ICECROWN | ICC_811 | Lilian Voss |  
+ICECROWN | ICC_812 | Meat Wagon |  
+ICECROWN | ICC_820 | Chillblade Champion |  
+ICECROWN | ICC_823 | Simulacrum |  
+ICECROWN | ICC_825 | Abominable Bowman |  
+ICECROWN | ICC_827 | Valeera the Hollow |  
+ICECROWN | ICC_828 | Deathstalker Rexxar |  
+ICECROWN | ICC_829 | Uther of the Ebon Blade |  
+ICECROWN | ICC_830 | Shadowreaper Anduin |  
+ICECROWN | ICC_831 | Bloodreaver Gul'dan |  
+ICECROWN | ICC_832 | Malfurion the Pestilent |  
+ICECROWN | ICC_833 | Frost Lich Jaina |  
+ICECROWN | ICC_834 | Scourgelord Garrosh |  
+ICECROWN | ICC_835 | Hadronox |  
+ICECROWN | ICC_836 | Breath of Sindragosa |  
+ICECROWN | ICC_837 | Bring It On! |  
+ICECROWN | ICC_838 | Sindragosa |  
+ICECROWN | ICC_841 | Blood-Queen Lana'thel |  
+ICECROWN | ICC_849 | Embrace Darkness |  
+ICECROWN | ICC_850 | Shadowblade |  
+ICECROWN | ICC_851 | Prince Keleseth |  
+ICECROWN | ICC_852 | Prince Taldaram |  
+ICECROWN | ICC_853 | Prince Valanar |  
+ICECROWN | ICC_854 | Arfus |  
+ICECROWN | ICC_855 | Hyldnir Frostrider |  
+ICECROWN | ICC_856 | Spellweaver |  
+ICECROWN | ICC_858 | Bolvar, Fireblood |  
+ICECROWN | ICC_900 | Necrotic Geist |  
+ICECROWN | ICC_901 | Drakkari Enchanter |  
+ICECROWN | ICC_902 | Mindbreaker |  
+ICECROWN | ICC_903 | Sanguine Reveler |  
+ICECROWN | ICC_904 | Wicked Skeleton |  
+ICECROWN | ICC_905 | Bloodworm |  
+ICECROWN | ICC_910 | Spectral Pillager |  
+ICECROWN | ICC_911 | Keening Banshee |  
+ICECROWN | ICC_912 | Corpsetaker |  
+ICECROWN | ICC_913 | Tainted Zealot |  
+
+- Progress: 0% (1 of 135 Cards)
+
+## The Witchwood
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+GILNEAS | GIL_113 | Rabid Worgen |  
+GILNEAS | GIL_116 | Arcane Keysmith |  
+GILNEAS | GIL_117 | Worgen Abomination |  
+GILNEAS | GIL_118 | Deranged Doctor |  
+GILNEAS | GIL_119 | Cauldron Elemental |  
+GILNEAS | GIL_120 | Furious Ettin |  
+GILNEAS | GIL_121 | Darkmire Moonkin |  
+GILNEAS | GIL_124 | Mossy Horror |  
+GILNEAS | GIL_125 | Mad Hatter |  
+GILNEAS | GIL_128 | Emeriss |  
+GILNEAS | GIL_134 | Holy Water |  
+GILNEAS | GIL_142 | Chameleos |  
+GILNEAS | GIL_143 | Vicious Scalehide |  
+GILNEAS | GIL_145 | Sound the Bells! |  
+GILNEAS | GIL_147 | Cinderstorm |  
+GILNEAS | GIL_152 | Blackhowl Gunspire |  
+GILNEAS | GIL_155 | Redband Wasp |  
+GILNEAS | GIL_156 | Quartz Elemental |  
+GILNEAS | GIL_188 | Druid of the Scythe |  
+GILNEAS | GIL_190 | Nightscale Matriarch |  
+GILNEAS | GIL_191 | Fiendish Circle |  
+GILNEAS | GIL_198 | Azalina Soulthief |  
+GILNEAS | GIL_200 | Duskhaven Hunter |  
+GILNEAS | GIL_201 | Pumpkin Peasant |  
+GILNEAS | GIL_202 | Gilnean Royal Guard |  
+GILNEAS | GIL_203 | Rebuke |  
+GILNEAS | GIL_207 | Phantom Militia |  
+GILNEAS | GIL_212 | Ravencaller |  
+GILNEAS | GIL_213 | Tanglefur Mystic |  
+GILNEAS | GIL_504 | Hagatha the Witch |  
+GILNEAS | GIL_506 | Cheap Shot |  
+GILNEAS | GIL_507 | Bewitched Guardian |  
+GILNEAS | GIL_508 | Duskbat |  
+GILNEAS | GIL_510 | Mistwraith |  
+GILNEAS | GIL_513 | Lost Spirit |  
+GILNEAS | GIL_515 | Ratcatcher |  
+GILNEAS | GIL_518 | Wing Blast |  
+GILNEAS | GIL_526 | Wyrmguard |  
+GILNEAS | GIL_527 | Felsoul Inquisitor |  
+GILNEAS | GIL_528 | Swift Messenger |  
+GILNEAS | GIL_529 | Spellshifter |  
+GILNEAS | GIL_531 | Witch's Apprentice |  
+GILNEAS | GIL_534 | Hench-Clan Thug |  
+GILNEAS | GIL_537 | Deadly Arsenal |  
+GILNEAS | GIL_543 | Dark Possession |  
+GILNEAS | GIL_545 | Ghostly Charger |  
+GILNEAS | GIL_547 | Darius Crowley |  
+GILNEAS | GIL_548 | Book of Specters |  
+GILNEAS | GIL_549 | Toki, Time-Tinker |  
+GILNEAS | GIL_553 | Wispering Woods |  
+GILNEAS | GIL_557 | Cursed Castaway |  
+GILNEAS | GIL_558 | Swamp Leech |  
+GILNEAS | GIL_561 | Blackwald Pixie |  
+GILNEAS | GIL_562 | Vilebrood Skitterer |  
+GILNEAS | GIL_565 | Deathweb Spider |  
+GILNEAS | GIL_571 | Witching Hour |  
+GILNEAS | GIL_577 | Rat Trap |  
+GILNEAS | GIL_578 | Countess Ashmore |  
+GILNEAS | GIL_580 | Town Crier |  
+GILNEAS | GIL_581 | Sandbinder |  
+GILNEAS | GIL_583 | Totem Cruncher |  
+GILNEAS | GIL_584 | Witchwood Piper |  
+GILNEAS | GIL_586 | Earthen Might |  
+GILNEAS | GIL_596 | Silver Sword |  
+GILNEAS | GIL_598 | Tess Greymane |  
+GILNEAS | GIL_600 | Zap! |  
+GILNEAS | GIL_601 | Scaleworm |  
+GILNEAS | GIL_607 | Toxmonger |  
+GILNEAS | GIL_607t | Hunting Mastiff |  
+GILNEAS | GIL_608 | Witchwood Imp |  
+GILNEAS | GIL_614 | Voodoo Doll |  
+GILNEAS | GIL_616 | Splitting Festeroot |  
+GILNEAS | GIL_618 | Glinda Crowskin |  
+GILNEAS | GIL_620 | Dollmaster Dorian |  
+GILNEAS | GIL_622 | Lifedrinker |  
+GILNEAS | GIL_623 | Witchwood Grizzly |  
+GILNEAS | GIL_624 | Night Prowler |  
+GILNEAS | GIL_634 | Bellringer Sentry |  
+GILNEAS | GIL_635 | Cathedral Gargoyle |  
+GILNEAS | GIL_637 | Ferocious Howl |  
+GILNEAS | GIL_640 | Curio Collector |  
+GILNEAS | GIL_645 | Bonfire Elemental |  
+GILNEAS | GIL_646 | Clockwork Automaton |  
+GILNEAS | GIL_648 | Chief Inspector |  
+GILNEAS | GIL_650 | Houndmaster Shaw |  
+GILNEAS | GIL_653 | Woodcutter's Axe |  
+GILNEAS | GIL_654 | Warpath |  
+GILNEAS | GIL_655 | Festeroot Hulk |  
+GILNEAS | GIL_658 | Splintergraft |  
+GILNEAS | GIL_661 | Divine Hymn |  
+GILNEAS | GIL_663 | Witchwood Apple |  
+GILNEAS | GIL_664 | Vex Crow |  
+GILNEAS | GIL_665 | Curse of Weakness |  
+GILNEAS | GIL_667 | Rotten Applebaum |  
+GILNEAS | GIL_672 | Spectral Cutlass |  
+GILNEAS | GIL_677 | Face Collector |  
+GILNEAS | GIL_678 | Ghost Light Angler |  
+GILNEAS | GIL_680 | Walnut Sprite |  
+GILNEAS | GIL_681 | Nightmare Amalgam |  
+GILNEAS | GIL_682 | Muck Hunter |  
+GILNEAS | GIL_683 | Marsh Drake |  
+GILNEAS | GIL_685 | Paragon of Light |  
+GILNEAS | GIL_687 | WANTED! |  
+GILNEAS | GIL_691 | Archmage Arugal |  
+GILNEAS | GIL_693 | Blood Witch |  
+GILNEAS | GIL_694 | Prince Liam |  
+GILNEAS | GIL_696 | Pick Pocket |  
+GILNEAS | GIL_800 | Duskfallen Aviana |  
+GILNEAS | GIL_801 | Snap Freeze |  
+GILNEAS | GIL_803 | Militia Commander |  
+GILNEAS | GIL_805 | Coffin Crasher |  
+GILNEAS | GIL_807 | Bogshaper |  
+GILNEAS | GIL_809 | Unpowered Steambot |  
+GILNEAS | GIL_813 | Vivid Nightmare |  
+GILNEAS | GIL_815 | Baleful Banker |  
+GILNEAS | GIL_816 | Swamp Dragon Egg |  
+GILNEAS | GIL_817 | The Glass Knight |  
+GILNEAS | GIL_819 | Witch's Cauldron |  
+GILNEAS | GIL_820 | Shudderwock |  
+GILNEAS | GIL_825 | Lord Godfrey |  
+GILNEAS | GIL_827 | Blink Fox |  
+GILNEAS | GIL_828 | Dire Frenzy | O
+GILNEAS | GIL_833 | Forest Guide |  
+GILNEAS | GIL_835 | Squashling |  
+GILNEAS | GIL_836 | Blazing Invocation |  
+GILNEAS | GIL_840 | Lady in White |  
+GILNEAS | GIL_902 | Cutthroat Buccaneer |  
+GILNEAS | GIL_903 | Hidden Wisdom |  
+GILNEAS | GIL_905 | Carrion Drake |  
+
+- Progress: 0% (1 of 129 Cards)
+
 ## The Boomsday Project
 
 Set | ID | Name | Implemented
@@ -838,7 +1335,7 @@ TROLL | TRL_085 | Zentimo |
 TROLL | TRL_092 | Spirit of the Shark |  
 TROLL | TRL_096 | Griftah |  
 TROLL | TRL_097 | Seance |  
-TROLL | TRL_111 | Headhunter's Hatchet |  
+TROLL | TRL_111 | Headhunter's Hatchet | O
 TROLL | TRL_119 | The Beast Within |  
 TROLL | TRL_124 | Raiding Party |  
 TROLL | TRL_126 | Captain Hooktusk |  
@@ -957,7 +1454,7 @@ TROLL | TRL_570 | Soup Vendor |
 TROLL | TRL_900 | Halazzi, the Lynx |  
 TROLL | TRL_901 | Spirit of the Lynx |  
 
-- Progress: 0% (1 of 135 Cards)
+- Progress: 1% (2 of 135 Cards)
 
 ## Rise of Shadows
 

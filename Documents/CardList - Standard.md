@@ -15,14 +15,14 @@ CORE | CORE_AT_008 | Coldarra Drake |
 CORE | CORE_AT_021 | Tiny Knight of Evil |  
 CORE | CORE_AT_047 | Draenei Totemcarver |  
 CORE | CORE_AT_055 | Flash Heal |  
-CORE | CORE_AT_061 | Lock and Load |  
+CORE | CORE_AT_061 | Lock and Load | O
 CORE | CORE_AT_075 | Warhorse Trainer |  
 CORE | CORE_AT_092 | Ice Rager |  
 CORE | CORE_BOT_083 | Toxicologist |  
 CORE | CORE_BOT_420 | Landscaping | O
 CORE | CORE_BOT_453 | Shooting Star |  
 CORE | CORE_BOT_533 | Menacing Nimbus |  
-CORE | CORE_BRM_013 | Quick Shot |  
+CORE | CORE_BRM_013 | Quick Shot | O
 CORE | CORE_BT_035 | Chaos Strike |  
 CORE | CORE_BT_036 | Coordinated Strike |  
 CORE | CORE_BT_235 | Chaos Nova |  
@@ -75,8 +75,8 @@ CORE | CORE_CS2_189 | Elven Archer |
 CORE | CORE_CS2_203 | Ironbeak Owl |  
 CORE | CORE_CS2_222 | Stormwind Champion |  
 CORE | CORE_DAL_086 | Sunreaver Spy |  
-CORE | CORE_DS1_184 | Tracking |  
-CORE | CORE_DS1_185 | Arcane Shot |  
+CORE | CORE_DS1_184 | Tracking | O
+CORE | CORE_DS1_185 | Arcane Shot | O
 CORE | CORE_EX1_004 | Young Priestess |  
 CORE | CORE_EX1_005 | Big Game Hunter |  
 CORE | CORE_EX1_008 | Argent Squire |  
@@ -150,10 +150,10 @@ CORE | CORE_EX1_414 | Grommash Hellscream |
 CORE | CORE_EX1_506 | Murloc Tidehunter |  
 CORE | CORE_EX1_509 | Murloc Tidecaller |  
 CORE | CORE_EX1_522 | Patient Assassin |  
-CORE | CORE_EX1_531 | Scavenging Hyena |  
-CORE | CORE_EX1_534 | Savannah Highmane |  
-CORE | CORE_EX1_543 | King Krush |  
-CORE | CORE_EX1_554 | Snake Trap |  
+CORE | CORE_EX1_531 | Scavenging Hyena | O
+CORE | CORE_EX1_534 | Savannah Highmane | O
+CORE | CORE_EX1_543 | King Krush | O
+CORE | CORE_EX1_554 | Snake Trap | O
 CORE | CORE_EX1_564 | Faceless Manipulator |  
 CORE | CORE_EX1_567 | Doomhammer |  
 CORE | CORE_EX1_571 | Force of Nature | O
@@ -161,20 +161,20 @@ CORE | CORE_EX1_573 | Cenarius | O
 CORE | CORE_EX1_575 | Mana Tide Totem |  
 CORE | CORE_EX1_603 | Cruel Taskmaster |  
 CORE | CORE_EX1_604 | Frothing Berserker |  
-CORE | CORE_EX1_610 | Explosive Trap |  
-CORE | CORE_EX1_611 | Freezing Trap |  
-CORE | CORE_EX1_617 | Deadly Shot |  
+CORE | CORE_EX1_610 | Explosive Trap | O
+CORE | CORE_EX1_611 | Freezing Trap | O
+CORE | CORE_EX1_617 | Deadly Shot | O
 CORE | CORE_EX1_619 | Equality |  
 CORE | CORE_EX1_622 | Shadow Word: Death |  
 CORE | CORE_EX1_623 | Temple Enforcer |  
 CORE | CORE_EX1_625 | Shadowform |  
 CORE | CORE_FP1_007 | Nerubian Egg |  
-CORE | CORE_FP1_011 | Webspinner |  
+CORE | CORE_FP1_011 | Webspinner | O
 CORE | CORE_FP1_020 | Avenge |  
 CORE | CORE_FP1_031 | Baron Rivendare |  
 CORE | CORE_GIL_191 | Fiendish Circle |  
 CORE | CORE_GIL_801 | Snap Freeze |  
-CORE | CORE_GIL_828 | Dire Frenzy |  
+CORE | CORE_GIL_828 | Dire Frenzy | O
 CORE | CORE_GVG_013 | Cogmaster |  
 CORE | CORE_GVG_044 | Spider Tank |  
 CORE | CORE_GVG_053 | Shieldmaiden |  
@@ -185,7 +185,7 @@ CORE | CORE_GVG_121 | Clockwork Giant |
 CORE | CORE_ICC_026 | Grim Necromancer |  
 CORE | CORE_ICC_038 | Righteous Protector |  
 CORE | CORE_ICC_055 | Drain Soul |  
-CORE | CORE_ICC_419 | Bearshark |  
+CORE | CORE_ICC_419 | Bearshark | O
 CORE | CORE_ICC_809 | Plague Scientist |  
 CORE | CORE_KAR_009 | Babbling Book |  
 CORE | CORE_KAR_036 | Arcane Anomaly |  
@@ -206,7 +206,7 @@ CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_070 | Bladed Cultist |  
 CORE | CORE_OG_241 | Possessed Villager |  
 CORE | CORE_OG_273 | Stand Against Darkness |  
-CORE | CORE_TRL_111 | Headhunter's Hatchet |  
+CORE | CORE_TRL_111 | Headhunter's Hatchet | O
 CORE | CORE_TRL_243 | Pounce | O
 CORE | CORE_tt_004 | Flesheating Ghoul |  
 CORE | CORE_UNG_020 | Arcanologist |  
@@ -224,7 +224,7 @@ CORE | CS3_009 | War Cache |
 CORE | CS3_012 | Nordrassil Druid | O
 CORE | CS3_013 | Shadowed Spirit |  
 CORE | CS3_014 | Crimson Clergy |  
-CORE | CS3_015 | Selective Breeder |  
+CORE | CS3_015 | Selective Breeder | O
 CORE | CS3_016 | Reckoning |  
 CORE | CS3_017 | Gan'arg Glaivesmith |  
 CORE | CS3_019 | Kor'vas Bloodthorn |  
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 6% (16 of 235 Cards)
+- Progress: 13% (32 of 235 Cards)
 
 ## Ashes of Outland
 
