@@ -8,7 +8,17 @@
 
 #include <Utils/CardSetUtils.hpp>
 
-TEST_CASE("[IcecrownCardsGen] - Temp")
+// ---------------------------------------- MINION - HUNTER
+// [ICC_419] Bearshark - COST:3 [ATK:4/HP:3]
+// - Race: Beast, Set: Icecrown, Rarity: Common
+// --------------------------------------------------------
+// Text: Can't be targeted by spells or Hero Powers.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_BE_TARGETED_BY_SPELLS = 1
+// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - ICC_419 : Bearshark")
 {
-    CHECK(true);
+    // Do nothing
 }

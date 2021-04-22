@@ -637,6 +637,8 @@ void IcecrownCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void IcecrownCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [ICC_021] Exploding Bloatbat - COST:4 [ATK:2/HP:1]
     // - Race: Beast, Set: Icecrown, Rarity: Rare
@@ -744,6 +746,9 @@ void IcecrownCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ICC_419", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [ICC_825] Abominable Bowman - COST:7 [ATK:6/HP:7]
