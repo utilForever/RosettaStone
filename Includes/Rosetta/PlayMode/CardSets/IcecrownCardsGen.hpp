@@ -32,6 +32,11 @@ class IcecrownCardsGen
     //! play requirements and entourages.
     static void AddHeroPowers(std::map<std::string, CardDef>& cards);
 
+    //! Adds death knight cards that are not collectible to \p cards.
+    //! \param cards A list of cards to store the data such as powers,
+    //! play requirements and entourages.
+    static void AddDeathknightNonCollect(std::map<std::string, CardDef>& cards);
+
     //! Adds druid cards that are collectible to \p cards.
     //! \param cards A list of cards to store the data such as powers,
     //! play requirements and entourages.
