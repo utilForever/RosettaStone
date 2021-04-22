@@ -584,8 +584,18 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     //       gain +1 Durability.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "TRL_111e1", EntityType::SOURCE) }));
+    cards.emplace("CORE_TRL_111", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:1]

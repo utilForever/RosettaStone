@@ -1694,3 +1694,54 @@ TEST_CASE("[Hunter : Minion] - CORE_ICC_419 : Bearshark")
 {
     // Do nothing
 }
+
+// ---------------------------------------- WEAPON - HUNTER
+// [CORE_TRL_111] Headhunter's Hatchet - COST:2
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a Beast,
+//       gain +1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Weapon] - CORE_TRL_111 : Headhunter's Hatchet")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHero = *(curPlayer->GetHero());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Headhunter's Hatchet"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Headhunter's Hatchet"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK(curHero.HasWeapon());
+    CHECK_EQ(curHero.weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    CHECK(curHero.HasWeapon());
+    CHECK_EQ(curHero.weapon->GetDurability(), 3);
+}
