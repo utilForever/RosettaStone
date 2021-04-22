@@ -6,16 +6,20 @@
 #include <Rosetta/PlayMode/CardSets/BasicCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DalaranCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DemonHunterInitCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
@@ -38,11 +42,15 @@ CardDefs::CardDefs()
     Expert1CardsGen::AddAll(m_data);
     DemonHunterInitCardsGen::AddAll(m_data);
     HoFCardsGen::AddAll(m_data);
+    NaxxCardsGen::AddAll(m_data);
     GvgCardsGen::AddAll(m_data);
+    BrmCardsGen::AddAll(m_data);
     TgtCardsGen::AddAll(m_data);
     OgCardsGen::AddAll(m_data);
     KaraCardsGen::AddAll(m_data);
+    IcecrownCardsGen::AddAll(m_data);
     LootapaloozaCardsGen::AddAll(m_data);
+    GilneasCardsGen::AddAll(m_data);
     BoomsdayCardsGen::AddAll(m_data);
     TrollCardsGen::AddAll(m_data);
     DalaranCardsGen::AddAll(m_data);

@@ -862,6 +862,9 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever a friendly Beast dies, gain +2/+1.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
@@ -921,10 +924,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<SummonTask>(
-            SummonSide::DEATHRATTLE, Cards::FindCardByID("EX1_534t")) },
-        2));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_534t", 2, SummonSide::DEATHRATTLE));
     cards.emplace("EX1_534", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
@@ -1196,8 +1197,7 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(std::make_shared<OngoingEnchant>(
-        std::vector<std::shared_ptr<IEffect>>{ std::make_shared<Effect>(
-            GameTag::DURABILITY, EffectOperator::ADD, 1) }));
+        std::vector<std::shared_ptr<IEffect>>{ Effects::DurabilityN(1) }));
     cards.emplace("EX1_536e", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
@@ -3831,9 +3831,7 @@ void Expert1CardsGen::AddWarriorNonCollect(
     power.ClearData();
     power.AddEnchant(
         std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>{
-            std::make_shared<Effect>(GameTag::ATK, EffectOperator::ADD, 1),
-            std::make_shared<Effect>(GameTag::DURABILITY, EffectOperator::ADD,
-                                     1) }));
+            Effects::AttackN(1), Effects::DurabilityN(1) }));
     cards.emplace("EX1_409e", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR

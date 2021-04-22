@@ -5,14 +5,17 @@
 
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -323,6 +326,8 @@ void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_AT_061] Lock and Load - COST:1
     // - Set: CORE, Rarity: Epic
@@ -330,6 +335,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Each time you cast a spell this turn,
     //       add a random Hunter card to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("AT_061e", EntityType::PLAYER));
+    cards.emplace("CORE_AT_061", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_BRM_013] Quick Shot - COST:2
@@ -340,6 +349,20 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHandEmpty()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace(
+        "CORE_BRM_013",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_DS1_184] Tracking - COST:1
@@ -350,6 +373,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::DECK));
+    cards.emplace("CORE_DS1_184", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_DS1_185] Arcane Shot - COST:1
@@ -358,6 +384,15 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cards.emplace(
+        "CORE_DS1_185",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2]
@@ -368,6 +403,14 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_531e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_531", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
@@ -378,10 +421,14 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_534t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("CORE_EX1_534", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_EX1_543] King Krush - COST:9 [ATK:8/HP:8]
-    // - Race: Beast, Set: CORE, Rarity: Legendary
+    // - Race: Beast, Faction: Neutral, Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
@@ -389,10 +436,13 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_543", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_EX1_554] Snake Trap - COST:2
-    // - Set: CORE, Rarity: Epic
+    // - Faction: Neutral, Set: CORE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When one of your minions is attacked,
     //       summon three 1/1 Snakes.
@@ -400,6 +450,14 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
+    cards.emplace("CORE_EX1_554", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_EX1_610] Explosive Trap - COST:2
@@ -412,10 +470,18 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true) });
+    cards.emplace("CORE_EX1_610", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_EX1_611] Freezing Trap - COST:2
-    // - Set: CORE, Rarity: Common
+    // - Faction: Neutral, Set: CORE, Rarity: Common
     // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When an enemy minion attacks,
@@ -424,23 +490,52 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsNotDead()) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(TaskList{
+                      std::make_shared<ReturnHandTask>(EntityType::TARGET),
+                      std::make_shared<AddAuraEffectTask>(
+                          Effects::AddCost(2), EntityType::TARGET) }))
+    };
+    cards.emplace("CORE_EX1_611", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_EX1_617] Deadly Shot - COST:3
-    // - Set: CORE, Rarity: Common
+    // - Faction: Neutral, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Destroy a random enemy minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace(
+        "CORE_EX1_617",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_FP1_011] Webspinner - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Add a random Beast card to your hand.
+    // Text: <b>Deathrattle:</b> Add a random Beast card
+    //       to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddDeathrattleTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_FP1_011", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_GIL_828] Dire Frenzy - COST:4
@@ -449,6 +544,23 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Give a Beast +3/+3.
     //       Shuffle 3 copies into your deck with +3/+3.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("GIL_828e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<CopyTask>(EntityType::TARGET,
+                                                  ZoneType::DECK, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("GIL_828e", EntityType::STACK));
+    cards.emplace(
+        "CORE_GIL_828",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_ICC_419] Bearshark - COST:3 [ATK:4/HP:3]
@@ -460,6 +572,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_ICC_419", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [CORE_TRL_111] Headhunter's Hatchet - COST:2
@@ -469,8 +584,18 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     //       gain +1 Durability.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "TRL_111e1", EntityType::SOURCE) }));
+    cards.emplace("CORE_TRL_111", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:1]
@@ -483,6 +608,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SELECTIVE_BREEDER));
+    cards.emplace("CS3_015", CardDef(power));
 }
 
 void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)

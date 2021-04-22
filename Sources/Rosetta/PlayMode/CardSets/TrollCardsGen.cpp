@@ -11,6 +11,8 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+
 void TrollCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ HERO - HUNTER
@@ -319,6 +321,8 @@ void TrollCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- WEAPON - HUNTER
     // [TRL_111] Headhunter's Hatchet - COST:2 [ATK:2/HP:0]
     // - Set: Troll, Rarity: Common
@@ -330,6 +334,15 @@ void TrollCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "TRL_111e1", EntityType::SOURCE) }));
+    cards.emplace("TRL_111", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [TRL_119] The Beast Within - COST:1
@@ -1993,6 +2006,10 @@ void TrollCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Durability.
     // --------------------------------------------------------
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::DurabilityN(1)));
+    cards.emplace("TRL_111e1", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [TRL_119e] The Beast Within (*) - COST:0

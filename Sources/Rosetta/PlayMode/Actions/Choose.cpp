@@ -135,6 +135,11 @@ bool ChoicePick(Player* player, int choice)
             AddCardToHand(player, playable);
             break;
         }
+        case ChoiceAction::HAND_COPY:
+        {
+            Copy(player, playable, ZoneType::HAND);
+            break;
+        }
         case ChoiceAction::HAND_AND_STACK:
         {
             player->GetSetasideZone()->Remove(playable);
