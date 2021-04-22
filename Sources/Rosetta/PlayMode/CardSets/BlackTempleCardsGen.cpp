@@ -2129,8 +2129,7 @@ void BlackTempleCardsGen::AddWarriorNonCollect(
     // Text: +1 Durability.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(
-        std::make_shared<Effect>(GameTag::DURABILITY, EffectOperator::ADD, 1)));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::DurabilityN(1)));
     cards.emplace("BT_124e", CardDef(power));
 }
 

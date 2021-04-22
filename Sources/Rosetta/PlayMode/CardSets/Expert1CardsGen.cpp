@@ -1197,8 +1197,7 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(std::make_shared<OngoingEnchant>(
-        std::vector<std::shared_ptr<IEffect>>{ std::make_shared<Effect>(
-            GameTag::DURABILITY, EffectOperator::ADD, 1) }));
+        std::vector<std::shared_ptr<IEffect>>{ Effects::DurabilityN(1) }));
     cards.emplace("EX1_536e", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
@@ -3832,9 +3831,7 @@ void Expert1CardsGen::AddWarriorNonCollect(
     power.ClearData();
     power.AddEnchant(
         std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>{
-            std::make_shared<Effect>(GameTag::ATK, EffectOperator::ADD, 1),
-            std::make_shared<Effect>(GameTag::DURABILITY, EffectOperator::ADD,
-                                     1) }));
+            Effects::AttackN(1), Effects::DurabilityN(1) }));
     cards.emplace("EX1_409e", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
