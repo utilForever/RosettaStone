@@ -545,6 +545,18 @@ auto DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::SELECTIVE_BREEDER:
+            choiceAction = ChoiceAction::HAND_COPY;
+            for (auto& playable : player->GetDeckZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::MINION &&
+                    playable->card->GetRace() == Race::BEAST)
+                {
+                    cardsForOtherEffect.emplace_back(
+                        playable->GetGameTag(GameTag::ENTITY_ID));
+                }
+            }
+            break;
     }
 
     return std::make_tuple(cardsForGeneration, cardsForOtherEffect);

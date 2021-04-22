@@ -40,6 +40,7 @@ enum class DiscoverType
     VULPERA_SCOUNDREL,
     BODY_WRAPPER,
     RINLINGS_RIFLE,
+    SELECTIVE_BREEDER,
 };
 
 //! The action type of choice.
