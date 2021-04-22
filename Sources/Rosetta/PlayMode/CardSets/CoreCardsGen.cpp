@@ -572,6 +572,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_ICC_419", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [CORE_TRL_111] Headhunter's Hatchet - COST:2

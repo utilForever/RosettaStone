@@ -1679,3 +1679,18 @@ TEST_CASE("[Hunter : Spell] - CORE_GIL_828 : Dire Frenzy")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 6);
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 5);
 }
+
+// ---------------------------------------- MINION - HUNTER
+// [CORE_ICC_419] Bearshark - COST:3 [ATK:4/HP:3]
+// - Race: Beast, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Can't be targeted by spells or Hero Powers.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_BE_TARGETED_BY_SPELLS = 1
+// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - CORE_ICC_419 : Bearshark")
+{
+    // Do nothing
+}
