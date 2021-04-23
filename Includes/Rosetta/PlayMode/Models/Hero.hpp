@@ -56,6 +56,10 @@ class Hero : public Character
     //! \param armor The value of armor.
     void SetArmor(int armor);
 
+    //! Returns the value of hero power damage.
+    //! \return The value of hero power damage.
+    int GetHeroPowerDamage() const;
+
     //! Adds weapon to hero.
     //! \param _weapon A weapon card to add.
     void AddWeapon(Weapon& _weapon);
