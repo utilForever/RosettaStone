@@ -11,6 +11,8 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
+
 void TgtCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -488,6 +490,8 @@ void TgtCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [AT_001] Flame Lance - COST:5
     // - Set: Tgt, Rarity: Common
@@ -519,6 +523,12 @@ void TgtCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HEROPOWER_DAMAGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::HERO,
+        EffectList{ std::make_shared<Effect>(GameTag::HEROPOWER_DAMAGE,
+                                             EffectOperator::ADD, 1) }));
+    cards.emplace("AT_003", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [AT_004] Arcane Blast - COST:1
