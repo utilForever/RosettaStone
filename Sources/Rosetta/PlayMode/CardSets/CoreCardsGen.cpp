@@ -621,6 +621,8 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [CORE_AT_003] Fallen Hero - COST:2 [ATK:3/HP:2]
     // - Set: CORE, Rarity: Rare
@@ -630,6 +632,12 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HEROPOWER_DAMAGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::HERO,
+        EffectList{ std::make_shared<Effect>(GameTag::HEROPOWER_DAMAGE,
+                                             EffectOperator::ADD, 1) }));
+    cards.emplace("CORE_AT_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_AT_008] Coldarra Drake - COST:6 [ATK:6/HP:7]
