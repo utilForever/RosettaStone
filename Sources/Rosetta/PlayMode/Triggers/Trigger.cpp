@@ -231,8 +231,8 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::DEATH:
             game->triggerManager.deathTrigger += instance->handler;
             break;
-        case TriggerType::USE_HERO_POWER:
-            game->triggerManager.useHeroPowerTrigger += instance->handler;
+        case TriggerType::INSPIRE:
+            game->triggerManager.inspireTrigger += instance->handler;
             break;
         case TriggerType::SHUFFLE_INTO_DECK:
             game->triggerManager.shuffleIntoDeckTrigger += instance->handler;
@@ -386,8 +386,8 @@ void Trigger::Remove() const
         case TriggerType::DEATH:
             game->triggerManager.deathTrigger -= handler;
             break;
-        case TriggerType::USE_HERO_POWER:
-            game->triggerManager.useHeroPowerTrigger -= handler;
+        case TriggerType::INSPIRE:
+            game->triggerManager.inspireTrigger -= handler;
             break;
         case TriggerType::SHUFFLE_INTO_DECK:
             game->triggerManager.shuffleIntoDeckTrigger -= handler;

@@ -850,7 +850,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::DECK),
         std::make_shared<FilterStackTask>(SelfCondList{
@@ -938,7 +938,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - SIDEQUEST = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_255t2", 3) }) };
     cards.emplace("DRG_255", CardDef(power, 3, 0));
@@ -954,7 +954,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
     power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
         std::make_shared<DamageTask>(EntityType::STACK, 5)
@@ -4683,7 +4683,7 @@ void DragonsCardsGen::AddNeutralNonCollect(
                                          EffectList{ Effects::SetCost(3) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->removeTrigger = { TriggerType::USE_HERO_POWER, nullptr };
+        aura->removeTrigger = { TriggerType::INSPIRE, nullptr };
     }
     cards.emplace("DRG_403e", CardDef(power));
 

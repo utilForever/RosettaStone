@@ -3414,7 +3414,7 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
                                          EffectList{ Effects::SetCost(0) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->removeTrigger = { TriggerType::USE_HERO_POWER, nullptr };
+        aura->removeTrigger = { TriggerType::INSPIRE, nullptr };
     }
     cards.emplace("SCH_312e", CardDef(power));
 

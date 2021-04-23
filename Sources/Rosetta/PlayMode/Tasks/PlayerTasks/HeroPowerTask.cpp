@@ -73,9 +73,9 @@ TaskStatus HeroPowerTask::Impl(Player* player)
 
     power.SetExhausted(true);
 
-    // Process use hero power trigger
+    // Process inspire trigger
     player->game->taskQueue.StartEvent();
-    player->game->triggerManager.OnUseHeroPowerTrigger(player);
+    player->game->triggerManager.OnInspireTrigger(player);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 
