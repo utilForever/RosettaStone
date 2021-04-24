@@ -645,6 +645,11 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: You can use your Hero Power any number of times.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::HERO_POWER, GameTag::EXHAUSTED, 0) };
+    cards.emplace("CORE_AT_008", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_BOT_453] Shooting Star - COST:1
