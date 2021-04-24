@@ -592,6 +592,11 @@ void TgtCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: You can use your Hero Power any number of times.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::HERO_POWER, GameTag::EXHAUSTED, 0) };
+    cards.emplace("AT_008", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [AT_009] Rhonin - COST:8 [ATK:7/HP:7]
