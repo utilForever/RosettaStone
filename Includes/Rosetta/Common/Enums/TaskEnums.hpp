@@ -44,6 +44,7 @@ enum class EntityType
     HERO,
     ENEMY_HERO,
     HEROES,
+    HERO_POWER,
     WEAPON,
     ENEMY_WEAPON,
     HAND,
