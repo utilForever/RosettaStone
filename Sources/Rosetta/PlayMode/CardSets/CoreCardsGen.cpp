@@ -658,6 +658,19 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion and the minions next to it.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::TARGET, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 1, true));
+    cards.emplace(
+        "CORE_BOT_453",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_CS2_023] Arcane Intellect - COST:3
