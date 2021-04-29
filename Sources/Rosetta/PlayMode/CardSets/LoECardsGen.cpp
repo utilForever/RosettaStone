@@ -6,6 +6,8 @@
 #include <Rosetta/PlayMode/CardSets/LoECardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
 void LoECardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -132,6 +134,8 @@ void LoECardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [LOE_002] Forgotten Torch - COST:3
     // - Set: LoE, Rarity: Common
@@ -154,6 +158,9 @@ void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("LOE_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [LOE_119] Animated Armor - COST:4 [ATK:4/HP:4]
