@@ -878,6 +878,9 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("CORE_LOE_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_UNG_020] Arcanologist - COST:2 [ATK:2/HP:3]
