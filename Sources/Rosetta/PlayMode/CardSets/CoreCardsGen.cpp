@@ -707,6 +707,10 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 5, true));
+    cards.emplace("CORE_CS2_032", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
