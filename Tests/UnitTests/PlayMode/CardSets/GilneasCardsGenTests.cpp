@@ -90,3 +90,63 @@ TEST_CASE("[Hunter : Spell] - GIL_828 : Dire Frenzy")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 6);
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 5);
 }
+
+// ------------------------------------------- SPELL - MAGE
+// [GIL_801] Snap Freeze - COST:2
+// - Set: Gilneas, Rarity: Common
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a minion.
+//       If it's already <b>Frozen</b>, destroy it.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - GIL_801 : Snap Freeze")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snap Freeze"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snap Freeze"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->IsFrozen(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(opField.GetCount(), 0);
+}
