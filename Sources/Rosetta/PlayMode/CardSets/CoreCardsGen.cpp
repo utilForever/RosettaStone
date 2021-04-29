@@ -679,6 +679,9 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cards.emplace("CORE_CS2_023", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_CS2_029] Fireball - COST:4

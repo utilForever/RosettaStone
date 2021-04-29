@@ -1977,3 +1977,39 @@ TEST_CASE("[Mage : Spell] - CORE_BOT_453 : Shooting Star")
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 11);
 }
+
+// ------------------------------------------- SPELL - MAGE
+// [CORE_CS2_023] Arcane Intellect - COST:3
+// - Set: CORE, Rarity: Common
+// - Spell School: Arcane
+// --------------------------------------------------------
+// Text: Draw 2 cards.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - CORE_CS2_023 : Arcane Intellect")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Intellect"));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+}
