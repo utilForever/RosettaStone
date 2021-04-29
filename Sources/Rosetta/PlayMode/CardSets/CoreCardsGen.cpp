@@ -805,6 +805,24 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::EVENT_SOURCE,
+            SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsNotUntouchable()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsOpFieldNotFull()) }),
+        std::make_shared<FlagTask>(
+            true,
+            ComplexTask::ActivateSecret(TaskList{
+                std::make_shared<SummonCopyTask>(EntityType::EVENT_SOURCE) }))
+    };
+    cards.emplace("CORE_EX1_294", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_GIL_801] Snap Freeze - COST:1
