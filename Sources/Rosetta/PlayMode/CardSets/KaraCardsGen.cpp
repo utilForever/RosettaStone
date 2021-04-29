@@ -132,6 +132,8 @@ void KaraCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [KAR_009] Babbling Book - COST:1 [ATK:1/HP:1]
     // - Set: Kara, Rarity: Rare
@@ -141,6 +143,11 @@ void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("KAR_009", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [KAR_076] Firelands Portal - COST:7
