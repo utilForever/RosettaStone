@@ -721,6 +721,9 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_033", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_275] Cone of Cold - COST:3
