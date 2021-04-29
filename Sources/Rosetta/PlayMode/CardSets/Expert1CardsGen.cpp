@@ -1367,7 +1367,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
+    // Text: <b>Secret:</b> When your opponent casts a spell,
+    //       <b>Counter</b> it.
     // --------------------------------------------------------
     // GameTag:
     // - SECRET = 1

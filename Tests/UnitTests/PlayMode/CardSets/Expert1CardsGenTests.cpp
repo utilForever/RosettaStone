@@ -2400,7 +2400,8 @@ TEST_CASE("[Mage : Spell] - EX1_279 : Pyroblast")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Arcane
 // --------------------------------------------------------
-// Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
+// Text: <b>Secret:</b> When your opponent casts a spell,
+//       <b>Counter</b> it.
 // --------------------------------------------------------
 // GameTag:
 // - SECRET = 1
