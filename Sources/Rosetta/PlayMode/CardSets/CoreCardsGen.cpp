@@ -862,6 +862,11 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_KAR_009", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:4]
