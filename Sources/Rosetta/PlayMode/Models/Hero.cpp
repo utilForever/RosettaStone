@@ -40,6 +40,11 @@ void Hero::SetArmor(int armor)
     SetGameTag(GameTag::ARMOR, armor);
 }
 
+int Hero::GetHeroPowerDamage() const
+{
+    return GetGameTag(GameTag::HEROPOWER_DAMAGE);
+}
+
 void Hero::AddWeapon(Weapon& _weapon)
 {
     RemoveWeapon();

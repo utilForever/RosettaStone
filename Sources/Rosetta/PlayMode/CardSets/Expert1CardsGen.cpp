@@ -1367,7 +1367,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
+    // Text: <b>Secret:</b> When your opponent casts a spell,
+    //       <b>Counter</b> it.
     // --------------------------------------------------------
     // GameTag:
     // - SECRET = 1
@@ -3337,7 +3338,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                 SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
         power.AddPowerTask(std::make_shared<FlagTask>(
             true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
-                            std::make_shared<DrawStackTask>(1) }));
+                            std::make_shared<DrawStackTask>() }));
         power.AddPowerTask(std::make_shared<FlagTask>(
             false, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
                                                            "EX1_317t") }));

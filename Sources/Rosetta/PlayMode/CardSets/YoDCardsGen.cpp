@@ -298,7 +298,7 @@ void YoDCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(std::make_shared<Aura>(
-        AuraType::PLAYER,
+        AuraType::HERO,
         EffectList{ std::make_shared<Effect>(GameTag::HEROPOWER_DAMAGE,
                                              EffectOperator::ADD, 2) }));
     cards.emplace("YOD_008", CardDef(power));

@@ -6,17 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_COMPLEX_TASK_HPP
 #define ROSETTASTONE_PLAYMODE_COMPLEX_TASK_HPP
 
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddEnchantmentTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/ConditionTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToGraveyardTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SetGameTagTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonStackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 #include <utility>
 
@@ -33,6 +23,17 @@ using TaskList = std::vector<std::shared_ptr<ITask>>;
 class ComplexTask
 {
  public:
+    //! Returns a list of task for drawing card(s) from your deck.
+    static TaskList DrawCardFromDeck(int amount, const SelfCondList& list)
+    {
+        return TaskList{ std::make_shared<SimpleTasks::IncludeTask>(
+                             EntityType::DECK),
+                         std::make_shared<SimpleTasks::FilterStackTask>(list),
+                         std::make_shared<SimpleTasks::RandomTask>(
+                             EntityType::STACK, amount),
+                         std::make_shared<SimpleTasks::DrawStackTask>() };
+    }
+
     //! Returns a list of task for summoning a minion from your deck.
     static TaskList SummonMinionFromDeck()
     {

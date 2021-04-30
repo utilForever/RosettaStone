@@ -51,7 +51,7 @@ enum class TriggerType
     DISCARD,  //!< The effect will be triggered when a card is discarded from
               //!< hand.
     DEATH,    //!< The effect will be triggered when a minion dies.
-    USE_HERO_POWER,  //!< The effect will be triggered when a hero uses power.
+    INSPIRE,  //!< The effect will be triggered when a hero uses power.
     SHUFFLE_INTO_DECK,  //!< The effect will be triggered when a card is
                         //!< shuffled into a deck.
     MULTI_TRIGGER,      //!< The effect for multi trigger.

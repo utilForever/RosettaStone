@@ -621,6 +621,8 @@ void CoreCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [CORE_AT_003] Fallen Hero - COST:2 [ATK:3/HP:2]
     // - Set: CORE, Rarity: Rare
@@ -630,6 +632,12 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HEROPOWER_DAMAGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::HERO,
+        EffectList{ std::make_shared<Effect>(GameTag::HEROPOWER_DAMAGE,
+                                             EffectOperator::ADD, 1) }));
+    cards.emplace("CORE_AT_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_AT_008] Coldarra Drake - COST:6 [ATK:6/HP:7]
@@ -637,6 +645,11 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: You can use your Hero Power any number of times.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::HERO_POWER, GameTag::EXHAUSTED, 0) };
+    cards.emplace("CORE_AT_008", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_BOT_453] Shooting Star - COST:1
@@ -645,6 +658,19 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion and the minions next to it.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::TARGET, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 1, true));
+    cards.emplace(
+        "CORE_BOT_453",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_CS2_023] Arcane Intellect - COST:3
@@ -653,6 +679,9 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cards.emplace("CORE_CS2_023", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_CS2_029] Fireball - COST:4
@@ -661,6 +690,15 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 6 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 6, true));
+    cards.emplace(
+        "CORE_CS2_029",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_CS2_032] Flamestrike - COST:7
@@ -669,6 +707,10 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 5, true));
+    cards.emplace("CORE_CS2_032", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
@@ -679,6 +721,9 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_033", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_275] Cone of Cold - COST:3
@@ -691,6 +736,21 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::TARGET, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 1, true));
+    cards.emplace(
+        "CORE_EX1_275",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_287] Counterspell - COST:3
@@ -706,6 +766,14 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - COUNTER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<SetGameTagTask>(
+            EntityType::TARGET, GameTag::CANT_PLAY, 1) });
+    power.GetTrigger()->fastExecution = true;
+    cards.emplace("CORE_EX1_287", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_289] Ice Barrier - COST:3
@@ -718,6 +786,13 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<ArmorTask>(8) });
+    cards.emplace("CORE_EX1_289", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_294] Mirror Entity - COST:3
@@ -730,6 +805,24 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::EVENT_SOURCE,
+            SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsNotUntouchable()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsOpFieldNotFull()) }),
+        std::make_shared<FlagTask>(
+            true,
+            ComplexTask::ActivateSecret(TaskList{
+                std::make_shared<SummonCopyTask>(EntityType::EVENT_SOURCE) }))
+    };
+    cards.emplace("CORE_EX1_294", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_GIL_801] Snap Freeze - COST:1
@@ -739,9 +832,26 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: <b>Freeze</b> a minion.
     //       If it's already <b>Frozen</b>, destroy it.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SetGameTagTask>(
+                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+    cards.emplace(
+        "CORE_GIL_801",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_KAR_009] Babbling Book - COST:1 [ATK:1/HP:1]
@@ -752,6 +862,11 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_KAR_009", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:4]
@@ -763,6 +878,9 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("CORE_LOE_003", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_UNG_020] Arcanologist - COST:2 [ATK:2/HP:3]
@@ -776,6 +894,11 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{
+               std::make_shared<SelfCondition>(SelfCondition::IsSecret()) }));
+    cards.emplace("CORE_UNG_020", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CS3_001] Aegwynn, the Guardian - COST:5 [ATK:5/HP:5]

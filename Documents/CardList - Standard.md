@@ -10,8 +10,8 @@
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-CORE | CORE_AT_003 | Fallen Hero |  
-CORE | CORE_AT_008 | Coldarra Drake |  
+CORE | CORE_AT_003 | Fallen Hero | O
+CORE | CORE_AT_008 | Coldarra Drake | O
 CORE | CORE_AT_021 | Tiny Knight of Evil |  
 CORE | CORE_AT_047 | Draenei Totemcarver |  
 CORE | CORE_AT_055 | Flash Heal |  
@@ -20,7 +20,7 @@ CORE | CORE_AT_075 | Warhorse Trainer |
 CORE | CORE_AT_092 | Ice Rager |  
 CORE | CORE_BOT_083 | Toxicologist |  
 CORE | CORE_BOT_420 | Landscaping | O
-CORE | CORE_BOT_453 | Shooting Star |  
+CORE | CORE_BOT_453 | Shooting Star | O
 CORE | CORE_BOT_533 | Menacing Nimbus |  
 CORE | CORE_BRM_013 | Quick Shot | O
 CORE | CORE_BT_035 | Chaos Strike |  
@@ -40,10 +40,10 @@ CORE | CORE_CS1_112 | Holy Nova |
 CORE | CORE_CS1_130 | Holy Smite |  
 CORE | CORE_CS2_009 | Mark of the Wild | O
 CORE | CORE_CS2_013 | Wild Growth | O
-CORE | CORE_CS2_023 | Arcane Intellect |  
-CORE | CORE_CS2_029 | Fireball |  
-CORE | CORE_CS2_032 | Flamestrike |  
-CORE | CORE_CS2_033 | Water Elemental |  
+CORE | CORE_CS2_023 | Arcane Intellect | O
+CORE | CORE_CS2_029 | Fireball | O
+CORE | CORE_CS2_032 | Flamestrike | O
+CORE | CORE_CS2_033 | Water Elemental | O
 CORE | CORE_CS2_039 | Windfury |  
 CORE | CORE_CS2_042 | Fire Elemental |  
 CORE | CORE_CS2_045 | Rockbiter Weapon |  
@@ -125,10 +125,10 @@ CORE | CORE_EX1_249 | Baron Geddon |
 CORE | CORE_EX1_250 | Earth Elemental |  
 CORE | CORE_EX1_258 | Unbound Elemental |  
 CORE | CORE_EX1_259 | Lightning Storm |  
-CORE | CORE_EX1_275 | Cone of Cold |  
-CORE | CORE_EX1_287 | Counterspell |  
-CORE | CORE_EX1_289 | Ice Barrier |  
-CORE | CORE_EX1_294 | Mirror Entity |  
+CORE | CORE_EX1_275 | Cone of Cold | O
+CORE | CORE_EX1_287 | Counterspell | O
+CORE | CORE_EX1_289 | Ice Barrier | O
+CORE | CORE_EX1_294 | Mirror Entity | O
 CORE | CORE_EX1_302 | Mortal Coil |  
 CORE | CORE_EX1_304 | Void Terror |  
 CORE | CORE_EX1_309 | Siphon Soul |  
@@ -173,7 +173,7 @@ CORE | CORE_FP1_011 | Webspinner | O
 CORE | CORE_FP1_020 | Avenge |  
 CORE | CORE_FP1_031 | Baron Rivendare |  
 CORE | CORE_GIL_191 | Fiendish Circle |  
-CORE | CORE_GIL_801 | Snap Freeze |  
+CORE | CORE_GIL_801 | Snap Freeze | O
 CORE | CORE_GIL_828 | Dire Frenzy | O
 CORE | CORE_GVG_013 | Cogmaster |  
 CORE | CORE_GVG_044 | Spider Tank |  
@@ -187,12 +187,12 @@ CORE | CORE_ICC_038 | Righteous Protector |
 CORE | CORE_ICC_055 | Drain Soul |  
 CORE | CORE_ICC_419 | Bearshark | O
 CORE | CORE_ICC_809 | Plague Scientist |  
-CORE | CORE_KAR_009 | Babbling Book |  
+CORE | CORE_KAR_009 | Babbling Book | O
 CORE | CORE_KAR_036 | Arcane Anomaly |  
 CORE | CORE_KAR_065 | Menagerie Warden | O
 CORE | CORE_KAR_069 | Swashburglar |  
 CORE | CORE_KAR_300 | Enchanted Raven | O
-CORE | CORE_LOE_003 | Ethereal Conjurer |  
+CORE | CORE_LOE_003 | Ethereal Conjurer | O
 CORE | CORE_LOE_012 | Tomb Pillager |  
 CORE | CORE_LOEA10_3 | Murloc Tinyfin |  
 CORE | CORE_LOOT_124 | Lone Champion |  
@@ -209,7 +209,7 @@ CORE | CORE_OG_273 | Stand Against Darkness |
 CORE | CORE_TRL_111 | Headhunter's Hatchet | O
 CORE | CORE_TRL_243 | Pounce | O
 CORE | CORE_tt_004 | Flesheating Ghoul |  
-CORE | CORE_UNG_020 | Arcanologist |  
+CORE | CORE_UNG_020 | Arcanologist | O
 CORE | CORE_UNG_813 | Stormwatcher |  
 CORE | CORE_UNG_817 | Tidal Surge |  
 CORE | CORE_UNG_833 | Lakkari Felhound |  
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 13% (32 of 235 Cards)
+- Progress: 20% (47 of 235 Cards)
 
 ## Ashes of Outland
 

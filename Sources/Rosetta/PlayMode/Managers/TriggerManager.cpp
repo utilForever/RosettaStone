@@ -118,9 +118,9 @@ void TriggerManager::OnDeathTrigger(Entity* sender)
     deathTrigger(sender);
 }
 
-void TriggerManager::OnUseHeroPowerTrigger(Entity* sender)
+void TriggerManager::OnInspireTrigger(Entity* sender)
 {
-    useHeroPowerTrigger(sender);
+    inspireTrigger(sender);
 }
 
 void TriggerManager::OnShuffleIntoDeckTrigger(Entity* sender)

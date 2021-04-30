@@ -9,27 +9,22 @@
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
-DrawStackTask::DrawStackTask(std::size_t amount, bool addToStack)
-    : m_amount(amount), m_addToStack(addToStack)
+DrawStackTask::DrawStackTask(bool addToStack) : m_addToStack(addToStack)
 {
     // Do nothing
 }
 
 TaskStatus DrawStackTask::Impl(Player* player)
 {
-    auto& stack = player->game->taskStack.playables;
-    const std::size_t amount =
-        (m_amount <= stack.size()) ? m_amount : stack.size();
-
-    for (std::size_t i = 0; i < amount; ++i)
+    std::vector<Playable*>& playables = player->game->taskStack.playables;
+    for (const auto& card : playables)
     {
-        Playable* card = stack.at(i);
         Generic::Draw(player, card);
     }
 
     if (!m_addToStack)
     {
-        stack.clear();
+        playables.clear();
     }
 
     return TaskStatus::COMPLETE;
@@ -37,6 +32,6 @@ TaskStatus DrawStackTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DrawStackTask::CloneImpl()
 {
-    return std::make_unique<DrawStackTask>(m_amount, m_addToStack);
+    return std::make_unique<DrawStackTask>(m_addToStack);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks

@@ -799,7 +799,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>());
     cards.emplace("DRG_010", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
@@ -850,7 +850,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::DECK),
         std::make_shared<FilterStackTask>(SelfCondList{
@@ -938,7 +938,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - SIDEQUEST = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_255t2", 3) }) };
     cards.emplace("DRG_255", CardDef(power, 3, 0));
@@ -954,7 +954,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::USE_HERO_POWER));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
     power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
         std::make_shared<DamageTask>(EntityType::STACK, 5)
@@ -1354,7 +1354,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
             std::make_shared<FilterStackTask>(SelfCondList{
                 std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }),
             std::make_shared<RandomTask>(EntityType::STACK, 3),
-            std::make_shared<DrawStackTask>(3) },
+            std::make_shared<DrawStackTask>() },
         ProgressType::PLAY_ELEMENTAL_MINONS) };
     auto trigger4 = std::make_shared<Trigger>(TriggerType::TURN_END);
     trigger4->condition = std::make_shared<SelfCondition>(
@@ -2326,7 +2326,7 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                                                          GameTag::ENTITY_ID),
                         std::make_shared<AddEnchantmentTask>(
                             "DRG_031e", EntityType::SOURCE, false, true),
-                        std::make_shared<DrawStackTask>(1) }));
+                        std::make_shared<DrawStackTask>() }));
     cards.emplace("DRG_031", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
@@ -2368,7 +2368,8 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
     power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsNotStartInDeck()) }));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(2));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(std::make_shared<DrawStackTask>());
     cards.emplace("DRG_034", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
@@ -3269,7 +3270,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
             std::make_shared<SelfCondition>(
                 SelfCondition::IsRace(Race::PIRATE)) }),
         std::make_shared<RandomTask>(EntityType::STACK, 1),
-        std::make_shared<DrawStackTask>(1)
+        std::make_shared<DrawStackTask>()
     };
     cards.emplace("DRG_025", CardDef(power));
 
@@ -4096,7 +4097,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                              SelfCondList{ std::make_shared<SelfCondition>(
                                  SelfCondition::IsGalakrondHero()) }),
                          std::make_shared<RandomTask>(EntityType::STACK, 1),
-                         std::make_shared<DrawStackTask>(1) }));
+                         std::make_shared<DrawStackTask>() }));
     cards.emplace("DRG_099", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
@@ -4683,7 +4684,7 @@ void DragonsCardsGen::AddNeutralNonCollect(
                                          EffectList{ Effects::SetCost(3) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->removeTrigger = { TriggerType::USE_HERO_POWER, nullptr };
+        aura->removeTrigger = { TriggerType::INSPIRE, nullptr };
     }
     cards.emplace("DRG_403e", CardDef(power));
 

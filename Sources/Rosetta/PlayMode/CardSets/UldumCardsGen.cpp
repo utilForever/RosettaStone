@@ -952,7 +952,7 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("ULD_726e", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>());
     cards.emplace("ULD_726", CardDef(power));
 }
 
@@ -1097,7 +1097,7 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         std::make_shared<SelfCondition>(SelfCondition::IsCost(1)) }));
     power.AddDeathrattleTask(
         std::make_shared<RandomTask>(EntityType::STACK, 2));
-    power.AddDeathrattleTask(std::make_shared<DrawStackTask>(2));
+    power.AddDeathrattleTask(std::make_shared<DrawStackTask>());
     cards.emplace("ULD_438", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN

@@ -441,7 +441,7 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
         std::make_shared<FilterStackTask>(SelfCondList{
             std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }),
         std::make_shared<RandomTask>(EntityType::STACK, 1),
-        std::make_shared<DrawStackTask>(1)
+        std::make_shared<DrawStackTask>()
     };
     cards.emplace("DAL_372", CardDef(power));
 

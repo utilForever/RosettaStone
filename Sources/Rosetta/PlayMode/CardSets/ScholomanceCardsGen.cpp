@@ -1824,7 +1824,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsOutcastCard()) }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>());
     cards.emplace("SCH_422", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
@@ -3414,7 +3414,7 @@ void ScholomanceCardsGen::AddNeutralNonCollect(
                                          EffectList{ Effects::SetCost(0) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->removeTrigger = { TriggerType::USE_HERO_POWER, nullptr };
+        aura->removeTrigger = { TriggerType::INSPIRE, nullptr };
     }
     cards.emplace("SCH_312e", CardDef(power));
 
