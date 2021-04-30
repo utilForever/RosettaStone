@@ -2299,7 +2299,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>());
     cards.emplace("DMF_526", CardDef(power, "DMF_526a"));
 
     // --------------------------------------- MINION - WARRIOR
@@ -2412,7 +2412,7 @@ void DarkmoonFaireCardsGen::AddWarriorNonCollect(
     power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::HasRush()) }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1, true));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DMF_526e", EntityType::STACK));
     cards.emplace("DMF_526a", CardDef(power));

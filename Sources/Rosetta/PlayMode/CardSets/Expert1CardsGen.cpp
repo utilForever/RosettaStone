@@ -3338,7 +3338,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                 SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
         power.AddPowerTask(std::make_shared<FlagTask>(
             true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
-                            std::make_shared<DrawStackTask>(1) }));
+                            std::make_shared<DrawStackTask>() }));
         power.AddPowerTask(std::make_shared<FlagTask>(
             false, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
                                                            "EX1_317t") }));

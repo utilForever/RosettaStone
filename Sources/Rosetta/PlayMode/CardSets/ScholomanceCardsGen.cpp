@@ -1824,7 +1824,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsOutcastCard()) }));
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(std::make_shared<DrawStackTask>(1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>());
     cards.emplace("SCH_422", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
