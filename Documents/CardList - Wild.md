@@ -9,8 +9,10 @@
 * [Curse of Naxxramas](#curse-of-naxxramas)
 * [Blackrock Mountain](#blackrock-mountain)
 * [The Grand Tournament](#the-grand-tournament)
+* [The League of Explorers](#the-league-of-explorers)
 * [Whispers of the Old Gods](#whispers-of-the-old-gods)
 * [One Night in Karazhan](#one-night-in-karazhan)
+* [Journey to Un'Goro](#journey-to-ungoro)
 * [Knights of the Frozen Throne](#knights-of-the-frozen-throne)
 * [The Witchwood](#the-witchwood)
 * [The Boomsday Project](#the-boomsday-project)
@@ -567,12 +569,12 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 TGT | AT_001 | Flame Lance |  
 TGT | AT_002 | Effigy |  
-TGT | AT_003 | Fallen Hero |  
+TGT | AT_003 | Fallen Hero | O
 TGT | AT_004 | Arcane Blast |  
 TGT | AT_005 | Polymorph: Boar |  
 TGT | AT_006 | Dalaran Aspirant |  
 TGT | AT_007 | Spellslinger |  
-TGT | AT_008 | Coldarra Drake |  
+TGT | AT_008 | Coldarra Drake | O
 TGT | AT_009 | Rhonin |  
 TGT | AT_010 | Ram Wrangler |  
 TGT | AT_011 | Holy Champion |  
@@ -698,7 +700,59 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 0% (1 of 132 Cards)
+- Progress: 2% (3 of 132 Cards)
+
+## The League of Explorers
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+LOE | LOE_002 | Forgotten Torch |  
+LOE | LOE_003 | Ethereal Conjurer | O
+LOE | LOE_006 | Museum Curator |  
+LOE | LOE_007 | Curse of Rafaam |  
+LOE | LOE_009 | Obsidian Destroyer |  
+LOE | LOE_010 | Pit Snake |  
+LOE | LOE_011 | Reno Jackson |  
+LOE | LOE_012 | Tomb Pillager |  
+LOE | LOE_016 | Rumbling Elemental |  
+LOE | LOE_017 | Keeper of Uldaman |  
+LOE | LOE_018 | Tunnel Trogg |  
+LOE | LOE_019 | Unearthed Raptor |  
+LOE | LOE_020 | Desert Camel |  
+LOE | LOE_021 | Dart Trap |  
+LOE | LOE_022 | Fierce Monkey |  
+LOE | LOE_023 | Dark Peddler |  
+LOE | LOE_026 | Anyfin Can Happen |  
+LOE | LOE_027 | Sacred Trial |  
+LOE | LOE_029 | Jeweled Scarab |  
+LOE | LOE_038 | Naga Sea Witch |  
+LOE | LOE_039 | Gorillabot A-3 |  
+LOE | LOE_046 | Huge Toad |  
+LOE | LOE_047 | Tomb Spider |  
+LOE | LOE_050 | Mounted Raptor |  
+LOE | LOE_051 | Jungle Moonkin |  
+LOE | LOE_053 | Djinni of Zephyrs |  
+LOE | LOE_061 | Anubisath Sentinel |  
+LOE | LOE_073 | Fossilized Devilsaur |  
+LOE | LOE_076 | Sir Finley Mrrgglton |  
+LOE | LOE_077 | Brann Bronzebeard |  
+LOE | LOE_079 | Elise Starseeker |  
+LOE | LOE_086 | Summoning Stone |  
+LOE | LOE_089 | Wobbling Runts |  
+LOE | LOE_092 | Arch-Thief Rafaam |  
+LOE | LOE_104 | Entomb |  
+LOE | LOE_105 | Explorer's Hat |  
+LOE | LOE_107 | Eerie Statue |  
+LOE | LOE_110 | Ancient Shade |  
+LOE | LOE_111 | Excavated Evil |  
+LOE | LOE_113 | Everyfin is Awesome |  
+LOE | LOE_115 | Raven Idol |  
+LOE | LOE_116 | Reliquary Seeker |  
+LOE | LOE_118 | Cursed Blade |  
+LOE | LOE_119 | Animated Armor |  
+LOE | LOEA10_3 | Murloc Tinyfin |  
+
+- Progress: 2% (1 of 45 Cards)
 
 ## Whispers of the Old Gods
 
@@ -848,7 +902,7 @@ Set | ID | Name | Implemented
 KARA | KAR_004 | Cat Trick |  
 KARA | KAR_005 | Kindly Grandmother |  
 KARA | KAR_006 | Cloaked Huntress |  
-KARA | KAR_009 | Babbling Book |  
+KARA | KAR_009 | Babbling Book | O
 KARA | KAR_010 | Nightbane Templar |  
 KARA | KAR_011 | Pompous Thespian |  
 KARA | KAR_013 | Purify |  
@@ -891,7 +945,149 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 4% (2 of 45 Cards)
+- Progress: 6% (3 of 45 Cards)
+
+## Journey to Un'Goro
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+UNGORO | UNG_001 | Pterrordax Hatchling |  
+UNGORO | UNG_002 | Volcanosaur |  
+UNGORO | UNG_004 | Dinosize |  
+UNGORO | UNG_009 | Ravasaur Runt |  
+UNGORO | UNG_010 | Sated Threshadon |  
+UNGORO | UNG_011 | Hydrologist |  
+UNGORO | UNG_015 | Sunkeeper Tarim |  
+UNGORO | UNG_018 | Flame Geyser |  
+UNGORO | UNG_019 | Air Elemental |  
+UNGORO | UNG_020 | Arcanologist | O
+UNGORO | UNG_021 | Steam Surger |  
+UNGORO | UNG_022 | Mirage Caller |  
+UNGORO | UNG_024 | Mana Bind |  
+UNGORO | UNG_025 | Volcano |  
+UNGORO | UNG_027 | Pyros |  
+UNGORO | UNG_028 | Open the Waygate |  
+UNGORO | UNG_029 | Shadow Visions |  
+UNGORO | UNG_030 | Binding Heal |  
+UNGORO | UNG_032 | Crystalline Oracle |  
+UNGORO | UNG_034 | Radiant Elemental |  
+UNGORO | UNG_035 | Curious Glimmerroot |  
+UNGORO | UNG_037 | Tortollan Shellraiser |  
+UNGORO | UNG_047 | Ravenous Pterrordax |  
+UNGORO | UNG_049 | Tar Lurker |  
+UNGORO | UNG_057 | Razorpetal Volley |  
+UNGORO | UNG_058 | Razorpetal Lasher |  
+UNGORO | UNG_060 | Mimic Pod |  
+UNGORO | UNG_061 | Obsidian Shard |  
+UNGORO | UNG_063 | Biteweed |  
+UNGORO | UNG_064 | Vilespine Slayer |  
+UNGORO | UNG_065 | Sherazin, Corpse Flower |  
+UNGORO | UNG_067 | The Caverns Below |  
+UNGORO | UNG_070 | Tol'vir Stoneshaper |  
+UNGORO | UNG_071 | Giant Mastodon |  
+UNGORO | UNG_072 | Stonehill Defender |  
+UNGORO | UNG_073 | Rockpool Hunter |  
+UNGORO | UNG_075 | Vicious Fledgling |  
+UNGORO | UNG_076 | Eggnapper |  
+UNGORO | UNG_078 | Tortollan Forager |  
+UNGORO | UNG_079 | Frozen Crusher |  
+UNGORO | UNG_082 | Thunder Lizard |  
+UNGORO | UNG_083 | Devilsaur Egg |  
+UNGORO | UNG_084 | Fire Plume Phoenix |  
+UNGORO | UNG_085 | Emerald Hive Queen |  
+UNGORO | UNG_086 | Giant Anaconda |  
+UNGORO | UNG_087 | Bittertide Hydra |  
+UNGORO | UNG_088 | Tortollan Primalist |  
+UNGORO | UNG_089 | Gentle Megasaur |  
+UNGORO | UNG_099 | Charged Devilsaur |  
+UNGORO | UNG_100 | Verdant Longneck |  
+UNGORO | UNG_101 | Shellshifter |  
+UNGORO | UNG_103 | Evolving Spores |  
+UNGORO | UNG_108 | Earthen Scales |  
+UNGORO | UNG_109 | Elder Longneck |  
+UNGORO | UNG_111 | Living Mana |  
+UNGORO | UNG_113 | Bright-Eyed Scout |  
+UNGORO | UNG_116 | Jungle Giants |  
+UNGORO | UNG_201 | Primalfin Totem |  
+UNGORO | UNG_202 | Fire Plume Harbinger |  
+UNGORO | UNG_205 | Glacial Shard |  
+UNGORO | UNG_208 | Stone Sentinel |  
+UNGORO | UNG_211 | Kalimos, Primal Lord |  
+UNGORO | UNG_800 | Terrorscale Stalker |  
+UNGORO | UNG_801 | Nesting Roc |  
+UNGORO | UNG_803 | Emerald Reaver |  
+UNGORO | UNG_806 | Ultrasaur |  
+UNGORO | UNG_807 | Golakka Crawler |  
+UNGORO | UNG_808 | Stubborn Gastropod |  
+UNGORO | UNG_809 | Fire Fly |  
+UNGORO | UNG_810 | Stegodon |  
+UNGORO | UNG_812 | Sabretooth Stalker |  
+UNGORO | UNG_813 | Stormwatcher |  
+UNGORO | UNG_814 | Giant Wasp |  
+UNGORO | UNG_816 | Servant of Kalimos |  
+UNGORO | UNG_817 | Tidal Surge |  
+UNGORO | UNG_818 | Volatile Elemental |  
+UNGORO | UNG_823 | Envenom Weapon |  
+UNGORO | UNG_829 | Lakkari Sacrifice |  
+UNGORO | UNG_830 | Cruel Dinomancer |  
+UNGORO | UNG_831 | Corrupting Mist |  
+UNGORO | UNG_832 | Bloodbloom |  
+UNGORO | UNG_833 | Lakkari Felhound |  
+UNGORO | UNG_834 | Feeding Time |  
+UNGORO | UNG_835 | Chittering Tunneler |  
+UNGORO | UNG_836 | Clutchmother Zavas |  
+UNGORO | UNG_838 | Tar Lord |  
+UNGORO | UNG_840 | Hemet, Jungle Hunter |  
+UNGORO | UNG_843 | The Voraxx |  
+UNGORO | UNG_844 | Humongous Razorleaf |  
+UNGORO | UNG_845 | Igneous Elemental |  
+UNGORO | UNG_846 | Shimmering Tempest |  
+UNGORO | UNG_847 | Blazecaller |  
+UNGORO | UNG_848 | Primordial Drake |  
+UNGORO | UNG_851 | Elise the Trailblazer |  
+UNGORO | UNG_852 | Tyrantus |  
+UNGORO | UNG_854 | Free From Amber |  
+UNGORO | UNG_856 | Hallucination |  
+UNGORO | UNG_900 | Spiritsinger Umbra |  
+UNGORO | UNG_907 | Ozruk |  
+UNGORO | UNG_910 | Grievous Bite |  
+UNGORO | UNG_912 | Jeweled Macaw |  
+UNGORO | UNG_913 | Tol'vir Warden |  
+UNGORO | UNG_914 | Raptor Hatchling |  
+UNGORO | UNG_915 | Crackling Razormaw |  
+UNGORO | UNG_916 | Stampede |  
+UNGORO | UNG_917 | Dinomancy |  
+UNGORO | UNG_919 | Swamp King Dred |  
+UNGORO | UNG_920 | The Marsh Queen |  
+UNGORO | UNG_922 | Explore Un'Goro |  
+UNGORO | UNG_923 | Iron Hide |  
+UNGORO | UNG_925 | Ornery Direhorn |  
+UNGORO | UNG_926 | Cornered Sentry |  
+UNGORO | UNG_927 | Sudden Genesis |  
+UNGORO | UNG_928 | Tar Creeper |  
+UNGORO | UNG_929 | Molten Blade |  
+UNGORO | UNG_933 | King Mosh |  
+UNGORO | UNG_934 | Fire Plume's Heart |  
+UNGORO | UNG_937 | Primalfin Lookout |  
+UNGORO | UNG_938 | Hot Spring Guardian |  
+UNGORO | UNG_940 | Awaken the Makers |  
+UNGORO | UNG_941 | Primordial Glyph |  
+UNGORO | UNG_942 | Unite the Murlocs |  
+UNGORO | UNG_946 | Gluttonous Ooze |  
+UNGORO | UNG_948 | Molten Reflection |  
+UNGORO | UNG_950 | Vinecleaver |  
+UNGORO | UNG_952 | Spikeridged Steed |  
+UNGORO | UNG_953 | Primalfin Champion |  
+UNGORO | UNG_954 | The Last Kaleidosaur |  
+UNGORO | UNG_955 | Meteor |  
+UNGORO | UNG_956 | Spirit Echo |  
+UNGORO | UNG_957 | Direhorn Hatchling |  
+UNGORO | UNG_960 | Lost in the Jungle |  
+UNGORO | UNG_961 | Adaptation |  
+UNGORO | UNG_962 | Lightfused Stegodon |  
+UNGORO | UNG_963 | Lyra the Sunshard |  
+
+- Progress: 0% (1 of 135 Cards)
 
 ## Knights of the Frozen Throne
 
@@ -1147,7 +1343,7 @@ GILNEAS | GIL_693 | Blood Witch |
 GILNEAS | GIL_694 | Prince Liam |  
 GILNEAS | GIL_696 | Pick Pocket |  
 GILNEAS | GIL_800 | Duskfallen Aviana |  
-GILNEAS | GIL_801 | Snap Freeze |  
+GILNEAS | GIL_801 | Snap Freeze | O
 GILNEAS | GIL_803 | Militia Commander |  
 GILNEAS | GIL_805 | Coffin Crasher |  
 GILNEAS | GIL_807 | Bogshaper |  
@@ -1169,7 +1365,7 @@ GILNEAS | GIL_902 | Cutthroat Buccaneer |
 GILNEAS | GIL_903 | Hidden Wisdom |  
 GILNEAS | GIL_905 | Carrion Drake |  
 
-- Progress: 0% (1 of 129 Cards)
+- Progress: 1% (2 of 129 Cards)
 
 ## The Boomsday Project
 
@@ -1261,7 +1457,7 @@ BOOMSDAY | BOT_445 | Mecharoo |
 BOOMSDAY | BOT_447 | Crystallizer |  
 BOOMSDAY | BOT_448 | Damaged Stegotron |  
 BOOMSDAY | BOT_451 | Voltaic Burst |  
-BOOMSDAY | BOT_453 | Shooting Star |  
+BOOMSDAY | BOT_453 | Shooting Star | O
 BOOMSDAY | BOT_507 | Gloop Sprayer |  
 BOOMSDAY | BOT_508 | Necrium Vial |  
 BOOMSDAY | BOT_509 | Dead Ringer |  
@@ -1312,7 +1508,7 @@ BOOMSDAY | BOT_912 | Kangor's Endless Army |
 BOOMSDAY | BOT_913 | Demonic Project |  
 BOOMSDAY | BOT_914 | Whizbang the Wonderful |  
 
-- Progress: 0% (1 of 136 Cards)
+- Progress: 1% (2 of 136 Cards)
 
 ## Rastakhan's Rumble
 
