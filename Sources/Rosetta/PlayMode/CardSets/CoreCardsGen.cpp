@@ -894,6 +894,11 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{
+               std::make_shared<SelfCondition>(SelfCondition::IsSecret()) }));
+    cards.emplace("CORE_UNG_020", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [CS3_001] Aegwynn, the Guardian - COST:5 [ATK:5/HP:5]
