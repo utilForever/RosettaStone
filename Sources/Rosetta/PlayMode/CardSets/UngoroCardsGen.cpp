@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/UngoroCardsGen.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 namespace RosettaStone::PlayMode
@@ -419,6 +420,8 @@ void UngoroCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [UNG_018] Flame Geyser - COST:2
     // - Faction: Neutral, Set: Ungoro, Rarity: Common
@@ -442,6 +445,11 @@ void UngoroCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{
+               std::make_shared<SelfCondition>(SelfCondition::IsSecret()) }));
+    cards.emplace("UNG_020", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [UNG_021] Steam Surger - COST:4 [ATK:5/HP:4]
