@@ -80,7 +80,7 @@ def test_find_card_by_class():
 def test_find_card_by_set():
 	cards1 = pyRosetta.Cards.find_card_by_set(pyRosetta.CardSet.CORE)
 	cards2 = pyRosetta.Cards.find_card_by_set(pyRosetta.CardSet.EXPERT1)
-	cards3 = pyRosetta.Cards.find_card_by_set(pyRosetta.CardSet.HOF)
+	cards3 = pyRosetta.Cards.find_card_by_set(pyRosetta.CardSet.LEGACY)
 	cards4 = pyRosetta.Cards.find_card_by_set(pyRosetta.CardSet.NAXX)
 	cards5 = pyRosetta.Cards.find_card_by_set(pyRosetta.CardSet.GVG)
 	cards6 = pyRosetta.Cards.find_card_by_set(pyRosetta.CardSet.BRM)
@@ -98,7 +98,7 @@ def test_find_card_by_set():
 
 	assert cards1[0].card_set() == pyRosetta.CardSet.CORE
 	assert cards2[0].card_set() == pyRosetta.CardSet.EXPERT1
-	assert cards3[0].card_set() == pyRosetta.CardSet.HOF
+	assert cards3[0].card_set() == pyRosetta.CardSet.LEGACY
 	assert cards4[0].card_set() == pyRosetta.CardSet.NAXX
 	assert cards5[0].card_set() == pyRosetta.CardSet.GVG
 	assert cards6[0].card_set() == pyRosetta.CardSet.BRM
