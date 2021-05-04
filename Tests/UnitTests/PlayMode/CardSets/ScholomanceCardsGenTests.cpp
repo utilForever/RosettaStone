@@ -2997,7 +2997,7 @@ TEST_CASE("[Neutral : Minion] - SCH_248 : Pen Flinger")
     CHECK_EQ(opField[0]->GetHealth(), 12);
 
     game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_RESOURCE);
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
@@ -3021,7 +3021,7 @@ TEST_CASE("[Neutral : Minion] - SCH_248 : Pen Flinger")
     CHECK_EQ(curHand[5]->card->name, "Pen Flinger");
     CHECK_EQ(opField[0]->GetHealth(), 1);
 
-    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[4], card4));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[5], card4));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(opField.GetCount(), 0);
 }
