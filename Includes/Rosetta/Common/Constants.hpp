@@ -34,8 +34,8 @@ constexpr std::array<CardSet, 5> STANDARD_CARD_SETS = {
 
 //! Specifies which card sets combine into the WILD set.
 constexpr std::array<CardSet, 27> WILD_CARD_SETS = {
-    CardSet::BASIC,                  // Basic, 2014
     CardSet::EXPERT1,                // Classic, 2014
+    CardSet::LEGACY,                 // Legacy, 2021
     CardSet::NAXX,                   // Curse of Naxxramas, 2014
     CardSet::GVG,                    // Goblins vs Gnomes, 2014
     CardSet::BRM,                    // Blackrock Mountain, 2015
@@ -44,7 +44,6 @@ constexpr std::array<CardSet, 27> WILD_CARD_SETS = {
     CardSet::OG,                     // Whispers of the Old Gods, 2016
     CardSet::KARA,                   // One Night in Karazhan, 2016
     CardSet::GANGS,                  // Mean Streets of Gadgetzan, 2016
-    CardSet::HOF,                    // Hall of Fame, 2017
     CardSet::UNGORO,                 // Journey to Un'Goro, 2017
     CardSet::ICECROWN,               // Knights of the Frozen Throne, 2017
     CardSet::LOOTAPALOOZA,           // Kobolds & Catacombs, 2017

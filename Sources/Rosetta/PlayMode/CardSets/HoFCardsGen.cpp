@@ -40,7 +40,7 @@ void HoFCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_161] Naturalize - COST:1
-    // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Faction: Neutral, Set: Legacy, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------
     // Text: Destroy a minion. Your opponent draws 2 cards.
@@ -79,7 +79,7 @@ void HoFCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_031] Ice Lance - COST:1
-    // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Faction: Neutral, Set: Legacy, Rarity: Common
     // - Spell School: Frost
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a character. If it was already <b>Frozen</b>,
@@ -117,7 +117,7 @@ void HoFCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PALADIN
     // [EX1_349] Divine Favor - COST:3
-    // - Faction: Neutral, Set: HoF, Rarity: Rare
+    // - Faction: Neutral, Set: Legacy, Rarity: Rare
     // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Draw cards until you have as many in hand
@@ -145,7 +145,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - PRIEST
     // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
-    // - Set: HoF, Rarity: Free
+    // - Set: Legacy, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever a minion is healed, draw a card.
     // --------------------------------------------------------
@@ -157,7 +157,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_236] Divine Spirit - COST:2
-    // - Set: HoF, Rarity: Free
+    // - Set: Legacy, Rarity: Free
     // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Double a minion's Health.
@@ -182,7 +182,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
-    // - Faction: Neutral, Set: HoF, Rarity: Free
+    // - Faction: Neutral, Set: Legacy, Rarity: Free
     // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 5 damage to the enemy hero.
@@ -194,7 +194,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
-    // - Faction: Neutral, Set: HoF, Rarity: Legendary
+    // - Faction: Neutral, Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Double the damage and healing of your spells and Hero Power.
     // --------------------------------------------------------
@@ -210,7 +210,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
-    // - Faction: Neutral, Set: HoF, Rarity: Rare
+    // - Faction: Neutral, Set: Legacy, Rarity: Rare
     // --------------------------------------------------------
     // Text: Your cards and powers that restore Health
     //       now deal damage instead.
@@ -227,7 +227,7 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_624] Holy Fire - COST:6
-    // - Faction: Priest, Set: HoF, Rarity: Rare
+    // - Faction: Priest, Set: Legacy, Rarity: Rare
     // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Deal 5 damage. Restore 5 Health to your hero.
@@ -265,7 +265,7 @@ void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_128] Conceal - COST:1
-    // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Faction: Neutral, Set: Legacy, Rarity: Common
     // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give your minions <b>Stealth</b> until your next turn.
@@ -281,7 +281,7 @@ void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [NEW1_004] Vanish - COST:6
-    // - Set: HoF, Rarity: Free
+    // - Set: Legacy, Rarity: Free
     // --------------------------------------------------------
     // Text: Return all minions to their owner's hand.
     // --------------------------------------------------------
@@ -297,7 +297,7 @@ void HoFCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_128e] Conceal - COST:1
-    // - Set: HoF
+    // - Set: Legacy
     // --------------------------------------------------------
     // Text: Stealthed until your next turn.
     // --------------------------------------------------------
@@ -328,7 +328,7 @@ void HoFCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
-    // - Race: Demon, Set: HoF, Rarity: Rare
+    // - Race: Demon, Set: Legacy, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
     // --------------------------------------------------------
@@ -342,7 +342,7 @@ void HoFCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_316] Power Overwhelming - COST:1
-    // - Faction: Neutral, Set: HoF, Rarity: Common
+    // - Faction: Neutral, Set: Legacy, Rarity: Common
     // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Give a friendly minion +4/+4 until end of turn.
@@ -369,7 +369,7 @@ void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [EX1_316e] Power Overwhelming (*) - COST:0
-    // - Faction: Neutral, Set: HoF
+    // - Faction: Neutral, Set: Legacy
     // --------------------------------------------------------
     // Text: This minion has +4/+4, but will die a horrible death
     //       at the end of the turn.
@@ -398,7 +398,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
-    // - Set: HoF, Rarity: Common
+    // - Set: Legacy, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever this minion takes damage, draw a card.
     // --------------------------------------------------------
@@ -410,7 +410,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
-    // - Set: HoF, Rarity: Legendary
+    // - Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Take control of a random enemy minion.
     // --------------------------------------------------------
@@ -426,7 +426,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
-    // - Faction: Horde, Set: HoF, Rarity: Common
+    // - Faction: Horde, Set: Legacy, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Silence</b> a minion.
     // --------------------------------------------------------
@@ -451,7 +451,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
-    // - Faction: Neutral, Set: HoF, Rarity: Rare
+    // - Faction: Neutral, Set: Legacy, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Each player draws 2 cards.
     // --------------------------------------------------------
@@ -465,7 +465,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
-    // - Race: Murloc, Faction: Neutral. Set: HoF, Rarity: Legendary
+    // - Race: Murloc, Faction: Neutral. Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the
     // battlefield.
@@ -509,7 +509,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3]
-    // - Faction: Alliance, Set: HoF, Rarity: Rare
+    // - Faction: Alliance, Set: Legacy, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your opponent has 4 or
     //       more minions, take control of one at random.
@@ -536,7 +536,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
-    // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
+    // - Race: Elemental, Faction: Neutral, Set: Legacy, Rarity: Epic
     // --------------------------------------------------------
     // Text: Costs (1) less for each other card in your hand.
     // --------------------------------------------------------
@@ -548,7 +548,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
-    // - Faction: Alliance, Set: HoF, Rarity: Legendary
+    // - Faction: Alliance, Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps
     //       for your opponent.
@@ -565,7 +565,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
-    // - Race: Dragon, Faction: Neutral, Set: HoF, Rarity: Rare
+    // - Race: Dragon, Faction: Neutral, Set: Legacy, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
     //       <b>Battlecry:</b> Draw a card.
@@ -580,7 +580,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
-    // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Legendary
+    // - Race: Elemental, Faction: Neutral, Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Can't attack. At the end of your turn, deal 8 damage
     //       to a random enemy.
@@ -598,7 +598,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
-    // - Race: Elemental, Faction: Neutral, Set: HoF, Rarity: Epic
+    // - Race: Elemental, Faction: Neutral, Set: Legacy, Rarity: Epic
     // --------------------------------------------------------
     // Text: Costs (1) less for each damage your hero has taken.
     // --------------------------------------------------------
@@ -615,7 +615,7 @@ void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_027e] Yarrr! (*) - COST:0
-    // - Set: HoF
+    // - Set: Legacy
     // --------------------------------------------------------
     // Text: Southsea Captain is granting +1/+1.
     // --------------------------------------------------------

@@ -114,7 +114,7 @@ TEST_CASE("[Cards] - FindCardBySet")
 
     std::vector<Card*> cards1 = instance.FindCardBySet(CardSet::CORE);
     std::vector<Card*> cards2 = instance.FindCardBySet(CardSet::EXPERT1);
-    std::vector<Card*> cards3 = instance.FindCardBySet(CardSet::HOF);
+    std::vector<Card*> cards3 = instance.FindCardBySet(CardSet::LEGACY);
     std::vector<Card*> cards4 = instance.FindCardBySet(CardSet::NAXX);
     std::vector<Card*> cards5 = instance.FindCardBySet(CardSet::GVG);
     std::vector<Card*> cards6 = instance.FindCardBySet(CardSet::BRM);
@@ -132,7 +132,7 @@ TEST_CASE("[Cards] - FindCardBySet")
 
     CHECK_EQ(CardSet::CORE, cards1.front()->GetCardSet());
     CHECK_EQ(CardSet::EXPERT1, cards2.front()->GetCardSet());
-    CHECK_EQ(CardSet::HOF, cards3.front()->GetCardSet());
+    CHECK_EQ(CardSet::LEGACY, cards3.front()->GetCardSet());
     CHECK_EQ(CardSet::NAXX, cards4.front()->GetCardSet());
     CHECK_EQ(CardSet::GVG, cards5.front()->GetCardSet());
     CHECK_EQ(CardSet::BRM, cards6.front()->GetCardSet());

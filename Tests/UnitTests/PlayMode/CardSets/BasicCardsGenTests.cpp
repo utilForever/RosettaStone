@@ -22,7 +22,7 @@ using namespace SimpleTasks;
 
 // ----------------------------------- HERO_POWER - WARRIOR
 // [HERO_01bp] Armor Up! (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Gain 2 Armor.
 // --------------------------------------------------------
@@ -55,7 +55,7 @@ TEST_CASE("[Warrior : Hero Power] - HERO_01bp : Armor Up!")
 
 // ------------------------------------ HERO_POWER - SHAMAN
 // [HERO_02bp] Totemic Call (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Summon a random Totem.
 // --------------------------------------------------------
@@ -126,7 +126,7 @@ TEST_CASE("[Shaman : Hero Power] - HERO_02bp : Totemic Call")
 
 // ------------------------------------- HERO_POWER - ROGUE
 // [HERO_03bp] Dagger Mastery (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Equip a 1/2 Dagger.
 // --------------------------------------------------------
@@ -165,7 +165,7 @@ TEST_CASE("[Rogue : Hero Power] - HERO_03bp : Dagger Mastery")
 
 // ----------------------------------- HERO_POWER - PALADIN
 // [HERO_04bp] Reinforce (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
 // --------------------------------------------------------
@@ -203,7 +203,7 @@ TEST_CASE("[Paladin : Hero Power] - HERO_04bp : Reinforce")
 
 // ------------------------------------ HERO_POWER - HUNTER
 // [HERO_05bp] Steady Shot (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
 // --------------------------------------------------------
@@ -238,7 +238,7 @@ TEST_CASE("[Hunter : Hero Power] - HERO_05bp : Steady Shot")
 
 // ------------------------------------- HERO_POWER - DRUID
 // [HERO_06bp] Shapeshift (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
 // --------------------------------------------------------
@@ -298,7 +298,7 @@ TEST_CASE("[Druid : Hero Power] - HERO_06bp : Shapeshift")
 
 // ----------------------------------- HERO_POWER - WARLOCK
 // [HERO_07bp] Life Tap (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Draw a card and take 2 damage.
 // --------------------------------------------------------
@@ -332,7 +332,7 @@ TEST_CASE("[Warlock : Hero Power] - HERO_07bp : Life Tap")
 
 // -------------------------------------- HERO_POWER - MAGE
 // [HERO_08bp] Fireblast (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Deal 1 damage.
 // --------------------------------------------------------
@@ -380,7 +380,7 @@ TEST_CASE("[Mage : Hero Power] - HERO_08bp : Fireblast")
 
 // ------------------------------------ HERO_POWER - PRIEST
 // [HERO_09bp] Lesser Heal (*) - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> Restore 2 Health.
 // --------------------------------------------------------
@@ -423,7 +423,7 @@ TEST_CASE("[Priest : Hero Power] - HERO_09bp : Lesser Heal")
 
 // ------------------------------- HERO_POWER - DEMONHUNTER
 // [HERO_10bp] Demon Claws (*) - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Hero Power</b> +1 Attack this turn.
 // --------------------------------------------------------
@@ -479,7 +479,7 @@ TEST_CASE("[Demon Hunter : Hero Power] - HERO_10bp : Demon Claws")
 
 // ------------------------------------------ SPELL - DRUID
 // [CS2_005] Claw - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
 // --------------------------------------------------------
@@ -523,7 +523,7 @@ TEST_CASE("[Druid : Spell] - CS2_005 : Claw")
 
 // ------------------------------------------ SPELL - DRUID
 // [CS2_007] Healing Touch - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Restore 8 Health.
@@ -581,7 +581,7 @@ TEST_CASE("[Druid : Spell] - CS2_007 : Healing Touch")
 
 // ------------------------------------------ SPELL - DRUID
 // [CS2_008] Moonfire - COST:0
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 1 damage.
@@ -652,7 +652,7 @@ TEST_CASE("[Druid : Spell] - CS2_008 : Moonfire")
 
 // ------------------------------------------ SPELL - DRUID
 // [CS2_009] Mark of the Wild - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a minion <b>Taunt</b> and +2/+3.<i>
@@ -705,7 +705,7 @@ TEST_CASE("[Druid : Spell] - CS2_009 : Mark of the Wild")
 
 // ------------------------------------------ SPELL - DRUID
 // [CS2_011] Savage Roar - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Give your characters +2 Attack this turn.
 // --------------------------------------------------------
@@ -759,7 +759,7 @@ TEST_CASE("[Druid : Spell] - CS2_011 : Savage Roar")
 
 // ------------------------------------------ SPELL - DRUID
 // [CS2_012] Swipe - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 4 damage to an enemy and 1 damage to all other enemies.
 // --------------------------------------------------------
@@ -823,7 +823,7 @@ TEST_CASE("[Druid : Spell] - CS2_012 : Swipe")
 
 // ------------------------------------------ SPELL - DRUID
 // [CS2_013] Wild Growth - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain an empty Mana Crystal.
@@ -864,7 +864,7 @@ TEST_CASE("[Druid : Spell] - CS2_013 : Wild Growth")
 
 // ----------------------------------------- MINION - DRUID
 // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -878,7 +878,7 @@ TEST_CASE("[Druid : Minion] - CS2_232 : Ironbark Protector")
 
 // ------------------------------------------ SPELL - DRUID
 // [EX1_169] Innervate - COST:0
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Gain 1 Mana Crystal this turn only.
@@ -937,7 +937,7 @@ TEST_CASE("[Druid : Spell] - EX1_169 : Innervate")
 
 // ------------------------------------------ SPELL - DRUID
 // [EX1_173] Starfire - COST:6
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 5 damage. Draw a card.
@@ -988,7 +988,7 @@ TEST_CASE("[Druid : Spell] - EX1_173 : Starfire")
 
 // ----------------------------------------- SPELL - HUNTER
 // [CS2_084] Hunter's Mark - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Change a minion's Health to 1.
 // --------------------------------------------------------
@@ -1035,7 +1035,7 @@ TEST_CASE("[Hunter : Spell] - CS2_084 : Hunter's Mark")
 
 // ---------------------------------------- MINION - HUNTER
 // [CS2_237] Starving Buzzard - COST:2 [ATK:2/HP:1]
-// - Race: Beast, Set: Basic, Rarity: Free
+// - Race: Beast, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Whenever you summon a Beast, draw a card.
 // --------------------------------------------------------
@@ -1083,7 +1083,7 @@ TEST_CASE("[Hunter : Minion] - CS2_237 : Starving Buzzard")
 
 // ---------------------------------------- MINION - HUNTER
 // [DS1_070] Houndmaster - COST:4 [ATK:4/HP:3]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.
 // --------------------------------------------------------
@@ -1151,7 +1151,7 @@ TEST_CASE("[Hunter : Minion] - DS1_070 : Houndmaster")
 
 // ---------------------------------------- MINION - HUNTER
 // [DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
-// - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Beast, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Your other Beasts have +1 Attack.
 // --------------------------------------------------------
@@ -1228,7 +1228,7 @@ TEST_CASE("[Hunter : Minion] - DS1_175 : Timber Wolf")
 
 // ---------------------------------------- MINION - HUNTER
 // [DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5]
-// - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Beast, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Your Beasts have <b>Charge</b>.
 // --------------------------------------------------------
@@ -1288,7 +1288,7 @@ TEST_CASE("[Hunter : Minion] - DS1_178 : Tundra Rhino")
 
 // ----------------------------------------- SPELL - HUNTER
 // [DS1_183] Multi-Shot - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 3 damage to two random enemy minions.
 // --------------------------------------------------------
@@ -1361,7 +1361,7 @@ TEST_CASE("[Hunter : Spell] - DS1_183 : Multi-Shot")
 
 // ----------------------------------------- SPELL - HUNTER
 // [DS1_184] Tracking - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Discover</b> a card from your deck.
 // --------------------------------------------------------
@@ -1402,7 +1402,7 @@ TEST_CASE("[Hunter : Spell] - DS1_184 : Tracking")
 
 // ----------------------------------------- SPELL - HUNTER
 // [DS1_185] Arcane Shot - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Deal 2 damage.
@@ -1470,7 +1470,7 @@ TEST_CASE("[Hunter : Spell] - DS1_185 : Arcane Shot")
 
 // ----------------------------------------- SPELL - HUNTER
 // [EX1_539] Kill Command - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 3 damage. If you control a Beast,
 //       deal 5 damage instead.
@@ -1517,7 +1517,7 @@ TEST_CASE("[Hunter : Spell] - EX1_539 : Kill Command")
 
 // ----------------------------------------- SPELL - HUNTER
 // [NEW1_031] Animal Companion - COST:3
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Summon a random Beast Companion.
 // --------------------------------------------------------
@@ -1619,7 +1619,7 @@ TEST_CASE("[Hunter : Spell] - NEW1_031 : Animal Companion")
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_022] Polymorph - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Transform a minion
@@ -1684,7 +1684,7 @@ TEST_CASE("[Mage : Spell] - CS2_022 : Polymorph")
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_023] Arcane Intellect - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Arcane
 // --------------------------------------------------------
 // Text: Draw 2 cards.
@@ -1719,7 +1719,7 @@ TEST_CASE("[Mage : Spell] - CS2_023 : Arcane Intellect")
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_024] Frostbolt - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Frost
 // --------------------------------------------------------
 // Text: Deal 3 damage to a character and <b>Freeze</b> it.
@@ -1801,7 +1801,7 @@ TEST_CASE("[Mage : Spell] - CS2_024 : Frostbolt")
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_025] Arcane Explosion - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 1 damage to all enemy minions.
 // --------------------------------------------------------
@@ -1859,7 +1859,7 @@ TEST_CASE("[Mage : Spell] - CS2_025 : Arcane Explosion")
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_026] Frost Nova - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Frost
 // --------------------------------------------------------
 // Text: <b>Freeze</b> all enemy minions.
@@ -1917,7 +1917,7 @@ TEST_CASE("[Mage : Spell] - CS2_026 : Frost Nova")
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_027] Mirror Image - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Summon two 0/2 minions with <b>Taunt</b>.
 // --------------------------------------------------------
@@ -1980,7 +1980,7 @@ TEST_CASE("[Mage : Spell] - CS2_027 : Mirror Image")
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_029] Fireball - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 6 damage.
@@ -2054,7 +2054,7 @@ TEST_CASE("[Mage : Spell] - CS2_029 : Fireball")
 
 // ------------------------------------------- SPELL - MAGE
 // [CS2_032] Flamestrike - COST:7
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 5 damage to all enemy minions.
@@ -2105,7 +2105,7 @@ TEST_CASE("[Mage : Spell] - CS2_032 : Flamestrike")
 
 // ------------------------------------------ MINION - MAGE
 // [CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
-// - Race: Elemental, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Elemental, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Freeze</b> any character damaged by this minion.
 // --------------------------------------------------------
@@ -2162,7 +2162,7 @@ TEST_CASE("[Mage : Minion] - CS2_033 : Water Elemental")
 
 // ------------------------------------------- SPELL - MAGE
 // [EX1_277] Arcane Missiles - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 3 damage randomly split among all enemies.
 // --------------------------------------------------------
@@ -2222,7 +2222,7 @@ TEST_CASE("[Mage : Spell] - EX1_277 : Arcane Missiles")
 
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_087] Blessing of Might - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +3 Attack.
@@ -2267,7 +2267,7 @@ TEST_CASE("[Paladin : SPell] - CS2_087 : Blessing of Might")
 
 // --------------------------------------- MINION - PALADIN
 // [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:7]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 //       <b>Battlecry:</b> Restore 6 Health to your hero.
@@ -2308,7 +2308,7 @@ TEST_CASE("[Paladin : Minion] - CS2_088 : Guardian of Kings")
 
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_089] Holy Light - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 8 Health to your hero.
@@ -2344,7 +2344,7 @@ TEST_CASE("[Paladin : Spell] - CS2_089 : Holy Light")
 
 // --------------------------------------- WEAPON - PALADIN
 // [CS2_091] Light's Justice - COST:1 [ATK:1/HP:0]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 4
@@ -2356,7 +2356,7 @@ TEST_CASE("[Paladin : Weapon] - CS2_091 : Light's Justice")
 
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_092] Blessing of Kings - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
@@ -2403,7 +2403,7 @@ TEST_CASE("[Paladin : Spell] - CS2_092 : Blessing of Kings")
 
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_093] Consecration - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 2 damage to all enemies.
@@ -2455,7 +2455,7 @@ TEST_CASE("[Paladin : Spell] - CS2_093 : Consecration")
 
 // ---------------------------------------- SPELL - PALADIN
 // [CS2_094] Hammer of Wrath - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 3 damage. Draw a card.
@@ -2506,7 +2506,7 @@ TEST_CASE("[Paladin : Spell] - CS2_094 : Hammer of Wrath")
 
 // --------------------------------------- WEAPON - PALADIN
 // [CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Whenever your hero attacks, restore 2 Health to it.
 // --------------------------------------------------------
@@ -2551,7 +2551,7 @@ TEST_CASE("[Paladin : Weapon] - CS2_097 : Truesilver Champion")
 
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_360] Humility - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Change a minion's Attack to 1.
 // --------------------------------------------------------
@@ -2601,7 +2601,7 @@ TEST_CASE("[Paladin : Spell] - EX1_360 : Humility")
 
 // ---------------------------------------- SPELL - PALADIN
 // [EX1_371] Hand of Protection - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion <b>Divine Shield</b>.
@@ -2663,7 +2663,7 @@ TEST_CASE("[Paladin : Spell] - EX1_371 : Hand of Protection")
 
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_112] Holy Nova - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 2 damage to all enemy minions.
@@ -2739,7 +2739,7 @@ TEST_CASE("[Priest : Spell] - CS1_112 : Holy Nova")
 
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_113] Mind Control - COST:10
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Take control of an enemy minion.
@@ -2808,7 +2808,7 @@ TEST_CASE("[Priest : Spell] - CS1_113 : Mind Control")
 
 // ----------------------------------------- SPELL - PRIEST
 // [CS1_130] Holy Smite - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Deal 3 damage to a minion.
@@ -2880,7 +2880,7 @@ TEST_CASE("[Priest : Spell] - CS1_130 : Holy Smite")
 
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_003] Mind Vision - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Put a copy of a random card in your opponent's hand into your hand.
@@ -2928,7 +2928,7 @@ TEST_CASE("[Priest : Spell] - CS2_003 : Mind Vision")
 
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_004] Power Word: Shield - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +2 Health. Draw a card.
@@ -2978,7 +2978,7 @@ TEST_CASE("[Priest : Spell] - CS2_004 : Power Word: Shield")
 
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_234] Shadow Word: Pain - COST:2
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a minion with 3 or less Attack.
@@ -3044,7 +3044,7 @@ TEST_CASE("[Priest : Spell] - CS2_234 : Shadow Word: Pain")
 
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_192] Radiance - COST:1
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 5 Health to your hero.
@@ -3086,7 +3086,7 @@ TEST_CASE("[Priest : Spell] - EX1_192 : Radiance")
 
 // ---------------------------------------- MINION - PRIEST
 // [EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
-// - Set: Basic, Rarity: Common
+// - Set: Legacy, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Copy a card in your opponent's deck
 //       and add it to your hand.
@@ -3135,7 +3135,7 @@ TEST_CASE("[Priest : Minion] - EX1_193 : Psychic Conjurer")
 
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_194] Power Infusion - COST:4
-// - Set: Basic, Rarity: Common
+// - Set: Legacy, Rarity: Common
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Give a minion +2/+6.
@@ -3182,7 +3182,7 @@ TEST_CASE("[Priest : Spell] - EX1_194 : Power Infusion")
 
 // ----------------------------------------- SPELL - PRIEST
 // [EX1_622] Shadow Word: Death - COST:2
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a minion with 5 or more Attack.
@@ -3250,7 +3250,7 @@ TEST_CASE("[Priest : Spell] - EX1_622 : Shadow Word: Death")
 
 // ------------------------------------------ SPELL - ROGUE
 // [CS2_072] Backstab - COST:0
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 2 damage to an undamaged minion.
 // --------------------------------------------------------
@@ -3307,7 +3307,7 @@ TEST_CASE("[Rogue : Spell] - CS2_072 : Backstab")
 
 // ------------------------------------------ SPELL - ROGUE
 // [CS2_074] Deadly Poison - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give your weapon +2 Attack.
@@ -3358,7 +3358,7 @@ TEST_CASE("[Rogue : Spell] - CS2_074 : Deadly Poison")
 
 // ------------------------------------------ SPELL - ROGUE
 // [CS2_075] Sinister Strike - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 3 damage to the enemy hero.
 // --------------------------------------------------------
@@ -3391,7 +3391,7 @@ TEST_CASE("[Rogue : Spell] - CS2_075 : Sinister Strike")
 
 // ------------------------------------------ SPELL - ROGUE
 // [CS2_076] Assassinate - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Destroy an enemy minion.
 // --------------------------------------------------------
@@ -3447,7 +3447,7 @@ TEST_CASE("[Rogue : Spell] - CS2_076 : Assassinate")
 
 // ------------------------------------------ SPELL - ROGUE
 // [CS2_077] Sprint - COST:6
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Draw 4 cards.
 // --------------------------------------------------------
@@ -3481,7 +3481,7 @@ TEST_CASE("[Rogue : Spell] - CS2_077 : Sprint")
 
 // ----------------------------------------- WEAPON - ROGUE
 // [CS2_080] Assassin's Blade - COST:4 [ATK:2/HP:0]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 5
@@ -3493,7 +3493,7 @@ TEST_CASE("[Rogue : Weapon] - CS2_080 : Assassin's Blade")
 
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_129] Fan of Knives - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 1 damage to all enemy minions. Draw a card.
 // --------------------------------------------------------
@@ -3555,7 +3555,7 @@ TEST_CASE("[Rogue : Spell] - EX1_129 : Fan of Knives")
 
 // ----------------------------------------- MINION - ROGUE
 // [EX1_191] Plaguebringer - COST:4 [ATK:3/HP:3]
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give a friendly minion <b>Poisonous</b>.
 // --------------------------------------------------------
@@ -3612,7 +3612,7 @@ TEST_CASE("[Rogue : Minion] - EX1_191 : Plaguebringer")
 
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_278] Shiv - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 1 damage. Draw a card.
 // --------------------------------------------------------
@@ -3674,7 +3674,7 @@ TEST_CASE("[Rogue : Spell] - EX1_278 : Shiv")
 
 // ------------------------------------------ SPELL - ROGUE
 // [EX1_581] Sap - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Return an enemy minion to your opponent's hand.
 // --------------------------------------------------------
@@ -3747,7 +3747,7 @@ TEST_CASE("[Rogue : Spell] - EX1_581 : Sap")
 
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_037] Frost Shock - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Frost
 // --------------------------------------------------------
 // Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
@@ -3810,7 +3810,7 @@ TEST_CASE("[Shaman : Spell] - CS2_037 : Frost Shock")
 
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_039] Windfury - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a minion <b>Windfury</b>.
@@ -3873,7 +3873,7 @@ TEST_CASE("[Shaman : Spell] - CS2_039 : Windfury")
 
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_041] Ancestral Healing - COST:0
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Restore a minion
@@ -3937,7 +3937,7 @@ TEST_CASE("[Shaman : Spell] - CS2_041 : Ancestral Healing")
 
 // ---------------------------------------- MINION - SHAMAN
 // [CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
-// - Race: Elemental, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Elemental, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 4 damage.
 // --------------------------------------------------------
@@ -3995,7 +3995,7 @@ TEST_CASE("[Shaman : Minion] - CS2_042 : Fire Elemental")
 
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_045] Rockbiter Weapon - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Give a friendly character +3 Attack this turn.
@@ -4053,7 +4053,7 @@ TEST_CASE("[Shaman : Spell] - CS2_045 : Rockbiter Weapon")
 
 // ----------------------------------------- SPELL - SHAMAN
 // [CS2_046] Bloodlust - COST:5
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Give your minions +3 Attack this turn.
 // --------------------------------------------------------
@@ -4111,7 +4111,7 @@ TEST_CASE("[Shaman : Spell] - CS2_046 : Bloodlust")
 
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_244] Totemic Might - COST:0
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Give your Totems +2 Health.
 // --------------------------------------------------------
@@ -4165,7 +4165,7 @@ TEST_CASE("[Shaman : Spell] - EX1_244 : Totemic Might")
 
 // ----------------------------------------- SPELL - SHAMAN
 // [EX1_246] Hex - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Nature
 // --------------------------------------------------------
 // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
@@ -4234,7 +4234,7 @@ TEST_CASE("[Shaman : Spell] - EX1_246 : Hex")
 
 // ---------------------------------------- MINION - SHAMAN
 // [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:2]
-// - Race: Totem, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Totem, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Adjacent minions have +2 Attack.
 // --------------------------------------------------------
@@ -4347,7 +4347,7 @@ TEST_CASE("[Shaman : Minion] - EX1_565 : Flametongue Totem")
 
 // ---------------------------------------- MINION - SHAMAN
 // [EX1_587] Windspeaker - COST:4 [ATK:3/HP:3]
-// - Faction: Neutral, Set: Basic, Rarity: free
+// - Faction: Neutral, Set: Legacy, Rarity: free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give a friendly minion <b>Windfury</b>.
 // --------------------------------------------------------
@@ -4415,7 +4415,7 @@ TEST_CASE("[Shaman : Minion] - EX1_587 : Windspeaker")
 
 // ---------------------------------------- SPELL - WARLOCK
 // [CS2_057] Shadow Bolt - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 4 damage to a minion.
@@ -4471,7 +4471,7 @@ TEST_CASE("[Warlock : Spell] - CS2_057 : Shadow Bolt")
 
 // ---------------------------------------- SPELL - WARLOCK
 // [CS2_061] Drain Life - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 2 damage. Restore 2 Health to your hero.
@@ -4520,7 +4520,7 @@ TEST_CASE("[Warlock : Spell] - CS2_061 : Drain Life")
 
 // ---------------------------------------- SPELL - WARLOCK
 // [CS2_062] Hellfire - COST:4
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 3 damage to all characters.
@@ -4584,7 +4584,7 @@ TEST_CASE("[Warlock : Spell] - CS2_062 : Hellfire")
 
 // ---------------------------------------- SPELL - WARLOCK
 // [CS2_063] Corruption - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Choose an enemy minion. At the start of your turn, destroy it.
 // --------------------------------------------------------
@@ -4645,7 +4645,7 @@ TEST_CASE("[Warlock : Spell] - CS2_063 : Corruption")
 
 // --------------------------------------- MINION - WARLOCK
 // [CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
-// - Race: Demon, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Demon, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 1 damage to all other characters.
 // --------------------------------------------------------
@@ -4693,7 +4693,7 @@ TEST_CASE("[Warlock : Minion] - CS2_064 : Dread Infernal")
 
 // --------------------------------------- MINION - WARLOCK
 // [CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
-// - Race: Demon, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Demon, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -4707,7 +4707,7 @@ TEST_CASE("[Warlock : Minion] - CS2_065 : Voidwalker")
 
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_302] Mortal Coil - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 1 damage to a minion. If that kills it, draw a card.
@@ -4764,7 +4764,7 @@ TEST_CASE("[Warlock : Spell] - EX1_302 : Mortal Coil")
 
 // --------------------------------------- MINION - WARLOCK
 // [EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Discard a random card.
 // --------------------------------------------------------
@@ -4808,7 +4808,7 @@ TEST_CASE("[Warlock : Minion] - EX1_306 : Felstalker")
 
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_308] Soulfire - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Fire
 // --------------------------------------------------------
 // Text: Deal 4 damage. Discard a random card.
@@ -4868,7 +4868,7 @@ TEST_CASE("[Warlock : Spell] - EX1_308 : Soulfire")
 
 // ---------------------------------------- SPELL - WARLOCK
 // [NEW1_003] Sacrificial Pact - COST:0
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Destroy a friendly Demon. Restore 5 Health to your hero.
@@ -4923,7 +4923,7 @@ TEST_CASE("[Warlock : Spell] - NEW1_003 : Sacrificial Pact")
 
 // ---------------------------------------- SPELL - WARRIOR
 // [CS2_103] Charge - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Give a friendly minion +2 Attack and <b>Charge</b>.
 // --------------------------------------------------------
@@ -4979,7 +4979,7 @@ TEST_CASE("[Warrior : Spell] - CS2_103 : Charge")
 
 // ---------------------------------------- SPELL - WARRIOR
 // [CS2_105] Heroic Strike - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Give your hero +4 Attack this turn.
 // --------------------------------------------------------
@@ -5043,7 +5043,7 @@ TEST_CASE("[Warrior : Spell] - CS2_105 : Heroic Strike")
 
 // --------------------------------------- WEAPON - WARRIOR
 // [CS2_106] Fiery War Axe - COST:3 [ATK:3/HP:0]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 2
@@ -5055,7 +5055,7 @@ TEST_CASE("[Warrior : Weapon] - CS2_106 : Fiery War Axe")
 
 // ---------------------------------------- SPELL - WARRIOR
 // [CS2_108] Execute - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Destroy a damaged enemy minion.
 // --------------------------------------------------------
@@ -5114,7 +5114,7 @@ TEST_CASE("[Warrior : Spell] - CS2_108 : Execute")
 
 // --------------------------------------- WEAPON - WARRIOR
 // [CS2_112] Arcanite Reaper - COST:5 [ATK:5/HP:0]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 2
@@ -5126,7 +5126,7 @@ TEST_CASE("[Warrior : Weapon] - CS2_112 : Arcanite Reaper")
 
 // ---------------------------------------- SPELL - WARRIOR
 // [CS2_114] Cleave - COST:2
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 2 damage to two random enemy minions.
 // --------------------------------------------------------
@@ -5193,7 +5193,7 @@ TEST_CASE("[Warrior : Spell] - CS2_114 : Cleave")
 
 // --------------------------------------- MINION - WARRIOR
 // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: After you summon another minion, give it <b>Rush</b>.
 // --------------------------------------------------------
@@ -5242,7 +5242,7 @@ TEST_CASE("[Warrior : Minion] - EX1_084 : Warsong Commander")
 
 // ---------------------------------------- SPELL - WARRIOR
 // [EX1_400] Whirlwind - COST:1
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Deal 1 damage to all minions.
 // --------------------------------------------------------
@@ -5309,7 +5309,7 @@ TEST_CASE("[Warrior : Spell] - EX1_400 : Whirlwind")
 
 // ---------------------------------------- SPELL - WARRIOR
 // [EX1_606] Shield Block - COST:3
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Gain 5 Armor.
 //       Draw a card.
@@ -5345,7 +5345,7 @@ TEST_CASE("[Warrior : Spell] - EX1_606 : Shield Block")
 
 // --------------------------------------- MINION - WARRIOR
 // [NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3]
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Charge</b>
 // --------------------------------------------------------
@@ -5359,7 +5359,7 @@ TEST_CASE("[Warrior : Minion] - NEW1_011 : Kor'kron Elite")
 
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_035] Chaos Strike - COST:2
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // - Spell School: Fel
 // --------------------------------------------------------
 // Text: Give your hero +2 Attack this turn. Draw a card.
@@ -5404,7 +5404,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_035 : Chaos Strike")
 
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_036] Coordinated Strike - COST:3
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Summon three 1/1 Illidari with <b>Rush</b>.
 // --------------------------------------------------------
@@ -5465,7 +5465,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_036 : Coordinated Strike")
 
 // ----------------------------------- MINION - DEMONHUNTER
 // [BT_142] Shadowhoof Slayer (*) - COST:1 [ATK:2/HP:1]
-// - Race: Demon, Set: Basic, Rarity: Free
+// - Race: Demon, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
 // --------------------------------------------------------
@@ -5509,7 +5509,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_142 : Shadowhoof Slayer")
 
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_235] Chaos Nova - COST:5
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // - Spell School: Fel
 // --------------------------------------------------------
 // Text: Deal 4 damage to all minions.
@@ -5565,7 +5565,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_235 : Chaos Nova")
 
 // ----------------------------------- MINION - DEMONHUNTER
 // [BT_323] Sightless Watcher (*) - COST:2 [ATK:3/HP:2]
-// - Race: Demon, Set: Basic, Rarity: Free
+// - Race: Demon, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Look at 3 cards in your deck.
 //       Choose one to put on top.
@@ -5633,7 +5633,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_323 : Sightless Watcher")
 
 // ----------------------------------- MINION - DEMONHUNTER
 // [BT_352] Satyr Overseer (*) - COST:3 [ATK:4/HP:2]
-// - Race: Demon, Set: Basic, Rarity: Free
+// - Race: Demon, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: After your hero attacks, summon a 2/2 Satyr.
 // --------------------------------------------------------
@@ -5679,7 +5679,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_352 : Satyr Overseer")
 
 // ----------------------------------- MINION - DEMONHUNTER
 // [BT_495] Glaivebound Adept (*) - COST:5 [ATK:6/HP:4]
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If your hero attacked this turn,
 //       deal 4 damage.
@@ -5733,7 +5733,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_495 : Glaivebound Adept")
 
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_512] Inner Demon - COST:8
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Give your hero +8 Attack this turn.
 // --------------------------------------------------------
@@ -5774,7 +5774,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_512 : Inner Demon")
 
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_740] Soul Cleave - COST:3
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: <b>Lifesteal</b> Deal 2 damage to two random enemy minions.
@@ -5850,7 +5850,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_740 : Soul Cleave")
 
 // ----------------------------------- WEAPON - DEMONHUNTER
 // [BT_921] Aldrachi Warblades - COST:3 [ATK:2/HP:0]
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Lifesteal</b>
 // --------------------------------------------------------
@@ -5903,7 +5903,7 @@ TEST_CASE("[Demon Hunter : Weapon] - BT_921 : Aldrachi Warblades")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -5917,7 +5917,7 @@ TEST_CASE("[Neutral : Minion] - CS1_042 : Goldshire Footman")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
-// - Race: Elemental, Set: Basic, Rarity: Free
+// - Race: Elemental, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_118 : Magma Rager")
 {
@@ -5926,7 +5926,7 @@ TEST_CASE("[Neutral : Minion] - CS2_118 : Magma Rager")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_119] Oasis Snapjaw - COST:4 [ATK:2/HP:7]
-// - Race: Beast, Set: Basic, Rarity: Free
+// - Race: Beast, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_119 : Oasis Snapjaw")
 {
@@ -5935,7 +5935,7 @@ TEST_CASE("[Neutral : Minion] - CS2_119 : Oasis Snapjaw")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
-// - Race: Beast, Set: Basic, Rarity: Free
+// - Race: Beast, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_120 : River Crocolisk")
 {
@@ -5944,7 +5944,7 @@ TEST_CASE("[Neutral : Minion] - CS2_120 : River Crocolisk")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_121] Frostwolf Grunt - COST:2 [ATK:2/HP:2]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -5958,7 +5958,7 @@ TEST_CASE("[Neutral : Minion] - CS2_121 : Frostwolf Grunt")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Your other minions have +1 Attack.
 // --------------------------------------------------------
@@ -6010,7 +6010,7 @@ TEST_CASE("[Neutral : Minion] - CS2_122 : Raid Leader")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Charge</b>
 // --------------------------------------------------------
@@ -6024,7 +6024,7 @@ TEST_CASE("[Neutral : Minion] - CS2_124 : Wolfrider")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_125] Ironfur Grizzly - COST:3 [ATK:3/HP:3]
-// - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Beast, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -6038,7 +6038,7 @@ TEST_CASE("[Neutral : Minion] - CS2_125 : Ironfur Grizzly")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_127] Silverback Patriarch - COST:3 [ATK:1/HP:4]
-// - Race: Beast, Faction: Horde, Set: Basic, Rarity: Free
+// - Race: Beast, Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -6052,7 +6052,7 @@ TEST_CASE("[Neutral : Minion] - CS2_127 : Silverback Patriarch")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_131] Stormwind Knight - COST:4 [ATK:2/HP:5]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Charge</b>
 // --------------------------------------------------------
@@ -6066,7 +6066,7 @@ TEST_CASE("[Neutral : Minion] - CS2_131 : Stormwind Knight")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 1 damage.
 // --------------------------------------------------------
@@ -6119,7 +6119,7 @@ TEST_CASE("[Neutral : Minion] - CS2_141 : Ironforge Rifleman")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>
 // --------------------------------------------------------
@@ -6133,7 +6133,7 @@ TEST_CASE("[Neutral : Minion] - CS2_142 : Kobold Geomancer")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_147] Gnomish Inventor - COST:4 [ATK:2/HP:4]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Draw a card.
 // --------------------------------------------------------
@@ -6170,7 +6170,7 @@ TEST_CASE("[Neutral : Minion] - CS2_147 : Gnomish Inventor")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_150] Stormpike Commando - COST:5 [ATK:4/HP:2]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 2 damage.
 // --------------------------------------------------------
@@ -6229,7 +6229,7 @@ TEST_CASE("[Neutral : Minion] - CS2_150 : Stormpike Commando")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_155] Archmage - COST:6 [ATK:4/HP:7]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>
 // --------------------------------------------------------
@@ -6243,7 +6243,7 @@ TEST_CASE("[Neutral : Minion] - CS2_155 : Archmage")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_162] Lord of the Arena - COST:6 [ATK:6/HP:5]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -6257,7 +6257,7 @@ TEST_CASE("[Neutral : Minion] - CS2_162 : Lord of the Arena")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
-// - Race: Murloc, Faction: Alliance, Set: Basic, Rarity: Free
+// - Race: Murloc, Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_168 : Murloc Raider")
 {
@@ -6266,7 +6266,7 @@ TEST_CASE("[Neutral : Minion] - CS2_168 : Murloc Raider")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_171] Stonetusk Boar - COST:1 [ATK:1/HP:1]
-// - Race: Beast, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Beast, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Charge</b>
 // --------------------------------------------------------
@@ -6280,7 +6280,7 @@ TEST_CASE("[Neutral : Minion] - CS2_171 : Stonetusk Boar")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
-// - Race: Beast, Faction: Horde, Set: Basic, Rarity: Free
+// - Race: Beast, Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_172 : Bloodfen Raptor")
 {
@@ -6289,7 +6289,7 @@ TEST_CASE("[Neutral : Minion] - CS2_172 : Bloodfen Raptor")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1]
-// - Race: Murloc, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Murloc, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Charge</b>
 // --------------------------------------------------------
@@ -6303,7 +6303,7 @@ TEST_CASE("[Neutral : Minion] - CS2_173 : Bluegill Warrior")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -6317,7 +6317,7 @@ TEST_CASE("[Neutral : Minion] - CS2_179 : Sen'jin Shieldmasta")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_182 : Chillwind Yeti")
 {
@@ -6326,7 +6326,7 @@ TEST_CASE("[Neutral : Minion] - CS2_182 : Chillwind Yeti")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_186] War Golem - COST:7 [ATK:7/HP:7]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_186 : War Golem")
 {
@@ -6335,7 +6335,7 @@ TEST_CASE("[Neutral : Minion] - CS2_186 : War Golem")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
 // --------------------------------------------------------
@@ -6349,7 +6349,7 @@ TEST_CASE("[Neutral : Minion] - CS2_187 : Booty Bay Bodyguard")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_189] Elven Archer - COST:1 [ATK:1/HP:1]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 1 damage.
 // --------------------------------------------------------
@@ -6402,7 +6402,7 @@ TEST_CASE("[Neutral : Minion] - CS2_189 : Elven Archer")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a 1/1 Boar.
 // --------------------------------------------------------
@@ -6443,7 +6443,7 @@ TEST_CASE("[Neutral : Minion] - CS2_196 : Razorfen Hunter")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>
 // --------------------------------------------------------
@@ -6457,7 +6457,7 @@ TEST_CASE("[Neutral : Minion] - CS2_197 : Ogre Magi")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
-// - Set: Basic, Rarity: Free
+// - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_200 : Boulderfist Ogre")
 {
@@ -6466,7 +6466,7 @@ TEST_CASE("[Neutral : Minion] - CS2_200 : Boulderfist Ogre")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
-// - Race: Beast, Set: Basic, Rarity: Free
+// - Race: Beast, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - CS2_201 : Core Hound")
 {
@@ -6475,7 +6475,7 @@ TEST_CASE("[Neutral : Minion] - CS2_201 : Core Hound")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_213] Reckless Rocketeer - COST:6 [ATK:5/HP:2]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Charge</b>
 // --------------------------------------------------------
@@ -6489,7 +6489,7 @@ TEST_CASE("[Neutral : Minion] - CS2_213 : Reckless Rocketeer")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_222] Stormwind Champion - COST:7 [ATK:7/HP:7]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Your other minions have +1/+1.
 // --------------------------------------------------------
@@ -6559,7 +6559,7 @@ TEST_CASE("[Neutral : Minion] - CS2_222 : Stormwind Champion")
 
 // --------------------------------------- MINION - NEUTRAL
 // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the
 // battlefield.
@@ -6617,7 +6617,7 @@ TEST_CASE("[Neutral : Minion] - CS2_226 : Frostwolf Warlord")
 
 // --------------------------------------- MINION - NEUTRAL
 // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
 // --------------------------------------------------------
@@ -6675,7 +6675,7 @@ TEST_CASE("[Neutral : Minion] - DS1_055 : Darkscale Healer")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
-// - Faction: Horde, Set: Basic, Rarity: Free
+// - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Restore 2 Health.
 // --------------------------------------------------------
@@ -6734,7 +6734,7 @@ TEST_CASE("[Neutral : Minion] - EX1_011 : Voodoo Doctor")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_015] Novice Engineer - COST:2 [ATK:1/HP:1]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Draw a card.
 // --------------------------------------------------------
@@ -6771,7 +6771,7 @@ TEST_CASE("[Neutral : Minion] - EX1_015 : Novice Engineer")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give a friendly minion +1/+1.
 // --------------------------------------------------------
@@ -6821,7 +6821,7 @@ TEST_CASE("[Neutral : Minion] - EX1_019 : Shattered Sun Cleric")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a 2/1 Mechanical Dragonling.
 // --------------------------------------------------------
@@ -6861,7 +6861,7 @@ TEST_CASE("[Neutral : Minion] - EX1_025 : Dragonling Mechanic")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
-// - Faction: Alliance, Set: Basic, Rarity: Free
+// - Faction: Alliance, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Destroy your opponent's weapon.
 // --------------------------------------------------------
@@ -6905,7 +6905,7 @@ TEST_CASE("[Neutral : Minion] - EX1_066 : Acidic Swamp Ooze")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Whenever this minion takes damage, gain +3 Attack.
 // --------------------------------------------------------
@@ -6955,7 +6955,7 @@ TEST_CASE("[Neutral : Minion] - EX1_399 : Gurubashi Berserker")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
-// - Race: Murloc, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Murloc, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
 // --------------------------------------------------------
@@ -6995,7 +6995,7 @@ TEST_CASE("[Neutral : Minion] - EX1_506 : Murloc Tidehunter")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1]
-// - Race: Murloc, Faction: Neutral, Set: Basic, Rarity: Free
+// - Race: Murloc, Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Your other Murlocs have +1 Attack.
 // --------------------------------------------------------
@@ -7069,7 +7069,7 @@ TEST_CASE("[Neutral : Minion] - EX1_508 : Grimscale Oracle")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>
 // --------------------------------------------------------
@@ -7083,7 +7083,7 @@ TEST_CASE("[Neutral : Minion] - EX1_582 : Dalaran Mage")
 
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_593] Nightblade - COST:5 [ATK:4/HP:4]
-// - Faction: Neutral, Set: Basic, Rarity: Free
+// - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: <b>Battlecry: </b>Deal 3 damage to the enemy hero.
 // --------------------------------------------------------
