@@ -2302,7 +2302,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [SCH_248] Pen Flinger - COST:1 [ATK:1/HP:1]
     // - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage.
+    // Text: <b>Battlecry:</b> Deal 1 damage to a minion.
     //       <b>Spellburst:</b> Return this to your hand.
     // --------------------------------------------------------
     // GameTag:
@@ -2310,6 +2310,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
@@ -2317,7 +2318,8 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         std::make_shared<ReturnHandTask>(EntityType::SOURCE));
     cards.emplace(
         "SCH_248",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- WEAPON - NEUTRAL
     // [SCH_259] Sphere of Sapience - COST:1
@@ -2495,7 +2497,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("SCH_350", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
+    // [SCH_351] Jandice Barov - COST:6 [ATK:2/HP:1]
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon two random 5-Cost minions.

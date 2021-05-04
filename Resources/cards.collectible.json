@@ -2772,7 +2772,7 @@
         "name": "Warsong Wrangler",
         "rarity": "EPIC",
         "set": "THE_BARRENS",
-        "text": "[x]<b>Battlecry:</b> <b>Discover</b> a\nBeast in your deck. Give\nall copies of it +2/+1 \n<i>(wherever they are)</i>.",
+        "text": "[x]<b>Battlecry:</b> <b>Discover</b> a\nBeast from your deck. Give\nall copies of it +2/+1 \n<i>(wherever they are)</i>.",
         "type": "MINION"
     },
     {
@@ -3167,7 +3167,7 @@
         "cost": 2,
         "dbfId": 62583,
         "flavor": "Dabu, man. Like, far out.",
-        "health": 4,
+        "health": 3,
         "id": "BAR_074",
         "mechanics": [
             "CANT_ATTACK",
@@ -3207,7 +3207,7 @@
         "cost": 3,
         "dbfId": 62585,
         "flavor": "Pushing into Ashenvale made this post uneventful.",
-        "health": 5,
+        "health": 4,
         "howToEarnGolden": "Unlocked on the Forged in the Barrens Reward Track.",
         "id": "BAR_076",
         "mechanics": [
@@ -4727,7 +4727,7 @@
         "collectible": true,
         "cost": 2,
         "dbfId": 62926,
-        "durability": 3,
+        "durability": 2,
         "flavor": "Hoarding secrets is no fun, so play each and every one.",
         "id": "BAR_875",
         "mechanics": [
@@ -8721,7 +8721,7 @@
         "id": "BT_035",
         "name": "Chaos Strike",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FEL",
         "text": "Give your hero +2 Attack this turn. Draw a card.",
         "type": "SPELL"
@@ -8739,7 +8739,7 @@
         "referencedTags": [
             "RUSH"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Summon three 1/1 Illidari with <b>Rush</b>.",
         "type": "SPELL"
     },
@@ -9284,7 +9284,7 @@
         "name": "Shadowhoof Slayer",
         "race": "DEMON",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Give your hero +1 Attack this turn.",
         "type": "MINION"
     },
@@ -9772,7 +9772,7 @@
         "id": "BT_235",
         "name": "Chaos Nova",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FEL",
         "text": "Deal $4 damage to all minions.",
         "type": "SPELL"
@@ -10186,7 +10186,7 @@
         "name": "Sightless Watcher",
         "race": "DEMON",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Look at 3 cards in your deck. Choose one to put on top.",
         "type": "MINION"
     },
@@ -10267,7 +10267,7 @@
         "name": "Satyr Overseer",
         "race": "DEMON",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "After your hero attacks, summon a 2/2 Satyr.",
         "type": "MINION"
     },
@@ -10586,7 +10586,7 @@
         ],
         "name": "Glaivebound Adept",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Deal 4 damage.",
         "text": "<b>Battlecry:</b> If your hero attacked this turn,\ndeal 4 damage.",
         "type": "MINION"
@@ -10664,7 +10664,7 @@
         "id": "BT_512",
         "name": "Inner Demon",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Give your hero +8 Attack this turn.",
         "type": "SPELL"
     },
@@ -11290,7 +11290,7 @@
         ],
         "name": "Soul Cleave",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "<b>Lifesteal</b>\nDeal $2 damage to two random enemy minions.",
         "type": "SPELL"
@@ -11445,7 +11445,7 @@
         ],
         "name": "Aldrachi Warblades",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Lifesteal</b>",
         "type": "WEAPON"
     },
@@ -18320,7 +18320,7 @@
         ],
         "name": "Goldshire Footman",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -18354,7 +18354,7 @@
         "id": "CS1_112",
         "name": "Holy Nova",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Deal $2 damage to all enemy minions. Restore #2 Health to all friendly characters.",
         "type": "SPELL"
@@ -18369,7 +18369,7 @@
         "id": "CS1_113",
         "name": "Mind Control",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Take control of an enemy minion.",
         "type": "SPELL"
@@ -18398,7 +18398,7 @@
         "id": "CS1_130",
         "name": "Holy Smite",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Deal $3 damage\nto a minion.",
         "type": "SPELL"
@@ -18413,7 +18413,7 @@
         "id": "CS2_003",
         "name": "Mind Vision",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Put a copy of a random card in your opponent's hand into your hand.",
         "type": "SPELL"
@@ -18428,7 +18428,7 @@
         "id": "CS2_004",
         "name": "Power Word: Shield",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Give a minion +2 Health.\nDraw a card.",
         "type": "SPELL"
@@ -18443,7 +18443,7 @@
         "id": "CS2_005",
         "name": "Claw",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Give your hero +2 Attack this turn. Gain 2 Armor.",
         "type": "SPELL"
     },
@@ -18457,7 +18457,7 @@
         "id": "CS2_007",
         "name": "Healing Touch",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Restore #8 Health.",
         "type": "SPELL"
@@ -18472,7 +18472,7 @@
         "id": "CS2_008",
         "name": "Moonfire",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "ARCANE",
         "text": "Deal $1 damage.",
         "type": "SPELL"
@@ -18490,7 +18490,7 @@
         "referencedTags": [
             "TAUNT"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Give a minion <b>Taunt</b> and +2/+3.<i>\n(+2 Attack/+3 Health)</i>",
         "type": "SPELL"
@@ -18505,7 +18505,7 @@
         "id": "CS2_011",
         "name": "Savage Roar",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Give your characters +2 Attack this turn.",
         "type": "SPELL"
     },
@@ -18519,7 +18519,7 @@
         "id": "CS2_012",
         "name": "Swipe",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Deal $4 damage to an enemy and $1 damage to all other enemies.",
         "type": "SPELL"
     },
@@ -18533,7 +18533,7 @@
         "id": "CS2_013",
         "name": "Wild Growth",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Gain an empty Mana Crystal.",
         "type": "SPELL"
@@ -18548,7 +18548,7 @@
         "id": "CS2_022",
         "name": "Polymorph",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "ARCANE",
         "text": "Transform a minion\ninto a 1/1 Sheep.",
         "type": "SPELL"
@@ -18563,7 +18563,7 @@
         "id": "CS2_023",
         "name": "Arcane Intellect",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "ARCANE",
         "text": "Draw 2 cards.",
         "type": "SPELL"
@@ -18581,7 +18581,7 @@
         ],
         "name": "Frostbolt",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FROST",
         "text": "Deal $3 damage to a character and <b>Freeze</b> it.",
         "type": "SPELL"
@@ -18596,7 +18596,7 @@
         "id": "CS2_025",
         "name": "Arcane Explosion",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "ARCANE",
         "text": "Deal $1 damage to all enemy minions.",
         "type": "SPELL"
@@ -18614,7 +18614,7 @@
         ],
         "name": "Frost Nova",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FROST",
         "text": "<b>Freeze</b> all enemy minions.",
         "type": "SPELL"
@@ -18632,7 +18632,7 @@
         "referencedTags": [
             "TAUNT"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Summon two 0/2 minions with <b>Taunt</b>.",
         "type": "SPELL"
     },
@@ -18664,7 +18664,7 @@
         "id": "CS2_029",
         "name": "Fireball",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FIRE",
         "text": "Deal $6 damage.",
         "type": "SPELL"
@@ -18682,7 +18682,7 @@
         ],
         "name": "Ice Lance",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "EXPERT1",
         "spellSchool": "FROST",
         "text": "<b>Freeze</b> a character. If it was already <b>Frozen</b>, deal $4 damage instead.",
         "type": "SPELL"
@@ -18697,7 +18697,7 @@
         "id": "CS2_032",
         "name": "Flamestrike",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FIRE",
         "text": "Deal $5 damage to all enemy minions.",
         "type": "SPELL"
@@ -18718,7 +18718,7 @@
         "name": "Water Elemental",
         "race": "ELEMENTAL",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Freeze</b> any character damaged by this minion.",
         "type": "MINION"
     },
@@ -18735,7 +18735,7 @@
         ],
         "name": "Frost Shock",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FROST",
         "text": "Deal $1 damage to an enemy character and <b>Freeze</b> it.",
         "type": "SPELL"
@@ -18770,7 +18770,7 @@
         "referencedTags": [
             "WINDFURY"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Give a minion <b>Windfury</b>.",
         "type": "SPELL"
@@ -18788,7 +18788,7 @@
         "referencedTags": [
             "TAUNT"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Restore a minion\nto full Health and\ngive it <b>Taunt</b>.",
         "type": "SPELL"
@@ -18809,7 +18809,7 @@
         "name": "Fire Elemental",
         "race": "ELEMENTAL",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Deal 4 damage.",
         "text": "<b>Battlecry:</b> Deal 4 damage.",
         "type": "MINION"
@@ -18824,7 +18824,7 @@
         "id": "CS2_045",
         "name": "Rockbiter Weapon",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Give a friendly character +3 Attack this turn.",
         "type": "SPELL"
@@ -18839,7 +18839,7 @@
         "id": "CS2_046",
         "name": "Bloodlust",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Give your minions +3 Attack this turn.",
         "type": "SPELL"
     },
@@ -18867,7 +18867,7 @@
         "id": "CS2_057",
         "name": "Shadow Bolt",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Deal $4 damage\nto a minion.",
         "type": "SPELL"
@@ -18903,7 +18903,7 @@
         "id": "CS2_061",
         "name": "Drain Life",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Deal $2 damage. Restore #2 Health to your hero.",
         "type": "SPELL"
@@ -18918,7 +18918,7 @@
         "id": "CS2_062",
         "name": "Hellfire",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FIRE",
         "text": "Deal $3 damage to ALL characters.",
         "type": "SPELL"
@@ -18933,7 +18933,7 @@
         "id": "CS2_063",
         "name": "Corruption",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Choose an enemy minion. At the start of your turn, destroy it.",
         "type": "SPELL"
     },
@@ -18953,7 +18953,7 @@
         "name": "Dread Infernal",
         "race": "DEMON",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Deal 1 damage to ALL other characters.",
         "type": "MINION"
     },
@@ -18973,7 +18973,7 @@
         "name": "Voidwalker",
         "race": "DEMON",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -18987,7 +18987,7 @@
         "id": "CS2_072",
         "name": "Backstab",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Deal $2 damage to an undamaged minion.",
         "type": "SPELL"
     },
@@ -19018,7 +19018,7 @@
         "id": "CS2_074",
         "name": "Deadly Poison",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Give your weapon +2 Attack.",
         "type": "SPELL"
@@ -19033,7 +19033,7 @@
         "id": "CS2_075",
         "name": "Sinister Strike",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Deal $3 damage to the enemy hero.",
         "type": "SPELL"
     },
@@ -19047,7 +19047,7 @@
         "id": "CS2_076",
         "name": "Assassinate",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Destroy an enemy minion.",
         "type": "SPELL"
     },
@@ -19061,7 +19061,7 @@
         "id": "CS2_077",
         "name": "Sprint",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Draw 4 cards.",
         "type": "SPELL"
     },
@@ -19077,7 +19077,7 @@
         "id": "CS2_080",
         "name": "Assassin's Blade",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "WEAPON"
     },
     {
@@ -19090,7 +19090,7 @@
         "id": "CS2_084",
         "name": "Hunter's Mark",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Change a minion's Health to 1.",
         "type": "SPELL"
     },
@@ -19104,7 +19104,7 @@
         "id": "CS2_087",
         "name": "Blessing of Might",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Give a minion +3 Attack.",
         "type": "SPELL"
@@ -19125,7 +19125,7 @@
         ],
         "name": "Guardian of Kings",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>\n<b>Battlecry:</b> Restore #6 Health to your hero.",
         "type": "MINION"
     },
@@ -19139,7 +19139,7 @@
         "id": "CS2_089",
         "name": "Holy Light",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Restore #8 Health to your hero.",
         "type": "SPELL"
@@ -19156,7 +19156,7 @@
         "id": "CS2_091",
         "name": "Light's Justice",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "WEAPON"
     },
     {
@@ -19169,7 +19169,7 @@
         "id": "CS2_092",
         "name": "Blessing of Kings",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>",
         "type": "SPELL"
@@ -19184,7 +19184,7 @@
         "id": "CS2_093",
         "name": "Consecration",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Deal $2 damage to all enemies.",
         "type": "SPELL"
@@ -19199,7 +19199,7 @@
         "id": "CS2_094",
         "name": "Hammer of Wrath",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Deal $3 damage.\nDraw a card.",
         "type": "SPELL"
@@ -19219,7 +19219,7 @@
         ],
         "name": "Truesilver Champion",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Whenever your hero attacks, restore #2 Health to it.",
         "type": "WEAPON"
     },
@@ -19236,7 +19236,7 @@
         "referencedTags": [
             "CHARGE"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Give a friendly minion +2 Attack and <b>Charge</b>.",
         "type": "SPELL"
     },
@@ -19264,7 +19264,7 @@
         "id": "CS2_105",
         "name": "Heroic Strike",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Give your hero +4 Attack this turn.",
         "type": "SPELL"
     },
@@ -19280,7 +19280,7 @@
         "id": "CS2_106",
         "name": "Fiery War Axe",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "WEAPON"
     },
     {
@@ -19293,7 +19293,7 @@
         "id": "CS2_108",
         "name": "Execute",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Destroy a damaged enemy minion.",
         "type": "SPELL"
     },
@@ -19309,7 +19309,7 @@
         "id": "CS2_112",
         "name": "Arcanite Reaper",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "WEAPON"
     },
     {
@@ -19322,7 +19322,7 @@
         "id": "CS2_114",
         "name": "Cleave",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "[x]Deal $2 damage to\ntwo random enemy\nminions.",
         "type": "SPELL"
     },
@@ -19359,7 +19359,7 @@
         "name": "Magma Rager",
         "race": "ELEMENTAL",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -19375,7 +19375,7 @@
         "name": "Oasis Snapjaw",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -19391,7 +19391,7 @@
         "name": "River Crocolisk",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -19409,7 +19409,7 @@
         ],
         "name": "Frostwolf Grunt",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -19428,7 +19428,7 @@
         ],
         "name": "Raid Leader",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Your other minions have +1 Attack.",
         "type": "MINION"
     },
@@ -19448,7 +19448,7 @@
         ],
         "name": "Wolfrider",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Charge</b>",
         "type": "MINION"
     },
@@ -19469,7 +19469,7 @@
         "name": "Ironfur Grizzly",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -19490,7 +19490,7 @@
         "name": "Silverback Patriarch",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -19510,7 +19510,7 @@
         ],
         "name": "Stormwind Knight",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Charge</b>",
         "type": "MINION"
     },
@@ -19530,7 +19530,7 @@
         ],
         "name": "Ironforge Rifleman",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Deal 1 damage.",
         "text": "<b>Battlecry:</b> Deal 1 damage.",
         "type": "MINION"
@@ -19551,7 +19551,7 @@
         ],
         "name": "Kobold Geomancer",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellDamage": 1,
         "text": "<b>Spell Damage +1</b>",
         "type": "MINION"
@@ -19593,7 +19593,7 @@
         ],
         "name": "Gnomish Inventor",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Draw a card.",
         "type": "MINION"
     },
@@ -19613,7 +19613,7 @@
         ],
         "name": "Stormpike Commando",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Deal 2 damage.",
         "text": "<b>Battlecry:</b> Deal 2 damage.",
         "type": "MINION"
@@ -19654,7 +19654,7 @@
         ],
         "name": "Archmage",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellDamage": 1,
         "text": "<b>Spell Damage +1</b>",
         "type": "MINION"
@@ -19695,7 +19695,7 @@
         ],
         "name": "Lord of the Arena",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -19713,7 +19713,7 @@
         "name": "Murloc Raider",
         "race": "MURLOC",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -19753,7 +19753,7 @@
         "name": "Stonetusk Boar",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Charge</b>",
         "type": "MINION"
     },
@@ -19771,7 +19771,7 @@
         "name": "Bloodfen Raptor",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -19790,7 +19790,7 @@
         "name": "Bluegill Warrior",
         "race": "MURLOC",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Charge</b>",
         "type": "MINION"
     },
@@ -19810,7 +19810,7 @@
         ],
         "name": "Sen'jin Shieldmasta",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -19846,7 +19846,7 @@
         "id": "CS2_182",
         "name": "Chillwind Yeti",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -19861,7 +19861,7 @@
         "id": "CS2_186",
         "name": "War Golem",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -19880,7 +19880,7 @@
         ],
         "name": "Booty Bay Bodyguard",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -19921,7 +19921,7 @@
         ],
         "name": "Elven Archer",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Deal 1 damage.",
         "text": "<b>Battlecry:</b> Deal 1 damage.",
         "type": "MINION"
@@ -19942,7 +19942,7 @@
         ],
         "name": "Razorfen Hunter",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Summon a 1/1 Boar.",
         "type": "MINION"
     },
@@ -19961,7 +19961,7 @@
         ],
         "name": "Ogre Magi",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellDamage": 1,
         "text": "<b>Spell Damage +1</b>",
         "type": "MINION"
@@ -19978,7 +19978,7 @@
         "id": "CS2_200",
         "name": "Boulderfist Ogre",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -19994,7 +19994,7 @@
         "name": "Core Hound",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "type": "MINION"
     },
     {
@@ -20038,7 +20038,7 @@
         ],
         "name": "Reckless Rocketeer",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Charge</b>",
         "type": "MINION"
     },
@@ -20078,7 +20078,7 @@
         ],
         "name": "Stormwind Champion",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Your other minions have +1/+1.",
         "type": "MINION"
     },
@@ -20098,7 +20098,7 @@
         ],
         "name": "Frostwolf Warlord",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the battlefield.",
         "type": "MINION"
     },
@@ -20152,7 +20152,7 @@
         ],
         "name": "Ironbark Protector",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -20183,7 +20183,7 @@
         "id": "CS2_234",
         "name": "Shadow Word: Pain",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Destroy a minion with 3 or less Attack.",
         "type": "SPELL"
@@ -20205,7 +20205,7 @@
         ],
         "name": "Northshire Cleric",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "LEGACY",
         "text": "Whenever a minion is healed, draw a card.",
         "type": "MINION"
     },
@@ -20221,7 +20221,7 @@
         "id": "CS2_236",
         "name": "Divine Spirit",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Double a minion's Health.",
         "type": "SPELL"
@@ -20242,7 +20242,7 @@
         "name": "Starving Buzzard",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Whenever you summon a Beast, draw a card.",
         "type": "MINION"
     },
@@ -24450,7 +24450,7 @@
         "artist": "Ivan Fomin",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 2,
+        "cost": 4,
         "dbfId": 61587,
         "elite": true,
         "flavor": "Voted \"Most Lunacy\" in Madness Monthly magazine.",
@@ -25995,7 +25995,6 @@
         "name": "Pit Master",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "spellSchool": "NATURE",
         "text": "<b>Battlecry:</b> Summon a 3/2 Duelist.\n<b>Corrupt:</b> Summon two.",
         "type": "MINION"
     },
@@ -27764,7 +27763,6 @@
             "TAUNT"
         ],
         "set": "DRAGONS",
-        "spellSchool": "NATURE",
         "text": "Summon two 2/3 Spirit Wolves with <b>Taunt</b>. If you've <b>Invoked</b> twice, give them +3/+3.",
         "type": "SPELL"
     },
@@ -28899,7 +28897,7 @@
         ],
         "name": "Darkscale Healer",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Restore #2 Health to all friendly characters.",
         "type": "MINION"
     },
@@ -28922,7 +28920,7 @@
         "referencedTags": [
             "TAUNT"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Give a Beast +2/+2 and Taunt.",
         "techLevel": 3,
         "text": "<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.",
@@ -28944,7 +28942,7 @@
         "name": "Timber Wolf",
         "race": "BEAST",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Your other Beasts have +1 Attack.",
         "type": "MINION"
     },
@@ -28967,7 +28965,7 @@
         "referencedTags": [
             "CHARGE"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Your Beasts have <b>Charge</b>.",
         "type": "MINION"
     },
@@ -28981,7 +28979,7 @@
         "id": "DS1_183",
         "name": "Multi-Shot",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Deal $3 damage to two random enemy minions.",
         "type": "SPELL"
     },
@@ -28998,7 +28996,7 @@
         ],
         "name": "Tracking",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Discover</b> a card from your deck.",
         "type": "SPELL"
     },
@@ -29012,7 +29010,7 @@
         "id": "DS1_185",
         "name": "Arcane Shot",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "ARCANE",
         "text": "Deal $2 damage.",
         "type": "SPELL"
@@ -29048,7 +29046,7 @@
         "id": "DS1_233",
         "name": "Mind Blast",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Deal $5 damage to the enemy hero.",
         "type": "SPELL"
@@ -29170,7 +29168,7 @@
         ],
         "name": "Acolyte of Pain",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "Whenever this minion takes damage, draw a card.",
         "type": "MINION"
     },
@@ -29250,7 +29248,7 @@
         ],
         "name": "Voodoo Doctor",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Restore 2 Health.",
         "text": "<b>Battlecry:</b> Restore #2 Health.",
         "type": "MINION"
@@ -29314,7 +29312,7 @@
         ],
         "name": "Novice Engineer",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Draw a card.",
         "type": "MINION"
     },
@@ -29334,7 +29332,7 @@
         ],
         "name": "Sylvanas Windrunner",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "<b>Deathrattle:</b> Take\ncontrol of a random\nenemy minion.",
         "type": "MINION"
     },
@@ -29374,7 +29372,7 @@
         ],
         "name": "Shattered Sun Cleric",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Give +1/+1.",
         "text": "<b>Battlecry:</b> Give a friendly minion +1/+1.",
         "type": "MINION"
@@ -29455,7 +29453,7 @@
         ],
         "name": "Dragonling Mechanic",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Summon a 2/1 Mechanical Dragonling.",
         "type": "MINION"
     },
@@ -29640,7 +29638,7 @@
         "referencedTags": [
             "SILENCE"
         ],
-        "set": "HOF",
+        "set": "EXPERT1",
         "targetingArrowText": "<b>Silence</b> a minion.",
         "text": "<b>Battlecry:</b> <b>Silence</b> a minion.",
         "type": "MINION"
@@ -29682,7 +29680,7 @@
         "name": "Coldlight Oracle",
         "race": "MURLOC",
         "rarity": "RARE",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "<b>Battlecry:</b> Each player draws 2 cards.",
         "type": "MINION"
     },
@@ -29789,7 +29787,7 @@
         "name": "Old Murk-Eye",
         "race": "MURLOC",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "LEGACY",
         "techLevel": 2,
         "text": "<b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.",
         "type": "MINION"
@@ -29810,7 +29808,7 @@
         ],
         "name": "Acidic Swamp Ooze",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Destroy your opponent's weapon.",
         "type": "MINION"
     },
@@ -29934,7 +29932,7 @@
         "referencedTags": [
             "RUSH"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "After you summon another minion, give it <b>Rush</b>.",
         "type": "MINION"
     },
@@ -29954,7 +29952,7 @@
         ],
         "name": "Mind Control Tech",
         "rarity": "RARE",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "[x]<b>Battlecry:</b> If your opponent\nhas 4 or more minions, take\n control of one at random.",
         "type": "MINION"
     },
@@ -30156,7 +30154,7 @@
         "name": "Mountain Giant",
         "race": "ELEMENTAL",
         "rarity": "EPIC",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "Costs (1) less for each other card in your hand.",
         "type": "MINION"
     },
@@ -30199,7 +30197,7 @@
         ],
         "name": "Gelbin Mekkatorque",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Summon an AWESOME invention.",
         "type": "MINION"
     },
@@ -30221,7 +30219,7 @@
         ],
         "name": "Leeroy Jenkins",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "<b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.",
         "type": "MINION"
     },
@@ -30269,7 +30267,7 @@
         "referencedTags": [
             "STEALTH"
         ],
-        "set": "HOF",
+        "set": "EXPERT1",
         "spellSchool": "SHADOW",
         "text": "Give your minions <b>Stealth</b> until your next turn.",
         "type": "SPELL"
@@ -30284,7 +30282,7 @@
         "id": "EX1_129",
         "name": "Fan of Knives",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Deal $1 damage to all enemy minions. Draw a card.",
         "type": "SPELL"
     },
@@ -30531,7 +30529,7 @@
         "id": "EX1_161",
         "name": "Naturalize",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "EXPERT1",
         "spellSchool": "NATURE",
         "text": "Destroy a minion.\nYour opponent draws 2 cards.",
         "type": "SPELL"
@@ -30631,7 +30629,7 @@
         "id": "EX1_169",
         "name": "Innervate",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Gain 1 Mana Crystal this turn only.",
         "type": "SPELL"
@@ -30666,7 +30664,7 @@
         "id": "EX1_173",
         "name": "Starfire",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "ARCANE",
         "text": "Deal $5 damage.\nDraw a card.",
         "type": "SPELL"
@@ -30708,7 +30706,7 @@
         "referencedTags": [
             "FREEZE"
         ],
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "spellSchool": "FROST",
         "text": "Deal $2 damage to a minion. If it's <b>Frozen</b>, draw a card.",
         "type": "SPELL"
@@ -30725,7 +30723,7 @@
         "id": "EX1_180",
         "name": "Tome of Intellect",
         "rarity": "COMMON",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "spellSchool": "ARCANE",
         "text": "Add a random Mage spell to your hand.",
         "type": "SPELL"
@@ -30742,7 +30740,7 @@
         "id": "EX1_181",
         "name": "Call of the Void",
         "rarity": "COMMON",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Add a random Demon to your hand.",
         "type": "SPELL"
@@ -30759,7 +30757,7 @@
         "id": "EX1_182",
         "name": "Pilfer",
         "rarity": "COMMON",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "text": "Add a random card from another class to your hand.",
         "type": "SPELL"
     },
@@ -30778,7 +30776,7 @@
         "referencedTags": [
             "TAUNT"
         ],
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Give your minions +2/+2 and <b>Taunt</b>.",
         "type": "SPELL"
@@ -30798,7 +30796,7 @@
         "referencedTags": [
             "DIVINE_SHIELD"
         ],
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Give your minions <b>Divine Shield</b>.",
         "type": "SPELL"
@@ -30823,7 +30821,7 @@
         "name": "Siegebreaker",
         "race": "DEMON",
         "rarity": "RARE",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "techLevel": 4,
         "text": "<b>Taunt</b>\nYour other Demons have +1 Attack.",
         "type": "MINION"
@@ -30848,7 +30846,7 @@
         "referencedTags": [
             "SECRET"
         ],
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Destroy a random enemy <b>Secret</b>.",
         "type": "MINION"
     },
@@ -30870,7 +30868,7 @@
         "name": "Arcane Devourer",
         "race": "ELEMENTAL",
         "rarity": "RARE",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "text": "Whenever you cast a spell, gain +2/+2.",
         "type": "MINION"
     },
@@ -30891,7 +30889,7 @@
         ],
         "name": "Barrens Stablehand",
         "rarity": "EPIC",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Summon a random Beast.",
         "type": "MINION"
     },
@@ -30914,7 +30912,7 @@
         "name": "Brightwing",
         "race": "DRAGON",
         "rarity": "LEGENDARY",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Add a random <b>Legendary</b> minion to your hand.",
         "type": "MINION"
     },
@@ -30936,7 +30934,7 @@
         ],
         "name": "High Inquisitor Whitemane",
         "rarity": "LEGENDARY",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Summon all friendly minions that died this turn.",
         "type": "MINION"
     },
@@ -30958,7 +30956,7 @@
         "referencedTags": [
             "POISONOUS"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Give Poisonous.",
         "text": "<b>Battlecry:</b> Give a friendly minion <b>Poisonous</b>.",
         "type": "MINION"
@@ -30973,7 +30971,7 @@
         "id": "EX1_192",
         "name": "Radiance",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Restore #5 Health to your hero.",
         "type": "SPELL"
@@ -30993,7 +30991,7 @@
         ],
         "name": "Psychic Conjurer",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Copy a card in your opponent’s deck and add it to your hand.",
         "type": "MINION"
     },
@@ -31007,7 +31005,7 @@
         "id": "EX1_194",
         "name": "Power Infusion",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Give a minion +2/+6.",
         "type": "SPELL"
@@ -31029,7 +31027,7 @@
         ],
         "name": "Kul Tiran Chaplain",
         "rarity": "RARE",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "targetingArrowText": "Give +2 Health.",
         "text": "<b>Battlecry:</b> Give a friendly minion +2 Health.",
         "type": "MINION"
@@ -31051,7 +31049,7 @@
         ],
         "name": "Scarlet Subjugator",
         "rarity": "RARE",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "targetingArrowText": "Give -2 Attack\nuntil next turn.",
         "text": "<b>Battlecry:</b> Give an enemy minion -2 Attack until your next turn.",
         "type": "MINION"
@@ -31068,7 +31066,7 @@
         "id": "EX1_197",
         "name": "Shadow Word: Ruin",
         "rarity": "EPIC",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Destroy all minions with 5 or more Attack.",
         "type": "SPELL"
@@ -31091,7 +31089,7 @@
         ],
         "name": "Natalie Seline",
         "rarity": "LEGENDARY",
-        "set": "EXPERT1",
+        "set": "LEGACY",
         "targetingArrowText": "Destroy a minion.",
         "text": "<b>Battlecry:</b> Destroy a minion and gain its Health.",
         "type": "MINION"
@@ -31166,7 +31164,7 @@
         "id": "EX1_244",
         "name": "Totemic Might",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Give your Totems +2 Health.",
         "type": "SPELL"
     },
@@ -31201,7 +31199,7 @@
         "referencedTags": [
             "TAUNT"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "NATURE",
         "text": "Transform a minion into a 0/1 Frog with <b>Taunt</b>.",
         "type": "SPELL"
@@ -31404,7 +31402,7 @@
         ],
         "name": "Arcane Missiles",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "ARCANE",
         "text": "Deal $3 damage randomly split among all enemies.",
         "type": "SPELL"
@@ -31419,7 +31417,7 @@
         "id": "EX1_278",
         "name": "Shiv",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Deal $1 damage.\nDraw a card.",
         "type": "SPELL"
     },
@@ -31477,7 +31475,7 @@
         "name": "Azure Drake",
         "race": "DRAGON",
         "rarity": "RARE",
-        "set": "HOF",
+        "set": "EXPERT1",
         "spellDamage": 1,
         "text": "<b>Spell Damage +1</b>\n<b>Battlecry:</b> Draw a card.",
         "type": "MINION"
@@ -31555,7 +31553,7 @@
         "referencedTags": [
             "IMMUNE"
         ],
-        "set": "HOF",
+        "set": "EXPERT1",
         "spellSchool": "FROST",
         "text": "<b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.",
         "type": "SPELL"
@@ -31578,7 +31576,7 @@
         "name": "Ragnaros the Firelord",
         "race": "ELEMENTAL",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "Can't attack. At the end of your turn, deal 8 damage to a random enemy.",
         "type": "MINION"
     },
@@ -31613,7 +31611,7 @@
         "id": "EX1_302",
         "name": "Mortal Coil",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Deal $1 damage to a minion. If that kills it, draw a card.",
         "type": "SPELL"
@@ -31672,7 +31670,7 @@
         "name": "Felstalker",
         "race": "DEMON",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Discard a random card.",
         "type": "MINION"
     },
@@ -31686,7 +31684,7 @@
         "id": "EX1_308",
         "name": "Soulfire",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "FIRE",
         "text": "[x]Deal $4 damage.\nDiscard a random card.",
         "type": "SPELL"
@@ -31723,7 +31721,7 @@
         "name": "Doomguard",
         "race": "DEMON",
         "rarity": "RARE",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "<b>Charge</b>. <b>Battlecry:</b> Discard two random cards.",
         "type": "MINION"
     },
@@ -31791,7 +31789,7 @@
         "id": "EX1_316",
         "name": "Power Overwhelming",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "EXPERT1",
         "spellSchool": "SHADOW",
         "text": "Give a friendly minion +4/+4 until end of turn. Then, it dies. Horribly.",
         "type": "SPELL"
@@ -31975,7 +31973,7 @@
         "id": "EX1_349",
         "name": "Divine Favor",
         "rarity": "RARE",
-        "set": "HOF",
+        "set": "EXPERT1",
         "spellSchool": "HOLY",
         "text": "Draw cards until you have as many in hand as your opponent.",
         "type": "SPELL"
@@ -31993,7 +31991,7 @@
         "id": "EX1_350",
         "name": "Prophet Velen",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "Double the damage and healing of your spells and Hero Power.",
         "type": "MINION"
     },
@@ -32037,7 +32035,7 @@
         "id": "EX1_360",
         "name": "Humility",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Change a minion's Attack to 1.",
         "type": "SPELL"
     },
@@ -32093,6 +32091,7 @@
         "name": "Holy Wrath",
         "rarity": "RARE",
         "set": "EXPERT1",
+        "spellSchool": "HOLY",
         "text": "Draw a card and deal damage equal to its Cost.",
         "type": "SPELL"
     },
@@ -32128,7 +32127,7 @@
         "referencedTags": [
             "DIVINE_SHIELD"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Give a minion <b>Divine Shield</b>.",
         "type": "SPELL"
@@ -32331,7 +32330,7 @@
         ],
         "name": "Gurubashi Berserker",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Whenever this minion takes damage, gain +3 Attack.",
         "type": "MINION"
     },
@@ -32345,7 +32344,7 @@
         "id": "EX1_400",
         "name": "Whirlwind",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Deal $1 damage to ALL minions.",
         "type": "SPELL"
     },
@@ -32522,7 +32521,7 @@
         "name": "Murloc Tidehunter",
         "race": "MURLOC",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "techLevel": 1,
         "text": "<b>Battlecry:</b> Summon a 1/1 Murloc Scout.",
         "type": "MINION"
@@ -32565,7 +32564,7 @@
         "name": "Grimscale Oracle",
         "race": "MURLOC",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Your other Murlocs have +1 Attack.",
         "type": "MINION"
     },
@@ -32736,7 +32735,7 @@
         "id": "EX1_539",
         "name": "Kill Command",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Deal $3 damage. If you control a Beast, deal\n$5 damage instead.",
         "type": "SPELL"
     },
@@ -33015,7 +33014,7 @@
         "name": "Flametongue Totem",
         "race": "TOTEM",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Adjacent minions have +2 Attack.",
         "type": "MINION"
     },
@@ -33182,7 +33181,7 @@
         "id": "EX1_581",
         "name": "Sap",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Return an enemy minion to your opponent's hand.",
         "type": "SPELL"
     },
@@ -33201,7 +33200,7 @@
         ],
         "name": "Dalaran Mage",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellDamage": 1,
         "text": "<b>Spell Damage +1</b>",
         "type": "MINION"
@@ -33281,7 +33280,7 @@
         "referencedTags": [
             "WINDFURY"
         ],
-        "set": "BASIC",
+        "set": "LEGACY",
         "targetingArrowText": "Give <b>Windfury</b>.",
         "text": "<b>Battlecry:</b> Give a friendly minion <b>Windfury</b>.",
         "type": "MINION"
@@ -33320,7 +33319,7 @@
         "id": "EX1_591",
         "name": "Auchenai Soulpriest",
         "rarity": "RARE",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "Your cards and powers that restore Health now deal damage instead.",
         "type": "MINION"
     },
@@ -33339,7 +33338,7 @@
         ],
         "name": "Nightblade",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Battlecry: </b>Deal 3 damage to the enemy hero.",
         "type": "MINION"
     },
@@ -33463,7 +33462,7 @@
         "id": "EX1_606",
         "name": "Shield Block",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Gain 5 Armor.\nDraw a card.",
         "type": "SPELL"
     },
@@ -33677,7 +33676,7 @@
         "name": "Molten Giant",
         "race": "ELEMENTAL",
         "rarity": "EPIC",
-        "set": "HOF",
+        "set": "EXPERT1",
         "text": "Costs (1) less for each damage your hero has taken.",
         "type": "MINION"
     },
@@ -33706,7 +33705,7 @@
         "id": "EX1_622",
         "name": "Shadow Word: Death",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Destroy a minion with 5 or more Attack.",
         "type": "SPELL"
@@ -33741,7 +33740,7 @@
         "id": "EX1_624",
         "name": "Holy Fire",
         "rarity": "RARE",
-        "set": "HOF",
+        "set": "EXPERT1",
         "spellSchool": "HOLY",
         "text": "Deal $5 damage. Restore #5 Health to your hero.",
         "type": "SPELL"
@@ -34650,7 +34649,7 @@
         "name": "Gloom Stag",
         "race": "BEAST",
         "rarity": "EPIC",
-        "set": "HOF",
+        "set": "GILNEAS",
         "text": "<b>Taunt</b>\n<b>Battlecry:</b> If your deck has only odd-Cost cards, gain +2/+2.",
         "type": "MINION"
     },
@@ -35260,7 +35259,7 @@
         "name": "Murkspark Eel",
         "race": "BEAST",
         "rarity": "RARE",
-        "set": "HOF",
+        "set": "GILNEAS",
         "targetingArrowText": "Deal 2 damage.",
         "text": "<b>Battlecry:</b> If your deck has only even-Cost cards, deal 2 damage.",
         "type": "MINION"
@@ -36521,7 +36520,7 @@
         ],
         "name": "Genn Greymane",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "GILNEAS",
         "text": "[x]<b>Start of Game:</b>\nIf your deck has only even-\nCost cards, your starting\nHero Power costs (1).",
         "type": "MINION"
     },
@@ -36850,7 +36849,7 @@
         "name": "Baku the Mooneater",
         "race": "BEAST",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "GILNEAS",
         "text": "[x]<b>Start of Game:</b>\nIf your deck has only odd-\nCost cards, upgrade\nyour Hero Power.",
         "type": "MINION"
     },
@@ -36964,7 +36963,7 @@
         "name": "Glitter Moth",
         "race": "BEAST",
         "rarity": "EPIC",
-        "set": "HOF",
+        "set": "GILNEAS",
         "text": "<b>Battlecry:</b> If your deck has only odd-Cost cards, double the Health of your other minions.",
         "type": "MINION"
     },
@@ -36985,7 +36984,7 @@
         "name": "Black Cat",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "GILNEAS",
         "spellDamage": 1,
         "text": "<b>Spell Damage +1</b>\n <b>Battlecry:</b> If your deck has only odd-Cost cards, draw a card.",
         "type": "MINION"
@@ -47486,7 +47485,7 @@
         "id": "NEW1_003",
         "name": "Sacrificial Pact",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Destroy a friendly Demon. Restore #5 Health to your hero.",
         "type": "SPELL"
@@ -47502,7 +47501,7 @@
         "id": "NEW1_004",
         "name": "Vanish",
         "rarity": "COMMON",
-        "set": "HOF",
+        "set": "LEGACY",
         "text": "Return all minions to their owner's hand.",
         "type": "SPELL"
     },
@@ -47602,7 +47601,7 @@
         ],
         "name": "Kor'kron Elite",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "<b>Charge</b>",
         "type": "MINION"
     },
@@ -47665,7 +47664,7 @@
         "name": "Captain's Parrot",
         "race": "BEAST",
         "rarity": "EPIC",
-        "set": "HOF",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Draw a Pirate from your deck.",
         "type": "MINION"
     },
@@ -47941,7 +47940,7 @@
         "id": "NEW1_031",
         "name": "Animal Companion",
         "rarity": "FREE",
-        "set": "BASIC",
+        "set": "LEGACY",
         "text": "Summon a random Beast Companion.",
         "type": "SPELL"
     },
@@ -50610,7 +50609,7 @@
         ],
         "name": "Elite Tauren Chieftain",
         "rarity": "LEGENDARY",
-        "set": "HOF",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> Give both players the power to ROCK! (with a Power Chord card)",
         "type": "MINION"
     },
@@ -51451,7 +51450,7 @@
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
         "targetingArrowText": "Deal 1 damage.",
-        "text": "<b>Battlecry:</b> Deal 1 damage. <b>Spellburst:</b> Return this to your hand.",
+        "text": "[x]<b>Battlecry:</b> Deal 1 damage\nto a minion.\n <b><b>Spellburst</b>:</b> Return this\nto your hand.",
         "type": "MINION"
     },
     {
@@ -51986,7 +51985,7 @@
             "ROGUE"
         ],
         "collectible": true,
-        "cost": 5,
+        "cost": 6,
         "dbfId": 59609,
         "elite": true,
         "flavor": "Her parents own Scholomance. Of course she's going to play tricks on the students!",
