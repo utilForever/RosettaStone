@@ -293,7 +293,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [BAR_037] Warsong Wrangler - COST:4 [ATK:3/HP:4]
     // - Set: THE_BARRENS, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> <b>Discover</b> a Beast in your deck.
+    // Text: <b>Battlecry:</b> <b>Discover</b> a Beast from your deck.
     //       Give all copies of it +2/+1 <i>(wherever they are)</i>.
     // --------------------------------------------------------
     // GameTag:
@@ -1985,7 +1985,7 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [BAR_074] Far Watch Post - COST:2 [ATK:2/HP:4]
+    // [BAR_074] Far Watch Post - COST:2 [ATK:2/HP:3]
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: Can't attack. After your opponent draws a card,
@@ -2009,7 +2009,7 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [BAR_076] Mor'shan Watch Post - COST:3 [ATK:3/HP:5]
+    // [BAR_076] Mor'shan Watch Post - COST:3 [ATK:3/HP:4]
     // - Set: THE_BARRENS, Rarity: Rare
     // --------------------------------------------------------
     // Text: Can't attack. After your opponent plays a minion,

@@ -2948,7 +2948,7 @@ TEST_CASE("[Neutral : Minion] - SCH_245 : Steward of Scrolls")
 // [SCH_248] Pen Flinger - COST:1 [ATK:1/HP:1]
 // - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Deal 1 damage.
+// Text: <b>Battlecry:</b> Deal 1 damage to a minion.
 //       <b>Spellburst:</b> Return this to your hand.
 // --------------------------------------------------------
 // GameTag:
@@ -2978,7 +2978,7 @@ TEST_CASE("[Neutral : Minion] - SCH_248 : Pen Flinger")
     opPlayer->SetUsedMana(0);
 
     auto& curHand = *(curPlayer->GetHandZone());
-    auto opHero = opPlayer->GetHero();
+    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Pen Flinger"));
@@ -2986,26 +2986,44 @@ TEST_CASE("[Neutral : Minion] - SCH_248 : Pen Flinger")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Redemption"));
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Equality"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
 
-    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, opHero));
-    CHECK_EQ(curHand.GetCount(), 6);
-    CHECK_EQ(opHero->GetHealth(), 29);
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_RESOURCE);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card4));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 11);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    CHECK_EQ(curHand.GetCount(), 6);
-    CHECK_EQ(curHand[5]->card->name, "Pen Flinger");
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[6]->card->name, "Pen Flinger");
 
-    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[5], opHero));
-    CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(opHero->GetHealth(), 28);
+    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[6], card4));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 10);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(curHand[4]->card->name, "Pen Flinger");
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Pen Flinger");
+    CHECK_EQ(opField[0]->GetHealth(), 1);
 
-    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[4], opHero));
-    CHECK_EQ(curHand.GetCount(), 4);
-    CHECK_EQ(opHero->GetHealth(), 27);
+    game.Process(curPlayer, PlayCardTask::MinionTarget(curHand[4], card4));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // --------------------------------------- WEAPON - NEUTRAL
@@ -3487,7 +3505,7 @@ TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
+// [SCH_351] Jandice Barov - COST:6 [ATK:2/HP:1]
 // - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon two random 5-Cost minions.
