@@ -1106,14 +1106,17 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
-    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
+    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // - DEATHRATTLE = 1
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
+    // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("EX1_383t"));
+    cards.emplace("CORE_EX1_383", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_EX1_619] Equality - COST:3
