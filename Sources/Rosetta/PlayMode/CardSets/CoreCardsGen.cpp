@@ -1082,11 +1082,24 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
+    // Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_382e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_382",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
