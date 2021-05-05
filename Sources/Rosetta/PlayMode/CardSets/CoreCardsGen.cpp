@@ -935,6 +935,8 @@ void CoreCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [CORE_AT_075] Warhorse Trainer - COST:3 [ATK:3/HP:4]
     // - Set: CORE, Rarity: Common
@@ -944,6 +946,15 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "AT_075e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsSilverHandRecruit());
+    }
+    cards.emplace("CORE_AT_075", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:7]
