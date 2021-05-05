@@ -1123,8 +1123,12 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Rare
     // - Spell School: Holy
     // --------------------------------------------------------
-    // Text: Change the Health of ALL minions to 1.
+    // Text: Change the Health of all minions to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_619e", EntityType::ALL_MINIONS));
+    cards.emplace("CORE_EX1_619", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_FP1_020] Avenge - COST:1

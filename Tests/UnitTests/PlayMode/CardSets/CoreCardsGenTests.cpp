@@ -3252,3 +3252,56 @@ TEST_CASE("[Paladin : Minion] - CORE_EX1_383 : Tirion Fordring")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [CORE_EX1_619] Equality - COST:3
+// - Set: CORE, Rarity: Rare
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Change the Health of all minions to 1.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - CORE_EX1_619 : Equality")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Tirion Fordring"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Equality"));
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
