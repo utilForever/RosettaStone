@@ -967,6 +967,9 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
+    cards.emplace("CORE_CS2_088", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_CS2_089] Holy Light - COST:2
