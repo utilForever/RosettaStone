@@ -1014,14 +1014,21 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_093", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [CORE_CS2_097] Truesilver Champion - COST:4
+    // [CORE_CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever your hero attacks, restore 2 Health to it.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(EntityType::HERO,
+                                                             2) };
+    cards.emplace("CORE_CS2_097", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_EX1_130] Noble Sacrifice - COST:1

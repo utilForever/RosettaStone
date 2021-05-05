@@ -2940,3 +2940,50 @@ TEST_CASE("[Paladin : Spell] - CORE_CS2_093 : Consecration")
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 5);
 }
+
+// --------------------------------------- WEAPON - PALADIN
+// [CORE_CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever your hero attacks, restore 2 Health to it.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Weapon] - CORE_CS2_097 : Truesilver Champion")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(4);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Truesilver Champion"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 1);
+}
