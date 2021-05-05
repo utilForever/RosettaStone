@@ -1008,6 +1008,10 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemies.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
+    cards.emplace("CORE_CS2_093", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [CORE_CS2_097] Truesilver Champion - COST:4
