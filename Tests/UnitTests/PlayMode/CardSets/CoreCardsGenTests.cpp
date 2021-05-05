@@ -2987,3 +2987,83 @@ TEST_CASE("[Paladin : Weapon] - CORE_CS2_097 : Truesilver Champion")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 1);
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [CORE_EX1_130] Noble Sacrifice - COST:1
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When an enemy attacks,
+//       summon a 2/1 Defender as the new target.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - CORE_EX1_130 : Noble Sacrifice")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Noble Sacrifice"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Noble Sacrifice"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fiery War Axe"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Grommash Hellscream"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card3));
+    game.Process(opPlayer, AttackTask(opHero, curHero));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curHero->GetHealth(), 30);
+    CHECK_EQ(opHero->GetHealth(), 28);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetAttack(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+
+    game.Process(opPlayer, AttackTask(card4, curHero));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curHero->GetHealth(), 30);
+    CHECK_EQ(opField[0]->GetAttack(), 10);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+}

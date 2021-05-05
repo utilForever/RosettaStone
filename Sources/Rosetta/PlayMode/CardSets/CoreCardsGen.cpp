@@ -1040,6 +1040,14 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<SummonTask>("EX1_130a", SummonSide::SPELL, true),
+        std::make_shared<ChangeAttackingTargetTask>(EntityType::TARGET,
+                                                    EntityType::STACK) });
+    cards.emplace("CORE_EX1_130", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_EX1_362] Argent Protector - COST:2 [ATK:3/HP:2]
