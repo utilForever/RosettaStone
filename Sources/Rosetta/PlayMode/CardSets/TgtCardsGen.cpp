@@ -623,6 +623,8 @@ void TgtCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [AT_073] Competitive Spirit - COST:1
     // - Set: Tgt, Rarity: Rare
@@ -657,6 +659,15 @@ void TgtCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "AT_075e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsSilverHandRecruit());
+    }
+    cards.emplace("AT_075", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [AT_076] Murloc Knight - COST:4 [ATK:3/HP:4]
@@ -727,6 +738,8 @@ void TgtCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [AT_074e2] Seal of Champions (*) - COST:0
     // - Set: Tgt
@@ -740,6 +753,9 @@ void TgtCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Warhorse Trainer is granting this minion +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AT_075e"));
+    cards.emplace("AT_075e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [AT_081e] Purified (*) - COST:0
