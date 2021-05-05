@@ -989,6 +989,17 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_092e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_092",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_CS2_093] Consecration - COST:4
