@@ -3394,3 +3394,54 @@ TEST_CASE("[Paladin : Minion] - CORE_ICC_038 : Righteous Protector")
 {
     // Do nothing
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [CORE_OG_273] Stand Against Darkness - COST:5
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon five 1/1 Silver Hand Recruits.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - CORE_OG_273 : Stand Against Darkness")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stand Against Darkness"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stand Against Darkness"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[0]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[1]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[2]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[3]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[4]->card->name, "Silver Hand Recruit");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[5]->card->name, "Silver Hand Recruit");
+    CHECK_EQ(curField[6]->card->name, "Silver Hand Recruit");
+}

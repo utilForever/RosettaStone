@@ -1177,6 +1177,15 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon five 1/1 Silver Hand Recruits.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 5, SummonSide::SPELL));
+    cards.emplace(
+        "CORE_OG_273",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS3_016] Reckoning - COST:1
