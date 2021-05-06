@@ -36,11 +36,6 @@ std::vector<Minion*> FieldZone::GetAll()
     return PositioningZone::GetAll();
 }
 
-std::vector<Minion*> FieldZone::GetAll() const
-{
-    return PositioningZone::GetAll();
-}
-
 void FieldZone::Add(Playable* entity, int zonePos)
 {
     const auto minion = dynamic_cast<Minion*>(entity);

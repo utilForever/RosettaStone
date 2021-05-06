@@ -28,7 +28,7 @@ class RandomAgent final : public IAgent
     //! Gets an action of agent for mulligan cards.
     //! \param state The current game state.
     //! \return An action of agent for mulligan cards.
-    std::vector<int> GetActionForMulligan(const Game& state) override;
+    std::vector<int> GetActionForMulligan(Game& state) const override;
 
  private:
     PlayerType m_playerType = PlayerType::INVALID;

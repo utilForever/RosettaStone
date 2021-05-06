@@ -203,32 +203,12 @@ Player* Game::GetPlayer1()
     return &m_players[0];
 }
 
-const Player* Game::GetPlayer1() const
-{
-    return &m_players[0];
-}
-
 Player* Game::GetPlayer2()
 {
     return &m_players[1];
 }
 
-const Player* Game::GetPlayer2() const
-{
-    return &m_players[1];
-}
-
 Player* Game::GetCurrentPlayer()
-{
-    if (m_currentPlayer == PlayerType::PLAYER1)
-    {
-        return &m_players[0];
-    }
-
-    return &m_players[1];
-}
-
-const Player* Game::GetCurrentPlayer() const
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
@@ -244,16 +224,6 @@ void Game::SetCurrentPlayer(PlayerType playerType)
 }
 
 Player* Game::GetOpponentPlayer()
-{
-    if (m_currentPlayer == PlayerType::PLAYER1)
-    {
-        return &m_players[1];
-    }
-
-    return &m_players[0];
-}
-
-const Player* Game::GetOpponentPlayer() const
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {

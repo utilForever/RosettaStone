@@ -62,7 +62,7 @@ TEST_CASE("[Game] - GetPlayers")
     config.doFillDecks = true;
     config.autoRun = false;
 
-    const Game game(config);
+    Game game{ config };
 
     const Player* player1 = game.GetPlayer1();
     CHECK_EQ(player1->playerType, PlayerType::PLAYER1);
@@ -81,19 +81,16 @@ TEST_CASE("[Game] - CurOpPlayer")
     config.autoRun = false;
 
     Game game1;
-
     game1.SetCurrentPlayer(PlayerType::PLAYER2);
     CHECK_EQ(game1.GetCurrentPlayer()->playerType, PlayerType::PLAYER2);
     CHECK_EQ(game1.GetOpponentPlayer()->playerType, PlayerType::PLAYER1);
 
-    const Game game2(config);
-
+    Game game2{ config };
     CHECK_EQ(game2.GetOpponentPlayer()->playerType, PlayerType::PLAYER2);
 
     config.startPlayer = PlayerType::PLAYER2;
 
-    const Game game3(config);
-
+    Game game3{ config };
     CHECK_EQ(game3.GetOpponentPlayer()->playerType, PlayerType::PLAYER1);
 }
 

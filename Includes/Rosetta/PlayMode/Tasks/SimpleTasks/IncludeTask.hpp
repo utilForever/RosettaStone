@@ -40,17 +40,6 @@ class IncludeTask : public ITask
                                               Entity* source = nullptr,
                                               Entity* target = nullptr);
 
-    //! Returns a list of entities based on the type of entity.
-    //! \param entityType The type of entity.
-    //! \param player The player to get hand or battlefield.
-    //! \param source The source that indicates source entity.
-    //! \param target The target that indicates target entity.
-    //! \return A list of entities based on the type of entity.
-    static std::vector<Playable*> GetEntities(EntityType entityType,
-                                              const Player* player,
-                                              Entity* source = nullptr,
-                                              Entity* target = nullptr);
-
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
