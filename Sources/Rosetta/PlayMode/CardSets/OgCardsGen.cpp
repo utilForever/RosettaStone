@@ -11,6 +11,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 
 void OgCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -471,6 +472,8 @@ void OgCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [OG_006] Vilefin Inquisitor - COST:1 [ATK:1/HP:3]
     // - Race: Murloc, Set: Og, Rarity: Epic
@@ -549,7 +552,16 @@ void OgCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon five 1/1 Silver Hand Recruits.
     // --------------------------------------------------------
-
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 5, SummonSide::SPELL));
+    cards.emplace(
+        "OG_273",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    
     // --------------------------------------- MINION - PALADIN
     // [OG_310] Steward of Darkshire - COST:3 [ATK:3/HP:3]
     // - Set: Og, Rarity: Rare
