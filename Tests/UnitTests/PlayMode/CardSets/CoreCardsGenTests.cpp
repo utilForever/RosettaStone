@@ -3378,3 +3378,19 @@ TEST_CASE("[Paladin : Spell] - CORE_FP1_020 : Avenge")
     CHECK_EQ(curField[0]->GetHealth(), 3);
     CHECK_EQ(curSecret.GetCount(), 0);
 }
+
+// --------------------------------------- MINION - PALADIN
+// [CORE_ICC_038] Righteous Protector - COST:1 [ATK:1/HP:1]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - CORE_ICC_038 : Righteous Protector")
+{
+    // Do nothing
+}

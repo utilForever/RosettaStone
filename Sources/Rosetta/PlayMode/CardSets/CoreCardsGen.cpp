@@ -1167,6 +1167,9 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_ICC_038", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_OG_273] Stand Against Darkness - COST:5
