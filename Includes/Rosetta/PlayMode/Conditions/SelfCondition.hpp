@@ -84,6 +84,14 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotUntouchable();
 
+    //! SelfCondition wrapper for checking the count of field is satisfied
+    //! according to \p value and \p relaSign.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition..
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFieldCount(int value,
+                                      RelaSign relaSign = RelaSign::EQ);
+
     //! SelfCondition wrapper for checking the field is full.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldFull();
