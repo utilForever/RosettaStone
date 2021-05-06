@@ -1141,6 +1141,20 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsFieldCount(0)) }),
+        std::make_shared<FlagTask>(
+            false, ComplexTask::ActivateSecret(TaskList{
+                       std::make_shared<RandomTask>(EntityType::MINIONS, 1),
+                       std::make_shared<AddEnchantmentTask>(
+                           "FP1_020e", EntityType::STACK) }))
+    };
+    cards.emplace("CORE_FP1_020", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_ICC_038] Righteous Protector - COST:1 [ATK:1/HP:1]

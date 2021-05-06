@@ -97,6 +97,7 @@ void NaxxCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - PALADIN
     // [FP1_020] Avenge - COST:1
     // - Set: Naxx, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When one of your minions dies,
     //       give a random friendly minion +3/+2.
