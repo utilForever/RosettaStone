@@ -31,6 +31,10 @@ class FieldZone : public PositioningZone<Minion>
     //! \param player The player.
     explicit FieldZone(Player* player);
 
+    //! Returns the number of minions except untouchables.
+    //! \return The number of minions except untouchables.
+    int GetCountExceptUntouchables() const;
+
     //! Returns all entities in board zone.
     //! \return A list of entity in board zone.
     std::vector<Minion*> GetAll() override;
