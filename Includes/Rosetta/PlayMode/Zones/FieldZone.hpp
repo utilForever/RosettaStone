@@ -71,6 +71,9 @@ class FieldZone : public PositioningZone<Minion>
     //! applies it's spell power increment.
     //! \param entity The entity to remove aura.
     static void RemoveAura(Minion* entity);
+
+    int m_untouchableCount = 0;
+    bool m_hasUntouchables = false;
 };
 }  // namespace RosettaStone::PlayMode
 

@@ -69,6 +69,12 @@ void FieldZone::Add(Playable* entity, int zonePos)
     }
 
     entity->game->triggerManager.OnZoneTrigger(entity);
+
+    if (entity->card->IsUntouchable())
+    {
+        ++m_untouchableCount;
+        m_hasUntouchables = true;
+    }
 }
 
 Playable* FieldZone::Remove(Playable* entity)
@@ -82,6 +88,11 @@ Playable* FieldZone::Remove(Playable* entity)
         adjacentAuras[i]->SetIsFieldChanged(true);
     }
 
+    if (entity->card->IsUntouchable() && --m_untouchableCount == 0)
+    {
+        m_hasUntouchables = false;
+    }
+
     return PositioningZone::Remove(minion);
 }
 
@@ -91,24 +102,41 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
 
     // Remove old entity
     RemoveAura(oldEntity);
+
     for (auto& aura : auras)
     {
         aura->NotifyEntityRemoved(oldEntity);
     }
+
+    if (oldEntity->card->IsUntouchable() && --m_untouchableCount == 0)
+    {
+        m_hasUntouchables = false;
+    }
+
     oldEntity->SetZonePosition(0);
     oldEntity->player->GetSetasideZone()->Add(oldEntity);
 
     // Add new entity
     newEntity->orderOfPlay = newEntity->game->GetNextOOP();
-    m_entities[pos] = dynamic_cast<Minion*>(newEntity);
+
+    m_entities[pos] = newEntity;
     newEntity->SetZonePosition(pos);
     newEntity->SetZoneType(m_type);
     newEntity->zone = this;
+
     ActivateAura(newEntity);
+
+    if (newEntity->card->IsUntouchable())
+    {
+        ++m_untouchableCount;
+        m_hasUntouchables = true;
+    }
+
     for (auto& aura : auras)
     {
         aura->NotifyEntityAdded(newEntity);
     }
+
     for (auto& aura : adjacentAuras)
     {
         aura->SetIsFieldChanged(true);
