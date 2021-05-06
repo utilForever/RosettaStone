@@ -25,10 +25,6 @@ class GraveyardZone : public UnlimitedZone
     //! \param player The player.
     explicit GraveyardZone(Player* player);
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopy(GraveyardZone* rhs);
-
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.

@@ -37,36 +37,6 @@ Player::~Player()
     delete m_hero;
 }
 
-void Player::RefCopy(const Player& rhs)
-{
-    if (this == &rhs)
-    {
-        return;
-    }
-
-    delete m_hero;
-
-    nickname = rhs.nickname;
-    playerType = rhs.playerType;
-    playerID = rhs.playerID;
-
-    playState = rhs.playState;
-    mulliganState = rhs.mulliganState;
-
-    choice = rhs.choice;
-    m_hero = rhs.m_hero;
-    opponent = rhs.opponent;
-
-    m_deckZone->RefCopy(rhs.m_deckZone.get());
-    m_fieldZone->RefCopy(rhs.m_fieldZone.get());
-    m_graveyardZone->RefCopy(rhs.m_graveyardZone.get());
-    m_handZone->RefCopy(rhs.m_handZone.get());
-    m_secretZone->RefCopy(rhs.m_secretZone.get());
-    m_setasideZone->RefCopy(rhs.m_setasideZone.get());
-
-    m_gameTags = rhs.m_gameTags;
-}
-
 FieldZone* Player::GetFieldZone() const
 {
     return m_fieldZone.get();

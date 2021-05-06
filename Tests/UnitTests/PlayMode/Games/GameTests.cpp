@@ -22,37 +22,6 @@ using namespace RosettaStone;
 using namespace PlayMode;
 using namespace PlayerTasks;
 
-TEST_CASE("[Game] - RefCopyFrom")
-{
-    GameConfig config1;
-    config1.player1Class = CardClass::WARRIOR;
-    config1.player2Class = CardClass::ROGUE;
-    config1.startPlayer = PlayerType::PLAYER1;
-    config1.doFillDecks = true;
-    config1.autoRun = true;
-
-    GameConfig config2;
-    config2.player1Class = CardClass::MAGE;
-    config2.player2Class = CardClass::HUNTER;
-    config2.startPlayer = PlayerType::PLAYER2;
-    config2.doFillDecks = true;
-    config2.autoRun = false;
-
-    Game* game1 = new Game(config1);
-    game1->step = Step::BEGIN_DRAW;
-    game1->nextStep = Step::MAIN_ACTION;
-
-    Game* game2 = new Game(config2);
-    game2->step = Step::FINAL_WRAPUP;
-    game2->nextStep = Step::MAIN_COMBAT;
-
-    game1->RefCopyFrom(*game2);
-    CHECK_EQ(game1->step, Step::FINAL_WRAPUP);
-    CHECK_EQ(game1->nextStep, Step::MAIN_COMBAT);
-
-    delete game1;
-}
-
 TEST_CASE("[Game] - GetPlayers")
 {
     GameConfig config;

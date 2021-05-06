@@ -159,34 +159,6 @@ void Game::Initialize()
     }
 }
 
-void Game::RefCopyFrom(const Game& rhs)
-{
-    if (this == &rhs)
-    {
-        return;
-    }
-
-    state = rhs.state;
-
-    step = rhs.step;
-    nextStep = rhs.nextStep;
-
-    auras = rhs.auras;
-    triggers = rhs.triggers;
-    oneTurnEffects = rhs.oneTurnEffects;
-    summonedMinions = rhs.summonedMinions;
-    deadMinions = rhs.deadMinions;
-
-    m_gameConfig = rhs.m_gameConfig;
-
-    m_players[0].RefCopy(rhs.m_players[0]);
-    m_players[1].RefCopy(rhs.m_players[1]);
-    m_turn = rhs.m_turn;
-
-    m_entityID = rhs.m_entityID;
-    m_oopIndex = rhs.m_oopIndex;
-}
-
 std::array<Card*, START_DECK_SIZE> Game::GetPlayerDeck(PlayerType type)
 {
     return type == PlayerType::PLAYER1 ? m_gameConfig.player1Deck

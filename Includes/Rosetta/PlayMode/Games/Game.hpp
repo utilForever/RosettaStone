@@ -55,10 +55,6 @@ class Game
     //! Initializes the game state and player related variables.
     void Initialize();
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopyFrom(const Game& rhs);
-
     //! Gets player's deck.
     //! \param type The player type to get deck.
     std::array<Card*, START_DECK_SIZE> GetPlayerDeck(PlayerType type);
