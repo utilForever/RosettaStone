@@ -54,11 +54,6 @@ class FieldZone : public PositioningZone<Minion>
     //! \param newEntity The new entity.
     void Replace(Minion* oldEntity, Minion* newEntity);
 
-    //! Finds the index of the minion.
-    //! \param minion The minion to find.
-    //! \return The index of the minion if it is found, -1 otherwise.
-    int FindIndex(Minion* minion) const;
-
     //! Activates a minion's trigger and aura and
     //! applies it's spell power increment.
     //! \param entity The entity to activate aura.

@@ -85,17 +85,4 @@ void HandZone::Expand(int newSize)
     m_entities = entities;
     m_maxSize = newSize;
 }
-
-int HandZone::FindIndex(Entity* entity) const
-{
-    for (std::size_t idx = 0; idx < MAX_HAND_SIZE; ++idx)
-    {
-        if (m_entities[idx] == entity)
-        {
-            return idx;
-        }
-    }
-
-    return -1;
-}
 }  // namespace RosettaStone::PlayMode

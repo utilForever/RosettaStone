@@ -157,19 +157,6 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
     }
 }
 
-int FieldZone::FindIndex(Minion* minion) const
-{
-    for (std::size_t idx = 0; idx < MAX_FIELD_SIZE; ++idx)
-    {
-        if (m_entities[idx] == minion)
-        {
-            return idx;
-        }
-    }
-
-    return -1;
-}
-
 void FieldZone::ActivateAura(Minion* entity)
 {
     if (entity->card->power.GetTrigger())
