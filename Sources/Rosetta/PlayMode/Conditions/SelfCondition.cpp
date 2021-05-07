@@ -132,7 +132,7 @@ SelfCondition SelfCondition::IsNotUntouchable()
 
 SelfCondition SelfCondition::IsFieldCount(int value, RelaSign relaSign)
 {
-    return SelfCondition([&](Playable* playable) {
+    return SelfCondition([value, relaSign](Playable* playable) {
         const int val =
             playable->player->GetFieldZone()->GetCountExceptUntouchables();
 
