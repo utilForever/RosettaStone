@@ -55,10 +55,6 @@ class Game
     //! Initializes the game state and player related variables.
     void Initialize();
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopyFrom(const Game& rhs);
-
     //! Gets player's deck.
     //! \param type The player type to get deck.
     std::array<Card*, START_DECK_SIZE> GetPlayerDeck(PlayerType type);
@@ -71,25 +67,13 @@ class Game
     //! \return The first player.
     Player* GetPlayer1();
 
-    //! Returns the first player.
-    //! \return The first player.
-    const Player* GetPlayer1() const;
-
     //! Returns the second player.
     //! \return The second player.
     Player* GetPlayer2();
 
-    //! Returns the second player.
-    //! \return The second player.
-    const Player* GetPlayer2() const;
-
     //! Returns the player controlling the current turn.
     //! \return The player controlling the current turn.
     Player* GetCurrentPlayer();
-
-    //! Returns the player controlling the current turn.
-    //! \return The player controlling the current turn.
-    const Player* GetCurrentPlayer() const;
 
     //! Sets the player controlling the current turn.
     //! \param type The player type controlling the current turn.
@@ -98,10 +82,6 @@ class Game
     //! Returns the opponent player.
     //! \return The opponent player.
     Player* GetOpponentPlayer();
-
-    //! Returns the opponent player.
-    //! \return The opponent player.
-    const Player* GetOpponentPlayer() const;
 
     //! Gets the turn of the game.
     //! \return The turn of the game.

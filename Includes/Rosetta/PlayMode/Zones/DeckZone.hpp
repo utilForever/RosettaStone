@@ -27,10 +27,6 @@ class DeckZone : public LimitedZone<Playable>
     //! \param player The player.
     explicit DeckZone(Player* player);
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopy(DeckZone* rhs) const;
-
     //! Returns the top card from deck.
     //! \return The top card of deck.
     Playable* GetTopCard() const;

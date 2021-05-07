@@ -2279,8 +2279,8 @@ TEST_CASE("[Paladin : SPell] - CS2_087 : Blessing of Might")
 TEST_CASE("[Paladin : Minion] - CS2_088 : Guardian of Kings")
 {
     GameConfig config;
-    config.player1Class = CardClass::DRUID;
-    config.player2Class = CardClass::PALADIN;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::DRUID;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
     config.autoRun = false;

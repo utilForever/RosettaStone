@@ -17,19 +17,6 @@ SecretZone::SecretZone(Player* player)
     m_player = player;
 }
 
-void SecretZone::RefCopy(SecretZone* rhs) const
-{
-    for (int i = 0; i < m_count; ++i)
-    {
-        delete m_entities[i];
-    }
-
-    for (int i = 0; i < rhs->m_count; ++i)
-    {
-        m_entities[i] = rhs->m_entities[i];
-    }
-}
-
 void SecretZone::Add(Playable* entity, int zonePos)
 {
     const auto spell = dynamic_cast<Spell*>(entity);

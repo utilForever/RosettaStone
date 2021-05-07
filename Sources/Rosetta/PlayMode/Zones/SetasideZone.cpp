@@ -14,19 +14,6 @@ SetasideZone::SetasideZone(Player* player)
     // Do nothing
 }
 
-void SetasideZone::RefCopy(SetasideZone* rhs)
-{
-    for (int i = 0; i < GetCount(); ++i)
-    {
-        delete m_entities[i];
-    }
-
-    for (int i = 0; i < rhs->GetCount(); ++i)
-    {
-        m_entities.emplace_back(rhs->m_entities[i]);
-    }
-}
-
 Playable* SetasideZone::GetEntity(int id)
 {
     for (auto& entity : m_entities)

@@ -16,7 +16,7 @@ CORE | CORE_AT_021 | Tiny Knight of Evil |
 CORE | CORE_AT_047 | Draenei Totemcarver |  
 CORE | CORE_AT_055 | Flash Heal |  
 CORE | CORE_AT_061 | Lock and Load | O
-CORE | CORE_AT_075 | Warhorse Trainer |  
+CORE | CORE_AT_075 | Warhorse Trainer | O
 CORE | CORE_AT_092 | Ice Rager |  
 CORE | CORE_BOT_083 | Toxicologist |  
 CORE | CORE_BOT_420 | Landscaping | O
@@ -56,11 +56,11 @@ CORE | CORE_CS2_075 | Sinister Strike |
 CORE | CORE_CS2_076 | Assassinate |  
 CORE | CORE_CS2_077 | Sprint |  
 CORE | CORE_CS2_080 | Assassin's Blade |  
-CORE | CORE_CS2_088 | Guardian of Kings |  
-CORE | CORE_CS2_089 | Holy Light |  
-CORE | CORE_CS2_092 | Blessing of Kings |  
-CORE | CORE_CS2_093 | Consecration |  
-CORE | CORE_CS2_097 | Truesilver Champion |  
+CORE | CORE_CS2_088 | Guardian of Kings | O
+CORE | CORE_CS2_089 | Holy Light | O
+CORE | CORE_CS2_092 | Blessing of Kings | O
+CORE | CORE_CS2_093 | Consecration | O
+CORE | CORE_CS2_097 | Truesilver Champion | O
 CORE | CORE_CS2_106 | Fiery War Axe |  
 CORE | CORE_CS2_108 | Execute |  
 CORE | CORE_CS2_117 | Earthen Ring Farseer |  
@@ -97,7 +97,7 @@ CORE | CORE_EX1_095 | Gadgetzan Auctioneer |
 CORE | CORE_EX1_096 | Loot Hoarder |  
 CORE | CORE_EX1_103 | Coldlight Seer |  
 CORE | CORE_EX1_110 | Cairne Bloodhoof |  
-CORE | CORE_EX1_130 | Noble Sacrifice |  
+CORE | CORE_EX1_130 | Noble Sacrifice | O
 CORE | CORE_EX1_134 | SI:7 Agent |  
 CORE | CORE_EX1_144 | Shadowstep |  
 CORE | CORE_EX1_145 | Preparation |  
@@ -136,9 +136,9 @@ CORE | CORE_EX1_312 | Twisting Nether |
 CORE | CORE_EX1_319 | Flame Imp |  
 CORE | CORE_EX1_323 | Lord Jaraxxus |  
 CORE | CORE_EX1_335 | Lightspawn |  
-CORE | CORE_EX1_362 | Argent Protector |  
-CORE | CORE_EX1_382 | Aldor Peacekeeper |  
-CORE | CORE_EX1_383 | Tirion Fordring |  
+CORE | CORE_EX1_362 | Argent Protector | O
+CORE | CORE_EX1_382 | Aldor Peacekeeper | O
+CORE | CORE_EX1_383 | Tirion Fordring | O
 CORE | CORE_EX1_391 | Slam |  
 CORE | CORE_EX1_399 | Gurubashi Berserker |  
 CORE | CORE_EX1_400 | Whirlwind |  
@@ -164,13 +164,13 @@ CORE | CORE_EX1_604 | Frothing Berserker |
 CORE | CORE_EX1_610 | Explosive Trap | O
 CORE | CORE_EX1_611 | Freezing Trap | O
 CORE | CORE_EX1_617 | Deadly Shot | O
-CORE | CORE_EX1_619 | Equality |  
+CORE | CORE_EX1_619 | Equality | O
 CORE | CORE_EX1_622 | Shadow Word: Death |  
 CORE | CORE_EX1_623 | Temple Enforcer |  
 CORE | CORE_EX1_625 | Shadowform |  
 CORE | CORE_FP1_007 | Nerubian Egg |  
 CORE | CORE_FP1_011 | Webspinner | O
-CORE | CORE_FP1_020 | Avenge |  
+CORE | CORE_FP1_020 | Avenge | O
 CORE | CORE_FP1_031 | Baron Rivendare |  
 CORE | CORE_GIL_191 | Fiendish Circle |  
 CORE | CORE_GIL_801 | Snap Freeze | O
@@ -183,7 +183,7 @@ CORE | CORE_GVG_085 | Annoy-o-Tron |
 CORE | CORE_GVG_109 | Mini-Mage |  
 CORE | CORE_GVG_121 | Clockwork Giant |  
 CORE | CORE_ICC_026 | Grim Necromancer |  
-CORE | CORE_ICC_038 | Righteous Protector |  
+CORE | CORE_ICC_038 | Righteous Protector | O
 CORE | CORE_ICC_055 | Drain Soul |  
 CORE | CORE_ICC_419 | Bearshark | O
 CORE | CORE_ICC_809 | Plague Scientist |  
@@ -205,7 +205,7 @@ CORE | CORE_NEW1_027 | Southsea Captain |
 CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_070 | Bladed Cultist |  
 CORE | CORE_OG_241 | Possessed Villager |  
-CORE | CORE_OG_273 | Stand Against Darkness |  
+CORE | CORE_OG_273 | Stand Against Darkness | O
 CORE | CORE_TRL_111 | Headhunter's Hatchet | O
 CORE | CORE_TRL_243 | Pounce | O
 CORE | CORE_tt_004 | Flesheating Ghoul |  
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 20% (47 of 235 Cards)
+- Progress: 25% (61 of 235 Cards)
 
 ## Ashes of Outland
 

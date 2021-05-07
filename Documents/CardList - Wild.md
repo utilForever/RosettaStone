@@ -510,7 +510,7 @@ NAXX | FP1_016 | Wailing Soul |
 NAXX | FP1_017 | Nerub'ar Weblord |  
 NAXX | FP1_018 | Duplicate |  
 NAXX | FP1_019 | Poison Seeds |  
-NAXX | FP1_020 | Avenge |  
+NAXX | FP1_020 | Avenge | O
 NAXX | FP1_021 | Death's Bite |  
 NAXX | FP1_022 | Voidcaller |  
 NAXX | FP1_023 | Dark Cultist |  
@@ -523,7 +523,7 @@ NAXX | FP1_029 | Dancing Swords |
 NAXX | FP1_030 | Loatheb |  
 NAXX | FP1_031 | Baron Rivendare |  
 
-- Progress: 3% (1 of 30 Cards)
+- Progress: 6% (2 of 30 Cards)
 
 ## Blackrock Mountain
 
@@ -642,7 +642,7 @@ TGT | AT_071 | Alexstrasza's Champion |
 TGT | AT_072 | Varian Wrynn |  
 TGT | AT_073 | Competitive Spirit |  
 TGT | AT_074 | Seal of Champions |  
-TGT | AT_075 | Warhorse Trainer |  
+TGT | AT_075 | Warhorse Trainer | O
 TGT | AT_076 | Murloc Knight |  
 TGT | AT_077 | Argent Lance |  
 TGT | AT_078 | Enter the Coliseum |  
@@ -700,7 +700,7 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 2% (3 of 132 Cards)
+- Progress: 3% (4 of 132 Cards)
 
 ## The League of Explorers
 
@@ -849,7 +849,7 @@ OG | OG_256 | Spawn of N'Zoth |
 OG | OG_267 | Southsea Squidface |  
 OG | OG_271 | Scaled Nightmare |  
 OG | OG_272 | Twilight Summoner |  
-OG | OG_273 | Stand Against Darkness |  
+OG | OG_273 | Stand Against Darkness | O
 OG | OG_276 | Blood Warriors |  
 OG | OG_280 | C'Thun |  
 OG | OG_281 | Beckoner of Evil |  
@@ -893,7 +893,7 @@ OG | OG_338 | Nat, the Darkfisher |
 OG | OG_339 | Skeram Cultist |  
 OG | OG_340 | Soggoth the Slitherer |  
 
-- Progress: 0% (1 of 134 Cards)
+- Progress: 1% (2 of 134 Cards)
 
 ## One Night in Karazhan
 
@@ -1105,7 +1105,7 @@ ICECROWN | ICC_029 | Cobalt Scalebane |
 ICECROWN | ICC_031 | Night Howler |  
 ICECROWN | ICC_032 | Venomancer |  
 ICECROWN | ICC_034 | Arrogant Crusader |  
-ICECROWN | ICC_038 | Righteous Protector |  
+ICECROWN | ICC_038 | Righteous Protector | O
 ICECROWN | ICC_039 | Dark Conviction |  
 ICECROWN | ICC_041 | Defile |  
 ICECROWN | ICC_047 | Fatespinner |  
@@ -1229,7 +1229,7 @@ ICECROWN | ICC_911 | Keening Banshee |
 ICECROWN | ICC_912 | Corpsetaker |  
 ICECROWN | ICC_913 | Tainted Zealot |  
 
-- Progress: 0% (1 of 135 Cards)
+- Progress: 1% (2 of 135 Cards)
 
 ## The Witchwood
 

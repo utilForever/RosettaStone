@@ -935,6 +935,8 @@ void CoreCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [CORE_AT_075] Warhorse Trainer - COST:3 [ATK:3/HP:4]
     // - Set: CORE, Rarity: Common
@@ -944,6 +946,15 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "AT_075e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsSilverHandRecruit());
+    }
+    cards.emplace("CORE_AT_075", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:7]
@@ -956,6 +967,9 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
+    cards.emplace("CORE_CS2_088", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_CS2_089] Holy Light - COST:2
@@ -964,6 +978,9 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 8 Health to your hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 8));
+    cards.emplace("CORE_CS2_089", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_CS2_092] Blessing of Kings - COST:4
@@ -972,6 +989,17 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_092e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_092",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_CS2_093] Consecration - COST:4
@@ -980,16 +1008,27 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemies.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
+    cards.emplace("CORE_CS2_093", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [CORE_CS2_097] Truesilver Champion - COST:4
+    // [CORE_CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever your hero attacks, restore 2 Health to it.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(EntityType::HERO,
+                                                             2) };
+    cards.emplace("CORE_CS2_097", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_EX1_130] Noble Sacrifice - COST:1
@@ -1001,6 +1040,14 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<SummonTask>("EX1_130a", SummonSide::SPELL, true),
+        std::make_shared<ChangeAttackingTargetTask>(EntityType::TARGET,
+                                                    EntityType::STACK) });
+    cards.emplace("CORE_EX1_130", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_EX1_362] Argent Protector - COST:2 [ATK:3/HP:2]
@@ -1012,41 +1059,76 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace(
+        "CORE_EX1_362",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
+    // Text: <b>Battlecry:</b> Change an enemy minion's Attack to 1.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_382e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_382",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
     // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
-    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
+    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // - DEATHRATTLE = 1
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
+    // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("EX1_383t"));
+    cards.emplace("CORE_EX1_383", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_EX1_619] Equality - COST:3
     // - Set: CORE, Rarity: Rare
     // - Spell School: Holy
     // --------------------------------------------------------
-    // Text: Change the Health of ALL minions to 1.
+    // Text: Change the Health of all minions to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_619e", EntityType::ALL_MINIONS));
+    cards.emplace("CORE_EX1_619", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_FP1_020] Avenge - COST:1
@@ -1059,6 +1141,16 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsFieldCount(2, RelaSign::GEQ));
+    power.GetTrigger()->tasks = { ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<RandomTask>(EntityType::MINIONS, 1),
+                  std::make_shared<AddEnchantmentTask>("FP1_020e",
+                                                       EntityType::STACK) }) };
+    cards.emplace("CORE_FP1_020", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_ICC_038] Righteous Protector - COST:1 [ATK:1/HP:1]
@@ -1071,6 +1163,9 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_ICC_038", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_OG_273] Stand Against Darkness - COST:5
@@ -1078,6 +1173,15 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon five 1/1 Silver Hand Recruits.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_101t", 5, SummonSide::SPELL));
+    cards.emplace(
+        "CORE_OG_273",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS3_016] Reckoning - COST:1

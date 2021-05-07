@@ -28,7 +28,7 @@ class IAgent
     //! Gets an action of agent for mulligan cards.
     //! \param state The current game state.
     //! \return An action of agent for mulligan cards.
-    virtual std::vector<int> GetActionForMulligan(const Game& state) = 0;
+    virtual std::vector<int> GetActionForMulligan(Game& state) const = 0;
 };
 }  // namespace RosettaStone::PlayMode
 

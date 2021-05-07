@@ -27,10 +27,6 @@ class SetasideZone : public UnlimitedZone
     //! \param player The player.
     explicit SetasideZone(Player* player);
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopy(SetasideZone* rhs);
-
     //! Returns The entity that has ID.
     //! \param id The ID of entity.
     //! \return The entity.

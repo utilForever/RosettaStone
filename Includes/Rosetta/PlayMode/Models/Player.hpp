@@ -56,10 +56,6 @@ class Player : public Entity
     //! Default move assignment operator.
     Player& operator=(Player&&) noexcept = delete;
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopy(const Player& rhs);
-
     //! Returns player's field zone.
     //! \return Player's field zone.
     FieldZone* GetFieldZone() const;

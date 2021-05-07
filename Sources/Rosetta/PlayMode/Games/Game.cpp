@@ -159,34 +159,6 @@ void Game::Initialize()
     }
 }
 
-void Game::RefCopyFrom(const Game& rhs)
-{
-    if (this == &rhs)
-    {
-        return;
-    }
-
-    state = rhs.state;
-
-    step = rhs.step;
-    nextStep = rhs.nextStep;
-
-    auras = rhs.auras;
-    triggers = rhs.triggers;
-    oneTurnEffects = rhs.oneTurnEffects;
-    summonedMinions = rhs.summonedMinions;
-    deadMinions = rhs.deadMinions;
-
-    m_gameConfig = rhs.m_gameConfig;
-
-    m_players[0].RefCopy(rhs.m_players[0]);
-    m_players[1].RefCopy(rhs.m_players[1]);
-    m_turn = rhs.m_turn;
-
-    m_entityID = rhs.m_entityID;
-    m_oopIndex = rhs.m_oopIndex;
-}
-
 std::array<Card*, START_DECK_SIZE> Game::GetPlayerDeck(PlayerType type)
 {
     return type == PlayerType::PLAYER1 ? m_gameConfig.player1Deck
@@ -203,32 +175,12 @@ Player* Game::GetPlayer1()
     return &m_players[0];
 }
 
-const Player* Game::GetPlayer1() const
-{
-    return &m_players[0];
-}
-
 Player* Game::GetPlayer2()
 {
     return &m_players[1];
 }
 
-const Player* Game::GetPlayer2() const
-{
-    return &m_players[1];
-}
-
 Player* Game::GetCurrentPlayer()
-{
-    if (m_currentPlayer == PlayerType::PLAYER1)
-    {
-        return &m_players[0];
-    }
-
-    return &m_players[1];
-}
-
-const Player* Game::GetCurrentPlayer() const
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {
@@ -244,16 +196,6 @@ void Game::SetCurrentPlayer(PlayerType playerType)
 }
 
 Player* Game::GetOpponentPlayer()
-{
-    if (m_currentPlayer == PlayerType::PLAYER1)
-    {
-        return &m_players[1];
-    }
-
-    return &m_players[0];
-}
-
-const Player* Game::GetOpponentPlayer() const
 {
     if (m_currentPlayer == PlayerType::PLAYER1)
     {

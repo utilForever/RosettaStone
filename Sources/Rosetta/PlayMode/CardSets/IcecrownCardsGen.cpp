@@ -919,6 +919,8 @@ void IcecrownCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void IcecrownCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [ICC_034] Arrogant Crusader - COST:4 [ATK:5/HP:2]
     // - Set: Icecrown, Rarity: Rare
@@ -941,6 +943,9 @@ void IcecrownCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ICC_038", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [ICC_039] Dark Conviction - COST:2

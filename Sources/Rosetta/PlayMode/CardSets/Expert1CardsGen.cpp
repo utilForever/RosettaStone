@@ -1735,7 +1735,8 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [EX1_362] Argent Protector - COST:2 [ATK:3/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.
+    // Text: <b>Battlecry:</b> Give a friendly minion
+    //       <b>Divine Shield</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1

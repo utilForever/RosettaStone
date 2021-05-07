@@ -26,10 +26,6 @@ class HandZone : public PositioningZone<Playable>
     //! \param player The player.
     explicit HandZone(Player* player);
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopy(HandZone* rhs) const;
-
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
@@ -43,11 +39,6 @@ class HandZone : public PositioningZone<Playable>
     //! Expands the size of hand.
     //! \param newSize The size of hand to expand.
     void Expand(int newSize);
-
-    //! Finds the index of the entity.
-    //! \param entity The entity to find.
-    //! \return The index of the entity if it is found, -1 otherwise.
-    int FindIndex(Entity* entity) const;
 };
 }  // namespace RosettaStone::PlayMode
 

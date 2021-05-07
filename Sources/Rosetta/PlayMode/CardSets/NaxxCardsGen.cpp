@@ -4,6 +4,8 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -11,6 +13,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using TagValues = std::vector<TagValue>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void NaxxCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -89,9 +92,12 @@ void NaxxCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [FP1_020] Avenge - COST:1
     // - Set: Naxx, Rarity: Common
+    // - Spell School: Holy
     // --------------------------------------------------------
     // Text: <b>Secret:</b> When one of your minions dies,
     //       give a random friendly minion +3/+2.
@@ -99,16 +105,31 @@ void NaxxCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsFieldCount(2, RelaSign::GEQ));
+    power.GetTrigger()->tasks = { ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<RandomTask>(EntityType::MINIONS, 1),
+                  std::make_shared<AddEnchantmentTask>("FP1_020e",
+                                                       EntityType::STACK) }) };
+    cards.emplace("FP1_020", CardDef(power));
 }
 
 void NaxxCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [FP1_020e] Vengeance (*) - COST:0
     // - Set: Naxx
     // --------------------------------------------------------
     // Text: +3/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("FP1_020e"));
+    cards.emplace("FP1_020e", CardDef(power));
 }
 
 void NaxxCardsGen::AddPriest(std::map<std::string, CardDef>& cards)

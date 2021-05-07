@@ -31,17 +31,13 @@ class FieldZone : public PositioningZone<Minion>
     //! \param player The player.
     explicit FieldZone(Player* player);
 
-    //! Copies the contents from reference \p rhs.
-    //! \param rhs The source to copy the content.
-    void RefCopy(FieldZone* rhs) const;
+    //! Returns the number of minions except untouchables.
+    //! \return The number of minions except untouchables.
+    int GetCountExceptUntouchables() const;
 
     //! Returns all entities in board zone.
     //! \return A list of entity in board zone.
     std::vector<Minion*> GetAll() override;
-
-    //! Returns all entities in board zone.
-    //! \return A list of entity in board zone.
-    std::vector<Minion*> GetAll() const override;
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
@@ -58,11 +54,6 @@ class FieldZone : public PositioningZone<Minion>
     //! \param newEntity The new entity.
     void Replace(Minion* oldEntity, Minion* newEntity);
 
-    //! Finds the index of the minion.
-    //! \param minion The minion to find.
-    //! \return The index of the minion if it is found, -1 otherwise.
-    int FindIndex(Minion* minion) const;
-
     //! Activates a minion's trigger and aura and
     //! applies it's spell power increment.
     //! \param entity The entity to activate aura.
@@ -75,6 +66,9 @@ class FieldZone : public PositioningZone<Minion>
     //! applies it's spell power increment.
     //! \param entity The entity to remove aura.
     static void RemoveAura(Minion* entity);
+
+    int m_untouchableCount = 0;
+    bool m_hasUntouchables = false;
 };
 }  // namespace RosettaStone::PlayMode
 

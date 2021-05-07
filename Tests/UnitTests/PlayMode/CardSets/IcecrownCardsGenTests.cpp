@@ -22,3 +22,19 @@ TEST_CASE("[Hunter : Minion] - ICC_419 : Bearshark")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - PALADIN
+// [ICC_038] Righteous Protector - COST:1 [ATK:1/HP:1]
+// - Set: Icecrown, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - ICC_038 : Righteous Protector")
+{
+    // Do nothing
+}
