@@ -10,6 +10,7 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
+#include <limits>
 #include <string>
 #include <utility>
 
