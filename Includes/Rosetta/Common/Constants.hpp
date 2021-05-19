@@ -135,7 +135,7 @@ constexpr int NUM_TIER1_MINIONS = 19;
 constexpr int NUM_TIER2_MINIONS = 26;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 31;
+constexpr int NUM_TIER3_MINIONS = 30;
 
 //! The number of tier 4 minions in Battlegrounds.
 constexpr int NUM_TIER4_MINIONS = 26;
@@ -260,13 +260,12 @@ constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
 // Necrolyte (70151)
 // Neutral
 // Arm of the Empire (63622)
-// Barrens Blacksmith (62582)
 // Khadgar (52502)
 // Warden of Old (65660)
 constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
-    38734, 62230, 1003,  40428, 2288,  40391, 61059, 59660, 60558, 60552, 60626,
-    64297, 64054, 64069, 61930, 1992,  2023,  48536, 453,   56393, 61053, 62734,
-    61048, 70171, 70144, 70175, 70151, 63622, 62582, 52502, 65660
+    38734, 62230, 1003,  40428, 2288,  40391, 61059, 59660, 60558, 60552,
+    60626, 64297, 64054, 64069, 61930, 1992,  2023,  48536, 453,   56393,
+    61053, 62734, 61048, 70171, 70144, 70175, 70151, 63622, 52502, 65660
 };
 
 //! A list of Tier 4 minion dbfIDs in Battlegrounds.
