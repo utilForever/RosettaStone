@@ -931,10 +931,10 @@ TEST_CASE("[Mage : Minion] - SCH_310 : Lab Partner")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [SCH_247] First Day of School - COST:0
+// [SCH_247] First Day of School - COST:1
 // - Set: SCHOLOMANCE, Rarity: Common
 // --------------------------------------------------------
-// Text: Add 2 random 1-Cost minions to your hand.
+// Text: Add 3 random 1-Cost minions to your hand.
 // --------------------------------------------------------
 TEST_CASE("[Paladin : Spell] - SCH_247 : First Day of School")
 {
@@ -962,11 +962,13 @@ TEST_CASE("[Paladin : Spell] - SCH_247 : First Day of School")
         curPlayer, Cards::FindCardByName("First Day of School"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand.GetCount(), 3);
     CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
     CHECK_EQ(curHand[0]->card->GetCost(), 1);
     CHECK_EQ(curHand[1]->card->GetCardType(), CardType::MINION);
     CHECK_EQ(curHand[1]->card->GetCost(), 1);
+    CHECK_EQ(curHand[2]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[2]->card->GetCost(), 1);
 }
 
 // ---------------------------------------- SPELL - PALADIN

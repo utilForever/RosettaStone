@@ -1329,7 +1329,8 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Reduce the Cost of all
-    //       <b>Corrupt</b> cards in your hand and deck by (2).
+    //       <b>Corrupt</b> and <b>Corrupted</b> cards
+    //       in your hand and deck by (2).
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2102,7 +2103,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace("DMF_533", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
-    // [DMF_534] Deck of Chaos - COST:6
+    // [DMF_534] Deck of Chaos - COST:5
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // - Spell School: Shadow
     // --------------------------------------------------------
@@ -2740,7 +2741,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DMF_002] N'Zoth, God of the Deep - COST:10 [ATK:5/HP:7]
+    // [DMF_002] N'Zoth, God of the Deep - COST:9 [ATK:5/HP:7]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Resurrect a friendly minion
@@ -3173,7 +3174,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - NEUTRAL
-    // [YOP_006] Hysteria - COST:3
+    // [YOP_006] Hysteria - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // - Spell School: Shadow
     // --------------------------------------------------------
@@ -3293,14 +3294,15 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Rush</b>
-    //       <b>Windfury</b>
+    //       <b>Battlecry:</b> Gain <b>Windfury</b> this turn only.
     // --------------------------------------------------------
     // GameTag:
     // - RUSH = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(nullptr);
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("YOP_031e", EntityType::SOURCE));
     cards.emplace("YOP_031", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3969,6 +3971,19 @@ void DarkmoonFaireCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [YOP_031e] Crabriding - COST:0
+    // - Set: DARKMOON_FAIRE
+    // --------------------------------------------------------
+    // Text: <b>Windfury</b> this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("YOP_031e"));
+    cards.emplace("YOP_031e", CardDef(power));
 }
 
 void DarkmoonFaireCardsGen::AddAll(std::map<std::string, CardDef>& cards)

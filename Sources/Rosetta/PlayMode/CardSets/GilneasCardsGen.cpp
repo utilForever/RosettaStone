@@ -1002,7 +1002,7 @@ void GilneasCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 void GilneasCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     // ---------------------------------------- SPELL - WARLOCK
-    // [GIL_191] Fiendish Circle - COST:4
+    // [GIL_191] Fiendish Circle - COST:3
     // - Set: Gilneas, Rarity: Common
     // --------------------------------------------------------
     // Text: Summon four 1/1 Imps.
