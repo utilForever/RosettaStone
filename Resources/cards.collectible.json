@@ -2510,6 +2510,7 @@
             "FRENZY"
         ],
         "name": "Razormane Raider",
+        "race": "QUILBOAR",
         "rarity": "COMMON",
         "set": "THE_BARRENS",
         "text": "<b>Frenzy:</b> Attack a\nrandom enemy.",
@@ -2612,6 +2613,7 @@
             "TAUNT"
         ],
         "name": "Death's Head Cultist",
+        "race": "QUILBOAR",
         "rarity": "COMMON",
         "set": "THE_BARRENS",
         "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Restore 4 Health to your hero.",
@@ -3103,7 +3105,7 @@
         "collectible": true,
         "cost": 6,
         "dbfId": 62550,
-        "flavor": "Consider Harth's wisdom: \"If ye had tha chance ta change yer stats, wouldja?\"",
+        "flavor": "\"He's brave, but splinters will make any Tauren cry.\"",
         "health": 8,
         "id": "BAR_071",
         "mechanics": [
@@ -3744,6 +3746,7 @@
             "DEATHRATTLE"
         ],
         "name": "Razorfen Beastmaster",
+        "race": "QUILBOAR",
         "rarity": "RARE",
         "set": "THE_BARRENS",
         "text": "<b>Deathrattle:</b> Summon a <b>Deathrattle</b> minion that costs (4) or less from your hand.",
@@ -3803,6 +3806,7 @@
             "BATTLECRY"
         ],
         "name": "Death Speaker Blackthorn",
+        "race": "QUILBOAR",
         "rarity": "LEGENDARY",
         "referencedTags": [
             "DEATHRATTLE"
@@ -3967,7 +3971,7 @@
         "type": "SPELL"
     },
     {
-        "artist": "Daniil Kudriavtsez",
+        "artist": "Daniil Kudriavtsev",
         "attack": 2,
         "cardClass": "DRUID",
         "collectible": true,
@@ -3980,6 +3984,7 @@
             "AURA"
         ],
         "name": "Razormane Battleguard",
+        "race": "QUILBOAR",
         "rarity": "RARE",
         "referencedTags": [
             "TAUNT"
@@ -4042,6 +4047,7 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Plaguemaw the Rotting",
+        "race": "QUILBOAR",
         "rarity": "LEGENDARY",
         "referencedTags": [
             "TAUNT"
@@ -5054,6 +5060,7 @@
             "LIFESTEAL"
         ],
         "name": "Blood Shard Bristleback",
+        "race": "QUILBOAR",
         "rarity": "RARE",
         "referencedTags": [
             "BATTLECRY"
@@ -10572,26 +10579,6 @@
         "type": "MINION"
     },
     {
-        "artist": "Paul Mafayon",
-        "attack": 6,
-        "cardClass": "DEMONHUNTER",
-        "collectible": true,
-        "cost": 5,
-        "dbfId": 58494,
-        "flavor": "\"Initiate, this is your glaive. Think of it as an extension of yourself... Did you just throw it?!\"",
-        "health": 4,
-        "id": "BT_495",
-        "mechanics": [
-            "BATTLECRY"
-        ],
-        "name": "Glaivebound Adept",
-        "rarity": "FREE",
-        "set": "LEGACY",
-        "targetingArrowText": "Deal 4 damage.",
-        "text": "<b>Battlecry:</b> If your hero attacked this turn,\ndeal 4 damage.",
-        "type": "MINION"
-    },
-    {
         "artist": "Matt Dixon",
         "attack": 3,
         "cardClass": "DEMONHUNTER",
@@ -13271,6 +13258,7 @@
             "BATTLECRY"
         ],
         "name": "Spiked Hogrider",
+        "race": "QUILBOAR",
         "rarity": "RARE",
         "referencedTags": [
             "CHARGE",
@@ -13834,6 +13822,7 @@
             "BATTLECRY"
         ],
         "name": "Tanaris Hogchopper",
+        "race": "QUILBOAR",
         "rarity": "COMMON",
         "referencedTags": [
             "CHARGE"
@@ -13856,6 +13845,7 @@
             "BATTLECRY"
         ],
         "name": "Leatherclad Hogleader",
+        "race": "QUILBOAR",
         "rarity": "EPIC",
         "referencedTags": [
             "CHARGE"
@@ -21053,6 +21043,7 @@
             "DEATHRATTLE"
         ],
         "name": "Hench-Clan Shadequill",
+        "race": "QUILBOAR",
         "rarity": "COMMON",
         "set": "DALARAN",
         "text": "<b>Deathrattle:</b> Restore 5 Health to the enemy hero.",
@@ -21467,6 +21458,7 @@
             "STEALTH"
         ],
         "name": "Hench-Clan Sneak",
+        "race": "QUILBOAR",
         "rarity": "COMMON",
         "set": "DALARAN",
         "text": "<b>Stealth</b>",
@@ -35299,6 +35291,7 @@
             "TRIGGER_VISUAL"
         ],
         "name": "Hench-Clan Thug",
+        "race": "QUILBOAR",
         "rarity": "COMMON",
         "set": "GILNEAS",
         "text": "After your hero attacks, give this minion +1/+1.",
@@ -39549,6 +39542,17 @@
     {
         "cardClass": "WARRIOR",
         "collectible": true,
+        "dbfId": 71070,
+        "health": 30,
+        "id": "HERO_01h",
+        "name": "Garrosh of Wrath",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "collectible": true,
         "dbfId": 71071,
         "health": 30,
         "id": "HERO_01i",
@@ -39701,6 +39705,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 71068,
+        "health": 30,
+        "id": "HERO_02k",
+        "name": "Ten Storm Thrall",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 930,
@@ -39762,6 +39777,17 @@
         "health": 30,
         "id": "HERO_03f",
         "name": "Gladiator Valeera",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 71067,
+        "health": 30,
+        "id": "HERO_03g",
+        "name": "Deathmantle Valeera",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -39866,6 +39892,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 71065,
+        "health": 30,
+        "id": "HERO_04i",
+        "name": "Judgement Uther",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 31,
@@ -39927,6 +39964,17 @@
         "health": 30,
         "id": "HERO_05e",
         "name": "Giantstalker Rexxar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 71063,
+        "health": 30,
+        "id": "HERO_05f",
+        "name": "Dragonstalker Rexxar",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40021,6 +40069,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 71062,
+        "health": 30,
+        "id": "HERO_06g",
+        "name": "Storm's Rage Malfurion",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -40082,6 +40141,17 @@
         "health": 30,
         "id": "HERO_07e",
         "name": "Felheart Gul'dan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 71069,
+        "health": 30,
+        "id": "HERO_07f",
+        "name": "Nemesis Gul'dan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40197,6 +40267,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 71064,
+        "health": 30,
+        "id": "HERO_08k",
+        "name": "Netherwind Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -40276,6 +40357,17 @@
     {
         "cardClass": "PRIEST",
         "collectible": true,
+        "dbfId": 71066,
+        "health": 30,
+        "id": "HERO_09g",
+        "name": "Transcendence Anduin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "collectible": true,
         "dbfId": 71074,
         "health": 30,
         "id": "HERO_09h",
@@ -40347,6 +40439,17 @@
         "health": 30,
         "id": "HERO_10c",
         "name": "Demonbane Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 71061,
+        "health": 30,
+        "id": "HERO_10d",
+        "name": "Felravager Illidan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -66397,7 +66500,6 @@
     {
         "artist": "Jaemin Kim",
         "attack": 1,
-        "battlegroundsPremiumDbfId": 58138,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 1,
@@ -66412,7 +66514,6 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "VANILLA",
-        "techLevel": 1,
         "text": "Whenever a Murloc is summoned, gain +1 Attack.",
         "type": "MINION"
     },
