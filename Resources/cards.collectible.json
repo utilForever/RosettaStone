@@ -3157,7 +3157,6 @@
         "name": "Barrens Blacksmith",
         "rarity": "EPIC",
         "set": "THE_BARRENS",
-        "techLevel": 3,
         "text": "<b>Frenzy:</b> Give your other minions +2/+2.",
         "type": "MINION"
     },
@@ -3714,7 +3713,7 @@
     },
     {
         "artist": "Akkapoj T.",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 2,
@@ -4078,7 +4077,7 @@
         "artist": "Dave Allsop",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 4,
+        "cost": 5,
         "dbfId": 63057,
         "flavor": "\"Mana\" is just another name for \"electrolytes.\"",
         "id": "BAR_542",
@@ -4481,7 +4480,7 @@
     },
     {
         "artist": "Nicola Saviori",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 4,
@@ -4625,13 +4624,13 @@
     },
     {
         "artist": "Matt Dixon",
-        "attack": 4,
+        "attack": 5,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 5,
         "dbfId": 63279,
         "flavor": "Honestly, the frog did nothing wrong.",
-        "health": 5,
+        "health": 6,
         "id": "BAR_848",
         "mechanics": [
             "BATTLECRY"
@@ -16427,7 +16426,7 @@
     },
     {
         "artist": "Matt Gaser",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 3,
@@ -17436,7 +17435,7 @@
         "artist": "Ivan Fomin",
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 69734,
         "flavor": "Like a knitting circle, but less evil.",
         "howToEarn": "Unlocked at level 1.",
@@ -17526,7 +17525,7 @@
         "attack": 5,
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 69741,
         "flavor": "She has three shieldbearers in her party to supply her with back ups when she gets low on durability.",
         "health": 5,
@@ -18253,7 +18252,7 @@
         "artist": "Max Grecke",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 69744,
         "flavor": "Also good for removing pesky stains.",
         "howToEarn": "Unlocked at level 1.",
@@ -23556,7 +23555,7 @@
         "attack": 5,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 10,
+        "cost": 9,
         "dbfId": 60443,
         "elite": true,
         "flavor": "It really just wants to cuddle all the creatures of Azeroth.",
@@ -25931,7 +25930,7 @@
         "artist": "Evgeniy Dlinnov",
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 61885,
         "elite": true,
         "flavor": "Yeah, it's chaos, but it's organized chaos.",
@@ -31321,7 +31320,7 @@
     },
     {
         "artist": "Matt Gaser",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 3,
@@ -34860,7 +34859,7 @@
         "artist": "Ivan Fomin",
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 46864,
         "flavor": "Like a knitting circle, but less evil.",
         "id": "GIL_191",
@@ -36416,7 +36415,7 @@
         "race": "ALL",
         "rarity": "EPIC",
         "set": "GILNEAS",
-        "text": "[x]<i>This is an Elemental, Mech,\nDemon, Murloc, Dragon,\nBeast, Pirate and Totem.</i>",
+        "text": "<i>This has all minion types.</i>",
         "type": "MINION"
     },
     {
@@ -38055,7 +38054,7 @@
         "attack": 5,
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 2021,
         "flavor": "She has three shieldbearers in her party to supply her with back ups when she gets low on durability.",
         "health": 5,
@@ -51545,14 +51544,14 @@
         "artist": "L. Lullabi & K. Turovec",
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 0,
+        "cost": 1,
         "dbfId": 59038,
         "flavor": "\"Report to the bookstore to buy your books, the alchemist to buy your potions, and then get your wands at the… wandryroom?\"",
         "id": "SCH_247",
         "name": "First Day of School",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "Add 2 random 1-Cost minions to your hand.",
+        "text": "Add 3 random 1-Cost minions to your hand.",
         "type": "SPELL"
     },
     {
@@ -52379,13 +52378,11 @@
         "health": 3,
         "id": "SCH_507",
         "mechanics": [
-            "BATTLECRY"
+            "BATTLECRY",
+            "DISCOVER"
         ],
         "name": "Instructor Fireheart",
         "rarity": "LEGENDARY",
-        "referencedTags": [
-            "DISCOVER"
-        ],
         "set": "SCHOLOMANCE",
         "text": "[x]<b>Battlecry:</b> <b>Discover</b> a spell\nthat costs (1) or more.\nIf you play it this turn,\nrepeat this effect.",
         "type": "MINION"
@@ -60248,7 +60245,7 @@
         "artist": "Max Grecke",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 41521,
         "flavor": "Also good for removing pesky stains.",
         "id": "UNG_817",
@@ -69140,7 +69137,7 @@
             "WARLOCK"
         ],
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 61944,
         "flavor": "\"My mount and I share a special connection. Just not a good one.\"",
         "id": "YOP_006",
@@ -69172,7 +69169,7 @@
             "CORRUPT"
         ],
         "set": "DARKMOON_FAIRE",
-        "text": "[x]<b>Battlecry:</b> Reduce the Cost\nof all <b>Corrupt</b> cards in your\nhand and deck by (2).",
+        "text": "[x]<b>Battlecry:</b> Reduce the\nCost of all <b>Corrupt</b> and\n<b>Corrupted</b> cards in your\nhand and deck by (2).",
         "type": "MINION"
     },
     {
@@ -69653,14 +69650,13 @@
         "health": 4,
         "id": "YOP_031",
         "mechanics": [
-            "RUSH",
-            "WINDFURY"
+            "RUSH"
         ],
         "name": "Crabrider",
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
-        "text": "<b>Rush</b>\n<b>Windfury</b>",
+        "text": "[x]<b>Rush</b>\n<b>Battlecry:</b> Gain <b>Windfury</b>\nthis turn only.",
         "type": "MINION"
     },
     {
