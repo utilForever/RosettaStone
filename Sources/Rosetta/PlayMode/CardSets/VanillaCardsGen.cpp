@@ -2092,7 +2092,7 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [VAN_EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+    // [VAN_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever you play a card with <b>Overload</b>,

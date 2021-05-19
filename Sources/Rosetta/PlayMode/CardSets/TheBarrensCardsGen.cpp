@@ -440,7 +440,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------- SPELL - MAGE
-    // [BAR_542] Refreshing Spring Water - COST:4
+    // [BAR_542] Refreshing Spring Water - COST:5
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: Draw 2 cards.
@@ -1195,7 +1195,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [BAR_848] Lilypad Lurker - COST:5 [ATK:4/HP:5]
+    // [BAR_848] Lilypad Lurker - COST:5 [ATK:5/HP:6]
     // - Race: Elemental, Set: THE_BARRENS, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you played an Elemental
@@ -1451,7 +1451,7 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [BAR_840] Whirling Combatant - COST:4 [ATK:2/HP:6]
+    // [BAR_840] Whirling Combatant - COST:4 [ATK:3/HP:6]
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry and Frenzy:</b>
@@ -1594,7 +1594,7 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BAR_325] Razorboar - COST:2 [ATK:2/HP:2]
+    // [BAR_325] Razorboar - COST:2 [ATK:3/HP:2]
     // - Race: Beast, Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon a <b>Deathrattle</b>
@@ -2626,7 +2626,7 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: <b>Casts When Drawn</b>
-    //       Summon a 3/10 Mankrik, who immediately attacks
+    //       Summon a 3/7 Mankrik, who immediately attacks
     //       the enemy hero.
     // --------------------------------------------------------
     // GameTag:

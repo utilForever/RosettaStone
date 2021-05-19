@@ -671,14 +671,14 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - PALADIN
-    // [SCH_247] First Day of School - COST:0
+    // [SCH_247] First Day of School - COST:1
     // - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Add 2 random 1-Cost minions to your hand.
+    // Text: Add 3 random 1-Cost minions to your hand.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<RandomMinionTask>(
-        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }, 2));
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }, 3));
     power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     cards.emplace("SCH_247", CardDef(power));
 

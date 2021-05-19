@@ -1643,7 +1643,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+    // [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
     // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever you play a card with <b>Overload</b>,
@@ -1704,7 +1704,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [CORE_UNG_817] Tidal Surge - COST:4
+    // [CORE_UNG_817] Tidal Surge - COST:3
     // - Set: CORE, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------
@@ -1809,7 +1809,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - WARLOCK
-    // [CORE_GIL_191] Fiendish Circle - COST:4
+    // [CORE_GIL_191] Fiendish Circle - COST:3
     // - Set: CORE, Rarity: Common
     // - Spell School: Fel
     // --------------------------------------------------------
@@ -2004,7 +2004,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [CORE_GVG_053] Shieldmaiden - COST:6 [ATK:5/HP:5]
+    // [CORE_GVG_053] Shieldmaiden - COST:5 [ATK:5/HP:5]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Gain 5 Armor.

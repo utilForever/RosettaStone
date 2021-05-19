@@ -2999,7 +2999,7 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+    // [EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.

@@ -1167,7 +1167,7 @@ void UngoroCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [UNG_817] Tidal Surge - COST:4
+    // [UNG_817] Tidal Surge - COST:3
     // - Faction: Neutral, Set: Ungoro, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion.

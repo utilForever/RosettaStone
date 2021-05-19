@@ -6274,7 +6274,7 @@ TEST_CASE("[Shaman : Spell] - EX1_251 : Forked Lightning")
 }
 
 // ---------------------------------------- MINION - SHAMAN
-// [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
+// [EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
@@ -6312,11 +6312,11 @@ TEST_CASE("[Shaman : Minion] - EX1_258 : Unbound Elemental")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Spirit"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 4);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 5);
 
     game.Process(curPlayer, EndTurnTask());
@@ -6326,7 +6326,7 @@ TEST_CASE("[Shaman : Minion] - EX1_258 : Unbound Elemental")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
-    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 6);
 }
 
