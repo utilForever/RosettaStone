@@ -6,6 +6,8 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/NumberConditionTask.hpp>
 
+#include <limits>
+
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 NumberConditionTask::NumberConditionTask(int referenceValue, RelaSign relaSign)
