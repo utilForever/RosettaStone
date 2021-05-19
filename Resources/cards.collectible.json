@@ -10579,6 +10579,26 @@
         "type": "MINION"
     },
     {
+        "artist": "Paul Mafayon",
+        "attack": 6,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 58494,
+        "flavor": "\"Initiate, this is your glaive. Think of it as an extension of yourself... Did you just throw it?!\"",
+        "health": 4,
+        "id": "BT_495",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Glaivebound Adept",
+        "rarity": "FREE",
+        "set": "LEGACY",
+        "targetingArrowText": "Deal 4 damage.",
+        "text": "<b>Battlecry:</b> If your hero attacked this turn,\ndeal 4 damage.",
+        "type": "MINION"
+    },
+    {
         "artist": "Matt Dixon",
         "attack": 3,
         "cardClass": "DEMONHUNTER",
