@@ -3793,3 +3793,73 @@ TEST_CASE("[Priest : Minion] - CORE_EX1_195 : Kul Tiran Chaplain")
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 3);
 }
+
+// ----------------------------------------- SPELL - PRIEST
+// [CORE_EX1_197] Shadow Word: Ruin - COST:4
+// - Set: CORE, Rarity: Epic
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Destroy all minions with 5 or more Attack.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - CORE_EX1_197 : Shadow Word: Ruin")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadow Word: Ruin"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leeroy Jenkins"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Leeroy Jenkins"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[1]->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[1]->GetAttack(), 1);
+    CHECK_EQ(opField[2]->GetAttack(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[1]->GetAttack(), 1);
+}

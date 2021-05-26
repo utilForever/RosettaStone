@@ -1340,6 +1340,13 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all minions with 5 or more Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::ATK, 5, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("CORE_EX1_197", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_EX1_198] Natalie Seline - COST:8 [ATK:8/HP:1]
