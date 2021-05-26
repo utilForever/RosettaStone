@@ -3694,3 +3694,51 @@ TEST_CASE("[Priest : Minion] - CORE_EX1_193 : Psychic Conjurer")
               curHand[0]->card->name == "Wolfrider"),
              true);
 }
+
+// ----------------------------------------- SPELL - PRIEST
+// [CORE_EX1_194] Power Infusion - COST:4
+// - Set: CORE, Rarity: Common
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Give a minion +2/+6.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - CORE_EX1_194 : Power Infusion")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Power Infusion"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 13);
+}

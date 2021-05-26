@@ -1298,6 +1298,17 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion +2/+6.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_194e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_194",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_EX1_195] Kul Tiran Chaplain - COST:2 [ATK:2/HP:3]
