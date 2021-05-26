@@ -3445,3 +3445,52 @@ TEST_CASE("[Paladin : Spell] - CORE_OG_273 : Stand Against Darkness")
     CHECK_EQ(curField[5]->card->name, "Silver Hand Recruit");
     CHECK_EQ(curField[6]->card->name, "Silver Hand Recruit");
 }
+
+// ----------------------------------------- SPELL - PRIEST
+// [CORE_AT_055] Flash Heal - COST:1
+// - Set: CORE, Rarity: Common
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Restore 5 Health.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - CORE_AT_055 : Flash Heal")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flash Heal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flash Heal"));
+
+    CHECK_EQ(curHero->GetHealth(), 20);
+    CHECK_EQ(opHero->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curHero));
+    CHECK_EQ(curHero->GetHealth(), 25);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, opHero));
+    CHECK_EQ(opHero->GetHealth(), 25);
+}
