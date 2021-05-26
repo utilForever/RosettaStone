@@ -11,6 +11,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void TgtCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -767,6 +768,8 @@ void TgtCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [AT_011] Holy Champion - COST:4 [ATK:3/HP:5]
     // - Set: Tgt, Rarity: Common
@@ -842,6 +845,11 @@ void TgtCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
+    cards.emplace(
+        "AT_055",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [AT_116] Wyrmrest Agent - COST:2 [ATK:1/HP:4]
