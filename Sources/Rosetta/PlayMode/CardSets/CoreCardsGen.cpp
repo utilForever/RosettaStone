@@ -1441,6 +1441,9 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your Hero Power becomes 'Deal 2 damage.'
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ChangeHeroPowerTask>("EX1_625t"));
+    cards.emplace("CORE_EX1_625", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
