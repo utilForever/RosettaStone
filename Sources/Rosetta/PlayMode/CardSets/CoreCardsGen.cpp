@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
@@ -1383,6 +1384,12 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: This minion's Attack is always equal to its Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
+            return dynamic_cast<Minion*>(playable)->GetHealth();
+        }));
+    cards.emplace("CORE_EX1_335", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [CORE_EX1_622] Shadow Word: Death - COST:2
