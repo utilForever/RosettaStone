@@ -1250,6 +1250,11 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to all enemy minions.
     //       Restore 2 Health to all friendly characters.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
+    cards.emplace("CORE_CS1_112", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [CORE_CS1_130] Holy Smite - COST:1
