@@ -463,33 +463,14 @@ auto DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::TORTOLLAN_PILGRIM:
         {
             choiceAction = ChoiceAction::TORTOLLAN_PILGRIM;
-
-            std::vector<std::tuple<int, int>> candidates;
             for (auto& playable : player->GetDeckZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::SPELL)
                 {
-                    candidates.emplace_back(std::make_tuple(
-                        playable->GetGameTag(GameTag::ENTITY_ID),
-                        playable->card->dbfID));
+                    cardsForOtherEffect.emplace_back(
+                        playable->GetGameTag(GameTag::ENTITY_ID));
                 }
             }
-
-            std::sort(candidates.begin(), candidates.end());
-            const auto last =
-                std::unique(candidates.begin(), candidates.end(),
-                            [](const std::tuple<int, int>& a,
-                               const std::tuple<int, int>& b) {
-                                return std::get<1>(a) == std::get<1>(b);
-                            });
-            candidates.erase(last, candidates.end());
-            Random::shuffle(candidates.begin(), candidates.end());
-
-            for (auto& candidate : candidates)
-            {
-                cardsForOtherEffect.emplace_back(std::get<0>(candidate));
-            }
-
             break;
         }
         case DiscoverType::FROM_STACK:
@@ -570,6 +551,25 @@ auto DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+    }
+
+    if (!cardsForOtherEffect.empty())
+    {
+        std::sort(cardsForOtherEffect.begin(), cardsForOtherEffect.end(),
+                  [&player](const int& a, const int& b) {
+                      Playable* playableA = player->game->entityList[a];
+                      Playable* playableB = player->game->entityList[b];
+                      return playableA->card->dbfID < playableB->card->dbfID;
+                  });
+        const auto last = std::unique(
+            cardsForOtherEffect.begin(), cardsForOtherEffect.end(),
+            [&player](const int& a, const int& b) {
+                Playable* playableA = player->game->entityList[a];
+                Playable* playableB = player->game->entityList[b];
+                return playableA->card->dbfID == playableB->card->dbfID;
+            });
+        cardsForOtherEffect.erase(last, cardsForOtherEffect.end());
+        Random::shuffle(cardsForOtherEffect.begin(), cardsForOtherEffect.end());
     }
 
     return std::make_tuple(cardsForGeneration, cardsForOtherEffect);
