@@ -621,7 +621,7 @@ TGT | AT_051 | Elemental Destruction |
 TGT | AT_052 | Totem Golem |  
 TGT | AT_053 | Ancestral Knowledge |  
 TGT | AT_054 | The Mistcaller |  
-TGT | AT_055 | Flash Heal |  
+TGT | AT_055 | Flash Heal | O
 TGT | AT_056 | Powershot |  
 TGT | AT_057 | Stablemaster |  
 TGT | AT_058 | King's Elekk |  
@@ -700,7 +700,7 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 3% (4 of 132 Cards)
+- Progress: 3% (5 of 132 Cards)
 
 ## The League of Explorers
 

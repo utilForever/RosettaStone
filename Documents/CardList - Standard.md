@@ -14,7 +14,7 @@ CORE | CORE_AT_003 | Fallen Hero | O
 CORE | CORE_AT_008 | Coldarra Drake | O
 CORE | CORE_AT_021 | Tiny Knight of Evil |  
 CORE | CORE_AT_047 | Draenei Totemcarver |  
-CORE | CORE_AT_055 | Flash Heal |  
+CORE | CORE_AT_055 | Flash Heal | O
 CORE | CORE_AT_061 | Lock and Load | O
 CORE | CORE_AT_075 | Warhorse Trainer | O
 CORE | CORE_AT_092 | Ice Rager |  
@@ -36,8 +36,8 @@ CORE | CORE_BT_480 | Crimson Sigil Runner |
 CORE | CORE_BT_491 | Spectral Sight |  
 CORE | CORE_BT_801 | Eye Beam |  
 CORE | CORE_BT_921 | Aldrachi Warblades |  
-CORE | CORE_CS1_112 | Holy Nova |  
-CORE | CORE_CS1_130 | Holy Smite |  
+CORE | CORE_CS1_112 | Holy Nova | O
+CORE | CORE_CS1_130 | Holy Smite | O
 CORE | CORE_CS2_009 | Mark of the Wild | O
 CORE | CORE_CS2_013 | Wild Growth | O
 CORE | CORE_CS2_023 | Arcane Intellect | O
@@ -113,11 +113,11 @@ CORE | CORE_EX1_187 | Arcane Devourer |
 CORE | CORE_EX1_188 | Barrens Stablehand |  
 CORE | CORE_EX1_189 | Brightwing |  
 CORE | CORE_EX1_190 | High Inquisitor Whitemane |  
-CORE | CORE_EX1_193 | Psychic Conjurer |  
-CORE | CORE_EX1_194 | Power Infusion |  
-CORE | CORE_EX1_195 | Kul Tiran Chaplain |  
-CORE | CORE_EX1_197 | Shadow Word: Ruin |  
-CORE | CORE_EX1_198 | Natalie Seline |  
+CORE | CORE_EX1_193 | Psychic Conjurer | O
+CORE | CORE_EX1_194 | Power Infusion | O
+CORE | CORE_EX1_195 | Kul Tiran Chaplain | O
+CORE | CORE_EX1_197 | Shadow Word: Ruin | O
+CORE | CORE_EX1_198 | Natalie Seline | O
 CORE | CORE_EX1_238 | Lightning Bolt |  
 CORE | CORE_EX1_246 | Hex |  
 CORE | CORE_EX1_248 | Feral Spirit |  
@@ -135,7 +135,7 @@ CORE | CORE_EX1_309 | Siphon Soul |
 CORE | CORE_EX1_312 | Twisting Nether |  
 CORE | CORE_EX1_319 | Flame Imp |  
 CORE | CORE_EX1_323 | Lord Jaraxxus |  
-CORE | CORE_EX1_335 | Lightspawn |  
+CORE | CORE_EX1_335 | Lightspawn | O
 CORE | CORE_EX1_362 | Argent Protector | O
 CORE | CORE_EX1_382 | Aldor Peacekeeper | O
 CORE | CORE_EX1_383 | Tirion Fordring | O
@@ -165,9 +165,9 @@ CORE | CORE_EX1_610 | Explosive Trap | O
 CORE | CORE_EX1_611 | Freezing Trap | O
 CORE | CORE_EX1_617 | Deadly Shot | O
 CORE | CORE_EX1_619 | Equality | O
-CORE | CORE_EX1_622 | Shadow Word: Death |  
-CORE | CORE_EX1_623 | Temple Enforcer |  
-CORE | CORE_EX1_625 | Shadowform |  
+CORE | CORE_EX1_622 | Shadow Word: Death | O
+CORE | CORE_EX1_623 | Temple Enforcer | O
+CORE | CORE_EX1_625 | Shadowform | O
 CORE | CORE_FP1_007 | Nerubian Egg |  
 CORE | CORE_FP1_011 | Webspinner | O
 CORE | CORE_FP1_020 | Avenge | O
@@ -222,8 +222,8 @@ CORE | CS3_007 | Novice Zapper |
 CORE | CS3_008 | Bloodsail Deckhand |  
 CORE | CS3_009 | War Cache |  
 CORE | CS3_012 | Nordrassil Druid | O
-CORE | CS3_013 | Shadowed Spirit |  
-CORE | CS3_014 | Crimson Clergy |  
+CORE | CS3_013 | Shadowed Spirit | O
+CORE | CS3_014 | Crimson Clergy | O
 CORE | CS3_015 | Selective Breeder | O
 CORE | CS3_016 | Reckoning |  
 CORE | CS3_017 | Gan'arg Glaivesmith |  
@@ -233,8 +233,8 @@ CORE | CS3_021 | Enslaved Fel Lord |
 CORE | CS3_022 | Fogsail Freebooter |  
 CORE | CS3_024 | Taelan Fordring |  
 CORE | CS3_025 | Overlord Runthak |  
-CORE | CS3_027 | Focused Will |  
-CORE | CS3_028 | Thrive in the Shadows |  
+CORE | CS3_027 | Focused Will | O
+CORE | CS3_028 | Thrive in the Shadows | O
 CORE | CS3_029 | Pursuit of Justice |  
 CORE | CS3_030 | Warsong Outrider |  
 CORE | CS3_031 | Alexstrasza the Life-Binder |  
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 25% (61 of 235 Cards)
+- Progress: 32% (77 of 235 Cards)
 
 ## Ashes of Outland
 

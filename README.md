@@ -2,7 +2,7 @@
 
 <img src="./Medias/Logos/Logo.png" width=256 height=256 />
 
-[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/RosettaStone/blob/master/LICENSE) ![Windows](https://github.com/utilForever/RosettaStone/workflows/Windows/badge.svg) ![Ubuntu](https://github.com/utilForever/RosettaStone/workflows/Ubuntu/badge.svg) ![macOS](https://github.com/utilForever/RosettaStone/workflows/macOS/badge.svg) ![Ubuntu - Codecov](https://github.com/utilForever/RosettaStone/workflows/Ubuntu%20-%20Codecov/badge.svg) [![Build Status](https://travis-ci.com/utilForever/RosettaStone.svg?branch=main)](https://travis-ci.com/utilForever/RosettaStone)
+[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/RosettaStone/blob/main/LICENSE) ![Windows](https://github.com/utilForever/RosettaStone/workflows/Windows/badge.svg) ![Ubuntu](https://github.com/utilForever/RosettaStone/workflows/Ubuntu/badge.svg) ![macOS](https://github.com/utilForever/RosettaStone/workflows/macOS/badge.svg) ![Ubuntu - Codecov](https://github.com/utilForever/RosettaStone/workflows/Ubuntu%20-%20Codecov/badge.svg) [![Build Status](https://travis-ci.com/utilForever/RosettaStone.svg?branch=main)](https://travis-ci.com/utilForever/RosettaStone)
 
 [![codecov](https://codecov.io/gh/utilForever/RosettaStone/branch/main/graph/badge.svg)](https://codecov.io/gh/utilForever/RosettaStone)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/df6a02e1358f4e719e7bebb9a728d2ab)](https://www.codacy.com/app/utilForever/RosettaStone?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=utilForever/RosettaStone&amp;utm_campaign=Badge_Grade)
@@ -35,7 +35,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Standard Format
 
-  * 25% Core Set (61 of 235 cards)
+  * 32% Core Set (77 of 235 cards)
   * 59% Ashes of Outland (80 of 135 cards)
   * 57% Scholomance Academy (78 of 135 cards)
   * 46% Madness at the Darkmoon Faire (79 of 170 cards)
@@ -50,7 +50,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * 6% Curse of Naxxramas (2 of 30 Cards)
   * 0% Goblins vs Gnomes (0 of 123 Cards)
   * 3% Blackrock Mountain (1 of 31 Cards)
-  * 3% The Grand Tournament (4 of 132 Cards)
+  * 3% The Grand Tournament (5 of 132 Cards)
   * 2% The League of Explorers (1 of 45 Cards)
   * 1% Whispers of the Old Gods (2 of 134 Cards)
   * 6% One Night in Karazhan (3 of 45 Cards)
