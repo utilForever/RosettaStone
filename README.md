@@ -2,7 +2,7 @@
 
 <img src="./Medias/Logos/Logo.png" width=256 height=256 />
 
-[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/RosettaStone/blob/master/LICENSE) ![Windows](https://github.com/utilForever/RosettaStone/workflows/Windows/badge.svg) ![Ubuntu](https://github.com/utilForever/RosettaStone/workflows/Ubuntu/badge.svg) ![macOS](https://github.com/utilForever/RosettaStone/workflows/macOS/badge.svg) ![Ubuntu - Codecov](https://github.com/utilForever/RosettaStone/workflows/Ubuntu%20-%20Codecov/badge.svg) [![Build Status](https://travis-ci.com/utilForever/RosettaStone.svg?branch=main)](https://travis-ci.com/utilForever/RosettaStone)
+[![License](https://img.shields.io/badge/Licence-AGPLv3-blue.svg)](https://github.com/utilForever/RosettaStone/blob/main/LICENSE) ![Windows](https://github.com/utilForever/RosettaStone/workflows/Windows/badge.svg) ![Ubuntu](https://github.com/utilForever/RosettaStone/workflows/Ubuntu/badge.svg) ![macOS](https://github.com/utilForever/RosettaStone/workflows/macOS/badge.svg) ![Ubuntu - Codecov](https://github.com/utilForever/RosettaStone/workflows/Ubuntu%20-%20Codecov/badge.svg) [![Build Status](https://travis-ci.com/utilForever/RosettaStone.svg?branch=main)](https://travis-ci.com/utilForever/RosettaStone)
 
 [![codecov](https://codecov.io/gh/utilForever/RosettaStone/branch/main/graph/badge.svg)](https://codecov.io/gh/utilForever/RosettaStone)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/df6a02e1358f4e719e7bebb9a728d2ab)](https://www.codacy.com/app/utilForever/RosettaStone?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=utilForever/RosettaStone&amp;utm_campaign=Badge_Grade)
