@@ -1454,6 +1454,10 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cards.emplace("CS3_013", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
