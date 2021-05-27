@@ -14,6 +14,7 @@ enum class DiscoverType
 {
     INVALID,
     DECK,
+    SPELL_FROM_DECK,
     BASIC_TOTEM,
     CHOOSE_ONE,
     FOUR_COST_CARD,

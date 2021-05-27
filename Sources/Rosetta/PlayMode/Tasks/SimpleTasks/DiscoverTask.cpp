@@ -256,6 +256,19 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             }
             break;
         }
+        case DiscoverType::SPELL_FROM_DECK:
+        {
+            choiceAction = ChoiceAction::DRAW_FROM_DECK;
+            for (auto& playable : player->GetDeckZone()->GetAll())
+            {
+                if (playable->card->GetCardType() == CardType::SPELL)
+                {
+                    cardsForOtherEffect.emplace_back(
+                        playable->GetGameTag(GameTag::ENTITY_ID));
+                }
+            }
+            break;
+        }
         case DiscoverType::BASIC_TOTEM:
             choiceAction = ChoiceAction::SUMMON;
             cardsForGeneration = { Cards::FindCardByID("AT_132_SHAMANa"),
