@@ -4311,3 +4311,57 @@ TEST_CASE("[Priest : Spell] - CS3_027 : Focused Will")
     CHECK_EQ(curField[0]->GetSpellPower(), 0);
     CHECK_EQ(curField[0]->HasDeathrattle(), false);
 }
+
+// ----------------------------------------- SPELL - PRIEST
+// [CS3_028] Thrive in the Shadows - COST:2
+// - Set: CORE, Rarity: Rare
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: <b>Discover</b> a spell from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - CS3_028 : Thrive in the Shadows")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Bloodfen Raptor");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Pyroblast");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Thrive in the Shadows", FormatType::STANDARD));
+
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 26);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 2u);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 25);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+}

@@ -1508,6 +1508,10 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL_FROM_DECK));
+    cards.emplace("CS3_028", CardDef(power));
 }
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
