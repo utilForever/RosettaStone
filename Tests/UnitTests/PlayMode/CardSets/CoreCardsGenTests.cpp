@@ -1797,7 +1797,7 @@ TEST_CASE("[Hunter : Minion] - CS3_015 : Selective Breeder")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK(curPlayer->choice != nullptr);
-    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+    CHECK_EQ(curPlayer->choice->choices.size(), 2u);
 
     TestUtils::ChooseNthChoice(game, 1);
     CHECK_EQ(curDeck.GetCount(), 26);
