@@ -1482,9 +1482,21 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Silence</b> a minion, then give it +3 Health.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS3_027e", EntityType::TARGET));
+    cards.emplace(
+        "CS3_027",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS3_028] Thrive in the Shadows - COST:2
@@ -1518,6 +1530,9 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +3 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS3_027e"));
+    cards.emplace("CS3_027e", CardDef(power));
 }
 
 void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
