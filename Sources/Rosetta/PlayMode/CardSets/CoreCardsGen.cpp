@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
@@ -1468,6 +1469,12 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "CS3_014e", EntityType::SOURCE) };
+    cards.emplace("CS3_014", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS3_027] Focused Will - COST:1
@@ -1493,12 +1500,17 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [CS3_014e] Holy Affinity - COST:0
     // - Set: CORE
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS3_014e"));
+    cards.emplace("CS3_014e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [CS3_027e] Focused Will - COST:0
