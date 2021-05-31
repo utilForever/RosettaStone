@@ -1678,8 +1678,22 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Return a friendly minion to your hand.
-    //       It costs (2) less.
+    //       It costs (2) less.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(
+        Effects::ReduceCost(2), EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_144",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_EX1_145] Preparation - COST:0
