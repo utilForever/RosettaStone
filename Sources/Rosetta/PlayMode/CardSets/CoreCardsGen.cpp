@@ -1608,8 +1608,12 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [CORE_CS2_075] Sinister Strike - COST:1
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 3 damage to the enemy hero.
+    // Text: Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3, true));
+    cards.emplace("CORE_CS2_075", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_076] Assassinate - COST:4

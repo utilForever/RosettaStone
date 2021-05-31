@@ -4537,3 +4537,37 @@ TEST_CASE("[Rogue : Spell] - CORE_CS2_074 : Deadly Poison")
     CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 3);
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
 }
+
+// ------------------------------------------ SPELL - ROGUE
+// [CORE_CS2_075] Sinister Strike - COST:1
+// - Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 3 damage to the enemy hero.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - CORE_CS2_075 : Sinister Strike")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sinister Strike"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+}
