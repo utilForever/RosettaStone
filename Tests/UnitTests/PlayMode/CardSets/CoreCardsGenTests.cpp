@@ -4826,3 +4826,67 @@ TEST_CASE("[Rogue : Spell] - CORE_EX1_144 : Shadowstep")
                  PlayCardTask::MinionTarget(card6, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
 }
+
+// ------------------------------------------ SPELL - ROGUE
+// [CORE_EX1_145] Preparation - COST:0
+// - Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: The next spell you cast this turn costs (2) less.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - CORE_EX1_145 : Preparation")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Preparation"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Eviscerate"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vanish"));
+
+    CHECK_EQ(card1->GetCost(), 0);
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 2);
+    CHECK_EQ(card5->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 0);
+    CHECK_EQ(card5->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 0);
+    CHECK_EQ(card5->GetCost(), 4);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card5->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(card5->GetCost(), 4);
+}

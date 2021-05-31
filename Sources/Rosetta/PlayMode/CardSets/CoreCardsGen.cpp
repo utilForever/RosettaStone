@@ -1701,6 +1701,10 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: The next spell you cast this turn costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_145o", EntityType::PLAYER));
+    cards.emplace("CORE_EX1_145", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_EX1_522] Patient Assassin - COST:2 [ATK:1/HP:2]
