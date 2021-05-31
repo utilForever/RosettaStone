@@ -1714,9 +1714,12 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     //       <b>Poisonous</b>
     // --------------------------------------------------------
     // GameTag:
-    // - POISONOUS = 1
     // - STEALTH = 1
+    // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_522", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_ICC_809] Plague Scientist - COST:3 [ATK:2/HP:3]
