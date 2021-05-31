@@ -1786,6 +1786,10 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("OG_070e", EntityType::SOURCE));
+    cards.emplace("CORE_OG_070", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CS3_005] Vanessa VanCleef - COST:2 [ATK:2/HP:3]
