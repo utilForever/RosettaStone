@@ -1663,6 +1663,14 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "CORE_EX1_134",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_EX1_144] Shadowstep - COST:0

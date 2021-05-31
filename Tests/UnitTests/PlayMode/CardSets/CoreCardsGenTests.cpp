@@ -4675,3 +4675,49 @@ TEST_CASE("[Rogue : Weapon] - CORE_CS2_080 : Assassin's Blade")
 {
     // Do nothing
 }
+
+// ----------------------------------------- MINION - ROGUE
+// [CORE_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
+// - Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Deal 2 damage.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_FOR_COMBO = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - CORE_EX1_134 : SI:7 Agent")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("SI:7 Agent"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("SI:7 Agent"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
