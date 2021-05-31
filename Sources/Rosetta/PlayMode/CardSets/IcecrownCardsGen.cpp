@@ -4,10 +4,15 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void IcecrownCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ HERO - SHAMAN
@@ -1219,6 +1224,8 @@ void IcecrownCardsGen::AddPriestNonCollect(
 
 void IcecrownCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [ICC_065] Bone Baron - COST:5 [ATK:5/HP:5]
     // - Set: Icecrown, Rarity: Common
@@ -1296,6 +1303,14 @@ void IcecrownCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("ICC_809e", EntityType::TARGET));
+    cards.emplace(
+        "ICC_809",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [ICC_811] Lilian Voss - COST:4 [ATK:4/HP:5]
@@ -1341,6 +1356,8 @@ void IcecrownCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void IcecrownCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [ICC_018e] Witty Weaponplay (*) - COST:0
     // - Set: Icecrown
@@ -1375,6 +1392,9 @@ void IcecrownCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ICC_809e"));
+    cards.emplace("ICC_809e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [ICC_827e] Shadow Reflection (*) - COST:0

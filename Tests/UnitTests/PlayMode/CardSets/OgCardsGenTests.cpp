@@ -113,3 +113,48 @@ TEST_CASE("[Paladin : Spell] - OG_273 : Stand Against Darkness")
     CHECK_EQ(curField[5]->card->name, "Silver Hand Recruit");
     CHECK_EQ(curField[6]->card->name, "Silver Hand Recruit");
 }
+
+// ----------------------------------------- MINION - ROGUE
+// [OG_070] Bladed Cultist - COST:1 [ATK:1/HP:2]
+// - Set: Og, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - OG_070 : Bladed Cultist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bladed Cultist"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bladed Cultist"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}

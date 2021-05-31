@@ -4835,7 +4835,8 @@ TEST_CASE("[Priest : Spell] - EX1_626 : Mass Dispel")
 // [CS2_073] Cold Blood - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Give a minion +2 Attack. <b>Combo:</b> +4 Attack instead.
+// Text: Give a minion +2 Attack.
+//       <b>Combo:</b> +4 Attack instead.
 // --------------------------------------------------------
 // GameTag:
 // - COMBO = 1
@@ -5319,7 +5320,8 @@ TEST_CASE("[Rogue : Spell] - EX1_137 : Headcrack")
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: Return a friendly minion to your hand. It costs (2) less.
+// Text: Return a friendly minion to your hand.
+//       It costs (2) less.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0

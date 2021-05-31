@@ -273,6 +273,8 @@ void LoECardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [LOE_010] Pit Snake - COST:1 [ATK:2/HP:1]
     // - Race: Beast, Set: LoE, Rarity: Common
@@ -292,6 +294,10 @@ void LoECardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "GAME_005"));
+    cards.emplace("LOE_012", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [LOE_019] Unearthed Raptor - COST:3 [ATK:3/HP:4]

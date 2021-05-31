@@ -1541,12 +1541,27 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_072] Backstab - COST:0
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 2 damage to an undamaged minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_UNDAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cards.emplace(
+        "CORE_CS2_072",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_UNDAMAGED_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_073] Cold Blood - COST:2
@@ -1558,6 +1573,19 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_073e", EntityType::TARGET));
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("CS2_073e2", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_073",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_074] Deadly Poison - COST:1
@@ -1566,13 +1594,26 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your weapon +2 Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_WEAPON_EQUIPPED = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_074e", EntityType::WEAPON));
+    cards.emplace(
+        "CORE_CS2_074",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_075] Sinister Strike - COST:1
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 3 damage to the enemy hero.
+    // Text: Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3, true));
+    cards.emplace("CORE_CS2_075", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_076] Assassinate - COST:4
@@ -1580,6 +1621,17 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy an enemy minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace("CORE_CS2_076",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_077] Sprint - COST:6
@@ -1587,11 +1639,20 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 4 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(4));
+    cards.emplace("CORE_CS2_077", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [CORE_CS2_080] Assassin's Blade - COST:4
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 5
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_080", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
@@ -1602,6 +1663,14 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "CORE_EX1_134",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_EX1_144] Shadowstep - COST:0
@@ -1609,8 +1678,22 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Return a friendly minion to your hand.
-    //       It costs (2) less.
+    //       It costs (2) less.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(
+        Effects::ReduceCost(2), EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_144",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_EX1_145] Preparation - COST:0
@@ -1618,6 +1701,10 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: The next spell you cast this turn costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_145o", EntityType::PLAYER));
+    cards.emplace("CORE_EX1_145", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_EX1_522] Patient Assassin - COST:2 [ATK:1/HP:2]
@@ -1627,9 +1714,12 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     //       <b>Poisonous</b>
     // --------------------------------------------------------
     // GameTag:
-    // - POISONOUS = 1
     // - STEALTH = 1
+    // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_522", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_ICC_809] Plague Scientist - COST:3 [ATK:2/HP:3]
@@ -1640,20 +1730,38 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("ICC_809e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_ICC_809",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
     // - Race: Pirate, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Add a random card from another class
-    //       to your hand.
+    // Text: <b>Battlecry:</b> Add a random card
+    //       from another class to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(EntityType::ENEMY_HERO));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_KAR_069", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
@@ -1664,6 +1772,10 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "GAME_005"));
+    cards.emplace("CORE_LOE_012", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_OG_070] Bladed Cultist - COST:1 [ATK:1/HP:2]
@@ -1674,6 +1786,10 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("OG_070e", EntityType::SOURCE));
+    cards.emplace("CORE_OG_070", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CS3_005] Vanessa VanCleef - COST:2 [ATK:2/HP:3]

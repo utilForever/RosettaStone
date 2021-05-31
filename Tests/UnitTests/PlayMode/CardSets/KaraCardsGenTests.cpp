@@ -129,3 +129,43 @@ TEST_CASE("[Mage : Minion] - KAR_009 : Babbling Book")
     CHECK_EQ(curHand[0]->card->GetCardType(), CardType::SPELL);
     CHECK(curHand[0]->card->IsCardClass(CardClass::MAGE));
 }
+
+// ----------------------------------------- MINION - ROGUE
+// [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
+// - Race: Pirate, Faction: Neutral, Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a random card
+//       from another class to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - KAR_069 : Swashburglar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Swashburglar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK(curHand[0]->card->IsCardClass(CardClass::HUNTER));
+}

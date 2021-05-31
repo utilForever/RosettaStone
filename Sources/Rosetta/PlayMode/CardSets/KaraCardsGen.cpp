@@ -274,16 +274,23 @@ void KaraCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
     // - Race: Pirate, Faction: Neutral, Set: Kara, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Add a random class card to your hand
-    //       <i>(from your opponent's class).</i>
+    // Text: <b>Battlecry:</b> Add a random card
+    //       from another class to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(EntityType::ENEMY_HERO));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("KAR_069", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [KAR_070] Ethereal Peddler - COST:5 [ATK:5/HP:6]

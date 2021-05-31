@@ -707,6 +707,8 @@ void OgCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [OG_070] Bladed Cultist - COST:1 [ATK:1/HP:2]
     // - Set: Og, Rarity: Common
@@ -716,6 +718,10 @@ void OgCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("OG_070e", EntityType::SOURCE));
+    cards.emplace("OG_070", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [OG_072] Journey Below - COST:1
@@ -821,12 +827,17 @@ void OgCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [OG_070e] Thirsty Blades (*) - COST:0
     // - Set: Og, Rarity: Common
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("OG_070e"));
+    cards.emplace("OG_070e", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [OG_080b] Kingsblood Toxin (*) - COST:1
