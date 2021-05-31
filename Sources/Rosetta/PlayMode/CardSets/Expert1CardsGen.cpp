@@ -2605,7 +2605,8 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Return a friendly minion to your hand. It costs (2) less.
+    // Text: Return a friendly minion to your hand.
+    //       It costs (2) less.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
