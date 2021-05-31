@@ -1772,6 +1772,10 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "GAME_005"));
+    cards.emplace("CORE_LOE_012", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_OG_070] Bladed Cultist - COST:1 [ATK:1/HP:2]
