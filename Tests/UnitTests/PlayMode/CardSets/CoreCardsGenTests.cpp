@@ -4628,3 +4628,38 @@ TEST_CASE("[Rogue : Spell] - CORE_CS2_076 : Assassinate")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
     CHECK_EQ(opField.GetCount(), 0);
 }
+
+// ------------------------------------------ SPELL - ROGUE
+// [CORE_CS2_077] Sprint - COST:6
+// - Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw 4 cards.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - CORE_CS2_077 : Sprint")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sprint"));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 8);
+}

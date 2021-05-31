@@ -1639,6 +1639,9 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 4 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(4));
+    cards.emplace("CORE_CS2_077", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [CORE_CS2_080] Assassin's Blade - COST:4
