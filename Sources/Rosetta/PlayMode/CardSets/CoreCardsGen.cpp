@@ -1751,12 +1751,17 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [CORE_KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
     // - Race: Pirate, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Add a random card from another class
-    //       to your hand.
+    // Text: <b>Battlecry:</b> Add a random card
+    //       from another class to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(EntityType::ENEMY_HERO));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_KAR_069", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
