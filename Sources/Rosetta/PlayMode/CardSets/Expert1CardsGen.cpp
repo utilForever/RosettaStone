@@ -2422,7 +2422,8 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [CS2_073] Cold Blood - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give a minion +2 Attack. <b>Combo:</b> +4 Attack instead.
+    // Text: Give a minion +2 Attack.
+    //       <b>Combo:</b> +4 Attack instead.
     // --------------------------------------------------------
     // GameTag:
     // - COMBO = 1
