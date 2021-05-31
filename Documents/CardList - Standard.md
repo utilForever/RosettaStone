@@ -49,13 +49,13 @@ CORE | CORE_CS2_042 | Fire Elemental |
 CORE | CORE_CS2_045 | Rockbiter Weapon |  
 CORE | CORE_CS2_062 | Hellfire |  
 CORE | CORE_CS2_064 | Dread Infernal |  
-CORE | CORE_CS2_072 | Backstab |  
-CORE | CORE_CS2_073 | Cold Blood |  
-CORE | CORE_CS2_074 | Deadly Poison |  
-CORE | CORE_CS2_075 | Sinister Strike |  
-CORE | CORE_CS2_076 | Assassinate |  
-CORE | CORE_CS2_077 | Sprint |  
-CORE | CORE_CS2_080 | Assassin's Blade |  
+CORE | CORE_CS2_072 | Backstab | O
+CORE | CORE_CS2_073 | Cold Blood | O
+CORE | CORE_CS2_074 | Deadly Poison | O
+CORE | CORE_CS2_075 | Sinister Strike | O
+CORE | CORE_CS2_076 | Assassinate | O
+CORE | CORE_CS2_077 | Sprint | O
+CORE | CORE_CS2_080 | Assassin's Blade | O
 CORE | CORE_CS2_088 | Guardian of Kings | O
 CORE | CORE_CS2_089 | Holy Light | O
 CORE | CORE_CS2_092 | Blessing of Kings | O
@@ -98,9 +98,9 @@ CORE | CORE_EX1_096 | Loot Hoarder |
 CORE | CORE_EX1_103 | Coldlight Seer |  
 CORE | CORE_EX1_110 | Cairne Bloodhoof |  
 CORE | CORE_EX1_130 | Noble Sacrifice | O
-CORE | CORE_EX1_134 | SI:7 Agent |  
-CORE | CORE_EX1_144 | Shadowstep |  
-CORE | CORE_EX1_145 | Preparation |  
+CORE | CORE_EX1_134 | SI:7 Agent | O
+CORE | CORE_EX1_144 | Shadowstep | O
+CORE | CORE_EX1_145 | Preparation | O
 CORE | CORE_EX1_158 | Soul of the Forest | O
 CORE | CORE_EX1_160 | Power of the Wild | O
 CORE | CORE_EX1_162 | Dire Wolf Alpha |  
@@ -149,7 +149,7 @@ CORE | CORE_EX1_411 | Gorehowl |
 CORE | CORE_EX1_414 | Grommash Hellscream |  
 CORE | CORE_EX1_506 | Murloc Tidehunter |  
 CORE | CORE_EX1_509 | Murloc Tidecaller |  
-CORE | CORE_EX1_522 | Patient Assassin |  
+CORE | CORE_EX1_522 | Patient Assassin | O
 CORE | CORE_EX1_531 | Scavenging Hyena | O
 CORE | CORE_EX1_534 | Savannah Highmane | O
 CORE | CORE_EX1_543 | King Krush | O
@@ -186,14 +186,14 @@ CORE | CORE_ICC_026 | Grim Necromancer |
 CORE | CORE_ICC_038 | Righteous Protector | O
 CORE | CORE_ICC_055 | Drain Soul |  
 CORE | CORE_ICC_419 | Bearshark | O
-CORE | CORE_ICC_809 | Plague Scientist |  
+CORE | CORE_ICC_809 | Plague Scientist | O
 CORE | CORE_KAR_009 | Babbling Book | O
 CORE | CORE_KAR_036 | Arcane Anomaly |  
 CORE | CORE_KAR_065 | Menagerie Warden | O
-CORE | CORE_KAR_069 | Swashburglar |  
+CORE | CORE_KAR_069 | Swashburglar | O
 CORE | CORE_KAR_300 | Enchanted Raven | O
 CORE | CORE_LOE_003 | Ethereal Conjurer | O
-CORE | CORE_LOE_012 | Tomb Pillager |  
+CORE | CORE_LOE_012 | Tomb Pillager | O
 CORE | CORE_LOEA10_3 | Murloc Tinyfin |  
 CORE | CORE_LOOT_124 | Lone Champion |  
 CORE | CORE_LOOT_125 | Stoneskin Basilisk |  
@@ -203,7 +203,7 @@ CORE | CORE_NEW1_018 | Bloodsail Raider |
 CORE | CORE_NEW1_026 | Violet Teacher |  
 CORE | CORE_NEW1_027 | Southsea Captain |  
 CORE | CORE_OG_047 | Feral Rage | O
-CORE | CORE_OG_070 | Bladed Cultist |  
+CORE | CORE_OG_070 | Bladed Cultist | O
 CORE | CORE_OG_241 | Possessed Villager |  
 CORE | CORE_OG_273 | Stand Against Darkness | O
 CORE | CORE_TRL_111 | Headhunter's Hatchet | O
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 32% (77 of 235 Cards)
+- Progress: 39% (92 of 235 Cards)
 
 ## Ashes of Outland
 

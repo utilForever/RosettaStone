@@ -713,7 +713,7 @@ LOE | LOE_007 | Curse of Rafaam |
 LOE | LOE_009 | Obsidian Destroyer |  
 LOE | LOE_010 | Pit Snake |  
 LOE | LOE_011 | Reno Jackson |  
-LOE | LOE_012 | Tomb Pillager |  
+LOE | LOE_012 | Tomb Pillager | O
 LOE | LOE_016 | Rumbling Elemental |  
 LOE | LOE_017 | Keeper of Uldaman |  
 LOE | LOE_018 | Tunnel Trogg |  
@@ -752,7 +752,7 @@ LOE | LOE_118 | Cursed Blade |
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin |  
 
-- Progress: 2% (1 of 45 Cards)
+- Progress: 4% (2 of 45 Cards)
 
 ## Whispers of the Old Gods
 
@@ -774,7 +774,7 @@ OG | OG_047 | Feral Rage | O
 OG | OG_048 | Mark of Y'Shaarj |  
 OG | OG_051 | Forbidden Ancient |  
 OG | OG_061 | On the Hunt |  
-OG | OG_070 | Bladed Cultist |  
+OG | OG_070 | Bladed Cultist | O
 OG | OG_072 | Journey Below |  
 OG | OG_073 | Thistle Tea |  
 OG | OG_080 | Xaril, Poisoned Mind |  
@@ -893,7 +893,7 @@ OG | OG_338 | Nat, the Darkfisher |
 OG | OG_339 | Skeram Cultist |  
 OG | OG_340 | Soggoth the Slitherer |  
 
-- Progress: 1% (2 of 134 Cards)
+- Progress: 2% (3 of 134 Cards)
 
 ## One Night in Karazhan
 
@@ -923,7 +923,7 @@ KARA | KAR_061 | The Curator |
 KARA | KAR_062 | Netherspite Historian |  
 KARA | KAR_063 | Spirit Claws |  
 KARA | KAR_065 | Menagerie Warden | O
-KARA | KAR_069 | Swashburglar |  
+KARA | KAR_069 | Swashburglar | O
 KARA | KAR_070 | Ethereal Peddler |  
 KARA | KAR_073 | Maelstrom Portal |  
 KARA | KAR_075 | Moonglade Portal |  
@@ -945,7 +945,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 6% (3 of 45 Cards)
+- Progress: 8% (4 of 45 Cards)
 
 ## Journey to Un'Goro
 
@@ -1189,7 +1189,7 @@ ICECROWN | ICC_801 | Howling Commander |
 ICECROWN | ICC_802 | Spirit Lash |  
 ICECROWN | ICC_807 | Strongshell Scavenger |  
 ICECROWN | ICC_808 | Crypt Lord |  
-ICECROWN | ICC_809 | Plague Scientist |  
+ICECROWN | ICC_809 | Plague Scientist | O
 ICECROWN | ICC_810 | Deathaxe Punisher |  
 ICECROWN | ICC_811 | Lilian Voss |  
 ICECROWN | ICC_812 | Meat Wagon |  
@@ -1229,7 +1229,7 @@ ICECROWN | ICC_911 | Keening Banshee |
 ICECROWN | ICC_912 | Corpsetaker |  
 ICECROWN | ICC_913 | Tainted Zealot |  
 
-- Progress: 1% (2 of 135 Cards)
+- Progress: 2% (3 of 135 Cards)
 
 ## The Witchwood
 
