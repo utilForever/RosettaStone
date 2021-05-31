@@ -1573,6 +1573,19 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_073e", EntityType::TARGET));
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("CS2_073e2", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_073",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_074] Deadly Poison - COST:1
