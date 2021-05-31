@@ -1730,9 +1730,22 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("ICC_809e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_ICC_809",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]

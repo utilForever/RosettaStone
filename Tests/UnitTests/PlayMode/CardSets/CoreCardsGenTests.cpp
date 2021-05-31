@@ -4942,3 +4942,56 @@ TEST_CASE("[Rogue : Minion] - CORE_EX1_522 : Patient Assassin")
 
     CHECK(card2->isDestroyed);
 }
+
+// ----------------------------------------- MINION - ROGUE
+// [CORE_ICC_809] Plague Scientist - COST:3 [ATK:2/HP:3]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Give a friendly minion <b>Poisonous</b>.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_TARGET_FOR_COMBO = 0
+// --------------------------------------------------------
+// RefTag:
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - CORE_ICC_809 : Plague Scientist")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Plague Scientist"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Plague Scientist"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasPoisonous(), false);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField[0]->HasPoisonous(), true);
+    CHECK_EQ(curField[1]->HasPoisonous(), false);
+}
