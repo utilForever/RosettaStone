@@ -1541,12 +1541,27 @@ void CoreCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_072] Backstab - COST:0
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 2 damage to an undamaged minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_UNDAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cards.emplace(
+        "CORE_CS2_072",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_UNDAMAGED_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_073] Cold Blood - COST:2
