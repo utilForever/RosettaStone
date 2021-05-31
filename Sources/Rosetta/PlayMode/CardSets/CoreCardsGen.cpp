@@ -1647,6 +1647,12 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [CORE_CS2_080] Assassin's Blade - COST:4
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 5
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_080", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]

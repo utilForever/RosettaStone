@@ -4663,3 +4663,15 @@ TEST_CASE("[Rogue : Spell] - CORE_CS2_077 : Sprint")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 8);
 }
+
+// ----------------------------------------- WEAPON - ROGUE
+// [CORE_CS2_080] Assassin's Blade - COST:4
+// - Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 5
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Weapon] - CORE_CS2_080 : Assassin's Blade")
+{
+    // Do nothing
+}
