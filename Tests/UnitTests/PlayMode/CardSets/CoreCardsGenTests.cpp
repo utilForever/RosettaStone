@@ -5843,3 +5843,45 @@ TEST_CASE("[Shaman : Weapon] - CORE_EX1_567 : Doomhammer")
     CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
     CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [CORE_EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
+// - Race: Totem, Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - CORE_EX1_575 : Mana Tide Totem")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mana Tide Totem"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+}
