@@ -1893,6 +1893,17 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a friendly character +3 Attack this turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_045e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_045",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_238] Lightning Bolt - COST:1
