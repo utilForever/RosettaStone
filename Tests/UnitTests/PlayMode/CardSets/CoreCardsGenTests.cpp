@@ -5791,3 +5791,55 @@ TEST_CASE("[Shaman : Spell] - CORE_EX1_259 : Lightning Storm")
     CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
     CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
 }
+
+// ---------------------------------------- WEAPON - SHAMAN
+// [CORE_EX1_567] Doomhammer - COST:5
+// - Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Windfury, Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 8
+// - WINDFURY = 1
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Weapon] - CORE_EX1_567 : Doomhammer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Doomhammer"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 8);
+    CHECK_EQ(curPlayer->GetWeapon().GetGameTag(GameTag::WINDFURY), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
+}

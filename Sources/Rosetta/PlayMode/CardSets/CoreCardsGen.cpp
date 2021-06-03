@@ -2029,9 +2029,14 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: <b>Windfury, Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - DURABILITY = 8
     // - WINDFURY = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_567", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
