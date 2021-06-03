@@ -2075,11 +2075,22 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
-    //       Deal 4 damage to a minion.
+    //       Deal 4 damage to a minion.
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cards.emplace(
+        "CORE_UNG_817",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CS3_007] Novice Zapper - COST:1 [ATK:3/HP:2]
