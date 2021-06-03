@@ -6082,8 +6082,8 @@ TEST_CASE("[Shaman : Weapon] - EX1_247 : Stormforged Axe")
 //       <b>Overload:</b> (1)
 // --------------------------------------------------------
 // GameTag:
-// - OVERLOAD = 2
-// - OVERLOAD_OWED = 2
+// - OVERLOAD = 1
+// - OVERLOAD_OWED = 1
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_NUM_MINION_SLOTS = 1
