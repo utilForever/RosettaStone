@@ -1976,9 +1976,13 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b><b>Overload</b>:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_250", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
