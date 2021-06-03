@@ -1877,6 +1877,14 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
+    cards.emplace(
+        "CORE_CS2_042",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_CS2_045] Rockbiter Weapon - COST:2

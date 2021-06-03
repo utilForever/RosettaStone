@@ -5284,3 +5284,62 @@ TEST_CASE("[Shaman : Spell] - CORE_CS2_039 : Windfury")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 18);
     CHECK_EQ(curField[0]->IsExhausted(), true);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [CORE_CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
+// - Race: Elemental, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 4 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - CORE_CS2_042 : Fire Elemental")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Elemental"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Elemental"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opField[0]));
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+}
