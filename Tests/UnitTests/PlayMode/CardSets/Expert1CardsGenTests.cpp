@@ -6338,7 +6338,8 @@ TEST_CASE("[Shaman : Minion] - EX1_258 : Unbound Elemental")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Nature
 // --------------------------------------------------------
-// Text: Deal 3 damage to all enemy minions. <b>Overload:</b> (2)
+// Text: Deal 3 damage to all enemy minions.
+//       <b>Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
