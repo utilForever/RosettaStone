@@ -13,7 +13,7 @@ Set | ID | Name | Implemented
 CORE | CORE_AT_003 | Fallen Hero | O
 CORE | CORE_AT_008 | Coldarra Drake | O
 CORE | CORE_AT_021 | Tiny Knight of Evil |  
-CORE | CORE_AT_047 | Draenei Totemcarver |  
+CORE | CORE_AT_047 | Draenei Totemcarver | O
 CORE | CORE_AT_055 | Flash Heal | O
 CORE | CORE_AT_061 | Lock and Load | O
 CORE | CORE_AT_075 | Warhorse Trainer | O
@@ -21,7 +21,7 @@ CORE | CORE_AT_092 | Ice Rager |
 CORE | CORE_BOT_083 | Toxicologist |  
 CORE | CORE_BOT_420 | Landscaping | O
 CORE | CORE_BOT_453 | Shooting Star | O
-CORE | CORE_BOT_533 | Menacing Nimbus |  
+CORE | CORE_BOT_533 | Menacing Nimbus | O
 CORE | CORE_BRM_013 | Quick Shot | O
 CORE | CORE_BT_035 | Chaos Strike |  
 CORE | CORE_BT_036 | Coordinated Strike |  
@@ -44,9 +44,9 @@ CORE | CORE_CS2_023 | Arcane Intellect | O
 CORE | CORE_CS2_029 | Fireball | O
 CORE | CORE_CS2_032 | Flamestrike | O
 CORE | CORE_CS2_033 | Water Elemental | O
-CORE | CORE_CS2_039 | Windfury |  
-CORE | CORE_CS2_042 | Fire Elemental |  
-CORE | CORE_CS2_045 | Rockbiter Weapon |  
+CORE | CORE_CS2_039 | Windfury | O
+CORE | CORE_CS2_042 | Fire Elemental | O
+CORE | CORE_CS2_045 | Rockbiter Weapon | O
 CORE | CORE_CS2_062 | Hellfire |  
 CORE | CORE_CS2_064 | Dread Infernal |  
 CORE | CORE_CS2_072 | Backstab | O
@@ -118,13 +118,13 @@ CORE | CORE_EX1_194 | Power Infusion | O
 CORE | CORE_EX1_195 | Kul Tiran Chaplain | O
 CORE | CORE_EX1_197 | Shadow Word: Ruin | O
 CORE | CORE_EX1_198 | Natalie Seline | O
-CORE | CORE_EX1_238 | Lightning Bolt |  
-CORE | CORE_EX1_246 | Hex |  
-CORE | CORE_EX1_248 | Feral Spirit |  
+CORE | CORE_EX1_238 | Lightning Bolt | O
+CORE | CORE_EX1_246 | Hex | O
+CORE | CORE_EX1_248 | Feral Spirit | O
 CORE | CORE_EX1_249 | Baron Geddon |  
-CORE | CORE_EX1_250 | Earth Elemental |  
-CORE | CORE_EX1_258 | Unbound Elemental |  
-CORE | CORE_EX1_259 | Lightning Storm |  
+CORE | CORE_EX1_250 | Earth Elemental | O
+CORE | CORE_EX1_258 | Unbound Elemental | O
+CORE | CORE_EX1_259 | Lightning Storm | O
 CORE | CORE_EX1_275 | Cone of Cold | O
 CORE | CORE_EX1_287 | Counterspell | O
 CORE | CORE_EX1_289 | Ice Barrier | O
@@ -155,10 +155,10 @@ CORE | CORE_EX1_534 | Savannah Highmane | O
 CORE | CORE_EX1_543 | King Krush | O
 CORE | CORE_EX1_554 | Snake Trap | O
 CORE | CORE_EX1_564 | Faceless Manipulator |  
-CORE | CORE_EX1_567 | Doomhammer |  
+CORE | CORE_EX1_567 | Doomhammer | O
 CORE | CORE_EX1_571 | Force of Nature | O
 CORE | CORE_EX1_573 | Cenarius | O
-CORE | CORE_EX1_575 | Mana Tide Totem |  
+CORE | CORE_EX1_575 | Mana Tide Totem | O
 CORE | CORE_EX1_603 | Cruel Taskmaster |  
 CORE | CORE_EX1_604 | Frothing Berserker |  
 CORE | CORE_EX1_610 | Explosive Trap | O
@@ -198,7 +198,7 @@ CORE | CORE_LOEA10_3 | Murloc Tinyfin |
 CORE | CORE_LOOT_124 | Lone Champion |  
 CORE | CORE_LOOT_125 | Stoneskin Basilisk |  
 CORE | CORE_LOOT_137 | Sleepy Dragon |  
-CORE | CORE_NEW1_010 | Al'Akir the Windlord |  
+CORE | CORE_NEW1_010 | Al'Akir the Windlord | O
 CORE | CORE_NEW1_018 | Bloodsail Raider |  
 CORE | CORE_NEW1_026 | Violet Teacher |  
 CORE | CORE_NEW1_027 | Southsea Captain |  
@@ -211,14 +211,14 @@ CORE | CORE_TRL_243 | Pounce | O
 CORE | CORE_tt_004 | Flesheating Ghoul |  
 CORE | CORE_UNG_020 | Arcanologist | O
 CORE | CORE_UNG_813 | Stormwatcher |  
-CORE | CORE_UNG_817 | Tidal Surge |  
+CORE | CORE_UNG_817 | Tidal Surge | O
 CORE | CORE_UNG_833 | Lakkari Felhound |  
 CORE | CORE_UNG_844 | Humongous Razorleaf |  
 CORE | CS3_001 | Aegwynn, the Guardian |  
 CORE | CS3_002 | Ritual of Doom |  
 CORE | CS3_003 | Felsoul Jailer |  
 CORE | CS3_005 | Vanessa VanCleef |  
-CORE | CS3_007 | Novice Zapper |  
+CORE | CS3_007 | Novice Zapper | O
 CORE | CS3_008 | Bloodsail Deckhand |  
 CORE | CS3_009 | War Cache |  
 CORE | CS3_012 | Nordrassil Druid | O
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 39% (92 of 235 Cards)
+- Progress: 45% (108 of 235 Cards)
 
 ## Ashes of Outland
 

@@ -12,6 +12,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void TgtCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -1029,6 +1030,8 @@ void TgtCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [AT_046] Tuskarr Totemic - COST:3 [ATK:3/HP:2]
     // - Set: Tgt, Rarity: Common
@@ -1040,7 +1043,7 @@ void TgtCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [AT_047] Draenei Totemcarver - COST:4 [ATK:4/HP:4]
+    // [AT_047] Draenei Totemcarver - COST:4 [ATK:4/HP:5]
     // - Set: Tgt, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Gain +1/+1 for each friendly Totem.
@@ -1048,6 +1051,14 @@ void TgtCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "AT_047e", EntityType::SOURCE, true));
+    cards.emplace("AT_047", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [AT_048] Healing Wave - COST:3
@@ -1139,6 +1150,10 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_unique<Enchant>(Enchants::AddAttackHealthScriptTag));
+    cards.emplace("AT_047e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [AT_049e] Power of the Bluff (*) - COST:0

@@ -7,8 +7,12 @@
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void UngoroCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -1094,6 +1098,8 @@ void UngoroCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [UNG_019] Air Elemental - COST:1 [ATK:2/HP:1]
     // - Race: Elemental, Faction: Horde, Set: Ungoro, Rarity: Common
@@ -1169,14 +1175,25 @@ void UngoroCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // ----------------------------------------- SPELL - SHAMAN
     // [UNG_817] Tidal Surge - COST:3
     // - Faction: Neutral, Set: Ungoro, Rarity: Common
+    // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Deal 4 damage to a minion.
-    //       Restore 4 Health to your hero.
+    // Text: <b>Lifesteal</b>
+    //       Deal 4 damage to a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cards.emplace(
+        "UNG_817",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [UNG_938] Hot Spring Guardian - COST:3 [ATK:2/HP:4]

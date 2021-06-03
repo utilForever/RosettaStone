@@ -2949,8 +2949,8 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 2
-    // - OVERLOAD_OWED = 2
+    // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
@@ -2969,8 +2969,8 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b><b>Overload</b>:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 3
-    // - OVERLOAD_OWED = 3
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
@@ -3004,7 +3004,8 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
+    // Text: Whenever you play a card with <b>Overload</b>,
+    //       gain +1/+1.
     // --------------------------------------------------------
     // RefTag:
     // - OVERLOAD = 1
@@ -3022,7 +3023,8 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Deal 3 damage to all enemy minions. <b>Overload:</b> (2)
+    // Text: Deal 3 damage to all enemy minions.
+    //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 2
@@ -3054,6 +3056,9 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Race: Totem, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: At the end of your turn, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));

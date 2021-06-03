@@ -6082,8 +6082,8 @@ TEST_CASE("[Shaman : Weapon] - EX1_247 : Stormforged Axe")
 //       <b>Overload:</b> (1)
 // --------------------------------------------------------
 // GameTag:
-// - OVERLOAD = 2
-// - OVERLOAD_OWED = 2
+// - OVERLOAD = 1
+// - OVERLOAD_OWED = 1
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_NUM_MINION_SLOTS = 1
@@ -6145,8 +6145,8 @@ TEST_CASE("[Shaman : Spell] - EX1_248 : Feral Spirit")
 //       <b><b>Overload</b>:</b> (2)
 // --------------------------------------------------------
 // GameTag:
-// - OVERLOAD = 3
-// - OVERLOAD_OWED = 3
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
 // - TAUNT = 1
 // --------------------------------------------------------
 TEST_CASE("[Shaman : Minion] - EX1_250 : Earth Elemental")
@@ -6279,7 +6279,8 @@ TEST_CASE("[Shaman : Spell] - EX1_251 : Forked Lightning")
 // [EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
+// Text: Whenever you play a card with <b>Overload</b>,
+//       gain +1/+1.
 // --------------------------------------------------------
 // RefTag:
 // - OVERLOAD = 1
@@ -6337,7 +6338,8 @@ TEST_CASE("[Shaman : Minion] - EX1_258 : Unbound Elemental")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Nature
 // --------------------------------------------------------
-// Text: Deal 3 damage to all enemy minions. <b>Overload:</b> (2)
+// Text: Deal 3 damage to all enemy minions.
+//       <b>Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
@@ -6464,6 +6466,9 @@ TEST_CASE("[Shaman : Weapon] - EX1_567 : Doomhammer")
 // - Race: Totem, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: At the end of your turn, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Shaman : Minion] - EX1_575 : Mana Tide Totem")
 {

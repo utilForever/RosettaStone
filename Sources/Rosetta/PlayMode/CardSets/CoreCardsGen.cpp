@@ -1811,6 +1811,8 @@ void CoreCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_AT_047] Draenei Totemcarver - COST:4 [ATK:4/HP:5]
     // - Set: CORE, Rarity: Rare
@@ -1820,6 +1822,14 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "AT_047e", EntityType::SOURCE, true));
+    cards.emplace("CORE_AT_047", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_BOT_533] Menacing Nimbus - COST:2 [ATK:2/HP:2]
@@ -1830,6 +1840,11 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::ELEMENTAL));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_BOT_533", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_CS2_039] Windfury - COST:2
@@ -1838,9 +1853,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion <b>Windfury</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::WINDFURY, 1));
+    cards.emplace(
+        "CORE_CS2_039",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
@@ -1851,6 +1877,14 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
+    cards.emplace(
+        "CORE_CS2_042",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_CS2_045] Rockbiter Weapon - COST:2
@@ -1859,6 +1893,17 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a friendly character +3 Attack this turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_045e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_045",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_238] Lightning Bolt - COST:1
@@ -1869,7 +1914,17 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "CORE_EX1_238",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_246] Hex - COST:4
@@ -1878,9 +1933,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::TARGET, "hexfrog"));
+    cards.emplace(
+        "CORE_EX1_246",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_248] Feral Spirit - COST:3
@@ -1891,10 +1957,16 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk11", 2));
+    cards.emplace(
+        "CORE_EX1_248",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
@@ -1904,16 +1976,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b><b>Overload</b>:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_250", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
     // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever you play a card with <b>Overload</b>,
-    //       gain +1/+1.
+    // Text: Whenever you play a card with <b>Overload</b>,
+    //       gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1921,18 +1997,30 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard());
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_258e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_258", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_259] Lightning Storm - COST:3
     // - Set: CORE, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Deal 3 damage to all enemy minions.
+    // Text: Deal 3 damage to all enemy minions.
     //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true));
+    cards.emplace("CORE_EX1_259", CardDef(power));
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [CORE_EX1_567] Doomhammer - COST:5
@@ -1941,9 +2029,14 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: <b>Windfury, Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - DURABILITY = 8
     // - WINDFURY = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_567", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
@@ -1954,6 +2047,10 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("CORE_EX1_575", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
@@ -1968,6 +2065,9 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_NEW1_010", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_UNG_817] Tidal Surge - COST:3
@@ -1975,22 +2075,38 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
-    //       Deal 4 damage to a minion.
+    //       Deal 4 damage to a minion.
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cards.emplace(
+        "CORE_UNG_817",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CS3_007] Novice Zapper - COST:1 [ATK:3/HP:2]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Spell Damage +1</b> <b>Overload:</b> (1)
+    // Text: <b>Spell Damage +1</b>
+    //       <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_007", CardDef(power));
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)

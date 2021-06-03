@@ -613,7 +613,7 @@ TGT | AT_043 | Astral Communion |
 TGT | AT_044 | Mulch |  
 TGT | AT_045 | Aviana |  
 TGT | AT_046 | Tuskarr Totemic |  
-TGT | AT_047 | Draenei Totemcarver |  
+TGT | AT_047 | Draenei Totemcarver | O
 TGT | AT_048 | Healing Wave |  
 TGT | AT_049 | Thunder Bluff Valiant |  
 TGT | AT_050 | Charged Hammer |  
@@ -700,7 +700,7 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 3% (5 of 132 Cards)
+- Progress: 4% (6 of 132 Cards)
 
 ## The League of Explorers
 
@@ -1025,7 +1025,7 @@ UNGORO | UNG_812 | Sabretooth Stalker |
 UNGORO | UNG_813 | Stormwatcher |  
 UNGORO | UNG_814 | Giant Wasp |  
 UNGORO | UNG_816 | Servant of Kalimos |  
-UNGORO | UNG_817 | Tidal Surge |  
+UNGORO | UNG_817 | Tidal Surge | O
 UNGORO | UNG_818 | Volatile Elemental |  
 UNGORO | UNG_823 | Envenom Weapon |  
 UNGORO | UNG_829 | Lakkari Sacrifice |  
@@ -1087,7 +1087,7 @@ UNGORO | UNG_961 | Adaptation |
 UNGORO | UNG_962 | Lightfused Stegodon |  
 UNGORO | UNG_963 | Lyra the Sunshard |  
 
-- Progress: 0% (1 of 135 Cards)
+- Progress: 1% (2 of 135 Cards)
 
 ## Knights of the Frozen Throne
 
@@ -1468,7 +1468,7 @@ BOOMSDAY | BOT_523 | Mulchmuncher |
 BOOMSDAY | BOT_529 | Power Word: Replicate |  
 BOOMSDAY | BOT_531 | Celestial Emissary |  
 BOOMSDAY | BOT_532 | Explodinator |  
-BOOMSDAY | BOT_533 | Menacing Nimbus |  
+BOOMSDAY | BOT_533 | Menacing Nimbus | O
 BOOMSDAY | BOT_534 | Bull Dozer |  
 BOOMSDAY | BOT_535 | Microtech Controller |  
 BOOMSDAY | BOT_536 | Omega Agent |  
@@ -1508,7 +1508,7 @@ BOOMSDAY | BOT_912 | Kangor's Endless Army |
 BOOMSDAY | BOT_913 | Demonic Project |  
 BOOMSDAY | BOT_914 | Whizbang the Wonderful |  
 
-- Progress: 1% (2 of 136 Cards)
+- Progress: 2% (3 of 136 Cards)
 
 ## Rastakhan's Rumble
 

@@ -1040,6 +1040,8 @@ void BoomsdayCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void BoomsdayCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [BOT_093] Elementary Reaction - COST:2
     // - Set: BOOMSDAY, Rarity: Common
@@ -1139,6 +1141,11 @@ void BoomsdayCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::ELEMENTAL));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("BOT_533", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BOT_543] Omega Mind - COST:2 [ATK:2/HP:3]
