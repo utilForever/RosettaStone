@@ -1933,9 +1933,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::TARGET, "hexfrog"));
+    cards.emplace(
+        "CORE_EX1_246",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_248] Feral Spirit - COST:3
