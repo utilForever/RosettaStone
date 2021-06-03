@@ -2969,8 +2969,8 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b><b>Overload</b>:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 3
-    // - OVERLOAD_OWED = 3
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();

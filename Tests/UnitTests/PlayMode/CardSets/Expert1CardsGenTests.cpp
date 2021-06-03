@@ -6145,8 +6145,8 @@ TEST_CASE("[Shaman : Spell] - EX1_248 : Feral Spirit")
 //       <b><b>Overload</b>:</b> (2)
 // --------------------------------------------------------
 // GameTag:
-// - OVERLOAD = 3
-// - OVERLOAD_OWED = 3
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
 // - TAUNT = 1
 // --------------------------------------------------------
 TEST_CASE("[Shaman : Minion] - EX1_250 : Earth Elemental")
