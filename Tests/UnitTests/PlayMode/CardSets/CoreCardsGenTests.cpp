@@ -5955,3 +5955,20 @@ TEST_CASE("[Shaman : Spell] - CORE_UNG_817 : Tidal Surge")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
     CHECK_EQ(curField[0]->GetHealth(), 3);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [CS3_007] Novice Zapper - COST:1 [ATK:3/HP:2]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 1
+// - OVERLOAD_OWED = 1
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - CS3_007 : Novice Zapper")
+{
+    // Do nothing
+}

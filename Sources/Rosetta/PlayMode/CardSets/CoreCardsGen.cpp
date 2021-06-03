@@ -2096,12 +2096,17 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [CS3_007] Novice Zapper - COST:1 [ATK:3/HP:2]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Spell Damage +1</b> <b>Overload:</b> (1)
+    // Text: <b>Spell Damage +1</b>
+    //       <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_007", CardDef(power));
 }
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
