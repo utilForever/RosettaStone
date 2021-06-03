@@ -1840,6 +1840,11 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::ELEMENTAL));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_BOT_533", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_CS2_039] Windfury - COST:2
