@@ -1957,10 +1957,16 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk11", 2));
+    cards.emplace(
+        "CORE_EX1_248",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
