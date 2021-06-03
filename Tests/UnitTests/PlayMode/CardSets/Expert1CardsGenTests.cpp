@@ -6467,6 +6467,9 @@ TEST_CASE("[Shaman : Weapon] - EX1_567 : Doomhammer")
 // --------------------------------------------------------
 // Text: At the end of your turn, draw a card.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Shaman : Minion] - EX1_575 : Mana Tide Totem")
 {
     GameConfig config;
