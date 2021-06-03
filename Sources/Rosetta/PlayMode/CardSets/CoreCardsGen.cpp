@@ -2010,12 +2010,17 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Deal 3 damage to all enemy minions.
+    // Text: Deal 3 damage to all enemy minions.
     //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true));
+    cards.emplace("CORE_EX1_259", CardDef(power));
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [CORE_EX1_567] Doomhammer - COST:5
