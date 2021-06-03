@@ -294,3 +294,51 @@ TEST_CASE("[Priest : Spell] - AT_055 : Flash Heal")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, opHero));
     CHECK_EQ(opHero->GetHealth(), 25);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [AT_047] Draenei Totemcarver - COST:4 [ATK:4/HP:5]
+// - Set: Tgt, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Gain +1/+1 for each friendly Totem.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - AT_047 : Draenei Totemcarver")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Draenei Totemcarver"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Draenei Totemcarver"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->GetHealth(), 6);
+}
