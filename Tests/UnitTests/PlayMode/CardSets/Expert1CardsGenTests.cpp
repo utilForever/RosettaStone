@@ -6279,7 +6279,8 @@ TEST_CASE("[Shaman : Spell] - EX1_251 : Forked Lightning")
 // [EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Whenever you play a card with <b>Overload</b>, gain +1/+1.
+// Text: Whenever you play a card with <b>Overload</b>,
+//       gain +1/+1.
 // --------------------------------------------------------
 // RefTag:
 // - OVERLOAD = 1
