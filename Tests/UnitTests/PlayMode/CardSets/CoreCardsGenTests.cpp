@@ -5885,3 +5885,21 @@ TEST_CASE("[Shaman : Minion] - CORE_EX1_575 : Mana Tide Totem")
 
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [CORE_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
+// - Race: Elemental, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Charge, Divine Shield, Taunt, Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - CHARGE = 1
+// - DIVINE_SHIELD = 1
+// - TAUNT = 1
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - CORE_NEW1_010 : Al'Akir the Windlord")
+{
+    // Do nothing
+}

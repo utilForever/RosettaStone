@@ -2065,6 +2065,9 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_NEW1_010", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_UNG_817] Tidal Surge - COST:3
