@@ -1914,7 +1914,17 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "CORE_EX1_238",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_246] Hex - COST:4
