@@ -2171,7 +2171,8 @@ void BasicCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Deal 1 damage to a minion. If that kills it, draw a card.
+    // Text: Deal 1 damage to a minion.
+    //       If that kills it, draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
