@@ -2251,6 +2251,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 3));
+    cards.emplace("CORE_EX1_319", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_GIL_191] Fiendish Circle - COST:3
