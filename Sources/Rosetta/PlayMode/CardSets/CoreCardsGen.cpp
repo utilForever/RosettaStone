@@ -2153,6 +2153,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 1));
+    cards.emplace("CORE_CS2_064", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_302] Mortal Coil - COST:1
