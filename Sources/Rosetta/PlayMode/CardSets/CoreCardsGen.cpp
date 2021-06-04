@@ -2116,6 +2116,8 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [CORE_AT_021] Tiny Knight of Evil - COST:2 [ATK:3/HP:2]
     // - Race: Demon, Set: CORE, Rarity: Rare
@@ -2125,6 +2127,11 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AT_021e", EntityType::SOURCE) };
+    cards.emplace("CORE_AT_021", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_CS2_062] Hellfire - COST:4
