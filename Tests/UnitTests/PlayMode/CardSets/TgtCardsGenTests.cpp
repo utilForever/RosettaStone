@@ -342,3 +342,61 @@ TEST_CASE("[Shaman : Minion] - AT_047 : Draenei Totemcarver")
     CHECK_EQ(curField[2]->GetAttack(), 5);
     CHECK_EQ(curField[2]->GetHealth(), 6);
 }
+
+// --------------------------------------- MINION - WARLOCK
+// [AT_021] Tiny Knight of Evil - COST:2 [ATK:3/HP:2]
+// - Race: Demon, Set: Tgt, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you discard a card, gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - AT_021 : Tiny Knight of Evil")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Tiny Knight of Evil"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Soulfire"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Soulfire"));
+    [[maybe_unused]] const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Soulfire"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(curHand[0], opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
