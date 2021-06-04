@@ -2140,6 +2140,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage to all characters.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 3, true));
+    cards.emplace("CORE_CS2_062", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
