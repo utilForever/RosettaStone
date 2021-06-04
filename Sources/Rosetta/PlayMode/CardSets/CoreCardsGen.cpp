@@ -2238,6 +2238,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
+    cards.emplace("CORE_EX1_312", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_EX1_319] Flame Imp - COST:1 [ATK:3/HP:2]
