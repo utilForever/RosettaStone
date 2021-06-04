@@ -2192,6 +2192,25 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ATK, 0, 1));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ATK, 1, 2));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(1, 2, MathOperation::ADD));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::HEALTH, 0, 3));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::HEALTH, 1, 4));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(3, 4, MathOperation::ADD, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_304e", EntityType::SOURCE, true));
+    cards.emplace("CORE_EX1_304", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_309] Siphon Soul - COST:5
