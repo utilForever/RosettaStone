@@ -2332,6 +2332,27 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Destroy a friendly minion.
     //       If you had 5 or more, summon a 5/5 Demon.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(5, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET),
+                        std::make_shared<SummonTask>("CS3_002t",
+                                                     SummonSide::TARGET) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
+    cards.emplace(
+        "CS3_002",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [CS3_003] Felsoul Jailer - COST:5 [ATK:4/HP:6]
@@ -2359,6 +2380,8 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [CORE_GIL_191t] Imp - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: CORE
@@ -2368,6 +2391,9 @@ void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // [CS3_002t] Demonic Tyrant - COST:5 [ATK:5/HP:5]
     // - Race: Demon, Set: CORE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_002t", CardDef(power));
 }
 
 void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
