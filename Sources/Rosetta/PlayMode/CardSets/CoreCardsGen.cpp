@@ -2266,7 +2266,7 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("GIL_191t", 4));
+    power.AddPowerTask(std::make_shared<SummonTask>("CORE_GIL_191t", 4));
     cards.emplace(
         "CORE_GIL_191",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
@@ -2386,6 +2386,9 @@ void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // [CORE_GIL_191t] Imp - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: CORE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_GIL_191t", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CS3_002t] Demonic Tyrant - COST:5 [ATK:5/HP:5]
