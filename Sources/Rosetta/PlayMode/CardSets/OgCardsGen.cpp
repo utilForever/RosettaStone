@@ -1034,6 +1034,8 @@ void OgCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [OG_109] Darkshire Librarian - COST:2 [ATK:3/HP:2]
     // - Set: Og, Rarity: Rare
@@ -1107,6 +1109,10 @@ void OgCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("OG_241a", SummonSide::DEATHRATTLE));
+    cards.emplace("OG_241", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [OG_302] Usher of Souls - COST:5 [ATK:5/HP:6]
@@ -1122,6 +1128,8 @@ void OgCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [OG_113e] Power of the People (*) - COST:0
     // - Set: Og
@@ -1138,6 +1146,9 @@ void OgCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // [OG_241a] Shadowbeast (*) - COST:1 [ATK:1/HP:1]
     // - Set: Og
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("OG_241a", CardDef(power));
 }
 
 void OgCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
