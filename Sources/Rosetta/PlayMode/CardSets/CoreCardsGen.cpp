@@ -2282,6 +2282,17 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "CORE_ICC_055",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_OG_241] Possessed Villager - COST:1 [ATK:1/HP:1]
