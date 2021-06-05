@@ -2303,6 +2303,10 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("OG_241a", SummonSide::DEATHRATTLE));
+    cards.emplace("CORE_OG_241", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_UNG_833] Lakkari Felhound - COST:4 [ATK:3/HP:8]
