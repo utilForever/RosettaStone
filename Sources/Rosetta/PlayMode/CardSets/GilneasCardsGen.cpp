@@ -1001,12 +1001,22 @@ void GilneasCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void GilneasCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [GIL_191] Fiendish Circle - COST:3
     // - Set: Gilneas, Rarity: Common
     // --------------------------------------------------------
     // Text: Summon four 1/1 Imps.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("GIL_191t", 4));
+    cards.emplace(
+        "GIL_191",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [GIL_508] Duskbat - COST:3 [ATK:2/HP:4]
@@ -1130,10 +1140,15 @@ void GilneasCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void GilneasCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [GIL_191t] Imp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: Gilneas
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("GIL_191t", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [GIL_508t] Bat (*) - COST:1 [ATK:1/HP:1]
