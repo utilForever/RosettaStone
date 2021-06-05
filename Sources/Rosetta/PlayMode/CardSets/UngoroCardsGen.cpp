@@ -1308,6 +1308,8 @@ void UngoroCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [UNG_047] Ravenous Pterrordax - COST:4 [ATK:4/HP:4]
     // - Race: Beast, Faction: Neutral, Set: Ungoro, Rarity: Common
@@ -1390,13 +1392,16 @@ void UngoroCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Race: Demon, Faction: Neutral, Set: Ungoro, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
-    //       <b>Battlecry:</b> Discard two random cards.
+    //       <b>Battlecry:</b> Discard your two lowest-Cost cards.
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
     // - BATTLECRY = 1
-    // - 890 = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscardTask>(2, DiscardType::LOWEST_COST));
+    cards.emplace("UNG_833", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [UNG_834] Feeding Time - COST:5
