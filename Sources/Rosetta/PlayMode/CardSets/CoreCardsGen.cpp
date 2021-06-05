@@ -2319,6 +2319,10 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscardTask>(2, DiscardType::LOWEST_COST));
+    cards.emplace("CORE_UNG_833", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CS3_002] Ritual of Doom - COST:0
