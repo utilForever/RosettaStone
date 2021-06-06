@@ -150,3 +150,52 @@ TEST_CASE("[Mage : Spell] - GIL_801 : Snap Freeze")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
     CHECK_EQ(opField.GetCount(), 0);
 }
+
+// ---------------------------------------- SPELL - WARLOCK
+// [GIL_191] Fiendish Circle - COST:3
+// - Set: Gilneas, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon four 1/1 Imps.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - GIL_191 : Fiendish Circle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiendish Circle"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiendish Circle"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->card->name, "Imp");
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[6]->card->name, "Imp");
+    CHECK_EQ(curField[6]->GetAttack(), 1);
+    CHECK_EQ(curField[6]->GetHealth(), 1);
+}

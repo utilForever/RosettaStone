@@ -9,6 +9,8 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -22,6 +24,8 @@ using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- HERO - WARLOCK
     // [CORE_EX1_323] Lord Jaraxxus - COST:9
     // - Set: CORE, Rarity: Legendary
@@ -30,10 +34,11 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // --------------------------------------------------------
-    // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("EX1_323w"));
+    cards.emplace("CORE_EX1_323", CardDef(power, 0, 1178));
 }
 
 void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
@@ -2116,6 +2121,8 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [CORE_AT_021] Tiny Knight of Evil - COST:2 [ATK:3/HP:2]
     // - Race: Demon, Set: CORE, Rarity: Rare
@@ -2125,6 +2132,11 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AT_021e", EntityType::SOURCE) };
+    cards.emplace("CORE_AT_021", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_CS2_062] Hellfire - COST:4
@@ -2133,6 +2145,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage to all characters.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 3, true));
+    cards.emplace("CORE_CS2_062", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
@@ -2143,6 +2158,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 1));
+    cards.emplace("CORE_CS2_064", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_302] Mortal Coil - COST:1
@@ -2152,6 +2170,22 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to a minion.
     //       If that kills it, draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace(
+        "CORE_EX1_302",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_EX1_304] Void Terror - COST:3 [ATK:3/HP:4]
@@ -2163,14 +2197,44 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ATK, 0, 1));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ATK, 1, 2));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(1, 2, MathOperation::ADD));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::HEALTH, 0, 3));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::HEALTH, 1, 4));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(3, 4, MathOperation::ADD, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_304e", EntityType::SOURCE, true));
+    cards.emplace("CORE_EX1_304", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_309] Siphon Soul - COST:5
     // - Set: CORE, Rarity: Rare
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Destroy a minion. Restore #3 Health to your hero.
+    // Text: Destroy a minion. Restore 3 Health to your hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 3));
+    cards.emplace(
+        "CORE_EX1_309",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_312] Twisting Nether - COST:8
@@ -2179,6 +2243,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
+    cards.emplace("CORE_EX1_312", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_EX1_319] Flame Imp - COST:1 [ATK:3/HP:2]
@@ -2189,6 +2256,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 3));
+    cards.emplace("CORE_EX1_319", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_GIL_191] Fiendish Circle - COST:3
@@ -2197,6 +2267,14 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon four 1/1 Imps.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("CORE_GIL_191t", 4));
+    cards.emplace(
+        "CORE_GIL_191",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_ICC_055] Drain Soul - COST:2
@@ -2209,6 +2287,17 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "CORE_ICC_055",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_OG_241] Possessed Villager - COST:1 [ATK:1/HP:1]
@@ -2219,6 +2308,10 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("OG_241a", SummonSide::DEATHRATTLE));
+    cards.emplace("CORE_OG_241", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_UNG_833] Lakkari Felhound - COST:4 [ATK:3/HP:8]
@@ -2231,6 +2324,10 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscardTask>(2, DiscardType::LOWEST_COST));
+    cards.emplace("CORE_UNG_833", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CS3_002] Ritual of Doom - COST:0
@@ -2240,6 +2337,27 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Destroy a friendly minion.
     //       If you had 5 or more, summon a 5/5 Demon.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(5, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET),
+                        std::make_shared<SummonTask>("CS3_002t",
+                                                     SummonSide::TARGET) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
+    cards.emplace(
+        "CS3_002",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [CS3_003] Felsoul Jailer - COST:5 [ATK:4/HP:6]
@@ -2252,6 +2370,18 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscardTask>(1, DiscardType::ENEMY_MINION, true));
+    power.AddDeathrattleTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            const int entityID =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1);
+            Playable* playable = player->game->entityList[entityID];
+            player->opponent->GetGraveyardZone()->Remove(playable);
+            player->opponent->GetHandZone()->Add(playable);
+        }));
+    cards.emplace("CS3_003", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CS3_021] Enslaved Fel Lord - COST:7 [ATK:4/HP:10]
@@ -2263,19 +2393,50 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = {
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            const auto target = dynamic_cast<Minion*>(
+                playable->game->currentEventData->eventTarget);
+            if (target == nullptr)
+            {
+                return 0;
+            }
+
+            auto& taskStack = playable->game->taskStack;
+            for (auto& minion : target->GetAdjacentMinions())
+            {
+                taskStack.playables.emplace_back(minion);
+            }
+
+            return dynamic_cast<Minion*>(playable)->GetAttack();
+        }),
+        std::make_shared<DamageNumberTask>(EntityType::STACK)
+    };
+    cards.emplace("CS3_021", CardDef(power));
 }
 
 void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [CORE_GIL_191t] Imp - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: CORE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_GIL_191t", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CS3_002t] Demonic Tyrant - COST:5 [ATK:5/HP:5]
     // - Race: Demon, Set: CORE
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_002t", CardDef(power));
 }
 
 void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)

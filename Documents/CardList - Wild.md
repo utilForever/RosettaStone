@@ -587,7 +587,7 @@ TGT | AT_017 | Twilight Guardian |
 TGT | AT_018 | Confessor Paletress |  
 TGT | AT_019 | Dreadsteed |  
 TGT | AT_020 | Fearsome Doomguard |  
-TGT | AT_021 | Tiny Knight of Evil |  
+TGT | AT_021 | Tiny Knight of Evil | O
 TGT | AT_022 | Fist of Jaraxxus |  
 TGT | AT_023 | Void Crusher |  
 TGT | AT_024 | Demonfuse |  
@@ -700,7 +700,7 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 4% (6 of 132 Cards)
+- Progress: 5% (7 of 132 Cards)
 
 ## The League of Explorers
 
@@ -839,7 +839,7 @@ OG | OG_223 | Divine Strength |
 OG | OG_229 | Ragnaros, Lightlord |  
 OG | OG_234 | Darkshire Alchemist |  
 OG | OG_239 | DOOM! |  
-OG | OG_241 | Possessed Villager |  
+OG | OG_241 | Possessed Villager | O
 OG | OG_247 | Twisted Worgen |  
 OG | OG_248 | Am'gam Rager |  
 OG | OG_249 | Infested Tauren |  
@@ -893,7 +893,7 @@ OG | OG_338 | Nat, the Darkfisher |
 OG | OG_339 | Skeram Cultist |  
 OG | OG_340 | Soggoth the Slitherer |  
 
-- Progress: 2% (3 of 134 Cards)
+- Progress: 2% (4 of 134 Cards)
 
 ## One Night in Karazhan
 
@@ -1032,7 +1032,7 @@ UNGORO | UNG_829 | Lakkari Sacrifice |
 UNGORO | UNG_830 | Cruel Dinomancer |  
 UNGORO | UNG_831 | Corrupting Mist |  
 UNGORO | UNG_832 | Bloodbloom |  
-UNGORO | UNG_833 | Lakkari Felhound |  
+UNGORO | UNG_833 | Lakkari Felhound | O
 UNGORO | UNG_834 | Feeding Time |  
 UNGORO | UNG_835 | Chittering Tunneler |  
 UNGORO | UNG_836 | Clutchmother Zavas |  
@@ -1087,7 +1087,7 @@ UNGORO | UNG_961 | Adaptation |
 UNGORO | UNG_962 | Lightfused Stegodon |  
 UNGORO | UNG_963 | Lyra the Sunshard |  
 
-- Progress: 1% (2 of 135 Cards)
+- Progress: 2% (3 of 135 Cards)
 
 ## Knights of the Frozen Throne
 
@@ -1114,7 +1114,7 @@ ICECROWN | ICC_050 | Webweave |
 ICECROWN | ICC_051 | Druid of the Swarm |  
 ICECROWN | ICC_052 | Play Dead |  
 ICECROWN | ICC_054 | Spreading Plague |  
-ICECROWN | ICC_055 | Drain Soul |  
+ICECROWN | ICC_055 | Drain Soul | O
 ICECROWN | ICC_056 | Cryostasis |  
 ICECROWN | ICC_058 | Brrrloc |  
 ICECROWN | ICC_062 | Mountainfire Armor |  
@@ -1229,7 +1229,7 @@ ICECROWN | ICC_911 | Keening Banshee |
 ICECROWN | ICC_912 | Corpsetaker |  
 ICECROWN | ICC_913 | Tainted Zealot |  
 
-- Progress: 2% (3 of 135 Cards)
+- Progress: 2% (4 of 135 Cards)
 
 ## The Witchwood
 
@@ -1245,6 +1245,7 @@ GILNEAS | GIL_121 | Darkmire Moonkin |
 GILNEAS | GIL_124 | Mossy Horror |  
 GILNEAS | GIL_125 | Mad Hatter |  
 GILNEAS | GIL_128 | Emeriss |  
+GILNEAS | GIL_130 | Gloom Stag |  
 GILNEAS | GIL_134 | Holy Water |  
 GILNEAS | GIL_142 | Chameleos |  
 GILNEAS | GIL_143 | Vicious Scalehide |  
@@ -1255,7 +1256,7 @@ GILNEAS | GIL_155 | Redband Wasp |
 GILNEAS | GIL_156 | Quartz Elemental |  
 GILNEAS | GIL_188 | Druid of the Scythe |  
 GILNEAS | GIL_190 | Nightscale Matriarch |  
-GILNEAS | GIL_191 | Fiendish Circle |  
+GILNEAS | GIL_191 | Fiendish Circle | O
 GILNEAS | GIL_198 | Azalina Soulthief |  
 GILNEAS | GIL_200 | Duskhaven Hunter |  
 GILNEAS | GIL_201 | Pumpkin Peasant |  
@@ -1276,6 +1277,7 @@ GILNEAS | GIL_526 | Wyrmguard |
 GILNEAS | GIL_527 | Felsoul Inquisitor |  
 GILNEAS | GIL_528 | Swift Messenger |  
 GILNEAS | GIL_529 | Spellshifter |  
+GILNEAS | GIL_530 | Murkspark Eel |  
 GILNEAS | GIL_531 | Witch's Apprentice |  
 GILNEAS | GIL_534 | Hench-Clan Thug |  
 GILNEAS | GIL_537 | Deadly Arsenal |  
@@ -1339,6 +1341,7 @@ GILNEAS | GIL_683 | Marsh Drake |
 GILNEAS | GIL_685 | Paragon of Light |  
 GILNEAS | GIL_687 | WANTED! |  
 GILNEAS | GIL_691 | Archmage Arugal |  
+GILNEAS | GIL_692 | Genn Greymane |  
 GILNEAS | GIL_693 | Blood Witch |  
 GILNEAS | GIL_694 | Prince Liam |  
 GILNEAS | GIL_696 | Pick Pocket |  
@@ -1355,17 +1358,20 @@ GILNEAS | GIL_817 | The Glass Knight |
 GILNEAS | GIL_819 | Witch's Cauldron |  
 GILNEAS | GIL_820 | Shudderwock |  
 GILNEAS | GIL_825 | Lord Godfrey |  
+GILNEAS | GIL_826 | Baku the Mooneater |  
 GILNEAS | GIL_827 | Blink Fox |  
 GILNEAS | GIL_828 | Dire Frenzy | O
 GILNEAS | GIL_833 | Forest Guide |  
 GILNEAS | GIL_835 | Squashling |  
 GILNEAS | GIL_836 | Blazing Invocation |  
+GILNEAS | GIL_837 | Glitter Moth |  
+GILNEAS | GIL_838 | Black Cat |  
 GILNEAS | GIL_840 | Lady in White |  
 GILNEAS | GIL_902 | Cutthroat Buccaneer |  
 GILNEAS | GIL_903 | Hidden Wisdom |  
 GILNEAS | GIL_905 | Carrion Drake |  
 
-- Progress: 1% (2 of 129 Cards)
+- Progress: 2% (3 of 135 Cards)
 
 ## The Boomsday Project
 

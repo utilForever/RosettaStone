@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -1205,6 +1206,8 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [AT_019] Dreadsteed - COST:4 [ATK:1/HP:1]
     // - Race: Demon, Set: Tgt, Rarity: Epic
@@ -1227,6 +1230,14 @@ void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you discard a card, gain +1/+1.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AT_021e", EntityType::SOURCE) };
+    cards.emplace("AT_021", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AT_022] Fist of Jaraxxus - COST:4
@@ -1297,12 +1308,18 @@ void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [AT_021e] Felrage (*) - COST:0
     // - Set: Tgt
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<OngoingEnchant>(
+        std::vector<std::shared_ptr<IEffect>>{ Effects::AttackHealthN(1) }));
+    cards.emplace("AT_021e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [AT_027e] Master Summoner (*) - COST:0

@@ -1562,6 +1562,8 @@ void IcecrownCardsGen::AddShamanNonCollect(
 
 void IcecrownCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [ICC_041] Defile - COST:2
     // - Set: Icecrown, Rarity: Rare
@@ -1573,9 +1575,10 @@ void IcecrownCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // ---------------------------------------- SPELL - WARLOCK
     // [ICC_055] Drain Soul - COST:2
     // - Set: Icecrown, Rarity: Common
+    // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
-    //       Deal 2 damage to a minion.
+    //       Deal 3 damage to a minion.
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
@@ -1584,6 +1587,13 @@ void IcecrownCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "ICC_055",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [ICC_075] Despicable Dreadlord - COST:5 [ATK:4/HP:5]

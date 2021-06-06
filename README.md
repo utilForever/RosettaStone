@@ -35,7 +35,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Standard Format
 
-  * 45% Core Set (108 of 235 cards)
+  * 52% Core Set (124 of 235 cards)
   * 59% Ashes of Outland (80 of 135 cards)
   * 57% Scholomance Academy (78 of 135 cards)
   * 46% Madness at the Darkmoon Faire (79 of 170 cards)
@@ -50,15 +50,15 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * 6% Curse of Naxxramas (2 of 30 Cards)
   * 0% Goblins vs Gnomes (0 of 123 Cards)
   * 3% Blackrock Mountain (1 of 31 Cards)
-  * 4% The Grand Tournament (6 of 132 Cards)
+  * 5% The Grand Tournament (7 of 132 Cards)
   * 4% The League of Explorers (2 of 45 Cards)
-  * 2% Whispers of the Old Gods (3 of 134 Cards)
+  * 2% Whispers of the Old Gods (4 of 134 Cards)
   * 8% One Night in Karazhan (4 of 45 Cards)
   * 0% Mean Streets of Gadgetzan (0 of 132 Cards)
-  * 1% Journey to Un'Goro (2 of 135 Cards)
-  * 2% Knights of the Frozen Throne (3 of 135 Cards)
+  * 2% Journey to Un'Goro (3 of 135 Cards)
+  * 2% Knights of the Frozen Throne (4 of 135 Cards)
   * 0% Kobolds & Catacombs (0 of 135 Cards)
-  * 1% The Witchwood (2 of 129 Cards)
+  * 2% The Witchwood (3 of 135 Cards)
   * 2% The Boomsday Project (3 of 136 Cards)
   * 1% Rastakhan's Rumble (2 of 135 Cards)
   * **100% Rise of Shadows (136 of 136 cards)**
