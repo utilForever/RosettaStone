@@ -24,6 +24,8 @@ using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- HERO - WARLOCK
     // [CORE_EX1_323] Lord Jaraxxus - COST:9
     // - Set: CORE, Rarity: Legendary
@@ -32,10 +34,11 @@ void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // --------------------------------------------------------
-    // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("EX1_323w"));
+    cards.emplace("CORE_EX1_323", CardDef(power, 0, 1178));
 }
 
 void CoreCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
