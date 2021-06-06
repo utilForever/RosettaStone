@@ -9,6 +9,8 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -2365,6 +2367,18 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscardTask>(1, DiscardType::ENEMY_MINION, true));
+    power.AddDeathrattleTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            const int entityID =
+                source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1);
+            Playable* playable = player->game->entityList[entityID];
+            player->opponent->GetGraveyardZone()->Remove(playable);
+            player->opponent->GetHandZone()->Add(playable);
+        }));
+    cards.emplace("CS3_003", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [CS3_021] Enslaved Fel Lord - COST:7 [ATK:4/HP:10]

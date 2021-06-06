@@ -6702,3 +6702,61 @@ TEST_CASE("[Warlock : Minion] - CS3_002 : Ritual of Doom")
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
+
+// --------------------------------------- MINION - WARLOCK
+// [CS3_003] Felsoul Jailer - COST:5 [ATK:4/HP:6]
+// - Race: Demon, Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Your opponent discards a minion.
+//       <b>Deathrattle:</b> Return it.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - CS3_003 : Felsoul Jailer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Felsoul Jailer", FormatType::STANDARD));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(opHand.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opHand.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opHand.GetCount(), 2);
+    CHECK_EQ(opHand[1]->card->name, "Malygos");
+}
