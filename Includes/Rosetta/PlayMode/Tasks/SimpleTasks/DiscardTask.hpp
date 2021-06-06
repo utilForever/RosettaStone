@@ -16,6 +16,7 @@ enum class DiscardType
     DEFAULT,       //!< Don't care.
     LOWEST_COST,   //!< Lowest cost card.
     HIGHEST_COST,  //!< Highest cost card.
+    ENEMY_MINION,   //!< A random enemy minion.
 };
 
 //!

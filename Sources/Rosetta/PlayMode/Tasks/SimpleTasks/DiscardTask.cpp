@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscardTask.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
@@ -22,11 +23,21 @@ DiscardTask::DiscardTask(int amount, DiscardType discardType, bool saveCard)
 
 TaskStatus DiscardTask::Impl(Player* player)
 {
-    std::vector<Playable*> handCards = player->GetHandZone()->GetAll();
+    Player* ownerPlayer =
+        m_discardType == DiscardType::ENEMY_MINION ? player->opponent : player;
+    std::vector<Playable*> handCards = ownerPlayer->GetHandZone()->GetAll();
+
+    if (m_discardType == DiscardType::ENEMY_MINION)
+    {
+        EraseIf(handCards, [=](Playable* playable) {
+            return playable->card->GetCardType() != CardType::MINION;
+        });
+    }
 
     switch (m_discardType)
     {
         case DiscardType::DEFAULT:
+        case DiscardType::ENEMY_MINION:
             std::shuffle(handCards.begin(), handCards.end(),
                          Random::get_engine());
             break;
@@ -56,10 +67,10 @@ TaskStatus DiscardTask::Impl(Player* player)
 
         player->game->taskQueue.StartEvent();
 
-        player->game->triggerManager.OnDiscardTrigger(handCards[i]);
+        ownerPlayer->game->triggerManager.OnDiscardTrigger(handCards[i]);
 
-        player->GetHandZone()->Remove(handCards[i]);
-        player->GetGraveyardZone()->Add(handCards[i]);
+        ownerPlayer->GetHandZone()->Remove(handCards[i]);
+        ownerPlayer->GetGraveyardZone()->Add(handCards[i]);
 
         if (m_amount == 1 && m_saveCard == true)
         {
