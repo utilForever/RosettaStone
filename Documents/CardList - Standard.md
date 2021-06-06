@@ -12,7 +12,7 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 CORE | CORE_AT_003 | Fallen Hero | O
 CORE | CORE_AT_008 | Coldarra Drake | O
-CORE | CORE_AT_021 | Tiny Knight of Evil |  
+CORE | CORE_AT_021 | Tiny Knight of Evil | O
 CORE | CORE_AT_047 | Draenei Totemcarver | O
 CORE | CORE_AT_055 | Flash Heal | O
 CORE | CORE_AT_061 | Lock and Load | O
@@ -47,8 +47,8 @@ CORE | CORE_CS2_033 | Water Elemental | O
 CORE | CORE_CS2_039 | Windfury | O
 CORE | CORE_CS2_042 | Fire Elemental | O
 CORE | CORE_CS2_045 | Rockbiter Weapon | O
-CORE | CORE_CS2_062 | Hellfire |  
-CORE | CORE_CS2_064 | Dread Infernal |  
+CORE | CORE_CS2_062 | Hellfire | O
+CORE | CORE_CS2_064 | Dread Infernal | O
 CORE | CORE_CS2_072 | Backstab | O
 CORE | CORE_CS2_073 | Cold Blood | O
 CORE | CORE_CS2_074 | Deadly Poison | O
@@ -129,12 +129,12 @@ CORE | CORE_EX1_275 | Cone of Cold | O
 CORE | CORE_EX1_287 | Counterspell | O
 CORE | CORE_EX1_289 | Ice Barrier | O
 CORE | CORE_EX1_294 | Mirror Entity | O
-CORE | CORE_EX1_302 | Mortal Coil |  
-CORE | CORE_EX1_304 | Void Terror |  
-CORE | CORE_EX1_309 | Siphon Soul |  
-CORE | CORE_EX1_312 | Twisting Nether |  
-CORE | CORE_EX1_319 | Flame Imp |  
-CORE | CORE_EX1_323 | Lord Jaraxxus |  
+CORE | CORE_EX1_302 | Mortal Coil | O
+CORE | CORE_EX1_304 | Void Terror | O
+CORE | CORE_EX1_309 | Siphon Soul | O
+CORE | CORE_EX1_312 | Twisting Nether | O
+CORE | CORE_EX1_319 | Flame Imp | O
+CORE | CORE_EX1_323 | Lord Jaraxxus | O
 CORE | CORE_EX1_335 | Lightspawn | O
 CORE | CORE_EX1_362 | Argent Protector | O
 CORE | CORE_EX1_382 | Aldor Peacekeeper | O
@@ -172,7 +172,7 @@ CORE | CORE_FP1_007 | Nerubian Egg |
 CORE | CORE_FP1_011 | Webspinner | O
 CORE | CORE_FP1_020 | Avenge | O
 CORE | CORE_FP1_031 | Baron Rivendare |  
-CORE | CORE_GIL_191 | Fiendish Circle |  
+CORE | CORE_GIL_191 | Fiendish Circle | O
 CORE | CORE_GIL_801 | Snap Freeze | O
 CORE | CORE_GIL_828 | Dire Frenzy | O
 CORE | CORE_GVG_013 | Cogmaster |  
@@ -184,7 +184,7 @@ CORE | CORE_GVG_109 | Mini-Mage |
 CORE | CORE_GVG_121 | Clockwork Giant |  
 CORE | CORE_ICC_026 | Grim Necromancer |  
 CORE | CORE_ICC_038 | Righteous Protector | O
-CORE | CORE_ICC_055 | Drain Soul |  
+CORE | CORE_ICC_055 | Drain Soul | O
 CORE | CORE_ICC_419 | Bearshark | O
 CORE | CORE_ICC_809 | Plague Scientist | O
 CORE | CORE_KAR_009 | Babbling Book | O
@@ -204,7 +204,7 @@ CORE | CORE_NEW1_026 | Violet Teacher |
 CORE | CORE_NEW1_027 | Southsea Captain |  
 CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_070 | Bladed Cultist | O
-CORE | CORE_OG_241 | Possessed Villager |  
+CORE | CORE_OG_241 | Possessed Villager | O
 CORE | CORE_OG_273 | Stand Against Darkness | O
 CORE | CORE_TRL_111 | Headhunter's Hatchet | O
 CORE | CORE_TRL_243 | Pounce | O
@@ -212,11 +212,11 @@ CORE | CORE_tt_004 | Flesheating Ghoul |
 CORE | CORE_UNG_020 | Arcanologist | O
 CORE | CORE_UNG_813 | Stormwatcher |  
 CORE | CORE_UNG_817 | Tidal Surge | O
-CORE | CORE_UNG_833 | Lakkari Felhound |  
+CORE | CORE_UNG_833 | Lakkari Felhound | O
 CORE | CORE_UNG_844 | Humongous Razorleaf |  
 CORE | CS3_001 | Aegwynn, the Guardian |  
-CORE | CS3_002 | Ritual of Doom |  
-CORE | CS3_003 | Felsoul Jailer |  
+CORE | CS3_002 | Ritual of Doom | O
+CORE | CS3_003 | Felsoul Jailer | O
 CORE | CS3_005 | Vanessa VanCleef |  
 CORE | CS3_007 | Novice Zapper | O
 CORE | CS3_008 | Bloodsail Deckhand |  
@@ -229,7 +229,7 @@ CORE | CS3_016 | Reckoning |
 CORE | CS3_017 | Gan'arg Glaivesmith |  
 CORE | CS3_019 | Kor'vas Bloodthorn |  
 CORE | CS3_020 | Illidari Inquisitor |  
-CORE | CS3_021 | Enslaved Fel Lord |  
+CORE | CS3_021 | Enslaved Fel Lord | O
 CORE | CS3_022 | Fogsail Freebooter |  
 CORE | CS3_024 | Taelan Fordring |  
 CORE | CS3_025 | Overlord Runthak |  
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 45% (108 of 235 Cards)
+- Progress: 52% (124 of 235 Cards)
 
 ## Ashes of Outland
 
