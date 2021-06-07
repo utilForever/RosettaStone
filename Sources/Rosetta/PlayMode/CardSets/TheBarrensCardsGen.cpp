@@ -135,6 +135,44 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [WC_004] Fangbound Druid - COST:3 [ATK:4/HP:3]
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Deathrattle:</b> Reduce the Cost of a Beast
+    //       in your hand by (2).
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [WC_006] Lady Anacondra - COST:6 [ATK:3/HP:7]
+    // - Set: THE_BARRENS, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Your Nature spells cost (2) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [WC_036] Deviate Dreadfang - COST:8 [ATK:4/HP:9]
+    // - Race: Beast, Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you cast a Nature spell,
+    //       summon a 4/2 Viper with <b>Rush</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void TheBarrensCardsGen::AddDruidNonCollect(
@@ -211,6 +249,30 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: +2/+2.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [WC_004t] Nightmare Trapped - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [WC_006e] Natural Empowerment - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [WC_036t1] Deviate Viper - COST:3 [ATK:4/HP:2]
+    // - Race: Beast, Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
     // --------------------------------------------------------
 }
 
@@ -333,6 +395,39 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [WC_007] Serpentbloom - COST:0
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a friendly Beast <b>Poisonous</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - POISONOUS = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [WC_008] Sin'dorei Scentfinder - COST:4 [ATK:1/HP:6]
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Frenzy:</b> Summon four 1/1 Hyenas with <b>Rush</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FRENZY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- WEAPON - HUNTER
+    // [WC_037] Venomstrike Bow - COST:4
+    // - Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Poisonous</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - POISONOUS = 1
+    // --------------------------------------------------------
 }
 
 void TheBarrensCardsGen::AddHunterNonCollect(
@@ -411,6 +506,16 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: +2/+1.
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [WC_007e] Serpent's Bite - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Poisonous</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - POISONOUS = 1
     // --------------------------------------------------------
 }
 
@@ -529,6 +634,36 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [WC_041] Shattering Blast - COST:3
+    // - Set: THE_BARRENS, Rarity: Rare
+    // - Spell School: Frost
+    // --------------------------------------------------------
+    // Text: Destroy all <b>Frozen</b> minions.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [WC_805] Frostweave Dungeoneer - COST:3 [ATK:2/HP:3]
+    // - Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a spell.
+    //       If it's a Frost spell,
+    //       summon two 1/1 Elementals that <b>Freeze</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [WC_806] Floecaster - COST:6 [ATK:5/HP:5]
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Costs (2) less for each <b>Frozen</b> enemy.
     // --------------------------------------------------------
 }
 
@@ -731,6 +866,39 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - PALADIN
+    // [WC_032] Seedcloud Buckler - COST:3
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Give your minions
+    //       <b>Divine Shield</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [WC_033] Judgment of Justice - COST:1
+    // - Set: THE_BARRENS, Rarity: Common
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When an enemy minion attacks,
+    //       set its Attack and Health to 1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [WC_034] Party Up! - COST:7
+    // - Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Summon five 2/2 Adventurers with random bonus effects.
+    // --------------------------------------------------------
 }
 
 void TheBarrensCardsGen::AddPaladinNonCollect(
@@ -812,6 +980,13 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [WC_033e] Judged - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: 1/1.
     // --------------------------------------------------------
 }
 
@@ -925,6 +1100,37 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [WC_013] Devout Dungeoneer - COST:3 [ATK:2/HP:3]
+    // - Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a spell.
+    //       If it's a Holy spell, reduce its Cost by (2).
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [WC_014] Against All Odds - COST:5
+    // - Set: THE_BARRENS, Rarity: Epic
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Destroy all odd-Attack minions.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [WC_803] Cleric of An'she - COST:1 [ATK:1/HP:2]
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you've restored Health this turn,
+    //       <b>Discover</b> a spell from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
     // --------------------------------------------------------
 }
 
@@ -1066,6 +1272,43 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - COMBO = 1
     // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [WC_015] Water Moccasin - COST:3 [ATK:2/HP:5]
+    // - Race: Beast, Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    //       Has <b>Poisonous</b> while you have no other minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - POISONOUS = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [WC_016] Shroud of Concealment - COST:3
+    // - Set: THE_BARRENS, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Draw 2 minions.
+    //       Any played this turn gain <b>Stealth</b> for 1 turn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [WC_017] Savory Deviate Delight - COST:1
+    // - Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Transform a minion in both players' hands
+    //       into a Pirate or <b>Stealth</b> minion.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
 }
 
 void TheBarrensCardsGen::AddRogueNonCollect(
@@ -1105,6 +1348,23 @@ void TheBarrensCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [WC_016e] Cloaking - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: Play this turn to gain <b>Stealth</b> for 1 turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [WC_016e2] Cloaked - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b> for 1 turn.
     // --------------------------------------------------------
 }
 
@@ -1219,6 +1479,39 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [WC_005] Primal Dungeoneer - COST:3 [ATK:2/HP:3]
+    // - Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a spell.
+    //       If it's a Nature spell, also draw an Elemental.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [WC_020] Perpetual Flame - COST:1
+    // - Set: THE_BARRENS, Rarity: Rare
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Deal 3 damage to a random enemy minion.
+    //       If it dies, recast this. <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [WC_042] Wailing Vapor - COST:1 [ATK:1/HP:3]
+    // - Race: Elemental, Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After you play an Elemental, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 }
 
 void TheBarrensCardsGen::AddShamanNonCollect(
@@ -1265,6 +1558,13 @@ void TheBarrensCardsGen::AddShamanNonCollect(
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_751t] Diremuck Tinyfin - COST:1 [ATK:1/HP:1]
     // - Race: Murloc, Set: THE_BARRENS
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [WC_042e] Rising Gas - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: +1 Attack.
     // --------------------------------------------------------
 }
 
@@ -1377,6 +1677,38 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // RefTag:
     // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [WC_021] Unstable Shadow Blast - COST:2
+    // - Set: THE_BARRENS, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Deal 6 damage to a minion.
+    //       Excess damage hits your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [WC_022] Final Gasp - COST:1
+    // - Set: THE_BARRENS, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to a minion. If it dies,
+    //       summon a 2/2 Adventurer with a random bonus effect.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [WC_023] Stealer of Souls - COST:4 [ATK:2/HP:6]
+    // - Race: Demon, Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you draw a card,
+    //       change its Cost to Health instead of Mana.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
 }
 
@@ -1547,6 +1879,41 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - FRENZY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [WC_024] Man-at-Arms - COST:2 [ATK:2/HP:3]
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you have a weapon equipped,
+    //       gain +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - WARRIOR
+    // [WC_025] Whetstone Hatchet - COST:1
+    // - Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After your hero attacks,
+    //       give a minion in your hand +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [WC_026] Kresh, Lord of Turtling - COST:6 [ATK:3/HP:9]
+    // - Race: Beast, Set: THE_BARRENS, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Frenzy:</b> Gain 8 Armor.
+    //       <b>Deathrattle:</b> Equip a 2/5 Turtle Spike.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - FRENZY = 1
+    // --------------------------------------------------------
 }
 
 void TheBarrensCardsGen::AddWarriorNonCollect(
@@ -1579,6 +1946,25 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: Increased Attack.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [WC_024e] Armed - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: +1/+1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [WC_025e] Armed - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: +1 Attack
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - WARRIOR
+    // [WC_026t] Turtle Spike - COST:4
+    // - Set: THE_BARRENS
     // --------------------------------------------------------
 }
 
@@ -1700,6 +2086,42 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // Text: Give your hero +2 Attack this turn.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [WC_003] Sigil of Summoning - COST:2
+    // - Set: THE_BARRENS, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: At the start of your next turn,
+    //       summon two 2/2 Demons with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [WC_040] Taintheart Tormenter - COST:8 [ATK:8/HP:8]
+    // - Race: Demon, Set: THE_BARRENS, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       Your opponent's spells cost (2) more.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [WC_701] Felrattler - COST:3 [ATK:3/HP:2]
+    // - Race: Beast, Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    //       <b>Deathrattle:</b> Deal 1 damage to all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void TheBarrensCardsGen::AddDemonHunterNonCollect(
@@ -1760,6 +2182,16 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // - Spell School: Fel
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn.
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [WC_003t] Wailing Demon - COST:2 [ATK:2/HP:2]
+    // - Race: Demon, Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
     // --------------------------------------------------------
 }
 
@@ -2175,6 +2607,62 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // RefTag:
     // - SECRET = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_027] Devouring Ectoplasm - COST:3 [ATK:3/HP:2]
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a 2/2 Adventurer
+    //       with a random bonus effect.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_028] Meeting Stone - COST:1 [ATK:0/HP:2]
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: At the end of your turn, add a 2/2 Adventurer
+    //       with a random bonus effect to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_029] Selfless Sidekick - COST:7 [ATK:6/HP:6]
+    // - Set: THE_BARRENS, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Equip a random weapon from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_030] Mutanus the Devourer - COST:7 [ATK:4/HP:4]
+    // - Race: Murloc, Set: THE_BARRENS, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Eat a minion in your opponent's hand.
+    //       Gain its stats.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_035] Archdruid Naralex - COST:3 [ATK:3/HP:3]
+    // - Set: THE_BARRENS, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b> for 2 turns.
+    //       While <b>Dormant</b>, add a Dream card to your hand
+    //       at the end of your turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
     // --------------------------------------------------------
 }
 
@@ -2706,6 +3194,132 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [WC_013e] Ray of Light - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [WC_023e] Stolen Soul - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: Costs Health instead of Mana.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [WC_030e] Devoured - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: Increased Stats
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_034t] Deadly Adventurer - COST:2 [ATK:2/HP:2]
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Poisonous</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - POISONOUS = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_034t2] Burly Adventurer - COST:2 [ATK:2/HP:2]
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_034t3] Devout Adventurer - COST:2 [ATK:2/HP:2]
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Divine Shield</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_034t4] Relentless Adventurer - COST:2 [ATK:2/HP:2]
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Windfury</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_034t5] Arcane Adventurer - COST:2 [ATK:2/HP:2]
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_034t6] Sneaky Adventurer - COST:2 [ATK:2/HP:2]
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_034t7] Vital Adventurer - COST:2 [ATK:2/HP:2]
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [WC_034t8] Swift Adventurer - COST:2 [ATK:2/HP:2]
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [WC_035e] Dreaming - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b>. Awaken in 2 turns.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [WC_035e2] Asleep - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENCHANTMENT_INVISIBLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [WC_040e] Tormented - COST:0
+    // - Set: THE_BARRENS
+    // --------------------------------------------------------
+    // Text: Costs (2) more.
     // --------------------------------------------------------
 }
 
