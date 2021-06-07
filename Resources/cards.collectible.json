@@ -10001,7 +10001,7 @@
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
         "spellSchool": "HOLY",
-        "text": "Give a minion +2/+2.\nDraw a card.",
+        "text": "Give a minion +2/+1.\nDraw a card.",
         "type": "SPELL"
     },
     {
@@ -15757,6 +15757,9 @@
         "howToEarn": "Unlocked at level 2.",
         "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
         "id": "CORE_EX1_084",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Warsong Commander",
         "rarity": "COMMON",
         "referencedTags": [
@@ -16446,7 +16449,7 @@
             "OVERLOAD"
         ],
         "set": "CORE",
-        "text": "Whenever you play a card with <b>Overload</b>, gain +1/+1.",
+        "text": "After you play a card with <b>Overload</b>, gain +1/+1.",
         "type": "MINION"
     },
     {
@@ -16866,7 +16869,7 @@
         "name": "Shield Slam",
         "rarity": "EPIC",
         "set": "CORE",
-        "text": "Deal $1 damage to a minion for each Armor you have.",
+        "text": "Deal 1 damage to a minion for each Armor you have.",
         "type": "SPELL"
     },
     {
@@ -29938,6 +29941,9 @@
         "flavor": "The Warsong clan is <i>such drama</i>. It's really not worth it to become a commander.",
         "health": 3,
         "id": "EX1_084",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Warsong Commander",
         "rarity": "FREE",
         "referencedTags": [
@@ -30833,7 +30839,6 @@
         "race": "DEMON",
         "rarity": "RARE",
         "set": "LEGACY",
-        "techLevel": 4,
         "text": "<b>Taunt</b>\nYour other Demons have +1 Attack.",
         "type": "MINION"
     },
@@ -31338,7 +31343,7 @@
             "OVERLOAD"
         ],
         "set": "EXPERT1",
-        "text": "Whenever you play a card with <b>Overload</b>, gain +1/+1.",
+        "text": "After you play a card with <b>Overload</b>, gain +1/+1.",
         "type": "MINION"
     },
     {
@@ -32453,7 +32458,7 @@
         "name": "Shield Slam",
         "rarity": "EPIC",
         "set": "EXPERT1",
-        "text": "Deal $1 damage to a minion for each Armor you have.",
+        "text": "Deal 1 damage to a minion for each Armor you have.",
         "type": "SPELL"
     },
     {
@@ -39916,7 +39921,7 @@
         "dbfId": 71065,
         "health": 30,
         "id": "HERO_04i",
-        "name": "Judgement Uther",
+        "name": "Judgment Uther",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40095,6 +40100,17 @@
         "id": "HERO_06g",
         "name": "Storm's Rage Malfurion",
         "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 71328,
+        "health": 30,
+        "id": "HERO_06i",
+        "name": "Emerald Malfurion",
+        "rarity": "EPIC",
         "set": "HERO_SKINS",
         "type": "HERO"
     },
@@ -51551,7 +51567,7 @@
         "name": "First Day of School",
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
-        "text": "Add 3 random 1-Cost minions to your hand.",
+        "text": "Add 2 random 1-Cost minions to your hand.",
         "type": "SPELL"
     },
     {
@@ -66392,7 +66408,7 @@
         "name": "Shield Slam",
         "rarity": "EPIC",
         "set": "VANILLA",
-        "text": "Deal $1 damage to a minion for each Armor you have.",
+        "text": "Deal 1 damage to a minion for each Armor you have.",
         "type": "SPELL"
     },
     {
@@ -68319,6 +68335,672 @@
         "type": "SPELL"
     },
     {
+        "artist": "Dave Allsop",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 63264,
+        "flavor": "Look, summoning ain’t exactly a science. Sometimes it takes a turn.",
+        "id": "WC_003",
+        "name": "Sigil of Summoning",
+        "rarity": "RARE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "THE_BARRENS",
+        "spellSchool": "SHADOW",
+        "text": "At the start of your next turn, summon two 2/2 Demons with <b>Taunt</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 4,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63329,
+        "flavor": "Bound by the law of the fang, these druid floss their teeth twice a day.",
+        "health": 3,
+        "id": "WC_004",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Fangbound Druid",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "<b>Taunt</b>\n<b>Deathrattle:</b> Reduce the Cost of a Beast in your hand by (2).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63331,
+        "flavor": "They wanted a Mature Dungeoneer. Instead they got this.",
+        "health": 3,
+        "id": "WC_005",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Primal Dungeoneer",
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Battlecry:</b> Draw a spell.\nIf it's a Nature spell, also\ndraw an Elemental.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Steven Prescott",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 63332,
+        "elite": true,
+        "flavor": "Do you think she got her name before or after she turned into a snake?",
+        "health": 7,
+        "id": "WC_006",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Lady Anacondra",
+        "rarity": "LEGENDARY",
+        "set": "THE_BARRENS",
+        "text": "Your Nature spells\ncost (2) less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Eva Widermann",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 63334,
+        "flavor": "\"Awww, it's so cute!\" —Famous last words",
+        "id": "WC_007",
+        "name": "Serpentbloom",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "THE_BARRENS",
+        "text": "Give a friendly\nBeast <b>Poisonous</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 63335,
+        "flavor": "Loves candles. Hates deodorant.",
+        "health": 6,
+        "id": "WC_008",
+        "mechanics": [
+            "FRENZY"
+        ],
+        "name": "Sin'dorei Scentfinder",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "THE_BARRENS",
+        "text": "<b>Frenzy:</b> Summon four 1/1 Hyenas with <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63346,
+        "flavor": "\"Please do smaller pulls, this is my first time healing.\"",
+        "health": 3,
+        "id": "WC_013",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Devout Dungeoneer",
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Battlecry:</b> Draw a spell.\nIf it's a Holy spell,\nreduce its Cost by (2).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 63347,
+        "flavor": "Time to EVEN out the playing field.",
+        "id": "WC_014",
+        "name": "Against All Odds",
+        "rarity": "EPIC",
+        "set": "THE_BARRENS",
+        "spellSchool": "HOLY",
+        "text": "Destroy ALL\nodd-Attack minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Daren Bader",
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63357,
+        "flavor": "You need to be specific when you're ordering waterproof shoewear.",
+        "health": 5,
+        "id": "WC_015",
+        "mechanics": [
+            "STEALTH"
+        ],
+        "name": "Water Moccasin",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Stealth</b>\nHas <b>Poisonous</b> while you\n have no other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63358,
+        "flavor": "This page left intentionally blank.",
+        "id": "WC_016",
+        "name": "Shroud of Concealment",
+        "rarity": "RARE",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "THE_BARRENS",
+        "spellSchool": "SHADOW",
+        "text": "Draw 2 minions. Any played this turn gain <b>Stealth</b> for 1 turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Grace Liu",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 63359,
+        "flavor": "\"Savory\" is a creative way to put it.",
+        "id": "WC_017",
+        "name": "Savory Deviate Delight",
+        "rarity": "RARE",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "THE_BARRENS",
+        "text": "[x]Transform a minion in\nboth players' hands into a\nPirate or <b>Stealth</b> minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 63098,
+        "flavor": "Flame is perpetual.*\n *<i>Perpetual only applies to current turn.</i>",
+        "id": "WC_020",
+        "mechanics": [
+            "OVERLOAD"
+        ],
+        "name": "Perpetual Flame",
+        "overload": 1,
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "spellSchool": "FIRE",
+        "text": "Deal $3 damage to a random enemy minion. If it dies, recast this. <b>Overload:</b> (1)",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 63368,
+        "flavor": "\"Unstable\" usually means \"awesome!\"",
+        "id": "WC_021",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Unstable Shadow Blast",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "spellSchool": "SHADOW",
+        "text": "[x]Deal $6 damage to a\nminion. Excess damage\nhits your hero.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 63369,
+        "flavor": "And with a raspy whisper, he uttered his final words, \"rez plz.\"",
+        "id": "WC_022",
+        "name": "Final Gasp",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "spellSchool": "SHADOW",
+        "text": "[x]Deal $1 damage to a\nminion. If it dies, summon\na 2/2 Adventurer with a\nrandom bonus effect.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 63370,
+        "flavor": "The tooth fairy gig didn't work out.",
+        "health": 6,
+        "id": "WC_023",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Stealer of Souls",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "text": "After you draw a card, change its Cost to Health instead of Mana.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 2,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 63373,
+        "flavor": "Arch nemesis of the Man-at-Legs.",
+        "health": 3,
+        "id": "WC_024",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Man-at-Arms",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "<b>Battlecry:</b> If you have a weapon equipped, gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Luca Zontini",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 63374,
+        "durability": 4,
+        "flavor": "A bad hatchet can make a good spear better.",
+        "id": "WC_025",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Whetstone Hatchet",
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "text": "After your hero attacks, give a minion in your hand +1 Attack.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Daren Bader",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 63375,
+        "elite": true,
+        "flavor": "Never should have flushed him.",
+        "health": 9,
+        "id": "WC_026",
+        "mechanics": [
+            "DEATHRATTLE",
+            "FRENZY"
+        ],
+        "name": "Kresh, Lord of Turtling",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "THE_BARRENS",
+        "text": "<b>Frenzy:</b> Gain 8 Armor. <b>Deathrattle:</b> Equip a 2/5 Turtle Spike.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63400,
+        "flavor": "When it's on keto, it only devours tauren.",
+        "health": 2,
+        "id": "WC_027",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Devouring Ectoplasm",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Deathrattle:</b> Summon a\n2/2 Adventurer with\n a random bonus effect.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 63396,
+        "flavor": "\"I'm clicking on it, but nothing's happening.\"",
+        "health": 2,
+        "id": "WC_028",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Meeting Stone",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "[x]At the end of your turn,\nadd a 2/2 Adventurer\nwith a random bonus effect\nto your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vika Yarova",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 63397,
+        "flavor": "\"I got a real sense of humility from her when she bashed that quilboar's head in.\"",
+        "health": 6,
+        "id": "WC_029",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Selfless Sidekick",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "<b>Battlecry:</b> Equip a random weapon from your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 63398,
+        "elite": true,
+        "flavor": "As long as Naralex stays under the blanket, Mutanus can't get him.",
+        "health": 4,
+        "id": "WC_030",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Mutanus the Devourer",
+        "race": "MURLOC",
+        "rarity": "LEGENDARY",
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Battlecry:</b> Eat a minion in\nyour opponent's hand.\nGain its stats.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63099,
+        "durability": 3,
+        "flavor": "A shield to some, a frisbee to others (mainly dogs).",
+        "id": "WC_032",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Seedcloud Buckler",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Deathrattle:</b> Give your\n minions <b>Divine Shield</b>.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Ursula Dorada",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 62921,
+        "flavor": "Look, we don't need a jury. We've got a paladin right here!",
+        "id": "WC_033",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Judgment of Justice",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "spellSchool": "HOLY",
+        "text": "<b>Secret:</b> When an enemy minion attacks, set its Attack and Health to 1.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Yaohua Xu",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 63102,
+        "flavor": "Random? But what if we don't get a tank?",
+        "id": "WC_034",
+        "name": "Party Up!",
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "text": "Summon five 2/2 Adventurers with random bonus effects.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63432,
+        "elite": true,
+        "flavor": "\"Dormant? I think you mean naptime.\"",
+        "health": 3,
+        "id": "WC_035",
+        "name": "Archdruid Naralex",
+        "rarity": "LEGENDARY",
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Dormant</b> for 2 turns.\nWhile <b>Dormant</b>, add a\nDream card to your hand\n  at the end of your turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 4,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 63502,
+        "flavor": "Even with wings, snakes STILL don't have legs.",
+        "health": 9,
+        "id": "WC_036",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Deviate Dreadfang",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "THE_BARRENS",
+        "text": "After you cast a Nature spell, summon a 4/2 Viper with <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 63632,
+        "durability": 2,
+        "flavor": "\"You know you only have to coat the arrowhead in poison and not the entire bow, right?\"",
+        "id": "WC_037",
+        "mechanics": [
+            "POISONOUS"
+        ],
+        "name": "Venomstrike Bow",
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "text": "<b>Poisonous</b>",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 8,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 63230,
+        "flavor": "Oh boo hoo, did someone's World Tree burn down?",
+        "health": 8,
+        "id": "WC_040",
+        "mechanics": [
+            "AURA",
+            "TAUNT"
+        ],
+        "name": "Taintheart Tormenter",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "text": "<b>Taunt</b>\nYour opponent's spells cost (2) more.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63515,
+        "flavor": "Let's be honest, they weren't going to unfreeze anyway.",
+        "id": "WC_041",
+        "name": "Shattering Blast",
+        "rarity": "RARE",
+        "set": "THE_BARRENS",
+        "spellSchool": "FROST",
+        "text": "Destroy all <b>Frozen</b> minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Samche Chen",
+        "attack": 1,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 63073,
+        "flavor": "If you have The Vapors, your Humors might be imbalanced.",
+        "health": 3,
+        "id": "WC_042",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wailing Vapor",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "[x]After you play an Elemental,\ngain +1 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Melvin Chan",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63407,
+        "flavor": "It only rattles when YOU'RE in danger.",
+        "health": 2,
+        "id": "WC_701",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Felrattler",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Rush</b>\n<b>Deathrattle:</b> Deal 1 damage\nto all enemy minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 63464,
+        "flavor": "When it's her turn to cook, she'll always go for a Light sear.",
+        "health": 2,
+        "id": "WC_803",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Cleric of An'she",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "<b>Battlecry:</b> If you've restored Health this turn, <b>Discover</b> a spell from your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 2,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 63058,
+        "flavor": "It's a woven blanket of ice but surprisingly comforting.",
+        "health": 3,
+        "id": "WC_805",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Frostweave Dungeoneer",
+        "rarity": "RARE",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "THE_BARRENS",
+        "text": "[x]<b>Battlecry:</b> Draw a spell.\nIf it's a Frost spell,\nsummon two 1/1\n   Elementals that <b>Freeze</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 5,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 63520,
+        "flavor": "His real name is Melvin, but he prefers his friends call him ... <sigh> ...\"Floecaster.\"",
+        "health": 5,
+        "id": "WC_806",
+        "name": "Floecaster",
+        "rarity": "COMMON",
+        "set": "THE_BARRENS",
+        "text": "Costs (2) less for each <b>Frozen</b> enemy.",
+        "type": "MINION"
+    },
+    {
         "artist": "Zoltan Boros",
         "cardClass": "DRUID",
         "collectible": true,
@@ -69515,12 +70197,13 @@
         "dbfId": 61962,
         "flavor": "Plainsrunning will result in disqualification.",
         "id": "YOP_024",
-        "multiClassGroup": "DRUID_SHAMAN",
-        "name": "Guidance",
-        "rarity": "RARE",
-        "referencedTags": [
+        "mechanics": [
             "OVERLOAD"
         ],
+        "multiClassGroup": "DRUID_SHAMAN",
+        "name": "Guidance",
+        "overload": 1,
+        "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
         "text": "Look at two spells. Add one to your hand or <b>Overload:</b> (1) to get both.",
         "type": "SPELL"
@@ -69650,11 +70333,15 @@
         "health": 4,
         "id": "YOP_031",
         "mechanics": [
+            "BATTLECRY",
             "RUSH"
         ],
         "name": "Crabrider",
         "race": "MURLOC",
         "rarity": "COMMON",
+        "referencedTags": [
+            "WINDFURY"
+        ],
         "set": "DARKMOON_FAIRE",
         "text": "[x]<b>Rush</b>\n<b>Battlecry:</b> Gain <b>Windfury</b>\nthis turn only.",
         "type": "MINION"

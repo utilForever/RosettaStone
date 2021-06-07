@@ -67,7 +67,7 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 12660;
+constexpr int NUM_ALL_CARDS = 12805;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -105,7 +105,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 59;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 60;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -275,8 +275,8 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Virmen Sensei (40641)
 // Demon Pool
 // Bigfernal (66227)
+// Hexruin Marauder (73072)
 // Ring Matron (61884)
-// Siegebreaker (54835)
 // Dragon Pool
 // Cobalt Scalebane (42442)
 // Drakonid Enforcer (61072)
@@ -305,7 +305,7 @@ constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
 // Menagerie Jug (63487)
 // Qiraji Harbinger (63619)
 constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
-    43358, 1261,  40641, 66227, 61884, 54835, 42442, 61072, 60498,
+    43358, 1261,  40641, 66227, 73072, 61884, 42442, 61072, 60498,
     63630, 64189, 48993, 49169, 48100, 60028, 52277, 61066, 61056,
     70184, 70173, 70188, 45392, 63623, 763,   63487, 63619
 };

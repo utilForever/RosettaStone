@@ -839,7 +839,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: BLACK_TEMPLE, Rarity: Common
     // - Spell School: Holy
     // --------------------------------------------------------
-    // Text: Give a minion +2/+2. Draw a card.
+    // Text: Give a minion +2/+1. Draw a card.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -928,7 +928,7 @@ void BlackTempleCardsGen::AddPaladinNonCollect(
     // [BT_292e] Hand of A'dal - COST:0
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: +2/+2.
+    // Text: +2/+1.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_292e"));

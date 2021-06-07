@@ -5710,8 +5710,7 @@ TEST_CASE("[Shaman : Minion] - CORE_EX1_250 : Earth Elemental")
 // [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
 // - Race: Elemental, Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: Whenever you play a card with <b>Overload</b>,
-//       gain +1/+1.
+// Text: After you play a card with <b>Overload</b>, gain +1/+1.
 // --------------------------------------------------------
 // GameTag:
 // - TRIGGER_VISUAL = 1

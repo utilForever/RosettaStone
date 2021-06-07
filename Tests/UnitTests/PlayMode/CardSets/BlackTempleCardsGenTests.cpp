@@ -1593,7 +1593,7 @@ TEST_CASE("[Priest : Minion] - BT_341 : Skeletal Dragon")
 // - Set: BLACK_TEMPLE, Rarity: Common
 // - Spell School: Holy
 // --------------------------------------------------------
-// Text: Give a minion +2/+2. Draw a card.
+// Text: Give a minion +2/+1. Draw a card.
 // --------------------------------------------------------
 TEST_CASE("[Paladin : SPELL] - BT_292 : Hand of A'dal")
 {
@@ -1630,7 +1630,7 @@ TEST_CASE("[Paladin : SPELL] - BT_292 : Hand of A'dal")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
 }
 
 // ------------------------------------------ SPELL - ROGUE
