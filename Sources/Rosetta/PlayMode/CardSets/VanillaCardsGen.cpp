@@ -2095,8 +2095,7 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever you play a card with <b>Overload</b>,
-    //       gain +1/+1.
+    // Text: After you play a card with <b>Overload</b>, gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
