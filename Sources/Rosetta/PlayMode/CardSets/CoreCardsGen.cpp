@@ -2655,6 +2655,12 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_604o", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_604", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_GVG_053] Shieldmaiden - COST:5 [ATK:5/HP:5]
