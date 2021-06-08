@@ -2480,9 +2480,18 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: After you summon another minion, give it <b>Rush</b>.
     // --------------------------------------------------------
-    // RefTag:
-    // - RUSH = 1
+    // GameTag:
+    // - AURA = 1
     // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_084e", EntityType::TARGET) };
+    cards.emplace("CORE_EX1_084", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_EX1_391] Slam - COST:2
