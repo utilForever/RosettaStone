@@ -234,6 +234,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::INSPIRE:
             game->triggerManager.inspireTrigger += instance->handler;
             break;
+        case TriggerType::EQUIP_WEAPON:
+            game->triggerManager.equipWeaponTrigger += instance->handler;
+            break;
         case TriggerType::SHUFFLE_INTO_DECK:
             game->triggerManager.shuffleIntoDeckTrigger += instance->handler;
             break;
@@ -388,6 +391,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::INSPIRE:
             game->triggerManager.inspireTrigger -= handler;
+            break;
+        case TriggerType::EQUIP_WEAPON:
+            game->triggerManager.equipWeaponTrigger -= handler;
             break;
         case TriggerType::SHUFFLE_INTO_DECK:
             game->triggerManager.shuffleIntoDeckTrigger -= handler;
