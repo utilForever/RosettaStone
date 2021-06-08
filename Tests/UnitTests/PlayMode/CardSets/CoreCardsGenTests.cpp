@@ -6896,3 +6896,63 @@ TEST_CASE("[Warrior : Weapon] - CORE_CS2_106 : Fiery War Axe")
 {
     // Do nothing
 }
+
+// ---------------------------------------- SPELL - WARRIOR
+// [CORE_CS2_108] Execute - COST:2
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Destroy a damaged enemy minion.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// - REQ_DAMAGED_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - CORE_CS2_108 : Execute")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Execute"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, AttackTask(card2, card3));
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(opField.GetCount(), 0);
+}
