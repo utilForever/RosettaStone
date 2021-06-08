@@ -3729,7 +3729,8 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage to a minion and give it +2 Attack.
+    // Text: <b>Battlecry:</b> Deal 1 damage to a minion
+    //       and give it +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
