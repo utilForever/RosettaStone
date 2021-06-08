@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -2616,6 +2617,9 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_414e"));
+    cards.emplace("CORE_EX1_414", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
