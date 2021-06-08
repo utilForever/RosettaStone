@@ -2685,6 +2685,10 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS3_008e", EntityType::PLAYER));
+    cards.emplace("CS3_008", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CS3_009] War Cache - COST:3
@@ -2707,12 +2711,24 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [CS3_008e] To Arrrms! - COST:0
     // - Set: CORE
     // --------------------------------------------------------
     // Text: Your next weapon costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsWeapon());
+        aura->removeTrigger = { TriggerType::EQUIP_WEAPON, nullptr };
+    }
+    cards.emplace("CS3_008e", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
