@@ -2520,8 +2520,12 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_400] Whirlwind - COST:1
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 1 damage to ALL minions.
+    // Text: Deal 1 damage to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true));
+    cards.emplace("CORE_EX1_400", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
