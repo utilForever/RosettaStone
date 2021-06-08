@@ -7006,3 +7006,63 @@ TEST_CASE("[Warrior : Minion] - CORE_EX1_084 : Warsong Commander")
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(curField[2]->HasRush(), true);
 }
+
+// ---------------------------------------- SPELL - WARRIOR
+// [CORE_EX1_391] Slam - COST:2
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 2 damage to a minion. If it survives, draw a card.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - CORE_EX1_391 : Slam")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Magma Rager"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Slam"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Slam"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    int opHandCount = opHand.GetCount();
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(opHandCount, opHand.GetCount());
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opHandCount - 1, opHand.GetCount());
+}
