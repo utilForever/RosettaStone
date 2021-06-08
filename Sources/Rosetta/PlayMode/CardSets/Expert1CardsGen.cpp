@@ -3713,11 +3713,12 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Charge</b> Has +6 Attack while damaged.
+    // Text: <b>Charge</b>
+    //       Has +6 Attack while damaged.
     // --------------------------------------------------------
     // GameTag:
-    // - CHARGE = 1
     // - ELITE = 1
+    // - CHARGE = 1
     // - ENRAGED = 1
     // --------------------------------------------------------
     power.ClearData();
