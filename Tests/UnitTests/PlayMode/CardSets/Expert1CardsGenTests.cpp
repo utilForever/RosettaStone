@@ -7570,6 +7570,9 @@ TEST_CASE("[Warrior : Minion] - EX1_398 : Arathi Weaponsmith")
 // --------------------------------------------------------
 // Text: Whenever a friendly minion takes damage, gain 1 Armor.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Warrior : Minion] - EX1_402 : Armorsmith")
 {
     GameConfig config;

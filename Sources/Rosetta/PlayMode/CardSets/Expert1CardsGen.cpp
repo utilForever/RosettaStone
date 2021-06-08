@@ -3597,6 +3597,9 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever a friendly minion takes damage, gain 1 Armor.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
