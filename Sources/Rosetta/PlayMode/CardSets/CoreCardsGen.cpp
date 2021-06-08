@@ -2591,6 +2591,18 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Attacking a minion costs 1 Attack instead of 1 Durability.
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_411e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_411", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]

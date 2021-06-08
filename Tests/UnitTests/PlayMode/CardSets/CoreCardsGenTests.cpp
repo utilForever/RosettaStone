@@ -7316,3 +7316,63 @@ TEST_CASE("[Warrior : Spell] - CORE_EX1_410 : Shield Slam")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
     CHECK_EQ(opField[0]->GetHealth(), 1);
 }
+
+// --------------------------------------- WEAPON - WARRIOR
+// [CORE_EX1_411] Gorehowl - COST:7
+// - Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Attacking a minion costs 1 Attack instead of 1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - CORE_EX1_411 : Gorehowl")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Gorehowl"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetAttack(), 7);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(opPlayer, AttackTask(opPlayer->GetHero(), card1));
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetAttack(), 6);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), false);
+}
