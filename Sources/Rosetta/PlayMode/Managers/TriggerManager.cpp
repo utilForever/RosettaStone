@@ -123,6 +123,11 @@ void TriggerManager::OnInspireTrigger(Entity* sender)
     inspireTrigger(sender);
 }
 
+void TriggerManager::OnEquipWeaponTrigger(Entity* sender)
+{
+    equipWeaponTrigger(sender);
+}
+
 void TriggerManager::OnShuffleIntoDeckTrigger(Entity* sender)
 {
     shuffleIntoDeckTrigger(sender);

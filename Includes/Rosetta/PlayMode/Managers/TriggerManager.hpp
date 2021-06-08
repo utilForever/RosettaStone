@@ -113,6 +113,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnInspireTrigger(Entity* sender);
 
+    //! Callback for trigger when a hero equips a weapon.
+    //! \param sender An entity that is the source of trigger.
+    void OnEquipWeaponTrigger(Entity* sender);
+
     //! Callback for trigger when a card is shuffled into a deck.
     //! \param sender An entity that is the source of trigger.
     void OnShuffleIntoDeckTrigger(Entity* sender);
@@ -140,6 +144,7 @@ class TriggerManager
     TriggerEvent discardTrigger;
     TriggerEvent deathTrigger;
     TriggerEvent inspireTrigger;
+    TriggerEvent equipWeaponTrigger;
     TriggerEvent shuffleIntoDeckTrigger;
 };
 }  // namespace RosettaStone::PlayMode
