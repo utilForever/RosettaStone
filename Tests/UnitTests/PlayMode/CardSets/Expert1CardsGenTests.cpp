@@ -7618,7 +7618,8 @@ TEST_CASE("[Warrior : Minion] - EX1_402 : Armorsmith")
 // [EX1_407] Brawl - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Destroy all minions except one. <i>(chosen randomly)</i>
+// Text: Destroy all minions except one.
+//       <i>(chosen randomly)</i>
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_MINIMUM_TOTAL_MINIONS = 2
