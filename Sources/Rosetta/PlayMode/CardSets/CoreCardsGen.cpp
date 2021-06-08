@@ -2549,6 +2549,18 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Destroy all minions except one.
     //       <i>(chosen randomly)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_TOTAL_MINIONS = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ALL_MINIONS, 1));
+    power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::ALL_MINIONS, std::vector<EntityType>{ EntityType::STACK }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace(
+        "CORE_EX1_407",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_TOTAL_MINIONS, 2 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_EX1_410] Shield Slam - COST:1
