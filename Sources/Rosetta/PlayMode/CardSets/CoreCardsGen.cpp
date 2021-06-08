@@ -2440,10 +2440,18 @@ void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - WARRIOR
     // [CORE_CS2_106] Fiery War Axe - COST:3
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_106", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_CS2_108] Execute - COST:2

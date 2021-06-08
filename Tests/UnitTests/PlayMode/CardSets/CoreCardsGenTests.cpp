@@ -6884,3 +6884,15 @@ TEST_CASE("[Warlock : Minion] - CS3_021 : Enslaved Fel Lord")
     CHECK_EQ(opField[2]->HasStealth(), true);
     CHECK_EQ(opField[2]->GetHealth(), 1);
 }
+
+// --------------------------------------- WEAPON - WARRIOR
+// [CORE_CS2_106] Fiery War Axe - COST:3
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - CORE_CS2_106 : Fiery War Axe")
+{
+    // Do nothing
+}
