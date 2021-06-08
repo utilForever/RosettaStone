@@ -955,6 +955,8 @@ void GvgCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void GvgCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [GVG_050] Bouncing Blade - COST:3
     // - Set: Gvg, Rarity: Epic
@@ -997,6 +999,9 @@ void GvgCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(5));
+    cards.emplace("GVG_053", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [GVG_054] Ogre Warmaul - COST:3 [ATK:4/HP:0]
