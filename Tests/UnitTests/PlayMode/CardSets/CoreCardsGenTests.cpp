@@ -7693,3 +7693,17 @@ TEST_CASE("[Warrior : Spell] - CS3_009 : War Cache")
     CHECK(curHand[2]->card->IsCardClass(CardClass::WARRIOR));
     CHECK_EQ(curHand[2]->card->GetCardType(), CardType::WEAPON);
 }
+
+// --------------------------------------- MINION - WARRIOR
+// [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - CS3_030 : Warsong Outrider")
+{
+    // Do nothing
+}

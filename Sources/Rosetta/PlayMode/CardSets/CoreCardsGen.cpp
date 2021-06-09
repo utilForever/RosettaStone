@@ -2718,6 +2718,9 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_030", CardDef(power));
 }
 
 void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
