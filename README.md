@@ -35,11 +35,11 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Standard Format
 
-  * 52% Core Set (124 of 235 cards)
+  * 59% Core Set (140 of 235 cards)
   * 59% Ashes of Outland (80 of 135 cards)
   * 57% Scholomance Academy (78 of 135 cards)
   * 46% Madness at the Darkmoon Faire (79 of 170 cards)
-  * 0% Forged in the Barrens (0 of 135 cards)
+  * 0% Forged in the Barrens (0 of 170 cards)
 
 ### Wild Format
 
@@ -48,7 +48,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * **100% Demon Hunter Initiate (20 of 20 Cards)**
   * 71% Hall of Fame (25 of 35 Cards)
   * 6% Curse of Naxxramas (2 of 30 Cards)
-  * 0% Goblins vs Gnomes (0 of 123 Cards)
+  * 0% Goblins vs Gnomes (1 of 123 Cards)
   * 3% Blackrock Mountain (1 of 31 Cards)
   * 5% The Grand Tournament (7 of 132 Cards)
   * 4% The League of Explorers (2 of 45 Cards)

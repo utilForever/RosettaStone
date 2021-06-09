@@ -61,8 +61,8 @@ CORE | CORE_CS2_089 | Holy Light | O
 CORE | CORE_CS2_092 | Blessing of Kings | O
 CORE | CORE_CS2_093 | Consecration | O
 CORE | CORE_CS2_097 | Truesilver Champion | O
-CORE | CORE_CS2_106 | Fiery War Axe |  
-CORE | CORE_CS2_108 | Execute |  
+CORE | CORE_CS2_106 | Fiery War Axe | O
+CORE | CORE_CS2_108 | Execute | O
 CORE | CORE_CS2_117 | Earthen Ring Farseer |  
 CORE | CORE_CS2_120 | River Crocolisk |  
 CORE | CORE_CS2_122 | Raid Leader |  
@@ -91,7 +91,7 @@ CORE | CORE_EX1_049 | Youthful Brewmaster |
 CORE | CORE_EX1_059 | Crazed Alchemist |  
 CORE | CORE_EX1_066 | Acidic Swamp Ooze |  
 CORE | CORE_EX1_082 | Mad Bomber |  
-CORE | CORE_EX1_084 | Warsong Commander |  
+CORE | CORE_EX1_084 | Warsong Commander | O
 CORE | CORE_EX1_093 | Defender of Argus |  
 CORE | CORE_EX1_095 | Gadgetzan Auctioneer |  
 CORE | CORE_EX1_096 | Loot Hoarder |  
@@ -139,14 +139,14 @@ CORE | CORE_EX1_335 | Lightspawn | O
 CORE | CORE_EX1_362 | Argent Protector | O
 CORE | CORE_EX1_382 | Aldor Peacekeeper | O
 CORE | CORE_EX1_383 | Tirion Fordring | O
-CORE | CORE_EX1_391 | Slam |  
+CORE | CORE_EX1_391 | Slam | O
 CORE | CORE_EX1_399 | Gurubashi Berserker |  
-CORE | CORE_EX1_400 | Whirlwind |  
-CORE | CORE_EX1_402 | Armorsmith |  
-CORE | CORE_EX1_407 | Brawl |  
-CORE | CORE_EX1_410 | Shield Slam |  
-CORE | CORE_EX1_411 | Gorehowl |  
-CORE | CORE_EX1_414 | Grommash Hellscream |  
+CORE | CORE_EX1_400 | Whirlwind | O
+CORE | CORE_EX1_402 | Armorsmith | O
+CORE | CORE_EX1_407 | Brawl | O
+CORE | CORE_EX1_410 | Shield Slam | O
+CORE | CORE_EX1_411 | Gorehowl | O
+CORE | CORE_EX1_414 | Grommash Hellscream | O
 CORE | CORE_EX1_506 | Murloc Tidehunter |  
 CORE | CORE_EX1_509 | Murloc Tidecaller |  
 CORE | CORE_EX1_522 | Patient Assassin | O
@@ -159,8 +159,8 @@ CORE | CORE_EX1_567 | Doomhammer | O
 CORE | CORE_EX1_571 | Force of Nature | O
 CORE | CORE_EX1_573 | Cenarius | O
 CORE | CORE_EX1_575 | Mana Tide Totem | O
-CORE | CORE_EX1_603 | Cruel Taskmaster |  
-CORE | CORE_EX1_604 | Frothing Berserker |  
+CORE | CORE_EX1_603 | Cruel Taskmaster | O
+CORE | CORE_EX1_604 | Frothing Berserker | O
 CORE | CORE_EX1_610 | Explosive Trap | O
 CORE | CORE_EX1_611 | Freezing Trap | O
 CORE | CORE_EX1_617 | Deadly Shot | O
@@ -177,7 +177,7 @@ CORE | CORE_GIL_801 | Snap Freeze | O
 CORE | CORE_GIL_828 | Dire Frenzy | O
 CORE | CORE_GVG_013 | Cogmaster |  
 CORE | CORE_GVG_044 | Spider Tank |  
-CORE | CORE_GVG_053 | Shieldmaiden |  
+CORE | CORE_GVG_053 | Shieldmaiden | O
 CORE | CORE_GVG_076 | Explosive Sheep |  
 CORE | CORE_GVG_085 | Annoy-o-Tron |  
 CORE | CORE_GVG_109 | Mini-Mage |  
@@ -219,8 +219,8 @@ CORE | CS3_002 | Ritual of Doom | O
 CORE | CS3_003 | Felsoul Jailer | O
 CORE | CS3_005 | Vanessa VanCleef |  
 CORE | CS3_007 | Novice Zapper | O
-CORE | CS3_008 | Bloodsail Deckhand |  
-CORE | CS3_009 | War Cache |  
+CORE | CS3_008 | Bloodsail Deckhand | O
+CORE | CS3_009 | War Cache | O
 CORE | CS3_012 | Nordrassil Druid | O
 CORE | CS3_013 | Shadowed Spirit | O
 CORE | CS3_014 | Crimson Clergy | O
@@ -236,7 +236,7 @@ CORE | CS3_025 | Overlord Runthak |
 CORE | CS3_027 | Focused Will | O
 CORE | CS3_028 | Thrive in the Shadows | O
 CORE | CS3_029 | Pursuit of Justice |  
-CORE | CS3_030 | Warsong Outrider |  
+CORE | CS3_030 | Warsong Outrider | O
 CORE | CS3_031 | Alexstrasza the Life-Binder |  
 CORE | CS3_032 | Onyxia the Broodmother |  
 CORE | CS3_033 | Ysera the Dreamer |  
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 52% (124 of 235 Cards)
+- Progress: 59% (140 of 235 Cards)
 
 ## Ashes of Outland
 
@@ -848,5 +848,40 @@ THE_BARRENS | BAR_916 | Blood Shard Bristleback |
 THE_BARRENS | BAR_917 | Barrens Scavenger |  
 THE_BARRENS | BAR_918 | Tamsin Roame |  
 THE_BARRENS | BAR_919 | Neeru Fireblade |  
+THE_BARRENS | WC_003 | Sigil of Summoning |  
+THE_BARRENS | WC_004 | Fangbound Druid |  
+THE_BARRENS | WC_005 | Primal Dungeoneer |  
+THE_BARRENS | WC_006 | Lady Anacondra |  
+THE_BARRENS | WC_007 | Serpentbloom |  
+THE_BARRENS | WC_008 | Sin'dorei Scentfinder |  
+THE_BARRENS | WC_013 | Devout Dungeoneer |  
+THE_BARRENS | WC_014 | Against All Odds |  
+THE_BARRENS | WC_015 | Water Moccasin |  
+THE_BARRENS | WC_016 | Shroud of Concealment |  
+THE_BARRENS | WC_017 | Savory Deviate Delight |  
+THE_BARRENS | WC_020 | Perpetual Flame |  
+THE_BARRENS | WC_021 | Unstable Shadow Blast |  
+THE_BARRENS | WC_022 | Final Gasp |  
+THE_BARRENS | WC_023 | Stealer of Souls |  
+THE_BARRENS | WC_024 | Man-at-Arms |  
+THE_BARRENS | WC_025 | Whetstone Hatchet |  
+THE_BARRENS | WC_026 | Kresh, Lord of Turtling |  
+THE_BARRENS | WC_027 | Devouring Ectoplasm |  
+THE_BARRENS | WC_028 | Meeting Stone |  
+THE_BARRENS | WC_029 | Selfless Sidekick |  
+THE_BARRENS | WC_030 | Mutanus the Devourer |  
+THE_BARRENS | WC_032 | Seedcloud Buckler |  
+THE_BARRENS | WC_033 | Judgment of Justice |  
+THE_BARRENS | WC_034 | Party Up! |  
+THE_BARRENS | WC_035 | Archdruid Naralex |  
+THE_BARRENS | WC_036 | Deviate Dreadfang |  
+THE_BARRENS | WC_037 | Venomstrike Bow |  
+THE_BARRENS | WC_040 | Taintheart Tormenter |  
+THE_BARRENS | WC_041 | Shattering Blast |  
+THE_BARRENS | WC_042 | Wailing Vapor |  
+THE_BARRENS | WC_701 | Felrattler |  
+THE_BARRENS | WC_803 | Cleric of An'she |  
+THE_BARRENS | WC_805 | Frostweave Dungeoneer |  
+THE_BARRENS | WC_806 | Floecaster |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 0% (0 of 170 Cards)

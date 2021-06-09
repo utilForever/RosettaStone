@@ -64,6 +64,10 @@ void Aura::Activate(Playable* owner, bool cloning)
             owner->game->triggerManager.inspireTrigger +=
                 instance->m_removeHandler;
             break;
+        case TriggerType::EQUIP_WEAPON:
+            owner->game->triggerManager.equipWeaponTrigger +=
+                instance->m_removeHandler;
+            break;
         default:
             break;
     }
@@ -183,6 +187,9 @@ void Aura::Remove()
             break;
         case TriggerType::INSPIRE:
             m_owner->game->triggerManager.inspireTrigger -= m_removeHandler;
+            break;
+        case TriggerType::EQUIP_WEAPON:
+            m_owner->game->triggerManager.equipWeaponTrigger -= m_removeHandler;
             break;
         default:
             break;

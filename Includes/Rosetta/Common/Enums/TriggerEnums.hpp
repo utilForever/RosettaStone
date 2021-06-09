@@ -52,6 +52,7 @@ enum class TriggerType
               //!< hand.
     DEATH,    //!< The effect will be triggered when a minion dies.
     INSPIRE,  //!< The effect will be triggered when a hero uses power.
+    EQUIP_WEAPON,  //! The effect will be triggered when a hero equips a weapon.
     SHUFFLE_INTO_DECK,  //!< The effect will be triggered when a card is
                         //!< shuffled into a deck.
     MULTI_TRIGGER,      //!< The effect for multi trigger.

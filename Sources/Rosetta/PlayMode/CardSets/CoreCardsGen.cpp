@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -2440,10 +2441,18 @@ void CoreCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - WARRIOR
     // [CORE_CS2_106] Fiery War Axe - COST:3
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_106", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_CS2_108] Execute - COST:2
@@ -2451,6 +2460,20 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy a damaged enemy minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_DAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_108",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
@@ -2458,9 +2481,18 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: After you summon another minion, give it <b>Rush</b>.
     // --------------------------------------------------------
-    // RefTag:
-    // - RUSH = 1
+    // GameTag:
+    // - AURA = 1
     // --------------------------------------------------------
+    // RefTag:
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_084e", EntityType::TARGET) };
+    cards.emplace("CORE_EX1_084", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_EX1_391] Slam - COST:2
@@ -2468,13 +2500,33 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion. If it survives, draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNotDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace(
+        "CORE_EX1_391",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_EX1_400] Whirlwind - COST:1
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 1 damage to ALL minions.
+    // Text: Deal 1 damage to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true));
+    cards.emplace("CORE_EX1_400", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
@@ -2485,6 +2537,11 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(1) };
+    cards.emplace("CORE_EX1_402", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_EX1_407] Brawl - COST:5
@@ -2493,6 +2550,18 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Destroy all minions except one.
     //       <i>(chosen randomly)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_TOTAL_MINIONS = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ALL_MINIONS, 1));
+    power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::ALL_MINIONS, std::vector<EntityType>{ EntityType::STACK }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace(
+        "CORE_EX1_407",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_TOTAL_MINIONS, 2 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_EX1_410] Shield Slam - COST:1
@@ -2503,6 +2572,19 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::HERO, GameTag::ARMOR));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
+    cards.emplace(
+        "CORE_EX1_410",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [CORE_EX1_411] Gorehowl - COST:7
@@ -2510,6 +2592,18 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Attacking a minion costs 1 Attack instead of 1 Durability.
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_411e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_411", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
@@ -2523,17 +2617,34 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_414e"));
+    cards.emplace("CORE_EX1_414", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage to a minion and
-    //       give it +2 Attack.
+    // Text: <b>Battlecry:</b> Deal 1 damage to a minion
+    //       and give it +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_603e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_603",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
@@ -2544,6 +2655,12 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_604o", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_604", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_GVG_053] Shieldmaiden - COST:5 [ATK:5/HP:5]
@@ -2554,6 +2671,9 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(5));
+    cards.emplace("CORE_GVG_053", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]
@@ -2565,6 +2685,10 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS3_008e", EntityType::PLAYER));
+    cards.emplace("CS3_008", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CS3_009] War Cache - COST:3
@@ -2573,6 +2697,17 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Add a random Warrior minion, spell,
     //       and weapon to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::WEAPON, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CS3_009", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
@@ -2583,16 +2718,31 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_030", CardDef(power));
 }
 
 void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [CS3_008e] To Arrrms! - COST:0
     // - Set: CORE
     // --------------------------------------------------------
     // Text: Your next weapon costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsWeapon());
+        aura->removeTrigger = { TriggerType::EQUIP_WEAPON, nullptr };
+    }
+    cards.emplace("CS3_008e", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)

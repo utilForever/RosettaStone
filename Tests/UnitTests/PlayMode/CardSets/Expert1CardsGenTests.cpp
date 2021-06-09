@@ -7570,6 +7570,9 @@ TEST_CASE("[Warrior : Minion] - EX1_398 : Arathi Weaponsmith")
 // --------------------------------------------------------
 // Text: Whenever a friendly minion takes damage, gain 1 Armor.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Warrior : Minion] - EX1_402 : Armorsmith")
 {
     GameConfig config;
@@ -7615,7 +7618,8 @@ TEST_CASE("[Warrior : Minion] - EX1_402 : Armorsmith")
 // [EX1_407] Brawl - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Destroy all minions except one. <i>(chosen randomly)</i>
+// Text: Destroy all minions except one.
+//       <i>(chosen randomly)</i>
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_MINIMUM_TOTAL_MINIONS = 2
@@ -7908,11 +7912,12 @@ TEST_CASE("[Warrior : Weapon] - EX1_411 : Gorehowl")
 // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Charge</b> Has +6 Attack while damaged.
+// Text: <b>Charge</b>
+//       Has +6 Attack while damaged.
 // --------------------------------------------------------
 // GameTag:
-// - CHARGE = 1
 // - ELITE = 1
+// - CHARGE = 1
 // - ENRAGED = 1
 // --------------------------------------------------------
 TEST_CASE("[Warrior : Minion] - EX1_414 : Grommash Hellscream")
@@ -7959,7 +7964,8 @@ TEST_CASE("[Warrior : Minion] - EX1_414 : Grommash Hellscream")
 // [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Deal 1 damage to a minion and give it +2 Attack.
+// Text: <b>Battlecry:</b> Deal 1 damage to a minion
+//       and give it +2 Attack.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1

@@ -60,6 +60,8 @@ void Hero::AddWeapon(Weapon& _weapon)
         SetExhausted(false);
     }
 
+    game->triggerManager.OnEquipWeaponTrigger(weapon);
+
     for (int i = static_cast<int>(weaponAuras.size()) - 1; i >= 0; --i)
     {
         weaponAuras[i]->NotifyEntityAdded(weapon);
