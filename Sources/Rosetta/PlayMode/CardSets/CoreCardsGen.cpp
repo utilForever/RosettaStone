@@ -2697,6 +2697,17 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Add a random Warrior minion, spell,
     //       and weapon to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::WEAPON, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CS3_009", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
