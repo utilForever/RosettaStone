@@ -7818,3 +7818,60 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_036 : Coordinated Strike")
     CHECK_EQ(curField[0]->GetHealth(), 9);
     CHECK_EQ(opField.GetCount(), 0);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [CORE_BT_235] Chaos Nova - COST:5
+// - Set: CORE, Rarity: Common
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Deal 4 damage to all minions.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - CORE_BT_235 : Chaos Nova")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chaos Nova"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Ogre Magi"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(opField.GetCount(), 0);
+}

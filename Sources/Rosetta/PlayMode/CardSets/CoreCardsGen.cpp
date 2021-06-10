@@ -2782,6 +2782,10 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 4 damage to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
+    cards.emplace("CORE_BT_235", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
