@@ -2476,6 +2476,9 @@ void BasicCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon three 1/1 Illidari with <b>Rush</b>.
     // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<SummonTask>("BT_036t", 3));
     cards.emplace("BT_036", CardDef(power));

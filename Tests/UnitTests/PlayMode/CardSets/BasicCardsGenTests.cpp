@@ -5409,6 +5409,9 @@ TEST_CASE("[Demon Hunter : Spell] - BT_035 : Chaos Strike")
 // --------------------------------------------------------
 // Text: Summon three 1/1 Illidari with <b>Rush</b>.
 // --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Spell] - BT_036 : Coordinated Strike")
 {
     GameConfig config;
