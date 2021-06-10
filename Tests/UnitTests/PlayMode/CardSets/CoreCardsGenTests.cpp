@@ -7753,3 +7753,68 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_035 : Chaos Strike")
 
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [CORE_BT_036] Coordinated Strike - COST:3
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon three 1/1 Illidari with <b>Rush</b>.
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - CORE_BT_036 : Coordinated Strike")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Coordinated Strike"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->card->name, "Illidari Initiate");
+    CHECK_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->HasRush(), true);
+    CHECK_EQ(opField[1]->card->name, "Illidari Initiate");
+    CHECK_EQ(opField[1]->GetAttack(), 1);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->HasRush(), true);
+    CHECK_EQ(opField[2]->card->name, "Illidari Initiate");
+    CHECK_EQ(opField[2]->GetAttack(), 1);
+    CHECK_EQ(opField[2]->GetHealth(), 1);
+    CHECK_EQ(opField[2]->HasRush(), true);
+
+    game.Process(opPlayer, AttackTask(opField[0], card1));
+    game.Process(opPlayer, AttackTask(opField[0], card1));
+    game.Process(opPlayer, AttackTask(opField[0], card1));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(opField.GetCount(), 0);
+}

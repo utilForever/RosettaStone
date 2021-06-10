@@ -2771,6 +2771,9 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("BT_036t", 3));
+    cards.emplace("CORE_BT_036", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_235] Chaos Nova - COST:5
