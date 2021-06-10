@@ -7875,3 +7875,72 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_235 : Chaos Nova")
     CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(opField.GetCount(), 0);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
+// - Race: Demon, Faction: Horde, Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Look at 3 cards in your deck.
+//       Choose one to put on top.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - CORE_BT_323 : Sightless Watcher")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 10; ++i)
+    {
+        config.player1Deck[i * 3] = Cards::FindCardByName("Magma Rager");
+        config.player1Deck[i * 3 + 1] = Cards::FindCardByName("Wolfrider");
+        config.player1Deck[i * 3 + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sightless Watcher"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+
+    auto pickedCardID =
+        game.entityList[curPlayer->choice->choices[0]]->card->id;
+    game.Process(curPlayer,
+                 ChooseTask::Pick(curPlayer, curPlayer->choice->choices[0]));
+
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand[4]->card->id, pickedCardID);
+    CHECK_EQ(curDeck.GetCount(), 25);
+}

@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
@@ -2797,6 +2798,25 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::DECK, 3));
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        auto playables = playable->game->taskStack.playables;
+
+        std::vector<int> ids;
+        ids.reserve(3);
+
+        for (auto& p : playables)
+        {
+            ids.emplace_back(p->GetGameTag(GameTag::ENTITY_ID));
+        }
+
+        Generic::CreateChoice(playable->player, playable, ChoiceType::GENERAL,
+                              ChoiceAction::SIGHTLESS_WATCHER, ids);
+
+        return 0;
+    }));
+    cards.emplace("CORE_BT_323", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_351] Battlefiend - COST:1 [ATK:1/HP:2]
