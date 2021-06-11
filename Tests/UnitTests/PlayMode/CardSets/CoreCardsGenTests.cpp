@@ -8403,3 +8403,52 @@ TEST_CASE("[Demon Hunter : Weapon] - CORE_BT_921 : Aldrachi Warblades")
 
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [CS3_017] Gan'arg Glaivesmith - COST:3 [ATK:3/HP:2]
+// - Race: Demon, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Outcast:</b> Give your hero +3 Attack this turn.
+// --------------------------------------------------------
+// GameTag:
+// - OUTCAST = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - CS3_017 : Gan'arg Glaivesmith")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Gan'arg Glaivesmith", FormatType::STANDARD));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Gan'arg Glaivesmith", FormatType::STANDARD));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}

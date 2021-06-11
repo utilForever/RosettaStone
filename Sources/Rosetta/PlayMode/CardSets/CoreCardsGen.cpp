@@ -2987,6 +2987,10 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(
+        std::make_shared<AddEnchantmentTask>("CS3_017e", EntityType::HERO));
+    cards.emplace("CS3_017", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CS3_019] Kor'vas Bloodthorn - COST:2 [ATK:2/HP:2]
@@ -3022,6 +3026,8 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 void CoreCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [CS3_017e] Felfist - COST:0
     // - Set: CORE
@@ -3031,6 +3037,9 @@ void CoreCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS3_017e"));
+    cards.emplace("CS3_017e", CardDef(power));
 }
 
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
