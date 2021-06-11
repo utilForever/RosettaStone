@@ -2859,6 +2859,9 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_BT_423", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_427] Feast of Souls - COST:2
