@@ -3,6 +3,8 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
@@ -2747,6 +2749,8 @@ void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_035] Chaos Strike - COST:2
     // - Set: CORE, Rarity: Common
@@ -2754,6 +2758,11 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn. Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_035e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_BT_035", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_036] Coordinated Strike - COST:3
@@ -2764,6 +2773,9 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("BT_036t", 3));
+    cards.emplace("CORE_BT_036", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_235] Chaos Nova - COST:5
@@ -2772,6 +2784,10 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 4 damage to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
+    cards.emplace("CORE_BT_235", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
@@ -2783,6 +2799,25 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::DECK, 3));
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        auto playables = playable->game->taskStack.playables;
+
+        std::vector<int> ids;
+        ids.reserve(3);
+
+        for (auto& p : playables)
+        {
+            ids.emplace_back(p->GetGameTag(GameTag::ENTITY_ID));
+        }
+
+        Generic::CreateChoice(playable->player, playable, ChoiceType::GENERAL,
+                              ChoiceAction::SIGHTLESS_WATCHER, ids);
+
+        return 0;
+    }));
+    cards.emplace("CORE_BT_323", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_351] Battlefiend - COST:1 [ATK:1/HP:2]
@@ -2793,6 +2828,12 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BT_351e", EntityType::SOURCE) };
+    cards.emplace("CORE_BT_351", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_416] Raging Felscreamer - COST:4 [ATK:4/HP:4]
@@ -2803,6 +2844,10 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BT_416e", EntityType::SOURCE));
+    cards.emplace("CORE_BT_416", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
@@ -2815,6 +2860,9 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_BT_423", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_427] Feast of Souls - COST:2
@@ -2823,6 +2871,18 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a card for each friendly minion that died this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const int num = player->GetNumFriendlyMinionsDiedThisTurn();
+
+            for (int i = 0; i < num; ++i)
+            {
+                Generic::Draw(player, nullptr);
+            }
+        }));
+    cards.emplace("CORE_BT_427", CardDef(power));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [CORE_BT_430] Warglaives of Azzinoth - COST:5
@@ -2833,6 +2893,14 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsEventTargetIs(CardType::MINION));
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::HERO, GameTag::EXHAUSTED, 0) };
+    cards.emplace("CORE_BT_430", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]
@@ -2843,6 +2911,9 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_BT_480", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_491] Spectral Sight - COST:2
@@ -2854,6 +2925,10 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    power.AddOutcastTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_BT_491", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_801] Eye Beam - COST:3
@@ -2867,16 +2942,41 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - OUTCAST = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (playable->GetZonePosition() == 0 ||
+            playable->GetZonePosition() ==
+                playable->player->GetHandZone()->GetCount() - 1)
+        {
+            return playable->GetGameTag(GameTag::COST) - 1;
+        }
+
+        return 0;
+    }));
+    cards.emplace(
+        "CORE_BT_801",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
-    // [CORE_BT_921] Aldrachi Warblades - COST:3
+    // [CORE_BT_921] Aldrachi Warblades - COST:3 [ATK:2/HP:0]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
+    // - DURABILITY = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_BT_921", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CS3_017] Gan'arg Glaivesmith - COST:3 [ATK:3/HP:2]
@@ -2887,6 +2987,10 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(
+        std::make_shared<AddEnchantmentTask>("CS3_017e", EntityType::HERO));
+    cards.emplace("CS3_017", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CS3_019] Kor'vas Bloodthorn - COST:2 [ATK:2/HP:2]
@@ -2905,6 +3009,13 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsOutcastCard());
+    power.GetTrigger()->tasks = { std::make_shared<ReturnHandTask>(
+        EntityType::SOURCE) };
+    cards.emplace("CS3_019", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CS3_020] Illidari Inquisitor - COST:8 [ATK:8/HP:8]
@@ -2917,11 +3028,19 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AttackTask>(
+        EntityType::SOURCE, EntityType::EVENT_TARGET) };
+    cards.emplace("CS3_020", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [CS3_017e] Felfist - COST:0
     // - Set: CORE
@@ -2931,6 +3050,9 @@ void CoreCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS3_017e"));
+    cards.emplace("CS3_017e", CardDef(power));
 }
 
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)

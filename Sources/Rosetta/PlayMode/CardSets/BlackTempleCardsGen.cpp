@@ -2170,7 +2170,8 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b> <b>Lifesteal</b>
+    // Text: <b>Taunt</b>
+    //       <b>Lifesteal</b>
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
@@ -2201,6 +2202,14 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsEventTargetIs(CardType::MINION));
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::HERO, GameTag::EXHAUSTED, 0) };
+    cards.emplace("BT_430", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]
@@ -2236,7 +2245,8 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [BT_491] Spectral Sight - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Draw a card. <b>Outcast:</b> Draw another.
+    // Text: Draw a card.
+    //       <b>Outcast:</b> Draw another.
     // --------------------------------------------------------
     // GameTag:
     // - OUTCAST = 1
