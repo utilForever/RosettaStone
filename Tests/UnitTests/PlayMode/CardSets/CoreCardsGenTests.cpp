@@ -8529,3 +8529,67 @@ TEST_CASE("[Demon Hunter : Minion] - CS3_019 : Kor'vas Bloodthorn")
     CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curHand.GetCount(), 4);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [CS3_020] Illidari Inquisitor - COST:8 [ATK:8/HP:8]
+// - Race: Demon, Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b>. After your hero attacks an enemy,
+//       this attacks it too.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - CS3_020 : Illidari Inquisitor")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Illidari Inquisitor", FormatType::STANDARD));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+}

@@ -3028,6 +3028,12 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AttackTask>(
+        EntityType::SOURCE, EntityType::EVENT_TARGET) };
+    cards.emplace("CS3_020", CardDef(power));
 }
 
 void CoreCardsGen::AddDemonHunterNonCollect(
