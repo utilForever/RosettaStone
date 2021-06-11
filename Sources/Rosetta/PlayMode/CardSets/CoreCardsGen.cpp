@@ -2965,14 +2965,18 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
-    // [CORE_BT_921] Aldrachi Warblades - COST:3
+    // [CORE_BT_921] Aldrachi Warblades - COST:3 [ATK:2/HP:0]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
+    // - DURABILITY = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_BT_921", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CS3_017] Gan'arg Glaivesmith - COST:3 [ATK:3/HP:2]
