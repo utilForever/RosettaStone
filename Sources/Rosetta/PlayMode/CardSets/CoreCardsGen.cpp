@@ -2827,6 +2827,12 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BT_351e", EntityType::SOURCE) };
+    cards.emplace("CORE_BT_351", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_416] Raging Felscreamer - COST:4 [ATK:4/HP:4]

@@ -7944,3 +7944,58 @@ TEST_CASE("[Demon Hunter : Minion] - CORE_BT_323 : Sightless Watcher")
     CHECK_EQ(curHand[4]->card->id, pickedCardID);
     CHECK_EQ(curDeck.GetCount(), 25);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [CORE_BT_351] Battlefiend - COST:1 [ATK:1/HP:2]
+// - Race: Demon, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: After your hero attacks, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - CORE_BT_351 : Battlefiend")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Battlefiend"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+}
