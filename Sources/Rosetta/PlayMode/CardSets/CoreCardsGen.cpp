@@ -2911,6 +2911,9 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_BT_480", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_491] Spectral Sight - COST:2
