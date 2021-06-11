@@ -2170,7 +2170,8 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b> <b>Lifesteal</b>
+    // Text: <b>Taunt</b>
+    //       <b>Lifesteal</b>
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
