@@ -23,19 +23,19 @@ CORE | CORE_BOT_420 | Landscaping | O
 CORE | CORE_BOT_453 | Shooting Star | O
 CORE | CORE_BOT_533 | Menacing Nimbus | O
 CORE | CORE_BRM_013 | Quick Shot | O
-CORE | CORE_BT_035 | Chaos Strike |  
-CORE | CORE_BT_036 | Coordinated Strike |  
-CORE | CORE_BT_235 | Chaos Nova |  
-CORE | CORE_BT_323 | Sightless Watcher |  
-CORE | CORE_BT_351 | Battlefiend |  
-CORE | CORE_BT_416 | Raging Felscreamer |  
-CORE | CORE_BT_423 | Ashtongue Battlelord |  
-CORE | CORE_BT_427 | Feast of Souls |  
-CORE | CORE_BT_430 | Warglaives of Azzinoth |  
-CORE | CORE_BT_480 | Crimson Sigil Runner |  
-CORE | CORE_BT_491 | Spectral Sight |  
-CORE | CORE_BT_801 | Eye Beam |  
-CORE | CORE_BT_921 | Aldrachi Warblades |  
+CORE | CORE_BT_035 | Chaos Strike | O
+CORE | CORE_BT_036 | Coordinated Strike | O
+CORE | CORE_BT_235 | Chaos Nova | O
+CORE | CORE_BT_323 | Sightless Watcher | O
+CORE | CORE_BT_351 | Battlefiend | O
+CORE | CORE_BT_416 | Raging Felscreamer | O
+CORE | CORE_BT_423 | Ashtongue Battlelord | O
+CORE | CORE_BT_427 | Feast of Souls | O
+CORE | CORE_BT_430 | Warglaives of Azzinoth | O
+CORE | CORE_BT_480 | Crimson Sigil Runner | O
+CORE | CORE_BT_491 | Spectral Sight | O
+CORE | CORE_BT_801 | Eye Beam | O
+CORE | CORE_BT_921 | Aldrachi Warblades | O
 CORE | CORE_CS1_112 | Holy Nova | O
 CORE | CORE_CS1_130 | Holy Smite | O
 CORE | CORE_CS2_009 | Mark of the Wild | O
@@ -226,9 +226,9 @@ CORE | CS3_013 | Shadowed Spirit | O
 CORE | CS3_014 | Crimson Clergy | O
 CORE | CS3_015 | Selective Breeder | O
 CORE | CS3_016 | Reckoning |  
-CORE | CS3_017 | Gan'arg Glaivesmith |  
-CORE | CS3_019 | Kor'vas Bloodthorn |  
-CORE | CS3_020 | Illidari Inquisitor |  
+CORE | CS3_017 | Gan'arg Glaivesmith | O
+CORE | CS3_019 | Kor'vas Bloodthorn | O
+CORE | CS3_020 | Illidari Inquisitor | O
 CORE | CS3_021 | Enslaved Fel Lord | O
 CORE | CS3_022 | Fogsail Freebooter |  
 CORE | CS3_024 | Taelan Fordring |  
@@ -246,7 +246,7 @@ CORE | CS3_036 | Deathwing the Destroyer |
 CORE | CS3_037 | Emerald Skytalon |  
 CORE | CS3_038 | Redgill Razorjaw |  
 
-- Progress: 59% (140 of 235 Cards)
+- Progress: 66% (156 of 235 Cards)
 
 ## Ashes of Outland
 
@@ -346,7 +346,7 @@ BLACK_TEMPLE | BT_334 | Lady Liadrin |
 BLACK_TEMPLE | BT_341 | Skeletal Dragon | O
 BLACK_TEMPLE | BT_423 | Ashtongue Battlelord | O
 BLACK_TEMPLE | BT_429 | Metamorphosis |  
-BLACK_TEMPLE | BT_430 | Warglaives of Azzinoth |  
+BLACK_TEMPLE | BT_430 | Warglaives of Azzinoth | O
 BLACK_TEMPLE | BT_480 | Crimson Sigil Runner | O
 BLACK_TEMPLE | BT_486 | Pit Commander | O
 BLACK_TEMPLE | BT_491 | Spectral Sight | O
@@ -388,7 +388,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen | O
 
-- Progress: 59% (80 of 135 Cards)
+- Progress: 60% (81 of 135 Cards)
 
 ## Scholomance Academy
 
