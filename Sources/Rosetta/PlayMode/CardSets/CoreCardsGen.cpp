@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
@@ -2870,6 +2871,18 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a card for each friendly minion that died this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const int num = player->GetNumFriendlyMinionsDiedThisTurn();
+
+            for (int i = 0; i < num; ++i)
+            {
+                Generic::Draw(player, nullptr);
+            }
+        }));
+    cards.emplace("CORE_BT_427", CardDef(power));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [CORE_BT_430] Warglaives of Azzinoth - COST:5
