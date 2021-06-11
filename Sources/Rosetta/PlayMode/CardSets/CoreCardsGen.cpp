@@ -3009,6 +3009,13 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OUTCAST = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsOutcastCard());
+    power.GetTrigger()->tasks = { std::make_shared<ReturnHandTask>(
+        EntityType::SOURCE) };
+    cards.emplace("CS3_019", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CS3_020] Illidari Inquisitor - COST:8 [ATK:8/HP:8]
