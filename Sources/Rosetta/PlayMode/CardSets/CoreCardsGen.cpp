@@ -2893,6 +2893,14 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
+        SelfCondition::IsEventTargetIs(CardType::MINION));
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::HERO, GameTag::EXHAUSTED, 0) };
+    cards.emplace("CORE_BT_430", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]
