@@ -8287,3 +8287,65 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_491 : Spectral Sight")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 7);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [CORE_BT_801] Eye Beam - COST:3
+// - Set: CORE, Rarity: Epic
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b>. Deal 3 damage to a minion.
+//       <b>Outcast:</b> This costs (1).
+// --------------------------------------------------------
+// GameTag:
+// - LIFESTEAL = 1
+// - OUTCAST = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - CORE_BT_801 : Eye Beam")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(15);
+
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Eye Beam"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Eye Beam"));
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(opHero->GetHealth(), 18);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(opHero->GetHealth(), 21);
+}

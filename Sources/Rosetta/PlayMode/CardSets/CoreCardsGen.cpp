@@ -2942,6 +2942,27 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - OUTCAST = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (playable->GetZonePosition() == 0 ||
+            playable->GetZonePosition() ==
+                playable->player->GetHandZone()->GetCount() - 1)
+        {
+            return playable->GetGameTag(GameTag::COST) - 1;
+        }
+
+        return 0;
+    }));
+    cards.emplace(
+        "CORE_BT_801",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [CORE_BT_921] Aldrachi Warblades - COST:3
