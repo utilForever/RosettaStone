@@ -3332,7 +3332,8 @@ TEST_CASE("[Demon Hunter : Spell] - BT_486 : Pit Commander")
 // [BT_491] Spectral Sight - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: Draw a card. <b>Outcast:</b> Draw another.
+// Text: Draw a card.
+//       <b>Outcast:</b> Draw another.
 // --------------------------------------------------------
 // GameTag:
 // - OUTCAST = 1
