@@ -3279,6 +3279,13 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("EX1_004e", EntityType::STACK)
+    };
+    cards.emplace("CORE_EX1_004", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
