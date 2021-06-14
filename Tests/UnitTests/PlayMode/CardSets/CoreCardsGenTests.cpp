@@ -9302,3 +9302,17 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_008 : Argent Squire")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
+// - Faction: Alliance, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_EX1_010 : Worgen Infiltrator")
+{
+    // Do nothing
+}
