@@ -9288,3 +9288,17 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_005 : Big Game Hunter")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
     CHECK_EQ(opField.GetCount(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
+// - Faction: Alliance, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_EX1_008 : Argent Squire")
+{
+    // Do nothing
+}
