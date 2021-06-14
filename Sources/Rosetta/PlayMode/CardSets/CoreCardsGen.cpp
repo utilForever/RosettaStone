@@ -3143,6 +3143,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_179", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]

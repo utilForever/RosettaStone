@@ -8783,3 +8783,17 @@ TEST_CASE("[Neutral : Minion] - CORE_CS2_142 : Kobold Geomancer")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
+// - Faction: Horde, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_CS2_179 : Sen'jin Shieldmasta")
+{
+    // Do nothing
+}
