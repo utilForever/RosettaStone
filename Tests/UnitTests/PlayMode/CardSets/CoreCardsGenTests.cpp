@@ -8914,3 +8914,57 @@ TEST_CASE("[Neutral : Minion] - CORE_CS2_188 : Abusive Sergeant")
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(opField[0]->GetAttack(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_CS2_189] Elven Archer - COST:1 [ATK:1/HP:1]
+// - Faction: Horde, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_CS2_189 : Elven Archer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
