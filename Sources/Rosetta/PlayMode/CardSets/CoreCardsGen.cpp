@@ -3130,6 +3130,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_142", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]

@@ -8769,3 +8769,17 @@ TEST_CASE("[Neutral : Minion] - CORE_CS2_122 : Raid Leader")
     game.Process(opPlayer, AttackTask(card3, card1));
     CHECK_EQ(curField[0]->GetAttack(), 6);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
+// - Faction: Horde, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_CS2_142 : Kobold Geomancer")
+{
+    // Do nothing
+}
