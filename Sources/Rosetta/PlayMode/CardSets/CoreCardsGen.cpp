@@ -3116,6 +3116,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
+    cards.emplace("CORE_CS2_122", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
