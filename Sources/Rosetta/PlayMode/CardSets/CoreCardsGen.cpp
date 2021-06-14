@@ -3076,6 +3076,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BOT_083e", EntityType::WEAPON));
+    cards.emplace("CORE_BOT_083", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
