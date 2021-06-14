@@ -3156,6 +3156,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::SOURCE, 4, false));
+    cards.emplace("CORE_CS2_181", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
