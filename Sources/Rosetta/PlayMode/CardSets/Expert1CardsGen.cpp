@@ -4214,8 +4214,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: At the end of your turn, give another random
-    //       friendly minion +1 Health.
+    // Text: At the end of your turn,
+    //       give another random friendly minion +1 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
