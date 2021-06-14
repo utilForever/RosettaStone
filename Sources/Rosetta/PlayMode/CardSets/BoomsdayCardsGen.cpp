@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -1458,6 +1459,8 @@ void BoomsdayCardsGen::AddWarriorNonCollect(
 
 void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [BOT_020] Skaterbot - COST:1 [ATK:1/HP:1]
     // - Race: Mechanical, Set: BOOMSDAY, Rarity: Common
@@ -1533,6 +1536,10 @@ void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BOT_083e", EntityType::WEAPON));
+    cards.emplace("BOT_083", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BOT_098] Unpowered Mauler - COST:2 [ATK:2/HP:4]
@@ -2038,6 +2045,9 @@ void BoomsdayCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BOT_083e"));
+    cards.emplace("BOT_083e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BOT_101e2] Warcried - COST:0
