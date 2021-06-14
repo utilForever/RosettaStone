@@ -9107,3 +9107,56 @@ TEST_CASE("[Neutral : Minion] - CORE_CS2_222 : Stormwind Champion")
     CHECK_EQ(curField[1]->GetAttack(), 7);
     CHECK_EQ(curField[1]->GetHealth(), 4);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+//       gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_DAL_086 : Sunreaver Spy")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sunreaver Spy"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sunreaver Spy"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Noble Sacrifice"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+}

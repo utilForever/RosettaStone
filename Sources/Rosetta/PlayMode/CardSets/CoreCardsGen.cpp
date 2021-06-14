@@ -3260,6 +3260,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DAL_086e", EntityType::SOURCE) }));
+    cards.emplace("CORE_DAL_086", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
