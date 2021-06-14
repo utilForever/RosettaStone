@@ -8836,3 +8836,12 @@ TEST_CASE("[Neutral : Minion] - CORE_CS2_181 : Injured Blademaster")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetHealth(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_CS2_182 : Chillwind Yeti")
+{
+    // Do nothing
+}

@@ -3165,6 +3165,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_182", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
