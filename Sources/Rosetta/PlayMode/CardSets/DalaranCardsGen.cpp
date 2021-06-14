@@ -2773,7 +2773,8 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
     // - Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> If you control a <b>Secret</b>, gain +1/+1.
+    // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+    //       gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
