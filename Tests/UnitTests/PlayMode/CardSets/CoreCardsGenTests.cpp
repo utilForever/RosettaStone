@@ -8593,3 +8593,12 @@ TEST_CASE("[Demon Hunter : Minion] - CS3_020 : Illidari Inquisitor")
     CHECK_EQ(curField.GetCount(), 0);
     CHECK_EQ(opField.GetCount(), 0);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_AT_092] Ice Rager - COST:3 [ATK:5/HP:2]
+// - Race: Elemental, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_AT_092 : Ice Rager")
+{
+    // Do nothing
+}
