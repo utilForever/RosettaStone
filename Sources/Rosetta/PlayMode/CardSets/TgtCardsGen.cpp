@@ -1469,6 +1469,8 @@ void TgtCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [AT_017] Twilight Guardian - COST:4 [ATK:2/HP:6]
     // - Race: Dragon, Set: Tgt, Rarity: Epic
@@ -1617,6 +1619,9 @@ void TgtCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [AT_092] Ice Rager - COST:3 [ATK:5/HP:2]
     // - Race: Elemental, Set: Tgt, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AT_092", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AT_093] Frigid Snobold - COST:4 [ATK:2/HP:6]
