@@ -8838,7 +8838,8 @@ TEST_CASE("[Neutral : Minion] - EX1_004 : Young Priestess")
 // [EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
+// Text: <b>Battlecry:</b> Destroy a minion
+//       with 7 or more Attack.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
