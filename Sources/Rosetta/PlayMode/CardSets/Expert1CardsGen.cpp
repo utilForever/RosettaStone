@@ -4076,7 +4076,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
     // - Faction: Horde, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
+    // Text: <b>Battlecry:</b> Deal 4 damage to himself.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
