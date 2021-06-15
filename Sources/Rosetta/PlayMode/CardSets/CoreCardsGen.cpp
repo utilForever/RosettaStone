@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
@@ -3603,6 +3604,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdjacentAura>("EX1_162o"));
+    cards.emplace("CORE_EX1_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4]
