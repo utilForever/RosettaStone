@@ -3748,6 +3748,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_NOSOURCE, 2) };
+    cards.emplace("CORE_EX1_249", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
