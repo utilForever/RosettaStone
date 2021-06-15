@@ -9508,3 +9508,17 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_014 : King Mukla")
     CHECK_EQ(opField[0]->GetAttack(), 5);
     CHECK_EQ(opField[0]->GetHealth(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
+// - Race: Beast, Faction: Horde, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_EX1_017 : Jungle Panther")
+{
+    // Do nothing
+}

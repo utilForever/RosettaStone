@@ -3394,6 +3394,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_017", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
