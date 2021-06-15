@@ -3380,6 +3380,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "EX1_014t", 2));
+    cards.emplace("CORE_EX1_014", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
