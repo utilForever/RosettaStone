@@ -3554,6 +3554,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_EX1_096", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3]
