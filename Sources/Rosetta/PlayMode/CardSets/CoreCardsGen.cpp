@@ -3567,6 +3567,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_103e", EntityType::STACK));
+    cards.emplace("CORE_EX1_103", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
