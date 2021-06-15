@@ -3587,6 +3587,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_110t", SummonSide::DEATHRATTLE));
+    cards.emplace("CORE_EX1_110", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]

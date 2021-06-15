@@ -10060,3 +10060,55 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_103 : Coldlight Seer")
     CHECK_EQ(curField[3]->GetHealth(), 3);
     CHECK_EQ(opField[0]->GetHealth(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
+// - Faction: Alliance, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 5/5 Baine Bloodhoof.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_EX1_110 : Cairne Bloodhoof")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cairne Bloodhoof"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    curField[0]->SetDamage(4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK(card1->isDestroyed);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
