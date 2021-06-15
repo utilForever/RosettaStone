@@ -10698,6 +10698,9 @@ TEST_CASE("[Neutral : Minion] - EX1_186 : SI:7 Infiltrator")
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, gain +2/+2.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_187 : Arcane Devourer")
 {
     GameConfig config;
