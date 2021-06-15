@@ -4730,7 +4730,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_093] Defender of Argus - COST:4 [ATK:3/HP:3]
     // - Faction: Alliance, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.
+    // Text: <b>Battlecry:</b> Give adjacent minions +1/+1
+    //       and <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
