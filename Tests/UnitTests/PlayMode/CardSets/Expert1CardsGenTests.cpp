@@ -11314,6 +11314,9 @@ TEST_CASE("[Neutral : Minion] - EX1_507 : Murloc Warleader")
 // --------------------------------------------------------
 // Text: Whenever you summon a Murloc, gain +1 Attack.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_509 : Murloc Tidecaller")
 {
     GameConfig config;
