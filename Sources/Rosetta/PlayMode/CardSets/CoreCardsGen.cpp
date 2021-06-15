@@ -3793,6 +3793,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_509e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_509", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
