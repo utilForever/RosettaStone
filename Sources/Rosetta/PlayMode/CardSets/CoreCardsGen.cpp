@@ -3521,6 +3521,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
+                                RelaCondition::IsSideBySide()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_093e", EntityType::STACK));
+    cards.emplace("CORE_EX1_093", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_095] Gadgetzan Auctioneer - COST:6 [ATK:4/HP:4]
