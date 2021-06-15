@@ -5751,6 +5751,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever a minion dies, gain +1 Attack.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
@@ -5758,6 +5761,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         "tt_004o", EntityType::SOURCE) };
     cards.emplace("tt_004", CardDef(power));
 }
+
 void Expert1CardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {

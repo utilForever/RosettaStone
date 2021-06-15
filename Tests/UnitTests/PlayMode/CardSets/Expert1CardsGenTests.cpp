@@ -13377,6 +13377,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_041 : Stampeding Kodo")
 // --------------------------------------------------------
 // Text: Whenever a minion dies, gain +1 Attack.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - tt_004 : Flesheating Ghoul")
 {
     GameConfig config;
