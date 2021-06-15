@@ -3669,6 +3669,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
+                                         Race::INVALID, Rarity::LEGENDARY));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_EX1_189", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
