@@ -6913,6 +6913,9 @@ TEST_CASE("[Neutral : Minion] - EX1_066 : Acidic Swamp Ooze")
 // --------------------------------------------------------
 // Text: Whenever this minion takes damage, gain +3 Attack.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_399 : Gurubashi Berserker")
 {
     GameConfig config;
