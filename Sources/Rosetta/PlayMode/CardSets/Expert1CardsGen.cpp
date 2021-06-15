@@ -5615,6 +5615,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever you cast a spell,
     //       summon a 1/1 Violet Apprentice.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;

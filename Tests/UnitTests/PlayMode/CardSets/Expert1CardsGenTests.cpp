@@ -12897,6 +12897,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_025 : Bloodsail Corsair")
 // Text: Whenever you cast a spell,
 //       summon a 1/1 Violet Apprentice.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_026 : Violet Teacher")
 {
     GameConfig config;
