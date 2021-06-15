@@ -3779,6 +3779,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CORE_EX1_506a", SummonSide::RIGHT));
+    cards.emplace("CORE_EX1_506", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
@@ -4134,10 +4138,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_506a] Murloc Scout - COST:1 [ATK:1/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_506a", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS3_025e] Rallying Cry - COST:0
