@@ -23,6 +23,7 @@ using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
