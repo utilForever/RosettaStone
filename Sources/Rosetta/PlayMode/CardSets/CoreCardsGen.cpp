@@ -3636,6 +3636,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_187e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_187", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_188] Barrens Stablehand - COST:7 [ATK:5/HP:5]
