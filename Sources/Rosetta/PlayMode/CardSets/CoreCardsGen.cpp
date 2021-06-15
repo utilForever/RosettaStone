@@ -3620,6 +3620,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_SECRETS, 1));
+    power.AddPowerTask(
+        std::make_shared<MoveToGraveyardTask>(EntityType::STACK));
+    cards.emplace("CORE_EX1_186", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_187] Arcane Devourer - COST:8 [ATK:4/HP:8]
