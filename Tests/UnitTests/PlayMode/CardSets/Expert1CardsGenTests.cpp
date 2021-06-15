@@ -12948,6 +12948,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_026 : Violet Teacher")
 // --------------------------------------------------------
 // Text: Your other Pirates have +1/+1.
 // --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_027 : Southsea Captain")
 {
     GameConfig config;
