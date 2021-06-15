@@ -3487,6 +3487,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    cards.emplace("CORE_EX1_066", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2]
