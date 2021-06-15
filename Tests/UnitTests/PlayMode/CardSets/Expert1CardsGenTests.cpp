@@ -10087,6 +10087,9 @@ TEST_CASE("[Neutral : Minion] - EX1_093 : Defender of Argus")
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, draw a card.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_095 : Gadgetzan Auctioneer")
 {
     GameConfig config;
