@@ -3652,6 +3652,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("CORE_EX1_188", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
