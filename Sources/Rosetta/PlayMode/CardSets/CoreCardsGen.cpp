@@ -3466,6 +3466,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SwapAttackHealthTask>(EntityType::TARGET, "EX1_059e"));
+    cards.emplace(
+        "CORE_EX1_059",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
