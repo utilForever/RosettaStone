@@ -9522,3 +9522,17 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_017 : Jungle Panther")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
+// - Race: Beast, Faction: Alliance, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_EX1_028 : Stranglethorn Tiger")
+{
+    // Do nothing
+}

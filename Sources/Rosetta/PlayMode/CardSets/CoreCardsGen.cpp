@@ -3407,6 +3407,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_028", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
