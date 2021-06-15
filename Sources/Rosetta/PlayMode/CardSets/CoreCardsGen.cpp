@@ -3363,9 +3363,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // - DEATHRATTLE = 1
     // - SPELLPOWER = 1
+    // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_EX1_012", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_014] King Mukla - COST:3 [ATK:5/HP:5]
