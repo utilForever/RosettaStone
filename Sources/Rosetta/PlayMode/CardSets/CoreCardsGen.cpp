@@ -3984,6 +3984,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "NEW1_026t", SummonSide::RIGHT) };
+    cards.emplace("CORE_NEW1_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
