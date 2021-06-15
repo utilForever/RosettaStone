@@ -10967,7 +10967,8 @@ TEST_CASE("[Neutral : Minion] - EX1_190 : High Inquisitor Whitemane")
 // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: At the end of your turn, deal 2 damage to all other characters.
+// Text: At the end of your turn,
+//       deal 2 damage to all other characters.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
