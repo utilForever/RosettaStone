@@ -5612,7 +5612,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
+    // Text: Whenever you cast a spell,
+    //       summon a 1/1 Violet Apprentice.
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));

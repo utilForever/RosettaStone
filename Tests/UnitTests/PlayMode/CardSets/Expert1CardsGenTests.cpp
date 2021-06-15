@@ -12894,7 +12894,8 @@ TEST_CASE("[Neutral : Minion] - NEW1_025 : Bloodsail Corsair")
 // [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
+// Text: Whenever you cast a spell,
+//       summon a 1/1 Violet Apprentice.
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_026 : Violet Teacher")
 {
