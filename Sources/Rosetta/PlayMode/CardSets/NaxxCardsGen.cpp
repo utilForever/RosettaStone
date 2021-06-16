@@ -235,6 +235,8 @@ void NaxxCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_001] Zombie Chow - COST:1 [ATK:2/HP:3]
     // - Set: Naxx, Rarity: Common
@@ -300,6 +302,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("FP1_007t", SummonSide::DEATHRATTLE));
+    cards.emplace("FP1_007", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_008] Spectral Knight - COST:5 [ATK:4/HP:6]
@@ -477,6 +483,8 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_002t] Spectral Spider (*) - COST:1 [ATK:1/HP:1]
     // - Set: Naxx
@@ -504,6 +512,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [FP1_007t] Nerubian (*) - COST:4 [ATK:4/HP:4]
     // - Set: Naxx
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_007t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_012t] Slime (*) - COST:1 [ATK:1/HP:2]
