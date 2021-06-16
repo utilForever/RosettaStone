@@ -3833,6 +3833,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("FP1_007t", SummonSide::DEATHRATTLE));
+    cards.emplace("CORE_FP1_007", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
