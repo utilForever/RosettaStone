@@ -1225,6 +1225,10 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2));
+    cards.emplace("GVG_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_078] Mechanical Yeti - COST:4 [ATK:4/HP:5]
