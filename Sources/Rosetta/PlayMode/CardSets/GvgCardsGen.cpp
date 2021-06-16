@@ -5,6 +5,8 @@
 
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1089,6 +1091,8 @@ void GvgCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_006] Mechwarper - COST:2 [ATK:2/HP:3]
     // - Race: Mechanical, Set: Gvg, Rarity: Common
@@ -1108,6 +1112,22 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            auto minions = playable->player->GetFieldZone()->GetAll();
+
+            for (auto& minion : minions)
+            {
+                if (minion->card->GetRace() == Race::MECHANICAL)
+                {
+                    return 2;
+                }
+            }
+
+            return 0;
+        }));
+    cards.emplace("GVG_013", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_016] Fel Reaver - COST:5 [ATK:8/HP:8]
