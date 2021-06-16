@@ -10999,6 +10999,15 @@ TEST_CASE("[Neutral : Minion] - CORE_GVG_013 : Cogmaster")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
+// - Race: Mechanical, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_GVG_044 : Spider Tank")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
