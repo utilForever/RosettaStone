@@ -148,6 +148,12 @@ bool Player::ExtraBattlecry() const
     return playerAuraEffects.GetValue(GameTag::EXTRA_BATTLECRIES_BASE) > 0;
 }
 
+bool Player::ExtraMinionDeathrattle() const
+{
+    return playerAuraEffects.GetValue(GameTag::EXTRA_MINION_DEATHRATTLES_BASE) >
+           0;
+}
+
 bool Player::ExtraCastSpell() const
 {
     return playerAuraEffects.GetValue(GameTag::EXTRA_CAST_SPELL) > 0;
