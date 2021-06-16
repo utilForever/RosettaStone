@@ -3864,6 +3864,25 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Has +2 Attack while you have a Mech.
     // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            auto minions = playable->player->GetFieldZone()->GetAll();
+
+            for (auto& minion : minions)
+            {
+                if (minion->card->GetRace() == Race::MECHANICAL)
+                {
+                    return 2;
+                }
+            }
+
+            return 0;
+        }));
+    cards.emplace("CORE_GVG_013", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
