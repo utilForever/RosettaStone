@@ -3901,6 +3901,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2));
+    cards.emplace("CORE_GVG_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_085] Annoy-o-Tron - COST:2 [ATK:1/HP:2]
