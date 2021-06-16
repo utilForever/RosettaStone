@@ -28,6 +28,8 @@ int PlayerAuraEffects::GetValue(GameTag tag) const
             return m_resourcesUsed;
         case GameTag::EXTRA_BATTLECRIES_BASE:
             return m_extraBattlecry;
+        case GameTag::EXTRA_MINION_DEATHRATTLES_BASE:
+            return m_extraMinionDeathrattle;
         case GameTag::EXTRA_CAST_SPELL:
             return m_extraCastSpell;
         case GameTag::EXTRA_TRIGGER_SECRET:
@@ -69,6 +71,9 @@ void PlayerAuraEffects::SetValue(GameTag tag, int value)
             break;
         case GameTag::EXTRA_BATTLECRIES_BASE:
             m_extraBattlecry = value;
+            break;
+        case GameTag::EXTRA_MINION_DEATHRATTLES_BASE:
+            m_extraMinionDeathrattle = value;
             break;
         case GameTag::EXTRA_CAST_SPELL:
             m_extraCastSpell = value;
