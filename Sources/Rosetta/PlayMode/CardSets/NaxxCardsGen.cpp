@@ -14,6 +14,7 @@ namespace RosettaStone::PlayMode
 {
 using TagValues = std::vector<TagValue>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void NaxxCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -479,6 +480,12 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::EXTRA_MINION_DEATHRATTLES_BASE,
+                              EffectOperator::SET, 1) }));
+    cards.emplace("FP1_031", CardDef(power));
 }
 
 void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
