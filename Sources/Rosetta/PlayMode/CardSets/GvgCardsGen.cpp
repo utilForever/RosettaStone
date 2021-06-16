@@ -1141,6 +1141,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
     // - Race: Mechanical, Set: Gvg, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("GVG_044", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_064] Puddlestomper - COST:2 [ATK:3/HP:2]

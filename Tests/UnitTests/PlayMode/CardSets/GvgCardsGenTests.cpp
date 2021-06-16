@@ -113,3 +113,12 @@ TEST_CASE("[Neutral : Minion] - GVG_013 : Cogmaster")
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(curField[0]->GetAttack(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
+// - Race: Mechanical, Set: Gvg, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - GVG_044 : Spider Tank")
+{
+    // Do nothing
+}
