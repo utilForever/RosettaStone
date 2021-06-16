@@ -3851,6 +3851,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::EXTRA_MINION_DEATHRATTLES_BASE,
+                              EffectOperator::SET, 1) }));
+    cards.emplace("CORE_FP1_031", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_013] Cogmaster - COST:1 [ATK:1/HP:2]
