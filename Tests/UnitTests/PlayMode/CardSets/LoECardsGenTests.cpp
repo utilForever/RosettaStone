@@ -115,3 +115,12 @@ TEST_CASE("[Rogue : Minion] - LOE_012 : Tomb Pillager")
     CHECK_EQ(curHand.GetCount(), 1);
     CHECK_EQ(curHand[0]->card->name, "The Coin");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
+// - Race: Murloc, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOEA10_3 : Murloc Tinyfin")
+{
+    // Do nothing
+}
