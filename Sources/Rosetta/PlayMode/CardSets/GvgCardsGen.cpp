@@ -1304,6 +1304,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("GVG_085", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_089] Illuminator - COST:3 [ATK:2/HP:4]

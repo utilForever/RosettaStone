@@ -181,3 +181,19 @@ TEST_CASE("[Neutral : Minion] - GVG_076 : Explosive Sheep")
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [GVG_085] Annoy-o-Tron - COST:2 [ATK:1/HP:2]
+// - Race: Mechanical, Set: Gvg, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - GVG_085 : Annoy-o-Tron")
+{
+    // Do nothing
+}
