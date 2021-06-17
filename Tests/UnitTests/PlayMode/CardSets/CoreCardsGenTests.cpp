@@ -11148,6 +11148,54 @@ TEST_CASE("[Neutral : Minion] - CORE_GVG_121 : Clockwork Giant")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_ICC_026] Grim Necromancer - COST:4 [ATK:2/HP:4]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 1/1 Skeletons.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - CORE_ICC_026 : Grim Necromancer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Grim Necromancer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Skeleton");
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->card->name, "Grim Necromancer");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[2]->card->name, "Skeleton");
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------

@@ -3957,6 +3957,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ICC_026t", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ICC_026t", SummonSide::RIGHT));
+    cards.emplace("CORE_ICC_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
