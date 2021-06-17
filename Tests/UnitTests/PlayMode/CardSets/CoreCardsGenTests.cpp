@@ -11084,6 +11084,22 @@ TEST_CASE("[Neutral : Minion] - CORE_GVG_085 : Annoy-o-Tron")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_GVG_109] Mini-Mage - COST:3 [ATK:3/HP:1]
+// - Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+//       <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_GVG_109 : Mini-Mage")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------

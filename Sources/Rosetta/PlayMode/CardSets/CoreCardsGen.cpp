@@ -3929,9 +3929,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //       <b>Spell Damage +1</b>
     // --------------------------------------------------------
     // GameTag:
-    // - SPELLPOWER = 1
     // - STEALTH = 1
+    // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_GVG_109", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_121] Clockwork Giant - COST:12 [ATK:8/HP:8]
