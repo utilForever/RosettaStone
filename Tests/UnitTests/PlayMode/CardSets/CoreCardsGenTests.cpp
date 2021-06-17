@@ -11068,6 +11068,22 @@ TEST_CASE("[Neutral : Minion] - CORE_GVG_076 : Explosive Sheep")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_GVG_085] Annoy-o-Tron - COST:2 [ATK:1/HP:2]
+// - Race: Mechanical, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_GVG_085 : Annoy-o-Tron")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------

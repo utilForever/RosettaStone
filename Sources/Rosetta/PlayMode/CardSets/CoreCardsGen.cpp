@@ -3914,9 +3914,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //       <b>Divine Shield</b>
     // --------------------------------------------------------
     // GameTag:
-    // - DIVINE_SHIELD = 1
     // - TAUNT = 1
+    // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_GVG_085", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_109] Mini-Mage - COST:3 [ATK:3/HP:1]
