@@ -177,6 +177,9 @@ TEST_CASE("[Rogue : Minion] - KAR_069 : Swashburglar")
 // Text: Whenever you cast a spell,
 //       give this minion +1 Health.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Netural : Minion] - KAR_036 : Arcane Anomaly")
 {
     GameConfig config;

@@ -519,6 +519,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever you cast a spell,
     //       give this minion +1 Health.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
