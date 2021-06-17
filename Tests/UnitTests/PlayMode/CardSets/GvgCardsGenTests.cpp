@@ -197,3 +197,19 @@ TEST_CASE("[Neutral : Minion] - GVG_085 : Annoy-o-Tron")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [GVG_109] Mini-Mage - COST:3 [ATK:3/HP:1]
+// - Set: Gvg, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+//       <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - GVG_109 : Mini-Mage")
+{
+    // Do nothing
+}

@@ -1513,7 +1513,7 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [GVG_109] Mini-Mage - COST:4 [ATK:4/HP:1]
+    // [GVG_109] Mini-Mage - COST:3 [ATK:3/HP:1]
     // - Set: Gvg, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Stealth</b>
@@ -1523,6 +1523,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("GVG_109", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_110] Dr. Boom - COST:7 [ATK:7/HP:7]
