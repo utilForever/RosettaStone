@@ -3985,6 +3985,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_LOEA10_3", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_124] Lone Champion - COST:3 [ATK:2/HP:4]

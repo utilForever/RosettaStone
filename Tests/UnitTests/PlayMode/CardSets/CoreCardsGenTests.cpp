@@ -11246,6 +11246,15 @@ TEST_CASE("[Netural : Minion] - CORE_KAR_036 : Arcane Anomaly")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
+// - Race: Murloc, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_LOEA10_3 : Murloc Tinyfin")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
