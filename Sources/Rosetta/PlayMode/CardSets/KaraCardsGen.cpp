@@ -4,13 +4,16 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Enchants/Effects.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void KaraCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -459,6 +462,8 @@ void KaraCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_011] Pompous Thespian - COST:2 [ATK:3/HP:2]
     // - Set: Kara, Rarity: Common
@@ -514,6 +519,12 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever you cast a spell,
     //       give this minion +1 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "KAR_036e", EntityType::SOURCE) };
+    cards.emplace("KAR_036", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6]
@@ -677,6 +688,8 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_030] Cellar Spider (*) - COST:3 [ATK:1/HP:3]
     // - Race: Beast, Set: Kara
@@ -688,6 +701,10 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_shared<OngoingEnchant>(EffectList{ Effects::HealthN(1) }));
+    cards.emplace("KAR_036e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_037t] Secrets of Karazhan (*) - COST:0

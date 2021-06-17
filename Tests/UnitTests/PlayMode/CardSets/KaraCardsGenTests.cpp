@@ -169,3 +169,49 @@ TEST_CASE("[Rogue : Minion] - KAR_069 : Swashburglar")
     CHECK_EQ(curHand.GetCount(), 1);
     CHECK(curHand[0]->card->IsCardClass(CardClass::HUNTER));
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
+// - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       give this minion +1 Health.
+// --------------------------------------------------------
+TEST_CASE("[Netural : Minion] - KAR_036 : Arcane Anomaly")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Anomaly"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}
