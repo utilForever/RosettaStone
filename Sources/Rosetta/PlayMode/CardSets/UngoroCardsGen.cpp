@@ -2088,6 +2088,9 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("UNG_844", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_845] Igneous Elemental - COST:3 [ATK:2/HP:3]

@@ -183,3 +183,17 @@ TEST_CASE("[Neutral : Minion] - UNG_813 : Stormwatcher")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [UNG_844] Humongous Razorleaf - COST:3 [ATK:4/HP:8]
+// - Faction: Alliance, Set: Ungoro, Rarity: Rare
+// --------------------------------------------------------
+// Text: Can't attack.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - UNG_844 : Humongous Razorleaf")
+{
+    // Do nothing
+}
