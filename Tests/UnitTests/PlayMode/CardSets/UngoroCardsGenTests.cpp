@@ -169,3 +169,17 @@ TEST_CASE("[Warlock : Minion] - UNG_833 : Lakkari Felhound")
     CHECK_EQ(curHand[0]->card->name, "Pyroblast");
     CHECK_EQ(curHand[1]->card->name, "Malygos");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
+// - Race: Elemental, Set: Ungoro, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - UNG_813 : Stormwatcher")
+{
+    // Do nothing
+}
