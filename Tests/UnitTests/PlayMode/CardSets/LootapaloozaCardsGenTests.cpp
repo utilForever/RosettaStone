@@ -67,3 +67,19 @@ TEST_CASE("[Neutral : Minion] - LOOT_124 : Lone Champion")
     CHECK_EQ(curField[1]->HasTaunt(), false);
     CHECK_EQ(curField[1]->HasDivineShield(), false);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
+// - Race: Beast, Set: Lootapalooza, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+//       <b>Poisonous</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOOT_125 : Stoneskin Basilisk")
+{
+    // Do nothing
+}

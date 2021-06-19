@@ -1839,6 +1839,9 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("LOOT_125", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_130] Arcane Tyrant - COST:5 [ATK:4/HP:4]
