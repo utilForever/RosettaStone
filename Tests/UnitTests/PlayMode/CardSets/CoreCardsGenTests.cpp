@@ -11579,3 +11579,17 @@ TEST_CASE("[Neutral : Minion] - CORE_tt_004 : Flesheating Ghoul")
     game.Process(opPlayer, AttackTask(card5, card3));
     CHECK_EQ(curField[0]->GetAttack(), 7);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
+// - Race: Elemental, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_UNG_813 : Stormwatcher")
+{
+    // Do nothing
+}

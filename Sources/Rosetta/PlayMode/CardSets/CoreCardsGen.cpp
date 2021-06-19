@@ -4118,6 +4118,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_UNG_813", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_UNG_844] Humongous Razorleaf - COST:3 [ATK:4/HP:8]
