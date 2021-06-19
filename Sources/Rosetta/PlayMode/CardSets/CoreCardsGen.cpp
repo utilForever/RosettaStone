@@ -4050,6 +4050,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::WEAPON, GameTag::ATK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "NEW1_018e", EntityType::SOURCE, true));
+    cards.emplace("CORE_NEW1_018", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
