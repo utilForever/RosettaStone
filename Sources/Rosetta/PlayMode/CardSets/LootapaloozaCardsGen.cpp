@@ -1904,6 +1904,9 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("LOOT_137", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_144] Hoarding Dragon - COST:4 [ATK:5/HP:6]

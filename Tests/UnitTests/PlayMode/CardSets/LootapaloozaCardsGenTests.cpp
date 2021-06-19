@@ -83,3 +83,17 @@ TEST_CASE("[Neutral : Minion] - LOOT_125 : Stoneskin Basilisk")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: Lootapalooza, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOOT_137 : Sleepy Dragon")
+{
+    // Do nothing
+}
