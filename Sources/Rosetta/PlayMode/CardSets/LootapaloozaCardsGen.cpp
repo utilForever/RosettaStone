@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -1741,6 +1742,8 @@ void LootapaloozaCardsGen::AddWarriorNonCollect(
 
 void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_069] Sewer Crawler - COST:3 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Lootapalooza, Rarity: Common
@@ -1816,6 +1819,14 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldCount(1)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "LOOT_124e", EntityType::SOURCE) }));
+    cards.emplace("LOOT_124", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
@@ -2292,6 +2303,9 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Taunt</b> and <b>Divine Shield</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("LOOT_124e"));
+    cards.emplace("LOOT_124e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_131t1] Green Ooze (*) - COST:2 [ATK:1/HP:2]
