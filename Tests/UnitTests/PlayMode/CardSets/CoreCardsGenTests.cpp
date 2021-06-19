@@ -11255,6 +11255,57 @@ TEST_CASE("[Neutral : Minion] - CORE_LOEA10_3 : Murloc Tinyfin")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_LOOT_124] Lone Champion - COST:3 [ATK:2/HP:4]
+// - Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control no other minions,
+//       gain <b>Taunt</b> and <b>Divine Shield</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_LOOT_124 : Lone Champion")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lone Champion"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lone Champion"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->HasTaunt(), false);
+    CHECK_EQ(curField[1]->HasDivineShield(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------

@@ -4000,9 +4000,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     // RefTag:
-    // - DIVINE_SHIELD = 1
     // - TAUNT = 1
+    // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldCount(1)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "LOOT_124e", EntityType::SOURCE) }));
+    cards.emplace("CORE_LOOT_124", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
