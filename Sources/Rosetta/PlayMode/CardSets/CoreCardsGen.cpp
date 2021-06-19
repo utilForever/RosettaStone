@@ -4036,6 +4036,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_LOOT_137", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]

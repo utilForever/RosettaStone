@@ -11322,6 +11322,20 @@ TEST_CASE("[Neutral : Minion] - CORE_LOOT_125 : Stoneskin Basilisk")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_LOOT_137 : Sleepy Dragon")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
