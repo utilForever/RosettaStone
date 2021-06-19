@@ -4023,6 +4023,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_LOOT_125", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12]
