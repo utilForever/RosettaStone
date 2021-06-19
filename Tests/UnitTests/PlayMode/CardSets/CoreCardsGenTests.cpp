@@ -11607,3 +11607,54 @@ TEST_CASE("[Neutral : Minion] - CORE_UNG_844 : Humongous Razorleaf")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]
+// - Race: Pirate, Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you have a weapon equipped,
+//       deal 2 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS3_022 : Fogsail Freebooter")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto opHero = opPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Fogsail Freebooter", FormatType::STANDARD));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Fogsail Freebooter", FormatType::STANDARD));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opHero->GetHealth(), 30);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, opHero));
+    CHECK_EQ(opHero->GetHealth(), 28);
+}
