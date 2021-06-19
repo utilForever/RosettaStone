@@ -4131,6 +4131,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_UNG_844", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]
