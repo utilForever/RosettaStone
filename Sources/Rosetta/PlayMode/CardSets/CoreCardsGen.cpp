@@ -4353,6 +4353,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_037", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_038] Redgill Razorjaw - COST:2 [ATK:3/HP:1]

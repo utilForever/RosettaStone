@@ -12101,3 +12101,17 @@ TEST_CASE("[Neutral : Minion] - CS3_036 : Deathwing the Destroyer")
     CHECK_EQ(curHand.GetCount(), 3);
     CHECK_EQ(opField.GetCount(), 0);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS3_037] Emerald Skytalon - COST:1 [ATK:2/HP:1]
+// - Race: Beast, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS3_037 : Emerald Skytalon")
+{
+    // Do nothing
+}
