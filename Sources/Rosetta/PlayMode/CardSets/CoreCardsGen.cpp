@@ -4278,6 +4278,28 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            auto& taskStack = source->game->taskStack;
+            if (taskStack.playables.empty())
+            {
+                return;
+            }
+
+            const int count = MAX_HAND_SIZE - player->GetHandZone()->GetCount();
+            const int numPlayables =
+                static_cast<int>(taskStack.playables.size());
+
+            for (int i = 0; i < numPlayables && i < count; ++i)
+            {
+                Generic::Draw(player, taskStack.playables[i]);
+            }
+        }));
+    cards.emplace("CS3_034", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_035] Nozdormu the Eternal - COST:7 [ATK:8/HP:8]

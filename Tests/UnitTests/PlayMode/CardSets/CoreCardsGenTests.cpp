@@ -11944,8 +11944,6 @@ TEST_CASE("[Neutral : Minion] - CS3_032 : Onyxia the Broodmother")
 // Text: <b>Battlecry:</b> Add one of each Dream card
 //       to your hand.
 // --------------------------------------------------------
-// Entourage: DREAM_01, DREAM_02, DREAM_03, DREAM_04, DREAM_05
-// --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
 // - BATTLECRY = 1
@@ -11984,4 +11982,58 @@ TEST_CASE("[Neutral : Minion] - CS3_033 : Ysera the Dreamer")
     CHECK_EQ(curHand[2]->card->name, "Laughing Sister");
     CHECK_EQ(curHand[3]->card->name, "Ysera Awakens");
     CHECK_EQ(curHand[4]->card->name, "Emerald Drake");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS3_034] Malygos the Spellweaver - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw spells until your hand is full.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS3_034 : Malygos the Spellweaver")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Bloodfen Raptor");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Frostbolt");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Malygos the Spellweaver", FormatType::STANDARD));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 10);
+    CHECK_EQ(curHand[4]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[5]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[6]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[7]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[8]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[9]->card->GetCardType(), CardType::SPELL);
 }
