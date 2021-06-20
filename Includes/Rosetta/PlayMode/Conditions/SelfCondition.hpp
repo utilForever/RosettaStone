@@ -27,9 +27,9 @@ class SelfCondition
     //! \param func The function to check condition.
     explicit SelfCondition(std::function<bool(Playable*)> func);
 
-    //! SelfCondition wrapper for checking it is current player.
+    //! SelfCondition wrapper for checking it is friendly.
     //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition IsCurrentPlayer();
+    static SelfCondition IsFriendly();
 
     //! SelfCondition wrapper for checking the entity is not start in deck.
     //! \return Generated SelfCondition for intended purpose.

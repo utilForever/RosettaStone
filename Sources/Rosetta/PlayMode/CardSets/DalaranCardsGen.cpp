@@ -730,7 +730,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         TaskList{ std::make_shared<ConditionTask>(
                       EntityType::TARGET,
                       SelfCondList{ std::make_shared<SelfCondition>(
-                          SelfCondition::IsCurrentPlayer()) }),
+                          SelfCondition::IsFriendly()) }),
                   std::make_shared<FlagTask>(
                       true, TaskList{ std::make_shared<RandomMinionNumberTask>(
                                           GameTag::COST),
@@ -967,7 +967,7 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
         TaskList{ std::make_shared<ConditionTask>(
                       EntityType::TARGET,
                       SelfCondList{ std::make_shared<SelfCondition>(
-                          SelfCondition::IsCurrentPlayer()) }),
+                          SelfCondition::IsFriendly()) }),
                   std::make_shared<FlagTask>(
                       true, TaskList{ std::make_shared<RandomMinionNumberTask>(
                                           GameTag::COST),
