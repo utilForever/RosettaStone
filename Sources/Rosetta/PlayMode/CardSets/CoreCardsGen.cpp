@@ -4324,6 +4324,25 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, Playable* target) {
+            const int count = player->game->taskStack.num[0];
+
+            const auto& discardTask = std::make_shared<DiscardTask>(count);
+            discardTask->SetPlayer(player);
+            discardTask->SetSource(source);
+            discardTask->SetTarget(target);
+
+            discardTask->Run();
+
+            return TaskStatus::COMPLETE;
+        }));
+    cards.emplace("CS3_036", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_037] Emerald Skytalon - COST:1 [ATK:2/HP:1]
