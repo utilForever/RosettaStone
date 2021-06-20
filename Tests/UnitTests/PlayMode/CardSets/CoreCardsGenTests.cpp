@@ -11780,3 +11780,60 @@ TEST_CASE("[Neutral : Minion] - CS3_025 : Overlord Runthak")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 5);
     CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 13);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS3_031] Alexstrasza the Life-Binder - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry</b>: Choose a character.
+//       If it's friendly, restore 8 Health.
+//       If it's an enemy, deal 8 damage.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS3_031 : Alexstrasza the Life-Binder")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Alexstrasza the Life-Binder",
+                                         FormatType::STANDARD));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Alexstrasza the Life-Binder",
+                                        FormatType::STANDARD));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+}
