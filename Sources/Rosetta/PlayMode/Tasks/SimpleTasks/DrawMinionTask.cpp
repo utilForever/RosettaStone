@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawMinionTask.hpp>
@@ -20,8 +21,11 @@ DrawMinionTask::DrawMinionTask(int amount, bool addToStack)
     // Do nothing
 }
 
-DrawMinionTask::DrawMinionTask(bool lowestCost, int amount, bool addToStack)
-    : m_amount(amount), m_lowestCost(lowestCost), m_addToStack(addToStack)
+DrawMinionTask::DrawMinionTask(DrawMinionType drawMinionType, int amount,
+                               bool addToStack)
+    : m_amount(amount),
+      m_drawMinionType(drawMinionType),
+      m_addToStack(addToStack)
 {
     // Do nothing
 }
@@ -33,82 +37,45 @@ TaskStatus DrawMinionTask::Impl(Player* player)
         player->game->taskStack.playables.clear();
     }
 
-    auto deck = player->GetDeckZone()->GetAll();
-    if (deck.empty())
+    auto deckCards = player->GetDeckZone()->GetAll();
+    if (deckCards.empty())
     {
         return TaskStatus::STOP;
     }
 
-    std::vector<Playable*> cards;
-    cards.reserve(m_amount);
+    EraseIf(deckCards, [=](Playable* playable) {
+        return playable->card->GetCardType() != CardType::MINION;
+    });
 
-    if (m_lowestCost)
+    switch (m_drawMinionType)
     {
-        int minCost = std::numeric_limits<int>::max();
+        case DrawMinionType::DEFAULT:
+            std::shuffle(deckCards.begin(), deckCards.end(),
+                         Random::get_engine());
+            break;
+        case DrawMinionType::LOWEST_COST:
+            std::sort(deckCards.begin(), deckCards.end(),
+                      [](const Playable* card1, const Playable* card2) {
+                          return card1->GetCost() < card2->GetCost();
+                      });
+            break;
+        case DrawMinionType::HIGHEST_COST:
 
-        for (auto& deckCard : deck)
-        {
-            if (deckCard->card->GetCardType() != CardType::MINION)
-            {
-                continue;
-            }
-
-            const int cost = deckCard->card->GetCost();
-            if (cost < minCost)
-            {
-                minCost = cost;
-
-                cards.clear();
-                cards.emplace_back(deckCard);
-            }
-            else if (cost == minCost)
-            {
-                cards.emplace_back(deckCard);
-            }
-        }
-    }
-    else
-    {
-        for (auto& deckCard : deck)
-        {
-            if (deckCard->card->GetCardType() == CardType::MINION)
-            {
-                cards.emplace_back(deckCard);
-            }
-        }
+            std::sort(deckCards.begin(), deckCards.end(),
+                      [](const Playable* card1, const Playable* card2) {
+                          return card1->GetCost() > card2->GetCost();
+                      });
+            break;
     }
 
-    if (cards.empty())
+    for (int i = 0; i < m_amount; ++i)
     {
-        return TaskStatus::STOP;
-    }
-
-    if (static_cast<int>(cards.size()) <= m_amount)
-    {
-        for (int i = 0; i < m_amount; ++i)
+        if (m_addToStack)
         {
-            if (m_addToStack)
-            {
-                player->game->taskStack.playables.emplace_back(cards[i]);
-            }
-
-            Generic::Draw(player, cards[i]);
+            player->game->taskStack.playables.emplace_back(deckCards[i]);
         }
-    }
-    else
-    {
-        for (int i = 0; i < m_amount; ++i)
-        {
-            const auto pick = Random::get<std::size_t>(0, cards.size() - 1);
 
-            if (m_addToStack)
-            {
-                player->game->taskStack.playables.emplace_back(cards[pick]);
-            }
-
-            Generic::Draw(player, cards[pick]);
-            cards.erase(std::begin(cards) + pick);
-        }
+        Generic::Draw(player, deckCards[i]);
     }
 
     return TaskStatus::COMPLETE;
@@ -116,7 +83,7 @@ TaskStatus DrawMinionTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DrawMinionTask::CloneImpl()
 {
-    return std::make_unique<DrawMinionTask>(m_lowestCost, m_amount,
+    return std::make_unique<DrawMinionTask>(m_drawMinionType, m_amount,
                                             m_addToStack);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks

@@ -10,6 +10,14 @@
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+//! The type of draw minion task.
+enum class DrawMinionType
+{
+    DEFAULT,       //!< Don't care.
+    LOWEST_COST,   //!< Lowest cost card.
+    HIGHEST_COST,  //!< Highest cost card.
+};
+
 //!
 //! \brief DrawMinionTask class.
 //!
@@ -23,11 +31,13 @@ class DrawMinionTask : public ITask
     //! \param addToStack A flag to store card to stack.
     explicit DrawMinionTask(int amount, bool addToStack);
 
-    //! Constructs task with given \p lowestCost, \p amount and \p addToStack.
-    //! \param lowestCost A flag to draw lowest cost card(s).
+    //! Constructs task with given \p drawMinionType, \p amount
+    //! and \p addToStack.
+    //! \param drawMinionType The type of draw minion task.
     //! \param amount The amount to draw minion card(s).
     //! \param addToStack A flag to store card to stack.
-    explicit DrawMinionTask(bool lowestCost, int amount, bool addToStack);
+    explicit DrawMinionTask(DrawMinionType drawMinionType, int amount,
+                            bool addToStack);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -40,7 +50,7 @@ class DrawMinionTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     int m_amount = 0;
-    bool m_lowestCost = false;
+    DrawMinionType m_drawMinionType = DrawMinionType::DEFAULT;
     bool m_addToStack = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
