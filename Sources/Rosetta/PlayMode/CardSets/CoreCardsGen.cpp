@@ -4235,6 +4235,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT) },
+        3) };
+    cards.emplace("CS3_032", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_033] Ysera the Dreamer - COST:9 [ATK:4/HP:12]

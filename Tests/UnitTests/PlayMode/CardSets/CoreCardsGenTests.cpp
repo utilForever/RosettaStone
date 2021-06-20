@@ -11837,3 +11837,102 @@ TEST_CASE("[Neutral : Minion] - CS3_031 : Alexstrasza the Life-Binder")
                  PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS3_032] Onyxia the Broodmother - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the end of each turn,
+//       fill your board with 1/1 Whelps.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS3_032 : Onyxia the Broodmother")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Onyxia the Broodmother", FormatType::STANDARD));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Flamestrike"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[0]->card->name, "Whelp");
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->card->name, "Whelp");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->card->name, "Whelp");
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->card->name, "Onyxia the Broodmother");
+    CHECK_EQ(curField[3]->GetAttack(), 8);
+    CHECK_EQ(curField[3]->GetHealth(), 8);
+    CHECK_EQ(curField[4]->card->name, "Whelp");
+    CHECK_EQ(curField[4]->GetAttack(), 1);
+    CHECK_EQ(curField[4]->GetHealth(), 1);
+    CHECK_EQ(curField[5]->card->name, "Whelp");
+    CHECK_EQ(curField[5]->GetAttack(), 1);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[6]->card->name, "Whelp");
+    CHECK_EQ(curField[6]->GetAttack(), 1);
+    CHECK_EQ(curField[6]->GetHealth(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[0]->card->name, "Whelp");
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->card->name, "Whelp");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->card->name, "Whelp");
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->card->name, "Onyxia the Broodmother");
+    CHECK_EQ(curField[3]->GetAttack(), 8);
+    CHECK_EQ(curField[3]->GetHealth(), 3);
+    CHECK_EQ(curField[4]->card->name, "Whelp");
+    CHECK_EQ(curField[4]->GetAttack(), 1);
+    CHECK_EQ(curField[4]->GetHealth(), 1);
+    CHECK_EQ(curField[5]->card->name, "Whelp");
+    CHECK_EQ(curField[5]->GetAttack(), 1);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[6]->card->name, "Whelp");
+    CHECK_EQ(curField[6]->GetAttack(), 1);
+    CHECK_EQ(curField[6]->GetHealth(), 1);
+}
