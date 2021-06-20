@@ -4171,6 +4171,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawMinionTask>(
+        DrawMinionType::HIGHEST_COST, 1, false));
+    cards.emplace("CS3_024", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_025] Overlord Runthak - COST:5 [ATK:3/HP:6]
