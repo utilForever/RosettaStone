@@ -11719,3 +11719,64 @@ TEST_CASE("[Neutral : Minion] - CS3_024 : Taelan Fordring")
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Sleepy Dragon");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS3_025] Overlord Runthak - COST:5 [ATK:3/HP:6]
+// - Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Rush</b>. Whenever this attacks,
+//       give +1/+1 to all minions in your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - RUSH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS3_025 : Overlord Runthak")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Overlord Runthak", FormatType::STANDARD));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, AttackTask(card1, card4));
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 5);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 13);
+}

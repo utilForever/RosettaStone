@@ -4188,6 +4188,13 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "CS3_025e", EntityType::HAND, false, false,
+        SelfCondition::IsMinion()) };
+    cards.emplace("CS3_025", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_031] Alexstrasza the Life-Binder - COST:9 [ATK:8/HP:8]
@@ -4300,6 +4307,9 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS3_025e"));
+    cards.emplace("CS3_025e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS3_035e] Nozdormu Time - COST:0
