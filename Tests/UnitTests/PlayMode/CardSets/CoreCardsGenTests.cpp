@@ -11936,3 +11936,52 @@ TEST_CASE("[Neutral : Minion] - CS3_032 : Onyxia the Broodmother")
     CHECK_EQ(curField[6]->GetAttack(), 1);
     CHECK_EQ(curField[6]->GetHealth(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS3_033] Ysera the Dreamer - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add one of each Dream card
+//       to your hand.
+// --------------------------------------------------------
+// Entourage: DREAM_01, DREAM_02, DREAM_03, DREAM_04, DREAM_05
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS3_033 : Ysera the Dreamer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ysera the Dreamer", FormatType::STANDARD));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[0]->card->name, "Nightmare");
+    CHECK_EQ(curHand[1]->card->name, "Dream");
+    CHECK_EQ(curHand[2]->card->name, "Laughing Sister");
+    CHECK_EQ(curHand[3]->card->name, "Ysera Awakens");
+    CHECK_EQ(curHand[4]->card->name, "Emerald Drake");
+}

@@ -4255,6 +4255,18 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_05"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_04"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_01"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_02"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_03"));
+    cards.emplace("CS3_033", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_034] Malygos the Spellweaver - COST:9 [ATK:4/HP:12]
