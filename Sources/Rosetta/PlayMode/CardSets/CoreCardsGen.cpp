@@ -4290,11 +4290,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 return;
             }
 
-            const int count = MAX_HAND_SIZE - player->GetHandZone()->GetCount();
+            const int freeSpace = player->GetHandZone()->GetFreeSpace();
             const int numPlayables =
                 static_cast<int>(taskStack.playables.size());
 
-            for (int i = 0; i < numPlayables && i < count; ++i)
+            for (int i = 0; i < numPlayables && i < freeSpace; ++i)
             {
                 Generic::Draw(player, taskStack.playables[i]);
             }
