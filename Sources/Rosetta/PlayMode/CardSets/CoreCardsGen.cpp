@@ -4366,6 +4366,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_038", CardDef(power));
 }
 
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)

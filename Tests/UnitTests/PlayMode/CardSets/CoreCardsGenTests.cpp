@@ -12115,3 +12115,17 @@ TEST_CASE("[Neutral : Minion] - CS3_037 : Emerald Skytalon")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [CS3_038] Redgill Razorjaw - COST:2 [ATK:3/HP:1]
+// - Race: Murloc, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CS3_038 : Redgill Razorjaw")
+{
+    // Do nothing
+}
