@@ -15,6 +15,7 @@
 * [One Night in Karazhan](#one-night-in-karazhan)
 * [Journey to Un'Goro](#journey-to-ungoro)
 * [Knights of the Frozen Throne](#knights-of-the-frozen-throne)
+* [Kobolds & Catacombs](#kobolds--catacombs)
 * [The Witchwood](#the-witchwood)
 * [The Boomsday Project](#the-boomsday-project)
 * [Rastakhan's Rumble](#rastakhans-rumble)
@@ -498,7 +499,7 @@ NAXX | FP1_002 | Haunted Creeper |
 NAXX | FP1_003 | Echoing Ooze |  
 NAXX | FP1_004 | Mad Scientist |  
 NAXX | FP1_005 | Shade of Naxxramas |  
-NAXX | FP1_007 | Nerubian Egg |  
+NAXX | FP1_007 | Nerubian Egg | O
 NAXX | FP1_008 | Spectral Knight |  
 NAXX | FP1_009 | Deathlord |  
 NAXX | FP1_010 | Maexxna |  
@@ -522,9 +523,9 @@ NAXX | FP1_027 | Stoneskin Gargoyle |
 NAXX | FP1_028 | Undertaker |  
 NAXX | FP1_029 | Dancing Swords |  
 NAXX | FP1_030 | Loatheb |  
-NAXX | FP1_031 | Baron Rivendare |  
+NAXX | FP1_031 | Baron Rivendare | O
 
-- Progress: 6% (2 of 30 Cards)
+- Progress: 13% (4 of 30 Cards)
 
 ## Goblins vs Gnomes
 
@@ -542,7 +543,7 @@ GVG | GVG_009 | Shadowbomber |
 GVG | GVG_010 | Velen's Chosen |  
 GVG | GVG_011 | Shrinkmeister |  
 GVG | GVG_012 | Light of the Naaru |  
-GVG | GVG_013 | Cogmaster |  
+GVG | GVG_013 | Cogmaster | O
 GVG | GVG_014 | Vol'jin |  
 GVG | GVG_015 | Darkbomb |  
 GVG | GVG_016 | Fel Reaver |  
@@ -573,7 +574,7 @@ GVG | GVG_040 | Siltfin Spiritwalker |
 GVG | GVG_041 | Dark Wispers |  
 GVG | GVG_042 | Neptulon |  
 GVG | GVG_043 | Glaivezooka |  
-GVG | GVG_044 | Spider Tank |  
+GVG | GVG_044 | Spider Tank | O
 GVG | GVG_045 | Imp-losion |  
 GVG | GVG_046 | King of Beasts |  
 GVG | GVG_047 | Sabotage |  
@@ -605,7 +606,7 @@ GVG | GVG_072 | Shadowboxer |
 GVG | GVG_073 | Cobra Shot |  
 GVG | GVG_074 | Kezan Mystic |  
 GVG | GVG_075 | Ship's Cannon |  
-GVG | GVG_076 | Explosive Sheep |  
+GVG | GVG_076 | Explosive Sheep | O
 GVG | GVG_077 | Anima Golem |  
 GVG | GVG_078 | Mechanical Yeti |  
 GVG | GVG_079 | Force-Tank MAX |  
@@ -614,7 +615,7 @@ GVG | GVG_081 | Gilblin Stalker |
 GVG | GVG_082 | Clockwork Gnome |  
 GVG | GVG_083 | Upgraded Repair Bot |  
 GVG | GVG_084 | Flying Machine |  
-GVG | GVG_085 | Annoy-o-Tron |  
+GVG | GVG_085 | Annoy-o-Tron | O
 GVG | GVG_086 | Siege Engine |  
 GVG | GVG_087 | Steamwheedle Sniper |  
 GVG | GVG_088 | Ogre Ninja |  
@@ -638,7 +639,7 @@ GVG | GVG_105 | Piloted Sky Golem |
 GVG | GVG_106 | Junkbot |  
 GVG | GVG_107 | Enhance-o Mechano |  
 GVG | GVG_108 | Recombobulator |  
-GVG | GVG_109 | Mini-Mage |  
+GVG | GVG_109 | Mini-Mage | O
 GVG | GVG_110 | Dr. Boom |  
 GVG | GVG_111 | Mimiron's Head |  
 GVG | GVG_112 | Mogor the Ogre |  
@@ -650,11 +651,11 @@ GVG | GVG_117 | Gazlowe |
 GVG | GVG_118 | Troggzor the Earthinator |  
 GVG | GVG_119 | Blingtron 3000 |  
 GVG | GVG_120 | Hemet Nesingwary |  
-GVG | GVG_121 | Clockwork Giant |  
+GVG | GVG_121 | Clockwork Giant | O
 GVG | GVG_122 | Wee Spellstopper |  
 GVG | GVG_123 | Soot Spewer |  
 
-- Progress: 0% (1 of 123 Cards)
+- Progress: 5% (7 of 123 Cards)
 
 ## Blackrock Mountain
 
@@ -790,7 +791,7 @@ TGT | AT_088 | Mogor's Champion |
 TGT | AT_089 | Boneguard Lieutenant |  
 TGT | AT_090 | Mukla's Champion |  
 TGT | AT_091 | Tournament Medic |  
-TGT | AT_092 | Ice Rager |  
+TGT | AT_092 | Ice Rager | O
 TGT | AT_093 | Frigid Snobold |  
 TGT | AT_094 | Flame Juggler |  
 TGT | AT_095 | Silent Knight |  
@@ -831,7 +832,7 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 5% (7 of 132 Cards)
+- Progress: 6% (8 of 132 Cards)
 
 ## The League of Explorers
 
@@ -881,9 +882,9 @@ LOE | LOE_115 | Raven Idol |
 LOE | LOE_116 | Reliquary Seeker |  
 LOE | LOE_118 | Cursed Blade |  
 LOE | LOE_119 | Animated Armor |  
-LOE | LOEA10_3 | Murloc Tinyfin |  
+LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 4% (2 of 45 Cards)
+- Progress: 6% (3 of 45 Cards)
 
 ## Whispers of the Old Gods
 
@@ -1045,7 +1046,7 @@ KARA | KAR_029 | Runic Egg |
 KARA | KAR_030a | Pantry Spider |  
 KARA | KAR_033 | Book Wyrm |  
 KARA | KAR_035 | Priest of the Feast |  
-KARA | KAR_036 | Arcane Anomaly |  
+KARA | KAR_036 | Arcane Anomaly | O
 KARA | KAR_037 | Avian Watcher |  
 KARA | KAR_041 | Moat Lurker |  
 KARA | KAR_044 | Moroes |  
@@ -1076,7 +1077,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 8% (4 of 45 Cards)
+- Progress: 11% (5 of 45 Cards)
 
 ## Journey to Un'Goro
 
@@ -1153,7 +1154,7 @@ UNGORO | UNG_808 | Stubborn Gastropod |
 UNGORO | UNG_809 | Fire Fly |  
 UNGORO | UNG_810 | Stegodon |  
 UNGORO | UNG_812 | Sabretooth Stalker |  
-UNGORO | UNG_813 | Stormwatcher |  
+UNGORO | UNG_813 | Stormwatcher | O
 UNGORO | UNG_814 | Giant Wasp |  
 UNGORO | UNG_816 | Servant of Kalimos |  
 UNGORO | UNG_817 | Tidal Surge | O
@@ -1170,7 +1171,7 @@ UNGORO | UNG_836 | Clutchmother Zavas |
 UNGORO | UNG_838 | Tar Lord |  
 UNGORO | UNG_840 | Hemet, Jungle Hunter |  
 UNGORO | UNG_843 | The Voraxx |  
-UNGORO | UNG_844 | Humongous Razorleaf |  
+UNGORO | UNG_844 | Humongous Razorleaf | O
 UNGORO | UNG_845 | Igneous Elemental |  
 UNGORO | UNG_846 | Shimmering Tempest |  
 UNGORO | UNG_847 | Blazecaller |  
@@ -1218,7 +1219,7 @@ UNGORO | UNG_961 | Adaptation |
 UNGORO | UNG_962 | Lightfused Stegodon |  
 UNGORO | UNG_963 | Lyra the Sunshard |  
 
-- Progress: 2% (3 of 135 Cards)
+- Progress: 3% (5 of 135 Cards)
 
 ## Knights of the Frozen Throne
 
@@ -1229,7 +1230,7 @@ ICECROWN | ICC_019 | Skelemancer |
 ICECROWN | ICC_021 | Exploding Bloatbat |  
 ICECROWN | ICC_023 | Snowflipper Penguin |  
 ICECROWN | ICC_025 | Rattling Rascal |  
-ICECROWN | ICC_026 | Grim Necromancer |  
+ICECROWN | ICC_026 | Grim Necromancer | O
 ICECROWN | ICC_027 | Bone Drake |  
 ICECROWN | ICC_028 | Sunborne Val'kyr |  
 ICECROWN | ICC_029 | Cobalt Scalebane |  
@@ -1360,7 +1361,149 @@ ICECROWN | ICC_911 | Keening Banshee |
 ICECROWN | ICC_912 | Corpsetaker |  
 ICECROWN | ICC_913 | Tainted Zealot |  
 
-- Progress: 2% (4 of 135 Cards)
+- Progress: 3% (5 of 135 Cards)
+
+## Kobolds & Catacombs
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+LOOTAPALOOZA | LOOT_008 | Psychic Scream |  
+LOOTAPALOOZA | LOOT_013 | Vulgar Homunculus |  
+LOOTAPALOOZA | LOOT_014 | Kobold Librarian |  
+LOOTAPALOOZA | LOOT_017 | Dark Pact |  
+LOOTAPALOOZA | LOOT_018 | Hooked Reaver |  
+LOOTAPALOOZA | LOOT_026 | Fal'dorei Strider |  
+LOOTAPALOOZA | LOOT_033 | Cavern Shinyfinder |  
+LOOTAPALOOZA | LOOT_041 | Kobold Barbarian |  
+LOOTAPALOOZA | LOOT_043 | Lesser Amethyst Spellstone |  
+LOOTAPALOOZA | LOOT_044 | Bladed Gauntlet |  
+LOOTAPALOOZA | LOOT_047 | Barkskin |  
+LOOTAPALOOZA | LOOT_048 | Ironwood Golem |  
+LOOTAPALOOZA | LOOT_051 | Lesser Jasper Spellstone |  
+LOOTAPALOOZA | LOOT_054 | Branching Paths |  
+LOOTAPALOOZA | LOOT_056 | Astral Tiger |  
+LOOTAPALOOZA | LOOT_060 | Crushing Hand |  
+LOOTAPALOOZA | LOOT_062 | Kobold Hermit |  
+LOOTAPALOOZA | LOOT_064 | Lesser Sapphire Spellstone |  
+LOOTAPALOOZA | LOOT_069 | Sewer Crawler |  
+LOOTAPALOOZA | LOOT_077 | Flanking Strike |  
+LOOTAPALOOZA | LOOT_078 | Cave Hydra |  
+LOOTAPALOOZA | LOOT_079 | Wandering Monster |  
+LOOTAPALOOZA | LOOT_080 | Lesser Emerald Spellstone |  
+LOOTAPALOOZA | LOOT_085 | Rhok'delar |  
+LOOTAPALOOZA | LOOT_088 | Potion of Heroism |  
+LOOTAPALOOZA | LOOT_091 | Lesser Pearl Spellstone |  
+LOOTAPALOOZA | LOOT_093 | Call to Arms |  
+LOOTAPALOOZA | LOOT_101 | Explosive Runes |  
+LOOTAPALOOZA | LOOT_103 | Lesser Ruby Spellstone |  
+LOOTAPALOOZA | LOOT_104 | Shifting Scroll |  
+LOOTAPALOOZA | LOOT_106 | Deck of Wonders |  
+LOOTAPALOOZA | LOOT_108 | Aluneth |  
+LOOTAPALOOZA | LOOT_111 | Scorp-o-matic |  
+LOOTAPALOOZA | LOOT_117 | Wax Elemental |  
+LOOTAPALOOZA | LOOT_118 | Ebon Dragonsmith |  
+LOOTAPALOOZA | LOOT_122 | Corrosive Sludge |  
+LOOTAPALOOZA | LOOT_124 | Lone Champion | O
+LOOTAPALOOZA | LOOT_125 | Stoneskin Basilisk | O
+LOOTAPALOOZA | LOOT_130 | Arcane Tyrant |  
+LOOTAPALOOZA | LOOT_131 | Green Jelly |  
+LOOTAPALOOZA | LOOT_132 | Dragonslayer |  
+LOOTAPALOOZA | LOOT_134 | Toothy Chest |  
+LOOTAPALOOZA | LOOT_136 | Sneaky Devil |  
+LOOTAPALOOZA | LOOT_137 | Sleepy Dragon | O
+LOOTAPALOOZA | LOOT_144 | Hoarding Dragon |  
+LOOTAPALOOZA | LOOT_149 | Corridor Creeper |  
+LOOTAPALOOZA | LOOT_150 | Furbolg Mossbinder |  
+LOOTAPALOOZA | LOOT_152 | Boisterous Bard |  
+LOOTAPALOOZA | LOOT_153 | Violet Wurm |  
+LOOTAPALOOZA | LOOT_154 | Gravelsnout Knight |  
+LOOTAPALOOZA | LOOT_161 | Carnivorous Cube |  
+LOOTAPALOOZA | LOOT_165 | Sonya Shadowdancer |  
+LOOTAPALOOZA | LOOT_167 | Fungalmancer |  
+LOOTAPALOOZA | LOOT_170 | Raven Familiar |  
+LOOTAPALOOZA | LOOT_172 | Dragon's Fury |  
+LOOTAPALOOZA | LOOT_184 | Silver Vanguard |  
+LOOTAPALOOZA | LOOT_187 | Twilight's Call |  
+LOOTAPALOOZA | LOOT_193 | Shimmering Courser |  
+LOOTAPALOOZA | LOOT_203 | Lesser Mithril Spellstone |  
+LOOTAPALOOZA | LOOT_204 | Cheat Death |  
+LOOTAPALOOZA | LOOT_209 | Dragon Soul |  
+LOOTAPALOOZA | LOOT_210 | Sudden Betrayal |  
+LOOTAPALOOZA | LOOT_211 | Elven Minstrel |  
+LOOTAPALOOZA | LOOT_214 | Evasion |  
+LOOTAPALOOZA | LOOT_216 | Lynessa Sunsorrow |  
+LOOTAPALOOZA | LOOT_217 | To My Side! |  
+LOOTAPALOOZA | LOOT_218 | Feral Gibberer |  
+LOOTAPALOOZA | LOOT_222 | Candleshot |  
+LOOTAPALOOZA | LOOT_231 | Arcane Artificer |  
+LOOTAPALOOZA | LOOT_233 | Cursed Disciple |  
+LOOTAPALOOZA | LOOT_258 | Dire Mole |  
+LOOTAPALOOZA | LOOT_278 | Unidentified Elixir |  
+LOOTAPALOOZA | LOOT_285 | Unidentified Shield |  
+LOOTAPALOOZA | LOOT_286 | Unidentified Maul |  
+LOOTAPALOOZA | LOOT_291 | Shroom Brewer |  
+LOOTAPALOOZA | LOOT_306 | Possessed Lackey |  
+LOOTAPALOOZA | LOOT_309 | Oaken Summons |  
+LOOTAPALOOZA | LOOT_313 | Crystal Lion |  
+LOOTAPALOOZA | LOOT_314 | Grizzled Guardian |  
+LOOTAPALOOZA | LOOT_315 | Trogg Gloomeater |  
+LOOTAPALOOZA | LOOT_329 | Ixlid, Fungal Lord |  
+LOOTAPALOOZA | LOOT_333 | Level Up! |  
+LOOTAPALOOZA | LOOT_344 | Primal Talismans |  
+LOOTAPALOOZA | LOOT_347 | Kobold Apprentice |  
+LOOTAPALOOZA | LOOT_351 | Greedy Sprite |  
+LOOTAPALOOZA | LOOT_353 | Psionic Probe |  
+LOOTAPALOOZA | LOOT_357 | Marin the Fox |  
+LOOTAPALOOZA | LOOT_358 | Grumble, Worldshaker |  
+LOOTAPALOOZA | LOOT_363 | Drygulch Jailor |  
+LOOTAPALOOZA | LOOT_364 | Reckless Flurry |  
+LOOTAPALOOZA | LOOT_365 | Gemstudded Golem |  
+LOOTAPALOOZA | LOOT_367 | Drywhisker Armorer |  
+LOOTAPALOOZA | LOOT_368 | Voidlord |  
+LOOTAPALOOZA | LOOT_370 | Gather Your Party |  
+LOOTAPALOOZA | LOOT_373 | Healing Rain |  
+LOOTAPALOOZA | LOOT_375 | Guild Recruiter |  
+LOOTAPALOOZA | LOOT_380 | Woecleaver |  
+LOOTAPALOOZA | LOOT_382 | Kobold Monk |  
+LOOTAPALOOZA | LOOT_383 | Hungry Ettin |  
+LOOTAPALOOZA | LOOT_388 | Fungal Enchanter |  
+LOOTAPALOOZA | LOOT_389 | Rummaging Kobold |  
+LOOTAPALOOZA | LOOT_392 | Twig of the World Tree |  
+LOOTAPALOOZA | LOOT_394 | Shrieking Shroom |  
+LOOTAPALOOZA | LOOT_398 | Benevolent Djinn |  
+LOOTAPALOOZA | LOOT_410 | Duskbreaker |  
+LOOTAPALOOZA | LOOT_412 | Kobold Illusionist |  
+LOOTAPALOOZA | LOOT_413 | Plated Beetle |  
+LOOTAPALOOZA | LOOT_414 | Grand Archivist |  
+LOOTAPALOOZA | LOOT_415 | Rin, the First Disciple |  
+LOOTAPALOOZA | LOOT_417 | Cataclysm |  
+LOOTAPALOOZA | LOOT_420 | Skull of the Man'ari |  
+LOOTAPALOOZA | LOOT_500 | Val'anyr |  
+LOOTAPALOOZA | LOOT_503 | Lesser Onyx Spellstone |  
+LOOTAPALOOZA | LOOT_504 | Unstable Evolution |  
+LOOTAPALOOZA | LOOT_506 | The Runespear |  
+LOOTAPALOOZA | LOOT_507 | Lesser Diamond Spellstone |  
+LOOTAPALOOZA | LOOT_511 | Kathrena Winterwisp |  
+LOOTAPALOOZA | LOOT_516 | Zola the Gorgon |  
+LOOTAPALOOZA | LOOT_517 | Murmuring Elemental |  
+LOOTAPALOOZA | LOOT_518 | Windshear Stormcaller |  
+LOOTAPALOOZA | LOOT_519 | Geosculptor Yip |  
+LOOTAPALOOZA | LOOT_520 | Seeping Oozeling |  
+LOOTAPALOOZA | LOOT_521 | Master Oakheart |  
+LOOTAPALOOZA | LOOT_522 | Crushing Walls |  
+LOOTAPALOOZA | LOOT_526 | The Darkness |  
+LOOTAPALOOZA | LOOT_528 | Twilight Acolyte |  
+LOOTAPALOOZA | LOOT_529 | Void Ripper |  
+LOOTAPALOOZA | LOOT_534 | Gilded Gargoyle |  
+LOOTAPALOOZA | LOOT_535 | Dragoncaller Alanna |  
+LOOTAPALOOZA | LOOT_537 | Leyline Manipulator |  
+LOOTAPALOOZA | LOOT_538 | Temporus |  
+LOOTAPALOOZA | LOOT_539 | Spiteful Summoner |  
+LOOTAPALOOZA | LOOT_540 | Dragonhatcher |  
+LOOTAPALOOZA | LOOT_541 | King Togwaggle |  
+LOOTAPALOOZA | LOOT_542 | Kingsbane |  
+
+- Progress: 2% (3 of 135 Cards)
 
 ## The Witchwood
 
@@ -1524,7 +1667,7 @@ BOOMSDAY | BOT_066 | Mechanical Whelp |
 BOOMSDAY | BOT_067 | Rocket Boots |  
 BOOMSDAY | BOT_069 | The Boomship |  
 BOOMSDAY | BOT_079 | Faithful Lumi |  
-BOOMSDAY | BOT_083 | Toxicologist |  
+BOOMSDAY | BOT_083 | Toxicologist | O
 BOOMSDAY | BOT_084 | Violet Haze |  
 BOOMSDAY | BOT_087 | Academic Espionage |  
 BOOMSDAY | BOT_093 | Elementary Reaction |  
@@ -1645,7 +1788,7 @@ BOOMSDAY | BOT_912 | Kangor's Endless Army |
 BOOMSDAY | BOT_913 | Demonic Project |  
 BOOMSDAY | BOT_914 | Whizbang the Wonderful |  
 
-- Progress: 2% (3 of 136 Cards)
+- Progress: 2% (4 of 136 Cards)
 
 ## Rastakhan's Rumble
 

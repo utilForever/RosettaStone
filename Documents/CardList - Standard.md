@@ -17,8 +17,8 @@ CORE | CORE_AT_047 | Draenei Totemcarver | O
 CORE | CORE_AT_055 | Flash Heal | O
 CORE | CORE_AT_061 | Lock and Load | O
 CORE | CORE_AT_075 | Warhorse Trainer | O
-CORE | CORE_AT_092 | Ice Rager |  
-CORE | CORE_BOT_083 | Toxicologist |  
+CORE | CORE_AT_092 | Ice Rager | O
+CORE | CORE_BOT_083 | Toxicologist | O
 CORE | CORE_BOT_420 | Landscaping | O
 CORE | CORE_BOT_453 | Shooting Star | O
 CORE | CORE_BOT_533 | Menacing Nimbus | O
@@ -63,56 +63,56 @@ CORE | CORE_CS2_093 | Consecration | O
 CORE | CORE_CS2_097 | Truesilver Champion | O
 CORE | CORE_CS2_106 | Fiery War Axe | O
 CORE | CORE_CS2_108 | Execute | O
-CORE | CORE_CS2_117 | Earthen Ring Farseer |  
-CORE | CORE_CS2_120 | River Crocolisk |  
-CORE | CORE_CS2_122 | Raid Leader |  
-CORE | CORE_CS2_142 | Kobold Geomancer |  
-CORE | CORE_CS2_179 | Sen'jin Shieldmasta |  
-CORE | CORE_CS2_181 | Injured Blademaster |  
-CORE | CORE_CS2_182 | Chillwind Yeti |  
-CORE | CORE_CS2_188 | Abusive Sergeant |  
-CORE | CORE_CS2_189 | Elven Archer |  
-CORE | CORE_CS2_203 | Ironbeak Owl |  
-CORE | CORE_CS2_222 | Stormwind Champion |  
-CORE | CORE_DAL_086 | Sunreaver Spy |  
+CORE | CORE_CS2_117 | Earthen Ring Farseer | O
+CORE | CORE_CS2_120 | River Crocolisk | O
+CORE | CORE_CS2_122 | Raid Leader | O
+CORE | CORE_CS2_142 | Kobold Geomancer | O
+CORE | CORE_CS2_179 | Sen'jin Shieldmasta | O
+CORE | CORE_CS2_181 | Injured Blademaster | O
+CORE | CORE_CS2_182 | Chillwind Yeti | O
+CORE | CORE_CS2_188 | Abusive Sergeant | O
+CORE | CORE_CS2_189 | Elven Archer | O
+CORE | CORE_CS2_203 | Ironbeak Owl | O
+CORE | CORE_CS2_222 | Stormwind Champion | O
+CORE | CORE_DAL_086 | Sunreaver Spy | O
 CORE | CORE_DS1_184 | Tracking | O
 CORE | CORE_DS1_185 | Arcane Shot | O
-CORE | CORE_EX1_004 | Young Priestess |  
-CORE | CORE_EX1_005 | Big Game Hunter |  
-CORE | CORE_EX1_008 | Argent Squire |  
-CORE | CORE_EX1_010 | Worgen Infiltrator |  
-CORE | CORE_EX1_011 | Voodoo Doctor |  
-CORE | CORE_EX1_012 | Bloodmage Thalnos |  
-CORE | CORE_EX1_014 | King Mukla |  
-CORE | CORE_EX1_017 | Jungle Panther |  
-CORE | CORE_EX1_028 | Stranglethorn Tiger |  
-CORE | CORE_EX1_046 | Dark Iron Dwarf |  
-CORE | CORE_EX1_049 | Youthful Brewmaster |  
-CORE | CORE_EX1_059 | Crazed Alchemist |  
-CORE | CORE_EX1_066 | Acidic Swamp Ooze |  
-CORE | CORE_EX1_082 | Mad Bomber |  
+CORE | CORE_EX1_004 | Young Priestess | O
+CORE | CORE_EX1_005 | Big Game Hunter | O
+CORE | CORE_EX1_008 | Argent Squire | O
+CORE | CORE_EX1_010 | Worgen Infiltrator | O
+CORE | CORE_EX1_011 | Voodoo Doctor | O
+CORE | CORE_EX1_012 | Bloodmage Thalnos | O
+CORE | CORE_EX1_014 | King Mukla | O
+CORE | CORE_EX1_017 | Jungle Panther | O
+CORE | CORE_EX1_028 | Stranglethorn Tiger | O
+CORE | CORE_EX1_046 | Dark Iron Dwarf | O
+CORE | CORE_EX1_049 | Youthful Brewmaster | O
+CORE | CORE_EX1_059 | Crazed Alchemist | O
+CORE | CORE_EX1_066 | Acidic Swamp Ooze | O
+CORE | CORE_EX1_082 | Mad Bomber | O
 CORE | CORE_EX1_084 | Warsong Commander | O
-CORE | CORE_EX1_093 | Defender of Argus |  
-CORE | CORE_EX1_095 | Gadgetzan Auctioneer |  
-CORE | CORE_EX1_096 | Loot Hoarder |  
-CORE | CORE_EX1_103 | Coldlight Seer |  
-CORE | CORE_EX1_110 | Cairne Bloodhoof |  
+CORE | CORE_EX1_093 | Defender of Argus | O
+CORE | CORE_EX1_095 | Gadgetzan Auctioneer | O
+CORE | CORE_EX1_096 | Loot Hoarder | O
+CORE | CORE_EX1_103 | Coldlight Seer | O
+CORE | CORE_EX1_110 | Cairne Bloodhoof | O
 CORE | CORE_EX1_130 | Noble Sacrifice | O
 CORE | CORE_EX1_134 | SI:7 Agent | O
 CORE | CORE_EX1_144 | Shadowstep | O
 CORE | CORE_EX1_145 | Preparation | O
 CORE | CORE_EX1_158 | Soul of the Forest | O
 CORE | CORE_EX1_160 | Power of the Wild | O
-CORE | CORE_EX1_162 | Dire Wolf Alpha |  
+CORE | CORE_EX1_162 | Dire Wolf Alpha | O
 CORE | CORE_EX1_164 | Nourish | O
 CORE | CORE_EX1_165 | Druid of the Claw | O
 CORE | CORE_EX1_169 | Innervate | O
 CORE | CORE_EX1_178 | Ancient of War | O
-CORE | CORE_EX1_186 | SI:7 Infiltrator |  
-CORE | CORE_EX1_187 | Arcane Devourer |  
-CORE | CORE_EX1_188 | Barrens Stablehand |  
-CORE | CORE_EX1_189 | Brightwing |  
-CORE | CORE_EX1_190 | High Inquisitor Whitemane |  
+CORE | CORE_EX1_186 | SI:7 Infiltrator | O
+CORE | CORE_EX1_187 | Arcane Devourer | O
+CORE | CORE_EX1_188 | Barrens Stablehand | O
+CORE | CORE_EX1_189 | Brightwing | O
+CORE | CORE_EX1_190 | High Inquisitor Whitemane | O
 CORE | CORE_EX1_193 | Psychic Conjurer | O
 CORE | CORE_EX1_194 | Power Infusion | O
 CORE | CORE_EX1_195 | Kul Tiran Chaplain | O
@@ -121,7 +121,7 @@ CORE | CORE_EX1_198 | Natalie Seline | O
 CORE | CORE_EX1_238 | Lightning Bolt | O
 CORE | CORE_EX1_246 | Hex | O
 CORE | CORE_EX1_248 | Feral Spirit | O
-CORE | CORE_EX1_249 | Baron Geddon |  
+CORE | CORE_EX1_249 | Baron Geddon | O
 CORE | CORE_EX1_250 | Earth Elemental | O
 CORE | CORE_EX1_258 | Unbound Elemental | O
 CORE | CORE_EX1_259 | Lightning Storm | O
@@ -140,21 +140,21 @@ CORE | CORE_EX1_362 | Argent Protector | O
 CORE | CORE_EX1_382 | Aldor Peacekeeper | O
 CORE | CORE_EX1_383 | Tirion Fordring | O
 CORE | CORE_EX1_391 | Slam | O
-CORE | CORE_EX1_399 | Gurubashi Berserker |  
+CORE | CORE_EX1_399 | Gurubashi Berserker | O
 CORE | CORE_EX1_400 | Whirlwind | O
 CORE | CORE_EX1_402 | Armorsmith | O
 CORE | CORE_EX1_407 | Brawl | O
 CORE | CORE_EX1_410 | Shield Slam | O
 CORE | CORE_EX1_411 | Gorehowl | O
 CORE | CORE_EX1_414 | Grommash Hellscream | O
-CORE | CORE_EX1_506 | Murloc Tidehunter |  
-CORE | CORE_EX1_509 | Murloc Tidecaller |  
+CORE | CORE_EX1_506 | Murloc Tidehunter | O
+CORE | CORE_EX1_509 | Murloc Tidecaller | O
 CORE | CORE_EX1_522 | Patient Assassin | O
 CORE | CORE_EX1_531 | Scavenging Hyena | O
 CORE | CORE_EX1_534 | Savannah Highmane | O
 CORE | CORE_EX1_543 | King Krush | O
 CORE | CORE_EX1_554 | Snake Trap | O
-CORE | CORE_EX1_564 | Faceless Manipulator |  
+CORE | CORE_EX1_564 | Faceless Manipulator | O
 CORE | CORE_EX1_567 | Doomhammer | O
 CORE | CORE_EX1_571 | Force of Nature | O
 CORE | CORE_EX1_573 | Cenarius | O
@@ -168,52 +168,52 @@ CORE | CORE_EX1_619 | Equality | O
 CORE | CORE_EX1_622 | Shadow Word: Death | O
 CORE | CORE_EX1_623 | Temple Enforcer | O
 CORE | CORE_EX1_625 | Shadowform | O
-CORE | CORE_FP1_007 | Nerubian Egg |  
+CORE | CORE_FP1_007 | Nerubian Egg | O
 CORE | CORE_FP1_011 | Webspinner | O
 CORE | CORE_FP1_020 | Avenge | O
-CORE | CORE_FP1_031 | Baron Rivendare |  
+CORE | CORE_FP1_031 | Baron Rivendare | O
 CORE | CORE_GIL_191 | Fiendish Circle | O
 CORE | CORE_GIL_801 | Snap Freeze | O
 CORE | CORE_GIL_828 | Dire Frenzy | O
-CORE | CORE_GVG_013 | Cogmaster |  
-CORE | CORE_GVG_044 | Spider Tank |  
+CORE | CORE_GVG_013 | Cogmaster | O
+CORE | CORE_GVG_044 | Spider Tank | O
 CORE | CORE_GVG_053 | Shieldmaiden | O
-CORE | CORE_GVG_076 | Explosive Sheep |  
-CORE | CORE_GVG_085 | Annoy-o-Tron |  
-CORE | CORE_GVG_109 | Mini-Mage |  
-CORE | CORE_GVG_121 | Clockwork Giant |  
-CORE | CORE_ICC_026 | Grim Necromancer |  
+CORE | CORE_GVG_076 | Explosive Sheep | O
+CORE | CORE_GVG_085 | Annoy-o-Tron | O
+CORE | CORE_GVG_109 | Mini-Mage | O
+CORE | CORE_GVG_121 | Clockwork Giant | O
+CORE | CORE_ICC_026 | Grim Necromancer | O
 CORE | CORE_ICC_038 | Righteous Protector | O
 CORE | CORE_ICC_055 | Drain Soul | O
 CORE | CORE_ICC_419 | Bearshark | O
 CORE | CORE_ICC_809 | Plague Scientist | O
 CORE | CORE_KAR_009 | Babbling Book | O
-CORE | CORE_KAR_036 | Arcane Anomaly |  
+CORE | CORE_KAR_036 | Arcane Anomaly | O
 CORE | CORE_KAR_065 | Menagerie Warden | O
 CORE | CORE_KAR_069 | Swashburglar | O
 CORE | CORE_KAR_300 | Enchanted Raven | O
 CORE | CORE_LOE_003 | Ethereal Conjurer | O
 CORE | CORE_LOE_012 | Tomb Pillager | O
-CORE | CORE_LOEA10_3 | Murloc Tinyfin |  
-CORE | CORE_LOOT_124 | Lone Champion |  
-CORE | CORE_LOOT_125 | Stoneskin Basilisk |  
-CORE | CORE_LOOT_137 | Sleepy Dragon |  
+CORE | CORE_LOEA10_3 | Murloc Tinyfin | O
+CORE | CORE_LOOT_124 | Lone Champion | O
+CORE | CORE_LOOT_125 | Stoneskin Basilisk | O
+CORE | CORE_LOOT_137 | Sleepy Dragon | O
 CORE | CORE_NEW1_010 | Al'Akir the Windlord | O
-CORE | CORE_NEW1_018 | Bloodsail Raider |  
-CORE | CORE_NEW1_026 | Violet Teacher |  
-CORE | CORE_NEW1_027 | Southsea Captain |  
+CORE | CORE_NEW1_018 | Bloodsail Raider | O
+CORE | CORE_NEW1_026 | Violet Teacher | O
+CORE | CORE_NEW1_027 | Southsea Captain | O
 CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_070 | Bladed Cultist | O
 CORE | CORE_OG_241 | Possessed Villager | O
 CORE | CORE_OG_273 | Stand Against Darkness | O
 CORE | CORE_TRL_111 | Headhunter's Hatchet | O
 CORE | CORE_TRL_243 | Pounce | O
-CORE | CORE_tt_004 | Flesheating Ghoul |  
+CORE | CORE_tt_004 | Flesheating Ghoul | O
 CORE | CORE_UNG_020 | Arcanologist | O
-CORE | CORE_UNG_813 | Stormwatcher |  
+CORE | CORE_UNG_813 | Stormwatcher | O
 CORE | CORE_UNG_817 | Tidal Surge | O
 CORE | CORE_UNG_833 | Lakkari Felhound | O
-CORE | CORE_UNG_844 | Humongous Razorleaf |  
+CORE | CORE_UNG_844 | Humongous Razorleaf | O
 CORE | CS3_001 | Aegwynn, the Guardian |  
 CORE | CS3_002 | Ritual of Doom | O
 CORE | CS3_003 | Felsoul Jailer | O
@@ -230,23 +230,23 @@ CORE | CS3_017 | Gan'arg Glaivesmith | O
 CORE | CS3_019 | Kor'vas Bloodthorn | O
 CORE | CS3_020 | Illidari Inquisitor | O
 CORE | CS3_021 | Enslaved Fel Lord | O
-CORE | CS3_022 | Fogsail Freebooter |  
-CORE | CS3_024 | Taelan Fordring |  
-CORE | CS3_025 | Overlord Runthak |  
+CORE | CS3_022 | Fogsail Freebooter | O
+CORE | CS3_024 | Taelan Fordring | O
+CORE | CS3_025 | Overlord Runthak | O
 CORE | CS3_027 | Focused Will | O
 CORE | CS3_028 | Thrive in the Shadows | O
 CORE | CS3_029 | Pursuit of Justice |  
 CORE | CS3_030 | Warsong Outrider | O
-CORE | CS3_031 | Alexstrasza the Life-Binder |  
-CORE | CS3_032 | Onyxia the Broodmother |  
-CORE | CS3_033 | Ysera the Dreamer |  
-CORE | CS3_034 | Malygos the Spellweaver |  
+CORE | CS3_031 | Alexstrasza the Life-Binder | O
+CORE | CS3_032 | Onyxia the Broodmother | O
+CORE | CS3_033 | Ysera the Dreamer | O
+CORE | CS3_034 | Malygos the Spellweaver | O
 CORE | CS3_035 | Nozdormu the Eternal |  
-CORE | CS3_036 | Deathwing the Destroyer |  
-CORE | CS3_037 | Emerald Skytalon |  
-CORE | CS3_038 | Redgill Razorjaw |  
+CORE | CS3_036 | Deathwing the Destroyer | O
+CORE | CS3_037 | Emerald Skytalon | O
+CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 66% (156 of 235 Cards)
+- Progress: 97% (230 of 235 Cards)
 
 ## Ashes of Outland
 
