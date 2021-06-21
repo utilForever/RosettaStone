@@ -668,6 +668,12 @@ void Game::ProcessGraveyard()
                 minion->ActivateTask(PowerType::DEATHRATTLE);
             }
 
+            // If player has extra deathrattle, activate power task again
+            if (minion->player->ExtraMinionDeathrattle())
+            {
+                minion->ActivateTask(PowerType::DEATHRATTLE);
+            }
+
             // Add minion to graveyard
             minion->player->GetGraveyardZone()->Add(minion);
 

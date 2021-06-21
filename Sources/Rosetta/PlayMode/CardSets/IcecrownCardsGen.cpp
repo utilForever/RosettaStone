@@ -1786,6 +1786,8 @@ void IcecrownCardsGen::AddWarriorNonCollect(
 
 void IcecrownCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [ICC_018] Phantom Freebooter - COST:4 [ATK:3/HP:3]
     // - Race: Pirate, Set: Icecrown, Rarity: Rare
@@ -1833,6 +1835,12 @@ void IcecrownCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ICC_026t", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ICC_026t", SummonSide::RIGHT));
+    cards.emplace("ICC_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [ICC_027] Bone Drake - COST:6 [ATK:6/HP:5]
@@ -2320,6 +2328,8 @@ void IcecrownCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void IcecrownCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [ICC_019t] Skeletal Flayer (*) - COST:8 [ATK:8/HP:8]
     // - Set: Icecrown
@@ -2334,6 +2344,9 @@ void IcecrownCardsGen::AddNeutralNonCollect(
     // [ICC_026t] Skeleton (*) - COST:1 [ATK:1/HP:1]
     // - Set: Icecrown
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ICC_026t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ICC_028e] Blessing of the Val'kyr (*) - COST:0

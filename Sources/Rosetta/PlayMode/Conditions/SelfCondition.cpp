@@ -22,10 +22,12 @@ SelfCondition::SelfCondition(std::function<bool(Playable*)> func)
     // Do nothing
 }
 
-SelfCondition SelfCondition::IsCurrentPlayer()
+SelfCondition SelfCondition::IsFriendly()
 {
     return SelfCondition([](Playable* playable) {
-        return playable->game->GetCurrentPlayer() == playable->player;
+        const auto iter =
+            playable->game->entityList.find(playable->GetCardTarget());
+        return playable->player == iter->second->player;
     });
 }
 

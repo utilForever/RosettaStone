@@ -1657,6 +1657,8 @@ void UngoroCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_001] Pterrordax Hatchling - COST:3 [ATK:2/HP:2]
     // - Race: Beast, Set: Ungoro, Rarity: Common
@@ -2010,6 +2012,9 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("UNG_813", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_814] Giant Wasp - COST:3 [ATK:2/HP:2]
@@ -2083,6 +2088,9 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("UNG_844", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_845] Igneous Elemental - COST:3 [ATK:2/HP:3]

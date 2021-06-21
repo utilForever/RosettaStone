@@ -6,12 +6,14 @@
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -23,6 +25,7 @@ using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void CoreCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -3057,10 +3060,15 @@ void CoreCardsGen::AddDemonHunterNonCollect(
 
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_AT_092] Ice Rager - COST:3 [ATK:5/HP:2]
     // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_AT_092", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_BOT_083] Toxicologist - COST:2 [ATK:2/HP:2]
@@ -3071,6 +3079,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BOT_083e", EntityType::WEAPON));
+    cards.emplace("CORE_BOT_083", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
@@ -3081,11 +3093,22 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
+    cards.emplace(
+        "CORE_CS2_117",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
     // - Race: Beast, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_120", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
@@ -3096,6 +3119,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
+    cards.emplace("CORE_CS2_122", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
@@ -3106,6 +3133,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_142", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
@@ -3116,6 +3146,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_179", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
@@ -3126,11 +3159,18 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::SOURCE, 4, false));
+    cards.emplace("CORE_CS2_181", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_182", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
@@ -3141,6 +3181,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_188o", EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_188",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_189] Elven Archer - COST:1 [ATK:1/HP:1]
@@ -3151,6 +3202,16 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    cards.emplace(
+        "CORE_CS2_189",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_203] Ironbeak Owl - COST:3 [ATK:2/HP:1]
@@ -3161,9 +3222,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    cards.emplace(
+        "CORE_CS2_203",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_222] Stormwind Champion - COST:7 [ATK:7/HP:7]
@@ -3174,6 +3245,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_222o"));
+    cards.emplace("CORE_CS2_222", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
@@ -3188,6 +3263,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "DAL_086e", EntityType::SOURCE) }));
+    cards.emplace("CORE_DAL_086", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
@@ -3199,16 +3282,36 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("EX1_004e", EntityType::STACK)
+    };
+    cards.emplace("CORE_EX1_004", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
     // - Set: CORE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
+    // Text: <b>Battlecry:</b> Destroy a minion
+    //       with 7 or more Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_MIN_ATTACK = 7
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_005",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_MIN_ATTACK, 7 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
@@ -3219,6 +3322,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_008", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
@@ -3229,6 +3335,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_010", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
@@ -3239,6 +3348,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "CORE_EX1_011",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1]
@@ -3249,9 +3366,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // - DEATHRATTLE = 1
     // - SPELLPOWER = 1
+    // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_EX1_012", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_014] King Mukla - COST:3 [ATK:5/HP:5]
@@ -3263,6 +3383,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "EX1_014t", 2));
+    cards.emplace("CORE_EX1_014", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
@@ -3273,6 +3397,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_017", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
@@ -3283,6 +3410,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_028", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
@@ -3293,17 +3423,42 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_046e", EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_046",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
     // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Return a friendly minion from
-    //       the battlefield to your hand.
+    // Text: <b>Battlecry:</b> Return a friendly minion
+    //       from the battlefield to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cards.emplace(
+        "CORE_EX1_049",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2]
@@ -3314,6 +3469,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SwapAttackHealthTask>(EntityType::TARGET, "EX1_059e"));
+    cards.emplace(
+        "CORE_EX1_059",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
@@ -3324,6 +3490,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    cards.emplace("CORE_EX1_066", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2]
@@ -3335,6 +3504,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomTask>(EntityType::ALL_NOSOURCE, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        3, false));
+    cards.emplace("CORE_EX1_082", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_093] Defender of Argus - COST:4 [ATK:3/HP:3]
@@ -3349,6 +3524,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
+                                RelaCondition::IsSideBySide()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_093e", EntityType::STACK));
+    cards.emplace("CORE_EX1_093", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_095] Gadgetzan Auctioneer - COST:6 [ATK:4/HP:4]
@@ -3359,6 +3542,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("CORE_EX1_095", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1]
@@ -3369,6 +3557,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_EX1_096", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3]
@@ -3379,6 +3570,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_103e", EntityType::STACK));
+    cards.emplace("CORE_EX1_103", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
@@ -3390,6 +3590,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_110t", SummonSide::DEATHRATTLE));
+    cards.emplace("CORE_EX1_110", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
@@ -3401,6 +3605,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdjacentAura>("EX1_162o"));
+    cards.emplace("CORE_EX1_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4]
@@ -3414,6 +3621,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_SECRETS, 1));
+    power.AddPowerTask(
+        std::make_shared<MoveToGraveyardTask>(EntityType::STACK));
+    cards.emplace("CORE_EX1_186", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_187] Arcane Devourer - COST:8 [ATK:4/HP:8]
@@ -3424,6 +3637,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_187e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_187", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_188] Barrens Stablehand - COST:7 [ATK:5/HP:5]
@@ -3434,6 +3653,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("CORE_EX1_188", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
@@ -3446,6 +3670,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
+                                         Race::INVALID, Rarity::LEGENDARY));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CORE_EX1_189", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
@@ -3458,6 +3688,54 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            const auto field = player->GetFieldZone();
+            if (field->IsFull())
+            {
+                return;
+            }
+
+            const int num = player->GetNumFriendlyMinionsDiedThisTurn();
+            auto& graveyard = *(player->GetGraveyardZone());
+
+            std::vector<int> buffer;
+            buffer.reserve(num);
+            int k = 0;
+
+            for (int i = graveyard.GetCount() - 1, j = 0; j < num; --i)
+            {
+                if (!graveyard[i]->isDestroyed)
+                {
+                    continue;
+                }
+
+                if (graveyard[i]->card->GetCardType() != CardType::MINION)
+                {
+                    continue;
+                }
+
+                buffer.emplace_back(i);
+
+                ++j;
+                ++k;
+            }
+
+            for (--k; k >= 0; --k)
+            {
+                const auto playable = Entity::GetFromCard(
+                    player, graveyard[buffer[k]]->card, std::nullopt, field);
+                field->Add(playable);
+
+                if (field->IsFull())
+                {
+                    return;
+                }
+            }
+        }));
+    cards.emplace("CORE_EX1_190", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
@@ -3470,6 +3748,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_NOSOURCE, 2) };
+    cards.emplace("CORE_EX1_249", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
@@ -3480,6 +3763,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_399e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_399", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
@@ -3490,6 +3779,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CORE_EX1_506a", SummonSide::RIGHT));
+    cards.emplace("CORE_EX1_506", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
@@ -3500,6 +3793,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_509e", EntityType::SOURCE) };
+    cards.emplace("CORE_EX1_509", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
@@ -3510,6 +3811,18 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TransformCopyTask>());
+    cards.emplace(
+        "CORE_EX1_564",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
@@ -3520,6 +3833,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("FP1_007t", SummonSide::DEATHRATTLE));
+    cards.emplace("CORE_FP1_007", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
@@ -3534,6 +3851,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::EXTRA_MINION_DEATHRATTLES_BASE,
+                              EffectOperator::SET, 1) }));
+    cards.emplace("CORE_FP1_031", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_013] Cogmaster - COST:1 [ATK:1/HP:2]
@@ -3541,11 +3864,33 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Has +2 Attack while you have a Mech.
     // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            auto minions = playable->player->GetFieldZone()->GetAll();
+
+            for (auto& minion : minions)
+            {
+                if (minion->card->GetRace() == Race::MECHANICAL)
+                {
+                    return 2;
+                }
+            }
+
+            return 0;
+        }));
+    cards.emplace("CORE_GVG_013", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
     // - Race: Mechanical, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_GVG_044", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1]
@@ -3556,6 +3901,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2));
+    cards.emplace("CORE_GVG_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_085] Annoy-o-Tron - COST:2 [ATK:1/HP:2]
@@ -3565,9 +3914,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //       <b>Divine Shield</b>
     // --------------------------------------------------------
     // GameTag:
-    // - DIVINE_SHIELD = 1
     // - TAUNT = 1
+    // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_GVG_085", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_109] Mini-Mage - COST:3 [ATK:3/HP:1]
@@ -3577,9 +3929,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     //       <b>Spell Damage +1</b>
     // --------------------------------------------------------
     // GameTag:
-    // - SPELLPOWER = 1
     // - STEALTH = 1
+    // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_GVG_109", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_121] Clockwork Giant - COST:12 [ATK:8/HP:8]
@@ -3587,6 +3942,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each card in your opponent's hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->opponent->GetHandZone()->GetCount();
+    }));
+    cards.emplace("CORE_GVG_121", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_ICC_026] Grim Necromancer - COST:4 [ATK:2/HP:4]
@@ -3597,21 +3957,37 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ICC_026t", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ICC_026t", SummonSide::RIGHT));
+    cards.emplace("CORE_ICC_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
     // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: After you cast a spell, give this minion +1 Health.
+    // Text: After you cast a spell,
+    //       give this minion +1 Health.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "KAR_036e", EntityType::SOURCE) };
+    cards.emplace("CORE_KAR_036", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_LOEA10_3", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_124] Lone Champion - COST:3 [ATK:2/HP:4]
@@ -3624,9 +4000,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     // RefTag:
-    // - DIVINE_SHIELD = 1
     // - TAUNT = 1
+    // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldCount(1)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "LOOT_124e", EntityType::SOURCE) }));
+    cards.emplace("CORE_LOOT_124", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
@@ -3639,6 +4023,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_LOOT_125", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12]
@@ -3649,6 +4036,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_LOOT_137", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
@@ -3660,6 +4050,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::WEAPON, GameTag::ATK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "NEW1_018e", EntityType::SOURCE, true));
+    cards.emplace("CORE_NEW1_018", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
@@ -3671,6 +4067,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "NEW1_026t", SummonSide::RIGHT) };
+    cards.emplace("CORE_NEW1_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
@@ -3681,6 +4083,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_027e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::PIRATE));
+    }
+    cards.emplace("CORE_NEW1_027", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_tt_004] Flesheating Ghoul - COST:3 [ATK:3/HP:3]
@@ -3691,6 +4102,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "tt_004o", EntityType::SOURCE) };
+    cards.emplace("CORE_tt_004", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
@@ -3701,6 +4118,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_UNG_813", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_UNG_844] Humongous Razorleaf - COST:3 [ATK:4/HP:8]
@@ -3711,6 +4131,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_UNG_844", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]
@@ -3722,6 +4145,18 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsWeaponEquipped()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2) }));
+    cards.emplace(
+        "CS3_022",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_024] Taelan Fordring - COST:5 [ATK:3/HP:3]
@@ -3736,6 +4171,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawMinionTask>(
+        DrawMinionType::HIGHEST_COST, 1, false));
+    cards.emplace("CS3_024", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_025] Overlord Runthak - COST:5 [ATK:3/HP:6]
@@ -3749,6 +4188,13 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "CS3_025e", EntityType::HAND, false, false,
+        SelfCondition::IsMinion()) };
+    cards.emplace("CS3_025", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_031] Alexstrasza the Life-Binder - COST:9 [ATK:8/HP:8]
@@ -3762,6 +4208,21 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFriendly()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<HealTask>(EntityType::TARGET, 8) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 8) }));
+    cards.emplace(
+        "CS3_031",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_032] Onyxia the Broodmother - COST:9 [ATK:8/HP:8]
@@ -3774,6 +4235,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT) },
+        3) };
+    cards.emplace("CS3_032", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_033] Ysera the Dreamer - COST:9 [ATK:4/HP:12]
@@ -3786,6 +4255,18 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_05"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_04"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_01"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_02"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "DREAM_03"));
+    cards.emplace("CS3_033", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_034] Malygos the Spellweaver - COST:9 [ATK:4/HP:12]
@@ -3797,6 +4278,28 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            auto& taskStack = source->game->taskStack;
+            if (taskStack.playables.empty())
+            {
+                return;
+            }
+
+            const int freeSpace = player->GetHandZone()->GetFreeSpace();
+            const int numPlayables =
+                static_cast<int>(taskStack.playables.size());
+
+            for (int i = 0; i < numPlayables && i < freeSpace; ++i)
+            {
+                Generic::Draw(player, taskStack.playables[i]);
+            }
+        }));
+    cards.emplace("CS3_034", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_035] Nozdormu the Eternal - COST:7 [ATK:8/HP:8]
@@ -3821,6 +4324,25 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, Playable* target) {
+            const int count = player->game->taskStack.num[0];
+
+            const auto& discardTask = std::make_shared<DiscardTask>(count);
+            discardTask->SetPlayer(player);
+            discardTask->SetSource(source);
+            discardTask->SetTarget(target);
+
+            discardTask->Run();
+
+            return TaskStatus::COMPLETE;
+        }));
+    cards.emplace("CS3_036", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_037] Emerald Skytalon - COST:1 [ATK:2/HP:1]
@@ -3831,6 +4353,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_037", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_038] Redgill Razorjaw - COST:2 [ATK:3/HP:1]
@@ -3841,14 +4366,22 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_038", CardDef(power));
 }
 
 void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_506a] Murloc Scout - COST:1 [ATK:1/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CORE_EX1_506a", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS3_025e] Rallying Cry - COST:0
@@ -3856,6 +4389,9 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("CS3_025e"));
+    cards.emplace("CS3_025e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS3_035e] Nozdormu Time - COST:0

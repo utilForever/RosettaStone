@@ -3,8 +3,11 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1089,6 +1092,8 @@ void GvgCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_006] Mechwarper - COST:2 [ATK:2/HP:3]
     // - Race: Mechanical, Set: Gvg, Rarity: Common
@@ -1108,6 +1113,22 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            auto minions = playable->player->GetFieldZone()->GetAll();
+
+            for (auto& minion : minions)
+            {
+                if (minion->card->GetRace() == Race::MECHANICAL)
+                {
+                    return 2;
+                }
+            }
+
+            return 0;
+        }));
+    cards.emplace("GVG_013", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_016] Fel Reaver - COST:5 [ATK:8/HP:8]
@@ -1121,6 +1142,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
     // - Race: Mechanical, Set: Gvg, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("GVG_044", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_064] Puddlestomper - COST:2 [ATK:3/HP:2]
@@ -1202,6 +1226,10 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2));
+    cards.emplace("GVG_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_078] Mechanical Yeti - COST:4 [ATK:4/HP:5]
@@ -1277,6 +1305,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("GVG_085", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_089] Illuminator - COST:3 [ATK:2/HP:4]
@@ -1483,7 +1514,7 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [GVG_109] Mini-Mage - COST:4 [ATK:4/HP:1]
+    // [GVG_109] Mini-Mage - COST:3 [ATK:3/HP:1]
     // - Set: Gvg, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Stealth</b>
@@ -1493,6 +1524,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("GVG_109", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_110] Dr. Boom - COST:7 [ATK:7/HP:7]
@@ -1632,6 +1666,11 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each card in your opponent's hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->opponent->GetHandZone()->GetCount();
+    }));
+    cards.emplace("GVG_121", CardDef(power));
 }
 
 void GvgCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)

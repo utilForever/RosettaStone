@@ -400,3 +400,12 @@ TEST_CASE("[Warlock : Minion] - AT_021 : Tiny Knight of Evil")
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [AT_092] Ice Rager - COST:3 [ATK:5/HP:2]
+// - Race: Elemental, Set: Tgt, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AT_092 : Ice Rager")
+{
+    // Do nothing
+}

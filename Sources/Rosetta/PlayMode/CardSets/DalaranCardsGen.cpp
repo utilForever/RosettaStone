@@ -730,7 +730,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         TaskList{ std::make_shared<ConditionTask>(
                       EntityType::TARGET,
                       SelfCondList{ std::make_shared<SelfCondition>(
-                          SelfCondition::IsCurrentPlayer()) }),
+                          SelfCondition::IsFriendly()) }),
                   std::make_shared<FlagTask>(
                       true, TaskList{ std::make_shared<RandomMinionNumberTask>(
                                           GameTag::COST),
@@ -967,7 +967,7 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
         TaskList{ std::make_shared<ConditionTask>(
                       EntityType::TARGET,
                       SelfCondList{ std::make_shared<SelfCondition>(
-                          SelfCondition::IsCurrentPlayer()) }),
+                          SelfCondition::IsFriendly()) }),
                   std::make_shared<FlagTask>(
                       true, TaskList{ std::make_shared<RandomMinionNumberTask>(
                                           GameTag::COST),
@@ -1220,7 +1220,8 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Draw the lowest Cost minion from your deck. Give it +2/+2.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawMinionTask>(true, 1, true));
+    power.AddPowerTask(
+        std::make_shared<DrawMinionTask>(DrawMinionType::LOWEST_COST, 1, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DAL_727e", EntityType::STACK));
     cards.emplace("DAL_727", CardDef(power));
@@ -2773,7 +2774,8 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
     // - Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> If you control a <b>Secret</b>, gain +1/+1.
+    // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+    //       gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3434,7 +3436,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawMinionTask>(false, 2, true));
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(2, true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DAL_752e", EntityType::STACK));
     power.AddPowerTask(

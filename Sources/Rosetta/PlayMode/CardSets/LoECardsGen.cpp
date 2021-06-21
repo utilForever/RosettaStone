@@ -484,6 +484,8 @@ void LoECardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
     // - Set: LoE, Rarity: Legendary
@@ -687,6 +689,14 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+
+	// --------------------------------------- MINION - NEUTRAL
+	// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1] 
+	// - Race: Murloc, Set: LoE, Rarity: Common
+	// --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("LOEA10_3", CardDef(power));
 }
 
 void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)

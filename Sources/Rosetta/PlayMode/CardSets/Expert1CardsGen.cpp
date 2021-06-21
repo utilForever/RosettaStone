@@ -4076,7 +4076,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
     // - Faction: Horde, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
+    // Text: <b>Battlecry:</b> Deal 4 damage to himself.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -4214,8 +4214,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: At the end of your turn, give another random
-    //       friendly minion +1 Health.
+    // Text: At the end of your turn,
+    //       give another random friendly minion +1 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
@@ -4727,7 +4730,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_093] Defender of Argus - COST:4 [ATK:3/HP:3]
     // - Faction: Alliance, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.
+    // Text: <b>Battlecry:</b> Give adjacent minions +1/+1
+    //       and <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -4749,6 +4753,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: Whenever you cast a spell, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
@@ -4909,6 +4916,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you cast a spell, gain +2/+2.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
@@ -5013,10 +5023,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
     // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: At the end of your turn, deal 2 damage to all other characters.
+    // Text: At the end of your turn,
+    //       deal 2 damage to all other characters.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
@@ -5121,6 +5133,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: Whenever you summon a Murloc, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
@@ -5597,7 +5612,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
+    // Text: Whenever you cast a spell,
+    //       summon a 1/1 Violet Apprentice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
@@ -5611,6 +5630,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
     // Text: Your other Pirates have +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(
@@ -5729,6 +5751,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever a minion dies, gain +1 Attack.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
@@ -5736,6 +5761,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         "tt_004o", EntityType::SOURCE) };
     cards.emplace("tt_004", CardDef(power));
 }
+
 void Expert1CardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {

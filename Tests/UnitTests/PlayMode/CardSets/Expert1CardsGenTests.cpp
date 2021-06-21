@@ -8399,7 +8399,7 @@ TEST_CASE("[Neutral : Minion] - CS2_169 : Young Dragonhawk")
 // [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
+// Text: <b>Battlecry:</b> Deal 4 damage to himself.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -8781,8 +8781,11 @@ TEST_CASE("[Neutral : Minion] - EX1_002 : The Black Knight")
 // [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: At the end of your turn, give another random
-//       friendly minion +1 Health.
+// Text: At the end of your turn,
+//       give another random friendly minion +1 Health.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_004 : Young Priestess")
 {
@@ -8835,7 +8838,8 @@ TEST_CASE("[Neutral : Minion] - EX1_004 : Young Priestess")
 // [EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
+// Text: <b>Battlecry:</b> Destroy a minion
+//       with 7 or more Attack.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -10019,7 +10023,8 @@ TEST_CASE("[Neutral : Minion] - EX1_089 : Arcane Golem")
 // [EX1_093] Defender of Argus - COST:4 [ATK:3/HP:3]
 // - Faction: Alliance, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.
+// Text: <b>Battlecry:</b> Give adjacent minions +1/+1
+//       and <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -10081,6 +10086,9 @@ TEST_CASE("[Neutral : Minion] - EX1_093 : Defender of Argus")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_095 : Gadgetzan Auctioneer")
 {
@@ -10690,6 +10698,9 @@ TEST_CASE("[Neutral : Minion] - EX1_186 : SI:7 Infiltrator")
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, gain +2/+2.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_187 : Arcane Devourer")
 {
     GameConfig config;
@@ -10956,10 +10967,12 @@ TEST_CASE("[Neutral : Minion] - EX1_190 : High Inquisitor Whitemane")
 // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: At the end of your turn, deal 2 damage to all other characters.
+// Text: At the end of your turn,
+//       deal 2 damage to all other characters.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_249 : Baron Geddon")
 {
@@ -11300,6 +11313,9 @@ TEST_CASE("[Neutral : Minion] - EX1_507 : Murloc Warleader")
 // - Race: Murloc, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: Whenever you summon a Murloc, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_509 : Murloc Tidecaller")
 {
@@ -12878,7 +12894,11 @@ TEST_CASE("[Neutral : Minion] - NEW1_025 : Bloodsail Corsair")
 // [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
+// Text: Whenever you cast a spell,
+//       summon a 1/1 Violet Apprentice.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_026 : Violet Teacher")
 {
@@ -12927,6 +12947,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_026 : Violet Teacher")
 // - Race: Pirate, Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: Your other Pirates have +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_027 : Southsea Captain")
 {
@@ -13353,6 +13376,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_041 : Stampeding Kodo")
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever a minion dies, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - tt_004 : Flesheating Ghoul")
 {

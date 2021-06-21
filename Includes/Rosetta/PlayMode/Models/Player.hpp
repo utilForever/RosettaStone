@@ -133,6 +133,11 @@ class Player : public Entity
     //! false otherwise.
     bool ExtraBattlecry() const;
 
+    //! Returns whether this player triggers minion's deathrattles twice.
+    //! \return true if for this player triggers minion's deathrattles twice,
+    //! false otherwise.
+    bool ExtraMinionDeathrattle() const;
+
     //! Returns whether this player casts spells twice.
     //! \return true if for this player casts spells twice, false otherwise.
     bool ExtraCastSpell() const;
