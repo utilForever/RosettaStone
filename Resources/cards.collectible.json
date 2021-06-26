@@ -68981,7 +68981,7 @@
             "FREEZE"
         ],
         "set": "THE_BARRENS",
-        "text": "[x]<b>Battlecry:</b> Draw a spell.\nIf it's a Frost spell,\nsummon two 1/1\n   Elementals that <b>Freeze</b>.",
+        "text": "[x]<b>Battlecry:</b> Draw a spell.\nIf it's a Frost spell,\nsummon two 1/1\n  Elementals that <b>Freeze</b>.",
         "type": "MINION"
     },
     {

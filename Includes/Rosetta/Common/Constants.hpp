@@ -141,10 +141,10 @@ constexpr int NUM_TIER3_MINIONS = 30;
 constexpr int NUM_TIER4_MINIONS = 26;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 25;
+constexpr int NUM_TIER5_MINIONS = 26;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 17;
+constexpr int NUM_TIER6_MINIONS = 16;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Beast Pool
@@ -326,6 +326,7 @@ constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
 // Tavern Tempest (64077)
 // Mech Pool
 // Junkbot (2074)
+// Kangor's Apprentice (59935)
 // Sneed's Old Shredder (59682)
 // Murloc Pool
 // King Bagurgle (60247)
@@ -347,8 +348,8 @@ constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
 // Strongshell Scavenger (43022)
 constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
     49973, 60036, 59714, 1986,  46056, 60637, 60561, 63626, 64077,
-    2074,  59682, 60247, 61989, 61046, 62458, 70158, 70163, 70176,
-    1915,  2949,  65031, 63627, 59707, 65662, 43022
+    2074,  59935, 59682, 60247, 61989, 61046, 62458, 70158, 70163,
+    70176, 1915,  2949,  65031, 63627, 59707, 65662, 43022
 };
 
 //! A list of Tier 6 minion dbfIDs in Battlegrounds.
@@ -367,7 +368,6 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // Lil' Rag (63624)
 // Mech Pool
 // Foe Reaper 4000 (2081)
-// Kangor's Apprentice (59935)
 // Murloc Pool
 // N/A
 // Pirate Pool
@@ -380,8 +380,8 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // Amalgadon (61444)
 // Zapp Slywick (60040)
 constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
-    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081, 63624,
-    2081,  59935, 61047, 62232, 70165, 70179, 61444, 60040
+    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081,
+    63624, 2081,  61047, 62232, 70165, 70179, 61444, 60040
 };
 
 //! The total number of tier minions in Battlegrounds Tavern.
