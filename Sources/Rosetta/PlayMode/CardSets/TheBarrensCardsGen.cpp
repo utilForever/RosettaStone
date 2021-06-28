@@ -6,8 +6,12 @@
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void TheBarrensCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -20,6 +24,8 @@ void TheBarrensCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [BAR_533] Thorngrowth Sentries - COST:2
     // - Set: THE_BARRENS, Rarity: Common
@@ -27,9 +33,18 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 1/2 Turtles with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_533t", 2, SummonSide::SPELL));
+    cards.emplace(
+        "BAR_533",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_534] Pride's Fury - COST:4
@@ -178,6 +193,8 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [BAR_533t] Thornguard Turtle - COST:1 [ATK:1/HP:2]
     // - Race: Beast, Set: THE_BARRENS
@@ -187,6 +204,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_533t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BAR_534e] Overrun - COST:0
