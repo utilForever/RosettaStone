@@ -69,6 +69,9 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<ArmorTask>(5));
+    cards.emplace("BAR_535", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_536] Living Seed (Rank 1) - COST:2
