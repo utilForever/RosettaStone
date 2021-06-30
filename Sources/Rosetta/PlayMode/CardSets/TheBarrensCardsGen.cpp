@@ -110,6 +110,10 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "BAR_538t"));
+    cards.emplace("BAR_538", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_539] Celestial Alignment - COST:7
@@ -260,6 +264,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_538t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BAR_539e] Vortexed - COST:0
