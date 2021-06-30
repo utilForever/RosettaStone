@@ -27,6 +27,7 @@ enum class PowerType
     COMBO,
     OUTCAST,
     SPELLBURST,
+    FRENZY,
     START_OF_COMBAT,
 };
 
