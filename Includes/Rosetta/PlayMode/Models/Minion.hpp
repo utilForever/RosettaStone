@@ -90,6 +90,10 @@ class Minion : public Character
     //! \return The flag that indicates whether it has reborn.
     bool HasReborn() const;
 
+    //! Returns the flag that indicates whether it has frenzy.
+    //! \return The flag that indicates whether it has frenzy.
+    bool HasFrenzy() const;
+
     //! Returns the flag that indicates whether it is attackable by rush.
     //! \return The flag that indicates whether it is attackable by rush.
     bool IsAttackableByRush() const;
