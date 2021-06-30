@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -52,6 +53,10 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your minions +1/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_534e", EntityType::MINIONS));
+    cards.emplace("BAR_534", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_535] Thickhide Kodo - COST:4 [ATK:3/HP:5]
@@ -214,6 +219,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_534e"));
+    cards.emplace("BAR_534e", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_536t] Living Seed (Rank 2) - COST:2
