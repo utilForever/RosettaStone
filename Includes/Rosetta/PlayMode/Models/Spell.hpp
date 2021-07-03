@@ -41,6 +41,10 @@ class Spell : public Playable
     //! Deleted move assignment operator.
     Spell& operator=(Spell&&) noexcept = delete;
 
+    //! Returns the value of spell school.
+    //! \return The value of spell school.
+    SpellSchool GetSpellSchool() const;
+
     //! Gets the value of quest progress.
     //! \return The value of quest progress.
     int GetQuestProgress() const;
