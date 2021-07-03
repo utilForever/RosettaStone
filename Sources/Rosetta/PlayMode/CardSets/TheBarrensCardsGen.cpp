@@ -162,6 +162,13 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_720e", EntityType::MINIONS_NOSOURCE) };
+    cards.emplace("BAR_720", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [WC_004] Fangbound Druid - COST:3 [ATK:4/HP:3]
@@ -288,6 +295,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_720e"));
+    cards.emplace("BAR_720e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [WC_004t] Nightmare Trapped - COST:0
