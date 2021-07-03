@@ -207,6 +207,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSpell();
 
+    //! SelfCondition wrapper for checking the entity is nature spell.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNatureSpell();
+
     //! SelfCondition wrapper for checking the entity is weapon.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsWeapon();
