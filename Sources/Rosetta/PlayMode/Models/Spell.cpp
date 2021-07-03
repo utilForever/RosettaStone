@@ -18,6 +18,11 @@ Spell::Spell(Player* player, Card* card, std::map<GameTag, int> tags, int id)
     // Do nothing
 }
 
+SpellSchool Spell::GetSpellSchool() const
+{
+    return static_cast<SpellSchool>(GetGameTag(GameTag::SPELL_SCHOOL));
+}
+
 int Spell::GetQuestProgress() const
 {
     return GetGameTag(GameTag::QUEST_PROGRESS);

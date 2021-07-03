@@ -60,6 +60,11 @@ std::vector<std::shared_ptr<ITask>>& Power::GetSpellburstTask()
     return m_spellburstTask;
 }
 
+std::vector<std::shared_ptr<ITask>>& Power::GetFrenzyTask()
+{
+    return m_frenzyTask;
+}
+
 void Power::ClearData()
 {
     m_aura.reset();
@@ -139,5 +144,10 @@ void Power::AddSpellburstTask(std::shared_ptr<ITask> task)
 void Power::AddSpellburstTask(TaskList tasks)
 {
     m_spellburstTask.insert(m_spellburstTask.end(), tasks.begin(), tasks.end());
+}
+
+void Power::AddFrenzyTask(std::shared_ptr<ITask> task)
+{
+    m_frenzyTask.emplace_back(task);
 }
 }  // namespace RosettaStone::PlayMode

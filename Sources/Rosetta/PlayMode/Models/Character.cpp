@@ -255,7 +255,7 @@ int Character::TakeDamage(Playable* source, int damage)
         hero->fatigue = damage;
     }
 
-    if (minion != nullptr && GetGameTag(GameTag::DIVINE_SHIELD) == 1)
+    if (minion && GetGameTag(GameTag::DIVINE_SHIELD) == 1)
     {
         SetGameTag(GameTag::DIVINE_SHIELD, 0);
         return 0;
@@ -300,6 +300,18 @@ int Character::TakeDamage(Playable* source, int damage)
     }
 
     SetDamage(GetDamage() + amount);
+
+    if (minion && !minion->isDestroyed)
+    {
+        // Process frenzy tasks
+        if (minion->HasFrenzy())
+        {
+            minion->ActivateTask(PowerType::FRENZY);
+            minion->SetGameTag(GameTag::FRENZY, 0);
+        }
+
+        player->game->ProcessTasks();
+    }
 
     // Process damage triggers
     takeDamageTrigger(this);

@@ -4,10 +4,15 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void TheBarrensCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -20,6 +25,8 @@ void TheBarrensCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [BAR_533] Thorngrowth Sentries - COST:2
     // - Set: THE_BARRENS, Rarity: Common
@@ -27,9 +34,18 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 1/2 Turtles with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_533t", 2, SummonSide::SPELL));
+    cards.emplace(
+        "BAR_533",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_534] Pride's Fury - COST:4
@@ -37,6 +53,10 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your minions +1/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_534e", EntityType::MINIONS));
+    cards.emplace("BAR_534", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_535] Thickhide Kodo - COST:4 [ATK:3/HP:5]
@@ -49,6 +69,9 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<ArmorTask>(5));
+    cards.emplace("BAR_535", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_536] Living Seed (Rank 1) - COST:2
@@ -87,6 +110,10 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "BAR_538t"));
+    cards.emplace("BAR_538", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_539] Celestial Alignment - COST:7
@@ -135,6 +162,13 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_720e", EntityType::MINIONS_NOSOURCE) };
+    cards.emplace("BAR_720", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [WC_004] Fangbound Druid - COST:3 [ATK:4/HP:3]
@@ -178,6 +212,8 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [BAR_533t] Thornguard Turtle - COST:1 [ATK:1/HP:2]
     // - Race: Beast, Set: THE_BARRENS
@@ -187,6 +223,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_533t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BAR_534e] Overrun - COST:0
@@ -194,6 +233,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_534e"));
+    cards.emplace("BAR_534e", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_536t] Living Seed (Rank 2) - COST:2
@@ -229,6 +271,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_538t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BAR_539e] Vortexed - COST:0
@@ -250,6 +295,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_720e"));
+    cards.emplace("BAR_720e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [WC_004t] Nightmare Trapped - COST:0

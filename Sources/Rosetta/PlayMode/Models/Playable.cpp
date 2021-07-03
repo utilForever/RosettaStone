@@ -603,6 +603,9 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
         case PowerType::SPELLBURST:
             tasks = card->power.GetSpellburstTask();
             break;
+        case PowerType::FRENZY:
+            tasks = card->power.GetFrenzyTask();
+            break;
         default:
             throw std::invalid_argument(
                 "Playable::ActivateTask() - Invalid power type");

@@ -784,12 +784,12 @@ THE_BARRENS | BAR_330 | Tuskpiercer |
 THE_BARRENS | BAR_333 | Kurtrus Ashfallen |  
 THE_BARRENS | BAR_334 | Overlord Saurfang |  
 THE_BARRENS | BAR_430 | Horde Operative |  
-THE_BARRENS | BAR_533 | Thorngrowth Sentries |  
-THE_BARRENS | BAR_534 | Pride's Fury |  
-THE_BARRENS | BAR_535 | Thickhide Kodo |  
+THE_BARRENS | BAR_533 | Thorngrowth Sentries | O
+THE_BARRENS | BAR_534 | Pride's Fury | O
+THE_BARRENS | BAR_535 | Thickhide Kodo | O
 THE_BARRENS | BAR_536 | Living Seed (Rank 1) |  
 THE_BARRENS | BAR_537 | Razormane Battleguard |  
-THE_BARRENS | BAR_538 | Druid of the Plains |  
+THE_BARRENS | BAR_538 | Druid of the Plains | O
 THE_BARRENS | BAR_539 | Celestial Alignment |  
 THE_BARRENS | BAR_540 | Plaguemaw the Rotting |  
 THE_BARRENS | BAR_541 | Runed Orb |  
@@ -803,7 +803,7 @@ THE_BARRENS | BAR_550 | Galloping Savior |
 THE_BARRENS | BAR_551 | Barak Kodobane |  
 THE_BARRENS | BAR_552 | Scabbs Cutterbutter |  
 THE_BARRENS | BAR_705 | Sigil of Silence |  
-THE_BARRENS | BAR_720 | Guff Runetotem |  
+THE_BARRENS | BAR_720 | Guff Runetotem | O
 THE_BARRENS | BAR_721 | Mankrik |  
 THE_BARRENS | BAR_735 | Xyrella |  
 THE_BARRENS | BAR_743 | Toad of the Wilds |  
@@ -884,4 +884,4 @@ THE_BARRENS | WC_803 | Cleric of An'she |
 THE_BARRENS | WC_805 | Frostweave Dungeoneer |  
 THE_BARRENS | WC_806 | Floecaster |  
 
-- Progress: 0% (0 of 170 Cards)
+- Progress: 2% (5 of 170 Cards)
