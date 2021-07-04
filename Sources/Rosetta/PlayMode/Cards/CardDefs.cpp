@@ -23,6 +23,7 @@
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TrollCardsGen.hpp>
@@ -65,6 +66,7 @@ CardDefs::CardDefs()
     ScholomanceCardsGen::AddAll(m_data);
     DarkmoonFaireCardsGen::AddAll(m_data);
     TheBarrensCardsGen::AddAll(m_data);
+    StormwindCardsGen::AddAll(m_data);
 }
 
 CardDefs::~CardDefs()
