@@ -24,12 +24,13 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 5> STANDARD_CARD_SETS = {
+constexpr std::array<CardSet, 6> STANDARD_CARD_SETS = {
     CardSet::CORE,            // Core, 2021
     CardSet::BLACK_TEMPLE,    // Ashes of Outland, 2020
     CardSet::SCHOLOMANCE,     // Scholomance Academy, 2020
     CardSet::DARKMOON_FAIRE,  // Madness at the Darkmoon Faire, 2020
     CardSet::THE_BARRENS,     // Forged in the Barrens, 2021
+    CardSet::STORMWIND,       // United in Stormwind, 2021
 };
 
 //! Specifies which card sets combine into the WILD set.
@@ -67,7 +68,7 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 12805;
+constexpr int NUM_ALL_CARDS = 13100;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -105,7 +106,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 60;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 64;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -144,7 +145,7 @@ constexpr int NUM_TIER4_MINIONS = 26;
 constexpr int NUM_TIER5_MINIONS = 26;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 16;
+constexpr int NUM_TIER6_MINIONS = 17;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Beast Pool
@@ -378,10 +379,11 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // Captain Flat Tusk (70179)
 // Neutral
 // Amalgadon (61444)
+// Archdruid Hamuul (72230)
 // Zapp Slywick (60040)
 constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
-    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081,
-    63624, 2081,  61047, 62232, 70165, 70179, 61444, 60040
+    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081, 63624,
+    2081,  61047, 62232, 70165, 70179, 61444, 72230, 60040
 };
 
 //! The total number of tier minions in Battlegrounds Tavern.

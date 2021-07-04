@@ -5,6 +5,7 @@
 * [Scholomance Academy](#scholomance-academy)
 * [Madness at the Darkmoon Faire](#madness-at-the-darkmoon-faire)
 * [Forged in the Barrens](#forged-in-the-barrens)
+* [United in Stormwind](#united-in-stormwind)
 
 ## Core
 
@@ -885,3 +886,11 @@ THE_BARRENS | WC_805 | Frostweave Dungeoneer |
 THE_BARRENS | WC_806 | Floecaster |  
 
 - Progress: 2% (5 of 170 Cards)
+
+## United in Stormwind
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+STORMWIND | SW_079 | Flightmaster Dungar |  
+
+- Progress: 0% (0 of 1 Cards)
