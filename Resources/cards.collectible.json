@@ -39740,6 +39740,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 74586,
+        "health": 30,
+        "id": "HERO_02m",
+        "name": "Ragnaros",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 930,
@@ -39927,6 +39938,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 72729,
+        "health": 30,
+        "id": "HERO_04k",
+        "name": "Righteous Inferno Uther",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 31,
@@ -40010,6 +40032,17 @@
         "health": 30,
         "id": "HERO_05g",
         "name": "Firefang Rexxar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 73710,
+        "health": 30,
+        "id": "HERO_05j",
+        "name": "Flamewalker Rexxar",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40115,6 +40148,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 73709,
+        "health": 30,
+        "id": "HERO_06j",
+        "name": "Druid of the Flame Malfurion",
+        "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -40187,6 +40231,17 @@
         "health": 30,
         "id": "HERO_07f",
         "name": "Nemesis Gul'dan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 71324,
+        "health": 30,
+        "id": "HERO_07g",
+        "name": "Shadowmoon Gul'dan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40308,6 +40363,17 @@
         "health": 30,
         "id": "HERO_08k",
         "name": "Netherwind Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 71723,
+        "health": 30,
+        "id": "HERO_08l",
+        "name": "Lady Katrana Prestor",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -51247,7 +51313,7 @@
         "name": "Headmaster Kel'Thuzad",
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
-        "text": "<b>Spellburst:</b> If the spell destroys any minions, summon them.",
+        "text": "<b><b>Spellburst</b>:</b> If the spell destroys any minions, summon them.",
         "type": "MINION"
     },
     {
@@ -53519,6 +53585,41 @@
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
         "text": "[x]Whenever your opponent\n draws a card, add a copy to \n your hand that costs (1).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 75913,
+        "flavor": "It’s a Bolt.   It's made out of Shadow.   What more do you need to know!",
+        "id": "Story_09_Shadowbolt",
+        "name": "Shadow Bolt",
+        "rarity": "FREE",
+        "set": "VANILLA",
+        "text": "Deal $4 damage\nto a minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 64727,
+        "elite": true,
+        "flavor": "Flight’s a little bumpy, but there’s plenty of legroom.",
+        "health": 3,
+        "howToEarnGolden": "Unlockable after purchasing the United in Stormwind Tavern Pass.",
+        "id": "SW_079",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Flightmaster Dungar",
+        "rarity": "LEGENDARY",
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry:</b> Choose a\nflightpath and go <b>Dormant.\n</b> Awaken with a bonus\n  when you complete it!",
         "type": "MINION"
     },
     {
@@ -68981,7 +69082,7 @@
             "FREEZE"
         ],
         "set": "THE_BARRENS",
-        "text": "[x]<b>Battlecry:</b> Draw a spell.\nIf it's a Frost spell,\nsummon two 1/1\n  Elementals that <b>Freeze</b>.",
+        "text": "[x]<b>Battlecry:</b> Draw a spell.\nIf it's a Frost spell,\nsummon two 1/1\n   Elementals that <b>Freeze</b>.",
         "type": "MINION"
     },
     {
