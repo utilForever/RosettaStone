@@ -105,7 +105,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 60;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 64;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -144,7 +144,7 @@ constexpr int NUM_TIER4_MINIONS = 26;
 constexpr int NUM_TIER5_MINIONS = 26;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 16;
+constexpr int NUM_TIER6_MINIONS = 17;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Beast Pool
@@ -378,10 +378,11 @@ constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
 // Captain Flat Tusk (70179)
 // Neutral
 // Amalgadon (61444)
+// Archdruid Hamuul (72230)
 // Zapp Slywick (60040)
 constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
-    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081,
-    63624, 2081,  61047, 62232, 70165, 70179, 61444, 60040
+    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081, 63624,
+    2081,  61047, 62232, 70165, 70179, 61444, 72230, 60040
 };
 
 //! The total number of tier minions in Battlegrounds Tavern.
