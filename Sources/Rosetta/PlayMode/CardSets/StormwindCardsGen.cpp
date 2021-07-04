@@ -106,11 +106,93 @@ void StormwindCardsGen::AddDemonHunterNonCollect(
 
 void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_079] Flightmaster Dungar - COST:3 [ATK:3/HP:3]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Choose a flightpath and go <b>Dormant.</b>
+    //       Awaken with a bonus when you complete it!
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_079e4] Westfall Flight - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b>. Summon a 2/2 Adventurer in 1 turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_079e5] Ironforge Flight - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b>.
+    //       Restore 10 health to your hero in 3 turns.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_079e6] Plaguelands Flight - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b>. Deal 12 damage randomly split
+    //       to enemies in 5 turns.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [SW_079t] Westfall - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: In 1 turn, summon a 2/2 Adventurer with
+    //       a random bonus effect.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [SW_079t2] Ironforge - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: In 3 turns, restore 10 Health to your hero.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_079t2e] Ironforge Flight - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: In 3 turns, restore 10 Health to your hero.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [SW_079t3] Eastern Plaguelands - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: In 5 turns, deal 12 damage randomly split among enemies.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_079t3e] Plaguelands Flight - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: In 5 turns, deal 12 damage randomly split among enemies.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_079te] Westfall Flight - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Next turn, summon a 2/2 Adventurer.
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddAll(std::map<std::string, CardDef>& cards)
