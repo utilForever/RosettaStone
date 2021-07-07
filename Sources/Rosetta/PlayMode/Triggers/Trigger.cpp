@@ -414,6 +414,13 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
 {
     for (auto& trigger : game->triggers)
     {
+        // If summoned minion tries to activate trigger, ignore it
+        if (auto minion = dynamic_cast<Minion*>(trigger->m_owner);
+            minion && minion->IsSummoned())
+        {
+            continue;
+        }
+
         if (trigger->m_sequenceType == type)
         {
             trigger->Validate(source);
