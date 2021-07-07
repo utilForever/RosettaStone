@@ -65,6 +65,14 @@ class Playable : public Entity
     //! \param exhausted The flag that indicates whether it is exhausted.
     void SetExhausted(bool exhausted);
 
+    //! Returns the flag that indicates whether it is transformed.
+    //! \return The flag that indicates whether it is transformed.
+    bool IsTransformed() const;
+
+    //! Sets the flag that indicates whether it is transformed.
+    //! \param value The flag that indicates whether it is transformed.
+    void SetTransformed(bool value);
+
     //! Returns the flag that indicates whether it has combo.
     //! \return The flag that indicates whether it has combo.
     bool HasCombo() const;
@@ -190,7 +198,6 @@ class Playable : public Entity
 
     int orderOfPlay = 0;
     bool isDestroyed = false;
-    bool isTransformed = false;
 
  private:
     //! Internal method of IsPlayableByCardReq().

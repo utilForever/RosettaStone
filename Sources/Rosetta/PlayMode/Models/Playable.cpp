@@ -94,6 +94,16 @@ void Playable::SetExhausted(bool exhausted)
     SetGameTag(GameTag::EXHAUSTED, static_cast<int>(exhausted));
 }
 
+bool Playable::IsTransformed() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::TRANSFORMED_FROM_CARD));
+}
+
+void Playable::SetTransformed(bool value)
+{
+    SetGameTag(GameTag::TRANSFORMED_FROM_CARD, static_cast<int>(value));
+}
+
 bool Playable::HasCombo() const
 {
     return GetGameTag(GameTag::COMBO) == 1;
