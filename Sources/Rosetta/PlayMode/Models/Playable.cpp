@@ -178,8 +178,8 @@ bool Playable::CanActivateSpellburst() const
 
     if (const auto minion = dynamic_cast<const Minion*>(this); minion)
     {
-        if (minion->isDestroyed || minion->IsTransformed() ||
-            minion->IsUntouchable())
+        if (minion->isDestroyed || minion->IsSummoned() ||
+            minion->IsTransformed() || minion->IsUntouchable())
         {
             return false;
         }
