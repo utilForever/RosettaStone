@@ -159,10 +159,11 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         }
     }
 
-    // Reset transformed minions
+    // Reset transformed/summoned minions
     for (auto& minion : player->GetFieldZone()->GetAll())
     {
         minion->isTransformed = false;
+        minion->SetSummoned(false);
     }
 
     // Set combo active to true
