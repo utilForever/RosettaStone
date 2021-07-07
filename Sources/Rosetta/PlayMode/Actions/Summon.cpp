@@ -24,6 +24,9 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
         minion->SetGameTag(GameTag::UNTOUCHABLE, 1);
     }
 
+    // Set it is summoned minion
+    minion->SetSummoned(true);
+
     game->UpdateAura();
 
     game->summonedMinions.emplace_back(minion);
