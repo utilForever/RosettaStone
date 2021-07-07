@@ -162,7 +162,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Reset transformed/summoned minions
     for (auto& minion : player->GetFieldZone()->GetAll())
     {
-        minion->isTransformed = false;
+        minion->SetTransformed(false);
         minion->SetSummoned(false);
     }
 
