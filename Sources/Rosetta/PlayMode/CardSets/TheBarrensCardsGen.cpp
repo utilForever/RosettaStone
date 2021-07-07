@@ -207,6 +207,13 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "WC_036t1", SummonSide::SPELL) };
+    cards.emplace("WC_036", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddDruidNonCollect(
@@ -322,6 +329,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_036t1", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)

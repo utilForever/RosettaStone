@@ -283,3 +283,59 @@ TEST_CASE("[Druid : Minion] - BAR_720 : Guff Runetotem")
     CHECK_EQ(curField[1]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetHealth(), 3);
 }
+
+// ----------------------------------------- MINION - DRUID
+// [WC_036] Deviate Dreadfang - COST:8 [ATK:4/HP:9]
+// - Race: Beast, Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you cast a Nature spell,
+//       summon a 4/2 Viper with <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - WC_036 : Deviate Dreadfang")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Deviate Dreadfang"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Innervate"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Deviate Viper");
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->HasRush(), true);
+}
