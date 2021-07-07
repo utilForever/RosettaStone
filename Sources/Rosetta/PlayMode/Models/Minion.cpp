@@ -22,6 +22,16 @@ Minion::Minion(Player* player, Card* card, std::map<GameTag, int> tags, int id)
     // Do nothing
 }
 
+bool Minion::IsSummoned() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::SUMMONED));
+}
+
+void Minion::SetSummoned(bool value)
+{
+    SetGameTag(GameTag::SUMMONED, static_cast<int>(value));
+}
+
 int Minion::GetLastBoardPos() const
 {
     return GetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND);
