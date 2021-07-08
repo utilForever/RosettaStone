@@ -12,6 +12,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void TheBarrensCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -183,6 +184,14 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("WC_004t", EntityType::STACK));
+    cards.emplace("WC_004", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [WC_006] Lady Anacondra - COST:6 [ATK:3/HP:7]
@@ -321,6 +330,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("WC_004t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [WC_006e] Natural Empowerment - COST:0
