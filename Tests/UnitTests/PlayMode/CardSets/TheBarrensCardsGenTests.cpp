@@ -285,6 +285,53 @@ TEST_CASE("[Druid : Minion] - BAR_720 : Guff Runetotem")
 }
 
 // ----------------------------------------- MINION - DRUID
+// [WC_006] Lady Anacondra - COST:6 [ATK:3/HP:7]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your Nature spells cost (2) less.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - WC_006 : Lady Anacondra")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lady Anacondra"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Force of Nature"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
+
+    CHECK_EQ(card2->GetCost(), 5);
+    CHECK_EQ(card3->GetCost(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 2);
+}
+
+// ----------------------------------------- MINION - DRUID
 // [WC_036] Deviate Dreadfang - COST:8 [ATK:4/HP:9]
 // - Race: Beast, Set: THE_BARRENS, Rarity: Rare
 // --------------------------------------------------------

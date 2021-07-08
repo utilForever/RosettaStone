@@ -12,6 +12,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void TheBarrensCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -193,6 +194,14 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "WC_006e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    }
+    cards.emplace("WC_006", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [WC_036] Deviate Dreadfang - COST:8 [ATK:4/HP:9]
@@ -319,6 +328,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("WC_006e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [WC_036t1] Deviate Viper - COST:3 [ATK:4/HP:2]
