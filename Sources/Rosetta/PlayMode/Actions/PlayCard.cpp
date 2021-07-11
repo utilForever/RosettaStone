@@ -19,7 +19,7 @@ namespace RosettaStone::PlayMode::Generic
 void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
               int chooseOne)
 {
-    if (source == nullptr)
+    if (!source)
     {
         throw std::invalid_argument("PlayCard() - Source cannot be nullptr!");
     }
@@ -143,16 +143,21 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->game->ProcessDestroyAndUpdateAura();
 
     // Process echo card
-    if (hasEcho)
+    if (source && hasEcho)
     {
         if (const auto spell = dynamic_cast<Spell*>(source);
-            spell == nullptr || !spell->IsCountered())
+            spell && spell->IsCountered())
+        {
+            // Do nothing
+        }
+        else
         {
             std::map<GameTag, int> tags;
             tags.emplace(GameTag::GHOSTLY, 1);
 
             Playable* playable = Entity::GetFromCard(player, source->card, tags,
                                                      player->GetHandZone());
+
             player->game->UpdateAura();
             player->game->ghostlyCards.emplace_back(
                 playable->GetGameTag(GameTag::ENTITY_ID));
