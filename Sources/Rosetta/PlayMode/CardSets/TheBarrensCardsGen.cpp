@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
@@ -97,6 +98,16 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<SwitchingAura>(
+        AuraType::HAND, SelfCondition::TauntMinionsPlayedThisTurn(0),
+        TriggerType::PLAY_MINION, "BAR_537e"));
+    {
+        const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::HasTaunt());
+    }
+    cards.emplace("BAR_537", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_538] Druid of the Plains - COST:7 [ATK:7/HP:6]
@@ -286,6 +297,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Each turn, your first <b> Taunt</b> minion costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("BAR_537e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_538t] Druid of the Plains - COST:7 [ATK:6/HP:7]
