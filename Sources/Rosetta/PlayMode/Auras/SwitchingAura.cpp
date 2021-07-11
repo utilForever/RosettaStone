@@ -96,7 +96,7 @@ void SwitchingAura::Remove()
             break;
         default:
             throw std::invalid_argument(
-                "SwitchingAura::Activate() - Invalid trigger type!");
+                "SwitchingAura::Remove() - Invalid trigger type!");
     }
 }
 
