@@ -22,23 +22,23 @@ namespace RosettaStone::PlayMode
 class SwitchingAura : public Aura
 {
  public:
-    //! Constructs adjacent aura with given \p type, \p initCondition,
+    //! Constructs adjacent aura with given \p type, \p offCondition,
     //! \p offTrigger and \p effects.
     //! \param type The type of aura.
-    //! \param initCondition The condition to switch on.
+    //! \param activateCondition The condition to activate an aura.
     //! \param offTrigger The trigger to switch off.
     //! \param effects A list of effect.
-    SwitchingAura(AuraType type, SelfCondition initCondition,
+    SwitchingAura(AuraType type, SelfCondition activateCondition,
                   TriggerType offTrigger,
                   std::vector<std::shared_ptr<IEffect>> effects);
 
-    //! Constructs adjacent aura with given \p type, \p initCondition,
+    //! Constructs adjacent aura with given \p type, \p offCondition,
     //! \p offTrigger and \p enchantmentID.
     //! \param type The type of aura.
-    //! \param initCondition The condition to switch on.
+    //! \param activateCondition The condition to activate an aura.
     //! \param offTrigger The trigger to switch off.
     //! \param enchantmentID The enchantment card ID.
-    SwitchingAura(AuraType type, SelfCondition initCondition,
+    SwitchingAura(AuraType type, SelfCondition activateCondition,
                   TriggerType offTrigger, std::string&& enchantmentID);
 
     //! Create new Aura instance to the owner's game.
@@ -58,7 +58,7 @@ class SwitchingAura : public Aura
     //! Internal method of Remove().
     void RemoveInternal() override;
 
-    SelfCondition m_initCondition;
+    SelfCondition m_activateCondition;
     TriggerType m_offTrigger;
 
     TriggerEventHandler m_onHandler;

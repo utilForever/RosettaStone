@@ -14,21 +14,21 @@
 
 namespace RosettaStone::PlayMode
 {
-SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
+SwitchingAura::SwitchingAura(AuraType type, SelfCondition activateCondition,
                              TriggerType offTrigger,
                              std::vector<std::shared_ptr<IEffect>> effects)
     : Aura(type, std::move(effects)),
-      m_initCondition(std::move(initCondition)),
+      m_activateCondition(std::move(activateCondition)),
       m_offTrigger(offTrigger)
 {
     // Do nothing
 }
 
-SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
+SwitchingAura::SwitchingAura(AuraType type, SelfCondition activateCondition,
                              TriggerType offTrigger,
                              std::string&& enchantmentID)
     : Aura(type, std::move(enchantmentID)),
-      m_initCondition(std::move(initCondition)),
+      m_activateCondition(std::move(activateCondition)),
       m_offTrigger(offTrigger)
 {
     // Do nothing
@@ -65,7 +65,7 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
 
     if (!cloning)
     {
-        if (!instance->m_initCondition.Evaluate(owner))
+        if (!instance->m_activateCondition.Evaluate(owner))
         {
             instance->m_turnOn = false;
         }
@@ -121,7 +121,7 @@ void SwitchingAura::RemoveInternal()
 
 SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
     : Aura(prototype, owner),
-      m_initCondition(prototype.m_initCondition),
+      m_activateCondition(prototype.m_activateCondition),
       m_offTrigger(prototype.m_offTrigger)
 {
     auto onFunc = [this](Entity*) {
@@ -142,7 +142,7 @@ SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
             return;
         }
 
-        if (m_initCondition.Evaluate(&owner))
+        if (m_activateCondition.Evaluate(&owner))
         {
             return;
         }
