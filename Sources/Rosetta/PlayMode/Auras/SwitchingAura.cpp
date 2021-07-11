@@ -38,8 +38,7 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
     {
-        // m_effects =
-        // std::move(m_enchantmentCard->power.GetEnchant()->effects);
+        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
 
     auto instance = new SwitchingAura(*this, *owner);
