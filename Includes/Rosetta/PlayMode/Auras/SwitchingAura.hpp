@@ -32,6 +32,15 @@ class SwitchingAura : public Aura
                   TriggerType offTrigger,
                   std::vector<std::shared_ptr<IEffect>> effects);
 
+    //! Constructs adjacent aura with given \p type, \p initCondition,
+    //! \p offTrigger and \p enchantmentID.
+    //! \param type The type of aura.
+    //! \param initCondition The condition to switch on.
+    //! \param offTrigger The trigger to switch off.
+    //! \param enchantmentID The enchantment card ID.
+    SwitchingAura(AuraType type, SelfCondition initCondition,
+                  TriggerType offTrigger, std::string&& enchantmentID);
+
     //! Create new Aura instance to the owner's game.
     //! \param owner An owner of enrage effect.
     //! \param cloning The flag to indicate that it is cloned.

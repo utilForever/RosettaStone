@@ -24,6 +24,16 @@ SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
     // Do nothing
 }
 
+SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
+                             TriggerType offTrigger,
+                             std::string&& enchantmentID)
+    : Aura(type, std::move(enchantmentID)),
+      m_initCondition(std::move(initCondition)),
+      m_offTrigger(offTrigger)
+{
+    // Do nothing
+}
+
 void SwitchingAura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
