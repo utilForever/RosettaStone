@@ -301,6 +301,12 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition MinionsPlayedThisTurn(int num);
 
+    //! SelfCondition wrapper for checking the number of taunt minions
+    //! that played this turn.
+    //! \param num The number of minions for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition TauntMinionsPlayedThisTurn(int num);
+
     //! SelfCondition wrapper for checking the number of spells
     //! that cast this turn.
     //! \param num The number of spells for checking.

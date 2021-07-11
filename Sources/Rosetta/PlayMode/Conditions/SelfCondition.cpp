@@ -644,6 +644,13 @@ SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
     });
 }
 
+SelfCondition SelfCondition::TauntMinionsPlayedThisTurn(int num)
+{
+    return SelfCondition([num](Playable* playable) {
+        return playable->player->GetNumTauntMinionsPlayedThisTurn() == num;
+    });
+}
+
 SelfCondition SelfCondition::SpellsCastThisTurn(int num)
 {
     return SelfCondition([num](Playable* playable) {
