@@ -137,8 +137,13 @@ SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
             AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
     };
 
-    auto offFunc = [this](Entity*) {
+    auto offFunc = [this, &owner](Entity*) {
         if (!m_turnOn)
+        {
+            return;
+        }
+
+        if (m_initCondition.Evaluate(&owner))
         {
             return;
         }
