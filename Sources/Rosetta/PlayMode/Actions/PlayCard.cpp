@@ -357,6 +357,10 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
 
 void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 {
+    // Increase the number of spells that casted this turn
+    const int val = player->GetNumSpellsCastThisTurn();
+    player->SetNumSpellsCastThisTurn(val + 1);
+
     // Increase the number of spells that played this turn
     player->IncreaseNumSpellsPlayedThisGame();
 
@@ -427,10 +431,6 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
-
-    // Increase the number of spells that casted this turn
-    const int val = player->GetNumSpellsCastThisTurn();
-    player->SetNumSpellsCastThisTurn(val + 1);
 
     player->game->ProcessDestroyAndUpdateAura();
 }
