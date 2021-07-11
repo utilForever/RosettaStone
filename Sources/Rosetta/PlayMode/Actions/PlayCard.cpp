@@ -235,9 +235,6 @@ void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
 void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
                 int chooseOne)
 {
-    // Validate play minion trigger
-    Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
-
     // Increase the number of minions that played this turn
     int val = player->GetNumMinionsPlayedThisTurn();
     player->SetNumMinionsPlayedThisTurn(val + 1);
@@ -255,6 +252,9 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         val = player->GetNumElementalPlayedThisTurn();
         player->SetNumElementalPlayedThisTurn(val + 1);
     }
+
+    // Validate play minion trigger
+    Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
 
     // Store the position of card in hand zone
     // to check the condition of outcast task
