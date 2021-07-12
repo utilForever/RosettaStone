@@ -342,6 +342,7 @@ void Game::MainReady()
         // Player
         player.SetNumCardsPlayedThisTurn(0);
         player.SetNumMinionsPlayedThisTurn(0);
+        player.SetNumTauntMinionsPlayedThisTurn(0);
         player.SetNumFriendlyMinionsDiedThisTurn(0);
     }
 

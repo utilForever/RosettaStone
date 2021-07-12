@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
@@ -12,6 +13,8 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void TheBarrensCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -95,6 +98,16 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<SwitchingAura>(
+        AuraType::HAND, SelfCondition::TauntMinionsPlayedThisTurn(0),
+        TriggerType::PLAY_MINION, "BAR_537e"));
+    {
+        const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::HasTaunt());
+    }
+    cards.emplace("BAR_537", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_538] Druid of the Plains - COST:7 [ATK:7/HP:6]
@@ -150,6 +163,23 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_549e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HasTaunt()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<CopyTask>(EntityType::TARGET,
+                                                   ZoneType::HAND) }));
+    cards.emplace(
+        "BAR_549",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_720] Guff Runetotem - COST:3 [ATK:2/HP:4]
@@ -182,6 +212,14 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("WC_004t", EntityType::STACK));
+    cards.emplace("WC_004", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [WC_006] Lady Anacondra - COST:6 [ATK:3/HP:7]
@@ -193,6 +231,14 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND, "WC_006e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    }
+    cards.emplace("WC_006", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [WC_036] Deviate Dreadfang - COST:8 [ATK:4/HP:9]
@@ -207,6 +253,13 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "WC_036t1", SummonSide::SPELL) };
+    cards.emplace("WC_036", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddDruidNonCollect(
@@ -261,6 +314,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Each turn, your first <b> Taunt</b> minion costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("BAR_537e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_538t] Druid of the Plains - COST:7 [ATK:6/HP:7]
@@ -288,6 +344,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_549e"));
+    cards.emplace("BAR_549e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BAR_720e] Guff's Buff - COST:0
@@ -305,6 +364,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("WC_004t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [WC_006e] Natural Empowerment - COST:0
@@ -312,6 +374,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("WC_006e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [WC_036t1] Deviate Viper - COST:3 [ATK:4/HP:2]
@@ -322,6 +387,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_036t1", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)

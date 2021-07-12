@@ -14,11 +14,21 @@
 
 namespace RosettaStone::PlayMode
 {
-SwitchingAura::SwitchingAura(AuraType type, SelfCondition initCondition,
+SwitchingAura::SwitchingAura(AuraType type, SelfCondition activateCondition,
                              TriggerType offTrigger,
                              std::vector<std::shared_ptr<IEffect>> effects)
     : Aura(type, std::move(effects)),
-      m_initCondition(std::move(initCondition)),
+      m_activateCondition(std::move(activateCondition)),
+      m_offTrigger(offTrigger)
+{
+    // Do nothing
+}
+
+SwitchingAura::SwitchingAura(AuraType type, SelfCondition activateCondition,
+                             TriggerType offTrigger,
+                             std::string&& enchantmentID)
+    : Aura(type, std::move(enchantmentID)),
+      m_activateCondition(std::move(activateCondition)),
       m_offTrigger(offTrigger)
 {
     // Do nothing
@@ -28,8 +38,7 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
 {
     if (m_effects.empty())
     {
-        // m_effects =
-        // std::move(m_enchantmentCard->power.GetEnchant()->effects);
+        m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
 
     auto instance = new SwitchingAura(*this, *owner);
@@ -56,7 +65,7 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
 
     if (!cloning)
     {
-        if (!instance->m_initCondition.Evaluate(owner))
+        if (!instance->m_activateCondition.Evaluate(owner))
         {
             instance->m_turnOn = false;
         }
@@ -87,7 +96,7 @@ void SwitchingAura::Remove()
             break;
         default:
             throw std::invalid_argument(
-                "SwitchingAura::Activate() - Invalid trigger type!");
+                "SwitchingAura::Remove() - Invalid trigger type!");
     }
 }
 
@@ -112,7 +121,7 @@ void SwitchingAura::RemoveInternal()
 
 SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
     : Aura(prototype, owner),
-      m_initCondition(prototype.m_initCondition),
+      m_activateCondition(prototype.m_activateCondition),
       m_offTrigger(prototype.m_offTrigger)
 {
     auto onFunc = [this](Entity*) {
@@ -127,8 +136,13 @@ SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
             AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
     };
 
-    auto offFunc = [this](Entity*) {
+    auto offFunc = [this, &owner](Entity*) {
         if (!m_turnOn)
+        {
+            return;
+        }
+
+        if (m_activateCondition.Evaluate(&owner))
         {
             return;
         }

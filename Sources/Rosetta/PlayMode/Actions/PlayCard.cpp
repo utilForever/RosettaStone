@@ -19,7 +19,7 @@ namespace RosettaStone::PlayMode::Generic
 void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
               int chooseOne)
 {
-    if (source == nullptr)
+    if (!source)
     {
         throw std::invalid_argument("PlayCard() - Source cannot be nullptr!");
     }
@@ -143,26 +143,32 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->game->ProcessDestroyAndUpdateAura();
 
     // Process echo card
-    if (hasEcho)
+    if (source && hasEcho)
     {
         if (const auto spell = dynamic_cast<Spell*>(source);
-            spell == nullptr || !spell->IsCountered())
+            spell && spell->IsCountered())
+        {
+            // Do nothing
+        }
+        else
         {
             std::map<GameTag, int> tags;
             tags.emplace(GameTag::GHOSTLY, 1);
 
             Playable* playable = Entity::GetFromCard(player, source->card, tags,
                                                      player->GetHandZone());
+
             player->game->UpdateAura();
             player->game->ghostlyCards.emplace_back(
                 playable->GetGameTag(GameTag::ENTITY_ID));
         }
     }
 
-    // Reset transformed minions
+    // Reset transformed/summoned minions
     for (auto& minion : player->GetFieldZone()->GetAll())
     {
-        minion->isTransformed = false;
+        minion->SetTransformed(false);
+        minion->SetSummoned(false);
     }
 
     // Set combo active to true
@@ -176,23 +182,29 @@ void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
 {
     Hero* oldHero = player->GetHero();
 
+    // Transfer values from old hero to new hero
     hero->SetZoneType(ZoneType::PLAY);
     hero->SetBaseHealth(oldHero->GetBaseHealth());
     hero->SetDamage(oldHero->GetDamage());
     hero->SetArmor(oldHero->GetArmor() + hero->card->gameTags[GameTag::ARMOR]);
     hero->SetExhausted(oldHero->IsExhausted());
 
+    // Transfer weapon and hero power
     player->GetSetasideZone()->Add(oldHero);
-    hero->weapon = oldHero->weapon;
     player->GetSetasideZone()->Add(oldHero->heroPower);
+    hero->weapon = oldHero->weapon;
     hero->heroPower = dynamic_cast<HeroPower*>(Entity::GetFromCard(
         player, Cards::FindCardByDbfID(hero->GetGameTag(GameTag::HERO_POWER))));
+
+    player->SetHero(hero);
+
+    // Process hero power trigger
     if (auto trigger = hero->heroPower->card->power.GetTrigger(); trigger)
     {
         trigger->Activate(hero->heroPower);
     }
 
-    player->SetHero(hero);
+    // Process hero trigger
     if (auto trigger = hero->card->power.GetTrigger(); trigger)
     {
         trigger->Activate(hero);
@@ -223,20 +235,29 @@ void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
 void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
                 int chooseOne)
 {
-    // Validate play minion trigger
-    Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
-
     // Increase the number of minions that played this turn
     int val = player->GetNumMinionsPlayedThisTurn();
     player->SetNumMinionsPlayedThisTurn(val + 1);
 
-    // Check the race of minion
+    // Check the keyword 'Taunt'
+    if (minion->HasTaunt())
+    {
+        val = player->GetNumTauntMinionsPlayedThisTurn();
+        player->SetNumTauntMinionsPlayedThisTurn(val + 1);
+    }
+
+    // Check the race 'Elemental'
     if (minion->card->GetRace() == Race::ELEMENTAL)
     {
         val = player->GetNumElementalPlayedThisTurn();
         player->SetNumElementalPlayedThisTurn(val + 1);
     }
 
+    // Validate play minion trigger
+    Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
+
+    // Store the position of card in hand zone
+    // to check the condition of outcast task
     const int handPos = minion->GetZonePosition();
 
     // Add minion to field zone
@@ -336,6 +357,13 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
 
 void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 {
+    // Increase the number of spells that casted this turn
+    const int val = player->GetNumSpellsCastThisTurn();
+    player->SetNumSpellsCastThisTurn(val + 1);
+
+    // Increase the number of spells that played this turn
+    player->IncreaseNumSpellsPlayedThisGame();
+
     // Validate play spell trigger
     Trigger::ValidateTriggers(player->game, spell, SequenceType::PLAY_SPELL);
 
@@ -403,10 +431,6 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
 
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
-
-    const int val = player->GetNumSpellsCastThisTurn();
-    player->SetNumSpellsCastThisTurn(val + 1);
-    player->IncreaseNumSpellsPlayedThisGame();
 
     player->game->ProcessDestroyAndUpdateAura();
 }

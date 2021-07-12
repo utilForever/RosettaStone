@@ -42,6 +42,14 @@ class Minion : public Character
     //! Deleted move assignment operator.
     Minion& operator=(Minion&&) noexcept = delete;
 
+    //! Returns the flag that indicates whether it is summoned.
+    //! \return The flag that indicates whether it is summoned.
+    bool IsSummoned() const;
+
+    //! Sets the value of summoned.
+    //! \param value The value of summoned.
+    void SetSummoned(bool value);
+
     //! Returns the value of last board position.
     //! \return The value of last board position.
     int GetLastBoardPos() const;
