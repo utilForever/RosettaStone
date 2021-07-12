@@ -324,6 +324,7 @@ void Trigger::Remove() const
                 default:
                     break;
             }
+            break;
         case TriggerType::AFTER_ATTACKED:
             switch (triggerSource)
             {
@@ -380,6 +381,7 @@ void Trigger::Remove() const
                 default:
                     break;
             }
+            break;
         case TriggerType::TARGET:
             game->triggerManager.targetTrigger -= handler;
             break;
@@ -467,6 +469,11 @@ void Trigger::ProcessTasks(Entity* source)
 {
     for (auto& task : tasks)
     {
+        if (!m_owner)
+        {
+            continue;
+        }
+
         std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(m_owner->player);
@@ -506,13 +513,21 @@ void Trigger::ProcessTasks(Entity* source)
         }
         else
         {
-            m_owner->game->taskQueue.Enqueue(std::move(clonedTask));
+            if (m_owner && m_owner->game)
+            {
+                m_owner->game->taskQueue.Enqueue(std::move(clonedTask));
+            }
         }
     }
 }
 
 void Trigger::Validate(Entity* source)
 {
+    if (!m_owner)
+    {
+        return;
+    }
+
     switch (triggerSource)
     {
         case TriggerSource::NONE:
