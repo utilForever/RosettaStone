@@ -789,7 +789,7 @@ THE_BARRENS | BAR_533 | Thorngrowth Sentries | O
 THE_BARRENS | BAR_534 | Pride's Fury | O
 THE_BARRENS | BAR_535 | Thickhide Kodo | O
 THE_BARRENS | BAR_536 | Living Seed (Rank 1) |  
-THE_BARRENS | BAR_537 | Razormane Battleguard |  
+THE_BARRENS | BAR_537 | Razormane Battleguard | O
 THE_BARRENS | BAR_538 | Druid of the Plains | O
 THE_BARRENS | BAR_539 | Celestial Alignment |  
 THE_BARRENS | BAR_540 | Plaguemaw the Rotting |  
@@ -799,7 +799,7 @@ THE_BARRENS | BAR_544 | Reckless Apprentice |
 THE_BARRENS | BAR_545 | Arcane Luminary |  
 THE_BARRENS | BAR_546 | Wildfire |  
 THE_BARRENS | BAR_547 | Mordresh Fire Eye |  
-THE_BARRENS | BAR_549 | Mark of the Spikeshell |  
+THE_BARRENS | BAR_549 | Mark of the Spikeshell | O
 THE_BARRENS | BAR_550 | Galloping Savior |  
 THE_BARRENS | BAR_551 | Barak Kodobane |  
 THE_BARRENS | BAR_552 | Scabbs Cutterbutter |  
@@ -850,9 +850,9 @@ THE_BARRENS | BAR_917 | Barrens Scavenger |
 THE_BARRENS | BAR_918 | Tamsin Roame |  
 THE_BARRENS | BAR_919 | Neeru Fireblade |  
 THE_BARRENS | WC_003 | Sigil of Summoning |  
-THE_BARRENS | WC_004 | Fangbound Druid |  
+THE_BARRENS | WC_004 | Fangbound Druid | O
 THE_BARRENS | WC_005 | Primal Dungeoneer |  
-THE_BARRENS | WC_006 | Lady Anacondra |  
+THE_BARRENS | WC_006 | Lady Anacondra | O
 THE_BARRENS | WC_007 | Serpentbloom |  
 THE_BARRENS | WC_008 | Sin'dorei Scentfinder |  
 THE_BARRENS | WC_013 | Devout Dungeoneer |  
@@ -875,7 +875,7 @@ THE_BARRENS | WC_032 | Seedcloud Buckler |
 THE_BARRENS | WC_033 | Judgment of Justice |  
 THE_BARRENS | WC_034 | Party Up! |  
 THE_BARRENS | WC_035 | Archdruid Naralex |  
-THE_BARRENS | WC_036 | Deviate Dreadfang |  
+THE_BARRENS | WC_036 | Deviate Dreadfang | O
 THE_BARRENS | WC_037 | Venomstrike Bow |  
 THE_BARRENS | WC_040 | Taintheart Tormenter |  
 THE_BARRENS | WC_041 | Shattering Blast |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she |
 THE_BARRENS | WC_805 | Frostweave Dungeoneer |  
 THE_BARRENS | WC_806 | Floecaster |  
 
-- Progress: 2% (5 of 170 Cards)
+- Progress: 5% (10 of 170 Cards)
 
 ## United in Stormwind
 
