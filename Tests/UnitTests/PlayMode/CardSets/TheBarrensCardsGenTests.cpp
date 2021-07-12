@@ -286,6 +286,64 @@ TEST_CASE("[Druid : Minion] - BAR_538 : Druid of the Plains")
     CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [BAR_549] Mark of the Spikeshell - COST:2
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Give a minion +2/+2.
+//       If it has <b>Taunt</b>, add a copy of it to your hand.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - BAR_549 : Mark of the Spikeshell")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mark of the Spikeshell"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mark of the Spikeshell"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rock Rager"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("River Crocolisk"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Rock Rager");
+}
+
 // ----------------------------------------- MINION - DRUID
 // [BAR_720] Guff Runetotem - COST:3 [ATK:2/HP:4]
 // - Set: THE_BARRENS, Rarity: Legendary
