@@ -964,7 +964,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
 
     // ----------------------------------------- SPELL - PRIEST
-    // [BT_252] Renew - COST:1
+    // [BT_252] Renew - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
     // - Spell School: Holy
     // --------------------------------------------------------
@@ -1038,7 +1038,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: BLACK_TEMPLE, Rarity: Common
     // - Spell School: Holy
     // --------------------------------------------------------
-    // Text: Give a minion +2/+3 and <b>Lifesteal</b>.
+    // Text: Give a minion +1/+2 and <b>Lifesteal</b>.
     // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
@@ -1155,7 +1155,7 @@ void BlackTempleCardsGen::AddPriestNonCollect(
     // [BT_257e] Apotheosis - COST:0
     // - Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: +2/+3 and <b>Lifesteal</b>.
+    // Text: +1/+2 and <b>Lifesteal</b>.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_257e"));

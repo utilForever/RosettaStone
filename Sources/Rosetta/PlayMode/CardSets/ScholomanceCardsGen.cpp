@@ -47,7 +47,7 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ----------------------------------------- MINION - DRUID
-    // [SCH_242] Gibberling - COST:1 [ATK:1/HP:1]
+    // [SCH_242] Gibberling - COST:2 [ATK:1/HP:1]
     // - Set: SCHOLOMANCE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Summon a Gibberling.
