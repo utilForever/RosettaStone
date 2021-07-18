@@ -9808,7 +9808,7 @@
         "artist": "Konstantin Turovec",
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 56595,
         "flavor": "I am rejuvenated, I am renewed, I am my own nightlight!",
         "id": "BT_252",
@@ -9911,7 +9911,7 @@
         ],
         "set": "BLACK_TEMPLE",
         "spellSchool": "HOLY",
-        "text": "Give a minion +2/+3 and <b>Lifesteal</b>.",
+        "text": "Give a minion +1/+2 and <b>Lifesteal</b>.",
         "type": "SPELL"
     },
     {
@@ -51117,6 +51117,7 @@
     {
         "artist": "Matt Dixon",
         "attack": 1,
+        "battlegroundsDarkmoonPrizeTurn": 4,
         "battlegroundsPremiumDbfId": 67493,
         "cardClass": "PALADIN",
         "collectible": true,
@@ -51540,7 +51541,7 @@
         "attack": 1,
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 59001,
         "flavor": "\"As a Linguistics student I have studied the Gibberlings. I have determined they are speaking Gibberish.\"",
         "health": 1,
