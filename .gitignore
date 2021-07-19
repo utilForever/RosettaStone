@@ -23,6 +23,7 @@ build
 # CLion files
 /.idea
 cmake-build-debug
+cmake-build-release
 
 # vi files
 .clang_complete
