@@ -55,6 +55,8 @@ enum class TriggerType
     EQUIP_WEAPON,  //! The effect will be triggered when a hero equips a weapon.
     SHUFFLE_INTO_DECK,  //!< The effect will be triggered when a card is
                         //!< shuffled into a deck.
+    MANA_CRYSTAL,   //!< The effect will be triggered when a player gains mana
+                    //!< crystal.
     MULTI_TRIGGER,      //!< The effect for multi trigger.
 };
 
