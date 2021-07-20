@@ -162,6 +162,16 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::HasTaunt());
+    power.GetTrigger()->tasks = {
+        std::make_shared<SummonCopyTask>(EntityType::TARGET, false, true),
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 0)
+    };
+    cards.emplace("BAR_540", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_549] Mark of the Spikeshell - COST:2
