@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -92,13 +93,8 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<DrawStackTask>(true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BAR_536e", EntityType::STACK));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::MANA_CRYSTAL));
-    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::HasAtLeastManaCrystal(5));
-    power.GetTrigger()->tasks = { std::make_shared<ChangeEntityTask>(
-        "BAR_536t", EntityType::SOURCE) };
-    power.GetTrigger()->fastExecution = true;
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::UpgradableTrigger(5, "BAR_536t")));
     cards.emplace("BAR_536", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
@@ -343,13 +339,8 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     power.AddPowerTask(std::make_shared<DrawStackTask>(true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BAR_536te", EntityType::STACK));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::MANA_CRYSTAL));
-    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::HasAtLeastManaCrystal(10));
-    power.GetTrigger()->tasks = { std::make_shared<ChangeEntityTask>(
-        "BAR_536t2", EntityType::SOURCE) };
-    power.GetTrigger()->fastExecution = true;
+    power.AddTrigger(std::make_shared<Trigger>(
+        Triggers::UpgradableTrigger(10, "BAR_536t2")));
     cards.emplace("BAR_536t", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
