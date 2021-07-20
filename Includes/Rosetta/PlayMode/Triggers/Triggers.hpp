@@ -33,6 +33,22 @@ class Triggers
 
         return trigger;
     }
+
+    //! Trigger for upgradable card.
+    //! \param mana The amount of mana requires for upgrade.
+    //! \param enchantmentID The upgraded card ID.
+    static Trigger UpgradableTrigger(int mana, std::string&& upgradedCardID)
+    {
+        Trigger trigger(TriggerType::MANA_CRYSTAL);
+        trigger.triggerActivation = TriggerActivation::HAND;
+        trigger.condition = std::make_shared<SelfCondition>(
+            SelfCondition::HasAtLeastManaCrystal(mana));
+        trigger.tasks = { std::make_shared<SimpleTasks::ChangeEntityTask>(
+            std::move(upgradedCardID), EntityType::SOURCE) };
+        trigger.fastExecution = true;
+
+        return trigger;
+    }
 };
 }  // namespace RosettaStone::PlayMode
 
