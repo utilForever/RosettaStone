@@ -22,7 +22,17 @@ class Triggers
  public:
     //! Trigger for enrage.
     //! \param enchantmentID The card ID of enchantment.
-    static Trigger EnrageTrigger(std::string&& enchantmentID);
+    static Trigger EnrageTrigger(std::string&& enchantmentID)
+    {
+        Trigger trigger(TriggerType::PREDAMAGE);
+        trigger.triggerSource = TriggerSource::SELF;
+        trigger.condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsUndamaged());
+        trigger.tasks = { std::make_shared<SimpleTasks::AddEnchantmentTask>(
+            std::move(enchantmentID), EntityType::SOURCE) };
+
+        return trigger;
+    }
 };
 }  // namespace RosettaStone::PlayMode
 
