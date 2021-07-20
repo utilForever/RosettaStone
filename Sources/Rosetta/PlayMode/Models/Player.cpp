@@ -6,6 +6,7 @@
 
 #include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/HeroPower.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
@@ -177,6 +178,9 @@ int Player::GetTotalMana() const
 void Player::SetTotalMana(int amount)
 {
     SetGameTag(GameTag::RESOURCES, amount);
+
+    // Process mana crystal trigger
+    game->triggerManager.OnManaCrystalTrigger(this);
 }
 
 int Player::GetUsedMana() const

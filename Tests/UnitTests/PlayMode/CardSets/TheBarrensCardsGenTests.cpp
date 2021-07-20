@@ -167,6 +167,95 @@ TEST_CASE("[Druid : Minion] - BAR_535 : Thickhide Kodo")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [BAR_536] Living Seed (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Draw a Beast. Reduce its Cost by (1).
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - BAR_536 : Living Seed (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Savannah Highmane");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Living Seed (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Living Seed (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Living Seed (Rank 1)"));
+
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(card1->card->name, "Living Seed (Rank 1)");
+    CHECK_EQ(card2->card->name, "Living Seed (Rank 1)");
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[6]->GetCost(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Living Seed (Rank 1)");
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(card2->card->name, "Living Seed (Rank 2)");
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curHand[7]->GetCost(), 4);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 9);
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 9);
+    CHECK_EQ(curHand[8]->GetCost(), 3);
+}
+
 // ----------------------------------------- MINION - DRUID
 // [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:3]
 // - Set: THE_BARRENS, Rarity: Rare
@@ -284,6 +373,152 @@ TEST_CASE("[Druid : Minion] - BAR_538 : Druid of the Plains")
     CHECK_EQ(curField[0]->GetHealth(), 7);
     CHECK_EQ(curField[0]->HasRush(), false);
     CHECK_EQ(curField[0]->HasTaunt(), true);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [BAR_539] Celestial Alignment - COST:7
+// - Set: THE_BARRENS, Rarity: Epic
+// - Spell School: Arcane
+// --------------------------------------------------------
+// Text: Set each player to 0 Mana Crystals.
+//       Set the Cost of cards in all hands and decks to (1).
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - BAR_539 : Celestial Alignment")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Doomhammer");
+        config.player2Deck[i] = Cards::FindCardByName("Fireball");
+        config.player2Deck[i + 1] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i + 2] = Cards::FindCardByName("Doomhammer");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Celestial Alignment"));
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
+    CHECK_EQ(opPlayer->GetTotalMana(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetTotalMana(), 0);
+    CHECK_EQ(opPlayer->GetTotalMana(), 0);
+    for (auto& card : curHand.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+    for (auto& card : opHand.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+    for (auto& card : opDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 0);
+    CHECK_EQ(opPlayer->GetTotalMana(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 1);
+    CHECK_EQ(opPlayer->GetTotalMana(), 1);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [BAR_540] Plaguemaw the Rotting - COST:4 [ATK:3/HP:4]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After a friendly minion with <b>Taunt</b> dies,
+//       summon a new copy of it without <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - BAR_540 : Plaguemaw the Rotting")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Plaguemaw the Rotting"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rock Rager"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("River Crocolisk"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Rock Rager");
+    CHECK_EQ(curField[1]->HasTaunt(), false);
 }
 
 // ------------------------------------------ SPELL - DRUID

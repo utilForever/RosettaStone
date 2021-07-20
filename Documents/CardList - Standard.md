@@ -788,11 +788,11 @@ THE_BARRENS | BAR_430 | Horde Operative |
 THE_BARRENS | BAR_533 | Thorngrowth Sentries | O
 THE_BARRENS | BAR_534 | Pride's Fury | O
 THE_BARRENS | BAR_535 | Thickhide Kodo | O
-THE_BARRENS | BAR_536 | Living Seed (Rank 1) |  
+THE_BARRENS | BAR_536 | Living Seed (Rank 1) | O
 THE_BARRENS | BAR_537 | Razormane Battleguard | O
 THE_BARRENS | BAR_538 | Druid of the Plains | O
-THE_BARRENS | BAR_539 | Celestial Alignment |  
-THE_BARRENS | BAR_540 | Plaguemaw the Rotting |  
+THE_BARRENS | BAR_539 | Celestial Alignment | O
+THE_BARRENS | BAR_540 | Plaguemaw the Rotting | O
 THE_BARRENS | BAR_541 | Runed Orb |  
 THE_BARRENS | BAR_542 | Refreshing Spring Water |  
 THE_BARRENS | BAR_544 | Reckless Apprentice |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she |
 THE_BARRENS | WC_805 | Frostweave Dungeoneer |  
 THE_BARRENS | WC_806 | Floecaster |  
 
-- Progress: 5% (10 of 170 Cards)
+- Progress: 7% (13 of 170 Cards)
 
 ## United in Stormwind
 

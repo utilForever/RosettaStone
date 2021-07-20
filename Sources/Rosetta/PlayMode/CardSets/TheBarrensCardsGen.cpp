@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -84,6 +85,17 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Draw a Beast. Reduce its Cost by (1).
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_536e", EntityType::STACK));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::UpgradableTrigger(5, "BAR_536t")));
+    cards.emplace("BAR_536", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:3]
@@ -136,6 +148,17 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Set each player to 0 Mana Crystals.
     //       Set the Cost of cards in all hands and decks to (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetManaCrystalTask>(0));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_539e", EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_539e", EntityType::DECK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_539e", EntityType::ENEMY_HAND));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_539e", EntityType::ENEMY_DECK));
+    cards.emplace("BAR_539", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_540] Plaguemaw the Rotting - COST:4 [ATK:3/HP:4]
@@ -151,6 +174,16 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->condition =
+        std::make_shared<SelfCondition>(SelfCondition::HasTaunt());
+    power.GetTrigger()->tasks = {
+        std::make_shared<SummonCopyTask>(EntityType::TARGET, false, true),
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 0)
+    };
+    cards.emplace("BAR_540", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_549] Mark of the Spikeshell - COST:2
@@ -298,6 +331,17 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // Text: Draw a Beast. Reduce its Cost by (2).
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_536te", EntityType::STACK));
+    power.AddTrigger(std::make_shared<Trigger>(
+        Triggers::UpgradableTrigger(10, "BAR_536t2")));
+    cards.emplace("BAR_536t", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [BAR_536t2] Living Seed (Rank 3) - COST:2
@@ -307,6 +351,15 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // Text: Draw a Beast.
     //       Reduce its Cost by (3).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_536t2e", EntityType::STACK));
+    cards.emplace("BAR_536t2", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BAR_537e] Razorforced - COST:0
@@ -337,6 +390,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    cards.emplace("BAR_539e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BAR_549e] Everbark - COST:0
@@ -1633,6 +1689,8 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddShamanNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [BAR_044t] Chain Lightning (Rank 2) - COST:2
     // - Set: THE_BARRENS, Rarity: Epic
@@ -1656,6 +1714,9 @@ void TheBarrensCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("BAR_536e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [BAR_536t2e] Living Seed - COST:0
@@ -1663,6 +1724,9 @@ void TheBarrensCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // Text: Costs (3) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(3)));
+    cards.emplace("BAR_536t2e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [BAR_536te] Living Seed - COST:0
@@ -1670,6 +1734,9 @@ void TheBarrensCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("BAR_536te", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_751t] Diremuck Tinyfin - COST:1 [ATK:1/HP:1]

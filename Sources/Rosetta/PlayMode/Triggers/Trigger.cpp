@@ -240,6 +240,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::SHUFFLE_INTO_DECK:
             game->triggerManager.shuffleIntoDeckTrigger += instance->handler;
             break;
+        case TriggerType::MANA_CRYSTAL:
+            game->triggerManager.manaCrystalTrigger += instance->handler;
+            break;
         default:
             break;
     }
@@ -399,6 +402,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::SHUFFLE_INTO_DECK:
             game->triggerManager.shuffleIntoDeckTrigger -= handler;
+            break;
+        case TriggerType::MANA_CRYSTAL:
+            game->triggerManager.manaCrystalTrigger -= handler;
             break;
         default:
             break;
