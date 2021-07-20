@@ -287,6 +287,88 @@ TEST_CASE("[Druid : Minion] - BAR_538 : Druid of the Plains")
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [BAR_539] Celestial Alignment - COST:7
+// - Set: THE_BARRENS, Rarity: Epic
+// - Spell School: Arcane
+// --------------------------------------------------------
+// Text: Set each player to 0 Mana Crystals.
+//       Set the Cost of cards in all hands and decks to (1).
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - BAR_539 : Celestial Alignment")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Doomhammer");
+        config.player2Deck[i] = Cards::FindCardByName("Fireball");
+        config.player2Deck[i + 1] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i + 2] = Cards::FindCardByName("Doomhammer");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Celestial Alignment"));
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 10);
+    CHECK_EQ(opPlayer->GetTotalMana(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetTotalMana(), 0);
+    CHECK_EQ(opPlayer->GetTotalMana(), 0);
+    for (auto& card : curHand.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+    for (auto& card : curDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+    for (auto& card : opHand.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+    for (auto& card : opDeck.GetAll())
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 0);
+    CHECK_EQ(opPlayer->GetTotalMana(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 1);
+    CHECK_EQ(opPlayer->GetTotalMana(), 1);
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [BAR_549] Mark of the Spikeshell - COST:2
 // - Set: THE_BARRENS, Rarity: Rare
 // - Spell School: Nature

@@ -136,6 +136,17 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Set each player to 0 Mana Crystals.
     //       Set the Cost of cards in all hands and decks to (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetManaCrystalTask>(0));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_539e", EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_539e", EntityType::DECK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_539e", EntityType::ENEMY_HAND));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_539e", EntityType::ENEMY_DECK));
+    cards.emplace("BAR_539", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [BAR_540] Plaguemaw the Rotting - COST:4 [ATK:3/HP:4]
@@ -337,6 +348,9 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    cards.emplace("BAR_539e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [BAR_549e] Everbark - COST:0
