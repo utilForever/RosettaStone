@@ -167,6 +167,95 @@ TEST_CASE("[Druid : Minion] - BAR_535 : Thickhide Kodo")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [BAR_536] Living Seed (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Draw a Beast. Reduce its Cost by (1).
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - BAR_536 : Living Seed (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Savannah Highmane");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Living Seed (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Living Seed (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Living Seed (Rank 1)"));
+
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(card1->card->name, "Living Seed (Rank 1)");
+    CHECK_EQ(card2->card->name, "Living Seed (Rank 1)");
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[6]->GetCost(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Living Seed (Rank 1)");
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(card2->card->name, "Living Seed (Rank 2)");
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 8);
+    CHECK_EQ(curHand[7]->GetCost(), 4);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 9);
+    CHECK_EQ(card3->card->name, "Living Seed (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 9);
+    CHECK_EQ(curHand[8]->GetCost(), 3);
+}
+
 // ----------------------------------------- MINION - DRUID
 // [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:3]
 // - Set: THE_BARRENS, Rarity: Rare
