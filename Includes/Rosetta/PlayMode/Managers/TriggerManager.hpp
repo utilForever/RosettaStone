@@ -121,6 +121,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnShuffleIntoDeckTrigger(Entity* sender);
 
+    //! Callback for trigger when a player gains mana crystal.
+    //! \param sender An entity that is the source of trigger.
+    void OnManaCrystalTrigger(Entity* sender);
+
     TriggerEvent startTurnTrigger;
     TriggerEvent endTurnTrigger;
     TriggerEvent addCardTrigger;
@@ -146,6 +150,7 @@ class TriggerManager
     TriggerEvent inspireTrigger;
     TriggerEvent equipWeaponTrigger;
     TriggerEvent shuffleIntoDeckTrigger;
+    TriggerEvent manaCrystalTrigger;
 };
 }  // namespace RosettaStone::PlayMode
 

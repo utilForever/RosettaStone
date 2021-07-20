@@ -132,4 +132,9 @@ void TriggerManager::OnShuffleIntoDeckTrigger(Entity* sender)
 {
     shuffleIntoDeckTrigger(sender);
 }
+
+void TriggerManager::OnManaCrystalTrigger(Entity* sender)
+{
+    manaCrystalTrigger(sender);
+}
 }  // namespace RosettaStone::PlayMode
