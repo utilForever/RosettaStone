@@ -34,10 +34,10 @@ class Triggers
         return trigger;
     }
 
-    //! Trigger for upgradable card.
+    //! Trigger for rank spells.
     //! \param mana The amount of mana requires for upgrade.
     //! \param enchantmentID The upgraded card ID.
-    static Trigger UpgradableTrigger(int mana, std::string&& upgradedCardID)
+    static Trigger RankSpellTrigger(int mana, std::string&& upgradedCardID)
     {
         Trigger trigger(TriggerType::MANA_CRYSTAL);
         trigger.triggerActivation = TriggerActivation::HAND;
