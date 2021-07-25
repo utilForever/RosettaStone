@@ -44,8 +44,7 @@ class Triggers
         trigger.condition = std::make_shared<SelfCondition>(
             SelfCondition::HasAtLeastManaCrystal(mana));
         trigger.tasks = { std::make_shared<SimpleTasks::ChangeEntityTask>(
-            std::move(upgradedCardID), EntityType::SOURCE) };
-        trigger.fastExecution = true;
+            std::move(upgradedCardID)) };
 
         return trigger;
     }
