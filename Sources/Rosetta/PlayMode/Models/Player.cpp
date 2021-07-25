@@ -180,7 +180,11 @@ void Player::SetTotalMana(int amount)
     SetGameTag(GameTag::RESOURCES, amount);
 
     // Process mana crystal trigger
+    game->taskQueue.StartEvent();
     game->triggerManager.OnManaCrystalTrigger(this);
+    game->ProcessTasks();
+    game->taskQueue.EndEvent();
+    game->ProcessDestroyAndUpdateAura();
 }
 
 int Player::GetUsedMana() const

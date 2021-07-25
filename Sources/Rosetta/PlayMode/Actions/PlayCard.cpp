@@ -63,7 +63,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         {
             Card* newCard = Cards::FindCardByDbfID(
                 playable->GetGameTag(GameTag::CORRUPTEDCARD));
-            if (newCard != nullptr)
+            if (newCard != nullptr && !newCard->name.empty())
             {
                 ChangeEntity(player, playable, newCard, true);
             }

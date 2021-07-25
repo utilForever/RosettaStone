@@ -94,7 +94,7 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BAR_536e", EntityType::STACK));
     power.AddTrigger(
-        std::make_shared<Trigger>(Triggers::UpgradableTrigger(5, "BAR_536t")));
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_536t")));
     cards.emplace("BAR_536", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
@@ -339,8 +339,8 @@ void TheBarrensCardsGen::AddDruidNonCollect(
     power.AddPowerTask(std::make_shared<DrawStackTask>(true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BAR_536te", EntityType::STACK));
-    power.AddTrigger(std::make_shared<Trigger>(
-        Triggers::UpgradableTrigger(10, "BAR_536t2")));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_536t2")));
     cards.emplace("BAR_536t", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID

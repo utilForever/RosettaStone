@@ -2382,9 +2382,12 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
             const int entityID =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1);
-            Playable* playable = player->game->entityList[entityID];
-            player->opponent->GetGraveyardZone()->Remove(playable);
-            player->opponent->GetHandZone()->Add(playable);
+            if (entityID > 0)
+            {
+                Playable* playable = player->game->entityList[entityID];
+                player->opponent->GetGraveyardZone()->Remove(playable);
+                player->opponent->GetHandZone()->Add(playable);
+            }
         }));
     cards.emplace("CS3_003", CardDef(power));
 

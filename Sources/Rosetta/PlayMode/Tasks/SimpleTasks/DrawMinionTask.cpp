@@ -38,14 +38,15 @@ TaskStatus DrawMinionTask::Impl(Player* player)
     }
 
     auto deckCards = player->GetDeckZone()->GetAll();
-    if (deckCards.empty())
-    {
-        return TaskStatus::STOP;
-    }
 
     EraseIf(deckCards, [=](Playable* playable) {
         return playable->card->GetCardType() != CardType::MINION;
     });
+
+    if (deckCards.empty())
+    {
+        return TaskStatus::STOP;
+    }
 
     switch (m_drawMinionType)
     {
