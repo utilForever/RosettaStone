@@ -193,7 +193,8 @@ enum class ChoiceType
 {
     INVALID,
     MULLIGAN,
-    GENERAL
+    GENERAL,
+    TARGET
 };
 
 //! \brief An enumerator for identifying the format type of the card.
