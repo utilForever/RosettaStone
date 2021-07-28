@@ -68,7 +68,7 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 };
 
 //! The number of all cards.
-constexpr int NUM_ALL_CARDS = 13100;
+constexpr int NUM_ALL_CARDS = 13540;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
