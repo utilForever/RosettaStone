@@ -45,11 +45,13 @@
 * [ ] Overkill
 * [ ] Passive
 * [x] Quest
+* [ ] Questline
 * [x] Reborn
 * [ ] Recruit
 * [x] Sidequest
 * [x] Spellburst
 * [ ] Start of Game
+* [ ] Tradeable
 * [x] Twinspell
 
 ## Keyworded Generation Abilities

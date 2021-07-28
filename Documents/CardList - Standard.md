@@ -891,6 +891,140 @@ THE_BARRENS | WC_806 | Floecaster |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
+STORMWIND | SW_001 | Celestial Ink Set |  
+STORMWIND | SW_003 | Runed Mithril Rod |  
+STORMWIND | SW_006 | Stubborn Suspect |  
+STORMWIND | SW_012 | Shadowcloth Needle |  
+STORMWIND | SW_021 | Cowardly Grunt |  
+STORMWIND | SW_023 | Provoke |  
+STORMWIND | SW_024 | Lothar |  
+STORMWIND | SW_025 | Auctionhouse Gavel |  
+STORMWIND | SW_026 | Spirit Alpha |  
+STORMWIND | SW_027 | Shiver Their Timbers! |  
+STORMWIND | SW_028 | Raid the Docks |  
+STORMWIND | SW_029 | Harbor Scamp |  
+STORMWIND | SW_030 | Cargo Guard |  
+STORMWIND | SW_031 | Command the Elements |  
+STORMWIND | SW_032 | Granite Forgeborn |  
+STORMWIND | SW_033 | Canal Slogger |  
+STORMWIND | SW_034 | Tiny Toys |  
+STORMWIND | SW_035 | Charged Call |  
+STORMWIND | SW_036 | Two-Faced Investor |  
+STORMWIND | SW_037 | Irebound Brute |  
+STORMWIND | SW_039 | Final Showdown |  
+STORMWIND | SW_040 | Fel Barrage |  
+STORMWIND | SW_041 | Sigil of Alacrity |  
+STORMWIND | SW_042 | Persistent Peddler |  
+STORMWIND | SW_043 | Felgorger |  
+STORMWIND | SW_044 | Jace Darkweaver |  
+STORMWIND | SW_045 | Auctioneer Jaxon |  
+STORMWIND | SW_046 | City Tax |  
+STORMWIND | SW_047 | Highlord Fordragon |  
+STORMWIND | SW_048 | Prismatic Jewel Kit |  
+STORMWIND | SW_049 | Blessed Goods |  
+STORMWIND | SW_050 | Maestra of the Masquerade |  
+STORMWIND | SW_052 | Find the Imposter |  
+STORMWIND | SW_054 | Stormwind Guard |  
+STORMWIND | SW_055 | Impatient Shopkeep |  
+STORMWIND | SW_056 | Spice Bread Baker |  
+STORMWIND | SW_057 | Package Runner |  
+STORMWIND | SW_059 | Deeprun Engineer |  
+STORMWIND | SW_060 | Florist |  
+STORMWIND | SW_061 | Guild Trader |  
+STORMWIND | SW_062 | Goldshire Gnoll |  
+STORMWIND | SW_063 | Battleground Battlemaster |  
+STORMWIND | SW_064 | Northshire Farmer |  
+STORMWIND | SW_065 | Pandaren Importer |  
+STORMWIND | SW_066 | Royal Librarian |  
+STORMWIND | SW_067 | Stockades Guard |  
+STORMWIND | SW_068 | Mo'arg Forgefiend |  
+STORMWIND | SW_069 | Enthusiastic Banker |  
+STORMWIND | SW_070 | Mailbox Dancer |  
+STORMWIND | SW_071 | Lion's Guard |  
+STORMWIND | SW_072 | Rustrot Viper |  
+STORMWIND | SW_073 | Cheesemonger |  
+STORMWIND | SW_074 | Nobleman |  
+STORMWIND | SW_075 | Elwynn Boar |  
+STORMWIND | SW_076 | City Architect |  
+STORMWIND | SW_077 | Stockades Prisoner |  
+STORMWIND | SW_078 | Lady Prestor |  
 STORMWIND | SW_079 | Flightmaster Dungar |  
+STORMWIND | SW_080 | Cornelius Roame |  
+STORMWIND | SW_081 | Varian, King of Stormwind |  
+STORMWIND | SW_084 | Bloodbound Imp |  
+STORMWIND | SW_085 | Dark Alley Pact |  
+STORMWIND | SW_086 | Shady Bartender |  
+STORMWIND | SW_087 | Dreaded Mount |  
+STORMWIND | SW_088 | Demonic Assault |  
+STORMWIND | SW_089 | Entitled Customer |  
+STORMWIND | SW_090 | Touch of the Nathrezim |  
+STORMWIND | SW_091 | The Demon Seed |  
+STORMWIND | SW_092 | Anetheron |  
+STORMWIND | SW_093 | Stormwind Freebooter |  
+STORMWIND | SW_094 | Heavy Plate |  
+STORMWIND | SW_095 | Investment Opportunity |  
+STORMWIND | SW_097 | Remote-Controlled Golem |  
+STORMWIND | SW_107 | Fire Sale |  
+STORMWIND | SW_108 | First Flame |  
+STORMWIND | SW_109 | Clumsy Courier |  
+STORMWIND | SW_110 | Ignite |  
+STORMWIND | SW_111 | Sanctum Chandler |  
+STORMWIND | SW_112 | Prestor's Pyromancer |  
+STORMWIND | SW_113 | Grand Magus Antonidas |  
+STORMWIND | SW_114 | Overdraft |  
+STORMWIND | SW_115 | Bolner Hammerbeak |  
+STORMWIND | SW_305 | First Blade of Wrynn |  
+STORMWIND | SW_306 | Encumbered Pack Mule |  
+STORMWIND | SW_307 | Traveling Merchant |  
+STORMWIND | SW_310 | Counterfeit Blade |  
+STORMWIND | SW_311 | Garrote |  
+STORMWIND | SW_313 | Rise to the Occasion |  
+STORMWIND | SW_314 | Lightbringer's Hammer |  
+STORMWIND | SW_315 | Alliance Bannerman |  
+STORMWIND | SW_316 | Noble Mount |  
+STORMWIND | SW_317 | Catacomb Guard |  
+STORMWIND | SW_319 | Peasant |  
+STORMWIND | SW_320 | Rats of Extraordinary Size |  
+STORMWIND | SW_321 | Aimed Shot |  
+STORMWIND | SW_322 | Defend the Dwarven District |  
+STORMWIND | SW_323 | The Rat King |  
+STORMWIND | SW_400 | Entrapped Sorceress |  
+STORMWIND | SW_405 | Sketchy Information |  
+STORMWIND | SW_411 | SI:7 Informant |  
+STORMWIND | SW_412 | SI:7 Extortion |  
+STORMWIND | SW_413 | SI:7 Operative |  
+STORMWIND | SW_417 | SI:7 Assassin |  
+STORMWIND | SW_418 | SI:7 Skulker |  
+STORMWIND | SW_419 | Oracle of Elune |  
+STORMWIND | SW_422 | Sow the Soil |  
+STORMWIND | SW_428 | Lost in the Park |  
+STORMWIND | SW_429 | Best in Shell |  
+STORMWIND | SW_431 | Park Panther |  
+STORMWIND | SW_432 | Kodo Mount |  
+STORMWIND | SW_433 | Seek Guidance |  
+STORMWIND | SW_434 | Loan Shark |  
+STORMWIND | SW_436 | Wickerclaw |  
+STORMWIND | SW_437 | Composting |  
+STORMWIND | SW_439 | Vibrant Squirrel |  
+STORMWIND | SW_440 | Call of the Grave |  
+STORMWIND | SW_441 | Shard of the Naaru |  
+STORMWIND | SW_442 | Void Shard |  
+STORMWIND | SW_443 | Elekk Mount |  
+STORMWIND | SW_444 | Twilight Deceptor |  
+STORMWIND | SW_445 | Psyfiend |  
+STORMWIND | SW_446 | Voidtouched Attendant |  
+STORMWIND | SW_447 | Sheldras Moontree |  
+STORMWIND | SW_448 | Darkbishop Benedictus |  
+STORMWIND | SW_450 | Sorcerer's Gambit |  
+STORMWIND | SW_451 | Metamorfin |  
+STORMWIND | SW_452 | Chaos Leech |  
+STORMWIND | SW_454 | Lion's Frenzy |  
+STORMWIND | SW_455 | Rodent Nest |  
+STORMWIND | SW_457 | Leatherworking Kit |  
+STORMWIND | SW_458 | Ramming Mount |  
+STORMWIND | SW_459 | Stormwind Piper |  
+STORMWIND | SW_460 | Devouring Swarm |  
+STORMWIND | SW_462 | Hot Streak |  
+STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 0% (0 of 1 Cards)
+- Progress: 0% (0 of 135 Cards)
