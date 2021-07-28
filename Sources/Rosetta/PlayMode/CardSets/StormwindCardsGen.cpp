@@ -9,103 +9,2404 @@ namespace RosettaStone::PlayMode
 {
 void StormwindCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    // Do nothing
 }
 
 void StormwindCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    // Do nothing
 }
 
 void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    // ----------------------------------------- MINION - DRUID
+    // [SW_419] Oracle of Elune - COST:3 [ATK:2/HP:4]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: After you play a minion that costs (2) or less,
+    //       summon a copy of it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_422] Sow the Soil - COST:1
+    // - Set: STORMWIND, Rarity: Common
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: <b>Choose One</b> - Give your minions +1 Attack;
+    //       or Summon a 2/2 Treant.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_428] Lost in the Park - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Gain 4 Attack with your hero.
+    //       <b>Reward:</b> Gain 5 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_429] Best in Shell - COST:6
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       Summon two 2/7 Turtles with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_431] Park Panther - COST:4 [ATK:4/HP:4]
+    // - Race: Beast, Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>. Whenever this attacks,
+    //       give your hero +3 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_432] Kodo Mount - COST:4
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Give a minion +4/+2 and <b>Rush</b>.
+    //       When it dies, summon a Kodo.
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_436] Wickerclaw - COST:2 [ATK:1/HP:4]
+    // - Race: Beast, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After your hero gains Attack,
+    //       this minion gains +2 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_437] Composting - COST:2
+    // - Set: STORMWIND, Rarity: Epic
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Give your minions "<b>Deathrattle:</b> Draw a card."
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_439] Vibrant Squirrel - COST:1 [ATK:2/HP:1]
+    // - Race: Beast, Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Shuffle 4 Acorns into your deck.
+    //       When drawn, summon a 2/1 Squirrel.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_447] Sheldras Moontree - COST:8 [ATK:5/HP:5]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next 3 spells you draw are
+    //       <b>Cast When Drawn</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_422a] New Growth - COST:1
+    // - Set: STORMWIND
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Summon a 2/2 Treant.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_422b] Fertilizer - COST:1
+    // - Set: STORMWIND
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Give your minions +1 Attack.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [SW_422e] Replanted - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1 Attack.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_422t] Treant - COST:2 [ATK:2/HP:2]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_428t] Defend the Squirrels - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Gain 5 Attack with your hero.
+    //       <b>Reward:</b> Gain 5 Armor and draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_428t2] Feral Friendsy - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Gain 6 Attack with your hero.
+    //       <b>Reward:</b> Guff the Tough.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_428t4] Guff the Tough - COST:5 [ATK:8/HP:8]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>.
+    //       <b>Battlecry:</b> Give your hero +8 Attack this turn.
+    //       Gain 8 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [SW_428t4e] Guff's Buff - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Your hero has Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_429t] Goldshell Turtle - COST:4 [ATK:2/HP:7]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [SW_431e] Rawr! - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +3 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [SW_432e] On a Kodo - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +4/+2 and <b>Rush</b>.
+    //       <b>Deathrattle:</b> Summon a Kodo.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_432t] Guff's Kodo - COST:3 [ATK:4/HP:2]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [SW_436e] Wicked Claws - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [SW_439t] Acorn - COST:1
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Casts When Drawn</b>
+    //       Summon a 2/1 Squirrel.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TOPDECK = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [SW_439t2] Satisfied Squirrel - COST:1 [ATK:2/HP:1]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [SW_447e] Elune's Guidance - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Your next 3 spells are <b>Cast When Drawn</b>.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [SW_447e2] Elune's Guidance 2 - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Your next 3 spells are <b>Cast When Drawn</b>.
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    // ----------------------------------------- SPELL - HUNTER
+    // [SW_320] Rats of Extraordinary Size - COST:6
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Summon seven 1/1 Rats.
+    //       Any that can't fit on the battlefield go
+    //       to your hand with +4/+4.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [SW_321] Aimed Shot - COST:3
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal 3 damage.
+    //       Your next Hero Power deals 2 more damage.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [SW_322] Defend the Dwarven District - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Deal damage with 2 spells.
+    //       <b>Reward:</b> Your Hero Power can target minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [SW_323] The Rat King - COST:5 [ATK:5/HP:5]
+    // - Race: Beast, Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>. <b>Deathrattle:</b> Go <b>Dormant</b>.
+    //       Revive after 5 friendly minions die.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [SW_455] Rodent Nest - COST:4 [ATK:2/HP:2]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon five 1/1 Rats.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- WEAPON - HUNTER
+    // [SW_457] Leatherworking Kit - COST:2
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After three friendly Beasts die,
+    //       draw a Beast and give it +1/+1.
+    //       Lose 1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [SW_458] Ramming Mount - COST:3
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Give a minion +2/+2 and <b>Immune</b>
+    //       while attacking. When it dies, summon a Ram.
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [SW_459] Stormwind Piper - COST:3 [ATK:1/HP:6]
+    // - Race: Demon, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After this minion attacks, give your Beasts +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [SW_460] Devouring Swarm - COST:0
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Choose an enemy minion. Your minions attack it,
+    //       then return any that die to your hand.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [SW_463] Imported Tarantula - COST:5 [ATK:4/HP:5]
+    // - Race: Beast, Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Deathrattle:</b> Summon two 1/1 Spiders with
+    //       <b>Poisonous</b> and <b>Rush</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - POISONOUS = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [SW_320e] Extraordinarily Sized - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +4/+4
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [SW_321e] Aiming - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Your next Hero Power deals 2 more damage.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [SW_322t] Take the High Ground - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Deal damage with 2 spells.
+    //       <b>Reward:</b> Set the Cost of your Hero Power to (0).
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [SW_322t2] Knock 'Em Down - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Deal damage with 2 spells.
+    //       <b>Reward:</b> Tavish, Master Marksman.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [SW_322t4] Tavish, Master Marksman - COST:5 [ATK:7/HP:7]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> For the rest of the game,
+    //       spells you cast refresh your Hero Power.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [SW_323e] Rat King's Slumber - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b>. Awaken after 5 friendly minions die.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [SW_455t] Rat - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [SW_458e] On a Ram - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +2/+2 and <b>Immune</b> while attacking.
+    //       <b>Deathrattle:</b> Summon a Ram.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [SW_458t] Tavish's Ram - COST:2 [ATK:2/HP:2]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Immune</b> while attacking.
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [SW_459e] Entranced - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [SW_463t] Invasive Spiderling - COST:2 [ATK:1/HP:1]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Poisonous</b>
+    //       <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - POISONOUS = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    // ------------------------------------------ WEAPON - MAGE
+    // [SW_001] Celestial Ink Set - COST:2
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you spend 5 Mana on spells,
+    //       reduce the cost of a spell in your hand by (5).
+    //       Lose 1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [SW_107] Fire Sale - COST:4
+    // - Set: STORMWIND, Rarity: Common
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       Deal 3 damage to all minions.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [SW_108] First Flame - COST:1
+    // - Set: STORMWIND, Rarity: Rare
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to a minion.
+    //       Add a Second Flame to your hand.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [SW_109] Clumsy Courier - COST:7 [ATK:4/HP:5]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Cast the highest Cost spell
+    //       from your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [SW_110] Ignite - COST:2
+    // - Set: STORMWIND, Rarity: Epic
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Deal 2 damage. Shuffle an Ignite into
+    //       your deck that deals one more damage.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [SW_111] Sanctum Chandler - COST:5 [ATK:4/HP:5]
+    // - Race: Elemental, Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you cast a Fire spell, draw a spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [SW_112] Prestor's Pyromancer - COST:2 [ATK:2/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Your next Fire spell has
+    //       <b>Spell Damage +2</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [SW_113] Grand Magus Antonidas - COST:8 [ATK:6/HP:6]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you've cast
+    //       a Fire spell on each of your last three turns,
+    //       cast 3 Fireballs at random enemies. <i>(@/3)</i>
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [SW_450] Sorcerer's Gambit - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Cast a Fire, Frost, and Arcane spell.
+    //       <b>Reward: </b>Draw a spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [SW_462] Hot Streak - COST:0
+    // - Set: STORMWIND, Rarity: Common
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Your next Fire spell this turn costs (2) less.
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [SW_059e] Engineered - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Cost reduced.
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [SW_108t] Second Flame - COST:1
+    // - Set: STORMWIND
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to a minion.
+    // --------------------------------------------------------
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [SW_112e] Burning Hot! - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Your next Fire spell has <b>Spell Damage +2</b>.
+    // --------------------------------------------------------
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [SW_112e2] Burning Hot! - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Your next Fire spell has <b>Spell Damage +2</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_BE_SILENCED = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [SW_450t] Stall for Time - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Cast a Fire, Frost, and Arcane spell.
+    //       <b>Reward:</b> <b>Discover</b> one.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [SW_450t2] Reach the Portal Room - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Cast a Fire, Frost, and Arcane spell.
+    //       <b>Reward:</b> Arcanist Dawngrasp.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [SW_450t4] Arcanist Dawngrasp - COST:5 [ATK:7/HP:7]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> For the rest of the game,
+    //       you have <b>Spell Damage +3</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [SW_450t4e] Power of Dawngrasp - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +3</b>
+    // --------------------------------------------------------
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [SW_462e] Hot Streak - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: The next Fire spell you play costs (2) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------------- SPELL - PALADIN
+    // [SW_046] City Tax - COST:2
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Lifesteal</b>. Deal 1 damage to all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [SW_047] Highlord Fordragon - COST:6 [ATK:5/HP:5]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Divine Shield</b>
+    //       After a friendly minion loses <b>Divine Shield</b>,
+    //       give a minion in your hand +5/+5.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DIVINE_SHIELD = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - PALADIN
+    // [SW_048] Prismatic Jewel Kit - COST:1
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After a friendly minion loses <b>Divine Shield</b>,
+    //       give minions in your hand +1/+1.
+    //       Lose 1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [SW_049] Blessed Goods - COST:1
+    // - Set: STORMWIND, Rarity: Common
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: <b>Discover</b> a <b>Secret</b>, weapon,
+    //       or <b>Divine Shield</b> minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [SW_305] First Blade of Wrynn - COST:4 [ATK:3/HP:5]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Divine Shield</b>
+    //       <b>Battlecry:</b> Gain <b>Rush</b>
+    //       if this has at least 4 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [SW_313] Rise to the Occasion - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 3 different 1-Cost cards.
+    //       <b>Reward:</b> Equip a 1/4 Light's Justice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - PALADIN
+    // [SW_314] Lightbringer's Hammer - COST:3
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    //       Can't attack heroes.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:2]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a minion.
+    //       Give minions in your hand +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [SW_316] Noble Mount - COST:2
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Give a minion +1/+1 and <b>Divine Shield</b>.
+    //       When it dies, summon a Warhorse.
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [SW_317] Catacomb Guard - COST:3 [ATK:1/HP:4]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    //       <b>Battlecry:</b> Deal damage equal to
+    //       this minion's Attack to an enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------------- SPELL - PALADIN
+    // [SW_313t] Pave the Way - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline: </b> Play 3 different 1-Cost cards.
+    //       <b>Reward:</b> Upgrade your Hero Power.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [SW_313t2] Avenge the Fallen - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 3 different 1-Cost cards.
+    //       <b>Reward:</b> Lightborn Cariel.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [SW_313t4] Lightborn Cariel - COST:5 [ATK:7/HP:7]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> For the rest of the game,
+    //       your Silver Hand Recruits have +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [SW_313t4e] Light's Strength - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: For the rest of the game,
+    //       your Silver Hand Recruits have +2/+2.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [SW_316t] Cariel's Warhorse - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Divine Shield</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - DIVINE_SHIELD = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------------- WEAPON - PRIEST
+    // [SW_012] Shadowcloth Needle - COST:2
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you cast a Shadow spell,
+    //       deal 1 damage to all enemies.
+    //       Lose 1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [SW_433] Seek Guidance - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play a 2, 3, and 4-Cost card.
+    //       <b>Reward:</b> <b>Discover</b> a card from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [SW_440] Call of the Grave - COST:1
+    // - Set: STORMWIND, Rarity: Epic
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: <b>Discover</b> a <b>Deathrattle</b> minion.
+    //       If you have enough Mana to play it,
+    //       trigger its <b>Deathrattle</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [SW_441] Shard of the Naaru - COST:1
+    // - Set: STORMWIND, Rarity: Common
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Silence</b> all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [SW_442] Void Shard - COST:4
+    // - Set: STORMWIND, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    //       Deal 4 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [SW_443] Elekk Mount - COST:7
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Give a minion +4/+7 and <b>Taunt</b>.
+    //       When it dies, summon an Elekk.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [SW_444] Twilight Deceptor - COST:2 [ATK:2/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If any hero took damage this turn,
+    //       draw a Shadow spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [SW_445] Psyfiend - COST:3 [ATK:3/HP:4]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you cast a Shadow spell,
+    //       deal 2 damage to each Hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [SW_446] Voidtouched Attendant - COST:1 [ATK:1/HP:3]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Both heroes take one extra damage from all sources.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [SW_448] Darkbishop Benedictus - COST:5 [ATK:5/HP:6]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Start of Game:</b> If the spells in your deck
+    //       are all Shadow, enter Shadowform.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - START_OF_GAME = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddPriestNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ----------------------------------------- SPELL - PRIEST
+    // [SW_433t] Discover the Void Shard - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play a 5 and 6-Cost card.
+    //       <b>Reward:</b> <b>Discover</b> a card from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [SW_433t2] Illuminate the Void - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play a 7 and 8-Cost card.
+    //       <b>Reward:</b> Xyrella, the Sanctified.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [SW_433t3] Xyrella, the Sanctified - COST:5 [ATK:7/HP:7]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Shuffle the Purified Shard
+    //       into your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [SW_433t3a] Purified Shard - COST:10
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Destroy the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TOPDECK = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [SW_443e] On an Elekk - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +4/+7 and <b>Taunt</b>.
+    //       <b>Deathrattle:</b> Summon an Elekk.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [SW_443t] Xyrella's Elekk - COST:6 [ATK:4/HP:7]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [SW_446e] Voidtouched - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Both heroes take one extra damage from all sources.
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    // ----------------------------------------- MINION - ROGUE
+    // [SW_050] Maestra of the Masquerade - COST:2 [ATK:3/HP:2]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: You start the game as a different class
+    //       until you play a Rogue card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_052] Find the Imposter - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 2 SI:7 cards.
+    //       <b>Reward:</b> Add a Spy Gizmo to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- WEAPON - ROGUE
+    // [SW_310] Counterfeit Blade - COST:4
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain a random friendly
+    //       <b>Deathrattle</b> that triggered this game.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_311] Garrote - COST:2
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to the enemy hero.
+    //       Shuffle 3 Bleeds into your deck that
+    //       deal 2 more when drawn.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_405] Sketchy Information - COST:3
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Draw a <b>Deathrattle</b> card that costs (4) or less.
+    //       Trigger its <b>Deathrattle.</b>
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [SW_411] SI:7 Informant - COST:4 [ATK:3/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain +1/+1 for each SI:7 card
+    //       you've played this game.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_412] SI:7 Extortion - COST:1
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       Deal 3 damage to an undamaged character.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [SW_413] SI:7 Operative - COST:3 [ATK:2/HP:4]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    //       After this attacks a minion, gain <b>Stealth</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [SW_417] SI:7 Assassin - COST:7 [ATK:4/HP:4]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each SI:7 card you've played this game.
+    //       <b>Combo:</b> Destroy an enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - COMBO = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [SW_434] Loan Shark - COST:3 [ATK:3/HP:4]
+    // - Race: Beast, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your opponent a Coin.
+    //       <b>Deathrattle:</b> You get two.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_052t] Learn the Truth - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 2 SI:7 cards.
+    //       <b>Reward:</b> Add a Spy Gizmo to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_052t2] Marked a Traitor - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 2 SI:7 cards.
+    //       <b>Reward:</b> Spymaster Scabbs.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [SW_052t3] Spymaster Scabbs - COST:5 [ATK:7/HP:7]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Add one of each Spy Gizmo
+    //       to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_052t4] Fizzflash Distractor - COST:1
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Return an enemy minion to its owner's hand.
+    //       They can't play it next turn.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [SW_052t4e] Distracted - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Can't be played.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [SW_052t5] Spy-o-matic - COST:1 [ATK:3/HP:2]
+    // - Race: Mechanical, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Look at 3 cards in
+    //       your opponent's deck. Pick one to put on top.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_052t6] Noggen-Fog Generator - COST:1
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Give a minion +2 Attack and <b>Stealth</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [SW_052t6e] Noggen-Fog - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +2 Attack and <b>Stealth</b>.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- WEAPON - ROGUE
+    // [SW_052t7] Hidden Gyroblade - COST:1
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Throw this at a random enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [SW_052t8_t] Undercover Mole - COST:1 [ATK:2/HP:3]
+    // - Race: Beast, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>. After this attacks,
+    //       add a random card to your hand
+    //       <i>(from your opponent's class).</i>
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [SW_310e] Counterfeit Blade - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Copied <b>Deathrattle</b> from {0}.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [SW_311t] Bleed - COST:1
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Casts When Drawn</b>
+    //       Deal 2 damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TOPDECK = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [SW_411e] Well Informed - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1/+1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------------- WEAPON - SHAMAN
+    // [SW_025] Auctionhouse Gavel - COST:2
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After your hero attacks, reduce the Cost of
+    //       a <b>Battlecry</b> minion in your hand by (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [SW_026] Spirit Alpha - COST:4 [ATK:2/HP:5]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After you play a card with <b>Overload</b>,
+    //       summon a 2/3 Spirit Wolf with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [SW_031] Command the Elements - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 3 cards with <b>Overload</b>.
+    //       <b>Reward:</b> Unlock your <b>Overloaded</b> Mana Crystals.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [SW_032] Granite Forgeborn - COST:4 [ATK:4/HP:5]
+    // - Race: Elemental, Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Reduce the cost of Elementals
+    //       in your hand and deck by (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [SW_033] Canal Slogger - COST:4 [ATK:6/HP:4]
+    // - Race: Elemental, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>, <b>Lifesteal</b>
+    //       <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // RefTag:
+    // - LIFESTEAL = 1
+    // - OVERLOAD = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [SW_034] Tiny Toys - COST:6
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Summon four random 5-Cost minions.
+    //       Make them 2/2.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [SW_035] Charged Call - COST:3
+    // - Set: STORMWIND, Rarity: Rare
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: <b>Discover</b> a 1-Cost minion and summon it.
+    //       <i>(Upgraded for each <b>Overload</b> card
+    //       you played this game!)</i>
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [SW_095] Investment Opportunity - COST:1
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Draw an <b>Overload</b> card.
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [SW_114] Overdraft - COST:1
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       Unlock your <b>Overloaded</b> Mana Crystals
+    //       to deal that much damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [SW_115] Bolner Hammerbeak - COST:2 [ATK:1/HP:4]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: After you play a <b>Battlecry</b> minion,
+    //       repeat the first <b>Battlecry</b> played this turn. 
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddShamanNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [SW_025e] Sold! - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [SW_031t] Stir the Stones - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 3 cards with <b>Overload</b>.
+    //       <b>Reward:</b> Summon a 3/3 Elemental with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [SW_031t2] Tame the Flames - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 2 cards with <b>Overload</b>.
+    //       <b>Reward:</b> Stormcaller Bru'kan.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [SW_031t7] Stormcaller Bru'kan - COST:5 [ATK:7/HP:7]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> For the rest of the game,
+    //       your spells cast twice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [SW_031t7e] Stormcaller - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Spells cast twice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [SW_031t8] Living Earth - COST:3 [ATK:3/HP:3]
+    // - Race: Elemental, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [SW_032e] Forged - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- WEAPON - WARLOCK
+    // [SW_003] Runed Mithril Rod - COST:3
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you draw 4 cards,
+    //       reduce the Cost of cards in your hand by (1).
+    //       Lose 1 Durability.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [SW_084] Bloodbound Imp - COST:2 [ATK:2/HP:5]
+    // - Race: Demon, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever this attacks, deal 2 damage to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [SW_085] Dark Alley Pact - COST:4
+    // - Set: STORMWIND, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Summon a Fiend with stats equal to your hand size.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [SW_086] Shady Bartender - COST:5 [ATK:4/HP:4]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Battlecry:</b> Give your Demons +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [SW_087] Dreaded Mount - COST:3
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Give a minion +1/+1.
+    //       When it dies, summon an endless Dreadsteed.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [SW_088] Demonic Assault - COST:4
+    // - Set: STORMWIND, Rarity: Common
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: Deal 3 damage.
+    //       Summon two 1/3 Voidwalkers with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [SW_089] Entitled Customer - COST:6 [ATK:3/HP:2]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal damage equal to your
+    //       hand size to all other minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [SW_090] Touch of the Nathrezim - COST:1
+    // - Set: STORMWIND, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to a minion.
+    //       If it dies, restore 4 Health to your hero.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [SW_091] The Demon Seed - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Take 6 damage on your turns.
+    //       <b>Reward:</b> <b>Lifesteal</b>.
+    //       Deal 3 damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [SW_092] Anetheron - COST:6 [ATK:8/HP:6]
+    // - Race: Demon, Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Costs (1) if your hand is full.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- MINION - WARLOCK
+    // [SW_085t] Fiend - COST:1 [ATK:1/HP:1]
+    // - Race: Demon, Set: STORMWIND
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [SW_087t] Tamsin's Dreadsteed - COST:4 [ATK:1/HP:1]
+    // - Race: Demon, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> At the end of the turn,
+    //       summon Tamsin's Dreadsteed.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [SW_091t] Establish the Link - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Take 7 damage on your turns.
+    //       <b>Reward:</b> <b>Lifesteal</b>.
+    //       Deal 3 damage to the enemy hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [SW_091t3] Complete the Ritual - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Take 8 damage on your turns.
+    //       <b>Reward:</b> Blightborn Tamsin.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [SW_091t4] Blightborn Tamsin - COST:5 [ATK:7/HP:7]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> For the rest of the game,
+    //       damage you take on your turn damages
+    //       your opponent instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- MINION - WARRIOR
+    // [SW_021] Cowardly Grunt - COST:6 [ATK:6/HP:2]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a minion from your deck.
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [SW_023] Provoke - COST:0
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       Choose a friendly minion.
+    //       Enemy minions attack it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [SW_024] Lothar - COST:7 [ATK:7/HP:7]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn, attack a random enemy minion.
+    //       If it dies, gain +3/+3.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [SW_027] Shiver Their Timbers! - COST:1
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to a minion.
+    //       If you control a Pirate, deal 5 instead.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [SW_028] Raid the Docks - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 3 Pirates.
+    //       <b>Reward:</b> Draw a weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [SW_029] Harbor Scamp - COST:2 [ATK:2/HP:2]
+    // - Race: Pirate, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a Pirate.
+    // --------------------------------------------------------
+    // RefTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [SW_030] Cargo Guard - COST:3 [ATK:2/HP:4]
+    // - Race: Pirate, Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn, gain 3 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [SW_093] Stormwind Freebooter - COST:3 [ATK:3/HP:3]
+    // - Race: Pirate, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give your hero +2 Attack this turn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [SW_094] Heavy Plate - COST:3
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       Gain 8 Armor.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [SW_097] Remote-Controlled Golem - COST:4 [ATK:3/HP:6]
+    // - Race: Mechanical, Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: After this takes damage,
+    //       shuffle two Golem Parts into your deck.
+    //       When drawn, summon a 2/1 Mech.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------------- SPELL - WARRIOR
+    // [SW_028t] Create a Distraction - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 2 Pirates.
+    //       <b>Reward:</b> Deal 2 damage
+    //       to a random enemy twice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [SW_028t2] Secure the Supplies - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Play 2 Pirates.
+    //       <b>Reward:</b> Cap'n Rokara.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [SW_028t5] Cap'n Rokara - COST:5 [ATK:7/HP:7]
+    // - Race: Pirate, Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon The Juggernaut!
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [SW_028t6] The Juggernaut - COST:5 [ATK:0/HP:1]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Start of Your Turn:</b> Summon a Pirate,
+    //       equip a Warrior weapon, and fire two cannons
+    //       that deal 2 damage!
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // - UNTOUCHABLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [SW_097t] Golem Parts - COST:1
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Casts When Drawn</b>
+    //       Summon a 2/1 Damaged Golem.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TOPDECK = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 {
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [SW_037] Irebound Brute - COST:7 [ATK:6/HP:7]
+    // - Race: Demon, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       Costs (1) less for each card drawn this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [SW_039] Final Showdown - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Draw 4 cards in one turn.
+    //       <b>Reward:</b> Reduce the Cost of the cards drawn by (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [SW_040] Fel Barrage - COST:2
+    // - Set: STORMWIND, Rarity: Common
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to the lowest Health enemy, twice.
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [SW_041] Sigil of Alacrity - COST:1
+    // - Set: STORMWIND, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: At the start of your next turn,
+    //       draw a card and reduce its Cost by (1).
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [SW_042] Persistent Peddler - COST:4 [ATK:4/HP:3]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Deathrattle:</b> Summon a Persistent Peddler
+    //       from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [SW_043] Felgorger - COST:4 [ATK:4/HP:3]
+    // - Race: Demon, Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a Fel spell.
+    //       Reduce its Cost by (2).
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [SW_044] Jace Darkweaver - COST:8 [ATK:7/HP:5]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Cast all Fel spells you've played
+    //       this game <i>(targets enemies if possible)</i>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [SW_451] Metamorfin - COST:1 [ATK:1/HP:2]
+    // - Race: Murloc, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> If you've cast a Fel spell
+    //       this turn, gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [SW_452] Chaos Leech - COST:3
+    // - Set: STORMWIND, Rarity: Rare
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>. Deal 3 damage to a minion.
+    //       <b>Outcast:</b> Deal 5 instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - LIFESTEAL = 1
+    // - OUTCAST = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- WEAPON - DEMONHUNTER
+    // [SW_454] Lion's Frenzy - COST:3
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Has Attack equal to the number of cards
+    //       you've drawn this turn.
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [SW_037e] Prepped to Strike - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [SW_039t] Gain Momentum - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Draw 5 cards in one turn.
+    //       <b>Reward:</b> Reduce the Cost of the cards drawn by (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [SW_039t2e] Faster Moves - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENCHANTMENT_INVISIBLE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [SW_039t3] Close the Portal - COST:1
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Questline:</b> Draw 5 cards in one turn.
+    //       <b>Reward:</b> Demonslayer Kurtrus.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [SW_039t3_t] Demonslayer Kurtrus - COST:5 [ATK:7/HP:7]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> For the rest of the game,
+    //       cards you draw cost (2) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [SW_041e2] Light as a Feather - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [SW_451e] Mighty Morphing - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +2/+2.
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_006] Stubborn Suspect - COST:4 [ATK:3/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a random 3-Cost minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_036] Two-Faced Investor - COST:3 [ATK:2/HP:4]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       reduce the Cost of a card in your hand by (1).
+    //       <i>(50% chance to increase.)</i>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_045] Auctioneer Jaxon - COST:2 [ATK:2/HP:3]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Whenever you <b>Trade</b>,
+    //       <b>Discover</b> a card from your deck to draw instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DISCOVER = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_054] Stormwind Guard - COST:5 [ATK:4/HP:5]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Give adjacent minions +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_055] Impatient Shopkeep - COST:3 [ATK:3/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_056] Spice Bread Baker - COST:4 [ATK:3/HP:2]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Restore Health to your hero
+    //       equal to your hand size.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_057] Package Runner - COST:3 [ATK:5/HP:6]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Can only attack if you have at least 8 cards in hand.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_059] Deeprun Engineer - COST:2 [ATK:1/HP:2]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Discover</b> a Mech.
+    //       It costs (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_060] Florist - COST:2 [ATK:2/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: At then end of your turn,
+    //       reduce the cost of a Nature spell in your hand by (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_061] Guild Trader - COST:4 [ATK:3/HP:4]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Spell Damage +2</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_062] Goldshire Gnoll - COST:10 [ATK:5/HP:4]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    //       Costs (1) less for each other card in your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_063] Battleground Battlemaster - COST:5 [ATK:5/HP:5]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Adjacent minions have <b>Windfury</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_064] Northshire Farmer - COST:3 [ATK:3/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Choose a friendly Beast.
+    //       Shuffle three 3/3 copies into your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_065] Pandaren Importer - COST:2 [ATK:1/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Discover</b> a spell
+    //       that didn't start in your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_066] Royal Librarian - COST:4 [ATK:3/HP:4]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Battlecry:</b> <b>Silence</b> a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_067] Stockades Guard - COST:1 [ATK:1/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_068] Mo'arg Forgefiend - COST:8 [ATK:8/HP:8]
+    // - Race: Demon, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Deathrattle:</b> Gain 8 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_069] Enthusiastic Banker - COST:3 [ATK:2/HP:3]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: At the end of your turn, store a card from your deck.
+    //       <b>Deathrattle:</b> Add the stored cards to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_070] Mailbox Dancer - COST:2 [ATK:3/HP:2]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Add a Coin to your hand.
+    //       <b>Deathrattle:</b> Give your opponent one.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_071] Lion's Guard - COST:5 [ATK:4/HP:6]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you have 15 or less Health,
+    //       gain +2/+4 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_072] Rustrot Viper - COST:3 [ATK:3/HP:4]
+    // - Race: Beast, Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Battlecry:</b> Destroy your opponent's weapon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_073] Cheesemonger - COST:4 [ATK:3/HP:6]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Whenever your opponent casts a spell,
+    //       add a random spell with the same Cost to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_074] Nobleman - COST:3 [ATK:2/HP:3]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Create a Golden copy of
+    //       a random card in your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_075] Elwynn Boar - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> If you had 7 Elwynn Boars
+    //       die this game, equip a 15/3 Sword of
+    //       a Thousand Truths.@ <i>(@/7)</i>
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_076] City Architect - COST:6 [ATK:4/HP:4]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon two 0/5 Castle Walls
+    //       with <b>Taunt</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_077] Stockades Prisoner - COST:2 [ATK:5/HP:4]
+    // - Set: STORMWIND, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Starts <b>Dormant</b>.
+    //       After you play 3 cards, this awakens.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_078] Lady Prestor - COST:6 [ATK:6/HP:7]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Transform minions
+    //       in your deck into random Dragons.
+    //       <i>(They keep their original stats and Cost.)</I>
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
     // --------------------------------------- MINION - NEUTRAL
     // [SW_079] Flightmaster Dungar - COST:3 [ATK:3/HP:3]
     // - Set: STORMWIND, Rarity: Legendary
@@ -117,11 +2418,287 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_080] Cornelius Roame - COST:6 [ATK:4/HP:5]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the start and end of each player's turn,
+    //       draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_081] Varian, King of Stormwind - COST:8 [ATK:7/HP:7]
+    // - Set: STORMWIND, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a <b>Rush</b> minion
+    //       to gain <b>Rush</b>.
+    //       Repeat for <b>Taunt</b> and <b>Divine Shield</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // - RUSH = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_306] Encumbered Pack Mule - COST:2 [ATK:2/HP:3]
+    // - Race: Beast, Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       When you draw this, add a copy of it to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TOPDECK = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_307] Traveling Merchant - COST:3 [ATK:2/HP:3]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Battlecry:</b> Gain +1/+1 for each other
+    //       friendly minion you control.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_319] Peasant - COST:1 [ATK:2/HP:1]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: At the start of your turn, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_400] Entrapped Sorceress - COST:3 [ATK:3/HP:4]
+    // - Set: STORMWIND, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you control a <b>Quest</b>,
+    //       <b>Discover</b> a spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - QUEST = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_418] SI:7 Skulker - COST:2 [ATK:2/HP:2]
+    // - Set: STORMWIND, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    //       <b>Battlecry:</b> The next card you draw costs (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - STEALTH = 1
+    // --------------------------------------------------------
 }
 
 void StormwindCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_001e] Inscription Enchant - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Your next spell costs (5) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_001e2] Inscription Discount - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (5) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_003e] Enchanting Dust - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_024e] FOR STORMWIND! - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +3/+3.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_034e] Tiny Toy - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: 2/2.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_036e] Good Investment - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1)  less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_036e2] Bad Investment - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1)  more.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_039t3_te] Ludicrous Speed - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_039te] Fast Moves - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_043e] Gorging - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_047e] Highlord's Blessing - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +5/+5.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_048e] Faceted Dawnstone - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_050e] Disguise - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Appearing as someone else.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_054e] For the Alliance! - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_060t] Pretty Flowers - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_063e] Ready for Battle! - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Windfury</b>
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_064e] Raised in a Barn - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: 3/3.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_069e] Safety Deposit - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Storing {0}.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_071e] Defend the King! - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +2/+4 and <b>Taunt</b>
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - NEUTRAL
+    // [SW_075t] Sword of a Thousand Truths - COST:10
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: After your hero attacks,
+    //       destroy your opponent's Mana Crystals.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [SW_076t] Castle Wall - COST:2 [ATK:0/HP:5]
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_077e] Locked Up - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Dormant</b>. Play 3 cards to awaken.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_078e] Dragon Form - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Adjusted stats.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_078e2] Dragon Cost - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Adjusted Cost.
+    // --------------------------------------------------------
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_079e4] Westfall Flight - COST:0
     // - Set: STORMWIND
@@ -192,6 +2769,142 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // - Set: STORMWIND
     // --------------------------------------------------------
     // Text: Next turn, summon a 2/2 Adventurer.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_086e] Souls on Tap - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +2/+2.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_087e] On a Dreadsteed - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    //       <b>Deathrattle:</b> Summon a never-ending Dreadsteed.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_087e2] Tamsin's Dreadsteed - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Summon a Dreadsteed at the end of the turn.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_091t5] Blightborn - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: For the rest of the game, damage you take
+    //       on your turn instead damages your opponent.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_093e] Paid to Loot - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +2 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_307e] Booming Business - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_313t4ee] Light's Power - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +2/+2.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_315e] Stormwind Pride - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_316e] On a Horse - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1/+1 and <b>Divine Shield</b>.
+    //       <b>Deathrattle:</b> Summon a Warhorse.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_322e] Practiced - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_322e2] Tavish Stormpike Enchant - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> For the rest of the game,
+    //       your spells refresh your Hero Power.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_322e3] Crackshot - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Your Hero Power Can Target Minions
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_418e] Secret Intel - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_418e2] Spy Stuff - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: The next card you draw costs (1) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_437e] Fertilizer - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Draw a card.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [SW_457e] Reinforced Hide - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [SW_COIN1] The Coin - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Gain 1 Mana Crystal this turn only.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [SW_COIN2] The Coin - COST:0
+    // - Set: STORMWIND
+    // --------------------------------------------------------
+    // Text: Gain 1 Mana Crystal this turn only.
     // --------------------------------------------------------
 }
 
