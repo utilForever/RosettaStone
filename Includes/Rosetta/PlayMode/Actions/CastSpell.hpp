@@ -11,12 +11,20 @@
 
 namespace RosettaStone::PlayMode::Generic
 {
-//! Casts spell without/to target.
+//! Casts target or non-target spell.
 //! \param player The player to cast spell.
 //! \param spell The spell to cast.
 //! \param target The target of spell.
 //! \param chooseOne The index of chosen card from two cards.
 void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne);
+
+//! Casts random spell with random target such as 'Puzzle Box of Yogg-Saron'.
+//! \param player The player to cast spell.
+//! \param spell The spell to cast.
+//! \param target The target of spell.
+//! \param chooseOne The index of chosen card from two cards.
+void CastRandomSpell(Player* player, Spell* spell, Character* target,
+                     int chooseOne);
 }  // namespace RosettaStone::PlayMode::Generic
 
 #endif  // ROSETTASTONE_PLAYMODE_CAST_SPELL_HPP
