@@ -63,7 +63,7 @@ TaskStatus CastRandomSpellTask::Impl(Player* player)
     player->choice = nullptr;
 
     player->game->taskQueue.StartEvent();
-    Generic::CastSpell(player, spellToCast, randTarget, randChooseOne);
+    Generic::CastRandomSpell(player, spellToCast, randTarget, randChooseOne);
     player->game->ProcessDestroyAndUpdateAura();
     player->game->taskQueue.EndEvent();
 
