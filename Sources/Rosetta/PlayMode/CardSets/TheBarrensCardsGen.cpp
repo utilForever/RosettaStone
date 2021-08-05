@@ -539,6 +539,12 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BAR_035t", SummonSide::RIGHT) };
+    cards.emplace("BAR_035", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_037] Warsong Wrangler - COST:4 [ATK:3/HP:4]

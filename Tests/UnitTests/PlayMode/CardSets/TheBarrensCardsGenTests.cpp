@@ -944,6 +944,60 @@ TEST_CASE("[Hunter : Spell] - BAR_034 : Tame Beast (Rank 1)")
     CHECK_EQ(curField[2]->HasRush(), true);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [BAR_035] Kolkar Pack Runner - COST:2 [ATK:2/HP:3]
+// - Set: THE_BARRENS, Rarity: Epic
+// --------------------------------------------------------
+// Text: After you cast a spell,
+//       summon a 1/1 Hyena with <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - BAR_035 : Kolkar Pack Runner")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kolkar Pack Runner"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->name, "Swift Hyena");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasRush(), true);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [BAR_801] Wound Prey - COST:1
 // - Set: THE_BARRENS, Rarity: Common
