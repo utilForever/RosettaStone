@@ -796,6 +796,97 @@ TEST_CASE("[Druid : Minion] - WC_036 : Deviate Dreadfang")
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [BAR_034] Tame Beast (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon a 2/2 Beast with <b>Rush</b>.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - BAR_034 : Tame Beast (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Tame Beast (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Tame Beast (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Tame Beast (Rank 1)"));
+
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(card1->card->name, "Tame Beast (Rank 1)");
+    CHECK_EQ(card2->card->name, "Tame Beast (Rank 1)");
+    CHECK_EQ(card3->card->name, "Tame Beast (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Tamed Crab");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->HasRush(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Tame Beast (Rank 1)");
+    CHECK_EQ(card3->card->name, "Tame Beast (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Tame Beast (Rank 2)");
+    CHECK_EQ(card3->card->name, "Tame Beast (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Tamed Scorpid");
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->HasRush(), true);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Tame Beast (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Tame Beast (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Tamed Thunder Lizard");
+    CHECK_EQ(curField[2]->GetAttack(), 6);
+    CHECK_EQ(curField[2]->GetHealth(), 6);
+    CHECK_EQ(curField[2]->HasRush(), true);
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [BAR_801] Wound Prey - COST:1
 // - Set: THE_BARRENS, Rarity: Common
 // --------------------------------------------------------

@@ -510,6 +510,12 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_034t3", SummonSide::SPELL));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_034t")));
+    cards.emplace("BAR_034", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_035] Kolkar Pack Runner - COST:2 [ATK:2/HP:3]
@@ -645,6 +651,12 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_034t4", SummonSide::SPELL));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_034t2")));
+    cards.emplace("BAR_034t", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [BAR_034t2] Tame Beast (Rank 3) - COST:2
@@ -655,6 +667,10 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_034t5", SummonSide::SPELL));
+    cards.emplace("BAR_034t2", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_034t3] Tamed Crab - COST:2 [ATK:2/HP:2]
@@ -665,6 +681,9 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_034t3", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_034t4] Tamed Scorpid - COST:4 [ATK:4/HP:4]
@@ -675,6 +694,9 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_034t4", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_034t5] Tamed Thunder Lizard - COST:6 [ATK:6/HP:6]
@@ -685,6 +707,9 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_034t5", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_035t] Swift Hyena - COST:1 [ATK:1/HP:1]
