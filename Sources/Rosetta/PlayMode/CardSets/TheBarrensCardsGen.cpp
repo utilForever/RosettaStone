@@ -499,6 +499,15 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::HAND),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+        std::make_shared<AddEnchantmentTask>("BAR_033e", EntityType::STACK)
+    };
+    cards.emplace("BAR_033", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [BAR_034] Tame Beast (Rank 1) - COST:2
@@ -640,6 +649,9 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_033e"));
+    cards.emplace("BAR_033e", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [BAR_034t] Tame Beast (Rank 2) - COST:2

@@ -795,6 +795,64 @@ TEST_CASE("[Druid : Minion] - WC_036 : Deviate Dreadfang")
     CHECK_EQ(curField[1]->HasRush(), true);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [BAR_033] Prospector's Caravan - COST:2 [ATK:1/HP:3]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       give all minions in your hand +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - BAR_033 : Prospector's Caravan")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Prospector's Caravan"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Prospector's Caravan"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 14);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [BAR_034] Tame Beast (Rank 1) - COST:2
 // - Set: THE_BARRENS, Rarity: Rare
@@ -808,7 +866,7 @@ TEST_CASE("[Druid : Minion] - WC_036 : Deviate Dreadfang")
 TEST_CASE("[Hunter : Spell] - BAR_034 : Tame Beast (Rank 1)")
 {
     GameConfig config;
-    config.player1Class = CardClass::DRUID;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
