@@ -847,6 +847,57 @@ TEST_CASE("[Hunter : Spell] - BAR_801 : Wound Prey")
     CHECK_EQ(curField[1]->HasRush(), true);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [WC_008] Sin'dorei Scentfinder - COST:4 [ATK:1/HP:6]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Summon four 1/1 Hyenas with <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - WC_008 : Sin'dorei Scentfinder")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sin'dorei Scentfinder"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[1]->card->name, "Swift Hyena");
+    CHECK_EQ(curField[2]->card->name, "Swift Hyena");
+    CHECK_EQ(curField[3]->card->name, "Swift Hyena");
+    CHECK_EQ(curField[4]->card->name, "Swift Hyena");
+}
+
 // ---------------------------------------- WEAPON - HUNTER
 // [WC_037] Venomstrike Bow - COST:4
 // - Set: THE_BARRENS, Rarity: Rare

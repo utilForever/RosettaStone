@@ -604,6 +604,10 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<SummonTask>("BAR_035t", 4, SummonSide::SPELL));
+    cards.emplace("WC_008", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [WC_037] Venomstrike Bow - COST:4
