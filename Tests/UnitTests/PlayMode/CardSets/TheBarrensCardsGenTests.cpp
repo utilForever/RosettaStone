@@ -529,12 +529,12 @@ TEST_CASE("[Druid : Minion] - BAR_540 : Plaguemaw the Rotting")
 // Text: Give a minion +2/+2.
 //       If it has <b>Taunt</b>, add a copy of it to your hand.
 // --------------------------------------------------------
-// RefTag:
-// - TAUNT = 1
-// --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
 // --------------------------------------------------------
 TEST_CASE("[Druid : Spell] - BAR_549 : Mark of the Spikeshell")
 {
@@ -845,4 +845,57 @@ TEST_CASE("[Hunter : Spell] - BAR_801 : Wound Prey")
     CHECK_EQ(curField[1]->GetAttack(), 1);
     CHECK_EQ(curField[1]->GetHealth(), 1);
     CHECK_EQ(curField[1]->HasRush(), true);
+}
+
+// ---------------------------------------- WEAPON - HUNTER
+// [WC_037] Venomstrike Bow - COST:4
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Poisonous</b>
+// --------------------------------------------------------
+// GameTag:
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Weapon] - WC_037 : Venomstrike Bow")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Venomstrike Bow"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->HasPoisonous(), true);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(opField.GetCount(), 0);
 }

@@ -614,6 +614,9 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_037", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddHunterNonCollect(
