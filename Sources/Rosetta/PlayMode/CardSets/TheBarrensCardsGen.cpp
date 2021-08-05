@@ -193,12 +193,12 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +2/+2.
     //       If it has <b>Taunt</b>, add a copy of it to your hand.
     // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -450,6 +450,8 @@ void TheBarrensCardsGen::AddDruidNonCollect(
 
 void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [BAR_030] Pack Kodo - COST:3 [ATK:3/HP:3]
     // - Race: Beast, Set: THE_BARRENS, Rarity: Common
@@ -497,6 +499,15 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::HAND),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+        std::make_shared<AddEnchantmentTask>("BAR_033e", EntityType::STACK)
+    };
+    cards.emplace("BAR_033", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [BAR_034] Tame Beast (Rank 1) - COST:2
@@ -508,6 +519,12 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_034t3", SummonSide::SPELL));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_034t")));
+    cards.emplace("BAR_034", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_035] Kolkar Pack Runner - COST:2 [ATK:2/HP:3]
@@ -522,6 +539,12 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BAR_035t", SummonSide::RIGHT) };
+    cards.emplace("BAR_035", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_037] Warsong Wrangler - COST:4 [ATK:3/HP:4]
@@ -564,9 +587,21 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage. Summon a 1/1 Hyena with <b>Rush</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<SummonTask>("BAR_035t", 1));
+    cards.emplace(
+        "BAR_801",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [WC_007] Serpentbloom - COST:0
@@ -590,6 +625,10 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<SummonTask>("BAR_035t", 4, SummonSide::SPELL));
+    cards.emplace("WC_008", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [WC_037] Venomstrike Bow - COST:4
@@ -600,17 +639,25 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_037", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [BAR_033e] Prospector's Findings - COST:0
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_033e"));
+    cards.emplace("BAR_033e", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [BAR_034t] Tame Beast (Rank 2) - COST:2
@@ -622,6 +669,12 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_034t4", SummonSide::SPELL));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_034t2")));
+    cards.emplace("BAR_034t", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [BAR_034t2] Tame Beast (Rank 3) - COST:2
@@ -632,6 +685,10 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_034t5", SummonSide::SPELL));
+    cards.emplace("BAR_034t2", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_034t3] Tamed Crab - COST:2 [ATK:2/HP:2]
@@ -642,6 +699,9 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_034t3", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_034t4] Tamed Scorpid - COST:4 [ATK:4/HP:4]
@@ -652,6 +712,9 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_034t4", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_034t5] Tamed Thunder Lizard - COST:6 [ATK:6/HP:6]
@@ -662,6 +725,9 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_034t5", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_035t] Swift Hyena - COST:1 [ATK:1/HP:1]
@@ -672,6 +738,9 @@ void TheBarrensCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_035t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [BAR_037e] Centaur Call - COST:0

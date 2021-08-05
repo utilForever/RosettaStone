@@ -61,7 +61,6 @@ TaskStatus DrawMinionTask::Impl(Player* player)
                       });
             break;
         case DrawMinionType::HIGHEST_COST:
-
             std::sort(deckCards.begin(), deckCards.end(),
                       [](const Playable* card1, const Playable* card2) {
                           return card1->GetCost() > card2->GetCost();

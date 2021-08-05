@@ -724,9 +724,9 @@ THE_BARRENS | BAR_027 | Darkspear Berserker |
 THE_BARRENS | BAR_030 | Pack Kodo |  
 THE_BARRENS | BAR_031 | Sunscale Raptor |  
 THE_BARRENS | BAR_032 | Piercing Shot |  
-THE_BARRENS | BAR_033 | Prospector's Caravan |  
-THE_BARRENS | BAR_034 | Tame Beast (Rank 1) |  
-THE_BARRENS | BAR_035 | Kolkar Pack Runner |  
+THE_BARRENS | BAR_033 | Prospector's Caravan | O
+THE_BARRENS | BAR_034 | Tame Beast (Rank 1) | O
+THE_BARRENS | BAR_035 | Kolkar Pack Runner | O
 THE_BARRENS | BAR_037 | Warsong Wrangler |  
 THE_BARRENS | BAR_038 | Tavish Stormpike |  
 THE_BARRENS | BAR_040 | South Coast Chieftain |  
@@ -813,7 +813,7 @@ THE_BARRENS | BAR_745 | Hecklefang Hyena |
 THE_BARRENS | BAR_748 | Varden Dawngrasp |  
 THE_BARRENS | BAR_750 | Earth Revenant |  
 THE_BARRENS | BAR_751 | Spawnpool Forager |  
-THE_BARRENS | BAR_801 | Wound Prey |  
+THE_BARRENS | BAR_801 | Wound Prey | O
 THE_BARRENS | BAR_812 | Oasis Ally |  
 THE_BARRENS | BAR_840 | Whirling Combatant |  
 THE_BARRENS | BAR_841 | Bulk Up |  
@@ -854,7 +854,7 @@ THE_BARRENS | WC_004 | Fangbound Druid | O
 THE_BARRENS | WC_005 | Primal Dungeoneer |  
 THE_BARRENS | WC_006 | Lady Anacondra | O
 THE_BARRENS | WC_007 | Serpentbloom |  
-THE_BARRENS | WC_008 | Sin'dorei Scentfinder |  
+THE_BARRENS | WC_008 | Sin'dorei Scentfinder | O
 THE_BARRENS | WC_013 | Devout Dungeoneer |  
 THE_BARRENS | WC_014 | Against All Odds |  
 THE_BARRENS | WC_015 | Water Moccasin |  
@@ -876,7 +876,7 @@ THE_BARRENS | WC_033 | Judgment of Justice |
 THE_BARRENS | WC_034 | Party Up! |  
 THE_BARRENS | WC_035 | Archdruid Naralex |  
 THE_BARRENS | WC_036 | Deviate Dreadfang | O
-THE_BARRENS | WC_037 | Venomstrike Bow |  
+THE_BARRENS | WC_037 | Venomstrike Bow | O
 THE_BARRENS | WC_040 | Taintheart Tormenter |  
 THE_BARRENS | WC_041 | Shattering Blast |  
 THE_BARRENS | WC_042 | Wailing Vapor |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she |
 THE_BARRENS | WC_805 | Frostweave Dungeoneer |  
 THE_BARRENS | WC_806 | Floecaster |  
 
-- Progress: 7% (13 of 170 Cards)
+- Progress: 11% (19 of 170 Cards)
 
 ## United in Stormwind
 
