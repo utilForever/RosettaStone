@@ -1153,3 +1153,51 @@ TEST_CASE("[Hunter : Weapon] - WC_037 : Venomstrike Bow")
     game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
     CHECK_EQ(opField.GetCount(), 0);
 }
+
+// ------------------------------------------- SPELL - MAGE
+// [BAR_541] Runed Orb - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Arcane
+// --------------------------------------------------------
+// Text: Deal 2 damage. <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BAR_541 : Runed Orb")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Runed Orb"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK(card->IsCardClass(CardClass::MAGE));
+    }
+}

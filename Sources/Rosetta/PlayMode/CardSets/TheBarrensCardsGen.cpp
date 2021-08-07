@@ -762,6 +762,8 @@ void TheBarrensCardsGen::AddHunterNonCollect(
 
 void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [BAR_305] Flurry (Rank 1) - COST:0
     // - Set: THE_BARRENS, Rarity: Rare
@@ -784,6 +786,16 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace(
+        "BAR_541",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [BAR_542] Refreshing Spring Water - COST:5
