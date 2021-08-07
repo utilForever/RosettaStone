@@ -1642,7 +1642,7 @@ TEST_CASE("[Hunter : Spell] - EX1_554 : Snake Trap")
     config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::HUNTER;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
 
     Game game(config);
@@ -1672,6 +1672,12 @@ TEST_CASE("[Hunter : Spell] - EX1_554 : Snake Trap")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
     const auto card6 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card9 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curSecret->GetCount(), 1);
@@ -1708,7 +1714,20 @@ TEST_CASE("[Hunter : Spell] - EX1_554 : Snake Trap")
 
     game.Process(curPlayer, AttackTask(card4, card5));
     CHECK_EQ(curSecret->GetCount(), 1);
+    CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+    game.Process(curPlayer, PlayCardTask::Minion(card8));
+    game.Process(curPlayer, PlayCardTask::Minion(card9));
+    CHECK_EQ(curField.GetCount(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, AttackTask(card5, curField[6]));
+    CHECK_EQ(curSecret->GetCount(), 1);
+    CHECK_EQ(curField.GetCount(), 6);
 }
 
 // ----------------------------------------- SPELL - HUNTER
