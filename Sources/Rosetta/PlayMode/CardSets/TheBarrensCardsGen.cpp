@@ -178,8 +178,9 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::HasTaunt());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasTaunt())
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<SummonCopyTask>(EntityType::TARGET, false, true),
         std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 0)
@@ -228,8 +229,9 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell())
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "BAR_720e", EntityType::MINIONS_NOSOURCE) };
     cards.emplace("BAR_720", CardDef(power));
@@ -289,8 +291,9 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell())
+    };
     power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "WC_036t1", SummonSide::SPELL) };
     cards.emplace("WC_036", CardDef(power));
@@ -889,8 +892,9 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::MINION)) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<SummonTask>("CS2_033", SummonSide::SPELL) });
     cards.emplace("BAR_812", CardDef(power));

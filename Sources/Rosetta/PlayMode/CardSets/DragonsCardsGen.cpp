@@ -833,8 +833,9 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::HasRush());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasRush())
+    };
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_251t", 1) }) };
     cards.emplace("DRG_251", CardDef(power, 3, 0));
@@ -1346,8 +1347,8 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     auto trigger3 = std::make_shared<Trigger>(TriggerType::PLAY_MINION);
-    trigger3->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::ELEMENTAL));
+    trigger3->conditions = SelfCondList{ std::make_shared<SelfCondition>(
+        SelfCondition::IsRace(Race::ELEMENTAL)) };
     trigger3->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{
             std::make_shared<IncludeTask>(EntityType::DECK),
@@ -1357,8 +1358,8 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
             std::make_shared<DrawStackTask>() },
         ProgressType::PLAY_ELEMENTAL_MINONS) };
     auto trigger4 = std::make_shared<Trigger>(TriggerType::TURN_END);
-    trigger4->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsNotPlayElementalMinionThisTurn());
+    trigger4->conditions = SelfCondList{ std::make_shared<SelfCondition>(
+        SelfCondition::IsNotPlayElementalMinionThisTurn()) };
     trigger4->tasks = { std::make_shared<IncludeTask>(EntityType::SOURCE),
                         std::make_shared<FuncPlayableTask>(
                             [=](const std::vector<Playable*>& playables) {
@@ -1777,8 +1778,9 @@ void DragonsCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsMyHeroUndamagedEnemyTurn());
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsMyHeroUndamagedEnemyTurn()) };
     power.GetTrigger()->eitherTurn = true;
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         TaskList{ std::make_shared<SummonTask>("DRG_258t") }) };
@@ -3227,8 +3229,9 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::PIRATE));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::PIRATE))
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
         std::make_shared<DamageTask>(EntityType::STACK, 2)
@@ -3452,8 +3455,9 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
     power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::PIRATE));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::PIRATE))
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(

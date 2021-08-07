@@ -16,6 +16,7 @@ using namespace SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void DemonHunterInitCardsGen::AddDemonHunter(
@@ -234,8 +235,9 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
     power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
         EntityType::SOURCE, GameTag::EXHAUSTED, 0) };
     cards.emplace("BT_487", CardDef(power));
@@ -407,8 +409,9 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsLeftOrRightMostCardInHand());
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsLeftOrRightMostCardInHand()) };
     power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
         EntityType::ENEMIES, 1) };
     cards.emplace("BT_937", CardDef(power));

@@ -868,8 +868,9 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST))
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_531e", EntityType::SOURCE) };
     cards.emplace("EX1_531", CardDef(power));
@@ -886,8 +887,9 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(
             EntityType::ALL,
@@ -1062,8 +1064,9 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::MINION)) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
     cards.emplace("EX1_554", CardDef(power));
@@ -1106,8 +1109,9 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true) });
     cards.emplace("EX1_610", CardDef(power));
@@ -1312,8 +1316,9 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsControllingSecret());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsControllingSecret())
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_274e", EntityType::SOURCE) };
     cards.emplace("EX1_274", CardDef(power));
@@ -1398,8 +1403,9 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
     power.GetTrigger()->tasks =
         ComplexTask::ActivateSecret(TaskList{ std::make_shared<ArmorTask>(8) });
     cards.emplace("EX1_289", CardDef(power));
@@ -1464,8 +1470,9 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
     power.GetTrigger()->fastExecution = true;
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) });
@@ -1533,8 +1540,9 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsSpellTargetingMinion());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpellTargetingMinion())
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::SOURCE,
@@ -3011,8 +3019,9 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard())
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_258e", EntityType::SOURCE) };
     cards.emplace("EX1_258", CardDef(power));
@@ -3702,8 +3711,9 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::MINION)) };
     power.GetTrigger()->fastExecution = true;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_411e", EntityType::SOURCE) };
@@ -4261,8 +4271,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::HasMinionInHand());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasMinionInHand())
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<GetGameTagTask>(EntityType::SOURCE,
                                          GameTag::ZONE_POSITION),
@@ -4665,8 +4676,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsSecret());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSecret())
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_080o", EntityType::SOURCE) };
     cards.emplace("EX1_080", CardDef(power));
@@ -5140,8 +5152,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC))
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_509e", EntityType::SOURCE) };
     cards.emplace("EX1_509", CardDef(power));

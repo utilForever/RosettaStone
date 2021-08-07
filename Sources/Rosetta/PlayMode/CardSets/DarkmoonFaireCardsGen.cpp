@@ -974,8 +974,9 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsHealth(1, RelaSign::EQ));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsHealth(1, RelaSign::EQ)) };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "DMF_237e", EntityType::TARGET) };
     cards.emplace("DMF_237", CardDef(power));

@@ -220,8 +220,9 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana())
+    };
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         "ULD_131p") };
     cards.emplace("ULD_131", CardDef(power, 4, 0));
@@ -235,8 +236,9 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsUnspentMana())
+    };
     power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     cards.emplace("ULD_133", CardDef(power));
 
@@ -536,8 +538,9 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsFieldNotEmpty());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFieldNotEmpty())
+    };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
                   std::make_shared<DestroyTask>(EntityType::STACK) });
@@ -847,8 +850,9 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsSecret());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSecret())
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2),
     };
@@ -1075,8 +1079,9 @@ void UldumCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::HasReborn());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasReborn())
+    };
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         "ULD_431p") };
     cards.emplace("ULD_431", CardDef(power, 5, 0));
@@ -1504,8 +1509,9 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsComboCard());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsComboCard())
+    };
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = {
         std::make_shared<RandomCardTask>(CardType::INVALID, CardClass::INVALID,
@@ -1625,8 +1631,9 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ADD_CARD));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsAnotherClassCard());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsAnotherClassCard())
+    };
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         "ULD_326p") };
     cards.emplace("ULD_326", CardDef(power, 4, 0));
@@ -1936,8 +1943,9 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard())
+    };
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
         "ULD_291p") };
     cards.emplace("ULD_291", CardDef(power, 6, 0));
@@ -2146,8 +2154,9 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsMyTurn());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMyTurn())
+    };
     power.GetTrigger()->tasks =
         TaskList{ std::make_shared<RandomMinionTask>(
                       TagValues{ { GameTag::COST, 3, RelaSign::EQ } }),
@@ -3105,8 +3114,9 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsDiscoverCard());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDiscoverCard())
+    };
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "ULD_309e", EntityType::STACK_NUM0) };
@@ -3151,8 +3161,9 @@ void UldumCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::ControlThisCard(3));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::ControlThisCard(3))
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
         std::make_shared<DamageTask>(EntityType::STACK, 5)

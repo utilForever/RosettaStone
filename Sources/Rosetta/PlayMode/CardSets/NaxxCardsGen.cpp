@@ -109,8 +109,9 @@ void NaxxCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsFieldCount(2, RelaSign::GEQ));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(2, RelaSign::GEQ)) };
     power.GetTrigger()->tasks = { ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<RandomTask>(EntityType::MINIONS, 1),
                   std::make_shared<AddEnchantmentTask>("FP1_020e",

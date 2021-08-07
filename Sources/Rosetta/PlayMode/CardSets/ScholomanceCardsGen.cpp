@@ -1152,12 +1152,13 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->eitherTurn = true;
-    power.GetTrigger()->condition =
+    power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>([=](Playable* playable) -> bool {
             const auto opPlayer = playable->game->GetCurrentPlayer();
             return opPlayer != playable->player &&
                    !opPlayer->cardsPlayedThisTurn.empty();
-        });
+        })
+    };
     power.GetTrigger()->tasks =
         ComplexTask::ActivateSecret(TaskList{ std::make_shared<CustomTask>(
             [](Player* player, [[maybe_unused]] Entity* source,

@@ -542,8 +542,9 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsOpFieldNotFull());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOpFieldNotFull())
+    };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<RandomMinionTask>(
                       TagValues{ { GameTag::COST, 4, RelaSign::EQ } }),
@@ -1189,8 +1190,9 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::MINION)) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<TransformMinionTask>(EntityType::EVENT_TARGET, 3) });
     cards.emplace("BT_042", CardDef(power));
@@ -2205,8 +2207,9 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsEventTargetIs(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsEventTargetIs(CardType::MINION)) };
     power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
         EntityType::HERO, GameTag::EXHAUSTED, 0) };
     cards.emplace("BT_430", CardDef(power));
