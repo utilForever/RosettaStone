@@ -1154,6 +1154,118 @@ TEST_CASE("[Hunter : Weapon] - WC_037 : Venomstrike Bow")
 }
 
 // ------------------------------------------- SPELL - MAGE
+// [BAR_305] Flurry (Rank 1) - COST:0
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a random enemy minion.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(3);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(3);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    auto NumFrozenMinions = [&](FieldZone& field) -> int {
+        int count = 0;
+
+        for (auto& minion : field.GetAll())
+        {
+            if (minion->IsFrozen())
+            {
+                ++count;
+            }
+        }
+
+        return count;
+    };
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->card->name, "Flurry (Rank 1)");
+    CHECK_EQ(card2->card->name, "Flurry (Rank 1)");
+    CHECK_EQ(card3->card->name, "Flurry (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(NumFrozenMinions(opField), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Flurry (Rank 1)");
+    CHECK_EQ(card3->card->name, "Flurry (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Flurry (Rank 2)");
+    CHECK_EQ(card3->card->name, "Flurry (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(NumFrozenMinions(opField), 2);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Flurry (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Flurry (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(NumFrozenMinions(opField), 3);
+}
+
+// ------------------------------------------- SPELL - MAGE
 // [BAR_541] Runed Orb - COST:2
 // - Set: THE_BARRENS, Rarity: Common
 // - Spell School: Arcane

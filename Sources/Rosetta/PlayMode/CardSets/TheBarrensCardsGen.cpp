@@ -770,9 +770,22 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: <b>Freeze</b> a random enemy minion.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_305t")));
+    cards.emplace(
+        "BAR_305",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [BAR_541] Runed Orb - COST:2
@@ -921,6 +934,8 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------- ENCHANTMENT - MAGE
     // [BAR_064e] Touch of Arcane - COST:0
     // - Set: THE_BARRENS
@@ -951,9 +966,22 @@ void TheBarrensCardsGen::AddMageNonCollect(
     // Text: <b>Freeze</b> two random enemy minions.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_305t2")));
+    cards.emplace(
+        "BAR_305t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [BAR_305t2] Flurry (Rank 3) - COST:0
@@ -962,9 +990,20 @@ void TheBarrensCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: <b>Freeze</b> three random enemy minions.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 3));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    cards.emplace(
+        "BAR_305t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [BAR_545e] Conjured Reduction - COST:0
