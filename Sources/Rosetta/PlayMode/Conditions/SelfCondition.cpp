@@ -779,6 +779,19 @@ SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
     });
 }
 
+SelfCondition SelfCondition::IsEventTargetFieldNotFull()
+{
+    return SelfCondition([](Playable* playable) {
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
+        {
+            return !eventData->eventTarget->player->GetFieldZone()->IsFull();
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsSpellTargetingMinion()
 {
     return SelfCondition([](Playable* playable) {

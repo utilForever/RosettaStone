@@ -383,6 +383,12 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEventTargetIs(CardType cardType);
 
+    //! SelfCondition wrapper for checking the field of event target
+    //! is not full.
+    //! \param cardType The type of the card to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEventTargetFieldNotFull();
+
     //! SelfCondition wrapper for checking it is a minion
     //! that is targeted by spell.
     //! \return Generated SelfCondition for intended purpose.
