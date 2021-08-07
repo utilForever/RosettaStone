@@ -1006,7 +1006,6 @@ TEST_CASE("[Hunter : Minion] - BAR_035 : Kolkar Pack Runner")
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
-// - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
 // RefTag:
 // - RUSH = 1
