@@ -413,6 +413,19 @@ SelfCondition SelfCondition::IsNatureSpell()
     });
 }
 
+SelfCondition SelfCondition::IsFrostSpell()
+{
+    return SelfCondition([](Playable* playable) {
+        auto spell = dynamic_cast<Spell*>(playable);
+        if (!spell)
+        {
+            return false;
+        }
+
+        return spell->GetSpellSchool() == SpellSchool::FROST;
+    });
+}
+
 SelfCondition SelfCondition::IsWeapon()
 {
     return SelfCondition([](Playable* playable) {
