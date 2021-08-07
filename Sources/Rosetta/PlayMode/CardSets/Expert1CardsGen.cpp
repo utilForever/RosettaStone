@@ -1066,7 +1066,9 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsProposedDefender(CardType::MINION)) };
+                          SelfCondition::IsProposedDefender(CardType::MINION)),
+                      std::make_shared<SelfCondition>(
+                          SelfCondition::IsEventTargetFieldNotFull()) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
     cards.emplace("EX1_554", CardDef(power));
