@@ -914,6 +914,15 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFrostSpell())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BAR_888t", SummonSide::RIGHT) };
+    cards.emplace("BAR_888", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [WC_041] Shattering Blast - COST:3
@@ -1049,6 +1058,9 @@ void TheBarrensCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_888t", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
