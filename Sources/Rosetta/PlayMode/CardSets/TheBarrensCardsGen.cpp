@@ -894,7 +894,9 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsProposedDefender(CardType::MINION)) };
+                          SelfCondition::IsProposedDefender(CardType::MINION)),
+                      std::make_shared<SelfCondition>(
+                          SelfCondition::IsEventTargetFieldNotFull()) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<SummonTask>("CS2_033", SummonSide::SPELL) });
     cards.emplace("BAR_812", CardDef(power));
