@@ -50,7 +50,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
     : triggerActivation(prototype.triggerActivation),
       triggerSource(prototype.triggerSource),
       tasks(prototype.tasks),
-      condition(prototype.condition),
+      conditions(prototype.conditions),
       eitherTurn(prototype.eitherTurn),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
@@ -661,7 +661,7 @@ void Trigger::Validate(Entity* source)
             break;
     }
 
-    if (condition != nullptr)
+    for (auto& condition : conditions)
     {
         const auto playable = dynamic_cast<Playable*>(source);
         const bool res = (playable != nullptr) ? condition->Evaluate(playable)

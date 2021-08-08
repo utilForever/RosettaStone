@@ -419,8 +419,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST))
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_531e", EntityType::SOURCE) };
     cards.emplace("CORE_EX1_531", CardDef(power));
@@ -466,8 +467,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::MINION)) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
     cards.emplace("CORE_EX1_554", CardDef(power));
@@ -486,8 +488,9 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true) });
     cards.emplace("CORE_EX1_610", CardDef(power));
@@ -801,8 +804,9 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::HERO));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
     power.GetTrigger()->tasks =
         ComplexTask::ActivateSecret(TaskList{ std::make_shared<ArmorTask>(8) });
     cards.emplace("CORE_EX1_289", CardDef(power));
@@ -1157,8 +1161,9 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsFieldCount(2, RelaSign::GEQ));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(2, RelaSign::GEQ)) };
     power.GetTrigger()->tasks = { ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<RandomTask>(EntityType::MINIONS, 1),
                   std::make_shared<AddEnchantmentTask>("FP1_020e",
@@ -2009,8 +2014,9 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard())
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_258e", EntityType::SOURCE) };
     cards.emplace("CORE_EX1_258", CardDef(power));
@@ -2606,8 +2612,9 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsProposedDefender(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::MINION)) };
     power.GetTrigger()->fastExecution = true;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_411e", EntityType::SOURCE) };
@@ -2902,8 +2909,9 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsEventTargetIs(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsEventTargetIs(CardType::MINION)) };
     power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
         EntityType::HERO, GameTag::EXHAUSTED, 0) };
     cards.emplace("CORE_BT_430", CardDef(power));
@@ -3017,8 +3025,9 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsOutcastCard());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOutcastCard())
+    };
     power.GetTrigger()->tasks = { std::make_shared<ReturnHandTask>(
         EntityType::SOURCE) };
     cards.emplace("CS3_019", CardDef(power));
@@ -3799,8 +3808,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC))
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_509e", EntityType::SOURCE) };
     cards.emplace("CORE_EX1_509", CardDef(power));

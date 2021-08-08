@@ -413,6 +413,19 @@ SelfCondition SelfCondition::IsNatureSpell()
     });
 }
 
+SelfCondition SelfCondition::IsFrostSpell()
+{
+    return SelfCondition([](Playable* playable) {
+        auto spell = dynamic_cast<Spell*>(playable);
+        if (!spell)
+        {
+            return false;
+        }
+
+        return spell->GetSpellSchool() == SpellSchool::FROST;
+    });
+}
+
 SelfCondition SelfCondition::IsWeapon()
 {
     return SelfCondition([](Playable* playable) {
@@ -773,6 +786,19 @@ SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
             eventData)
         {
             return eventData->eventTarget->card->GetCardType() == cardType;
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::IsEventTargetFieldNotFull()
+{
+    return SelfCondition([](Playable* playable) {
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
+        {
+            return !eventData->eventTarget->player->GetFieldZone()->IsFull();
         }
 
         return false;

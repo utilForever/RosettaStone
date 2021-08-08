@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 
@@ -177,8 +178,9 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::HasTaunt());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasTaunt())
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<SummonCopyTask>(EntityType::TARGET, false, true),
         std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 0)
@@ -227,8 +229,9 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell())
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "BAR_720e", EntityType::MINIONS_NOSOURCE) };
     cards.emplace("BAR_720", CardDef(power));
@@ -288,8 +291,9 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNatureSpell())
+    };
     power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "WC_036t1", SummonSide::SPELL) };
     cards.emplace("WC_036", CardDef(power));
@@ -589,7 +593,6 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
@@ -600,8 +603,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<SummonTask>("BAR_035t", 1));
     cards.emplace(
         "BAR_801",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [WC_007] Serpentbloom - COST:0
@@ -762,6 +764,8 @@ void TheBarrensCardsGen::AddHunterNonCollect(
 
 void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [BAR_305] Flurry (Rank 1) - COST:0
     // - Set: THE_BARRENS, Rarity: Rare
@@ -770,9 +774,22 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: <b>Freeze</b> a random enemy minion.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_305t")));
+    cards.emplace(
+        "BAR_305",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [BAR_541] Runed Orb - COST:2
@@ -784,6 +801,16 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace(
+        "BAR_541",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [BAR_542] Refreshing Spring Water - COST:5
@@ -862,6 +889,17 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsProposedDefender(CardType::MINION)),
+                      std::make_shared<SelfCondition>(
+                          SelfCondition::IsEventTargetFieldNotFull()) };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<SummonTask>("CS2_033", SummonSide::SPELL) });
+    cards.emplace("BAR_812", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [BAR_888] Rimetongue - COST:3 [ATK:3/HP:4]
@@ -876,6 +914,15 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFrostSpell())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BAR_888t", SummonSide::RIGHT) };
+    cards.emplace("BAR_888", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [WC_041] Shattering Blast - COST:3
@@ -884,6 +931,12 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all <b>Frozen</b> minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("WC_041", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [WC_805] Frostweave Dungeoneer - COST:3 [ATK:2/HP:3]
@@ -911,6 +964,8 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------- ENCHANTMENT - MAGE
     // [BAR_064e] Touch of Arcane - COST:0
     // - Set: THE_BARRENS
@@ -941,9 +996,22 @@ void TheBarrensCardsGen::AddMageNonCollect(
     // Text: <b>Freeze</b> two random enemy minions.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_305t2")));
+    cards.emplace(
+        "BAR_305t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [BAR_305t2] Flurry (Rank 3) - COST:0
@@ -952,9 +1020,20 @@ void TheBarrensCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: <b>Freeze</b> three random enemy minions.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 3));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    cards.emplace(
+        "BAR_305t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [BAR_545e] Conjured Reduction - COST:0
@@ -979,6 +1058,9 @@ void TheBarrensCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_888t", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)

@@ -65,7 +65,7 @@ class Trigger
     TriggerSource triggerSource = TriggerSource::NONE;
 
     std::vector<std::shared_ptr<ITask>> tasks;
-    std::shared_ptr<SelfCondition> condition;
+    std::vector<std::shared_ptr<SelfCondition>> conditions;
 
     TriggerEventHandler handler;
 

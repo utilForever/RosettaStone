@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -1006,7 +1007,6 @@ TEST_CASE("[Hunter : Minion] - BAR_035 : Kolkar Pack Runner")
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
-// - REQ_MINION_TARGET = 0
 // --------------------------------------------------------
 // RefTag:
 // - RUSH = 1
@@ -1151,5 +1151,354 @@ TEST_CASE("[Hunter : Weapon] - WC_037 : Venomstrike Bow")
     CHECK_EQ(curPlayer->GetHero()->weapon->HasPoisonous(), true);
 
     game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [BAR_305] Flurry (Rank 1) - COST:0
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a random enemy minion.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(3);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(3);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    auto NumFrozenMinions = [&](FieldZone& field) -> int {
+        int count = 0;
+
+        for (auto& minion : field.GetAll())
+        {
+            if (minion->IsFrozen())
+            {
+                ++count;
+            }
+        }
+
+        return count;
+    };
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->card->name, "Flurry (Rank 1)");
+    CHECK_EQ(card2->card->name, "Flurry (Rank 1)");
+    CHECK_EQ(card3->card->name, "Flurry (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(NumFrozenMinions(opField), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Flurry (Rank 1)");
+    CHECK_EQ(card3->card->name, "Flurry (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Flurry (Rank 2)");
+    CHECK_EQ(card3->card->name, "Flurry (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(NumFrozenMinions(opField), 2);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Flurry (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Flurry (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(NumFrozenMinions(opField), 3);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [BAR_541] Runed Orb - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Arcane
+// --------------------------------------------------------
+// Text: Deal 2 damage. <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BAR_541 : Runed Orb")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Runed Orb"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK(card->IsCardClass(CardClass::MAGE));
+    }
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [BAR_812] Oasis Ally - COST:3
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When a friendly minion is attacked,
+//       summon a 3/6 Water Elemental.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - BAR_812 : Oasis Ally")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Ally"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, AttackTask(card3, card2));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Water Elemental");
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [BAR_888] Rimetongue - COST:3 [ATK:3/HP:4]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you cast a Frost spell,
+//       summon a 1/1 Elemental that <b><b>Freeze</b>s</b>.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - BAR_888 : Rimetongue")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rimetongue"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Bumper Car"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Frosted Elemental");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, AttackTask(card4, curField[1]));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [WC_041] Shattering Blast - COST:3
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: Destroy all <b>Frozen</b> minions.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - WC_041 : Shattering Blast")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shattering Blast"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frost Nova"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(opField.GetCount(), 0);
 }

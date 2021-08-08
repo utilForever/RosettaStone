@@ -173,8 +173,9 @@ void YoDCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsRace(Race::MECHANICAL));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MECHANICAL))
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<RandomMinionTask>(
             TagValues{ { GameTag::CARDRACE, static_cast<int>(Race::MECHANICAL),
@@ -811,8 +812,9 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsLackey());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsLackey())
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddLackeyTask>(1) };
     cards.emplace("YOD_035", CardDef(power));
 

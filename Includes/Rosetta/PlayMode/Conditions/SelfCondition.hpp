@@ -211,6 +211,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNatureSpell();
 
+    //! SelfCondition wrapper for checking the entity is frost spell.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFrostSpell();
+
     //! SelfCondition wrapper for checking the entity is weapon.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsWeapon();
@@ -382,6 +386,12 @@ class SelfCondition
     //! \param cardType The type of the card to check.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEventTargetIs(CardType cardType);
+
+    //! SelfCondition wrapper for checking the field of event target
+    //! is not full.
+    //! \param cardType The type of the card to check.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEventTargetFieldNotFull();
 
     //! SelfCondition wrapper for checking it is a minion
     //! that is targeted by spell.

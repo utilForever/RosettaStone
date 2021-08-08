@@ -199,8 +199,9 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsChooseOneCard());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsChooseOneCard())
+    };
     power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
@@ -364,8 +365,9 @@ void DalaranCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsEventSourceFriendly());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsEventSourceFriendly())
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<GetEventNumberTask>(),
         std::make_shared<GetGameTagTask>(EntityType::SOURCE,
@@ -434,8 +436,9 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_MINION));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsCost(1));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsCost(1))
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::DECK),
         std::make_shared<FilterStackTask>(SelfCondList{
@@ -775,11 +778,12 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY_EVENT_SOURCE;
-    power.GetTrigger()->condition =
+    power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>([=](Playable* playable) -> bool {
             return playable->game->currentEventData->eventSource != playable &&
                    playable->GetGameTag(GameTag::COPIED_BY_KHADGAR) != 1;
-        });
+        })
+    };
     power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
         []([[maybe_unused]] Player* player, [[maybe_unused]] Entity* source,
            Playable* target) {
@@ -1970,8 +1974,9 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC))
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
                                          Race::MURLOC),
@@ -2287,8 +2292,9 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
     power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON))
+    };
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "DAL_561e", EntityType::SOURCE) };
     cards.emplace("DAL_561", CardDef(power));
@@ -2387,8 +2393,9 @@ void DalaranCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion())
+    };
     power.GetTrigger()->tasks = {
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
         std::make_shared<AddEnchantmentTask>("DAL_607e", EntityType::STACK)
@@ -2641,8 +2648,9 @@ void DalaranCardsGen::AddWarriorNonCollect(
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsEventTargetIs(CardType::MINION));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsEventTargetIs(CardType::MINION)) };
     power.GetTrigger()->tasks = {
         std::make_shared<IncludeAdjacentTask>(EntityType::EVENT_TARGET),
         std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK),
@@ -3027,8 +3035,9 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
     power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsNotDead());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNotDead())
+    };
     power.GetTrigger()->tasks = { std::make_shared<CopyTask>(EntityType::SOURCE,
                                                              ZoneType::PLAY) };
     cards.emplace("DAL_550", CardDef(power));
@@ -3242,8 +3251,9 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->condition =
-        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead());
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
     power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
                                       EntityType::SOURCE, GameTag::EXHAUSTED,
                                       0),
@@ -3481,8 +3491,9 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
-    power.GetTrigger()->condition = std::make_shared<SelfCondition>(
-        SelfCondition::IsTagValue(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, 1));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(SelfCondition::IsTagValue(
+            GameTag::TAG_LAST_KNOWN_COST_IN_HAND, 1)) };
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "DAL_773e", EntityType::TARGET) };

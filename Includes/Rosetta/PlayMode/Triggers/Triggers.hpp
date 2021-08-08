@@ -12,6 +12,8 @@
 
 namespace RosettaStone::PlayMode
 {
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+
 //!
 //! \brief Triggers class.
 //!
@@ -26,8 +28,8 @@ class Triggers
     {
         Trigger trigger(TriggerType::PREDAMAGE);
         trigger.triggerSource = TriggerSource::SELF;
-        trigger.condition =
-            std::make_shared<SelfCondition>(SelfCondition::IsUndamaged());
+        trigger.conditions = SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsUndamaged()) };
         trigger.tasks = { std::make_shared<SimpleTasks::AddEnchantmentTask>(
             std::move(enchantmentID), EntityType::SOURCE) };
 
@@ -41,8 +43,8 @@ class Triggers
     {
         Trigger trigger(TriggerType::MANA_CRYSTAL);
         trigger.triggerActivation = TriggerActivation::HAND;
-        trigger.condition = std::make_shared<SelfCondition>(
-            SelfCondition::HasAtLeastManaCrystal(mana));
+        trigger.conditions = SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::HasAtLeastManaCrystal(mana)) };
         trigger.tasks = { std::make_shared<SimpleTasks::ChangeEntityTask>(
             std::move(upgradedCardID)) };
 

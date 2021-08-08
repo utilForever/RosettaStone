@@ -756,7 +756,7 @@ THE_BARRENS | BAR_079 | Kazakus, Golem Shaper |
 THE_BARRENS | BAR_080 | Shadow Hunter Vol'jin |  
 THE_BARRENS | BAR_081 | Southsea Scoundrel |  
 THE_BARRENS | BAR_082 | Barrens Trapper |  
-THE_BARRENS | BAR_305 | Flurry (Rank 1) |  
+THE_BARRENS | BAR_305 | Flurry (Rank 1) | O
 THE_BARRENS | BAR_306 | Sigil of Flame |  
 THE_BARRENS | BAR_307 | Void Flayer |  
 THE_BARRENS | BAR_308 | Power Word: Fortitude |  
@@ -793,7 +793,7 @@ THE_BARRENS | BAR_537 | Razormane Battleguard | O
 THE_BARRENS | BAR_538 | Druid of the Plains | O
 THE_BARRENS | BAR_539 | Celestial Alignment | O
 THE_BARRENS | BAR_540 | Plaguemaw the Rotting | O
-THE_BARRENS | BAR_541 | Runed Orb |  
+THE_BARRENS | BAR_541 | Runed Orb | O
 THE_BARRENS | BAR_542 | Refreshing Spring Water |  
 THE_BARRENS | BAR_544 | Reckless Apprentice |  
 THE_BARRENS | BAR_545 | Arcane Luminary |  
@@ -814,7 +814,7 @@ THE_BARRENS | BAR_748 | Varden Dawngrasp |
 THE_BARRENS | BAR_750 | Earth Revenant |  
 THE_BARRENS | BAR_751 | Spawnpool Forager |  
 THE_BARRENS | BAR_801 | Wound Prey | O
-THE_BARRENS | BAR_812 | Oasis Ally |  
+THE_BARRENS | BAR_812 | Oasis Ally | O
 THE_BARRENS | BAR_840 | Whirling Combatant |  
 THE_BARRENS | BAR_841 | Bulk Up |  
 THE_BARRENS | BAR_842 | Conditioning (Rank 1) |  
@@ -834,7 +834,7 @@ THE_BARRENS | BAR_878 | Veteran Warmedic |
 THE_BARRENS | BAR_879 | Cannonmaster Smythe |  
 THE_BARRENS | BAR_880 | Conviction (Rank 1) |  
 THE_BARRENS | BAR_881 | Invigorating Sermon |  
-THE_BARRENS | BAR_888 | Rimetongue |  
+THE_BARRENS | BAR_888 | Rimetongue | O
 THE_BARRENS | BAR_890 | Crossroads Gossiper |  
 THE_BARRENS | BAR_891 | Fury (Rank 1) |  
 THE_BARRENS | BAR_896 | Stonemaul Anchorman |  
@@ -878,14 +878,14 @@ THE_BARRENS | WC_035 | Archdruid Naralex |
 THE_BARRENS | WC_036 | Deviate Dreadfang | O
 THE_BARRENS | WC_037 | Venomstrike Bow | O
 THE_BARRENS | WC_040 | Taintheart Tormenter |  
-THE_BARRENS | WC_041 | Shattering Blast |  
+THE_BARRENS | WC_041 | Shattering Blast | O
 THE_BARRENS | WC_042 | Wailing Vapor |  
 THE_BARRENS | WC_701 | Felrattler |  
 THE_BARRENS | WC_803 | Cleric of An'she |  
 THE_BARRENS | WC_805 | Frostweave Dungeoneer |  
 THE_BARRENS | WC_806 | Floecaster |  
 
-- Progress: 11% (19 of 170 Cards)
+- Progress: 14% (24 of 170 Cards)
 
 ## United in Stormwind
 
