@@ -3,9 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/TradeCardTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 namespace RosettaStone::PlayMode::PlayerTasks
 {
@@ -16,6 +18,22 @@ TradeCardTask::TradeCardTask(Entity* source) : ITask(source, nullptr)
 
 TaskStatus TradeCardTask::Impl(Player* player)
 {
+    if (!CanTradeCard())
+    {
+        return TaskStatus::STOP;
+    }
+
+    auto tradeCard = dynamic_cast<Playable*>(m_source);
+    if (tradeCard)
+    {
+        Playable* topCard = player->GetDeckZone()->GetTopCard();
+
+        player->GetHandZone()->Remove(tradeCard);
+        player->GetDeckZone()->Add(tradeCard);
+
+        Generic::Draw(player, topCard);
+    }
+
     return TaskStatus::COMPLETE;
 }
 
