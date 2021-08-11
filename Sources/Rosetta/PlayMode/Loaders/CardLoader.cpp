@@ -116,9 +116,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
         }
 
         // NOTE: Skyvateer (YOD_016) doesn't have GameTag::DEATHRATTLE
-        // NOTE: Insatiable Felhound (DMF_247) doesn't have GameTag::TAUNT
-        // NOTE: Insatiable Felhound (DMF_247t) doesn't have GameTag::TAUNT
-        //       and GameTag::LIFESTEAL
         // NOTE: Carousel Gryphon (DMF_064) doesn't have GameTag::DIVINE_SHIELD
         // NOTE: Healing Totem (AT_132_SHAMANa), Searing Totem (AT_132_SHAMANb),
         //       Stoneclaw Totem (AT_132_SHAMANc), Wrath of Air Totem
@@ -126,15 +123,6 @@ void CardLoader::Load(std::vector<Card*>& cards)
         if (dbfID == 56091)
         {
             gameTags.emplace(GameTag::DEATHRATTLE, 1);
-        }
-        else if (dbfID == 61269)
-        {
-            gameTags.emplace(GameTag::TAUNT, 1);
-        }
-        else if (dbfID == 61270)
-        {
-            gameTags.emplace(GameTag::TAUNT, 1);
-            gameTags.emplace(GameTag::LIFESTEAL, 1);
         }
         else if (dbfID == 61581)
         {
