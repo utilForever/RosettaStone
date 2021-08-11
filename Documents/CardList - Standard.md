@@ -925,7 +925,7 @@ STORMWIND | SW_049 | Blessed Goods |
 STORMWIND | SW_050 | Maestra of the Masquerade |  
 STORMWIND | SW_052 | Find the Imposter |  
 STORMWIND | SW_054 | Stormwind Guard |  
-STORMWIND | SW_055 | Impatient Shopkeep |  
+STORMWIND | SW_055 | Impatient Shopkeep | O
 STORMWIND | SW_056 | Spice Bread Baker |  
 STORMWIND | SW_057 | Package Runner |  
 STORMWIND | SW_059 | Deeprun Engineer |  
@@ -1027,4 +1027,4 @@ STORMWIND | SW_460 | Devouring Swarm |
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 0% (1 of 135 Cards)
