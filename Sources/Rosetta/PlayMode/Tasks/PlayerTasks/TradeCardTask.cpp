@@ -26,6 +26,8 @@ TaskStatus TradeCardTask::Impl(Player* player)
     auto tradeCard = dynamic_cast<Playable*>(m_source);
     if (tradeCard)
     {
+        player->SetUsedMana(player->GetUsedMana() + 1);
+
         Playable* topCard = player->GetDeckZone()->GetTopCard();
 
         player->GetHandZone()->Remove(tradeCard);
