@@ -32,6 +32,10 @@ class TradeCardTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
+
+    //! Returns whether a card can trade.
+    //! \return Whether a card can trade.
+    bool CanTradeCard() const;
 };
 }  // namespace RosettaStone::PlayMode::PlayerTasks
 

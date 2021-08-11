@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/TradeCardTask.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 
 namespace RosettaStone::PlayMode::PlayerTasks
 {
@@ -21,5 +22,28 @@ TaskStatus TradeCardTask::Impl(Player* player)
 std::unique_ptr<ITask> TradeCardTask::CloneImpl()
 {
     return std::make_unique<TradeCardTask>(m_source);
+}
+
+bool TradeCardTask::CanTradeCard() const
+{
+    if (auto playable = dynamic_cast<Playable*>(m_source);
+        !playable || !playable->HasTradeable())
+    {
+        return false;
+    }
+
+    // The player can also drag it into their deck to spend 1 mana
+    if (m_player->GetRemainingMana() < 1)
+    {
+        return false;
+    }
+
+    // You can't trade a Tradeable card if your deck is empty
+    if (m_player->GetDeckZone()->IsEmpty())
+    {
+        return false;
+    }
+
+    return true;
 }
 }  // namespace RosettaStone::PlayMode::PlayerTasks
