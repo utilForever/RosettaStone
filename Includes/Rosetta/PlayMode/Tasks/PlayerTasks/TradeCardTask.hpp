@@ -18,6 +18,11 @@ namespace RosettaStone::PlayMode::PlayerTasks
 //!
 class TradeCardTask : public ITask
 {
+ public:
+    //! Constructs task with given \p source.
+    //! \param source A pointer to card to trade.
+    explicit TradeCardTask(Entity* source);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

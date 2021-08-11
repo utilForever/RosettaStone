@@ -8,6 +8,11 @@
 
 namespace RosettaStone::PlayMode::PlayerTasks
 {
+TradeCardTask::TradeCardTask(Entity* source) : ITask(source, nullptr)
+{
+    // Do nothing
+}
+
 TaskStatus TradeCardTask::Impl(Player* player)
 {
     return TaskStatus::COMPLETE;
@@ -15,6 +20,6 @@ TaskStatus TradeCardTask::Impl(Player* player)
 
 std::unique_ptr<ITask> TradeCardTask::CloneImpl()
 {
-    return std::make_unique<TradeCardTask>();
+    return std::make_unique<TradeCardTask>(m_source);
 }
 }  // namespace RosettaStone::PlayMode::PlayerTasks
