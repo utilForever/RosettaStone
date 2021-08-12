@@ -2084,6 +2084,8 @@ void StormwindCardsGen::AddDemonHunterNonCollect(
 
 void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [SW_006] Stubborn Suspect - COST:4 [ATK:3/HP:3]
     // - Set: STORMWIND, Rarity: Common
@@ -2147,6 +2149,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_055", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_056] Spice Bread Baker - COST:4 [ATK:3/HP:2]

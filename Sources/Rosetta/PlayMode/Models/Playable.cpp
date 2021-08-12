@@ -169,6 +169,11 @@ bool Playable::HasCorrupt() const
     return GetGameTag(GameTag::CORRUPT) == 1;
 }
 
+bool Playable::HasTradeable() const
+{
+    return GetGameTag(GameTag::TRADEABLE) == 1;
+}
+
 bool Playable::CanActivateSpellburst() const
 {
     if (!HasSpellburst())

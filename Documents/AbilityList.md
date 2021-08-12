@@ -51,7 +51,7 @@
 * [x] Sidequest
 * [x] Spellburst
 * [ ] Start of Game
-* [ ] Tradeable
+* [x] Tradeable
 * [x] Twinspell
 
 ## Keyworded Generation Abilities

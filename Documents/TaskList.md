@@ -10,6 +10,7 @@
 * EndTurnTask
 * HeroPowerTask
 * PlayCardTask
+* TradeCardTask
 
 ## Basic tasks
 

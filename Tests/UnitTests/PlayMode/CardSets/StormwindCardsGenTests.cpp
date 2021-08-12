@@ -6,7 +6,20 @@
 
 #include <Utils/CardSetUtils.hpp>
 
-TEST_CASE("[StormwindCardsGen] - Temp")
+// --------------------------------------- MINION - NEUTRAL
+// [SW_055] Impatient Shopkeep - COST:3 [ATK:3/HP:3]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Tradeable</b>
+//       <b>Rush</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+// RefTag:
+// - TRADEABLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_055 : Impatient Shopkeep")
 {
-    CHECK(true);
+    // Do nothing
 }
