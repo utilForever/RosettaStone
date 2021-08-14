@@ -54,6 +54,11 @@ bool Spell::IsSidequest() const
     return GetGameTag(GameTag::SIDEQUEST) == 1;
 }
 
+bool Spell::IsQuestline() const
+{
+    return GetGameTag(GameTag::QUESTLINE) == 1;
+}
+
 bool Spell::IsTwinspell() const
 {
     return GetGameTag(GameTag::TWINSPELL) == 1;

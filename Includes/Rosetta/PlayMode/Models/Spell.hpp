@@ -68,6 +68,10 @@ class Spell : public Playable
     //! \return Whether spell is sidequest.
     bool IsSidequest() const;
 
+    //! Returns whether spell is questline.
+    //! \return Whether spell is questline.
+    bool IsQuestline() const;
+
     //! Returns whether spell is twinspell.
     //! \return Whether spell is twinspell.
     bool IsTwinspell() const;
