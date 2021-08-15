@@ -59,6 +59,12 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
         if (const auto character = dynamic_cast<Character*>(entity); character)
         {
             SelfContainedIntAttr::Apply(character, effectOp, value);
+
+            if (const auto hero = dynamic_cast<Hero*>(character);
+                hero && effectOp == EffectOperator::ADD)
+            {
+                hero->gainAttackTrigger(hero);
+            }
         }
         else
         {
