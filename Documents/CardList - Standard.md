@@ -997,7 +997,7 @@ STORMWIND | SW_417 | SI:7 Assassin |
 STORMWIND | SW_418 | SI:7 Skulker |  
 STORMWIND | SW_419 | Oracle of Elune |  
 STORMWIND | SW_422 | Sow the Soil |  
-STORMWIND | SW_428 | Lost in the Park |  
+STORMWIND | SW_428 | Lost in the Park | O
 STORMWIND | SW_429 | Best in Shell |  
 STORMWIND | SW_431 | Park Panther |  
 STORMWIND | SW_432 | Kodo Mount |  
@@ -1027,4 +1027,4 @@ STORMWIND | SW_460 | Devouring Swarm |
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 0% (1 of 135 Cards)
+- Progress: 1% (2 of 135 Cards)
