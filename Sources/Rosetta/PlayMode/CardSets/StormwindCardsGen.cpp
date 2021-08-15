@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -230,6 +231,11 @@ void StormwindCardsGen::AddDruidNonCollect(
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_428t4e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("SW_428t4", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_428t4e] Guff's Buff - COST:0
@@ -240,6 +246,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_unique<Enchant>(Effects::AttackN(8), false, true));
+    cards.emplace("SW_428t4e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_429t] Goldshell Turtle - COST:4 [ATK:2/HP:7]

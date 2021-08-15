@@ -61,6 +61,10 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Rage"));
     const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Rage"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pounce"));
+    const auto card6 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Pounce"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
@@ -85,16 +89,40 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curSecret->quest->GetQuestProgress(), 4);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 9);
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 6);
-    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand.GetCount(), 7);
 
-    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    game.Process(curPlayer, PlayCardTask::Spell(card5));
     CHECK(curSecret->quest != nullptr);
     CHECK_EQ(curSecret->quest->card->name, "Feral Friendsy");
     CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
     CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 6);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 11);
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 11);
-    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4, 1));
+    CHECK_EQ(curSecret->quest->GetQuestProgress(), 4);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 15);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 11);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card6));
+    CHECK(curSecret->quest == nullptr);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 17);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 11);
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Guff the Tough");
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[5]));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 25);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 19);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 19);
 }
 
 // --------------------------------------- MINION - NEUTRAL
