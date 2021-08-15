@@ -158,6 +158,12 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             {
                 Playable* nextQuest =
                     Entity::GetFromCard(player, m_nextQuestCard);
+
+                // Process trigger
+                if (nextQuest->card->power.GetTrigger())
+                {
+                    nextQuest->card->power.GetTrigger()->Activate(nextQuest);
+                }
                 player->GetSecretZone()->Add(nextQuest);
             }
 
