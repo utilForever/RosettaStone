@@ -23,9 +23,9 @@ void SecretZone::Add(Playable* entity, int zonePos)
 
     if (spell->IsQuest() || spell->IsQuestline())
     {
-        if (quest != nullptr)
+        if (quest)
         {
-            throw std::logic_error("Another quest is already in play");
+            return;
         }
 
         quest = spell;
