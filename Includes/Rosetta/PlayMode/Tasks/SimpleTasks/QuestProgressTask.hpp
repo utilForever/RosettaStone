@@ -19,6 +19,7 @@ enum class ProgressType
                            //!< mana on spells.
     PLAY_ELEMENTAL_MINONS,  //!< Increases progress count when the player plays
                             //!< an elemental minion in this turn.
+    GAIN_ATTACK,     //!< Increases progress count when the hero gains attack.
     RESTORE_HEALTH,  //!< Increases progress count when the hero or friendly
                      //!< minion(s) restores health.
 };

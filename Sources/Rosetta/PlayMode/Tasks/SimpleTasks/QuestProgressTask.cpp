@@ -79,6 +79,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             }
             break;
         case ProgressType::RESTORE_HEALTH:
+        case ProgressType::GAIN_ATTACK:
             const int amount = player->game->currentEventData->eventNumber;
             for (int i = 0; i < amount; ++i)
             {
