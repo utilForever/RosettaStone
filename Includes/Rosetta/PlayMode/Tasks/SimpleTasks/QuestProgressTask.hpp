@@ -15,8 +15,8 @@ enum class ProgressType
 {
     DEFAULT,     //!< Increases progress count when the trigger is called.
     SPEND_MANA,  //!< Increases progress count when the player spends mana.
-    SPEND_MANA_ON_SPELLS,  //!< Increases progress count when the player spends
-                           //!< mana on spells.
+    SPEND_MANA_ON_SPELLS,   //!< Increases progress count when the player spends
+                            //!< mana on spells.
     PLAY_ELEMENTAL_MINONS,  //!< Increases progress count when the player plays
                             //!< an elemental minion in this turn.
     GAIN_ATTACK,     //!< Increases progress count when the hero gains attack.
@@ -42,18 +42,25 @@ class QuestProgressTask : public ITask
     explicit QuestProgressTask(const std::string& questRewardID,
                                ProgressType progressType);
 
-    //! Constructs task with given \p rewardTasks and \p progressType.
+    //! Constructs task with given \p rewardTasks, \p progressType
+    //! and \p nextQuestID.
     //! \param rewardTasks A list of tasks to run that is a reward of the quest.
     //! \param progressType The type of quest progress.
+    //! \param nextQuestID The card ID that is next quest for
+    //! keyword 'Questline'.
     explicit QuestProgressTask(
         std::vector<std::shared_ptr<ITask>> rewardTasks,
-        ProgressType progressType = ProgressType::DEFAULT);
+        ProgressType progressType = ProgressType::DEFAULT,
+        std::string&& nextQuestID = "");
 
     //! Constructs task with given various parameters.
     //! \param questRewardID The card ID that is a reward of the quest.
     //! \param progressType The type of quest progress.
     //! \param rewardTasks A list of tasks to run that is a reward of the quest.
+    //! \param nextQuestID The card ID that is next quest for
+    //! keyword 'Questline'.
     explicit QuestProgressTask(const std::string& questRewardID,
+                               const std::string& nextQuestID,
                                ProgressType progressType,
                                std::vector<std::shared_ptr<ITask>> rewardTasks);
 
@@ -67,7 +74,8 @@ class QuestProgressTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    Card* m_card = nullptr;
+    Card* m_questRewardCard = nullptr;
+    Card* m_nextQuestCard = nullptr;
     ProgressType m_progressType = ProgressType::DEFAULT;
     std::vector<std::shared_ptr<ITask>> m_tasks;
 };
