@@ -51,12 +51,17 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curHand = *(curPlayer->GetHandZone());
     const auto curSecret = curPlayer->GetSecretZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Lost in the Park"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Rage"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Rage"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pounce"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK(curSecret->quest != nullptr);
@@ -75,6 +80,21 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 5);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 5);
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3, 1));
+    CHECK_EQ(curSecret->quest->GetQuestProgress(), 4);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 9);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 6);
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    CHECK(curSecret->quest != nullptr);
+    CHECK_EQ(curSecret->quest->card->name, "Feral Friendsy");
+    CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
+    CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 6);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 11);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 11);
+    CHECK_EQ(curHand.GetCount(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL

@@ -210,6 +210,12 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "SW_428t4", ProgressType::GAIN_ATTACK) };
+    cards.emplace("SW_428t2", CardDef(power, 6, 0));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_428t4] Guff the Tough - COST:5 [ATK:8/HP:8]
