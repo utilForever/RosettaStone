@@ -4,6 +4,9 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
@@ -19,6 +22,8 @@ void StormwindCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [SW_419] Oracle of Elune - COST:3 [ATK:2/HP:4]
     // - Set: STORMWIND, Rarity: Epic
@@ -52,6 +57,12 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<ArmorTask>(5) }, ProgressType::GAIN_ATTACK) };
+    cards.emplace("SW_428", CardDef(power, 4, 0));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_429] Best in Shell - COST:6
