@@ -61,7 +61,8 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
     power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
-        TaskList{ std::make_shared<ArmorTask>(5) }, ProgressType::GAIN_ATTACK) };
+        TaskList{ std::make_shared<ArmorTask>(5) }, ProgressType::GAIN_ATTACK,
+        "SW_428t") };
     cards.emplace("SW_428", CardDef(power, 4, 0));
 
     // ------------------------------------------ SPELL - DRUID
@@ -150,6 +151,8 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [SW_422a] New Growth - COST:1
     // - Set: STORMWIND
@@ -188,6 +191,14 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<ArmorTask>(5),
+                  std::make_shared<DrawTask>(1) },
+        ProgressType::GAIN_ATTACK, "SW_428t2") };
+    cards.emplace("SW_428t", CardDef(power, 5, 0));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_428t2] Feral Friendsy - COST:1

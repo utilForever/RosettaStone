@@ -55,18 +55,26 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Lost in the Park"));
-
-    auto quest = dynamic_cast<Spell*>(card1);
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Rage"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK(curSecret->quest != nullptr);
-    CHECK_EQ(quest->GetQuestProgress(), 0);
-    CHECK_EQ(quest->GetQuestProgressTotal(), 4);
+    CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
+    CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 4);
 
     game.Process(curPlayer, HeroPowerTask());
-    CHECK_EQ(quest->GetQuestProgress(), 1);
+    CHECK_EQ(curSecret->quest->GetQuestProgress(), 1);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 1));
+    CHECK(curSecret->quest != nullptr);
+    CHECK_EQ(curSecret->quest->card->name, "Defend the Squirrels");
+    CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
+    CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
