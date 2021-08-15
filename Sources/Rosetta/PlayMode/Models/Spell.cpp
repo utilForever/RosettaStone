@@ -77,8 +77,9 @@ bool Spell::TargetingRequirements(Card* card, Character* target) const
 
 bool Spell::IsPlayableByPlayer()
 {
-    if ((IsSecret() || IsSidequest()) && (player->GetSecretZone()->IsFull() ||
-                                          player->GetSecretZone()->Exist(this)))
+    if ((IsSecret() || IsQuest() || IsSidequest() || IsQuestline()) &&
+        (player->GetSecretZone()->IsFull() ||
+         player->GetSecretZone()->Exist(this)))
     {
         return false;
     }
