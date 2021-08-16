@@ -21,11 +21,11 @@ void SecretZone::Add(Playable* entity, int zonePos)
 {
     const auto spell = dynamic_cast<Spell*>(entity);
 
-    if (spell->IsQuest())
+    if (spell->IsQuest() || spell->IsQuestline())
     {
-        if (quest != nullptr)
+        if (quest)
         {
-            throw std::logic_error("Another quest is already in play");
+            return;
         }
 
         quest = spell;

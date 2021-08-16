@@ -59,6 +59,20 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
         if (const auto character = dynamic_cast<Character*>(entity); character)
         {
             SelfContainedIntAttr::Apply(character, effectOp, value);
+
+            if (const auto hero = dynamic_cast<Hero*>(character);
+                hero && effectOp == EffectOperator::ADD)
+            {
+                hero->game->taskQueue.StartEvent();
+                auto tempEventData = std::move(hero->game->currentEventData);
+                hero->game->currentEventData =
+                    std::make_unique<EventMetaData>(hero, nullptr, value);
+                hero->gainAttackTrigger(hero);
+                hero->game->ProcessTasks();
+                hero->game->taskQueue.EndEvent();
+                hero->game->currentEventData.reset();
+                hero->game->currentEventData = std::move(tempEventData);
+            }
         }
         else
         {

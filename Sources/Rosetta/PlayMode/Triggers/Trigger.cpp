@@ -128,6 +128,13 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::ZONE:
             game->triggerManager.zoneTrigger += instance->handler;
             break;
+        case TriggerType::GAIN_ATTACK:
+            if (triggerSource == TriggerSource::HERO)
+            {
+                source->player->GetHero()->gainAttackTrigger +=
+                    instance->handler;
+            }
+            break;
         case TriggerType::GIVE_HEAL:
             game->triggerManager.giveHealTrigger += instance->handler;
             break;
@@ -291,6 +298,12 @@ void Trigger::Remove() const
             break;
         case TriggerType::ZONE:
             game->triggerManager.zoneTrigger -= handler;
+            break;
+        case TriggerType::GAIN_ATTACK:
+            if (triggerSource == TriggerSource::HERO)
+            {
+                m_owner->player->GetHero()->gainAttackTrigger -= handler;
+            }
             break;
         case TriggerType::GIVE_HEAL:
             game->triggerManager.giveHealTrigger -= handler;

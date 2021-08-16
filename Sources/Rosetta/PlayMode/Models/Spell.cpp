@@ -54,6 +54,11 @@ bool Spell::IsSidequest() const
     return GetGameTag(GameTag::SIDEQUEST) == 1;
 }
 
+bool Spell::IsQuestline() const
+{
+    return GetGameTag(GameTag::QUESTLINE) == 1;
+}
+
 bool Spell::IsTwinspell() const
 {
     return GetGameTag(GameTag::TWINSPELL) == 1;
@@ -72,8 +77,9 @@ bool Spell::TargetingRequirements(Card* card, Character* target) const
 
 bool Spell::IsPlayableByPlayer()
 {
-    if ((IsSecret() || IsSidequest()) && (player->GetSecretZone()->IsFull() ||
-                                          player->GetSecretZone()->Exist(this)))
+    if ((IsSecret() || IsQuest() || IsSidequest() || IsQuestline()) &&
+        (player->GetSecretZone()->IsFull() ||
+         player->GetSecretZone()->Exist(this)))
     {
         return false;
     }

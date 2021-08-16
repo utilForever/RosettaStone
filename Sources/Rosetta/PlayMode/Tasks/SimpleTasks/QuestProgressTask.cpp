@@ -14,29 +14,34 @@
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 QuestProgressTask::QuestProgressTask(const std::string& questRewardID)
-    : m_card(Cards::FindCardByID(questRewardID))
+    : m_questRewardCard(Cards::FindCardByID(questRewardID))
 {
     // Do nothing
 }
 
 QuestProgressTask::QuestProgressTask(const std::string& questRewardID,
                                      ProgressType progressType)
-    : m_card(Cards::FindCardByID(questRewardID)), m_progressType(progressType)
+    : m_questRewardCard(Cards::FindCardByID(questRewardID)),
+      m_progressType(progressType)
 {
     // Do nothing
 }
 
 QuestProgressTask::QuestProgressTask(
-    std::vector<std::shared_ptr<ITask>> rewardTasks, ProgressType progressType)
-    : m_progressType(progressType), m_tasks(std::move(rewardTasks))
+    std::vector<std::shared_ptr<ITask>> rewardTasks, ProgressType progressType,
+    std::string&& nextQuestID)
+    : m_nextQuestCard(Cards::FindCardByID(nextQuestID)),
+      m_progressType(progressType),
+      m_tasks(std::move(rewardTasks))
 {
     // Do nothing
 }
 
 QuestProgressTask::QuestProgressTask(
-    const std::string& questRewardID, ProgressType progressType,
-    std::vector<std::shared_ptr<ITask>> rewardTasks)
-    : m_card(Cards::FindCardByID(questRewardID)),
+    const std::string& questRewardID, const std::string& nextQuestID,
+    ProgressType progressType, std::vector<std::shared_ptr<ITask>> rewardTasks)
+    : m_questRewardCard(Cards::FindCardByID(questRewardID)),
+      m_nextQuestCard(Cards::FindCardByID(nextQuestID)),
       m_progressType(progressType),
       m_tasks(std::move(rewardTasks))
 {
@@ -79,6 +84,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             }
             break;
         case ProgressType::RESTORE_HEALTH:
+        case ProgressType::GAIN_ATTACK:
             const int amount = player->game->currentEventData->eventNumber;
             for (int i = 0; i < amount; ++i)
             {
@@ -89,9 +95,9 @@ TaskStatus QuestProgressTask::Impl(Player* player)
 
     if (spell->GetQuestProgress() >= spell->GetQuestProgressTotal())
     {
-        if (!m_card->id.empty())
+        if (!m_questRewardCard->id.empty())
         {
-            Playable* reward = Entity::GetFromCard(player, m_card);
+            Playable* reward = Entity::GetFromCard(player, m_questRewardCard);
 
             // Reward card is hero power or minion
             if (const auto heroPower = dynamic_cast<HeroPower*>(reward);
@@ -147,6 +153,20 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             player->GetSecretZone()->quest = nullptr;
             player->GetGraveyardZone()->Add(spell);
 
+            // Set next quest for keyword 'Questline'
+            if (!m_nextQuestCard->id.empty())
+            {
+                Playable* nextQuest =
+                    Entity::GetFromCard(player, m_nextQuestCard);
+
+                // Process trigger
+                if (nextQuest->card->power.GetTrigger())
+                {
+                    nextQuest->card->power.GetTrigger()->Activate(nextQuest);
+                }
+                player->GetSecretZone()->Add(nextQuest);
+            }
+
             return TaskStatus::COMPLETE;
         }
     }
@@ -156,7 +176,11 @@ TaskStatus QuestProgressTask::Impl(Player* player)
 
 std::unique_ptr<ITask> QuestProgressTask::CloneImpl()
 {
-    const std::string cardID = m_card ? m_card->id : "";
-    return std::make_unique<QuestProgressTask>(cardID, m_progressType, m_tasks);
+    const std::string questRewardCardID =
+        m_questRewardCard ? m_questRewardCard->id : "";
+    const std::string nextQuestCardID =
+        m_nextQuestCard ? m_nextQuestCard->id : "";
+    return std::make_unique<QuestProgressTask>(
+        questRewardCardID, nextQuestCardID, m_progressType, m_tasks);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks

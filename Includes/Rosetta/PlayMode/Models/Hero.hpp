@@ -84,6 +84,8 @@ class Hero : public Character
 
     std::vector<Aura*> weaponAuras;
 
+    TriggerEvent gainAttackTrigger;
+
     int fatigue = 0;
     int damageTakenThisTurn = 0;
 };

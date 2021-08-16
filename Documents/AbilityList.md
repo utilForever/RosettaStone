@@ -45,7 +45,7 @@
 * [ ] Overkill
 * [ ] Passive
 * [x] Quest
-* [ ] Questline
+* [x] Questline
 * [x] Reborn
 * [ ] Recruit
 * [x] Sidequest

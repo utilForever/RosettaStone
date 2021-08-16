@@ -26,12 +26,13 @@ enum class TriggerType
                       //!< activated.
     ZONE,  //!< The effect will be triggered when an entity enters any types of
            //!< zone.
-    GIVE_HEAL,     //!< The effect will be triggered when a playable heals a
-                   //!< character.
-    TAKE_HEAL,     //!< The effect will be triggered when a character is healed.
-    ATTACK,        //!< The effect will be triggered when characters attack.
-    AFTER_ATTACK,  //!< The effect will be triggered after an attack action is
-                   //!< ended.
+    GAIN_ATTACK,  //!< The effect will be triggered when an entity gains attack.
+    GIVE_HEAL,    //!< The effect will be triggered when a playable heals a
+                  //!< character.
+    TAKE_HEAL,    //!< The effect will be triggered when a character is healed.
+    ATTACK,       //!< The effect will be triggered when characters attack.
+    AFTER_ATTACK,    //!< The effect will be triggered after an attack action is
+                     //!< ended.
     AFTER_ATTACKED,  //!< The effect will be triggered after a character is
                      //!< attacked.
     SUMMON,  //!< The effect will be triggered whenever a minion is summoned.
@@ -57,7 +58,7 @@ enum class TriggerType
                         //!< shuffled into a deck.
     MANA_CRYSTAL,   //!< The effect will be triggered when a player gains mana
                     //!< crystal.
-    MULTI_TRIGGER,      //!< The effect for multi trigger.
+    MULTI_TRIGGER,  //!< The effect for multi trigger.
 };
 
 //! \brief An enumerator for identifying trigger source.

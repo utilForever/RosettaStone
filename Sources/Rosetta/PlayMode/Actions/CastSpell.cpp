@@ -18,7 +18,8 @@ void CastSpell(Player* player, Spell* spell, Character* target, int chooseOne)
 {
     player->game->taskQueue.StartEvent();
 
-    if (spell->IsSecret() || spell->IsQuest() || spell->IsSidequest())
+    if (spell->IsSecret() || spell->IsQuest() || spell->IsSidequest() ||
+        spell->IsQuestline())
     {
         // Process trigger
         if (spell->card->power.GetTrigger())
@@ -103,7 +104,8 @@ void CastRandomSpell(Player* player, Spell* spell, Character* target,
 {
     player->game->taskQueue.StartEvent();
 
-    if (spell->IsSecret() || spell->IsQuest() || spell->IsSidequest())
+    if (spell->IsSecret() || spell->IsQuest() || spell->IsSidequest() ||
+        spell->IsQuestline())
     {
         // Process trigger
         if (spell->card->power.GetTrigger())

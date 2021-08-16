@@ -4,6 +4,10 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
@@ -19,6 +23,8 @@ void StormwindCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [SW_419] Oracle of Elune - COST:3 [ATK:2/HP:4]
     // - Set: STORMWIND, Rarity: Epic
@@ -52,6 +58,13 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<ArmorTask>(5) }, ProgressType::GAIN_ATTACK,
+        "SW_428t") };
+    cards.emplace("SW_428", CardDef(power, 4, 0));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_429] Best in Shell - COST:6
@@ -139,6 +152,8 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [SW_422a] New Growth - COST:1
     // - Set: STORMWIND
@@ -177,6 +192,14 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        TaskList{ std::make_shared<ArmorTask>(5),
+                  std::make_shared<DrawTask>(1) },
+        ProgressType::GAIN_ATTACK, "SW_428t2") };
+    cards.emplace("SW_428t", CardDef(power, 5, 0));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_428t2] Feral Friendsy - COST:1
@@ -188,6 +211,12 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<QuestProgressTask>(
+        "SW_428t4", ProgressType::GAIN_ATTACK) };
+    cards.emplace("SW_428t2", CardDef(power, 6, 0));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_428t4] Guff the Tough - COST:5 [ATK:8/HP:8]
@@ -202,6 +231,11 @@ void StormwindCardsGen::AddDruidNonCollect(
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_428t4e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("SW_428t4", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_428t4e] Guff's Buff - COST:0
@@ -212,6 +246,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(
+        std::make_unique<Enchant>(Effects::AttackN(8), false, true));
+    cards.emplace("SW_428t4e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_429t] Goldshell Turtle - COST:4 [ATK:2/HP:7]
