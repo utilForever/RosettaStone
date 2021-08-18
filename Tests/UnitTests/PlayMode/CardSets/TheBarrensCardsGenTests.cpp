@@ -1560,3 +1560,72 @@ TEST_CASE("[Mage : Minion] - WC_805 : Frostweave Dungeoneer")
     CHECK_EQ(curField[1]->card->name, "Frostweave Dungeoneer");
     CHECK_EQ(curField[2]->card->name, "Frosted Elemental");
 }
+
+// ------------------------------------------ MINION - MAGE
+// [WC_806] Floecaster - COST:6 [ATK:5/HP:5]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Costs (2) less for each <b>Frozen</b> enemy.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - WC_806 : Floecaster")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Floecaster"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(card1->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(card1->GetCost(), 0);
+}

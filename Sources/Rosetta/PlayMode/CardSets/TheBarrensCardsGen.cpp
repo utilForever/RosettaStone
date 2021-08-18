@@ -9,6 +9,7 @@
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -970,6 +971,22 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (2) less for each <b>Frozen</b> enemy.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        auto minions = playable->player->opponent->GetFieldZone()->GetAll();
+        int numFrozenEnemies = 0;
+
+        for (auto& minion : minions)
+        {
+            if (minion->IsFrozen())
+            {
+                ++numFrozenEnemies;
+            }
+        }
+
+        return 2 * numFrozenEnemies;
+    }));
+    cards.emplace("WC_806", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddMageNonCollect(
