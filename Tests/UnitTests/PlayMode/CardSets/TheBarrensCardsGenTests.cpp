@@ -1588,7 +1588,7 @@ TEST_CASE("[Mage : Minion] - WC_805 : Frostweave Dungeoneer")
     config.player1Class = CardClass::MAGE;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
+    config.doFillDecks = false;
     config.autoRun = false;
 
     for (int i = 0; i < 30; i += 3)
