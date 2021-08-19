@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -878,6 +879,24 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            auto minions = player->opponent->GetFieldZone()->GetAll();
+            for (auto& minion : minions)
+            {
+                if (minion->IsFrozen())
+                {
+                    Generic::TakeDamageToCharacter(
+                        dynamic_cast<Playable*>(source), minion, 4, false);
+                }
+                else
+                {
+                    minion->SetGameTag(GameTag::FROZEN, 1);
+                }
+            }
+        }));
+    cards.emplace("BAR_748", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [BAR_812] Oasis Ally - COST:3

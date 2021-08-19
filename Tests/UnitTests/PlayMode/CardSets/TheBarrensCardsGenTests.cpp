@@ -1314,6 +1314,71 @@ TEST_CASE("[Mage : Spell] - BAR_541 : Runed Orb")
     }
 }
 
+// ------------------------------------------ MINION - MAGE
+// [BAR_748] Varden Dawngrasp - COST:4 [ATK:3/HP:3]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Freeze</b> all enemy minions.
+//       If any are already <b>Frozen</b>, deal 4 damage
+//       to them instead.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - BAR_748 : Varden Dawngrasp")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Varden Dawngrasp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[1]->IsFrozen(), true);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [BAR_812] Oasis Ally - COST:3
 // - Set: THE_BARRENS, Rarity: Common
