@@ -1050,6 +1050,63 @@ TEST_CASE("[Hunter : Spell] - BAR_801 : Wound Prey")
     CHECK_EQ(curField[1]->HasRush(), true);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [WC_007] Serpentbloom - COST:0
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a friendly Beast <b>Poisonous</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_TARGET_WITH_RACE = 20
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - WC_007 : Serpentbloom")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Serpentbloom"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Enchanted Raven"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->HasPoisonous(), false);
+    CHECK_EQ(curField[1]->HasPoisonous(), false);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->HasPoisonous(), false);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField[1]->HasPoisonous(), true);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [WC_008] Sin'dorei Scentfinder - COST:4 [ATK:1/HP:6]
 // - Set: THE_BARRENS, Rarity: Common
