@@ -494,6 +494,42 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
+            if (target == nullptr)
+            {
+                return;
+            }
+
+            const auto realSource = dynamic_cast<Playable*>(source);
+            const auto realTarget = dynamic_cast<Character*>(target);
+
+            const int targetHealth = realTarget->GetHealth();
+            int realDamage = 6 + source->player->GetCurrentSpellPower();
+
+            Generic::TakeDamageToCharacter(realSource, realTarget, realDamage,
+                                           true);
+
+            if (realTarget->isDestroyed)
+            {
+                const int remainDamage = realDamage - targetHealth;
+                if (remainDamage > 0)
+                {
+                    Generic::TakeDamageToCharacter(realSource,
+                                                   player->opponent->GetHero(),
+                                                   remainDamage, false);
+                }
+            }
+        }));
+    cards.emplace(
+        "BAR_032",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_033] Prospector's Caravan - COST:2 [ATK:1/HP:3]
