@@ -3,12 +3,14 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -492,6 +494,42 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
+            if (target == nullptr)
+            {
+                return;
+            }
+
+            const auto realSource = dynamic_cast<Playable*>(source);
+            const auto realTarget = dynamic_cast<Character*>(target);
+
+            const int targetHealth = realTarget->GetHealth();
+            int realDamage = 6 + source->player->GetCurrentSpellPower();
+
+            Generic::TakeDamageToCharacter(realSource, realTarget, realDamage,
+                                           true);
+
+            if (realTarget->isDestroyed)
+            {
+                const int remainDamage = realDamage - targetHealth;
+                if (remainDamage > 0)
+                {
+                    Generic::TakeDamageToCharacter(realSource,
+                                                   player->opponent->GetHero(),
+                                                   remainDamage, false);
+                }
+            }
+        }));
+    cards.emplace(
+        "BAR_032",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [BAR_033] Prospector's Caravan - COST:2 [ATK:1/HP:3]
@@ -611,9 +649,24 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a friendly Beast <b>Poisonous</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::POISONOUS, 1));
+    cards.emplace(
+        "WC_007",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [WC_008] Sin'dorei Scentfinder - COST:4 [ATK:1/HP:6]
@@ -877,6 +930,24 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            auto minions = player->opponent->GetFieldZone()->GetAll();
+            for (auto& minion : minions)
+            {
+                if (minion->IsFrozen())
+                {
+                    Generic::TakeDamageToCharacter(
+                        dynamic_cast<Playable*>(source), minion, 4, false);
+                }
+                else
+                {
+                    minion->SetGameTag(GameTag::FROZEN, 1);
+                }
+            }
+        }));
+    cards.emplace("BAR_748", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [BAR_812] Oasis Ally - COST:3
@@ -952,6 +1023,17 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsFrostSpell()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<SummonTask>("BAR_888t", SummonSide::LEFT),
+            std::make_shared<SummonTask>("BAR_888t", SummonSide::RIGHT) }));
+    cards.emplace("WC_805", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [WC_806] Floecaster - COST:6 [ATK:5/HP:5]
@@ -959,6 +1041,22 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (2) less for each <b>Frozen</b> enemy.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        auto minions = playable->player->opponent->GetFieldZone()->GetAll();
+        int numFrozenEnemies = 0;
+
+        for (auto& minion : minions)
+        {
+            if (minion->IsFrozen())
+            {
+                ++numFrozenEnemies;
+            }
+        }
+
+        return 2 * numFrozenEnemies;
+    }));
+    cards.emplace("WC_806", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddMageNonCollect(

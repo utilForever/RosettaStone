@@ -723,7 +723,7 @@ THE_BARRENS | BAR_026 | Death's Head Cultist |
 THE_BARRENS | BAR_027 | Darkspear Berserker |  
 THE_BARRENS | BAR_030 | Pack Kodo |  
 THE_BARRENS | BAR_031 | Sunscale Raptor |  
-THE_BARRENS | BAR_032 | Piercing Shot |  
+THE_BARRENS | BAR_032 | Piercing Shot | O
 THE_BARRENS | BAR_033 | Prospector's Caravan | O
 THE_BARRENS | BAR_034 | Tame Beast (Rank 1) | O
 THE_BARRENS | BAR_035 | Kolkar Pack Runner | O
@@ -810,7 +810,7 @@ THE_BARRENS | BAR_735 | Xyrella |
 THE_BARRENS | BAR_743 | Toad of the Wilds |  
 THE_BARRENS | BAR_744 | Spirit Healer |  
 THE_BARRENS | BAR_745 | Hecklefang Hyena |  
-THE_BARRENS | BAR_748 | Varden Dawngrasp |  
+THE_BARRENS | BAR_748 | Varden Dawngrasp | O
 THE_BARRENS | BAR_750 | Earth Revenant |  
 THE_BARRENS | BAR_751 | Spawnpool Forager |  
 THE_BARRENS | BAR_801 | Wound Prey | O
@@ -853,7 +853,7 @@ THE_BARRENS | WC_003 | Sigil of Summoning |
 THE_BARRENS | WC_004 | Fangbound Druid | O
 THE_BARRENS | WC_005 | Primal Dungeoneer |  
 THE_BARRENS | WC_006 | Lady Anacondra | O
-THE_BARRENS | WC_007 | Serpentbloom |  
+THE_BARRENS | WC_007 | Serpentbloom | O
 THE_BARRENS | WC_008 | Sin'dorei Scentfinder | O
 THE_BARRENS | WC_013 | Devout Dungeoneer |  
 THE_BARRENS | WC_014 | Against All Odds |  
@@ -882,10 +882,10 @@ THE_BARRENS | WC_041 | Shattering Blast | O
 THE_BARRENS | WC_042 | Wailing Vapor |  
 THE_BARRENS | WC_701 | Felrattler |  
 THE_BARRENS | WC_803 | Cleric of An'she |  
-THE_BARRENS | WC_805 | Frostweave Dungeoneer |  
-THE_BARRENS | WC_806 | Floecaster |  
+THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
+THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 14% (24 of 170 Cards)
+- Progress: 17% (29 of 170 Cards)
 
 ## United in Stormwind
 

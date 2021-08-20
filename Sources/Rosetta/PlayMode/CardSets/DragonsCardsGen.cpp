@@ -1207,14 +1207,8 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
             const int targetHealth = realTarget->GetHealth();
             int realDamage = 8 + source->player->GetCurrentSpellPower();
 
-            if (const auto value = source->player->playerAuraEffects.GetValue(
-                    GameTag::SPELLPOWER_DOUBLE);
-                value > 0)
-            {
-                realDamage *= static_cast<int>(std::pow(2.0, value));
-            }
-
-            realTarget->TakeDamage(realSource, realDamage);
+            Generic::TakeDamageToCharacter(realSource, realTarget, realDamage,
+                                           true);
 
             if (realTarget->isDestroyed)
             {
