@@ -514,7 +514,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ------------------------------------------- SPELL - MAGE
-    // [BT_002] Incanter's Flow - COST:2
+    // [BT_002] Incanter's Flow - COST:3
     // - Set: BLACK_TEMPLE, Rarity: Common
     // - Spell School: Arcane
     // --------------------------------------------------------
@@ -1789,7 +1789,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [BT_307] Darkglare - COST:2 [ATK:2/HP:3]
+    // [BT_307] Darkglare - COST:3 [ATK:3/HP:4]
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
     // Text: After your hero takes damage, refresh a Mana Crystals.

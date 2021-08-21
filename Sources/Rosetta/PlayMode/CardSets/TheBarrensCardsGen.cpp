@@ -569,7 +569,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BAR_034", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
-    // [BAR_035] Kolkar Pack Runner - COST:2 [ATK:2/HP:3]
+    // [BAR_035] Kolkar Pack Runner - COST:3 [ATK:3/HP:4]
     // - Set: THE_BARRENS, Rarity: Epic
     // --------------------------------------------------------
     // Text: After you cast a spell,
@@ -1256,7 +1256,7 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - PALADIN
-    // [BAR_880] Conviction (Rank 1) - COST:1
+    // [BAR_880] Conviction (Rank 1) - COST:2
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Holy
     // --------------------------------------------------------
@@ -1373,7 +1373,7 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - PALADIN
-    // [BAR_880t] Conviction (Rank 2) - COST:1
+    // [BAR_880t] Conviction (Rank 2) - COST:2
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Holy
     // --------------------------------------------------------
@@ -1382,7 +1382,7 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - PALADIN
-    // [BAR_880t2] Conviction (Rank 3) - COST:1
+    // [BAR_880t2] Conviction (Rank 3) - COST:2
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Holy
     // --------------------------------------------------------

@@ -1001,7 +1001,7 @@ TEST_CASE("[Hunter : Spell] - BAR_034 : Tame Beast (Rank 1)")
 }
 
 // ---------------------------------------- MINION - HUNTER
-// [BAR_035] Kolkar Pack Runner - COST:2 [ATK:2/HP:3]
+// [BAR_035] Kolkar Pack Runner - COST:3 [ATK:3/HP:4]
 // - Set: THE_BARRENS, Rarity: Epic
 // --------------------------------------------------------
 // Text: After you cast a spell,
