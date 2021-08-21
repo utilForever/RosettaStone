@@ -2737,13 +2737,13 @@
     },
     {
         "artist": "Matt Dixon",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 63007,
         "flavor": "Is he running or galloping?",
-        "health": 3,
+        "health": 4,
         "id": "BAR_035",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -4818,7 +4818,7 @@
         "artist": "Ursula Dorada",
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 62947,
         "flavor": "It was the strength of Cariel's faith that emboldened the defenders of Northwatch that day. Although the strength of her giant hammer didn’t exactly hurt either.",
         "id": "BAR_880",
@@ -8380,7 +8380,7 @@
         "artist": "David Kegg",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 56385,
         "flavor": "\"Gettin' them discounts in bulk amounts, spells can come, and spells can go, castin' costs drop with my sweet, sweet flow.\"",
         "id": "BT_002",
@@ -10116,13 +10116,13 @@
     },
     {
         "artist": "Nicola Saviori",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 56523,
         "flavor": "He's got a dark glare, but he sees crystal clear!",
-        "health": 3,
+        "health": 4,
         "id": "BT_307",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -25222,14 +25222,14 @@
     },
     {
         "artist": "James Ryman",
-        "attack": 2,
+        "attack": 4,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 4,
+        "cost": 6,
         "dbfId": 61136,
         "elite": true,
         "flavor": "Well, that just sounds like damage with extra steps.",
-        "health": 6,
+        "health": 8,
         "id": "DMF_230",
         "name": "Il'gynoth",
         "rarity": "LEGENDARY",
@@ -51135,7 +51135,7 @@
             "WARLOCK"
         ],
         "collectible": true,
-        "cost": 8,
+        "cost": 9,
         "dbfId": 59585,
         "flavor": "\"A BIG mistake.\"",
         "health": 8,
@@ -54028,7 +54028,7 @@
         "cost": 4,
         "dbfId": 64320,
         "flavor": "If he stops being useful, just turn him into a kitchen countertop.",
-        "health": 5,
+        "health": 4,
         "id": "SW_032",
         "mechanics": [
             "BATTLECRY"
@@ -54494,7 +54494,7 @@
         "name": "Florist",
         "rarity": "COMMON",
         "set": "STORMWIND",
-        "text": "[x]At then end of your turn,\nreduce the cost of a Nature\nspell in your hand by (1).",
+        "text": "[x]At the end of your turn,\nreduce the cost of a Nature\n spell in your hand by (1).",
         "type": "MINION"
     },
     {
@@ -54542,7 +54542,7 @@
         "attack": 5,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 5,
+        "cost": 6,
         "dbfId": 64711,
         "flavor": "Farm! No wait… Mine! No wait… 3 to Smith—they're taking Farm. Get there now!",
         "health": 5,
@@ -56075,7 +56075,7 @@
         "name": "Psyfiend",
         "rarity": "RARE",
         "set": "STORMWIND",
-        "text": "After you cast a Shadow spell, deal 2 damage to each Hero.",
+        "text": "After you cast a Shadow spell, deal 2 damage to each hero.",
         "type": "MINION"
     },
     {
