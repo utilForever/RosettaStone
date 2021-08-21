@@ -1432,7 +1432,7 @@ void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [SW_032] Granite Forgeborn - COST:4 [ATK:4/HP:5]
+    // [SW_032] Granite Forgeborn - COST:4 [ATK:4/HP:4]
     // - Race: Elemental, Set: STORMWIND, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Reduce the cost of Elementals
@@ -2256,7 +2256,7 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [SW_063] Battleground Battlemaster - COST:5 [ATK:5/HP:5]
+    // [SW_063] Battleground Battlemaster - COST:6 [ATK:5/HP:5]
     // - Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
     // Text: Adjacent minions have <b>Windfury</b>.

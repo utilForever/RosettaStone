@@ -590,7 +590,7 @@ TEST_CASE("[Hunter : Spell] - BT_213 : Scavenger's Ingenuity")
 }
 
 // ------------------------------------------- SPELL - MAGE
-// [BT_002] Incanter's Flow - COST:2
+// [BT_002] Incanter's Flow - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
 // - Spell School: Arcane
 // --------------------------------------------------------
