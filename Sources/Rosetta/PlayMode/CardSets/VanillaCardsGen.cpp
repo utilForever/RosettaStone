@@ -6,6 +6,8 @@
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -172,12 +174,19 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_005] Claw - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_005o", EntityType::HERO));
+    cards.emplace("VAN_CS2_005", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_007] Healing Touch - COST:3
