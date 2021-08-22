@@ -196,3 +196,57 @@ TEST_CASE("[Druid : Spell] - VAN_CS2_008 : Moonfire")
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
 }
+
+// ------------------------------------------ SPELL - DRUID
+// [VAN_CS2_009] Mark of the Wild - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Give a minion <b>Taunt</b> and +2/+2.<i>
+//       (+2 Attack/+2 Health)</i>
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - VAN_CS2_009 : Mark of the Wild")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Mark of the Wild", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}

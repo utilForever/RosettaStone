@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -228,9 +229,20 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a minion <b>Taunt</b> and +2/+2.<i>
     //       (+2 Attack/+2 Health)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "VAN_CS2_009e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_009",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_011] Savage Roar - COST:3
@@ -454,12 +466,17 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - DRUID
     // [VAN_CS2_009e] Mark of the Wild - COST:0
     // - Set: VANILLA
     // --------------------------------------------------------
     // Text: +2/+2 and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_CS2_009e"));
+    cards.emplace("VAN_CS2_009e", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_154a] Solar Wrath - COST:2
