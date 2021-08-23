@@ -61,6 +61,11 @@ Cards::Cards()
                 }
                 m_allWildCards.emplace_back(card);
             }
+
+            if (card->IsClassicSet())
+            {
+                m_allClassicCards.emplace_back(card);
+            }
         }
 
         if (card->IsLackey())
