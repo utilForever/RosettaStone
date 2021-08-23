@@ -42,22 +42,25 @@ Cards::Cards()
                                    ? static_cast<int>(card->GetCardClass()) - 5
                                    : static_cast<int>(card->GetCardClass()) - 2;
 
-        if (card->IsCollectible() && card->IsStandardSet())
+        if (card->IsCollectible())
         {
-            if (card->GetCardClass() != CardClass::NEUTRAL)
+            if (card->IsStandardSet())
             {
-                m_standardCards[cardClass].emplace_back(card);
+                if (card->GetCardClass() != CardClass::NEUTRAL)
+                {
+                    m_standardCards[cardClass].emplace_back(card);
+                }
+                m_allStandardCards.emplace_back(card);
             }
-            m_allStandardCards.emplace_back(card);
-        }
 
-        if (card->IsCollectible() && card->IsWildSet())
-        {
-            if (card->GetCardClass() != CardClass::NEUTRAL)
+            if (card->IsWildSet())
             {
-                m_wildCards[cardClass].emplace_back(card);
+                if (card->GetCardClass() != CardClass::NEUTRAL)
+                {
+                    m_wildCards[cardClass].emplace_back(card);
+                }
+                m_allWildCards.emplace_back(card);
             }
-            m_allWildCards.emplace_back(card);
         }
 
         if (card->IsLackey())
