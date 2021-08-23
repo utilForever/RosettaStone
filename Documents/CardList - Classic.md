@@ -14,11 +14,11 @@ VANILLA | VAN_CS1_129 | Inner Fire |
 VANILLA | VAN_CS1_130 | Holy Smite |  
 VANILLA | VAN_CS2_003 | Mind Vision |  
 VANILLA | VAN_CS2_004 | Power Word: Shield |  
-VANILLA | VAN_CS2_005 | Claw |  
-VANILLA | VAN_CS2_007 | Healing Touch |  
-VANILLA | VAN_CS2_008 | Moonfire |  
-VANILLA | VAN_CS2_009 | Mark of the Wild |  
-VANILLA | VAN_CS2_011 | Savage Roar |  
+VANILLA | VAN_CS2_005 | Claw | O
+VANILLA | VAN_CS2_007 | Healing Touch | O
+VANILLA | VAN_CS2_008 | Moonfire | O
+VANILLA | VAN_CS2_009 | Mark of the Wild | O
+VANILLA | VAN_CS2_011 | Savage Roar | O
 VANILLA | VAN_CS2_012 | Swipe |  
 VANILLA | VAN_CS2_013 | Wild Growth |  
 VANILLA | VAN_CS2_022 | Polymorph |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender |  
 
-- Progress: 0% (0 of 382 Cards)
+- Progress: 1% (5 of 382 Cards)
