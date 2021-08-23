@@ -4,10 +4,15 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -172,12 +177,19 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_005] Claw - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_005o", EntityType::HERO));
+    cards.emplace("VAN_CS2_005", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_007] Healing Touch - COST:3
@@ -185,6 +197,14 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 8 Health.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
+    cards.emplace(
+        "VAN_CS2_007",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_008] Moonfire - COST:0
@@ -192,6 +212,15 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    cards.emplace(
+        "VAN_CS2_008",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_009] Mark of the Wild - COST:2
@@ -200,16 +229,31 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a minion <b>Taunt</b> and +2/+2.<i>
     //       (+2 Attack/+2 Health)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "VAN_CS2_009e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_009",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_011] Savage Roar - COST:3
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give your characters +2 Attack this turn.
+    // Text: Give your characters +2 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_011o", EntityType::FRIENDS));
+    cards.emplace("VAN_CS2_011", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_012] Swipe - COST:4
@@ -426,12 +470,17 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - DRUID
     // [VAN_CS2_009e] Mark of the Wild - COST:0
     // - Set: VANILLA
     // --------------------------------------------------------
     // Text: +2/+2 and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_CS2_009e"));
+    cards.emplace("VAN_CS2_009e", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_154a] Solar Wrath - COST:2

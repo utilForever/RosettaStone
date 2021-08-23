@@ -19,6 +19,7 @@ std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_standardCards;
 std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_wildCards;
 std::vector<Card*> Cards::m_allStandardCards;
 std::vector<Card*> Cards::m_allWildCards;
+std::vector<Card*> Cards::m_allClassicCards;
 std::vector<Card*> Cards::m_lackeys;
 
 Cards::Cards()
@@ -41,22 +42,30 @@ Cards::Cards()
                                    ? static_cast<int>(card->GetCardClass()) - 5
                                    : static_cast<int>(card->GetCardClass()) - 2;
 
-        if (card->IsCollectible() && card->IsStandardSet())
+        if (card->IsCollectible())
         {
-            if (card->GetCardClass() != CardClass::NEUTRAL)
+            if (card->IsStandardSet())
             {
-                m_standardCards[cardClass].emplace_back(card);
+                if (card->GetCardClass() != CardClass::NEUTRAL)
+                {
+                    m_standardCards[cardClass].emplace_back(card);
+                }
+                m_allStandardCards.emplace_back(card);
             }
-            m_allStandardCards.emplace_back(card);
-        }
 
-        if (card->IsCollectible() && card->IsWildSet())
-        {
-            if (card->GetCardClass() != CardClass::NEUTRAL)
+            if (card->IsWildSet())
             {
-                m_wildCards[cardClass].emplace_back(card);
+                if (card->GetCardClass() != CardClass::NEUTRAL)
+                {
+                    m_wildCards[cardClass].emplace_back(card);
+                }
+                m_allWildCards.emplace_back(card);
             }
-            m_allWildCards.emplace_back(card);
+
+            if (card->IsClassicSet())
+            {
+                m_allClassicCards.emplace_back(card);
+            }
         }
 
         if (card->IsLackey())
@@ -254,8 +263,23 @@ std::vector<Card*> Cards::FindCardByRace(Race race)
 
 Card* Cards::FindCardByName(const std::string_view& name, FormatType format)
 {
-    auto cards =
-        (format == FormatType::STANDARD) ? m_allStandardCards : m_allWildCards;
+    std::vector<Card*> cards;
+
+    switch (format)
+    {
+        case FormatType::STANDARD:
+            cards = m_allStandardCards;
+            break;
+        case FormatType::WILD:
+            cards = m_allWildCards;
+            break;
+        case FormatType::CLASSIC:
+            cards = m_allClassicCards;
+            break;
+        case FormatType::UNKNOWN:
+            break;
+    }
+
     for (Card* card : cards)
     {
         if (card->name == name && card->IsCollectible())

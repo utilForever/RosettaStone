@@ -360,6 +360,11 @@ bool Card::IsWildSet() const
     return false;
 }
 
+bool Card::IsClassicSet() const
+{
+    return GetCardSet() == CardSet::VANILLA;
+}
+
 std::size_t Card::GetMaxAllowedInDeck() const
 {
     return maxAllowedInDeck;

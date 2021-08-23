@@ -184,6 +184,7 @@ class Cards
     static std::array<std::vector<Card*>, NUM_PLAYER_CLASS> m_wildCards;
     static std::vector<Card*> m_allStandardCards;
     static std::vector<Card*> m_allWildCards;
+    static std::vector<Card*> m_allClassicCards;
     static std::vector<Card*> m_lackeys;
 };
 }  // namespace RosettaStone::PlayMode
