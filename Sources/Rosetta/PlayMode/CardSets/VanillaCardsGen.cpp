@@ -248,8 +248,12 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_011] Savage Roar - COST:3
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give your characters +2 Attack this turn.
+    // Text: Give your characters +2 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_011o", EntityType::FRIENDS));
+    cards.emplace("VAN_CS2_011", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_012] Swipe - COST:4
