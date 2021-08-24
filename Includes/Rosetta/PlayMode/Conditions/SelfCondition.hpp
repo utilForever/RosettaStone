@@ -299,6 +299,12 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsCastSpellLastTurn();
 
+    //! SelfCondition wrapper for checking the number of cards
+    //! that played this turn.
+    //! \param num The number of cards for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition CardsPlayedThisTurn(int num);
+
     //! SelfCondition wrapper for checking the number of minions
     //! that played this turn.
     //! \param num The number of minions for checking.

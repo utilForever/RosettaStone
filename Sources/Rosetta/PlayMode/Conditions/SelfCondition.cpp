@@ -650,6 +650,13 @@ SelfCondition SelfCondition::IsCastSpellLastTurn()
     });
 }
 
+SelfCondition SelfCondition::CardsPlayedThisTurn(int num)
+{
+    return SelfCondition([num](Playable* playable) {
+        return playable->player->GetNumCardsPlayedThisTurn() == num;
+    });
+}
+
 SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
 {
     return SelfCondition([num](Playable* playable) {
