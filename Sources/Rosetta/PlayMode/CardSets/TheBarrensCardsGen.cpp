@@ -1163,6 +1163,8 @@ void TheBarrensCardsGen::AddMageNonCollect(
 
 void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [BAR_550] Galloping Savior - COST:1
     // - Set: THE_BARRENS, Rarity: Common
@@ -1176,6 +1178,15 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::CardsPlayedThisTurn(3))
+    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<SummonTask>("BAR_550t", SummonSide::SPELL) });
+    cards.emplace("BAR_550", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_871] Soldier's Caravan - COST:2 [ATK:1/HP:3]
@@ -1325,6 +1336,8 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [BAR_550t] Holy Steed - COST:3 [ATK:3/HP:4]
     // - Race: Beast, Set: THE_BARRENS
@@ -1334,6 +1347,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_550t", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_878t] Battlefield Medic - COST:2 [ATK:2/HP:2]
