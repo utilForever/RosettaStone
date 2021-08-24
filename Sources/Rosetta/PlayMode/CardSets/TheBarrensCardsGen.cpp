@@ -1198,6 +1198,13 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        std::make_shared<SummonTask>("CS2_101t", SummonSide::LEFT),
+        std::make_shared<SummonTask>("CS2_101t", SummonSide::RIGHT)
+    };
+    cards.emplace("BAR_871", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_873] Knight of Anointment - COST:1 [ATK:1/HP:1]
