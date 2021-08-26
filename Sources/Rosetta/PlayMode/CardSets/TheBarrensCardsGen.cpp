@@ -1216,6 +1216,9 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, SpellSchool::HOLY));
+    cards.emplace("BAR_873", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [BAR_875] Sword of the Fallen - COST:2
