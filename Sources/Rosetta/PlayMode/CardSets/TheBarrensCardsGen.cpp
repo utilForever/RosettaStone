@@ -1247,6 +1247,13 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawMinionTask>(1, false) }));
+    cards.emplace("BAR_876", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_878] Veteran Warmedic - COST:4 [ATK:3/HP:5]
