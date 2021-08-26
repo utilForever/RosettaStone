@@ -215,6 +215,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrostSpell();
 
+    //! SelfCondition wrapper for checking the entity is holy spell.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHolySpell();
+
     //! SelfCondition wrapper for checking the entity is weapon.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsWeapon();

@@ -426,6 +426,19 @@ SelfCondition SelfCondition::IsFrostSpell()
     });
 }
 
+SelfCondition SelfCondition::IsHolySpell()
+{
+    return SelfCondition([](Playable* playable) {
+        auto spell = dynamic_cast<Spell*>(playable);
+        if (!spell)
+        {
+            return false;
+        }
+
+        return spell->GetSpellSchool() == SpellSchool::HOLY;
+    });
+}
+
 SelfCondition SelfCondition::IsWeapon()
 {
     return SelfCondition([](Playable* playable) {
