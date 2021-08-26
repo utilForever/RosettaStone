@@ -800,7 +800,7 @@ THE_BARRENS | BAR_545 | Arcane Luminary |
 THE_BARRENS | BAR_546 | Wildfire |  
 THE_BARRENS | BAR_547 | Mordresh Fire Eye |  
 THE_BARRENS | BAR_549 | Mark of the Spikeshell | O
-THE_BARRENS | BAR_550 | Galloping Savior |  
+THE_BARRENS | BAR_550 | Galloping Savior | O
 THE_BARRENS | BAR_551 | Barak Kodobane |  
 THE_BARRENS | BAR_552 | Scabbs Cutterbutter |  
 THE_BARRENS | BAR_705 | Sigil of Silence |  
@@ -826,11 +826,11 @@ THE_BARRENS | BAR_847 | Rokara |
 THE_BARRENS | BAR_848 | Lilypad Lurker |  
 THE_BARRENS | BAR_854 | Kindling Elemental |  
 THE_BARRENS | BAR_860 | Firemancer Flurgl |  
-THE_BARRENS | BAR_871 | Soldier's Caravan |  
-THE_BARRENS | BAR_873 | Knight of Anointment |  
+THE_BARRENS | BAR_871 | Soldier's Caravan | O
+THE_BARRENS | BAR_873 | Knight of Anointment | O
 THE_BARRENS | BAR_875 | Sword of the Fallen |  
-THE_BARRENS | BAR_876 | Northwatch Commander |  
-THE_BARRENS | BAR_878 | Veteran Warmedic |  
+THE_BARRENS | BAR_876 | Northwatch Commander | O
+THE_BARRENS | BAR_878 | Veteran Warmedic | O
 THE_BARRENS | BAR_879 | Cannonmaster Smythe |  
 THE_BARRENS | BAR_880 | Conviction (Rank 1) |  
 THE_BARRENS | BAR_881 | Invigorating Sermon |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she |
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 17% (29 of 170 Cards)
+- Progress: 20% (34 of 170 Cards)
 
 ## United in Stormwind
 
