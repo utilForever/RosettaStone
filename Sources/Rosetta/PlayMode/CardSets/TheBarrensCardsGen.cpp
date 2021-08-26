@@ -1024,7 +1024,8 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsFrostSpell()) }));
