@@ -1268,6 +1268,14 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsHolySpell())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BAR_878t", SummonSide::SPELL) };
+    cards.emplace("BAR_878", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_879] Cannonmaster Smythe - COST:5 [ATK:4/HP:4]
@@ -1378,6 +1386,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_878t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BAR_879e] Secrecy - COST:0
