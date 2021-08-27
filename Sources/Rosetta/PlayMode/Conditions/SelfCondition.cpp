@@ -426,6 +426,19 @@ SelfCondition SelfCondition::IsFrostSpell()
     });
 }
 
+SelfCondition SelfCondition::IsHolySpell()
+{
+    return SelfCondition([](Playable* playable) {
+        auto spell = dynamic_cast<Spell*>(playable);
+        if (!spell)
+        {
+            return false;
+        }
+
+        return spell->GetSpellSchool() == SpellSchool::HOLY;
+    });
+}
+
 SelfCondition SelfCondition::IsWeapon()
 {
     return SelfCondition([](Playable* playable) {
@@ -647,6 +660,13 @@ SelfCondition SelfCondition::IsCastSpellLastTurn()
     return SelfCondition([](Playable* playable) {
         return playable->player->GetGameTag(
                    GameTag::NUM_SPELLS_CAST_LAST_TURN) > 0;
+    });
+}
+
+SelfCondition SelfCondition::CardsPlayedThisTurn(int num)
+{
+    return SelfCondition([num](Playable* playable) {
+        return playable->player->GetNumCardsPlayedThisTurn() == num;
     });
 }
 

@@ -215,6 +215,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFrostSpell();
 
+    //! SelfCondition wrapper for checking the entity is holy spell.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHolySpell();
+
     //! SelfCondition wrapper for checking the entity is weapon.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsWeapon();
@@ -298,6 +302,12 @@ class SelfCondition
     //! SelfCondition wrapper for checking the player casts a spell last turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsCastSpellLastTurn();
+
+    //! SelfCondition wrapper for checking the number of cards
+    //! that played this turn.
+    //! \param num The number of cards for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition CardsPlayedThisTurn(int num);
 
     //! SelfCondition wrapper for checking the number of minions
     //! that played this turn.

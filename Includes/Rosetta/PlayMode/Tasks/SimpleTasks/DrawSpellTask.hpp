@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_DRAW_SPELL_TASK_HPP
 #define ROSETTASTONE_PLAYMODE_DRAW_SPELL_TASK_HPP
 
+#include <Rosetta/Common/Enums/GameEnums.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 
 namespace RosettaStone::PlayMode::SimpleTasks
@@ -18,10 +19,13 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class DrawSpellTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount and \p addToStack.
+    //! Constructs task with given \p amount, \p spellSchool and \p addToStack.
     //! \param amount The amount to draw minion card(s).
+    //! \param spellSchool The stated school of the spell.
     //! \param addToStack A flag to store card to stack.
-    explicit DrawSpellTask(int amount, bool addToStack = false);
+    explicit DrawSpellTask(int amount,
+                           SpellSchool spellSchool = SpellSchool::NONE,
+                           bool addToStack = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -34,6 +38,7 @@ class DrawSpellTask : public ITask
     std::unique_ptr<ITask> CloneImpl() override;
 
     int m_amount = 0;
+    SpellSchool m_spellSchool = SpellSchool::NONE;
     bool m_addToStack = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks

@@ -1024,7 +1024,8 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsFrostSpell()) }));
@@ -1163,6 +1164,8 @@ void TheBarrensCardsGen::AddMageNonCollect(
 
 void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [BAR_550] Galloping Savior - COST:1
     // - Set: THE_BARRENS, Rarity: Common
@@ -1176,6 +1179,15 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::CardsPlayedThisTurn(3))
+    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<SummonTask>("BAR_550t", SummonSide::SPELL) });
+    cards.emplace("BAR_550", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_871] Soldier's Caravan - COST:2 [ATK:1/HP:3]
@@ -1187,6 +1199,13 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        std::make_shared<SummonTask>("CS2_101t", SummonSide::LEFT),
+        std::make_shared<SummonTask>("CS2_101t", SummonSide::RIGHT)
+    };
+    cards.emplace("BAR_871", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_873] Knight of Anointment - COST:1 [ATK:1/HP:1]
@@ -1197,6 +1216,9 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, SpellSchool::HOLY));
+    cards.emplace("BAR_873", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [BAR_875] Sword of the Fallen - COST:2
@@ -1225,6 +1247,13 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawMinionTask>(1, false) }));
+    cards.emplace("BAR_876", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_878] Veteran Warmedic - COST:4 [ATK:3/HP:5]
@@ -1239,6 +1268,14 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsHolySpell())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BAR_878t", SummonSide::SPELL) };
+    cards.emplace("BAR_878", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_879] Cannonmaster Smythe - COST:5 [ATK:4/HP:4]
@@ -1325,6 +1362,8 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [BAR_550t] Holy Steed - COST:3 [ATK:3/HP:4]
     // - Race: Beast, Set: THE_BARRENS
@@ -1334,6 +1373,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_550t", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_878t] Battlefield Medic - COST:2 [ATK:2/HP:2]
@@ -1344,6 +1386,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_878t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BAR_879e] Secrecy - COST:0

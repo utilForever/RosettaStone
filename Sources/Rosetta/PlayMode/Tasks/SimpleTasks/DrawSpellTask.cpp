@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Spell.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawSpellTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 
@@ -14,8 +15,9 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
-DrawSpellTask::DrawSpellTask(int amount, bool addToStack)
-    : m_amount(amount), m_addToStack(addToStack)
+DrawSpellTask::DrawSpellTask(int amount, SpellSchool spellSchool,
+                             bool addToStack)
+    : m_amount(amount), m_spellSchool(spellSchool), m_addToStack(addToStack)
 {
     // Do nothing
 }
@@ -38,7 +40,14 @@ TaskStatus DrawSpellTask::Impl(Player* player)
 
     for (auto& deckCard : deck)
     {
-        if (deckCard->card->GetCardType() == CardType::SPELL)
+        if (deckCard->card->GetCardType() != CardType::SPELL)
+        {
+            continue;
+        }
+
+        if (auto spell = dynamic_cast<Spell*>(deckCard);
+            (spell && spell->GetSpellSchool() == m_spellSchool) ||
+            m_spellSchool == SpellSchool::NONE)
         {
             cards.emplace_back(deckCard);
         }
@@ -82,6 +91,7 @@ TaskStatus DrawSpellTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DrawSpellTask::CloneImpl()
 {
-    return std::make_unique<DrawSpellTask>(m_amount, m_addToStack);
+    return std::make_unique<DrawSpellTask>(m_amount, m_spellSchool,
+                                           m_addToStack);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks
