@@ -903,7 +903,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("SCH_137", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
-    // [SCH_140] Flesh Giant - COST:9 [ATK:8/HP:8]
+    // [SCH_140] Flesh Giant - COST:10 [ATK:8/HP:8]
     // - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
     // Text: Costs (1) less for each time your hero's Health changed
