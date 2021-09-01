@@ -5672,7 +5672,6 @@
             "TAUNT"
         ],
         "set": "BOOMSDAY",
-        "techLevel": 4,
         "text": "[x]Whenever this minion\ntakes damage, summon a\n2/3 Mech with <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -7849,7 +7848,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BRM",
-        "techLevel": 3,
         "text": "Whenever this minion takes damage, summon a 1/1 Imp.",
         "type": "MINION"
     },
@@ -12402,7 +12400,6 @@
         "name": "Crystalweaver",
         "rarity": "COMMON",
         "set": "GANGS",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your Demons +1/+1.",
         "type": "MINION"
     },
@@ -13928,7 +13925,6 @@
         "rarity": "RARE",
         "set": "GANGS",
         "targetingArrowText": "Give +2/+2.",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a friendly Beast +2/+2.",
         "type": "MINION"
     },
@@ -21319,7 +21315,6 @@
         ],
         "set": "DALARAN",
         "targetingArrowText": "Give a friendly Murloc Poisonous.",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.",
         "type": "MINION"
     },
@@ -32602,7 +32597,6 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 1,
         "text": "Whenever you summon a Murloc, gain +1 Attack.",
         "type": "MINION"
     },
@@ -37464,7 +37458,6 @@
             "IMMUNE"
         ],
         "set": "GVG",
-        "techLevel": 5,
         "text": "Your other Demons have +2/+2.\nYour hero is <b>Immune</b>.",
         "type": "MINION"
     },
@@ -37579,7 +37572,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "GVG",
-        "techLevel": 3,
         "text": "At the end of your turn, give another friendly Mech +2/+2.",
         "type": "MINION"
     },
@@ -39117,7 +39109,6 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "GVG",
-        "techLevel": 4,
         "text": "Whenever a friendly Mech dies, gain +2/+2.",
         "type": "MINION"
     },
@@ -43182,7 +43173,6 @@
         "name": "Bolvar, Fireblood",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "techLevel": 4,
         "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +2 Attack.",
         "type": "MINION"
     },
@@ -43426,7 +43416,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "KARA",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Summon a 3/2 Big Bad Wolf.",
         "type": "MINION"
     },
@@ -45320,7 +45309,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "techLevel": 1,
         "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage to your hero.",
         "type": "MINION"
     },
@@ -48243,7 +48231,6 @@
         "race": "PIRATE",
         "rarity": "EPIC",
         "set": "EXPERT1",
-        "techLevel": 2,
         "text": "Your other Pirates have +1/+1.",
         "type": "MINION"
     },
@@ -49745,7 +49732,6 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "OG",
-        "techLevel": 3,
         "text": "<b>Deathrattle:</b> Summon two 1/1 Spiders.",
         "type": "MINION"
     },
@@ -51135,7 +51121,7 @@
             "WARLOCK"
         ],
         "collectible": true,
-        "cost": 9,
+        "cost": 10,
         "dbfId": 59585,
         "flavor": "\"A BIG mistake.\"",
         "health": 8,
@@ -53286,7 +53272,7 @@
             "OVERLOAD"
         ],
         "set": "SCHOLOMANCE",
-        "text": "<b>Deathrattle:</b> Summon all four basic Totems.\n<b>Overload: (1)</b>",
+        "text": "<b>Deathrattle:</b> Summon all four basic Totems.\n<b>Overload:</b> (1)",
         "type": "MINION"
     },
     {
@@ -55986,6 +55972,7 @@
         "type": "SPELL"
     },
     {
+        "artist": "Vlad Botos",
         "cardClass": "PRIEST",
         "collectible": true,
         "cost": 1,
@@ -56877,7 +56864,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "TROLL",
-        "techLevel": 5,
         "text": "<b>Overkill:</b> Summon a 5/5 Ironhide Runt.",
         "type": "MINION"
     },
@@ -71412,10 +71398,10 @@
     },
     {
         "artist": "James Ryman",
-        "attack": 2,
+        "attack": 4,
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 4,
+        "cost": 6,
         "dbfId": 63370,
         "flavor": "The tooth fairy gig didn't work out.",
         "health": 6,
@@ -72247,7 +72233,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "YEAR_OF_THE_DRAGON",
-        "techLevel": 1,
         "text": "[x]<b>Deathrattle:</b> Give this\nminion's Attack to a random\nfriendly minion.",
         "type": "MINION"
     },
