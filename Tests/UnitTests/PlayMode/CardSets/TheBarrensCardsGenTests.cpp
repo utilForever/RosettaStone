@@ -2121,3 +2121,102 @@ TEST_CASE("[Paladin : Minion] - BAR_878 : Veteran Warmedic")
     CHECK_EQ(curField[1]->GetHealth(), 2);
     CHECK_EQ(curField[1]->HasLifesteal(), true);
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [BAR_880] Conviction (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Epic
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Give a random friendly minion +3 Attack.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BAR_880 : Conviction (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conviction (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conviction (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conviction (Rank 1)"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(card1->card->name, "Conviction (Rank 1)");
+    CHECK_EQ(card2->card->name, "Conviction (Rank 1)");
+    CHECK_EQ(card3->card->name, "Conviction (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 3);
+    int totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack() +
+                      curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack() +
+                  curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Conviction (Rank 1)");
+    CHECK_EQ(card3->card->name, "Conviction (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Conviction (Rank 2)");
+    CHECK_EQ(card3->card->name, "Conviction (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack() +
+                  curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 12);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Conviction (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Conviction (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack() +
+                  curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 21);
+}

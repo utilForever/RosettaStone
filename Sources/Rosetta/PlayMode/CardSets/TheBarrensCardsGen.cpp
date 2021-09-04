@@ -1300,6 +1300,18 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Give a random friendly minion +3 Attack.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::MINIONS, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_880e", EntityType::STACK));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_880t")));
+    cards.emplace(
+        "BAR_880",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BAR_881] Invigorating Sermon - COST:4
@@ -1416,6 +1428,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +3 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_880e"));
+    cards.emplace("BAR_880e", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BAR_880t] Conviction (Rank 2) - COST:2
@@ -1425,6 +1440,18 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // Text: Give two random friendly minions +3 Attack.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_880e", EntityType::STACK));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_880t2")));
+    cards.emplace(
+        "BAR_880t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BAR_880t2] Conviction (Rank 3) - COST:2
@@ -1433,6 +1460,16 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Give three random friendly minions +3 Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::MINIONS, 3));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_880e", EntityType::STACK));
+    cards.emplace(
+        "BAR_880t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BAR_881e] Holy Might - COST:0
