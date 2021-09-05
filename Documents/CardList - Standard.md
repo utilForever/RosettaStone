@@ -832,13 +832,13 @@ THE_BARRENS | BAR_875 | Sword of the Fallen |
 THE_BARRENS | BAR_876 | Northwatch Commander | O
 THE_BARRENS | BAR_878 | Veteran Warmedic | O
 THE_BARRENS | BAR_879 | Cannonmaster Smythe |  
-THE_BARRENS | BAR_880 | Conviction (Rank 1) |  
-THE_BARRENS | BAR_881 | Invigorating Sermon |  
+THE_BARRENS | BAR_880 | Conviction (Rank 1) | O
+THE_BARRENS | BAR_881 | Invigorating Sermon | O
 THE_BARRENS | BAR_888 | Rimetongue | O
 THE_BARRENS | BAR_890 | Crossroads Gossiper |  
 THE_BARRENS | BAR_891 | Fury (Rank 1) |  
 THE_BARRENS | BAR_896 | Stonemaul Anchorman |  
-THE_BARRENS | BAR_902 | Cariel Roame |  
+THE_BARRENS | BAR_902 | Cariel Roame | O
 THE_BARRENS | BAR_910 | Grimoire of Sacrifice |  
 THE_BARRENS | BAR_911 | Soul Rend |  
 THE_BARRENS | BAR_912 | Apothecary's Caravan |  
@@ -871,8 +871,8 @@ THE_BARRENS | WC_027 | Devouring Ectoplasm |
 THE_BARRENS | WC_028 | Meeting Stone |  
 THE_BARRENS | WC_029 | Selfless Sidekick |  
 THE_BARRENS | WC_030 | Mutanus the Devourer |  
-THE_BARRENS | WC_032 | Seedcloud Buckler |  
-THE_BARRENS | WC_033 | Judgment of Justice |  
+THE_BARRENS | WC_032 | Seedcloud Buckler | O
+THE_BARRENS | WC_033 | Judgment of Justice | O
 THE_BARRENS | WC_034 | Party Up! |  
 THE_BARRENS | WC_035 | Archdruid Naralex |  
 THE_BARRENS | WC_036 | Deviate Dreadfang | O
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she |
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 20% (34 of 170 Cards)
+- Progress: 22% (39 of 170 Cards)
 
 ## United in Stormwind
 
