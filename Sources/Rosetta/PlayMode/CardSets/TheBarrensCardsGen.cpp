@@ -1363,6 +1363,12 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddDeathrattleTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("WC_032", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [WC_033] Judgment of Justice - COST:1
