@@ -242,6 +242,26 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::MINIONS_HAND_DECK_FIELD:
+            for (auto& card : player->GetHandZone()->GetAll())
+            {
+                if (card->card->GetCardType() == CardType::MINION)
+                {
+                    entities.emplace_back(card);
+                }
+            }
+            for (auto& card : player->GetDeckZone()->GetAll())
+            {
+                if (card->card->GetCardType() == CardType::MINION)
+                {
+                    entities.emplace_back(card);
+                }
+            }
+            for (auto& minion : player->GetFieldZone()->GetAll())
+            {
+                entities.emplace_back(minion);
+            }
+            break;
         case EntityType::ENEMY_MINIONS:
             for (auto& minion : player->opponent->GetFieldZone()->GetAll())
             {

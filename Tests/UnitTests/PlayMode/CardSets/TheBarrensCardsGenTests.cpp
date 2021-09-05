@@ -2121,3 +2121,407 @@ TEST_CASE("[Paladin : Minion] - BAR_878 : Veteran Warmedic")
     CHECK_EQ(curField[1]->GetHealth(), 2);
     CHECK_EQ(curField[1]->HasLifesteal(), true);
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [BAR_880] Conviction (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Epic
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Give a random friendly minion +3 Attack.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BAR_880 : Conviction (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conviction (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conviction (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conviction (Rank 1)"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(card1->card->name, "Conviction (Rank 1)");
+    CHECK_EQ(card2->card->name, "Conviction (Rank 1)");
+    CHECK_EQ(card3->card->name, "Conviction (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 3);
+    int totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack() +
+                      curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack() +
+                  curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Conviction (Rank 1)");
+    CHECK_EQ(card3->card->name, "Conviction (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Conviction (Rank 2)");
+    CHECK_EQ(card3->card->name, "Conviction (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack() +
+                  curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 12);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Conviction (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Conviction (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack() +
+                  curField[2]->GetAttack();
+    CHECK_EQ(totalAttack, 21);
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [BAR_881] Invigorating Sermon - COST:4
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Give +1/+1 to all minions in your hand, deck,
+//       and battlefield.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BAR_881 : Invigorating Sermon")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 2)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Invigorating Sermon"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    for (auto& card : curHand.GetAll())
+    {
+        if (auto minion = dynamic_cast<Minion*>(card); minion)
+        {
+            if (minion->card->name == "Malygos")
+            {
+                CHECK_EQ(minion->GetAttack(), 4);
+                CHECK_EQ(minion->GetHealth(), 12);
+            }
+            else if (minion->card->name == "Wisp")
+            {
+                CHECK_EQ(minion->GetAttack(), 1);
+                CHECK_EQ(minion->GetHealth(), 1);
+            }
+        }
+    }
+    for (auto& card : curDeck.GetAll())
+    {
+        if (auto minion = dynamic_cast<Minion*>(card); minion)
+        {
+            if (minion->card->name == "Malygos")
+            {
+                CHECK_EQ(minion->GetAttack(), 4);
+                CHECK_EQ(minion->GetHealth(), 12);
+            }
+            else if (minion->card->name == "Wisp")
+            {
+                CHECK_EQ(minion->GetAttack(), 1);
+                CHECK_EQ(minion->GetHealth(), 1);
+            }
+        }
+    }
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    for (auto& card : curHand.GetAll())
+    {
+        if (auto minion = dynamic_cast<Minion*>(card); minion)
+        {
+            if (minion->card->name == "Malygos")
+            {
+                CHECK_EQ(minion->GetAttack(), 5);
+                CHECK_EQ(minion->GetHealth(), 13);
+            }
+            else if (minion->card->name == "Wisp")
+            {
+                CHECK_EQ(minion->GetAttack(), 2);
+                CHECK_EQ(minion->GetHealth(), 2);
+            }
+        }
+    }
+    for (auto& card : curDeck.GetAll())
+    {
+        if (auto minion = dynamic_cast<Minion*>(card); minion)
+        {
+            if (minion->card->name == "Malygos")
+            {
+                CHECK_EQ(minion->GetAttack(), 5);
+                CHECK_EQ(minion->GetHealth(), 13);
+            }
+            else if (minion->card->name == "Wisp")
+            {
+                CHECK_EQ(minion->GetAttack(), 2);
+                CHECK_EQ(minion->GetHealth(), 2);
+            }
+        }
+    }
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - PALADIN
+// [BAR_902] Cariel Roame - COST:4 [ATK:4/HP:3]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Rush</b>, <b>Divine Shield</b>
+//       Whenever this attacks, reduce the Cost of Holy spells
+//       in your hand by (1).
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DIVINE_SHIELD = 1
+// - RUSH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - BAR_902 : Cariel Roame")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cariel Roame"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Equality"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Humility"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    CHECK_EQ(card2->GetCost(), 2);
+    CHECK_EQ(card3->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, AttackTask(card1, card5));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(card2->GetCost(), 1);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 1);
+}
+
+// --------------------------------------- WEAPON - PALADIN
+// [WC_032] Seedcloud Buckler - COST:3
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give your minions
+//       <b>Divine Shield</b>.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Weapon] - WC_032 : Seedcloud Buckler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Seedcloud Buckler"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Seedcloud Buckler"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[1]->HasDivineShield(), false);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[1]->HasDivineShield(), false);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
+    CHECK_EQ(curField[1]->HasDivineShield(), true);
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [WC_033] Judgment of Justice - COST:1
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When an enemy minion attacks,
+//       set its Attack and Health to 1.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - WC_033 : Judgment of Justice")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Judgment of Justice"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}

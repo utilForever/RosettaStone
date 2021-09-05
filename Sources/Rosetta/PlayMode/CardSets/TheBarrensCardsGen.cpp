@@ -1300,6 +1300,18 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Give a random friendly minion +3 Attack.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::MINIONS, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_880e", EntityType::STACK));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_880t")));
+    cards.emplace(
+        "BAR_880",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BAR_881] Invigorating Sermon - COST:4
@@ -1309,6 +1321,12 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Give +1/+1 to all minions in your hand, deck,
     //       and battlefield.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_HAND_DECK_FIELD));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_881e", EntityType::STACK));
+    cards.emplace("BAR_881", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_902] Cariel Roame - COST:4 [ATK:4/HP:3]
@@ -1324,6 +1342,13 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_902e", EntityType::HAND, false, false,
+        SelfCondition::IsHolySpell()) };
+    cards.emplace("BAR_902", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [WC_032] Seedcloud Buckler - COST:3
@@ -1338,6 +1363,12 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddDeathrattleTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("WC_032", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [WC_033] Judgment of Justice - COST:1
@@ -1350,6 +1381,21 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsNotDead()) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(
+                      TaskList{ std::make_shared<SetGameTagTask>(
+                                    EntityType::TARGET, GameTag::ATK, 1),
+                                std::make_shared<SetGameTagTask>(
+                                    EntityType::TARGET, GameTag::HEALTH, 1) }))
+    };
+    cards.emplace("WC_033", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [WC_034] Party Up! - COST:7
@@ -1416,6 +1462,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +3 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_880e"));
+    cards.emplace("BAR_880e", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BAR_880t] Conviction (Rank 2) - COST:2
@@ -1425,6 +1474,18 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // Text: Give two random friendly minions +3 Attack.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_880e", EntityType::STACK));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_880t2")));
+    cards.emplace(
+        "BAR_880t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [BAR_880t2] Conviction (Rank 3) - COST:2
@@ -1433,6 +1494,16 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Give three random friendly minions +3 Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::MINIONS, 3));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_880e", EntityType::STACK));
+    cards.emplace(
+        "BAR_880t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BAR_881e] Holy Might - COST:0
@@ -1440,6 +1511,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_881e"));
+    cards.emplace("BAR_881e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BAR_902e] Light's Strength - COST:0
@@ -1447,6 +1521,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("BAR_902e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [WC_033e] Judged - COST:0
