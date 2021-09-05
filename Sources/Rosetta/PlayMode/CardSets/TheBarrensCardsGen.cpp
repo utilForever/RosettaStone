@@ -1342,6 +1342,13 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_902e", EntityType::HAND, false, false,
+        SelfCondition::IsHolySpell()) };
+    cards.emplace("BAR_902", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [WC_032] Seedcloud Buckler - COST:3
@@ -1493,6 +1500,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("BAR_902e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [WC_033e] Judged - COST:0
