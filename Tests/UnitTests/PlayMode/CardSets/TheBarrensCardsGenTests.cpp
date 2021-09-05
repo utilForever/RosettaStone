@@ -2220,3 +2220,121 @@ TEST_CASE("[Paladin : Spell] - BAR_880 : Conviction (Rank 1)")
                   curField[2]->GetAttack();
     CHECK_EQ(totalAttack, 21);
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [BAR_881] Invigorating Sermon - COST:4
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Give +1/+1 to all minions in your hand, deck,
+//       and battlefield.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BAR_881 : Invigorating Sermon")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 2)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Invigorating Sermon"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    for (auto& card : curHand.GetAll())
+    {
+        if (auto minion = dynamic_cast<Minion*>(card); minion)
+        {
+            if (minion->card->name == "Malygos")
+            {
+                CHECK_EQ(minion->GetAttack(), 4);
+                CHECK_EQ(minion->GetHealth(), 12);
+            }
+            else if (minion->card->name == "Wisp")
+            {
+                CHECK_EQ(minion->GetAttack(), 1);
+                CHECK_EQ(minion->GetHealth(), 1);
+            }
+        }
+    }
+    for (auto& card : curDeck.GetAll())
+    {
+        if (auto minion = dynamic_cast<Minion*>(card); minion)
+        {
+            if (minion->card->name == "Malygos")
+            {
+                CHECK_EQ(minion->GetAttack(), 4);
+                CHECK_EQ(minion->GetHealth(), 12);
+            }
+            else if (minion->card->name == "Wisp")
+            {
+                CHECK_EQ(minion->GetAttack(), 1);
+                CHECK_EQ(minion->GetHealth(), 1);
+            }
+        }
+    }
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    for (auto& card : curHand.GetAll())
+    {
+        if (auto minion = dynamic_cast<Minion*>(card); minion)
+        {
+            if (minion->card->name == "Malygos")
+            {
+                CHECK_EQ(minion->GetAttack(), 5);
+                CHECK_EQ(minion->GetHealth(), 13);
+            }
+            else if (minion->card->name == "Wisp")
+            {
+                CHECK_EQ(minion->GetAttack(), 2);
+                CHECK_EQ(minion->GetHealth(), 2);
+            }
+        }
+    }
+    for (auto& card : curDeck.GetAll())
+    {
+        if (auto minion = dynamic_cast<Minion*>(card); minion)
+        {
+            if (minion->card->name == "Malygos")
+            {
+                CHECK_EQ(minion->GetAttack(), 5);
+                CHECK_EQ(minion->GetHealth(), 13);
+            }
+            else if (minion->card->name == "Wisp")
+            {
+                CHECK_EQ(minion->GetAttack(), 2);
+                CHECK_EQ(minion->GetHealth(), 2);
+            }
+        }
+    }
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}

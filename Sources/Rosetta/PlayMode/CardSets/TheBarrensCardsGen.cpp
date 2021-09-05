@@ -1321,6 +1321,12 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Give +1/+1 to all minions in your hand, deck,
     //       and battlefield.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_HAND_DECK_FIELD));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_881e", EntityType::STACK));
+    cards.emplace("BAR_881", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_902] Cariel Roame - COST:4 [ATK:4/HP:3]
@@ -1477,6 +1483,9 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_881e"));
+    cards.emplace("BAR_881e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BAR_902e] Light's Strength - COST:0
