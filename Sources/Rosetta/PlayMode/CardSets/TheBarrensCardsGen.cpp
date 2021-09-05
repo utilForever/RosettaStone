@@ -1381,6 +1381,21 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsNotDead()) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(
+                      TaskList{ std::make_shared<SetGameTagTask>(
+                                    EntityType::TARGET, GameTag::ATK, 1),
+                                std::make_shared<SetGameTagTask>(
+                                    EntityType::TARGET, GameTag::HEALTH, 1) }))
+    };
+    cards.emplace("WC_033", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [WC_034] Party Up! - COST:7

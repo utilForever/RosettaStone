@@ -2469,3 +2469,59 @@ TEST_CASE("[Paladin : Weapon] - WC_032 : Seedcloud Buckler")
     CHECK_EQ(curField[0]->HasDivineShield(), true);
     CHECK_EQ(curField[1]->HasDivineShield(), true);
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [WC_033] Judgment of Justice - COST:1
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When an enemy minion attacks,
+//       set its Attack and Health to 1.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - WC_033 : Judgment of Justice")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Judgment of Justice"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(opField[0]->GetAttack(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
