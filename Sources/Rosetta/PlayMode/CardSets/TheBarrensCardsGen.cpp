@@ -1535,6 +1535,8 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
 
 void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [BAR_307] Void Flayer - COST:4 [ATK:3/HP:4]
     // - Set: THE_BARRENS, Rarity: Rare
@@ -1545,6 +1547,14 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND_SPELL));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 1) }));
+    cards.emplace("BAR_307", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_308] Power Word: Fortitude - COST:8
