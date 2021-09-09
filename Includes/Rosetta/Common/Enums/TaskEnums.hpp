@@ -49,6 +49,7 @@ enum class EntityType
     WEAPON,
     ENEMY_WEAPON,
     HAND,
+    HAND_SPELL,
     ENEMY_HAND,
     DECK,
     ENEMY_DECK,
