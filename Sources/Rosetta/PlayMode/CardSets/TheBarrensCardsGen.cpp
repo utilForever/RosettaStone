@@ -1572,6 +1572,10 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 5 Health to each hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ENEMY_HERO, 5));
+    cards.emplace("BAR_309", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BAR_310] Lightshower Elemental - COST:6 [ATK:6/HP:6]

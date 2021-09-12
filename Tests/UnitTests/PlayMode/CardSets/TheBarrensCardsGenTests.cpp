@@ -2580,3 +2580,41 @@ TEST_CASE("[Priest : Minion] - BAR_307 : Void Flayer")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
     CHECK_EQ(curField[0]->GetHealth(), 9);
 }
+
+// ----------------------------------------- SPELL - PRIEST
+// [BAR_309] Desperate Prayer - COST:0
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Restore 5 Health to each hero.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - BAR_309 : Desperate Prayer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Desperate Prayer"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+}
