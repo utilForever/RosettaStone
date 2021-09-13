@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -11,6 +12,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1564,6 +1566,35 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +3/+5.
     //       Costs (1) less for each spell in your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_308e", EntityType::TARGET));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        int numSpellCard = 0;
+
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardType() == CardType::SPELL)
+            {
+                if (handCard == playable)
+                {
+                    continue;
+                }
+
+                ++numSpellCard;
+            }
+        }
+
+        return numSpellCard;
+    }));
+    cards.emplace(
+        "BAR_308",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_309] Desperate Prayer - COST:0
@@ -3237,6 +3268,8 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_041e] Mrrgrrrrgle - COST:0
     // - Set: THE_BARRENS
@@ -3596,6 +3629,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+5.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_308e"));
+    cards.emplace("BAR_308e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_315e1] Flurry of Talons - COST:0
