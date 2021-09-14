@@ -1637,6 +1637,15 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        4, true));
+    cards.emplace("BAR_311", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BAR_312] Soothsayer's Caravan - COST:2 [ATK:1/HP:3]
