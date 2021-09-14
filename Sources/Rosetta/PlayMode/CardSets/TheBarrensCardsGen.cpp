@@ -1620,6 +1620,10 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::FRIENDS, 8));
+    cards.emplace("BAR_310", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_311] Devouring Plague - COST:3
