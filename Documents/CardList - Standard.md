@@ -758,13 +758,13 @@ THE_BARRENS | BAR_081 | Southsea Scoundrel |
 THE_BARRENS | BAR_082 | Barrens Trapper |  
 THE_BARRENS | BAR_305 | Flurry (Rank 1) | O
 THE_BARRENS | BAR_306 | Sigil of Flame |  
-THE_BARRENS | BAR_307 | Void Flayer |  
-THE_BARRENS | BAR_308 | Power Word: Fortitude |  
-THE_BARRENS | BAR_309 | Desperate Prayer |  
-THE_BARRENS | BAR_310 | Lightshower Elemental |  
-THE_BARRENS | BAR_311 | Devouring Plague |  
+THE_BARRENS | BAR_307 | Void Flayer | O
+THE_BARRENS | BAR_308 | Power Word: Fortitude | O
+THE_BARRENS | BAR_309 | Desperate Prayer | O
+THE_BARRENS | BAR_310 | Lightshower Elemental | O
+THE_BARRENS | BAR_311 | Devouring Plague | O
 THE_BARRENS | BAR_312 | Soothsayer's Caravan |  
-THE_BARRENS | BAR_313 | Priest of An'she |  
+THE_BARRENS | BAR_313 | Priest of An'she | O
 THE_BARRENS | BAR_314 | Condemn (Rank 1) |  
 THE_BARRENS | BAR_315 | Serena Bloodfeather |  
 THE_BARRENS | BAR_316 | Oil Rig Ambusher |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she |
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 22% (39 of 170 Cards)
+- Progress: 26% (45 of 170 Cards)
 
 ## United in Stormwind
 
