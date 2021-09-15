@@ -377,6 +377,7 @@ void Game::MainReady()
     curPlayer->SetNumSpellsCastLastTurn(numSpellCastThisTurn);
     curPlayer->SetNumSpellsCastThisTurn(0);
 
+    curPlayer->SetAmountHealedThisTurn(0);
     curPlayer->cardsPlayedThisTurn.clear();
 
     // Reset combo active
