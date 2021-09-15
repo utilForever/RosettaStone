@@ -1669,6 +1669,15 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::HealthRestoredThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<AddEnchantmentTask>("BAR_313e", EntityType::SOURCE) }));
+    cards.emplace("BAR_313", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_314] Condemn (Rank 1) - COST:2
@@ -1738,12 +1747,17 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddPriestNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [BAR_313e] Sun's Strength - COST:0
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_313e"));
+    cards.emplace("BAR_313e", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_314t] Condemn (Rank 2) - COST:2

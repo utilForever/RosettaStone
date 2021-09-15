@@ -2793,3 +2793,53 @@ TEST_CASE("[Priest : Spell] - BAR_311 : Devouring Plague")
     CHECK_EQ(opField[0]->GetHealth(), 3);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
 }
+
+// ---------------------------------------- MINION - PRIEST
+// [BAR_313] Priest of An'she - COST:5 [ATK:5/HP:5]
+// - Set: THE_BARRENS, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b>. <b>Battlecry:</b> If you've restored
+//       Health this turn, gain +3/+3.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - BAR_313 : Priest of An'she")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Priest of An'she"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Priest of An'she"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desperate Prayer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetHealth(), 8);
+}
