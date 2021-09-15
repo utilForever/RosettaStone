@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -11,6 +12,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1535,6 +1537,8 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
 
 void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [BAR_307] Void Flayer - COST:4 [ATK:3/HP:4]
     // - Set: THE_BARRENS, Rarity: Rare
@@ -1545,6 +1549,14 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND_SPELL));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 1) }));
+    cards.emplace("BAR_307", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_308] Power Word: Fortitude - COST:8
@@ -1554,6 +1566,35 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +3/+5.
     //       Costs (1) less for each spell in your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_308e", EntityType::TARGET));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        int numSpellCard = 0;
+
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardType() == CardType::SPELL)
+            {
+                if (handCard == playable)
+                {
+                    continue;
+                }
+
+                ++numSpellCard;
+            }
+        }
+
+        return numSpellCard;
+    }));
+    cards.emplace(
+        "BAR_308",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_309] Desperate Prayer - COST:0
@@ -1562,6 +1603,10 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 5 Health to each hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ENEMY_HERO, 5));
+    cards.emplace("BAR_309", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BAR_310] Lightshower Elemental - COST:6 [ATK:6/HP:6]
@@ -1575,6 +1620,10 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::FRIENDS, 8));
+    cards.emplace("BAR_310", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_311] Devouring Plague - COST:3
@@ -1588,6 +1637,15 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        4, true));
+    cards.emplace("BAR_311", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BAR_312] Soothsayer's Caravan - COST:2 [ATK:1/HP:3]
@@ -1611,6 +1669,15 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::HealthRestoredThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<AddEnchantmentTask>("BAR_313e", EntityType::SOURCE) }));
+    cards.emplace("BAR_313", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_314] Condemn (Rank 1) - COST:2
@@ -1680,12 +1747,17 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddPriestNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [BAR_313e] Sun's Strength - COST:0
     // - Set: THE_BARRENS
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_313e"));
+    cards.emplace("BAR_313e", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_314t] Condemn (Rank 2) - COST:2
@@ -3223,6 +3295,8 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_041e] Mrrgrrrrgle - COST:0
     // - Set: THE_BARRENS
@@ -3582,6 +3656,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+5.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_308e"));
+    cards.emplace("BAR_308e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_315e1] Flurry of Talons - COST:0

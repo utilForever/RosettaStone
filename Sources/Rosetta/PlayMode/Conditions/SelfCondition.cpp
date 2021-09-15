@@ -691,6 +691,13 @@ SelfCondition SelfCondition::SpellsCastThisTurn(int num)
     });
 }
 
+SelfCondition SelfCondition::HealthRestoredThisTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetAmountHealedThisTurn() > 0;
+    });
+}
+
 SelfCondition SelfCondition::IsPlayElementalMinionLastTurn()
 {
     return SelfCondition([](Playable* playable) {

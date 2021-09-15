@@ -146,6 +146,15 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(card);
             }
             break;
+        case EntityType::HAND_SPELL:
+            for (auto& card : player->GetHandZone()->GetAll())
+            {
+                if (card->card->GetCardType() == CardType::SPELL)
+                {
+                    entities.emplace_back(card);
+                }
+            }
+            break;
         case EntityType::ENEMY_HAND:
             for (auto& card : player->opponent->GetHandZone()->GetAll())
             {

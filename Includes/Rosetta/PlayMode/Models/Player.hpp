@@ -274,6 +274,14 @@ class Player : public Entity
     //! Increases the number of spells that played this game.
     void IncreaseNumSpellsPlayedThisGame();
 
+    //! Returns the amount of health that healed this turn.
+    //! \return The amount of health that healed this turn.
+    int GetAmountHealedThisTurn() const;
+
+    //! Sets the amount of health that healed this turn.
+    //! \param value The amount of health that healed this turn.
+    void SetAmountHealedThisTurn(int value);
+
     //! Returns the amount of health that healed this game.
     //! \return The amount of health that healed this game.
     int GetAmountHealedThisGame() const;

@@ -327,6 +327,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition SpellsCastThisTurn(int num);
 
+    //! SelfCondition wrapper for checking the health is restored this turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HealthRestoredThisTurn();
+
     //! SelfCondition wrapper for checking the player plays
     //! elemental minion in last turn.
     //! \return Generated SelfCondition for intended purpose.

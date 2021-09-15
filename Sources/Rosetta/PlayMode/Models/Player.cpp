@@ -335,6 +335,16 @@ void Player::IncreaseNumSpellsPlayedThisGame()
     SetGameTag(GameTag::NUM_SPELLS_PLAYED_THIS_GAME, val + 1);
 }
 
+int Player::GetAmountHealedThisTurn() const
+{
+    return GetGameTag(GameTag::AMOUNT_HEALED_THIS_TURN);
+}
+
+void Player::SetAmountHealedThisTurn(int value)
+{
+    SetGameTag(GameTag::AMOUNT_HEALED_THIS_TURN, value);
+}
+
 int Player::GetAmountHealedThisGame() const
 {
     return GetGameTag(GameTag::AMOUNT_HEALED_THIS_GAME);
