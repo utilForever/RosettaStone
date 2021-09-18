@@ -1716,6 +1716,18 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HealthRestoredThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<FuncNumberTask>([](Playable* playable) {
+                return playable->player->GetAmountHealedThisTurn();
+            }),
+            std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS) }));
+    cards.emplace("BAR_735", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [WC_013] Devout Dungeoneer - COST:3 [ATK:2/HP:3]
