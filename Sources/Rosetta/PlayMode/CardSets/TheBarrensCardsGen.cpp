@@ -1672,11 +1672,10 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
-                               SelfCondition::HealthRestoredThisTurn()) }));
+                                SelfCondition::HealthRestoredThisTurn()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true,
-        TaskList{
-            std::make_shared<AddEnchantmentTask>("BAR_313e", EntityType::SOURCE) }));
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BAR_313e", EntityType::SOURCE) }));
     cards.emplace("BAR_313", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
@@ -1687,6 +1686,12 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to all enemy minions.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_314t")));
+    cards.emplace("BAR_314", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BAR_315] Serena Bloodfeather - COST:2 [ATK:1/HP:1]
@@ -1767,6 +1772,12 @@ void TheBarrensCardsGen::AddPriestNonCollect(
     // Text: Deal 2 damage to all enemy minions.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_314t2")));
+    cards.emplace("BAR_314t", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_314t2] Condemn (Rank 3) - COST:2
@@ -1775,6 +1786,10 @@ void TheBarrensCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // Text: Deal 3 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true));
+    cards.emplace("BAR_314t2", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
