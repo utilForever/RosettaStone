@@ -1727,6 +1727,16 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsHolySpell()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "WC_013e", EntityType::STACK) }));
+    cards.emplace("WC_013", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [WC_014] Against All Odds - COST:5
@@ -3848,6 +3858,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("WC_013e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [WC_023e] Stolen Soul - COST:0

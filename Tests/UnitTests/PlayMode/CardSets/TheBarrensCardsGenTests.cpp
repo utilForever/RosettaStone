@@ -2930,3 +2930,53 @@ TEST_CASE("[Priest : Spell] - BAR_314 : Condemn (Rank 1)")
     game.Process(curPlayer, PlayCardTask::Spell(card3));
     CHECK_EQ(opField[0]->GetHealth(), 6);
 }
+
+// ---------------------------------------- MINION - PRIEST
+// [WC_013] Devout Dungeoneer - COST:3 [ATK:2/HP:3]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a spell.
+//       If it's a Holy spell, reduce its Cost by (2).
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - WC_013 : Devout Dungeoneer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Consecration");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Devout Dungeoneer"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Consecration");
+    CHECK_EQ(curHand[4]->GetCost(), 2);
+}
