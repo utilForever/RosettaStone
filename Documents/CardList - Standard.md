@@ -765,7 +765,7 @@ THE_BARRENS | BAR_310 | Lightshower Elemental | O
 THE_BARRENS | BAR_311 | Devouring Plague | O
 THE_BARRENS | BAR_312 | Soothsayer's Caravan |  
 THE_BARRENS | BAR_313 | Priest of An'she | O
-THE_BARRENS | BAR_314 | Condemn (Rank 1) |  
+THE_BARRENS | BAR_314 | Condemn (Rank 1) | O
 THE_BARRENS | BAR_315 | Serena Bloodfeather |  
 THE_BARRENS | BAR_316 | Oil Rig Ambusher |  
 THE_BARRENS | BAR_317 | Field Contact |  
@@ -806,7 +806,7 @@ THE_BARRENS | BAR_552 | Scabbs Cutterbutter |
 THE_BARRENS | BAR_705 | Sigil of Silence |  
 THE_BARRENS | BAR_720 | Guff Runetotem | O
 THE_BARRENS | BAR_721 | Mankrik |  
-THE_BARRENS | BAR_735 | Xyrella |  
+THE_BARRENS | BAR_735 | Xyrella | O
 THE_BARRENS | BAR_743 | Toad of the Wilds |  
 THE_BARRENS | BAR_744 | Spirit Healer |  
 THE_BARRENS | BAR_745 | Hecklefang Hyena |  
@@ -855,8 +855,8 @@ THE_BARRENS | WC_005 | Primal Dungeoneer |
 THE_BARRENS | WC_006 | Lady Anacondra | O
 THE_BARRENS | WC_007 | Serpentbloom | O
 THE_BARRENS | WC_008 | Sin'dorei Scentfinder | O
-THE_BARRENS | WC_013 | Devout Dungeoneer |  
-THE_BARRENS | WC_014 | Against All Odds |  
+THE_BARRENS | WC_013 | Devout Dungeoneer | O
+THE_BARRENS | WC_014 | Against All Odds | O
 THE_BARRENS | WC_015 | Water Moccasin |  
 THE_BARRENS | WC_016 | Shroud of Concealment |  
 THE_BARRENS | WC_017 | Savory Deviate Delight |  
@@ -881,11 +881,11 @@ THE_BARRENS | WC_040 | Taintheart Tormenter |
 THE_BARRENS | WC_041 | Shattering Blast | O
 THE_BARRENS | WC_042 | Wailing Vapor |  
 THE_BARRENS | WC_701 | Felrattler |  
-THE_BARRENS | WC_803 | Cleric of An'she |  
+THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 26% (45 of 170 Cards)
+- Progress: 29% (50 of 170 Cards)
 
 ## United in Stormwind
 
