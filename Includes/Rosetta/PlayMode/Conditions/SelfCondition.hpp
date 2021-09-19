@@ -372,6 +372,10 @@ class SelfCondition
     static SelfCondition IsStackNum(int value, RelaSign relaSign = RelaSign::EQ,
                                     int index = 0);
 
+    //! SelfCondition wrapper for checking the minion is odd-Attack.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsOddAttackMinion();
+
     //! SelfCondition wrapper for checking the health that satisfies
     //! condition with \p value and \p relaSign.
     //! \param value The value to check condition.

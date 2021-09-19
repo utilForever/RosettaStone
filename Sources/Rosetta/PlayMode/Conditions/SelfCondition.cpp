@@ -755,6 +755,18 @@ SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
     });
 }
 
+SelfCondition SelfCondition::IsOddAttackMinion()
+{
+    return SelfCondition([](Playable* playable) {
+        if (auto minion = dynamic_cast<Minion*>(playable); minion)
+        {
+            return minion->GetAttack() % 2 == 1;
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 {
     return SelfCondition([value, relaSign](Playable* playable) {

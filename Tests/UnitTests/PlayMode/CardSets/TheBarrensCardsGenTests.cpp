@@ -2843,3 +2843,325 @@ TEST_CASE("[Priest : Minion] - BAR_313 : Priest of An'she")
     CHECK_EQ(curField[1]->GetAttack(), 8);
     CHECK_EQ(curField[1]->GetHealth(), 8);
 }
+
+// ----------------------------------------- SPELL - PRIEST
+// [BAR_314] Condemn (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Epic
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Deal 1 damage to all enemy minions.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - BAR_314 : Condemn (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(3);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(9);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Condemn (Rank 1)"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Condemn (Rank 1)"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Condemn (Rank 1)"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->card->name, "Condemn (Rank 1)");
+    CHECK_EQ(card2->card->name, "Condemn (Rank 1)");
+    CHECK_EQ(card3->card->name, "Condemn (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opField[0]->GetHealth(), 11);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Condemn (Rank 1)");
+    CHECK_EQ(card3->card->name, "Condemn (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Condemn (Rank 2)");
+    CHECK_EQ(card3->card->name, "Condemn (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Condemn (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Condemn (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [BAR_735] Xyrella - COST:4 [ATK:4/HP:4]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you've restored Health this turn,
+//       deal that much damage to all enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - BAR_735 : Xyrella")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Xyrella"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desperate Prayer"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [WC_013] Devout Dungeoneer - COST:3 [ATK:2/HP:3]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a spell.
+//       If it's a Holy spell, reduce its Cost by (2).
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - WC_013 : Devout Dungeoneer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Consecration");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Devout Dungeoneer"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Consecration");
+    CHECK_EQ(curHand[4]->GetCost(), 2);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [WC_014] Against All Odds - COST:5
+// - Set: THE_BARRENS, Rarity: Epic
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Destroy all odd-Attack minions.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - WC_014 : Against All Odds")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Against All Odds"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Malygos");
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Malygos");
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [WC_803] Cleric of An'she - COST:1 [ATK:1/HP:2]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you've restored Health this turn,
+//       <b>Discover</b> a spell from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - WC_803 : Cleric of An'she")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Ice Barrier");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Holy Light");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cleric of An'she"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cleric of An'she"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desperate Prayer"));
+
+    curPlayer->GetHero()->SetDamage(10);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice == nullptr);
+
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 26);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 2u);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 25);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+}

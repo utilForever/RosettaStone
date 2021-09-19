@@ -1672,11 +1672,10 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
-                               SelfCondition::HealthRestoredThisTurn()) }));
+                                SelfCondition::HealthRestoredThisTurn()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true,
-        TaskList{
-            std::make_shared<AddEnchantmentTask>("BAR_313e", EntityType::SOURCE) }));
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BAR_313e", EntityType::SOURCE) }));
     cards.emplace("BAR_313", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
@@ -1687,6 +1686,12 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to all enemy minions.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_314t")));
+    cards.emplace("BAR_314", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [BAR_315] Serena Bloodfeather - COST:2 [ATK:1/HP:1]
@@ -1711,6 +1716,18 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HealthRestoredThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<FuncNumberTask>([](Playable* playable) {
+                return playable->player->GetAmountHealedThisTurn();
+            }),
+            std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS) }));
+    cards.emplace("BAR_735", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [WC_013] Devout Dungeoneer - COST:3 [ATK:2/HP:3]
@@ -1722,6 +1739,16 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsHolySpell()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "WC_013e", EntityType::STACK) }));
+    cards.emplace("WC_013", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [WC_014] Against All Odds - COST:5
@@ -1730,6 +1757,12 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all odd-Attack minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOddAttackMinion()) }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("WC_014", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [WC_803] Cleric of An'she - COST:1 [ATK:1/HP:2]
@@ -1742,6 +1775,14 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::HealthRestoredThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DiscoverTask>(
+                  DiscoverType::SPELL_FROM_DECK) }));
+    cards.emplace("WC_803", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddPriestNonCollect(
@@ -1767,6 +1808,12 @@ void TheBarrensCardsGen::AddPriestNonCollect(
     // Text: Deal 2 damage to all enemy minions.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_314t2")));
+    cards.emplace("BAR_314t", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [BAR_314t2] Condemn (Rank 3) - COST:2
@@ -1775,6 +1822,10 @@ void TheBarrensCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // Text: Deal 3 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true));
+    cards.emplace("BAR_314t2", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
@@ -3833,6 +3884,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("WC_013e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [WC_023e] Stolen Soul - COST:0
