@@ -1757,6 +1757,12 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all odd-Attack minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOddAttackMinion()) }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("WC_014", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [WC_803] Cleric of An'she - COST:1 [ATK:1/HP:2]
