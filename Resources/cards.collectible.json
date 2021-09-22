@@ -3315,7 +3315,6 @@
         "health": 5,
         "id": "BAR_081",
         "mechanics": [
-            "BATTLECRY",
             "DISCOVER"
         ],
         "name": "Southsea Scoundrel",
@@ -4130,7 +4129,7 @@
         "artist": "David Kegg",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 63062,
         "flavor": "The Barrens were a lush jungle. Then this happened.",
         "id": "BAR_546",
@@ -4143,15 +4142,15 @@
     },
     {
         "artist": "Qinghao Wu",
-        "attack": 10,
+        "attack": 8,
         "cardClass": "MAGE",
         "collectible": true,
         "collectionText": "[x]<b>Battlecry:</b> If you've dealt 10\ndamage with your Hero Power\n this game, deal 10 damage\nto all enemies.",
-        "cost": 10,
+        "cost": 8,
         "dbfId": 63064,
         "elite": true,
         "flavor": "You're not hardcore unless you died hardcore.",
-        "health": 10,
+        "health": 8,
         "id": "BAR_547",
         "mechanics": [
             "BATTLECRY"
@@ -4911,7 +4910,7 @@
         "cost": 5,
         "dbfId": 63701,
         "flavor": "\"Brug will read anything you put on the parchment prompter. Anything.\"",
-        "health": 5,
+        "health": 6,
         "id": "BAR_896",
         "mechanics": [
             "FRENZY",
@@ -20372,7 +20371,7 @@
         "cost": 1,
         "dbfId": 62462,
         "flavor": "Piracy is technically a discount.",
-        "health": 1,
+        "health": 2,
         "howToEarn": "Unlocked at level 1.",
         "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
         "id": "CS3_008",
@@ -20473,7 +20472,7 @@
         "cost": 2,
         "dbfId": 62698,
         "flavor": "His ethics are top notch. Just look at that smiling kitty!",
-        "health": 1,
+        "health": 3,
         "howToEarn": "Unlocked at level 7.",
         "howToEarnGolden": "Unlocked after winning 100 games as Hunter.",
         "id": "CS3_015",
@@ -39995,6 +39994,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 77249,
+        "health": 30,
+        "id": "HERO_04m",
+        "name": "Ascended Uther",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 31,
@@ -40249,6 +40259,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 77252,
+        "health": 30,
+        "id": "HERO_06o",
+        "name": "Winter Fury Malfurion",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -40376,6 +40397,17 @@
         "health": 30,
         "id": "HERO_07l",
         "name": "Tamsin Triumphant",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 77254,
+        "health": 30,
+        "id": "HERO_07m",
+        "name": "House of Rituals Gul'dan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40729,6 +40761,17 @@
         "health": 30,
         "id": "HERO_10h",
         "name": "Skullbearer Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 77246,
+        "health": 30,
+        "id": "HERO_10k",
+        "name": "Ember Court Illidan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -48231,6 +48274,7 @@
         "race": "PIRATE",
         "rarity": "EPIC",
         "set": "EXPERT1",
+        "techLevel": 2,
         "text": "Your other Pirates have +1/+1.",
         "type": "MINION"
     },
@@ -51329,7 +51373,7 @@
         "name": "Mindrender Illucia",
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
-        "text": "<b>Battlecry:</b> Swap hands and decks with your opponent until your next turn.",
+        "text": "[x]<b>Battlecry:</b> Replace\nyour hand with a copy of\nyour opponent's until\nend of turn.",
         "type": "MINION"
     },
     {
@@ -53766,7 +53810,7 @@
         "attack": 0,
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 63677,
         "durability": 2,
         "flavor": "\"Please, I need these greens to disenchant them.\" —Every Enchanter Ever",
@@ -54107,7 +54151,7 @@
         "attack": 6,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 64373,
         "flavor": "\"You don't understand… ogres are an untapped market for vengeance and hatred!\"",
         "health": 7,
@@ -55059,7 +55103,7 @@
         "name": "The Demon Seed",
         "rarity": "LEGENDARY",
         "set": "STORMWIND",
-        "text": "[x]<b>Questline:</b> Take 6\ndamage on your turns.\n<b>Reward:</b> <b>Lifesteal</b>. Deal $3\ndamage to the enemy hero.",
+        "text": "[x]<b>Questline:</b> Take 8\ndamage on your turns.\n<b>Reward:</b> <b>Lifesteal</b>. Deal $3\ndamage to the enemy hero.",
         "type": "SPELL"
     },
     {
@@ -55088,7 +55132,7 @@
         "cost": 3,
         "dbfId": 64975,
         "flavor": "\"Just don't stab the ankles! I want his boots!\"",
-        "health": 3,
+        "health": 4,
         "id": "SW_093",
         "name": "Stormwind Freebooter",
         "race": "PIRATE",
@@ -56219,7 +56263,7 @@
         "attack": 0,
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 64964,
         "durability": 3,
         "flavor": "Combining taxidermy and tailoring.",
@@ -71348,7 +71392,7 @@
         "artist": "Hideaki Takamura",
         "cardClass": "SHAMAN",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 63098,
         "flavor": "Flame is perpetual.*\n *<i>Perpetual only applies to current turn.</i>",
         "id": "WC_020",
