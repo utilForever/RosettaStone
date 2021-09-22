@@ -914,8 +914,8 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [SCH_159] Mindrender Illucia - COST:3 [ATK:1/HP:3]
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Swap hands and decks with your opponent
-    //       until your next turn.
+    // Text: <b>Battlecry:</b> Replace your hand with
+    //       a copy of your opponent¡¯s until end of turn.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

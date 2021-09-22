@@ -381,7 +381,7 @@ void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- WEAPON - HUNTER
-    // [SW_457] Leatherworking Kit - COST:2
+    // [SW_457] Leatherworking Kit - COST:1
     // - Set: STORMWIND, Rarity: Rare
     // --------------------------------------------------------
     // Text: After three friendly Beasts die,
@@ -1550,7 +1550,7 @@ void StormwindCardsGen::AddShamanNonCollect(
     // [SW_031t2] Tame the Flames - COST:1
     // - Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Questline:</b> Play 2 cards with <b>Overload</b>.
+    // Text: <b>Questline:</b> Play 3 cards with <b>Overload</b>.
     //       <b>Reward:</b> Stormcaller Bru'kan.
     // --------------------------------------------------------
     // GameTag:
@@ -1603,7 +1603,7 @@ void StormwindCardsGen::AddShamanNonCollect(
 void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- WEAPON - WARLOCK
-    // [SW_003] Runed Mithril Rod - COST:3
+    // [SW_003] Runed Mithril Rod - COST:4
     // - Set: STORMWIND, Rarity: Rare
     // --------------------------------------------------------
     // Text: After you draw 4 cards,
@@ -1688,7 +1688,7 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // [SW_091] The Demon Seed - COST:1
     // - Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Questline:</b> Take 6 damage on your turns.
+    // Text: <b>Questline:</b> Take 8 damage on your turns.
     //       <b>Reward:</b> <b>Lifesteal</b>.
     //       Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
@@ -1731,7 +1731,7 @@ void StormwindCardsGen::AddWarlockNonCollect(
     // [SW_091t] Establish the Link - COST:1
     // - Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Questline:</b> Take 7 damage on your turns.
+    // Text: <b>Questline:</b> Take 8 damage on your turns.
     //       <b>Reward:</b> <b>Lifesteal</b>.
     //       Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
@@ -1841,7 +1841,7 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [SW_093] Stormwind Freebooter - COST:3 [ATK:3/HP:3]
+    // [SW_093] Stormwind Freebooter - COST:3 [ATK:3/HP:4]
     // - Race: Pirate, Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give your hero +2 Attack this turn.
@@ -1940,7 +1940,7 @@ void StormwindCardsGen::AddWarriorNonCollect(
 void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------- MINION - DEMONHUNTER
-    // [SW_037] Irebound Brute - COST:7 [ATK:6/HP:7]
+    // [SW_037] Irebound Brute - COST:8 [ATK:6/HP:7]
     // - Race: Demon, Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>

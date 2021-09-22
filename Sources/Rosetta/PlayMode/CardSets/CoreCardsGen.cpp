@@ -614,7 +614,7 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_TRL_111", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
-    // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:1]
+    // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:3]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a copy of a Beast
@@ -2691,7 +2691,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_GVG_053", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
-    // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]
+    // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:2]
     // - Race: Pirate, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> The next weapon you play costs
