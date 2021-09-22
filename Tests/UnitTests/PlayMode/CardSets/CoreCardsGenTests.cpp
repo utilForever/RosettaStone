@@ -1801,7 +1801,7 @@ TEST_CASE("[Hunter : Weapon] - CORE_TRL_111 : Headhunter's Hatchet")
 }
 
 // ---------------------------------------- MINION - HUNTER
-// [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:1]
+// [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:3]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> <b>Discover</b> a copy of a Beast
@@ -7590,7 +7590,7 @@ TEST_CASE("[Warrior : Minion] - CORE_GVG_053 : Shieldmaiden")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]
+// [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:2]
 // - Race: Pirate, Set: CORE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> The next weapon you play costs

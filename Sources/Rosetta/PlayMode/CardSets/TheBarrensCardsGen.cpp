@@ -897,7 +897,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------- SPELL - MAGE
-    // [BAR_546] Wildfire - COST:2
+    // [BAR_546] Wildfire - COST:1
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Fire
     // --------------------------------------------------------
@@ -905,7 +905,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [BAR_547] Mordresh Fire Eye - COST:10 [ATK:10/HP:10]
+    // [BAR_547] Mordresh Fire Eye - COST:8 [ATK:8/HP:8]
     // - Set: THE_BARRENS, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you've dealt 10 damage with
@@ -2158,7 +2158,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
-    // [WC_020] Perpetual Flame - COST:1
+    // [WC_020] Perpetual Flame - COST:2
     // - Set: THE_BARRENS, Rarity: Rare
     // - Spell School: Fire
     // --------------------------------------------------------
@@ -2546,7 +2546,7 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [BAR_896] Stonemaul Anchorman - COST:5 [ATK:4/HP:5]
+    // [BAR_896] Stonemaul Anchorman - COST:5 [ATK:4/HP:6]
     // - Race: Pirate, Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Rush</b>
