@@ -55,6 +55,7 @@
 #include <Rosetta/Common/Enums/AuraEnums.hpp>
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/Common/Enums/ChoiceEnums.hpp>
+#include <Rosetta/Common/Enums/ConditionEnums.hpp>
 #include <Rosetta/Common/Enums/GameEnums.hpp>
 #include <Rosetta/Common/Enums/TargetingEnums.hpp>
 #include <Rosetta/Common/Enums/TaskEnums.hpp>
