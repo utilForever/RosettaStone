@@ -3224,3 +3224,51 @@ TEST_CASE("[Rogue : Minion] - BAR_317 : Field Contact")
     game.Process(curPlayer, PlayCardTask::Minion(card4));
     CHECK_EQ(curHand.GetCount(), 6);
 }
+
+// ------------------------------------------ SPELL - ROGUE
+// [BAR_318] Silverleaf Poison - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Give your weapon "After your hero attacks, draw a card."
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_WEAPON_EQUIPPED = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BAR_318 : Silverleaf Poison")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverleaf Poison"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 5);
+}

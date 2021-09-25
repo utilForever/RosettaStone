@@ -1874,6 +1874,15 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your weapon "After your hero attacks, draw a card."
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_WEAPON_EQUIPPED = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_318e", EntityType::WEAPON));
+    cards.emplace(
+        "BAR_318",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_319] Wicked Stab (Rank 1) - COST:2
@@ -3759,6 +3768,11 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("BAR_318e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_320e] Training - COST:0
