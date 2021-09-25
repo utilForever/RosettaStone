@@ -3165,3 +3165,62 @@ TEST_CASE("[Priest : Minion] - WC_803 : Cleric of An'she")
     CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 25);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
+
+// ----------------------------------------- MINION - ROGUE
+// [BAR_317] Field Contact - COST:3 [ATK:3/HP:2]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you play a <b>Battlecry</b>
+//       or <b>Combo</b> card, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - BAR_317 : Field Contact")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Field Contact"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bladed Cultist"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Murloc Tidehunter"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand.GetCount(), 6);
+}

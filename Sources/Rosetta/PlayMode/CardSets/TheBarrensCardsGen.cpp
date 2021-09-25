@@ -1830,6 +1830,8 @@ void TheBarrensCardsGen::AddPriestNonCollect(
 
 void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [BAR_316] Oil Rig Ambusher - COST:4 [ATK:4/HP:4]
     // - Set: THE_BARRENS, Rarity: Rare
@@ -1855,6 +1857,15 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard()),
+        std::make_shared<SelfCondition>(SelfCondition::IsComboCard())
+    };
+    power.GetTrigger()->conditionLogic = MultiCondLogic::OR;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("BAR_317", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_318] Silverleaf Poison - COST:2
