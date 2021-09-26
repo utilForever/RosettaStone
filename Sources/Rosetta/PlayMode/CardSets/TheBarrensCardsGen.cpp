@@ -1911,6 +1911,10 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<AddEnchantmentTask>("BAR_320e", EntityType::HAND));
+    cards.emplace("BAR_320", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_321] Paralytic Poison - COST:1
@@ -3813,6 +3817,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("BAR_320e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_322e] Improvised Edge - COST:0
