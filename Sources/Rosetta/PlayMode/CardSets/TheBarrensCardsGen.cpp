@@ -1830,6 +1830,8 @@ void TheBarrensCardsGen::AddPriestNonCollect(
 
 void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [BAR_316] Oil Rig Ambusher - COST:4 [ATK:4/HP:4]
     // - Set: THE_BARRENS, Rarity: Rare
@@ -1855,6 +1857,15 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard()),
+        std::make_shared<SelfCondition>(SelfCondition::IsComboCard())
+    };
+    power.GetTrigger()->conditionLogic = MultiCondLogic::OR;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("BAR_317", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_318] Silverleaf Poison - COST:2
@@ -1863,6 +1874,15 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your weapon "After your hero attacks, draw a card."
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_WEAPON_EQUIPPED = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_318e", EntityType::WEAPON));
+    cards.emplace(
+        "BAR_318",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_319] Wicked Stab (Rank 1) - COST:2
@@ -1870,6 +1890,17 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage. <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_319t")));
+    cards.emplace(
+        "BAR_319",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [BAR_320] Efficient Octo-bot - COST:2 [ATK:1/HP:4]
@@ -1880,6 +1911,10 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<AddEnchantmentTask>("BAR_320e", EntityType::HAND));
+    cards.emplace("BAR_320", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_321] Paralytic Poison - COST:1
@@ -1889,9 +1924,18 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // Text: Give your weapon +1 Attack and "Your hero is
     //       <b>Immune</b> while attacking."
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_WEAPON_EQUIPPED = 0
+    // --------------------------------------------------------
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_321e", EntityType::WEAPON));
+    cards.emplace(
+        "BAR_321",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } }));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [BAR_322] Swinetusk Shank - COST:3
@@ -1980,12 +2024,25 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_319t] Wicked Stab (Rank 2) - COST:2
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 4 damage. <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_319t2")));
+    cards.emplace(
+        "BAR_319t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_319t2] Wicked Stab (Rank 3) - COST:2
@@ -1993,6 +2050,15 @@ void TheBarrensCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
     // Text: Deal 6 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 6, true));
+    cards.emplace(
+        "BAR_319t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [BAR_321e] Paralytic Poison - COST:0
@@ -2000,6 +2066,13 @@ void TheBarrensCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Immune</b> while attacking.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("BAR_321e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [BAR_323e] Yoink! - COST:0
@@ -3748,6 +3821,11 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("BAR_318e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_320e] Training - COST:0
@@ -3755,6 +3833,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("BAR_320e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_322e] Improvised Edge - COST:0

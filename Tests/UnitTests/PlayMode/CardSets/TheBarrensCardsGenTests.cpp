@@ -3165,3 +3165,308 @@ TEST_CASE("[Priest : Minion] - WC_803 : Cleric of An'she")
     CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 25);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
+
+// ----------------------------------------- MINION - ROGUE
+// [BAR_317] Field Contact - COST:3 [ATK:3/HP:2]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you play a <b>Battlecry</b>
+//       or <b>Combo</b> card, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// - COMBO = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - BAR_317 : Field Contact")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Field Contact"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bladed Cultist"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Murloc Tidehunter"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curHand.GetCount(), 6);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [BAR_318] Silverleaf Poison - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Give your weapon "After your hero attacks, draw a card."
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_WEAPON_EQUIPPED = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BAR_318 : Silverleaf Poison")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silverleaf Poison"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 5);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [BAR_319] Wicked Stab (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 2 damage. <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BAR_319 : Wicked Stab (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wicked Stab (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wicked Stab (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wicked Stab (Rank 1)"));
+
+    CHECK_EQ(card1->card->name, "Wicked Stab (Rank 1)");
+    CHECK_EQ(card2->card->name, "Wicked Stab (Rank 1)");
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 1)");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Wicked Stab (Rank 1)");
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Wicked Stab (Rank 2)");
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 2)");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 3)");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 18);
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [BAR_320] Efficient Octo-bot - COST:2 [ATK:1/HP:4]
+// - Race: Mechanical, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Reduce the cost of cards in your hand by (1).
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - BAR_320 : Efficient Octo-bot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Efficient Octo-bot"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Murloc Tidehunter"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 9);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(card2->GetCost(), 8);
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 3);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [BAR_321] Paralytic Poison - COST:1
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Give your weapon +1 Attack and "Your hero is
+//       <b>Immune</b> while attacking."
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_WEAPON_EQUIPPED = 0
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BAR_321 : Paralytic Poison")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Paralytic Poison"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opField[0]->GetHealth(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+}

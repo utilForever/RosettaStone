@@ -51,6 +51,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
       triggerSource(prototype.triggerSource),
       tasks(prototype.tasks),
       conditions(prototype.conditions),
+      conditionLogic(prototype.conditionLogic),
       eitherTurn(prototype.eitherTurn),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
@@ -680,12 +681,21 @@ void Trigger::Validate(Entity* source)
         const bool res = (playable != nullptr) ? condition->Evaluate(playable)
                                                : condition->Evaluate(m_owner);
 
-        if (!res)
+        if (conditionLogic == MultiCondLogic::AND && !res) 
         {
             return;
         }
+
+        if (conditionLogic == MultiCondLogic::OR && res)
+        {
+            m_isValidated = true;
+            break;
+        }
     }
 
-    m_isValidated = true;
+    if (conditionLogic == MultiCondLogic::AND)
+    {
+        m_isValidated = true;
+    }
 }
 }  // namespace RosettaStone::PlayMode
