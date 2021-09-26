@@ -1924,9 +1924,18 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // Text: Give your weapon +1 Attack and "Your hero is
     //       <b>Immune</b> while attacking."
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_WEAPON_EQUIPPED = 0
+    // --------------------------------------------------------
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_321e", EntityType::WEAPON));
+    cards.emplace(
+        "BAR_321",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } }));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [BAR_322] Swinetusk Shank - COST:3
@@ -2057,6 +2066,13 @@ void TheBarrensCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Immune</b> while attacking.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("BAR_321e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [BAR_323e] Yoink! - COST:0
