@@ -768,11 +768,11 @@ THE_BARRENS | BAR_313 | Priest of An'she | O
 THE_BARRENS | BAR_314 | Condemn (Rank 1) | O
 THE_BARRENS | BAR_315 | Serena Bloodfeather |  
 THE_BARRENS | BAR_316 | Oil Rig Ambusher |  
-THE_BARRENS | BAR_317 | Field Contact |  
-THE_BARRENS | BAR_318 | Silverleaf Poison |  
-THE_BARRENS | BAR_319 | Wicked Stab (Rank 1) |  
-THE_BARRENS | BAR_320 | Efficient Octo-bot |  
-THE_BARRENS | BAR_321 | Paralytic Poison |  
+THE_BARRENS | BAR_317 | Field Contact | O
+THE_BARRENS | BAR_318 | Silverleaf Poison | O
+THE_BARRENS | BAR_319 | Wicked Stab (Rank 1) | O
+THE_BARRENS | BAR_320 | Efficient Octo-bot | O
+THE_BARRENS | BAR_321 | Paralytic Poison | O
 THE_BARRENS | BAR_322 | Swinetusk Shank |  
 THE_BARRENS | BAR_323 | Yoink! |  
 THE_BARRENS | BAR_324 | Apothecary Helbrim |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 29% (50 of 170 Cards)
+- Progress: 32% (55 of 170 Cards)
 
 ## United in Stormwind
 
