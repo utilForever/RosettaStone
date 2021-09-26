@@ -1890,6 +1890,17 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage. <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_319t")));
+    cards.emplace(
+        "BAR_319",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [BAR_320] Efficient Octo-bot - COST:2 [ATK:1/HP:4]
@@ -2000,12 +2011,25 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_319t] Wicked Stab (Rank 2) - COST:2
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 4 damage. <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_319t2")));
+    cards.emplace(
+        "BAR_319t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_319t2] Wicked Stab (Rank 3) - COST:2
@@ -2013,6 +2037,15 @@ void TheBarrensCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
     // Text: Deal 6 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 6, true));
+    cards.emplace(
+        "BAR_319t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [BAR_321e] Paralytic Poison - COST:0

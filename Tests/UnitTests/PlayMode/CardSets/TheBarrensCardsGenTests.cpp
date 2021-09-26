@@ -3272,3 +3272,81 @@ TEST_CASE("[Rogue : Spell] - BAR_318 : Silverleaf Poison")
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
     CHECK_EQ(curHand.GetCount(), 5);
 }
+
+// ------------------------------------------ SPELL - ROGUE
+// [BAR_319] Wicked Stab (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 2 damage. <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BAR_319 : Wicked Stab (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wicked Stab (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wicked Stab (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wicked Stab (Rank 1)"));
+
+    CHECK_EQ(card1->card->name, "Wicked Stab (Rank 1)");
+    CHECK_EQ(card2->card->name, "Wicked Stab (Rank 1)");
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 1)");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Wicked Stab (Rank 1)");
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Wicked Stab (Rank 2)");
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 2)");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Wicked Stab (Rank 3)");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 18);
+}
