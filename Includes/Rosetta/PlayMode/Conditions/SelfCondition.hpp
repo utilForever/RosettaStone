@@ -128,6 +128,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsLackey();
 
+    //! SelfCondition wrapper for checking it is Poison.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsPoison();
+
     //! SelfCondition wrapper for checking it is Silver Hand Recruit.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsSilverHandRecruit();

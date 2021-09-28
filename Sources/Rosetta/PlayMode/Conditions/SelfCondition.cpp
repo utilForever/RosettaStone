@@ -225,6 +225,12 @@ SelfCondition SelfCondition::IsLackey()
     });
 }
 
+SelfCondition SelfCondition::IsPoison()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->card->IsPoison(); });
+}
+
 SelfCondition SelfCondition::IsSilverHandRecruit()
 {
     return SelfCondition(
