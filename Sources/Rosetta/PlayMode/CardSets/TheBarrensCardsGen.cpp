@@ -1946,6 +1946,15 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsPoison())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_322e", EntityType::WEAPON) };
+    cards.emplace("BAR_322", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_323] Yoink! - COST:1
@@ -3843,6 +3852,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Durability.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::DurabilityN(1)));
+    cards.emplace("BAR_322e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_333e] Invigorated - COST:0

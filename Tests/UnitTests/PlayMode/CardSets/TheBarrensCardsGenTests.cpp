@@ -3470,3 +3470,53 @@ TEST_CASE("[Rogue : Spell] - BAR_321 : Paralytic Poison")
     game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
 }
+
+// ----------------------------------------- WEAPON - ROGUE
+// [BAR_322] Swinetusk Shank - COST:3
+// - Set: THE_BARRENS, Rarity: Epic
+// --------------------------------------------------------
+// Text: After you play a Poison, gain +1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Weapon] - BAR_322 : Swinetusk Shank")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Swinetusk Shank"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Paralytic Poison"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Deadly Poison"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 5);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+}
