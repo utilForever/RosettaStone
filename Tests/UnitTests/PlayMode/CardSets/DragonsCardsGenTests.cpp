@@ -252,7 +252,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610 : Galakrond, the Nightmare")
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curHand.GetCount(), 6);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->IsLackey(), true);
+    CHECK_EQ(curHand[5]->card->IsLackey(), true);
 }
 
 // ------------------------------------------- HERO - ROGUE
@@ -314,7 +314,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610t2 : Galakrond, the Apocalypse")
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curHand.GetCount(), 7);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[6])->IsLackey(), true);
+    CHECK_EQ(curHand[6]->card->IsLackey(), true);
 }
 
 // ------------------------------------------- HERO - ROGUE
@@ -380,7 +380,7 @@ TEST_CASE("[Rogue : Hero] - DRG_610t3 : Galakrond, Azeroth's End")
 
     game.Process(curPlayer, HeroPowerTask());
     CHECK_EQ(curHand.GetCount(), 9);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[8])->IsLackey(), true);
+    CHECK_EQ(curHand[8]->card->IsLackey(), true);
 }
 
 // ------------------------------------------ HERO - SHAMAN
@@ -3758,8 +3758,7 @@ TEST_CASE("[Priest : Spell] - DRG_246 : Time Rip")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player2Deck[0] =
-        Cards::FindCardByName("Galakrond, the Unspeakable");
+    config.player2Deck[0] = Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();
@@ -3967,8 +3966,7 @@ TEST_CASE("[Priest : Spell] - DRG_303 : Disciple of Galakrond")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] =
-        Cards::FindCardByName("Galakrond, the Unspeakable");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();
@@ -4480,7 +4478,7 @@ TEST_CASE("[Rogue : Spell] - DRG_030 : Praise Galakrond!")
     CHECK_EQ(curPlayer->GetInvoke(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curHand.GetCount(), 2);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->IsLackey(), true);
+    CHECK_EQ(curHand[1]->card->IsLackey(), true);
 }
 
 // ----------------------------------------- MINION - ROGUE
@@ -4881,7 +4879,7 @@ TEST_CASE("[Rogue : Spell] - DRG_247 : Seal Fate")
     CHECK_EQ(opHero->GetHealth(), 27);
     CHECK_EQ(curPlayer->GetInvoke(), 1);
     CHECK_EQ(curHand.GetCount(), 3);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->IsLackey(), true);
+    CHECK_EQ(curHand[2]->card->IsLackey(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, opHero));
     CHECK_EQ(opHero->GetHealth(), 27);
@@ -6181,8 +6179,7 @@ TEST_CASE("[Warrior : Weapon] - DRG_021 : Ritual Chopper")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] =
-        Cards::FindCardByName("Galakrond, the Unbreakable");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Unbreakable");
 
     Game game(config);
     game.Start();
@@ -6498,8 +6495,7 @@ TEST_CASE("[Warrior : Spell] - DRG_249 : Awaken!")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player2Deck[0] =
-        Cards::FindCardByName("Galakrond, the Unbreakable");
+    config.player2Deck[0] = Cards::FindCardByName("Galakrond, the Unbreakable");
 
     Game game(config);
     game.Start();
@@ -6685,8 +6681,7 @@ TEST_CASE("[Neutral : Minion] - DRG_050 : Devoted Maniac")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] =
-        Cards::FindCardByName("Galakrond, the Unspeakable");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();
@@ -8783,8 +8778,7 @@ TEST_CASE("[Neutral : Minion] - DRG_242 : Shield of Galakrond")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    config.player1Deck[0] =
-        Cards::FindCardByName("Galakrond, the Unspeakable");
+    config.player1Deck[0] = Cards::FindCardByName("Galakrond, the Unspeakable");
 
     Game game(config);
     game.Start();

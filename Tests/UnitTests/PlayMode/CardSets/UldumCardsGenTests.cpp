@@ -6762,7 +6762,7 @@ TEST_CASE("[Warrior : Weapon] - ULD_708 : Livewire Lance")
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
     CHECK_EQ(curHand.GetCount(), 1);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->IsLackey(), true);
+    CHECK_EQ(curHand[0]->card->IsLackey(), true);
 }
 
 // --------------------------------------- MINION - WARRIOR
