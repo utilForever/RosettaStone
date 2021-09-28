@@ -85,13 +85,6 @@ std::vector<Minion*> Minion::GetAdjacentMinions() const
     return minions;
 }
 
-bool Minion::IsLackey() const
-{
-    auto lackeys = Cards::GetLackeys();
-
-    return std::find(lackeys.begin(), lackeys.end(), card) != lackeys.end();
-}
-
 bool Minion::IsUntouchable() const
 {
     return static_cast<bool>(GetGameTag(GameTag::UNTOUCHABLE));

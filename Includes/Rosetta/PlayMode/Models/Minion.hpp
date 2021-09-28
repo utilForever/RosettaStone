@@ -62,10 +62,6 @@ class Minion : public Character
     //! \return The minions adjacent to this minion.
     std::vector<Minion*> GetAdjacentMinions() const;
 
-    //! Returns the flag that indicates whether it is Lackey.
-    //! \return The flag that indicates whether it is Lackey.
-    bool IsLackey() const;
-
     //! Returns the flag that indicates whether it is untouchable.
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;
