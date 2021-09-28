@@ -90,6 +90,10 @@ class Cards
     //! \return A list of Lackey cards.
     static std::vector<Card*> GetLackeys();
 
+    //! Returns a list of Poison cards.
+    //! \return A list of Poison cards.
+    static std::vector<Card*> GetPoisons();
+
     //! Returns a card that matches \p id.
     //! \param id The ID of the card.
     //! \return A card that matches \p id.

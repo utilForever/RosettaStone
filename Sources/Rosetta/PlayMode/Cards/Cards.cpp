@@ -165,6 +165,11 @@ std::vector<Card*> Cards::GetLackeys()
     return m_lackeys;
 }
 
+std::vector<Card*> Cards::GetPoisons()
+{
+    return m_poisons;
+}
+
 Card* Cards::FindCardByID(const std::string_view& id)
 {
     for (Card* card : m_cards)
