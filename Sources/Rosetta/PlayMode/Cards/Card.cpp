@@ -276,6 +276,23 @@ bool Card::IsLackey() const
     return false;
 }
 
+bool Card::IsPoison() const
+{
+    if (id == "CS2_074" ||       // CS2_074: Deadly Poison
+        id == "CORE_CS2_074" ||  // CORE_CS2_074: Deadly Poison (Core)
+        id == "VAN_CS2_074" ||   // VAN_CS2_074: Deadly Poison (Classic)
+        id == "ICC_221" ||       // ICC_221: Leeching Poison
+        id == "YOP_015" ||       // YOP_015: Nitroboost Poison
+        id == "YOP_015t" ||      // YOP_015t: Nitroboost Poison (Corrupted)
+        id == "BAR_321" ||       // BAR_321: Paralytic Poison
+        id == "BAR_318")         // BAR_318: Silverleaf Poison
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool Card::IsTransformMinion() const
 {
     // NOTE: Transformed minions list

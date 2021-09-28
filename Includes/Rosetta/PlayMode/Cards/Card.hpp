@@ -82,6 +82,10 @@ class Card
     //! \return The flag that indicates whether it is Lackey.
     bool IsLackey() const;
 
+    //! Returns the flag that indicates whether it is Poison.
+    //! \return The flag that indicates whether it is Poison.
+    bool IsPoison() const;
+
     //! Returns the flag that indicates whether it is a card with two Choose One
     //! options involving transform or specific summon effects is played while
     //! controlling Ossirian Tear.
