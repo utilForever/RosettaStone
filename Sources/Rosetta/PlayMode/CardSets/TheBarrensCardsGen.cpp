@@ -1979,6 +1979,10 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddPoisonTask>(1));
+    power.AddDeathrattleTask(std::make_shared<AddPoisonTask>(1));
+    cards.emplace("BAR_324", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BAR_552] Scabbs Cutterbutter - COST:4 [ATK:3/HP:3]
