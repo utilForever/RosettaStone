@@ -214,15 +214,8 @@ SelfCondition SelfCondition::IsTreant()
 
 SelfCondition SelfCondition::IsLackey()
 {
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
-
-        return minion->IsLackey();
-    });
+    return SelfCondition(
+        [](Playable* playable) { return playable->card->IsLackey(); });
 }
 
 SelfCondition SelfCondition::IsPoison()
