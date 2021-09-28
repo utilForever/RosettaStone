@@ -21,6 +21,7 @@ std::vector<Card*> Cards::m_allStandardCards;
 std::vector<Card*> Cards::m_allWildCards;
 std::vector<Card*> Cards::m_allClassicCards;
 std::vector<Card*> Cards::m_lackeys;
+std::vector<Card*> Cards::m_poisons;
 
 Cards::Cards()
 {
