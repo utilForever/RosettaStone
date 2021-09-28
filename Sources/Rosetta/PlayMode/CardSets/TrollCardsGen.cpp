@@ -2006,7 +2006,6 @@ void TrollCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Durability.
     // --------------------------------------------------------
-    // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::DurabilityN(1)));
     cards.emplace("TRL_111e1", CardDef(power));

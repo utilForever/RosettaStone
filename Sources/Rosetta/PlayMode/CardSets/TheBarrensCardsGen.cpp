@@ -2179,6 +2179,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_750] Earth Revenant - COST:4 [ATK:2/HP:6]
