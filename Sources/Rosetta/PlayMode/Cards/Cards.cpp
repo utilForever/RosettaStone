@@ -72,6 +72,11 @@ Cards::Cards()
         {
             m_lackeys.emplace_back(card);
         }
+
+        if (card->IsPoison())
+        {
+            m_poisons.emplace_back(card);
+        }
     }
 }
 
