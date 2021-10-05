@@ -1087,5 +1087,5 @@ TEST_CASE("[Neutral : Minion] - YOD_035 : Grand Lackey Erkh")
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(curHand.GetCount(), 1);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->IsLackey(), true);
+    CHECK_EQ(curHand[0]->card->IsLackey(), true);
 }

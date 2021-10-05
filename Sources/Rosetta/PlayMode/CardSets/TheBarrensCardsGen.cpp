@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
@@ -1946,6 +1947,15 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsPoison())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_322e", EntityType::WEAPON) };
+    cards.emplace("BAR_322", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [BAR_323] Yoink! - COST:1
@@ -1970,6 +1980,10 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddPoisonTask>(1));
+    power.AddDeathrattleTask(std::make_shared<AddPoisonTask>(1));
+    cards.emplace("BAR_324", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [BAR_552] Scabbs Cutterbutter - COST:4 [ATK:3/HP:3]
@@ -2109,16 +2123,31 @@ void TheBarrensCardsGen::AddRogueNonCollect(
 
 void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_040] South Coast Chieftain - COST:2 [ATK:3/HP:2]
     // - Race: Murloc, Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you control another Murloc,
-    //       deal 2 damage.
+    //       deal 2 damage.
     // --------------------------------------------------------
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::MURLOC)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2) }));
+    cards.emplace(
+        "BAR_040",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [BAR_041] Nofin Can Stop Us - COST:3
@@ -2127,6 +2156,26 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Give your minions +1/+1.
     //       Give your Murlocs an extra +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            for (auto& minion : player->GetFieldZone()->GetAll())
+            {
+                if (minion->card->GetRace() == Race::MURLOC)
+                {
+                    Generic::AddEnchantment(Cards::FindCardByID("BAR_041e2"),
+                                            dynamic_cast<Playable*>(source),
+                                            minion);
+                }
+                else
+                {
+                    Generic::AddEnchantment(Cards::FindCardByID("BAR_041e"),
+                                            dynamic_cast<Playable*>(source),
+                                            minion);
+                }
+            }
+        }));
+    cards.emplace("BAR_041", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_043] Tinyfin's Caravan - COST:2 [ATK:1/HP:3]
@@ -2137,6 +2186,11 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<DrawRaceMinionTask>(
+        Race::MURLOC, 1, false) };
+    cards.emplace("BAR_043", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [BAR_044] Chain Lightning (Rank 1) - COST:2
@@ -2170,6 +2224,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_750] Earth Revenant - COST:4 [ATK:2/HP:6]
@@ -3427,6 +3482,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_041e"));
+    cards.emplace("BAR_041e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_041e2] MrrGRRRRgle - COST:0
@@ -3434,6 +3492,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_041e2"));
+    cards.emplace("BAR_041e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_045e] Storm Cloud - COST:0
@@ -3843,6 +3904,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Durability.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::DurabilityN(1)));
+    cards.emplace("BAR_322e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_333e] Invigorated - COST:0

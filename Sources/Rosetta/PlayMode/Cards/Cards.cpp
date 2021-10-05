@@ -21,6 +21,7 @@ std::vector<Card*> Cards::m_allStandardCards;
 std::vector<Card*> Cards::m_allWildCards;
 std::vector<Card*> Cards::m_allClassicCards;
 std::vector<Card*> Cards::m_lackeys;
+std::vector<Card*> Cards::m_poisons;
 
 Cards::Cards()
 {
@@ -71,6 +72,11 @@ Cards::Cards()
         if (card->IsLackey())
         {
             m_lackeys.emplace_back(card);
+        }
+
+        if (card->IsPoison())
+        {
+            m_poisons.emplace_back(card);
         }
     }
 }
@@ -158,6 +164,11 @@ const std::vector<Card*> Cards::GetDiscoverCards(CardClass baseClass,
 std::vector<Card*> Cards::GetLackeys()
 {
     return m_lackeys;
+}
+
+std::vector<Card*> Cards::GetPoisons()
+{
+    return m_poisons;
 }
 
 Card* Cards::FindCardByID(const std::string_view& id)

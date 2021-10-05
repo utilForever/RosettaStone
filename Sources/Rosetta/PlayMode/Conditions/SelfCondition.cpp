@@ -214,15 +214,14 @@ SelfCondition SelfCondition::IsTreant()
 
 SelfCondition SelfCondition::IsLackey()
 {
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
+    return SelfCondition(
+        [](Playable* playable) { return playable->card->IsLackey(); });
+}
 
-        return minion->IsLackey();
-    });
+SelfCondition SelfCondition::IsPoison()
+{
+    return SelfCondition(
+        [](Playable* playable) { return playable->card->IsPoison(); });
 }
 
 SelfCondition SelfCondition::IsSilverHandRecruit()
