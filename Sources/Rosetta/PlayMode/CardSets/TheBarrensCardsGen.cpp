@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
@@ -2129,7 +2130,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Race: Murloc, Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you control another Murloc,
-    //       deal 2 damage.
+    //       deal 2 damage.
     // --------------------------------------------------------
     // RefTag:
     // - BATTLECRY = 1
@@ -2155,6 +2156,26 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Give your minions +1/+1.
     //       Give your Murlocs an extra +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            for (auto& minion : player->GetFieldZone()->GetAll())
+            {
+                if (minion->card->GetRace() == Race::MURLOC)
+                {
+                    Generic::AddEnchantment(Cards::FindCardByID("BAR_041e2"),
+                                            dynamic_cast<Playable*>(source),
+                                            minion);
+                }
+                else
+                {
+                    Generic::AddEnchantment(Cards::FindCardByID("BAR_041e"),
+                                            dynamic_cast<Playable*>(source),
+                                            minion);
+                }
+            }
+        }));
+    cards.emplace("BAR_041", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_043] Tinyfin's Caravan - COST:2 [ATK:1/HP:3]
@@ -3456,6 +3477,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_041e"));
+    cards.emplace("BAR_041e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_041e2] MrrGRRRRgle - COST:0
@@ -3463,6 +3487,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_041e2"));
+    cards.emplace("BAR_041e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_045e] Storm Cloud - COST:0
