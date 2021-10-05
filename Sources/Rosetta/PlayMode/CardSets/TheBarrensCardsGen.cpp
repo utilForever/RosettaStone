@@ -2186,6 +2186,11 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<DrawRaceMinionTask>(
+        Race::MURLOC, 1, false) };
+    cards.emplace("BAR_043", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [BAR_044] Chain Lightning (Rank 1) - COST:2
