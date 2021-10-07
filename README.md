@@ -94,7 +94,7 @@ cd RosettaStone
 
 ### Python API
 
-Build and install the packagae by running
+Build and install the package by running
 
 ```
 pip install -U .
