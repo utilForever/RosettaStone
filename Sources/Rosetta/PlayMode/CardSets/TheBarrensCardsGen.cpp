@@ -2246,6 +2246,10 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1));
+    cards.emplace("BAR_750", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_751] Spawnpool Forager - COST:1 [ATK:1/HP:2]
