@@ -2215,6 +2215,15 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsPlayElementalMinionLastTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BAR_045e", EntityType::SOURCE) }));
+    cards.emplace("BAR_045", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_048] Bru'kan - COST:4 [ATK:5/HP:4]
@@ -3502,6 +3511,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Rush</b>, <b>Windfury</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_045e"));
+    cards.emplace("BAR_045e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_060t] Hog - COST:1 [ATK:2/HP:1]

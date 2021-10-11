@@ -3725,3 +3725,60 @@ TEST_CASE("[Shaman : Minion] - BAR_043 : Tinyfin's Caravan")
     CHECK_EQ(curHand.GetCount(), 6);
     CHECK_EQ(curHand[4]->card->GetRace(), Race::MURLOC);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [BAR_045] Arid Stormer - COST:3 [ATK:2/HP:5]
+// - Race: Elemental, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you played an Elemental last turn,
+//       gain <b>Rush</b> and <b>Windfury</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - BAR_045 : Arid Stormer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arid Stormer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arid Stormer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasRush(), false);
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->HasRush(), true);
+    CHECK_EQ(curField[1]->HasWindfury(), true);
+}
