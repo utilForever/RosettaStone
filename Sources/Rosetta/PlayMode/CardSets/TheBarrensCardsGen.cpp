@@ -2313,6 +2313,14 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMIES, 1) };
+    cards.emplace("BAR_860", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [WC_005] Primal Dungeoneer - COST:3 [ATK:2/HP:3]
