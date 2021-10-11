@@ -153,4 +153,10 @@ AvailabilityPredicate TargetingPredicates::MinimumFriendlySecrets(int value)
     };
 }
 
+AvailabilityPredicate TargetingPredicates::ElementalPlayedLastTurn()
+{
+    return [=](Player* player, [[maybe_unused]] Card* card) {
+        return player->GetNumElementalPlayedLastTurn() > 0;
+    };
+}
 }  // namespace RosettaStone::PlayMode
