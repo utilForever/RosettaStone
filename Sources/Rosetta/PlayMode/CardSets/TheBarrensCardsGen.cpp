@@ -2260,6 +2260,10 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BAR_751t", SummonSide::DEATHRATTLE));
+    cards.emplace("BAR_751", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_848] Lilypad Lurker - COST:5 [ATK:5/HP:6]
@@ -2377,6 +2381,9 @@ void TheBarrensCardsGen::AddShamanNonCollect(
     // [BAR_751t] Diremuck Tinyfin - COST:1 [ATK:1/HP:1]
     // - Race: Murloc, Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_751t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [WC_042e] Rising Gas - COST:0

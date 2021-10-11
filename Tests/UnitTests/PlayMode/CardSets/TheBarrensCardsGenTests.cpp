@@ -3839,3 +3839,51 @@ TEST_CASE("[Shaman : Minion] - BAR_750 : Earth Revenant")
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 11);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [BAR_751] Spawnpool Forager - COST:1 [ATK:1/HP:2]
+// - Race: Murloc, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 1/1 Tinyfin.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - BAR_751 : Spawnpool Forager")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Spawnpool Forager"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Diremuck Tinyfin");
+}
