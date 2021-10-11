@@ -110,6 +110,12 @@ void Card::Initialize()
                     TargetingPredicates::MinimumFriendlySecrets(
                         requirement.second));
                 break;
+            case PlayReq::
+                REQ_TARGET_IF_AVAILABLE_AND_ELEMENTAL_PLAYED_LAST_TURN:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::ElementalPlayedLastTurn());
+                break;
             default:
                 continue;
         }
