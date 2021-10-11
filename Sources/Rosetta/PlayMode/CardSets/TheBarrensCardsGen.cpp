@@ -2279,6 +2279,29 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE_AND_ELEMENTAL_PLAYED_LAST_TURN = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsPlayElementalMinionLastTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<TransformTask>(EntityType::TARGET,
+                                                        "hexfrog") }));
+    cards.emplace(
+        "BAR_848",
+        CardDef(
+            power,
+            PlayReqs{
+                { PlayReq::REQ_ENEMY_TARGET, 0 },
+                { PlayReq::REQ_MINION_TARGET, 0 },
+                { PlayReq::
+                      REQ_TARGET_IF_AVAILABLE_AND_ELEMENTAL_PLAYED_LAST_TURN,
+                  0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [BAR_860] Firemancer Flurgl - COST:2 [ATK:2/HP:3]
