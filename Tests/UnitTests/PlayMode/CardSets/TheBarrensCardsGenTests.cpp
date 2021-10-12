@@ -4013,3 +4013,54 @@ TEST_CASE("[Shaman : Minion] - BAR_860 : Firemancer Flurgl")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
     CHECK_EQ(opField[0]->GetHealth(), 11);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [WC_005] Primal Dungeoneer - COST:3 [ATK:2/HP:3]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a spell.
+//       If it's a Nature spell, also draw an Elemental.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - WC_005 : Primal Dungeoneer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Ice Rager");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Lightning Bolt");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Primal Dungeoneer"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[4]->card->GetSpellSchool(), SpellSchool::NATURE);
+    CHECK_EQ(curHand[5]->card->GetRace(), Race::ELEMENTAL);
+}

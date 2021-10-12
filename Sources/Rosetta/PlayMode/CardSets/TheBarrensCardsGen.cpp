@@ -2332,6 +2332,15 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsNatureSpell()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawRaceMinionTask>(Race::ELEMENTAL, 1,
+                                                             false) }));
+    cards.emplace("WC_005", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [WC_020] Perpetual Flame - COST:2
