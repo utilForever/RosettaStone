@@ -56,6 +56,10 @@ class Card
     //! \return The value of race.
     Race GetRace() const;
 
+    //! Returns the value of spell school.
+    //! \return The value of spell school.
+    SpellSchool GetSpellSchool() const;
+
     //! Returns the value of rarity.
     //! \return The value of rarity.
     Rarity GetRarity() const;

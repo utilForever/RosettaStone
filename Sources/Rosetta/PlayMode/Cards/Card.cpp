@@ -193,6 +193,11 @@ Race Card::GetRace() const
     return static_cast<Race>(gameTags.at(GameTag::CARDRACE));
 }
 
+SpellSchool Card::GetSpellSchool() const
+{
+    return static_cast<SpellSchool>(gameTags.at(GameTag::SPELL_SCHOOL));
+}
+
 Rarity Card::GetRarity() const
 {
     return static_cast<Rarity>(gameTags.at(GameTag::RARITY));
