@@ -110,6 +110,12 @@ void Card::Initialize()
                     TargetingPredicates::MinimumFriendlySecrets(
                         requirement.second));
                 break;
+            case PlayReq::
+                REQ_TARGET_IF_AVAILABLE_AND_ELEMENTAL_PLAYED_LAST_TURN:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::ElementalPlayedLastTurn());
+                break;
             default:
                 continue;
         }
@@ -185,6 +191,11 @@ Faction Card::GetFaction() const
 Race Card::GetRace() const
 {
     return static_cast<Race>(gameTags.at(GameTag::CARDRACE));
+}
+
+SpellSchool Card::GetSpellSchool() const
+{
+    return static_cast<SpellSchool>(gameTags.at(GameTag::SPELL_SCHOOL));
 }
 
 Rarity Card::GetRarity() const

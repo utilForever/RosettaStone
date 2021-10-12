@@ -121,6 +121,10 @@ class TargetingPredicates
     //! \param value The number of minimum secrets.
     //! \return Generated TargetingPredicate for intended purpose.
     static AvailabilityPredicate MinimumFriendlySecrets(int value);
+
+    //! Predicate wrapper for checking the player played an Elemental last turn.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static AvailabilityPredicate ElementalPlayedLastTurn();
 };
 }  // namespace RosettaStone::PlayMode
 

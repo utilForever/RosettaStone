@@ -2114,7 +2114,7 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_NONSELF_TARGET = 0
-    // - REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN = 0
+    // - REQ_TARGET_IF_AVAILABLE_AND_ELEMENTAL_PLAYED_LAST_TURN = 0
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
