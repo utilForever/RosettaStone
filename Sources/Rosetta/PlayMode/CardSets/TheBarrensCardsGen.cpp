@@ -2333,7 +2333,8 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsNatureSpell()) }));
@@ -2363,6 +2364,14 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::ELEMENTAL))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "WC_042e", EntityType::SOURCE) };
+    cards.emplace("WC_042", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddShamanNonCollect(
@@ -2431,6 +2440,9 @@ void TheBarrensCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("WC_042e"));
+    cards.emplace("WC_042e", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
