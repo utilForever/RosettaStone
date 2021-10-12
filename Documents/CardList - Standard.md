@@ -734,7 +734,7 @@ THE_BARRENS | BAR_041 | Nofin Can Stop Us |
 THE_BARRENS | BAR_042 | Primordial Protector |  
 THE_BARRENS | BAR_043 | Tinyfin's Caravan |  
 THE_BARRENS | BAR_044 | Chain Lightning (Rank 1) |  
-THE_BARRENS | BAR_045 | Arid Stormer |  
+THE_BARRENS | BAR_045 | Arid Stormer | O
 THE_BARRENS | BAR_048 | Bru'kan |  
 THE_BARRENS | BAR_060 | Hog Rancher |  
 THE_BARRENS | BAR_061 | Ratchet Privateer |  
@@ -811,8 +811,8 @@ THE_BARRENS | BAR_743 | Toad of the Wilds |
 THE_BARRENS | BAR_744 | Spirit Healer |  
 THE_BARRENS | BAR_745 | Hecklefang Hyena |  
 THE_BARRENS | BAR_748 | Varden Dawngrasp | O
-THE_BARRENS | BAR_750 | Earth Revenant |  
-THE_BARRENS | BAR_751 | Spawnpool Forager |  
+THE_BARRENS | BAR_750 | Earth Revenant | O
+THE_BARRENS | BAR_751 | Spawnpool Forager | O
 THE_BARRENS | BAR_801 | Wound Prey | O
 THE_BARRENS | BAR_812 | Oasis Ally | O
 THE_BARRENS | BAR_840 | Whirling Combatant |  
@@ -823,8 +823,8 @@ THE_BARRENS | BAR_844 | Outrider's Axe |
 THE_BARRENS | BAR_845 | Rancor |  
 THE_BARRENS | BAR_846 | Mor'shan Elite |  
 THE_BARRENS | BAR_847 | Rokara |  
-THE_BARRENS | BAR_848 | Lilypad Lurker |  
-THE_BARRENS | BAR_854 | Kindling Elemental |  
+THE_BARRENS | BAR_848 | Lilypad Lurker | O
+THE_BARRENS | BAR_854 | Kindling Elemental | O
 THE_BARRENS | BAR_860 | Firemancer Flurgl |  
 THE_BARRENS | BAR_871 | Soldier's Caravan | O
 THE_BARRENS | BAR_873 | Knight of Anointment | O
@@ -851,7 +851,7 @@ THE_BARRENS | BAR_918 | Tamsin Roame |
 THE_BARRENS | BAR_919 | Neeru Fireblade |  
 THE_BARRENS | WC_003 | Sigil of Summoning |  
 THE_BARRENS | WC_004 | Fangbound Druid | O
-THE_BARRENS | WC_005 | Primal Dungeoneer |  
+THE_BARRENS | WC_005 | Primal Dungeoneer | O
 THE_BARRENS | WC_006 | Lady Anacondra | O
 THE_BARRENS | WC_007 | Serpentbloom | O
 THE_BARRENS | WC_008 | Sin'dorei Scentfinder | O
@@ -879,13 +879,13 @@ THE_BARRENS | WC_036 | Deviate Dreadfang | O
 THE_BARRENS | WC_037 | Venomstrike Bow | O
 THE_BARRENS | WC_040 | Taintheart Tormenter |  
 THE_BARRENS | WC_041 | Shattering Blast | O
-THE_BARRENS | WC_042 | Wailing Vapor |  
+THE_BARRENS | WC_042 | Wailing Vapor | O
 THE_BARRENS | WC_701 | Felrattler |  
 THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 32% (55 of 170 Cards)
+- Progress: 36% (62 of 170 Cards)
 
 ## United in Stormwind
 
