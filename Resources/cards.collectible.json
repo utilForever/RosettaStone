@@ -10533,7 +10533,6 @@
             "SILENCE"
         ],
         "set": "DEMON_HUNTER_INITIATE",
-        "spellSchool": "SHADOW",
         "text": "<b>Silence</b> an enemy minion.\n<b>Outcast:</b> Draw a card.",
         "type": "SPELL"
     },
@@ -11295,7 +11294,7 @@
         "rarity": "FREE",
         "set": "LEGACY",
         "spellSchool": "SHADOW",
-        "text": "<b>Lifesteal</b>\nDeal $2 damage to two random enemy minions.",
+        "text": "<b>Lifesteal</b>\nDeal $2 damage to two random enemies.",
         "type": "SPELL"
     },
     {
@@ -33160,7 +33159,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
-        "text": "<b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.",
+        "text": "[x]<b>Deathrattle:</b> Summon a\n3/3 Pip Quickwit for\nyour opponent.",
         "type": "MINION"
     },
     {
@@ -39598,6 +39597,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 77250,
+        "health": 30,
+        "id": "HERO_01n",
+        "name": "Pirate King Garrosh",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 1066,
@@ -39736,6 +39746,17 @@
         "health": 30,
         "id": "HERO_02m",
         "name": "Ragnaros",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 77248,
+        "health": 30,
+        "id": "HERO_02n",
+        "name": "Frog Prince Thrall",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40099,6 +40120,17 @@
         "health": 30,
         "id": "HERO_05j",
         "name": "Flamewalker Rexxar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 77247,
+        "health": 30,
+        "id": "HERO_05o",
+        "name": "Robin Hood Rexxar",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40545,6 +40577,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 77253,
+        "health": 30,
+        "id": "HERO_08n",
+        "name": "Red Riding Hood Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -40661,6 +40704,17 @@
         "health": 30,
         "id": "HERO_09j",
         "name": "Lightweaver Xyrella",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 77251,
+        "health": 30,
+        "id": "HERO_09m",
+        "name": "Prince Charming Anduin",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -63497,15 +63551,10 @@
         "flavor": "Millennia of evolutionary pressures turned his species into the Faerie Dragons we know today.",
         "health": 12,
         "id": "UNG_852",
-        "mechanics": [
-            "CANT_BE_TARGETED_BY_SPELLS",
-            "CANT_BE_TARGETED_BY_HERO_POWERS"
-        ],
         "name": "Tyrantus",
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "UNGORO",
-        "text": "Can't be targeted by spells or Hero Powers.",
         "type": "MINION"
     },
     {
@@ -69951,7 +70000,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "VANILLA",
-        "text": "<b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.",
+        "text": "[x]<b>Deathrattle:</b> Summon a\n3/3 Pip Quickwit for\nyour opponent.",
         "type": "MINION"
     },
     {
