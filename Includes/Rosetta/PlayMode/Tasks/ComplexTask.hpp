@@ -60,6 +60,21 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for summoning a \p cost minion from your deck.
+    //! \param cost The cost of minion(s) to summon.
+    static TaskList SummonCostMinionFromDeck(int cost)
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::DECK),
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsCost(cost, RelaSign::EQ)) }),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::SummonStackTask>(true)
+        };
+    }
+
     //! Returns a list of task for destroying random enemy minion(s).
     //! \param num The number of minion(s) to destroy.
     static TaskList DestroyRandomEnemyMinion(int num)
