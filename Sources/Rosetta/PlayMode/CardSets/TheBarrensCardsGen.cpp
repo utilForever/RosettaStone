@@ -2491,6 +2491,10 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { ComplexTask::SummonCostMinionFromDeck(1) };
+    cards.emplace("BAR_912", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [BAR_913] Altar of Fire - COST:1
