@@ -729,10 +729,10 @@ THE_BARRENS | BAR_034 | Tame Beast (Rank 1) | O
 THE_BARRENS | BAR_035 | Kolkar Pack Runner | O
 THE_BARRENS | BAR_037 | Warsong Wrangler |  
 THE_BARRENS | BAR_038 | Tavish Stormpike |  
-THE_BARRENS | BAR_040 | South Coast Chieftain |  
-THE_BARRENS | BAR_041 | Nofin Can Stop Us |  
+THE_BARRENS | BAR_040 | South Coast Chieftain | O
+THE_BARRENS | BAR_041 | Nofin Can Stop Us | O
 THE_BARRENS | BAR_042 | Primordial Protector |  
-THE_BARRENS | BAR_043 | Tinyfin's Caravan |  
+THE_BARRENS | BAR_043 | Tinyfin's Caravan | O
 THE_BARRENS | BAR_044 | Chain Lightning (Rank 1) |  
 THE_BARRENS | BAR_045 | Arid Stormer | O
 THE_BARRENS | BAR_048 | Bru'kan |  
@@ -773,9 +773,9 @@ THE_BARRENS | BAR_318 | Silverleaf Poison | O
 THE_BARRENS | BAR_319 | Wicked Stab (Rank 1) | O
 THE_BARRENS | BAR_320 | Efficient Octo-bot | O
 THE_BARRENS | BAR_321 | Paralytic Poison | O
-THE_BARRENS | BAR_322 | Swinetusk Shank |  
+THE_BARRENS | BAR_322 | Swinetusk Shank | O
 THE_BARRENS | BAR_323 | Yoink! |  
-THE_BARRENS | BAR_324 | Apothecary Helbrim |  
+THE_BARRENS | BAR_324 | Apothecary Helbrim | O
 THE_BARRENS | BAR_325 | Razorboar |  
 THE_BARRENS | BAR_326 | Razorfen Beastmaster |  
 THE_BARRENS | BAR_327 | Vile Call |  
@@ -824,8 +824,8 @@ THE_BARRENS | BAR_845 | Rancor |
 THE_BARRENS | BAR_846 | Mor'shan Elite |  
 THE_BARRENS | BAR_847 | Rokara |  
 THE_BARRENS | BAR_848 | Lilypad Lurker | O
-THE_BARRENS | BAR_854 | Kindling Elemental | O
-THE_BARRENS | BAR_860 | Firemancer Flurgl |  
+THE_BARRENS | BAR_854 | Kindling Elemental |  
+THE_BARRENS | BAR_860 | Firemancer Flurgl | O
 THE_BARRENS | BAR_871 | Soldier's Caravan | O
 THE_BARRENS | BAR_873 | Knight of Anointment | O
 THE_BARRENS | BAR_875 | Sword of the Fallen |  
@@ -839,12 +839,12 @@ THE_BARRENS | BAR_890 | Crossroads Gossiper |
 THE_BARRENS | BAR_891 | Fury (Rank 1) |  
 THE_BARRENS | BAR_896 | Stonemaul Anchorman |  
 THE_BARRENS | BAR_902 | Cariel Roame | O
-THE_BARRENS | BAR_910 | Grimoire of Sacrifice |  
+THE_BARRENS | BAR_910 | Grimoire of Sacrifice | O
 THE_BARRENS | BAR_911 | Soul Rend |  
-THE_BARRENS | BAR_912 | Apothecary's Caravan |  
-THE_BARRENS | BAR_913 | Altar of Fire |  
-THE_BARRENS | BAR_914 | Imp Swarm (Rank 1) |  
-THE_BARRENS | BAR_915 | Kabal Outfitter |  
+THE_BARRENS | BAR_912 | Apothecary's Caravan | O
+THE_BARRENS | BAR_913 | Altar of Fire | O
+THE_BARRENS | BAR_914 | Imp Swarm (Rank 1) | O
+THE_BARRENS | BAR_915 | Kabal Outfitter | O
 THE_BARRENS | BAR_916 | Blood Shard Bristleback |  
 THE_BARRENS | BAR_917 | Barrens Scavenger |  
 THE_BARRENS | BAR_918 | Tamsin Roame |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 36% (62 of 170 Cards)
+- Progress: 42% (72 of 170 Cards)
 
 ## United in Stormwind
 
