@@ -2534,6 +2534,16 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_915e", EntityType::STACK));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("BAR_915e", EntityType::STACK));
+    cards.emplace("BAR_915", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [BAR_916] Blood Shard Bristleback - COST:3 [ATK:3/HP:3]
@@ -2665,6 +2675,9 @@ void TheBarrensCardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_915e"));
+    cards.emplace("BAR_915e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [BAR_918e] Gathered Shadows - COST:0
