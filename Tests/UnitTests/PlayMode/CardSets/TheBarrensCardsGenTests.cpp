@@ -4233,3 +4233,56 @@ TEST_CASE("[Warlock : Minion] - BAR_912 : Apothecary's Caravan")
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[1]->GetCost(), 1);
 }
+
+// ---------------------------------------- SPELL - WARLOCK
+// [BAR_913] Altar of Fire - COST:1
+// - Set: THE_BARRENS, Rarity: Epic
+// - Spell School: Fire
+// --------------------------------------------------------
+// Text: Destroy the top 3 cards of each deck.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - BAR_913 : Altar of Fire")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Worgen Infiltrator");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+
+        config.player2Deck[i] = Cards::FindCardByName("Worgen Infiltrator");
+        config.player2Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Altar of Fire"));
+
+    CHECK_EQ(curDeck.GetCount(), 26);
+    CHECK_EQ(opDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curDeck.GetCount(), 23);
+    CHECK_EQ(opDeck.GetCount(), 23);
+}

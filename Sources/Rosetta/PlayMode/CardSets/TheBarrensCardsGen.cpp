@@ -2503,6 +2503,10 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy the top 3 cards of each deck.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyDeckCardTask>(3, false));
+    power.AddPowerTask(std::make_shared<DestroyDeckCardTask>(3, true));
+    cards.emplace("BAR_913", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [BAR_914] Imp Swarm (Rank 1) - COST:2
