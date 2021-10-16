@@ -4286,3 +4286,85 @@ TEST_CASE("[Warlock : Spell] - BAR_913 : Altar of Fire")
     CHECK_EQ(curDeck.GetCount(), 23);
     CHECK_EQ(opDeck.GetCount(), 23);
 }
+
+// ---------------------------------------- SPELL - WARLOCK
+// [BAR_914] Imp Swarm (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Summon a 3/2 Imp.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - BAR_914 : Imp Swarm (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Imp Swarm (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Imp Swarm (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Imp Swarm (Rank 1)"));
+
+    CHECK_EQ(card1->card->name, "Imp Swarm (Rank 1)");
+    CHECK_EQ(card2->card->name, "Imp Swarm (Rank 1)");
+    CHECK_EQ(card3->card->name, "Imp Swarm (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Imp Familiar");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Imp Swarm (Rank 1)");
+    CHECK_EQ(card3->card->name, "Imp Swarm (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Imp Swarm (Rank 2)");
+    CHECK_EQ(card3->card->name, "Imp Swarm (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->name, "Imp Familiar");
+    CHECK_EQ(curField[2]->card->name, "Imp Familiar");
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Imp Swarm (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Imp Swarm (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 6);
+    CHECK_EQ(curField[3]->card->name, "Imp Familiar");
+    CHECK_EQ(curField[4]->card->name, "Imp Familiar");
+    CHECK_EQ(curField[5]->card->name, "Imp Familiar");
+}

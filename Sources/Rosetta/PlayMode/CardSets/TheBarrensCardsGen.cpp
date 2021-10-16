@@ -2516,6 +2516,12 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Summon a 3/2 Imp.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_914t3", SummonSide::SPELL));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_914t")));
+    cards.emplace("BAR_914", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [BAR_915] Kabal Outfitter - COST:3 [ATK:3/HP:3]
@@ -2616,6 +2622,8 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [BAR_914t] Imp Swarm (Rank 2) - COST:2
     // - Set: THE_BARRENS, Rarity: Common
@@ -2624,6 +2632,12 @@ void TheBarrensCardsGen::AddWarlockNonCollect(
     // Text: Summon two 3/2 Imps.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_914t3", 2, SummonSide::SPELL));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_914t2")));
+    cards.emplace("BAR_914t", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [BAR_914t2] Imp Swarm (Rank 3) - COST:2
@@ -2632,11 +2646,18 @@ void TheBarrensCardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: Summon three 3/2 Imps.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_914t3", 3, SummonSide::SPELL));
+    cards.emplace("BAR_914t2", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [BAR_914t3] Imp Familiar - COST:2 [ATK:3/HP:2]
     // - Race: Demon, Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_914t3", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [BAR_915e] Outfitted - COST:0
