@@ -40,6 +40,7 @@
 * DamageTask
 * DamageWeaponTask
 * DestroyAllTask
+* DestroyDeckCardTask
 * DestroySoulFragmentTask
 * DestroyTask
 * DiscardTask
