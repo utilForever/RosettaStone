@@ -2559,6 +2559,26 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE_AND_MAXIMUM_CARDS_IN_DECK = 10
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::MaximumCardsInDeck(10)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6) }));
+    cards.emplace(
+        "BAR_916",
+        CardDef(
+            power,
+            PlayReqs{
+                { PlayReq::REQ_ENEMY_TARGET, 0 },
+                { PlayReq::REQ_MINION_TARGET, 0 },
+                { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MAXIMUM_CARDS_IN_DECK,
+                  10 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [BAR_917] Barrens Scavenger - COST:6 [ATK:6/HP:6]
