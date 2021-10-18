@@ -4505,3 +4505,55 @@ TEST_CASE("[Warlock : Minion] - BAR_916 : Blood Shard Bristleback")
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
     CHECK_EQ(opField[0]->GetHealth(), 6);
 }
+
+// --------------------------------------- MINION - WARLOCK
+// [BAR_917] Barrens Scavenger - COST:6 [ATK:6/HP:6]
+// - Set: THE_BARRENS, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Costs (1) while your deck has 10 or fewer cards.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - BAR_917 : Barrens Scavenger")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 15; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Worgen Infiltrator");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Barrens Scavenger"));
+
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 1);
+}

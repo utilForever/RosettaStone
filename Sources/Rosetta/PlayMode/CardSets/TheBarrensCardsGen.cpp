@@ -12,6 +12,7 @@
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -2590,6 +2591,16 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (playable->player->GetDeckZone()->GetCount() <= 10)
+        {
+            return playable->GetGameTag(GameTag::COST) - 1;
+        }
+
+        return 0;
+    }));
+    cards.emplace("BAR_917", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [BAR_918] Tamsin Roame - COST:3 [ATK:1/HP:3]
