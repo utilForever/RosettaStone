@@ -12,6 +12,8 @@
 
 #include <stdexcept>
 
+#include "Rosetta/PlayMode/Zones/DeckZone.hpp"
+
 namespace RosettaStone::PlayMode
 {
 TargetingPredicate TargetingPredicates::ReqMurlocTarget()
@@ -157,6 +159,13 @@ AvailabilityPredicate TargetingPredicates::ElementalPlayedLastTurn()
 {
     return [=](Player* player, [[maybe_unused]] Card* card) {
         return player->GetNumElementalPlayedLastTurn() > 0;
+    };
+}
+
+AvailabilityPredicate TargetingPredicates::MaximumCardsInDeck(int value)
+{
+    return [=](Player* player, [[maybe_unused]] Card* card) {
+        return player->GetDeckZone()->GetCount() <= value;
     };
 }
 }  // namespace RosettaStone::PlayMode
