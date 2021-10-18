@@ -116,6 +116,12 @@ void Card::Initialize()
                 targetingAvailabilityPredicate.emplace_back(
                     TargetingPredicates::ElementalPlayedLastTurn());
                 break;
+            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MAXIMUM_CARDS_IN_DECK:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::MaximumCardsInDeck(
+                        requirement.second));
+                break;
             default:
                 continue;
         }
