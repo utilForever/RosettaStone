@@ -815,9 +815,9 @@ THE_BARRENS | BAR_750 | Earth Revenant | O
 THE_BARRENS | BAR_751 | Spawnpool Forager | O
 THE_BARRENS | BAR_801 | Wound Prey | O
 THE_BARRENS | BAR_812 | Oasis Ally | O
-THE_BARRENS | BAR_840 | Whirling Combatant |  
+THE_BARRENS | BAR_840 | Whirling Combatant | O
 THE_BARRENS | BAR_841 | Bulk Up |  
-THE_BARRENS | BAR_842 | Conditioning (Rank 1) |  
+THE_BARRENS | BAR_842 | Conditioning (Rank 1) | O
 THE_BARRENS | BAR_843 | Warsong Envoy |  
 THE_BARRENS | BAR_844 | Outrider's Axe |  
 THE_BARRENS | BAR_845 | Rancor |  
@@ -837,7 +837,7 @@ THE_BARRENS | BAR_881 | Invigorating Sermon | O
 THE_BARRENS | BAR_888 | Rimetongue | O
 THE_BARRENS | BAR_890 | Crossroads Gossiper |  
 THE_BARRENS | BAR_891 | Fury (Rank 1) |  
-THE_BARRENS | BAR_896 | Stonemaul Anchorman |  
+THE_BARRENS | BAR_896 | Stonemaul Anchorman | O
 THE_BARRENS | BAR_902 | Cariel Roame | O
 THE_BARRENS | BAR_910 | Grimoire of Sacrifice | O
 THE_BARRENS | BAR_911 | Soul Rend |  
@@ -845,8 +845,8 @@ THE_BARRENS | BAR_912 | Apothecary's Caravan | O
 THE_BARRENS | BAR_913 | Altar of Fire | O
 THE_BARRENS | BAR_914 | Imp Swarm (Rank 1) | O
 THE_BARRENS | BAR_915 | Kabal Outfitter | O
-THE_BARRENS | BAR_916 | Blood Shard Bristleback |  
-THE_BARRENS | BAR_917 | Barrens Scavenger |  
+THE_BARRENS | BAR_916 | Blood Shard Bristleback | O
+THE_BARRENS | BAR_917 | Barrens Scavenger | O
 THE_BARRENS | BAR_918 | Tamsin Roame |  
 THE_BARRENS | BAR_919 | Neeru Fireblade |  
 THE_BARRENS | WC_003 | Sigil of Summoning |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 42% (72 of 170 Cards)
+- Progress: 45% (77 of 170 Cards)
 
 ## United in Stormwind
 
