@@ -4625,3 +4625,108 @@ TEST_CASE("[Warrior : Minion] - BAR_840 : Whirling Combatant")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
     CHECK_EQ(opField[0]->GetHealth(), 10);
 }
+
+// ---------------------------------------- SPELL - WARRIOR
+// [BAR_842] Conditioning (Rank 1) - COST:2
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give minions in your hand +1/+1.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - BAR_842 : Conditioning (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conditioning (Rank 1)"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conditioning (Rank 1)"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conditioning (Rank 1)"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Malygos"));
+
+    const auto minion4 = dynamic_cast<Minion*>(card4);
+    const auto minion5 = dynamic_cast<Minion*>(card5);
+    const auto minion6 = dynamic_cast<Minion*>(card6);
+
+    CHECK_EQ(card1->card->name, "Conditioning (Rank 1)");
+    CHECK_EQ(card2->card->name, "Conditioning (Rank 1)");
+    CHECK_EQ(card3->card->name, "Conditioning (Rank 1)");
+
+    CHECK_EQ(minion4->GetAttack(), 1);
+    CHECK_EQ(minion4->GetHealth(), 1);
+    CHECK_EQ(minion5->GetAttack(), 3);
+    CHECK_EQ(minion5->GetHealth(), 1);
+    CHECK_EQ(minion6->GetAttack(), 4);
+    CHECK_EQ(minion6->GetHealth(), 12);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(minion4->GetAttack(), 2);
+    CHECK_EQ(minion4->GetHealth(), 2);
+    CHECK_EQ(minion5->GetAttack(), 4);
+    CHECK_EQ(minion5->GetHealth(), 2);
+    CHECK_EQ(minion6->GetAttack(), 5);
+    CHECK_EQ(minion6->GetHealth(), 13);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Conditioning (Rank 1)");
+    CHECK_EQ(card3->card->name, "Conditioning (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Conditioning (Rank 2)");
+    CHECK_EQ(card3->card->name, "Conditioning (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(minion4->GetAttack(), 4);
+    CHECK_EQ(minion4->GetHealth(), 4);
+    CHECK_EQ(minion5->GetAttack(), 6);
+    CHECK_EQ(minion5->GetHealth(), 4);
+    CHECK_EQ(minion6->GetAttack(), 7);
+    CHECK_EQ(minion6->GetHealth(), 15);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Conditioning (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Conditioning (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(minion4->GetAttack(), 7);
+    CHECK_EQ(minion4->GetHealth(), 7);
+    CHECK_EQ(minion5->GetAttack(), 9);
+    CHECK_EQ(minion5->GetHealth(), 7);
+    CHECK_EQ(minion6->GetAttack(), 10);
+    CHECK_EQ(minion6->GetHealth(), 18);
+}
