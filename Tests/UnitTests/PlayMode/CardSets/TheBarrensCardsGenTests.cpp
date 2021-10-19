@@ -4730,3 +4730,50 @@ TEST_CASE("[Warrior : Spell] - BAR_842 : Conditioning (Rank 1)")
     CHECK_EQ(minion6->GetAttack(), 10);
     CHECK_EQ(minion6->GetHealth(), 18);
 }
+
+// --------------------------------------- MINION - WARRIOR
+// [BAR_896] Stonemaul Anchorman - COST:5 [ATK:4/HP:6]
+// - Race: Pirate, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Frenzy:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - BAR_896 : Stonemaul Anchorman")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stonemaul Anchorman"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+}

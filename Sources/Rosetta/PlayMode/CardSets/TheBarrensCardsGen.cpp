@@ -2859,6 +2859,9 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - FRENZY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BAR_896", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [WC_024] Man-at-Arms - COST:2 [ATK:2/HP:3]
