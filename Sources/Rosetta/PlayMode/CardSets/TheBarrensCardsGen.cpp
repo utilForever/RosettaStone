@@ -2733,6 +2733,8 @@ void TheBarrensCardsGen::AddWarlockNonCollect(
 
 void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [BAR_334] Overlord Saurfang - COST:7 [ATK:5/HP:4]
     // - Set: THE_BARRENS, Rarity: Legendary
@@ -2759,6 +2761,12 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    power.AddFrenzyTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    cards.emplace("BAR_840", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_841] Bulk Up - COST:2
