@@ -956,6 +956,13 @@ SelfCondition SelfCondition::HasNoMinionsInDeck()
     });
 }
 
+SelfCondition SelfCondition::MaximumCardsInDeck(int value)
+{
+    return SelfCondition([value](Playable* playable) {
+        return playable->player->GetDeckZone()->GetCount() <= value;
+    });
+}
+
 SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
 {
     return SelfCondition([](Playable* playable) {

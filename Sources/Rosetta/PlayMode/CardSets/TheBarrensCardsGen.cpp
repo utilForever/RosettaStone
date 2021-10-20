@@ -12,6 +12,7 @@
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -2559,6 +2560,26 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE_AND_MAXIMUM_CARDS_IN_DECK = 10
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::MaximumCardsInDeck(10)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6) }));
+    cards.emplace(
+        "BAR_916",
+        CardDef(
+            power,
+            PlayReqs{
+                { PlayReq::REQ_ENEMY_TARGET, 0 },
+                { PlayReq::REQ_MINION_TARGET, 0 },
+                { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MAXIMUM_CARDS_IN_DECK,
+                  10 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [BAR_917] Barrens Scavenger - COST:6 [ATK:6/HP:6]
@@ -2570,6 +2591,16 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (playable->player->GetDeckZone()->GetCount() <= 10)
+        {
+            return playable->GetGameTag(GameTag::COST) - 1;
+        }
+
+        return 0;
+    }));
+    cards.emplace("BAR_917", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [BAR_918] Tamsin Roame - COST:3 [ATK:1/HP:3]
@@ -2702,6 +2733,8 @@ void TheBarrensCardsGen::AddWarlockNonCollect(
 
 void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [BAR_334] Overlord Saurfang - COST:7 [ATK:5/HP:4]
     // - Set: THE_BARRENS, Rarity: Legendary
@@ -2728,6 +2761,12 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    power.AddFrenzyTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    cards.emplace("BAR_840", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_841] Bulk Up - COST:2
@@ -2747,6 +2786,12 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Give minions in your hand +1/+1.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_842e", EntityType::MINIONS_HAND));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_842t")));
+    cards.emplace("BAR_842", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BAR_843] Warsong Envoy - COST:1 [ATK:1/HP:3]
@@ -2814,6 +2859,9 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - FRENZY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<DrawTask>(1));
+    cards.emplace("BAR_896", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [WC_024] Man-at-Arms - COST:2 [ATK:2/HP:3]
@@ -2854,6 +2902,8 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [BAR_841e] Swoll - COST:0
     // - Set: THE_BARRENS
@@ -2868,6 +2918,12 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // Text: Give minions in your hand +2/+2.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_842e2", EntityType::MINIONS_HAND));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_842t2")));
+    cards.emplace("BAR_842t", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_842t2] Conditioning (Rank 3) - COST:2
@@ -2875,6 +2931,10 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Give minions in your hand +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_842e3", EntityType::MINIONS_HAND));
+    cards.emplace("BAR_842t2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [BAR_896e] Incensed - COST:0
@@ -4106,6 +4166,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_842e"));
+    cards.emplace("BAR_842e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_842e2] Gains - COST:0
@@ -4113,6 +4176,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_842e2"));
+    cards.emplace("BAR_842e2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_842e3] Gains - COST:0
@@ -4120,6 +4186,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_842e3"));
+    cards.emplace("BAR_842e3", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_847e] Battle Hardened - COST:0

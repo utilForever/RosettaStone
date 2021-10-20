@@ -125,6 +125,11 @@ class TargetingPredicates
     //! Predicate wrapper for checking the player played an Elemental last turn.
     //! \return Generated TargetingPredicate for intended purpose.
     static AvailabilityPredicate ElementalPlayedLastTurn();
+
+    //! Predicate wrapper for checking the deck contains \p value cards at most.
+    //! \param value The number of maximum cards in deck.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static AvailabilityPredicate MaximumCardsInDeck(int value);
 };
 }  // namespace RosettaStone::PlayMode
 

@@ -459,13 +459,19 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsUsedHeroPowerThisTurn();
 
+    //! SelfCondition wrapper for checking the player has no minions in deck.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasNoMinionsInDeck();
+
     //! SelfCondition wrapper for checking it is no duplicate cards in deck.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNoDuplicateInDeck();
 
-    //! SelfCondition wrapper for checking the player has no minions in deck.
+    //! SelfCondition wrapper for checking the deck contains \p value cards
+    //! at most.
+    //! \param value The number of maximum cards in deck.
     //! \return Generated SelfCondition for intended purpose.
-    static SelfCondition HasNoMinionsInDeck();
+    static SelfCondition MaximumCardsInDeck(int value);
 
     //! SelfCondition wrapper for checking the player has no neutral cards
     //! in deck.
