@@ -52,30 +52,6 @@ class Card
     //! \return The value of tier.
     int GetTier() const;
 
-    //! Returns the flag that indicates whether it is a Tier 1 minion in pool.
-    //! \return the flag that indicates whether it is a Tier 1 minion in pool.
-    bool IsTier1MinionInPool() const;
-
-    //! Returns the flag that indicates whether it is a Tier 2 minion in pool.
-    //! \return the flag that indicates whether it is a Tier 2 minion in pool.
-    bool IsTier2MinionInPool() const;
-
-    //! Returns the flag that indicates whether it is a Tier 3 minion in pool.
-    //! \return the flag that indicates whether it is a Tier 3 minion in pool.
-    bool IsTier3MinionInPool() const;
-
-    //! Returns the flag that indicates whether it is a Tier 4 minion in pool.
-    //! \return the flag that indicates whether it is a Tier 4 minion in pool.
-    bool IsTier4MinionInPool() const;
-
-    //! Returns the flag that indicates whether it is a Tier 5 minion in pool.
-    //! \return the flag that indicates whether it is a Tier 5 minion in pool.
-    bool IsTier5MinionInPool() const;
-
-    //! Returns the flag that indicates whether it is a Tier 6 minion in pool.
-    //! \return the flag that indicates whether it is a Tier 6 minion in pool.
-    bool IsTier6MinionInPool() const;
-
     //! Gets a value indicating whether source entity is playable by card
     //! requirements. Static requirements are checked.
     //! \param player The player of the source.
