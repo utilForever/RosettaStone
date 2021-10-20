@@ -131,22 +131,22 @@ constexpr int NUM_COPIES_OF_EACH_TIER5_MINIONS = 9;
 constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 
 //! The number of tier 1 minions in Battlegrounds.
-constexpr int NUM_TIER1_MINIONS = 19;
+constexpr int NUM_TIER1_MINIONS = 18;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS = 26;
+constexpr int NUM_TIER2_MINIONS = 25;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 30;
+constexpr int NUM_TIER3_MINIONS = 29;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 26;
+constexpr int NUM_TIER4_MINIONS = 28;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 26;
+constexpr int NUM_TIER5_MINIONS = 25;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 17;
+constexpr int NUM_TIER6_MINIONS = 19;
 
 //! A list of Tier 1 minion dbfIDs in Battlegrounds.
 // Beast Pool
