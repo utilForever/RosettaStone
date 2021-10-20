@@ -131,261 +131,22 @@ constexpr int NUM_COPIES_OF_EACH_TIER5_MINIONS = 9;
 constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 
 //! The number of tier 1 minions in Battlegrounds.
-constexpr int NUM_TIER1_MINIONS = 19;
+constexpr int NUM_TIER1_MINIONS = 18;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS = 26;
+constexpr int NUM_TIER2_MINIONS = 25;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 30;
+constexpr int NUM_TIER3_MINIONS = 29;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 26;
+constexpr int NUM_TIER4_MINIONS = 28;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 26;
+constexpr int NUM_TIER5_MINIONS = 25;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 17;
-
-//! A list of Tier 1 minion dbfIDs in Battlegrounds.
-// Beast Pool
-// Alleycat (40426)
-// Scavenging Hyena (1281)
-// Demon Pool
-// Fiendish Servant (56112)
-// Vulgar Homunculus (43121)
-// Wrath Weaver (59670)
-// Dragon Pool
-// Dragonspawn Lieutenant (60628)
-// Red Whelp (59968)
-// Elemental Pool
-// Refreshing Anomaly (64042)
-// Sellemental (64038)
-// Mech Pool
-// Micro Machine (60055)
-// Micro Mummy (53445)
-// Murloc Pool
-// Murloc Tidecaller (475)
-// Murloc Tidehunter (976)
-// Rockpool Hunter (41245)
-// Pirate Pool
-// Deck Swabbie (61055)
-// Scallywag (61061)
-// Quilboar Pool
-// Razorfen Geomancer (70143)
-// Sun-Bacon Relaxer (70147)
-// Neutral
-// Acolyte of C'Thun (63614)
-constexpr std::array<int, NUM_TIER1_MINIONS> TIER1_MINIONS = {
-    40426, 1281, 56112, 43121, 59670, 60628, 59968, 64042, 64038, 60055,
-    53445, 475,  976,   41245, 61055, 61061, 70143, 70147, 63614
-};
-
-//! A list of Tier 2 minion dbfIDs in Battlegrounds.
-// Beast Pool
-// Kindly Grandmother (39481)
-// Pack Leader (59940)
-// Rabid Saurolisk (62162)
-// Demon Pool
-// Imprisoner (59937)
-// Nathrezim Overseer (59186)
-// Dragon Pool
-// Glyph Guardian (61029)
-// Steward of Time (60621)
-// Waxrider Togwaggle (60559)
-// Elemental Pool
-// Molten Rock (64296)
-// Party Elemental (64056)
-// Mech Pool
-// Harvest Golem (778)
-// Kaboom Bot (49279)
-// Metaltooth Leaper (2016)
-// Murloc Pool
-// Murloc Warleader (1063)
-// Old Murk-Eye (736)
-// Pirate Pool
-// Freedealing Gambler (61049)
-// Southsea Captain (680)
-// Yo-Ho-Ogre (61060)
-// Quilboar Pool
-// Roadboar (70157)
-// Tough Tusk (70162)
-// Prophet of the Boar (70153)
-// Neutral
-// Menagerie Mug (63435)
-// Spawn of N'Zoth (38797)
-// Selfless Hero (38740)
-// Tormented Ritualist (65661)
-// Unstable Ghoul (1808)
-constexpr std::array<int, NUM_TIER2_MINIONS> TIER2_MINIONS = {
-    39481, 59940, 62162, 59937, 59186, 61029, 60621, 60559, 64296,
-    64056, 778,   49279, 2016,  1063,  736,   61049, 680,   61060,
-    70157, 70162, 70153, 63435, 38797, 38740, 65661, 1808
-};
-
-//! A list of Tier 3 minion dbfIDs in Battlegrounds.
-// Beast Pool
-// Infested Wolf (38734)
-// Monstrous Macaw (62230)
-// Houndmaster (1003)
-// Rat Pack (40428)
-// Demon Pool
-// Imp Gang Boss (2288)
-// Crystalweaver (40391)
-// Soul Devourer (61059)
-// Soul Juggler (59660)
-// Dragon Pool
-// Bronze Warden (60558)
-// Hangry Dragon (60552)
-// Twilight Emissary (60626)
-// Elemental Pool
-// Arcane Assistant (64297)
-// Crackling Cyclone (64054)
-// Stasis Elemental (64069)
-// Mech Pool
-// Deflect-o-Bot (61930)
-// Iron Sensei (1992)
-// Screwjank Clunker (2023)
-// Replicating Menace (48536)
-// Murloc Pool
-// Coldlight Seer (453)
-// Felfin Navigator (56393)
-// Pirate Pool
-// Bloodsail Cannoneer (61053)
-// Salty Looter (62734)
-// Southsea Strongarm (61048)
-// Quilboar Pool
-// Bristleback Brute (70171)
-// Bannerboar (70144)
-// Thorncaller (70175)
-// Necrolyte (70151)
-// Neutral
-// Arm of the Empire (63622)
-// Khadgar (52502)
-// Warden of Old (65660)
-constexpr std::array<int, NUM_TIER3_MINIONS> TIER3_MINIONS = {
-    38734, 62230, 1003,  40428, 2288,  40391, 61059, 59660, 60558, 60552,
-    60626, 64297, 64054, 64069, 61930, 1992,  2023,  48536, 453,   56393,
-    61053, 62734, 61048, 70171, 70144, 70175, 70151, 63622, 52502, 65660
-};
-
-//! A list of Tier 4 minion dbfIDs in Battlegrounds.
-// Beast Pool
-// Cave Hydra (43358)
-// Savannah Highmane (1261)
-// Virmen Sensei (40641)
-// Demon Pool
-// Bigfernal (66227)
-// Hexruin Marauder (73072)
-// Ring Matron (61884)
-// Dragon Pool
-// Cobalt Scalebane (42442)
-// Drakonid Enforcer (61072)
-// Herald of Flame (60498)
-// Elemental Pool
-// Majordomo Executus (63630)
-// Wildfire Elemental (64189)
-// Mech Pool
-// Annoy-o-Module (48993)
-// Mechano-Egg (49169)
-// Security Rover (48100)
-// Murloc Pool
-// Primalfin Lookout (60028)
-// Toxfin (52277)
-// Pirate Pool
-// Goldgrubber (61066)
-// Ripsnarl Captain (61056)
-// Quilboar Pool
-// Dynamic Duo (70184)
-// Bonker (70173)
-// Groundshaker (70188)
-// Neutral
-// Bolvar, Fireblood (45392)
-// Champion of Y'Shaarj (63623)
-// Defender of Argus (763)
-// Menagerie Jug (63487)
-// Qiraji Harbinger (63619)
-constexpr std::array<int, NUM_TIER4_MINIONS> TIER4_MINIONS = {
-    43358, 1261,  40641, 66227, 73072, 61884, 42442, 61072, 60498,
-    63630, 64189, 48993, 49169, 48100, 60028, 52277, 61066, 61056,
-    70184, 70173, 70188, 45392, 63623, 763,   63487, 63619
-};
-
-//! A list of Tier 5 minion dbfIDs in Battlegrounds.
-// Beast Pool
-// Ironhide Direhorn (49973)
-// Mama Bear (60036)
-// Demon Pool
-// Annihilan Battlemaster (59714)
-// Mal'Ganis (1986)
-// Voidlord (46056)
-// Dragon Pool
-// Murozond (60637)
-// Razorgore, the Untamed (60561)
-// Elemental Pool
-// Nomi, Kitchen Nightmare (63626)
-// Tavern Tempest (64077)
-// Mech Pool
-// Junkbot (2074)
-// Kangor's Apprentice (59935)
-// Sneed's Old Shredder (59682)
-// Murloc Pool
-// King Bagurgle (60247)
-// Pirate Pool
-// Cap'n Hoggarr (61989)
-// Nat Pagle, Extreme Angler (61046)
-// Seabreaker Goliath (62458)
-// Quilboar Pool
-// Bristleback Knight (70158)
-// Aggem Thorncurse (70163)
-// Agamaggan, The Great Boar (70176)
-// Neutral
-// Baron Rivendare (1915)
-// Brann Bronzebeard (2949)
-// Deadly Spore (65031)
-// Faceless Taverngoer (63627)
-// Lightfang Enforcer (59707)
-// Mythrax the Unraveler (65662)
-// Strongshell Scavenger (43022)
-constexpr std::array<int, NUM_TIER5_MINIONS> TIER5_MINIONS = {
-    49973, 60036, 59714, 1986,  46056, 60637, 60561, 63626, 64077,
-    2074,  59935, 59682, 60247, 61989, 61046, 62458, 70158, 70163,
-    70176, 1915,  2949,  65031, 63627, 59707, 65662, 43022
-};
-
-//! A list of Tier 6 minion dbfIDs in Battlegrounds.
-// Beast Pool
-// Ghastcoiler (59687)
-// Goldrinn, the Great Wolf (59955)
-// Maexxna (1791)
-// Demon Pool
-// Imp Mama (61028)
-// Dragon Pool
-// Kalecgos, Arcane Aspect (60630)
-// Nadina the Red (60629)
-// Elemental Pool
-// Gentle Djinni (64062)
-// Lieutenant Garr (64081)
-// Lil' Rag (63624)
-// Mech Pool
-// Foe Reaper 4000 (2081)
-// Murloc Pool
-// N/A
-// Pirate Pool
-// Dread Admiral Eliza (61047)
-// The Tide Razor (62232)
-// Quilboar Pool
-// Charlga (70165)
-// Captain Flat Tusk (70179)
-// Neutral
-// Amalgadon (61444)
-// Archdruid Hamuul (72230)
-// Zapp Slywick (60040)
-constexpr std::array<int, NUM_TIER6_MINIONS> TIER6_MINIONS = {
-    59687, 59955, 1791,  61028, 60630, 60629, 64062, 64081, 63624,
-    2081,  61047, 62232, 70165, 70179, 61444, 72230, 60040
-};
+constexpr int NUM_TIER6_MINIONS = 19;
 
 //! The total number of tier minions in Battlegrounds Tavern.
 constexpr int NUM_TOTAL_TAVERN_MINIONS =
@@ -397,9 +158,9 @@ constexpr int NUM_TOTAL_TAVERN_MINIONS =
     NUM_TIER6_MINIONS * NUM_COPIES_OF_EACH_TIER6_MINIONS;
 
 //! A list of races in Battlegrounds.
-constexpr std::array<Race, 7> RACES_IN_BATTLEGROUNDS = {
+constexpr std::array<Race, 8> RACES_IN_BATTLEGROUNDS = {
     Race::BEAST,      Race::DEMON,  Race::DRAGON, Race::ELEMENTAL,
-    Race::MECHANICAL, Race::MURLOC, Race::PIRATE
+    Race::MECHANICAL, Race::MURLOC, Race::PIRATE, Race::QUILBOAR
 };
 
 //! The number of coin to purchase a minion.
