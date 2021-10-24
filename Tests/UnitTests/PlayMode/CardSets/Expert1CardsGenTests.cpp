@@ -9668,6 +9668,74 @@ TEST_CASE("[Neutral : Minion] - EX1_046 : Dark Iron Dwarf")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
+// - Faction: Horde, Set: Expert1, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Silence</b> a minion.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - EX1_048 : Spellbreaker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spellbreaker"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spellbreaker"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    CHECK_EQ(curField[0]->HasDeathrattle(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetSpellPower(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card4));
+    CHECK_EQ(opField[0]->GetSpellPower(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
 // - Faction: Alliance, Set: Expert1, Rarity: Common
 // --------------------------------------------------------

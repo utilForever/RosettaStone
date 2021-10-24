@@ -369,31 +369,6 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
-    // - Faction: Horde, Set: Legacy, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> <b>Silence</b> a minion.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_NONSELF_TARGET = 0
-    // --------------------------------------------------------
-    // RefTag:
-    // - SILENCE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_048",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Legacy, Rarity: Rare
     // --------------------------------------------------------
