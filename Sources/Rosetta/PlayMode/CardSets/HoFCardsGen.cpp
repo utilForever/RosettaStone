@@ -230,23 +230,7 @@ void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ------------------------------------------ SPELL - ROGUE
-    // [EX1_128e] Conceal - COST:1
-    // - Set: Legacy
-    // --------------------------------------------------------
-    // Text: Stealthed until your next turn.
-    // --------------------------------------------------------
-    // RefTag:
-    // - STEALTH = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
-    power.GetTrigger()->removeAfterTriggered = true;
-    cards.emplace("EX1_128e", CardDef(power));
+    (void)cards;
 }
 
 void HoFCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
@@ -342,17 +326,7 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ---------------------------------- ENCHANTMENT - NEUTRAL
-    // [NEW1_027e] Yarrr! (*) - COST:0
-    // - Set: Legacy
-    // --------------------------------------------------------
-    // Text: Southsea Captain is granting +1/+1.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_027e"));
-    cards.emplace("NEW1_027e", CardDef(power));
+    (void)cards;
 }
 
 void HoFCardsGen::AddAll(std::map<std::string, CardDef>& cards)

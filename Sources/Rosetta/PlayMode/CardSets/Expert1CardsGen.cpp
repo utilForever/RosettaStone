@@ -2855,6 +2855,22 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_073e2"));
     cards.emplace("CS2_073e2", CardDef(power));
 
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_128e] Conceal - COST:1
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Stealthed until your next turn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("EX1_128e", CardDef(power));
+
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_131t] Defias Bandit (*) - COST:1 [ATK:2/HP:1]
     // - Faction: Neutral, Set: Expert1
@@ -6462,6 +6478,16 @@ void Expert1CardsGen::AddNeutralNonCollect(
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("NEW1_026t", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [NEW1_027e] Yarrr! (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Southsea Captain is granting +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_027e"));
+    cards.emplace("NEW1_027e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_029t] Kill Millhouse! (*) - COST:0
