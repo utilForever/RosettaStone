@@ -3,8 +3,8 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_PLAYMODE_HOF_CARDS_GEN_HPP
-#define ROSETTASTONE_PLAYMODE_HOF_CARDS_GEN_HPP
+#ifndef ROSETTASTONE_PLAYMODE_LEGACY_CARDS_GEN_HPP
+#define ROSETTASTONE_PLAYMODE_LEGACY_CARDS_GEN_HPP
 
 #include <Rosetta/PlayMode/Cards/CardDef.hpp>
 
@@ -14,12 +14,12 @@
 namespace RosettaStone::PlayMode
 {
 //!
-//! \brief HoFCardsGen class.
+//! \brief LegacyCardsGen class.
 //!
-//! This structure adds HOF cards to the data storage with powers,
+//! This structure adds Legacy cards to the data storage with powers,
 //! play requirements and entourages.
 //!
-class HoFCardsGen
+class LegacyCardsGen
 {
  public:
     //! Adds hero cards to \p cards.
@@ -122,6 +122,16 @@ class HoFCardsGen
     //! play requirements and entourages.
     static void AddWarriorNonCollect(std::map<std::string, CardDef>& cards);
 
+    //! Adds demon hunter cards that are not collectible to \p cards.
+    //! \param cards A list of cards to store the data such as powers,
+    //! play requirements and entourages.
+    static void AddDemonHunter(std::map<std::string, CardDef>& cards);
+
+    //! Adds demon hunter cards that are not collectible to \p cards.
+    //! \param cards A list of cards to store the data such as powers,
+    //! play requirements and entourages.
+    static void AddDemonHunterNonCollect(std::map<std::string, CardDef>& cards);
+
     //! Adds neutral cards that are not collectible to \p cards.
     //! \param cards A list of cards to store the data such as powers,
     //! play requirements and entourages.
@@ -139,4 +149,4 @@ class HoFCardsGen
 };
 }  // namespace RosettaStone::PlayMode
 
-#endif  // ROSETTASTONE_PLAYMODE_HOF_CARDS_GEN_HPP
+#endif  // ROSETTASTONE_PLAYMODE_LEGACY_CARDS_GEN_HPP

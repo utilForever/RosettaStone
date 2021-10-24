@@ -83,7 +83,6 @@
 #include <Rosetta/PlayMode/Auras/IAura.hpp>
 #include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
-#include <Rosetta/PlayMode/CardSets/BasicCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
@@ -95,9 +94,9 @@
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
-#include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LoECardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
