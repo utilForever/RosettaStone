@@ -7339,6 +7339,70 @@ TEST_CASE("[Warlock : Minion] - EX1_315 : Summoning Portal")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [EX1_316] Power Overwhelming - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Give a friendly minion +4/+4 until end of turn.
+//       Then, it dies. Horribly.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - EX1_316 : Power Overwhelming")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Power Overwhelming"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Goldshire Footman"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("King Mukla"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    game.Process(curPlayer, AttackTask(card2, card3));
+
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [EX1_317] Sense Demons - COST:3
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // - Spell School: Shadow

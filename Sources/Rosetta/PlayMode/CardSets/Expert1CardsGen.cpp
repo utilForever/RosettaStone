@@ -3439,6 +3439,28 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_315", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
+    // [EX1_316] Power Overwhelming - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Give a friendly minion +4/+4 until end of turn.
+    //       Then, it dies. Horribly.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_316e", EntityType::TARGET));
+    cards.emplace(
+        "EX1_316",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
+
+    // ---------------------------------------- SPELL - WARLOCK
     // [EX1_317] Sense Demons - COST:3
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // - Spell School: Shadow
@@ -3570,6 +3592,20 @@ void Expert1CardsGen::AddWarlockNonCollect(
     power.AddEnchant(
         std::make_shared<Enchant>(Enchants::AddAttackHealthScriptTag));
     cards.emplace("EX1_304e", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [EX1_316e] Power Overwhelming (*) - COST:0
+    // - Faction: Neutral, Set: Expert1
+    // --------------------------------------------------------
+    // Text: This minion has +4/+4, but will die a horrible death
+    //       at the end of the turn.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_316e"));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::TARGET) };
+    cards.emplace("EX1_316e", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_317t] Worthless Imp - COST:1 [ATK:1/HP:1]

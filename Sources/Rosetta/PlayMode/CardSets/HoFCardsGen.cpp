@@ -261,48 +261,12 @@ void HoFCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ---------------------------------------- SPELL - WARLOCK
-    // [EX1_316] Power Overwhelming - COST:1
-    // - Faction: Neutral, Set: Legacy, Rarity: Common
-    // - Spell School: Shadow
-    // --------------------------------------------------------
-    // Text: Give a friendly minion +4/+4 until end of turn.
-    //       Then, it dies. Horribly.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_FRIENDLY_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_316e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_316",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
+    (void)cards;
 }
 
 void HoFCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ---------------------------------- ENCHANTMENT - WARLOCK
-    // [EX1_316e] Power Overwhelming (*) - COST:0
-    // - Faction: Neutral, Set: Legacy
-    // --------------------------------------------------------
-    // Text: This minion has +4/+4, but will die a horrible death
-    //       at the end of the turn.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_316e"));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
-        EntityType::TARGET) };
-    cards.emplace("EX1_316e", CardDef(power));
+    (void)cards;
 }
 
 void HoFCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
