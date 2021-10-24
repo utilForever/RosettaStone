@@ -11764,6 +11764,61 @@ TEST_CASE("[Neutral : Minion] - EX1_284 : Azure Drake")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
+// - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Can't attack. At the end of your turn,
+//       deal 8 damage to a random enemy.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - EX1_298 : Ragnaros the Firelord")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ragnaros the Firelord"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Grommash Hellscream"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opField.GetCount(), 1);
+    const bool check =
+        opPlayer->GetHero()->GetHealth() == 14 || opField[0]->GetHealth() == 1;
+    CHECK_EQ(check, true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
