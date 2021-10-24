@@ -78,18 +78,6 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
-    // ---------------------------------------- MINION - PRIEST
-    // [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
-    // - Set: Legacy, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Whenever a minion is healed, draw a card.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
-    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("CS2_235", CardDef(power));
-
     // ----------------------------------------- SPELL - PRIEST
     // [CS2_236] Divine Spirit - COST:2
     // - Set: Legacy, Rarity: Free

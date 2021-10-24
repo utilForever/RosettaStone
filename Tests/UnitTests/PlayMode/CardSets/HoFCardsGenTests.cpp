@@ -18,57 +18,6 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
-// ---------------------------------------- MINION - PRIEST
-// [CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
-// - Set: Legacy, Rarity: Free
-// --------------------------------------------------------
-// Text: Whenever a minion is healed, draw a card.
-// --------------------------------------------------------
-TEST_CASE("[Priest : Minion] - CS2_235 : Northshire Cleric")
-{
-    GameConfig config;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetDamage(6);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Northshire Cleric"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voodoo Doctor"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voodoo Doctor"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-
-    game.Process(curPlayer,
-                 PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
-
-    curField[0]->SetDamage(2);
-
-    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 3);
-}
-
 // ----------------------------------------- SPELL - PRIEST
 // [CS2_236] Divine Spirit - COST:2
 // - Set: Legacy, Rarity: Free
