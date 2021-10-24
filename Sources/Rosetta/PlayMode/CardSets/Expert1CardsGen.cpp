@@ -1490,6 +1490,21 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     };
     cards.emplace("EX1_294", CardDef(power));
 
+    // ------------------------------------------- SPELL - MAGE
+    // [EX1_295] Ice Block - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Epic
+    // - Spell School: Frost
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> When your hero takes fatal damage,
+    //       prevent it and become <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
     // ------------------------------------------ MINION - MAGE
     // [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
@@ -1632,6 +1647,16 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::AttackHealthN(2)));
     cards.emplace("EX1_274e", CardDef(power));
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [EX1_295o] Ice Block (*) - COST:0
+    // - Set: Expert1
+    // --------------------------------------------------------
+    // Text: Your hero is <b>Immune</b> this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [EX1_612o] Power of the Kirin Tor (*) - COST:0
