@@ -5,7 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
-#include <Rosetta/PlayMode/CardSets/BasicCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
@@ -13,7 +13,6 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -30,7 +29,7 @@ using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 
-void BasicCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -145,7 +144,7 @@ void BasicCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     cards.emplace("HERO_10", CardDef(power));
 }
 
-void BasicCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -460,7 +459,7 @@ void BasicCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     cards.emplace("HERO_10bp2", CardDef(power));
 }
 
-void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -615,7 +614,7 @@ void BasicCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 }
 
-void BasicCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -669,7 +668,7 @@ void BasicCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_017o", CardDef(power));
 }
 
-void BasicCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -863,7 +862,7 @@ void BasicCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                 Entourages{ "NEW1_032", "NEW1_033", "NEW1_034" }));
 }
 
-void BasicCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -959,7 +958,7 @@ void BasicCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_034", CardDef(power));
 }
 
-void BasicCardsGen::AddMage(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1122,12 +1121,12 @@ void BasicCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_277", CardDef(power));
 }
 
-void BasicCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
     (void)cards;
 }
 
-void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1294,7 +1293,7 @@ void BasicCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
-void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1338,7 +1337,7 @@ void BasicCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_360e", CardDef(power));
 }
 
-void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1517,7 +1516,7 @@ void BasicCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_MIN_ATTACK, 5 } }));
 }
 
-void BasicCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1542,7 +1541,7 @@ void BasicCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_194e", CardDef(power));
 }
 
-void BasicCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1707,7 +1706,7 @@ void BasicCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                                            { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 }
 
-void BasicCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1736,7 +1735,7 @@ void BasicCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_191e", CardDef(power));
 }
 
-void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -1935,7 +1934,7 @@ void BasicCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 }
 
-void BasicCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -2070,7 +2069,7 @@ void BasicCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_009", CardDef(power));
 }
 
-void BasicCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -2244,7 +2243,7 @@ void BasicCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_WITH_RACE, 15 } }));
 }
 
-void BasicCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -2261,7 +2260,7 @@ void BasicCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_063e", CardDef(power));
 }
 
-void BasicCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -2416,7 +2415,7 @@ void BasicCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("NEW1_011", CardDef(power));
 }
 
-void BasicCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -2454,7 +2453,7 @@ void BasicCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_084e", CardDef(power));
 }
 
-void BasicCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -2627,7 +2626,7 @@ void BasicCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_921", CardDef(power));
 }
 
-void BasicCardsGen::AddDemonHunterNonCollect(
+void LegacyCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
     Power power;
@@ -2714,7 +2713,7 @@ void BasicCardsGen::AddDemonHunterNonCollect(
     cards.emplace("HERO_10pe2", CardDef(power));
 }
 
-void BasicCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -3284,7 +3283,7 @@ void BasicCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_593", CardDef(power));
 }
 
-void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
@@ -3405,7 +3404,7 @@ void BasicCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("hexfrog", CardDef(power));
 }
 
-void BasicCardsGen::AddAll(std::map<std::string, CardDef>& cards)
+void LegacyCardsGen::AddAll(std::map<std::string, CardDef>& cards)
 {
     AddHeroes(cards);
     AddHeroPowers(cards);
