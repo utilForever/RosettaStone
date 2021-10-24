@@ -128,22 +128,6 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("DS1_233", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
-    // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
-    // - Faction: Neutral, Set: Legacy, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: Double the damage and healing of your spells and Hero Power.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(
-        AuraType::PLAYER,
-        EffectList{ std::make_shared<Effect>(GameTag::SPELLPOWER_DOUBLE,
-                                             EffectOperator::ADD, 1) }));
-    cards.emplace("EX1_350", CardDef(power));
-
-    // ---------------------------------------- MINION - PRIEST
     // [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
     // - Faction: Neutral, Set: Legacy, Rarity: Rare
     // --------------------------------------------------------
