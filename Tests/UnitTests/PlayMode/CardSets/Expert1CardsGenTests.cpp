@@ -9790,6 +9790,44 @@ TEST_CASE("[Neutral : Minion] - EX1_049 : Youthful Brewmaster")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
+// - Faction: Neutral, Set: Expert1, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Each player draws 2 cards.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - EX1_050 : Coldlight Oracle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Coldlight Oracle"));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
 // - Faction: Alliance, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------

@@ -4634,6 +4634,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Each player draws 2 cards.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
+    cards.emplace("EX1_050", CardDef(power));
+
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
     // - Faction: Alliance, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------

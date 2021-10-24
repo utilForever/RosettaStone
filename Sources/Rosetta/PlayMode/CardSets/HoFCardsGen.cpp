@@ -369,20 +369,6 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
-    // - Faction: Neutral, Set: Legacy, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Each player draws 2 cards.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(2));
-    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
-    cards.emplace("EX1_050", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
     // - Race: Murloc, Faction: Neutral. Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------
