@@ -2,8 +2,8 @@
 
 ## Card Sets
 
-* [Basic](#basic)
-* [Classic](#classic)
+* [Legacy](#legacy)
+* [Expert1](#expert1)
 * [Demon Hunter Initiate](#demon-hunter-initiate)
 * [Hall of Fame](#hall-of-fame)
 * [Curse of Naxxramas](#curse-of-naxxramas)
@@ -24,155 +24,179 @@
 * [Descent of Dragons](#descent-of-dragons)
 * [Galakrond's Awakening](#galakronds-awakening)
 
-## Basic
+## Legacy
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-BASIC | BT_035 | Chaos Strike | O
-BASIC | BT_036 | Coordinated Strike | O
-BASIC | BT_142 | Shadowhoof Slayer | O
-BASIC | BT_235 | Chaos Nova | O
-BASIC | BT_323 | Sightless Watcher | O
-BASIC | BT_352 | Satyr Overseer | O
-BASIC | BT_495 | Glaivebound Adept | O
-BASIC | BT_512 | Inner Demon | O
-BASIC | BT_740 | Soul Cleave | O
-BASIC | BT_921 | Aldrachi Warblades | O
-BASIC | CS1_042 | Goldshire Footman | O
-BASIC | CS1_112 | Holy Nova | O
-BASIC | CS1_113 | Mind Control | O
-BASIC | CS1_130 | Holy Smite | O
-BASIC | CS2_003 | Mind Vision | O
-BASIC | CS2_004 | Power Word: Shield | O
-BASIC | CS2_005 | Claw | O
-BASIC | CS2_007 | Healing Touch | O
-BASIC | CS2_008 | Moonfire | O
-BASIC | CS2_009 | Mark of the Wild | O
-BASIC | CS2_011 | Savage Roar | O
-BASIC | CS2_012 | Swipe | O
-BASIC | CS2_013 | Wild Growth | O
-BASIC | CS2_022 | Polymorph | O
-BASIC | CS2_023 | Arcane Intellect | O
-BASIC | CS2_024 | Frostbolt | O
-BASIC | CS2_025 | Arcane Explosion | O
-BASIC | CS2_026 | Frost Nova | O
-BASIC | CS2_027 | Mirror Image | O
-BASIC | CS2_029 | Fireball | O
-BASIC | CS2_032 | Flamestrike | O
-BASIC | CS2_033 | Water Elemental | O
-BASIC | CS2_037 | Frost Shock | O
-BASIC | CS2_039 | Windfury | O
-BASIC | CS2_041 | Ancestral Healing | O
-BASIC | CS2_042 | Fire Elemental | O
-BASIC | CS2_045 | Rockbiter Weapon | O
-BASIC | CS2_046 | Bloodlust | O
-BASIC | CS2_057 | Shadow Bolt | O
-BASIC | CS2_061 | Drain Life | O
-BASIC | CS2_062 | Hellfire | O
-BASIC | CS2_063 | Corruption | O
-BASIC | CS2_064 | Dread Infernal | O
-BASIC | CS2_065 | Voidwalker | O
-BASIC | CS2_072 | Backstab | O
-BASIC | CS2_074 | Deadly Poison | O
-BASIC | CS2_075 | Sinister Strike | O
-BASIC | CS2_076 | Assassinate | O
-BASIC | CS2_077 | Sprint | O
-BASIC | CS2_080 | Assassin's Blade | O
-BASIC | CS2_084 | Hunter's Mark | O
-BASIC | CS2_087 | Blessing of Might | O
-BASIC | CS2_088 | Guardian of Kings | O
-BASIC | CS2_089 | Holy Light | O
-BASIC | CS2_091 | Light's Justice | O
-BASIC | CS2_092 | Blessing of Kings | O
-BASIC | CS2_093 | Consecration | O
-BASIC | CS2_094 | Hammer of Wrath | O
-BASIC | CS2_097 | Truesilver Champion | O
-BASIC | CS2_103 | Charge | O
-BASIC | CS2_105 | Heroic Strike | O
-BASIC | CS2_106 | Fiery War Axe | O
-BASIC | CS2_108 | Execute | O
-BASIC | CS2_112 | Arcanite Reaper | O
-BASIC | CS2_114 | Cleave | O
-BASIC | CS2_118 | Magma Rager | O
-BASIC | CS2_119 | Oasis Snapjaw | O
-BASIC | CS2_120 | River Crocolisk | O
-BASIC | CS2_121 | Frostwolf Grunt | O
-BASIC | CS2_122 | Raid Leader | O
-BASIC | CS2_124 | Wolfrider | O
-BASIC | CS2_125 | Ironfur Grizzly | O
-BASIC | CS2_127 | Silverback Patriarch | O
-BASIC | CS2_131 | Stormwind Knight | O
-BASIC | CS2_141 | Ironforge Rifleman | O
-BASIC | CS2_142 | Kobold Geomancer | O
-BASIC | CS2_147 | Gnomish Inventor | O
-BASIC | CS2_150 | Stormpike Commando | O
-BASIC | CS2_155 | Archmage | O
-BASIC | CS2_162 | Lord of the Arena | O
-BASIC | CS2_168 | Murloc Raider | O
-BASIC | CS2_171 | Stonetusk Boar | O
-BASIC | CS2_172 | Bloodfen Raptor | O
-BASIC | CS2_173 | Bluegill Warrior | O
-BASIC | CS2_179 | Sen'jin Shieldmasta | O
-BASIC | CS2_182 | Chillwind Yeti | O
-BASIC | CS2_186 | War Golem | O
-BASIC | CS2_187 | Booty Bay Bodyguard | O
-BASIC | CS2_189 | Elven Archer | O
-BASIC | CS2_196 | Razorfen Hunter | O
-BASIC | CS2_197 | Ogre Magi | O
-BASIC | CS2_200 | Boulderfist Ogre | O
-BASIC | CS2_201 | Core Hound | O
-BASIC | CS2_213 | Reckless Rocketeer | O
-BASIC | CS2_222 | Stormwind Champion | O
-BASIC | CS2_226 | Frostwolf Warlord | O
-BASIC | CS2_232 | Ironbark Protector | O
-BASIC | CS2_234 | Shadow Word: Pain | O
-BASIC | CS2_237 | Starving Buzzard | O
-BASIC | DS1_055 | Darkscale Healer | O
-BASIC | DS1_070 | Houndmaster | O
-BASIC | DS1_175 | Timber Wolf | O
-BASIC | DS1_178 | Tundra Rhino | O
-BASIC | DS1_183 | Multi-Shot | O
-BASIC | DS1_184 | Tracking | O
-BASIC | DS1_185 | Arcane Shot | O
-BASIC | EX1_011 | Voodoo Doctor | O
-BASIC | EX1_015 | Novice Engineer | O
-BASIC | EX1_019 | Shattered Sun Cleric | O
-BASIC | EX1_025 | Dragonling Mechanic | O
-BASIC | EX1_066 | Acidic Swamp Ooze | O
-BASIC | EX1_084 | Warsong Commander | O
-BASIC | EX1_129 | Fan of Knives | O
-BASIC | EX1_169 | Innervate | O
-BASIC | EX1_173 | Starfire | O
-BASIC | EX1_191 | Plaguebringer | O
-BASIC | EX1_192 | Radiance | O
-BASIC | EX1_193 | Psychic Conjurer | O
-BASIC | EX1_194 | Power Infusion | O
-BASIC | EX1_244 | Totemic Might | O
-BASIC | EX1_246 | Hex | O
-BASIC | EX1_277 | Arcane Missiles | O
-BASIC | EX1_278 | Shiv | O
-BASIC | EX1_302 | Mortal Coil | O
-BASIC | EX1_306 | Felstalker | O
-BASIC | EX1_308 | Soulfire | O
-BASIC | EX1_360 | Humility | O
-BASIC | EX1_371 | Hand of Protection | O
-BASIC | EX1_399 | Gurubashi Berserker | O
-BASIC | EX1_400 | Whirlwind | O
-BASIC | EX1_506 | Murloc Tidehunter | O
-BASIC | EX1_508 | Grimscale Oracle | O
-BASIC | EX1_539 | Kill Command | O
-BASIC | EX1_565 | Flametongue Totem | O
-BASIC | EX1_581 | Sap | O
-BASIC | EX1_582 | Dalaran Mage | O
-BASIC | EX1_587 | Windspeaker | O
-BASIC | EX1_593 | Nightblade | O
-BASIC | EX1_606 | Shield Block | O
-BASIC | EX1_622 | Shadow Word: Death | O
-BASIC | NEW1_003 | Sacrificial Pact | O
-BASIC | NEW1_011 | Kor'kron Elite | O
-BASIC | NEW1_031 | Animal Companion | O
+LEGACY | BT_035 | Chaos Strike | O
+LEGACY | BT_036 | Coordinated Strike | O
+LEGACY | BT_142 | Shadowhoof Slayer | O
+LEGACY | BT_235 | Chaos Nova | O
+LEGACY | BT_323 | Sightless Watcher | O
+LEGACY | BT_352 | Satyr Overseer | O
+LEGACY | BT_495 | Glaivebound Adept | O
+LEGACY | BT_512 | Inner Demon | O
+LEGACY | BT_740 | Soul Cleave | O
+LEGACY | BT_921 | Aldrachi Warblades | O
+LEGACY | CS1_042 | Goldshire Footman | O
+LEGACY | CS1_112 | Holy Nova | O
+LEGACY | CS1_113 | Mind Control | O
+LEGACY | CS1_130 | Holy Smite | O
+LEGACY | CS2_003 | Mind Vision | O
+LEGACY | CS2_004 | Power Word: Shield | O
+LEGACY | CS2_005 | Claw | O
+LEGACY | CS2_007 | Healing Touch | O
+LEGACY | CS2_008 | Moonfire | O
+LEGACY | CS2_009 | Mark of the Wild | O
+LEGACY | CS2_011 | Savage Roar | O
+LEGACY | CS2_012 | Swipe | O
+LEGACY | CS2_013 | Wild Growth | O
+LEGACY | CS2_022 | Polymorph | O
+LEGACY | CS2_023 | Arcane Intellect | O
+LEGACY | CS2_024 | Frostbolt | O
+LEGACY | CS2_025 | Arcane Explosion | O
+LEGACY | CS2_026 | Frost Nova | O
+LEGACY | CS2_027 | Mirror Image | O
+LEGACY | CS2_029 | Fireball | O
+LEGACY | CS2_032 | Flamestrike | O
+LEGACY | CS2_033 | Water Elemental | O
+LEGACY | CS2_037 | Frost Shock | O
+LEGACY | CS2_039 | Windfury | O
+LEGACY | CS2_041 | Ancestral Healing | O
+LEGACY | CS2_042 | Fire Elemental | O
+LEGACY | CS2_045 | Rockbiter Weapon | O
+LEGACY | CS2_046 | Bloodlust | O
+LEGACY | CS2_057 | Shadow Bolt | O
+LEGACY | CS2_061 | Drain Life | O
+LEGACY | CS2_062 | Hellfire | O
+LEGACY | CS2_063 | Corruption | O
+LEGACY | CS2_064 | Dread Infernal | O
+LEGACY | CS2_065 | Voidwalker | O
+LEGACY | CS2_072 | Backstab | O
+LEGACY | CS2_074 | Deadly Poison | O
+LEGACY | CS2_075 | Sinister Strike | O
+LEGACY | CS2_076 | Assassinate | O
+LEGACY | CS2_077 | Sprint | O
+LEGACY | CS2_080 | Assassin's Blade | O
+LEGACY | CS2_084 | Hunter's Mark | O
+LEGACY | CS2_087 | Blessing of Might | O
+LEGACY | CS2_088 | Guardian of Kings | O
+LEGACY | CS2_089 | Holy Light | O
+LEGACY | CS2_091 | Light's Justice | O
+LEGACY | CS2_092 | Blessing of Kings | O
+LEGACY | CS2_093 | Consecration | O
+LEGACY | CS2_094 | Hammer of Wrath | O
+LEGACY | CS2_097 | Truesilver Champion | O
+LEGACY | CS2_103 | Charge | O
+LEGACY | CS2_105 | Heroic Strike | O
+LEGACY | CS2_106 | Fiery War Axe | O
+LEGACY | CS2_108 | Execute | O
+LEGACY | CS2_112 | Arcanite Reaper | O
+LEGACY | CS2_114 | Cleave | O
+LEGACY | CS2_118 | Magma Rager | O
+LEGACY | CS2_119 | Oasis Snapjaw | O
+LEGACY | CS2_120 | River Crocolisk | O
+LEGACY | CS2_121 | Frostwolf Grunt | O
+LEGACY | CS2_122 | Raid Leader | O
+LEGACY | CS2_124 | Wolfrider | O
+LEGACY | CS2_125 | Ironfur Grizzly | O
+LEGACY | CS2_127 | Silverback Patriarch | O
+LEGACY | CS2_131 | Stormwind Knight | O
+LEGACY | CS2_141 | Ironforge Rifleman | O
+LEGACY | CS2_142 | Kobold Geomancer | O
+LEGACY | CS2_147 | Gnomish Inventor | O
+LEGACY | CS2_150 | Stormpike Commando | O
+LEGACY | CS2_155 | Archmage | O
+LEGACY | CS2_162 | Lord of the Arena | O
+LEGACY | CS2_168 | Murloc Raider | O
+LEGACY | CS2_171 | Stonetusk Boar | O
+LEGACY | CS2_172 | Bloodfen Raptor | O
+LEGACY | CS2_173 | Bluegill Warrior | O
+LEGACY | CS2_179 | Sen'jin Shieldmasta | O
+LEGACY | CS2_182 | Chillwind Yeti | O
+LEGACY | CS2_186 | War Golem | O
+LEGACY | CS2_187 | Booty Bay Bodyguard | O
+LEGACY | CS2_189 | Elven Archer | O
+LEGACY | CS2_196 | Razorfen Hunter | O
+LEGACY | CS2_197 | Ogre Magi | O
+LEGACY | CS2_200 | Boulderfist Ogre | O
+LEGACY | CS2_201 | Core Hound | O
+LEGACY | CS2_213 | Reckless Rocketeer | O
+LEGACY | CS2_222 | Stormwind Champion | O
+LEGACY | CS2_226 | Frostwolf Warlord | O
+LEGACY | CS2_232 | Ironbark Protector | O
+LEGACY | CS2_234 | Shadow Word: Pain | O
+LEGACY | CS2_235 | Northshire Cleric | O
+LEGACY | CS2_236 | Divine Spirit | O
+LEGACY | CS2_237 | Starving Buzzard | O
+LEGACY | DS1_055 | Darkscale Healer | O
+LEGACY | DS1_070 | Houndmaster | O
+LEGACY | DS1_175 | Timber Wolf | O
+LEGACY | DS1_178 | Tundra Rhino | O
+LEGACY | DS1_183 | Multi-Shot | O
+LEGACY | DS1_184 | Tracking | O
+LEGACY | DS1_185 | Arcane Shot | O
+LEGACY | DS1_233 | Mind Blast | O
+LEGACY | EX1_011 | Voodoo Doctor | O
+LEGACY | EX1_015 | Novice Engineer | O
+LEGACY | EX1_019 | Shattered Sun Cleric | O
+LEGACY | EX1_025 | Dragonling Mechanic | O
+LEGACY | EX1_062 | Old Murk-Eye | O
+LEGACY | EX1_066 | Acidic Swamp Ooze | O
+LEGACY | EX1_084 | Warsong Commander | O
+LEGACY | EX1_112 | Gelbin Mekkatorque |  
+LEGACY | EX1_129 | Fan of Knives | O
+LEGACY | EX1_169 | Innervate | O
+LEGACY | EX1_173 | Starfire | O
+LEGACY | EX1_179 | Icicle | O
+LEGACY | EX1_180 | Tome of Intellect | O
+LEGACY | EX1_181 | Call of the Void | O
+LEGACY | EX1_182 | Pilfer | O
+LEGACY | EX1_183 | Gift of the Wild | O
+LEGACY | EX1_184 | Righteousness | O
+LEGACY | EX1_185 | Siegebreaker | O
+LEGACY | EX1_186 | SI:7 Infiltrator | O
+LEGACY | EX1_187 | Arcane Devourer | O
+LEGACY | EX1_188 | Barrens Stablehand | O
+LEGACY | EX1_189 | Brightwing | O
+LEGACY | EX1_190 | High Inquisitor Whitemane | O
+LEGACY | EX1_191 | Plaguebringer | O
+LEGACY | EX1_192 | Radiance | O
+LEGACY | EX1_193 | Psychic Conjurer | O
+LEGACY | EX1_194 | Power Infusion | O
+LEGACY | EX1_195 | Kul Tiran Chaplain | O
+LEGACY | EX1_196 | Scarlet Subjugator | O
+LEGACY | EX1_197 | Shadow Word: Ruin | O
+LEGACY | EX1_198 | Natalie Seline | O
+LEGACY | EX1_244 | Totemic Might | O
+LEGACY | EX1_246 | Hex | O
+LEGACY | EX1_277 | Arcane Missiles | O
+LEGACY | EX1_278 | Shiv | O
+LEGACY | EX1_302 | Mortal Coil | O
+LEGACY | EX1_306 | Felstalker | O
+LEGACY | EX1_308 | Soulfire | O
+LEGACY | EX1_360 | Humility | O
+LEGACY | EX1_371 | Hand of Protection | O
+LEGACY | EX1_399 | Gurubashi Berserker | O
+LEGACY | EX1_400 | Whirlwind | O
+LEGACY | EX1_506 | Murloc Tidehunter | O
+LEGACY | EX1_508 | Grimscale Oracle | O
+LEGACY | EX1_539 | Kill Command | O
+LEGACY | EX1_565 | Flametongue Totem | O
+LEGACY | EX1_581 | Sap | O
+LEGACY | EX1_582 | Dalaran Mage | O
+LEGACY | EX1_587 | Windspeaker | O
+LEGACY | EX1_593 | Nightblade | O
+LEGACY | EX1_606 | Shield Block | O
+LEGACY | EX1_622 | Shadow Word: Death | O
+LEGACY | NEW1_003 | Sacrificial Pact | O
+LEGACY | NEW1_004 | Vanish | O
+LEGACY | NEW1_011 | Kor'kron Elite | O
+LEGACY | NEW1_016 | Captain's Parrot |  
+LEGACY | NEW1_031 | Animal Companion | O
+LEGACY | PRO_001 | Elite Tauren Chieftain |  
 
-- Progress: 100% (143 of 143 Cards)
+- Progress: 98% (164 of 167 Cards)
 
 ## Classic
 
@@ -181,6 +205,7 @@ Set | ID | Name | Implemented
 EXPERT1 | CS1_069 | Fen Creeper | O
 EXPERT1 | CS1_129 | Inner Fire | O
 EXPERT1 | CS2_028 | Blizzard | O
+EXPERT1 | CS2_031 | Ice Lance | O
 EXPERT1 | CS2_038 | Ancestral Spirit | O
 EXPERT1 | CS2_053 | Far Sight | O
 EXPERT1 | CS2_059 | Blood Imp | O
@@ -204,11 +229,13 @@ EXPERT1 | EX1_002 | The Black Knight | O
 EXPERT1 | EX1_004 | Young Priestess | O
 EXPERT1 | EX1_005 | Big Game Hunter | O
 EXPERT1 | EX1_006 | Alarm-o-Bot | O
+EXPERT1 | EX1_007 | Acolyte of Pain | O
 EXPERT1 | EX1_008 | Argent Squire | O
 EXPERT1 | EX1_009 | Angry Chicken | O
 EXPERT1 | EX1_010 | Worgen Infiltrator | O
 EXPERT1 | EX1_012 | Bloodmage Thalnos | O
 EXPERT1 | EX1_014 | King Mukla | O
+EXPERT1 | EX1_016 | Sylvanas Windrunner | O
 EXPERT1 | EX1_017 | Jungle Panther | O
 EXPERT1 | EX1_020 | Scarlet Crusader | O
 EXPERT1 | EX1_021 | Thrallmar Farseer | O
@@ -221,7 +248,9 @@ EXPERT1 | EX1_043 | Twilight Drake | O
 EXPERT1 | EX1_044 | Questing Adventurer | O
 EXPERT1 | EX1_045 | Ancient Watcher | O
 EXPERT1 | EX1_046 | Dark Iron Dwarf | O
+EXPERT1 | EX1_048 | Spellbreaker | O
 EXPERT1 | EX1_049 | Youthful Brewmaster | O
+EXPERT1 | EX1_050 | Coldlight Oracle | O
 EXPERT1 | EX1_055 | Mana Addict | O
 EXPERT1 | EX1_057 | Ancient Brewmaster | O
 EXPERT1 | EX1_058 | Sunfury Protector | O
@@ -231,6 +260,7 @@ EXPERT1 | EX1_076 | Pint-Sized Summoner | O
 EXPERT1 | EX1_080 | Secretkeeper | O
 EXPERT1 | EX1_082 | Mad Bomber | O
 EXPERT1 | EX1_083 | Tinkmaster Overspark | O
+EXPERT1 | EX1_085 | Mind Control Tech | O
 EXPERT1 | EX1_089 | Arcane Golem | O
 EXPERT1 | EX1_091 | Cabal Shadow Priest | O
 EXPERT1 | EX1_093 | Defender of Argus | O
@@ -240,9 +270,12 @@ EXPERT1 | EX1_097 | Abomination | O
 EXPERT1 | EX1_100 | Lorewalker Cho | O
 EXPERT1 | EX1_102 | Demolisher | O
 EXPERT1 | EX1_103 | Coldlight Seer | O
+EXPERT1 | EX1_105 | Mountain Giant | O
 EXPERT1 | EX1_110 | Cairne Bloodhoof | O
+EXPERT1 | EX1_116 | Leeroy Jenkins | O
 EXPERT1 | EX1_124 | Eviscerate | O
 EXPERT1 | EX1_126 | Betrayal | O
+EXPERT1 | EX1_128 | Conceal | O
 EXPERT1 | EX1_130 | Noble Sacrifice | O
 EXPERT1 | EX1_131 | Defias Ringleader | O
 EXPERT1 | EX1_132 | Eye for an Eye | O
@@ -256,28 +289,13 @@ EXPERT1 | EX1_154 | Wrath | O
 EXPERT1 | EX1_155 | Mark of Nature | O
 EXPERT1 | EX1_158 | Soul of the Forest | O
 EXPERT1 | EX1_160 | Power of the Wild | O
+EXPERT1 | EX1_161 | Naturalize | O
 EXPERT1 | EX1_162 | Dire Wolf Alpha | O
 EXPERT1 | EX1_164 | Nourish | O
 EXPERT1 | EX1_165 | Druid of the Claw | O
 EXPERT1 | EX1_166 | Keeper of the Grove | O
 EXPERT1 | EX1_170 | Emperor Cobra | O
 EXPERT1 | EX1_178 | Ancient of War | O
-EXPERT1 | EX1_179 | Icicle | O
-EXPERT1 | EX1_180 | Tome of Intellect | O
-EXPERT1 | EX1_181 | Call of the Void | O
-EXPERT1 | EX1_182 | Pilfer | O
-EXPERT1 | EX1_183 | Gift of the Wild | O
-EXPERT1 | EX1_184 | Righteousness | O
-EXPERT1 | EX1_185 | Siegebreaker | O
-EXPERT1 | EX1_186 | SI:7 Infiltrator | O
-EXPERT1 | EX1_187 | Arcane Devourer | O
-EXPERT1 | EX1_188 | Barrens Stablehand | O
-EXPERT1 | EX1_189 | Brightwing | O
-EXPERT1 | EX1_190 | High Inquisitor Whitemane | O
-EXPERT1 | EX1_195 | Kul Tiran Chaplain | O
-EXPERT1 | EX1_196 | Scarlet Subjugator | O
-EXPERT1 | EX1_197 | Shadow Word: Ruin | O
-EXPERT1 | EX1_198 | Natalie Seline | O
 EXPERT1 | EX1_238 | Lightning Bolt | O
 EXPERT1 | EX1_241 | Lava Burst | O
 EXPERT1 | EX1_243 | Dust Devil | O
@@ -293,16 +311,21 @@ EXPERT1 | EX1_274 | Ethereal Arcanist | O
 EXPERT1 | EX1_275 | Cone of Cold | O
 EXPERT1 | EX1_279 | Pyroblast | O
 EXPERT1 | EX1_283 | Frost Elemental | O
+EXPERT1 | EX1_284 | Azure Drake | O
 EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier | O
 EXPERT1 | EX1_294 | Mirror Entity | O
+EXPERT1 | EX1_295 | Ice Block |  
+EXPERT1 | EX1_298 | Ragnaros the Firelord | O
 EXPERT1 | EX1_301 | Felguard | O
 EXPERT1 | EX1_303 | Shadowflame | O
 EXPERT1 | EX1_304 | Void Terror | O
 EXPERT1 | EX1_309 | Siphon Soul | O
+EXPERT1 | EX1_310 | Doomguard | O
 EXPERT1 | EX1_312 | Twisting Nether | O
 EXPERT1 | EX1_313 | Pit Lord | O
 EXPERT1 | EX1_315 | Summoning Portal | O
+EXPERT1 | EX1_316 | Power Overwhelming | O
 EXPERT1 | EX1_317 | Sense Demons | O
 EXPERT1 | EX1_319 | Flame Imp | O
 EXPERT1 | EX1_320 | Bane of Doom | O
@@ -313,6 +336,8 @@ EXPERT1 | EX1_335 | Lightspawn | O
 EXPERT1 | EX1_339 | Thoughtsteal | O
 EXPERT1 | EX1_341 | Lightwell | O
 EXPERT1 | EX1_345 | Mindgames | O
+EXPERT1 | EX1_349 | Divine Favor | O
+EXPERT1 | EX1_350 | Prophet Velen | O
 EXPERT1 | EX1_354 | Lay on Hands | O
 EXPERT1 | EX1_355 | Blessed Champion | O
 EXPERT1 | EX1_362 | Argent Protector | O
@@ -372,6 +397,7 @@ EXPERT1 | EX1_583 | Priestess of Elune | O
 EXPERT1 | EX1_584 | Ancient Mage | O
 EXPERT1 | EX1_586 | Sea Giant | O
 EXPERT1 | EX1_590 | Blood Knight | O
+EXPERT1 | EX1_591 | Auchenai Soulpriest | O
 EXPERT1 | EX1_594 | Vaporize | O
 EXPERT1 | EX1_595 | Cult Master | O
 EXPERT1 | EX1_596 | Demonfire | O
@@ -389,8 +415,11 @@ EXPERT1 | EX1_614 | Xavius | O
 EXPERT1 | EX1_616 | Mana Wraith | O
 EXPERT1 | EX1_617 | Deadly Shot | O
 EXPERT1 | EX1_619 | Equality | O
+EXPERT1 | EX1_620 | Molten Giant | O
 EXPERT1 | EX1_621 | Circle of Healing | O
 EXPERT1 | EX1_623 | Temple Enforcer | O
+EXPERT1 | EX1_624 | Holy Fire | O
+EXPERT1 | EX1_625 | Shadowform | O
 EXPERT1 | EX1_626 | Mass Dispel | O
 EXPERT1 | NEW1_005 | Kidnapper | O
 EXPERT1 | NEW1_007 | Starfall | O
@@ -419,7 +448,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul | O
 EXPERT1 | tt_010 | Spellbender | O
 
-- Progress: 100% (240 of 240 Cards)
+- Progress: 99% (244 of 245 Cards)
 
 ## Demon Hunter Initiate
 
