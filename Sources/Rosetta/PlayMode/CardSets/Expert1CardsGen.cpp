@@ -1263,6 +1263,34 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_028", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
+    // [CS2_031] Ice Lance - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Frost
+    // --------------------------------------------------------
+    // Text: <b>Freeze</b> a character.
+    //       If it was already <b>Frozen</b>, deal 4 damage instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SetGameTagTask>(
+                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+    cards.emplace(
+        "CS2_031",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
+    // ------------------------------------------- SPELL - MAGE
     // [EX1_179] Icicle - COST:2
     // - Set: Expert1, Rarity: Epic
     // - Spell School: Frost
