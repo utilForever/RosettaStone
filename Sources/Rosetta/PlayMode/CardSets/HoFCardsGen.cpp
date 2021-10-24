@@ -126,24 +126,6 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 5, true));
     cards.emplace("DS1_233", CardDef(power));
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [EX1_624] Holy Fire - COST:6
-    // - Faction: Priest, Set: Legacy, Rarity: Rare
-    // - Spell School: Holy
-    // --------------------------------------------------------
-    // Text: Deal 5 damage. Restore 5 Health to your hero.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
-    cards.emplace(
-        "EX1_624",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 }
 
 void HoFCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)

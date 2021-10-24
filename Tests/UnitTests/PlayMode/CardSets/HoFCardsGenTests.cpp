@@ -160,46 +160,6 @@ TEST_CASE("[Priest : Spell] - DS1_233 : Mind Blast")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
 }
 
-// ----------------------------------------- SPELL - PRIEST
-// [EX1_624] Holy Fire - COST:6
-// - Faction: Priest, Set: Legacy, Rarity: Rare
-// - Spell School: Holy
-// --------------------------------------------------------
-// Text: Deal 5 damage. Restore 5 Health to your hero.
-// --------------------------------------------------------
-// PlayReq:
-// - REQ_TARGET_TO_PLAY = 0
-// --------------------------------------------------------
-TEST_CASE("[Priest : Spell] - EX1_624 : Holy Fire")
-{
-    GameConfig config;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::PALADIN;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetDamage(8);
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Fire"));
-
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
-}
-
 // ------------------------------------------ SPELL - ROGUE
 // [NEW1_004] Vanish - COST:6
 // - Set: Legacy, Rarity: Free
