@@ -369,18 +369,6 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
-    // - Set: Legacy, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Whenever this minion takes damage, draw a card.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("EX1_007", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
     // - Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------

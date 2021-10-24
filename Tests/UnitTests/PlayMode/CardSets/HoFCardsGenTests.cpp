@@ -690,49 +690,6 @@ TEST_CASE("[Warlock : Spell] - EX1_316 : Power Overwhelming")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
-// - Set: Legacy, Rarity: Common
-// --------------------------------------------------------
-// Text: Whenever this minion takes damage, draw a card.
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - EX1_007 : Acolyte of Pain")
-{
-    GameConfig config;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Acolyte of Pain"));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 4);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card2));
-
-    game.Process(opPlayer, AttackTask(card2, card1));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
 // - Set: Legacy, Rarity: Legendary
 // --------------------------------------------------------
