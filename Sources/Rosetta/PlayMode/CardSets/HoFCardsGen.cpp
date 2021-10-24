@@ -66,25 +66,7 @@ void HoFCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ----------------------------------------- SPELL - PALADIN
-    // [EX1_349] Divine Favor - COST:3
-    // - Faction: Neutral, Set: Legacy, Rarity: Rare
-    // - Spell School: Holy
-    // --------------------------------------------------------
-    // Text: Draw cards until you have as many in hand
-    //       as your opponent.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
-        const int diffHands =
-            playable->player->opponent->GetHandZone()->GetCount() -
-            playable->player->GetHandZone()->GetCount();
-        return diffHands > 0 ? diffHands : 0;
-    }));
-    power.AddPowerTask(std::make_shared<DrawNumberTask>());
-    cards.emplace("EX1_349", CardDef(power));
+    (void)cards;
 }
 
 void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)

@@ -1778,6 +1778,24 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         EntityType::MINIONS, GameTag::DIVINE_SHIELD, 1));
     cards.emplace("EX1_184", CardDef(power));
 
+    // ----------------------------------------- SPELL - PALADIN
+    // [EX1_349] Divine Favor - COST:3
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Draw cards until you have as many in hand
+    //       as your opponent.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        const int diffHands =
+            playable->player->opponent->GetHandZone()->GetCount() -
+            playable->player->GetHandZone()->GetCount();
+        return diffHands > 0 ? diffHands : 0;
+    }));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace("EX1_349", CardDef(power));
+
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_354] Lay on Hands - COST:8
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
