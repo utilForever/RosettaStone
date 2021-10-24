@@ -413,18 +413,6 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
-    // - Race: Elemental, Faction: Neutral, Set: Legacy, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: Costs (1) less for each other card in your hand.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        return playable->player->GetHandZone()->GetCount() - 1;
-    }));
-    cards.emplace("EX1_105", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
     // - Faction: Alliance, Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------

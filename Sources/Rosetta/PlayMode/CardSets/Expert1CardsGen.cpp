@@ -19,6 +19,7 @@
 #include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -4647,7 +4648,6 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<DrawOpTask>(2));
     cards.emplace("EX1_050", CardDef(power));
 
-
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
     // - Faction: Alliance, Set: Expert1, Rarity: Rare
@@ -4985,6 +4985,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_103e", EntityType::STACK));
     cards.emplace("EX1_103", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each other card in your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetHandZone()->GetCount() - 1;
+    }));
+    cards.emplace("EX1_105", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
