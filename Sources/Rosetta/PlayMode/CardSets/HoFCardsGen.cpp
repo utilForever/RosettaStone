@@ -126,51 +126,7 @@ void HoFCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // --------------------------------------- MINION - NEUTRAL
-    // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
-    // - Race: Murloc, Faction: Neutral. Set: Legacy, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the
-    // battlefield.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [](Playable* playable) {
-            int addAttackAmount = 0;
-            const auto& myMinions = playable->player->GetFieldZone()->GetAll();
-            const auto& opMinions =
-                playable->player->opponent->GetFieldZone()->GetAll();
-
-            for (const auto& minion : myMinions)
-            {
-                if (playable->GetZonePosition() == minion->GetZonePosition())
-                {
-                    continue;
-                }
-
-                if (minion->IsRace(Race::MURLOC))
-                {
-                    ++addAttackAmount;
-                }
-            }
-
-            for (const auto& minion : opMinions)
-            {
-                if (minion->IsRace(Race::MURLOC))
-                {
-                    ++addAttackAmount;
-                }
-            }
-
-            return addAttackAmount;
-        }));
-    cards.emplace("EX1_062", CardDef(power));
+    (void)cards;
 }
 
 void HoFCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)

@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
@@ -3266,6 +3267,50 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<SummonTask>("EX1_025t", SummonSide::RIGHT));
     cards.emplace("EX1_025", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
+    // - Race: Murloc, Faction: Neutral. Set: Legacy, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the
+    // battlefield.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - CHARGE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [](Playable* playable) {
+            int addAttackAmount = 0;
+            const auto& myMinions = playable->player->GetFieldZone()->GetAll();
+            const auto& opMinions =
+                playable->player->opponent->GetFieldZone()->GetAll();
+
+            for (const auto& minion : myMinions)
+            {
+                if (playable->GetZonePosition() == minion->GetZonePosition())
+                {
+                    continue;
+                }
+
+                if (minion->IsRace(Race::MURLOC))
+                {
+                    ++addAttackAmount;
+                }
+            }
+
+            for (const auto& minion : opMinions)
+            {
+                if (minion->IsRace(Race::MURLOC))
+                {
+                    ++addAttackAmount;
+                }
+            }
+
+            return addAttackAmount;
+        }));
+    cards.emplace("EX1_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
