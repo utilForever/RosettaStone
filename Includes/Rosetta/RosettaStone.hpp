@@ -94,7 +94,6 @@
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
-#include <Rosetta/PlayMode/CardSets/HoFCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
