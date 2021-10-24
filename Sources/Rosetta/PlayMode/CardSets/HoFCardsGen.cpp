@@ -263,20 +263,6 @@ void HoFCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     Power power;
 
-    // --------------------------------------- MINION - WARLOCK
-    // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
-    // - Race: Demon, Set: Legacy, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHARGE = 1
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscardTask>(2));
-    cards.emplace("EX1_310", CardDef(power));
-
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_316] Power Overwhelming - COST:1
     // - Faction: Neutral, Set: Legacy, Rarity: Common

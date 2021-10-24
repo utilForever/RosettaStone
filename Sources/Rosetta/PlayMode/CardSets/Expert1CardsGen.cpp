@@ -3387,6 +3387,20 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
+    // --------------------------------------- MINION - WARLOCK
+    // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
+    // - Race: Demon, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHARGE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscardTask>(2));
+    cards.emplace("EX1_310", CardDef(power));
+
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_312] Twisting Nether - COST:8
     // - Set: Expert1, Rarity: Epic
