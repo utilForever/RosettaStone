@@ -1462,6 +1462,31 @@ void LegacyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_235", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
+    // [CS2_236] Divine Spirit - COST:2
+    // - Set: Legacy, Rarity: Free
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Double a minion's Health.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "CS2_236e", EntityType::TARGET, true));
+    cards.emplace(
+        "CS2_236",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // ----------------------------------------- SPELL - PRIEST
     // [EX1_192] Radiance - COST:1
     // - Set: Legacy, Rarity: Free
     // - Spell School: Holy
@@ -1541,6 +1566,16 @@ void LegacyCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_004e"));
     cards.emplace("CS2_004e", CardDef(power));
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [CS2_236e] Divine Spirit (*) - COST:0
+    // - Set: Core
+    // --------------------------------------------------------
+    // Text: This minion has double Health.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Enchants::AddHealthScriptTag));
+    cards.emplace("CS2_236e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_194e] Power Infusion (*) - COST:0
