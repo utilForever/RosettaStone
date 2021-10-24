@@ -10273,6 +10273,92 @@ TEST_CASE("[Neutral : Minion] - EX1_083 : Tinkmaster Overspark")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3]
+// - Faction: Alliance, Set: Expert1, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your opponent has 4 or
+//       more minions, take control of one at random.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - EX1_085 : Mind Control Tech")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mind Control Tech"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card9 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Mind Control Tech"));
+    const auto card10 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card11 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card9));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card10));
+    game.Process(opPlayer, PlayCardTask::Minion(card11));
+    CHECK_EQ(opField.GetCount(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+    game.Process(curPlayer, PlayCardTask::Minion(card8));
+    CHECK_EQ(curField.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(opField.GetCount(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
