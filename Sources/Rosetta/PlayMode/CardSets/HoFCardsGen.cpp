@@ -236,22 +236,6 @@ void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ------------------------------------------ SPELL - ROGUE
-    // [EX1_128] Conceal - COST:1
-    // - Faction: Neutral, Set: Legacy, Rarity: Common
-    // - Spell School: Shadow
-    // --------------------------------------------------------
-    // Text: Give your minions <b>Stealth</b> until your next turn.
-    // --------------------------------------------------------
-    // RefTag:
-    // - STEALTH = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "EX1_128e", EntityType::MINIONS, false, false,
-        SelfCondition::HasNotStealth()));
-    cards.emplace("EX1_128", CardDef(power));
-
-    // ------------------------------------------ SPELL - ROGUE
     // [NEW1_004] Vanish - COST:6
     // - Set: Legacy, Rarity: Free
     // --------------------------------------------------------

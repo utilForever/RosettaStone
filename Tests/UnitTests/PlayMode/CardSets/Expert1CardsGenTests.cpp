@@ -5198,6 +5198,76 @@ TEST_CASE("[Rogue : Spell] - EX1_126 : Betrayal")
     game.ProcessUntil(Step::MAIN_ACTION);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [EX1_128] Conceal - COST:1
+// - Faction: Neutral, Set: Expert1, Rarity: Common
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Give your minions <b>Stealth</b> until your next turn.
+// --------------------------------------------------------
+// RefTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - EX1_128 : Conceal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Conceal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Patient Assassin"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    CHECK_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card3->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
+
+    game.Process(curPlayer, AttackTask(card3, opPlayer->GetHero()));
+
+    CHECK_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    CHECK_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    CHECK_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    CHECK_EQ(card4->GetGameTag(GameTag::STEALTH), 0);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Common

@@ -2547,6 +2547,22 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                                            { PlayReq::REQ_MINION_TARGET, 0 },
                                            { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
+    // ------------------------------------------ SPELL - ROGUE
+    // [EX1_128] Conceal - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Give your minions <b>Stealth</b> until your next turn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_128e", EntityType::MINIONS, false, false,
+        SelfCondition::HasNotStealth()));
+    cards.emplace("EX1_128", CardDef(power));
+
     // ----------------------------------------- MINION - ROGUE
     // [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
