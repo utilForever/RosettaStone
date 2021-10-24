@@ -127,23 +127,6 @@ void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 5, true));
     cards.emplace("DS1_233", CardDef(power));
 
-    // ---------------------------------------- MINION - PRIEST
-    // [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
-    // - Faction: Neutral, Set: Legacy, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: Your cards and powers that restore Health
-    //       now deal damage instead.
-    // --------------------------------------------------------
-    // GameTag:
-    // - AURA = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(
-        AuraType::PLAYER,
-        EffectList{ std::make_shared<Effect>(GameTag::HEALING_DOES_DAMAGE,
-                                             EffectOperator::SET, 1) }));
-    cards.emplace("EX1_591", CardDef(power));
-
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_624] Holy Fire - COST:6
     // - Faction: Priest, Set: Legacy, Rarity: Rare

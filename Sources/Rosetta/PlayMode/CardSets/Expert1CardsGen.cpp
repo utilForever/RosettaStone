@@ -2391,6 +2391,23 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                              EffectOperator::ADD, 1) }));
     cards.emplace("EX1_350", CardDef(power));
 
+    // ---------------------------------------- MINION - PRIEST
+    // [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
+    // - Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Your cards and powers that restore Health
+    //       now deal damage instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::HEALING_DOES_DAMAGE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("EX1_591", CardDef(power));
+
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
     // - Set: Expert1, Rarity: Common
