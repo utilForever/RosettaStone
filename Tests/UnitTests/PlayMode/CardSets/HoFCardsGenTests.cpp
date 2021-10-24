@@ -18,54 +18,6 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
-// ------------------------------------------ SPELL - DRUID
-// [EX1_161] Naturalize - COST:1
-// - Faction: Neutral, Set: Legacy, Rarity: Common
-// - Spell School: Nature
-// --------------------------------------------------------
-// Text: Destroy a minion. Your opponent draws 2 cards.
-// --------------------------------------------------------
-// PlayReq:
-// - REQ_TARGET_TO_PLAY = 0
-// - REQ_MINION_TARGET = 0
-// --------------------------------------------------------
-TEST_CASE("[Druid : Spell] - EX1_161 : Naturalize")
-{
-    GameConfig config;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::DRUID;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto card1 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Naturalize"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Magma Rager"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    const auto curHandCount = curPlayer->GetHandZone()->GetCount();
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
-
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), curHandCount + 2);
-    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
-}
-
 // ----------------------------------------- SPELL - PALADIN
 // [EX1_349] Divine Favor - COST:3
 // - Faction: Neutral, Set: Legacy, Rarity: Rare

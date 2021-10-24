@@ -188,6 +188,25 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
                   CardDef(power, ChooseCardIDs{ "EX1_160a", "EX1_160b" }));
 
     // ------------------------------------------ SPELL - DRUID
+    // [EX1_161] Naturalize - COST:1
+    // - Faction: Neutral, Set: Expert1, Rarity: Common
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Destroy a minion. Your opponent draws 2 cards.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
+    cards.emplace(
+        "EX1_161",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // ------------------------------------------ SPELL - DRUID
     // [EX1_164] Nourish - COST:6
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Nature

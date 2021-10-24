@@ -36,26 +36,7 @@ void HoFCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ------------------------------------------ SPELL - DRUID
-    // [EX1_161] Naturalize - COST:1
-    // - Faction: Neutral, Set: Legacy, Rarity: Common
-    // - Spell School: Nature
-    // --------------------------------------------------------
-    // Text: Destroy a minion. Your opponent draws 2 cards.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
-    cards.emplace(
-        "EX1_161",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    (void)cards;
 }
 
 void HoFCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
