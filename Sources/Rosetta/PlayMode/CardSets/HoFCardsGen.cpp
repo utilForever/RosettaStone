@@ -413,23 +413,6 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
-    // - Faction: Alliance, Set: Legacy, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps
-    //       for your opponent.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - CHARGE = 1
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
-        TaskList{ std::make_shared<SummonOpTask>("EX1_116t") }, 2));
-    cards.emplace("EX1_116", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
     // - Race: Dragon, Faction: Neutral, Set: Legacy, Rarity: Rare
     // --------------------------------------------------------
