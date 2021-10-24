@@ -5,7 +5,6 @@
 * [Legacy](#legacy)
 * [Expert1](#expert1)
 * [Demon Hunter Initiate](#demon-hunter-initiate)
-* [Hall of Fame](#hall-of-fame)
 * [Curse of Naxxramas](#curse-of-naxxramas)
 * [Goblins vs Gnomes](#goblins-vs-gnomes)
 * [Blackrock Mountain](#blackrock-mountain)
@@ -198,7 +197,7 @@ LEGACY | PRO_001 | Elite Tauren Chieftain |
 
 - Progress: 98% (164 of 167 Cards)
 
-## Classic
+## Expert1
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
@@ -476,48 +475,6 @@ DEMON_HUNTER_INITIATE | BT_922 | Umberwing | O
 DEMON_HUNTER_INITIATE | BT_937 | Altruis the Outcast | O
 
 - Progress: 100% (20 of 20 Cards)
-
-## Hall of Fame
-
-Set | ID | Name | Implemented
-:---: | :---: | :---: | :---:
-HOF | CS2_031 | Ice Lance | O
-HOF | CS2_235 | Northshire Cleric | O
-HOF | CS2_236 | Divine Spirit | O
-HOF | DS1_233 | Mind Blast | O
-HOF | EX1_007 | Acolyte of Pain | O
-HOF | EX1_016 | Sylvanas Windrunner | O
-HOF | EX1_048 | Spellbreaker | O
-HOF | EX1_050 | Coldlight Oracle | O
-HOF | EX1_062 | Old Murk-Eye | O
-HOF | EX1_085 | Mind Control Tech | O
-HOF | EX1_105 | Mountain Giant | O
-HOF | EX1_112 | Gelbin Mekkatorque |  
-HOF | EX1_116 | Leeroy Jenkins | O
-HOF | EX1_128 | Conceal | O
-HOF | EX1_161 | Naturalize | O
-HOF | EX1_284 | Azure Drake | O
-HOF | EX1_295 | Ice Block |  
-HOF | EX1_298 | Ragnaros the Firelord | O
-HOF | EX1_310 | Doomguard | O
-HOF | EX1_316 | Power Overwhelming | O
-HOF | EX1_349 | Divine Favor | O
-HOF | EX1_350 | Prophet Velen | O
-HOF | EX1_591 | Auchenai Soulpriest | O
-HOF | EX1_620 | Molten Giant | O
-HOF | EX1_624 | Holy Fire | O
-HOF | EX1_625 | Shadowform | O
-HOF | GIL_130 | Gloom Stag |  
-HOF | GIL_530 | Murkspark Eel |  
-HOF | GIL_692 | Genn Greymane |  
-HOF | GIL_826 | Baku the Mooneater |  
-HOF | GIL_837 | Glitter Moth |  
-HOF | GIL_838 | Black Cat |  
-HOF | NEW1_004 | Vanish | O
-HOF | NEW1_016 | Captain's Parrot |  
-HOF | PRO_001 | Elite Tauren Chieftain |  
-
-- Progress: 71% (25 of 35 Cards)
 
 ## Curse of Naxxramas
 
