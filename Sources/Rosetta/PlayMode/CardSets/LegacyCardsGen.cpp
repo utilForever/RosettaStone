@@ -1487,6 +1487,18 @@ void LegacyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
+    // [DS1_233] Mind Blast - COST:2
+    // - Faction: Neutral, Set: Legacy, Rarity: Free
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Deal 5 damage to the enemy hero.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 5, true));
+    cards.emplace("DS1_233", CardDef(power));
+
+    // ----------------------------------------- SPELL - PRIEST
     // [EX1_192] Radiance - COST:1
     // - Set: Legacy, Rarity: Free
     // - Spell School: Holy

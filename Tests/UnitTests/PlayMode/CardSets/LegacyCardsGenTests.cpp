@@ -3151,6 +3151,40 @@ TEST_CASE("[Priest : Spell] - CS2_236 : Divine Spirit")
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [DS1_233] Mind Blast - COST:2
+// - Faction: Neutral, Set: Legacy, Rarity: Free
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Deal 5 damage to the enemy hero.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - DS1_233 : Mind Blast")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mind Blast"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [EX1_192] Radiance - COST:1
 // - Set: Legacy, Rarity: Free
 // - Spell School: Holy

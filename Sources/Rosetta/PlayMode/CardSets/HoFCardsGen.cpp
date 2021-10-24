@@ -76,19 +76,7 @@ void HoFCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ----------------------------------------- SPELL - PRIEST
-    // [DS1_233] Mind Blast - COST:2
-    // - Faction: Neutral, Set: Legacy, Rarity: Free
-    // - Spell School: Shadow
-    // --------------------------------------------------------
-    // Text: Deal 5 damage to the enemy hero.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 5, true));
-    cards.emplace("DS1_233", CardDef(power));
+    (void)cards;
 }
 
 void HoFCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
