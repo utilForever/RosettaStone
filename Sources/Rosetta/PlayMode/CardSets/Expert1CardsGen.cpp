@@ -5241,7 +5241,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
     // - Race: Elemental, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> <b>Freeze</b> a character.
+    // Text: <b>Battlecry:</b> <b>Freeze</b> a character.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
@@ -5252,6 +5252,21 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "EX1_283",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
+    // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    //       <b>Battlecry:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("EX1_284", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]

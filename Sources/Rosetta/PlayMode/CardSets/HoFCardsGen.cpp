@@ -378,21 +378,6 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
-    // - Race: Dragon, Faction: Neutral, Set: Legacy, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: <b>Spell Damage +1</b>
-    //       <b>Battlecry:</b> Draw a card.
-    // --------------------------------------------------------
-    // GameTag:
-    // - SPELLPOWER = 1
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_284", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
     // - Race: Elemental, Faction: Neutral, Set: Legacy, Rarity: Legendary
     // --------------------------------------------------------
