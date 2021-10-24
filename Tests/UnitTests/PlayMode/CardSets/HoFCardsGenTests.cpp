@@ -18,63 +18,6 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
-// ------------------------------------------ SPELL - ROGUE
-// [NEW1_004] Vanish - COST:6
-// - Set: Legacy, Rarity: Free
-// --------------------------------------------------------
-// Text: Return all minions to their owner's hand.
-// --------------------------------------------------------
-TEST_CASE("[Rogue : Spell] - NEW1_004 : Vanish")
-{
-    GameConfig config;
-    config.player1Class = CardClass::ROGUE;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vanish"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voidwalker"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
-    CHECK_EQ(curField.GetCount(), 1);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 6);
-    CHECK_EQ(opField.GetCount(), 1);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
-    CHECK_EQ(curField.GetCount(), 0);
-    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 7);
-    CHECK_EQ(opField.GetCount(), 0);
-}
-
 // --------------------------------------- MINION - NEUTRAL
 // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
 // - Race: Murloc, Faction: Neutral. Set: Legacy, Rarity: Legendary

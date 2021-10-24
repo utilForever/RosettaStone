@@ -86,18 +86,7 @@ void HoFCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void HoFCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-
-    // ------------------------------------------ SPELL - ROGUE
-    // [NEW1_004] Vanish - COST:6
-    // - Set: Legacy, Rarity: Free
-    // --------------------------------------------------------
-    // Text: Return all minions to their owner's hand.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<ReturnHandTask>(EntityType::ALL_MINIONS));
-    cards.emplace("NEW1_004", CardDef(power));
+    (void)cards;
 }
 
 void HoFCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)

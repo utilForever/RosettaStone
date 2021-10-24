@@ -1763,6 +1763,17 @@ void LegacyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                   CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                            { PlayReq::REQ_MINION_TARGET, 0 },
                                            { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [NEW1_004] Vanish - COST:6
+    // - Set: Legacy, Rarity: Free
+    // --------------------------------------------------------
+    // Text: Return all minions to their owner's hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<ReturnHandTask>(EntityType::ALL_MINIONS));
+    cards.emplace("NEW1_004", CardDef(power));
 }
 
 void LegacyCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
