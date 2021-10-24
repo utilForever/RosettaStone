@@ -369,22 +369,6 @@ void HoFCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
-    // - Set: Legacy, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Take control of a random enemy minion.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - DEATHRATTLE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
-        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
-    power.AddDeathrattleTask(std::make_shared<ControlTask>(EntityType::STACK));
-    cards.emplace("EX1_016", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
     // - Faction: Horde, Set: Legacy, Rarity: Common
     // --------------------------------------------------------

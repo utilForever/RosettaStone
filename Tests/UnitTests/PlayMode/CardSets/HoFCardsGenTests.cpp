@@ -690,62 +690,6 @@ TEST_CASE("[Warlock : Spell] - EX1_316 : Power Overwhelming")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
-// - Set: Legacy, Rarity: Legendary
-// --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Take control of a random enemy minion.
-// --------------------------------------------------------
-// GameTag:
-// - ELITE = 1
-// - DEATHRATTLE = 1
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - EX1_016 : Sylvanas Windrunner")
-{
-    GameConfig config;
-    config.player1Class = CardClass::ROGUE;
-    config.player2Class = CardClass::PALADIN;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Sylvanas Windrunner"));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Magma Rager"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Oasis Snapjaw"));
-    const auto card4 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card2));
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-    game.Process(opPlayer, PlayCardTask::Minion(card4));
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, AttackTask(card1, card2));
-    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 1);
-    CHECK_EQ(opPlayer->GetFieldZone()->GetCount(), 1);
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
 // - Faction: Horde, Set: Legacy, Rarity: Common
 // --------------------------------------------------------
