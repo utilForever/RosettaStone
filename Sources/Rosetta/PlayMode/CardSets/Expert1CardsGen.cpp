@@ -5837,6 +5837,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_616", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
+    // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each damage your hero has taken.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetHero()->GetDamage();
+    }));
+    cards.emplace("EX1_620", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
     // [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
     // - Race: Beast, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
