@@ -804,6 +804,20 @@ SelfCondition SelfCondition::IsDefenderDead()
     });
 }
 
+SelfCondition SelfCondition::IsHeroFatalPreDamaged()
+{
+    return SelfCondition([](Playable* playable) {
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
+        {
+            return eventData->eventNumber >=
+                   playable->player->GetHero()->GetHealth();
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsEventSourceFriendly()
 {
     return SelfCondition([](Playable* playable) {

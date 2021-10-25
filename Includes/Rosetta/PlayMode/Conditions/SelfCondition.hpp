@@ -400,6 +400,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDefenderDead();
 
+    //! SelfCondition wrapper for checking the hero takes fatal damage.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHeroFatalPreDamaged();
+
     //! SelfCondition wrapper for checking the event source is friendly.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEventSourceFriendly();
