@@ -3434,6 +3434,26 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<DrawRaceMinionTask>(Race::PIRATE, 1, false));
     cards.emplace("NEW1_016", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [PRO_001] Elite Tauren Chieftain - COST:5 [ATK:5/HP:5]
+    // - Set: Legacy, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give both players the power to ROCK!
+    //       (with a Power Chord card)
+    // --------------------------------------------------------
+    // Entourage: PRO_001a, PRO_001b, PRO_001c
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("PRO_001",
+                  CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                          Entourages{ "PRO_001a", "PRO_001b", "PRO_001c" }));
 }
 
 void LegacyCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
@@ -3639,6 +3659,69 @@ void LegacyCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("Mekka4t", CardDef(power));
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [PRO_001a] I Am Murloc (*) - COST:4
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Summon three, four, or five 1/1 Murlocs.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<MathRandTask>(3, 5));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<SummonTask>("PRO_001at", SummonSide::SPELL) }));
+    cards.emplace(
+        "PRO_001a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [PRO_001at] Murloc (*) - COST:0 [ATK:1/HP:1]
+    // - Race: Murloc, Set: Legacy
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("PRO_001at", CardDef(power));
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [PRO_001b] Rogues Do It... (*) - COST:4
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Deal 4 damage. Draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace(
+        "PRO_001b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [PRO_001c] Power of the Horde (*) - COST:4
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Summon a random Horde Warrior.
+    // --------------------------------------------------------
+    // Entourage: CS2_121, EX1_021, EX1_023, EX1_110, EX1_390, CS2_179
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace(
+        "PRO_001c",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
+                Entourages{ "CS2_121", "EX1_021", "EX1_023", "EX1_110",
+                            "EX1_390", "CS2_179" }));
 }
 
 void LegacyCardsGen::AddAll(std::map<std::string, CardDef>& cards)
