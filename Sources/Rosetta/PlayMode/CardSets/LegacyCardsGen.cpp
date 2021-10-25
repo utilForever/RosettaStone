@@ -3420,6 +3420,20 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
     cards.emplace("EX1_593", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_016] Captain's Parrot - COST:2 [ATK:1/HP:1]
+    // - Race: Beast, Set: Legacy, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a Pirate from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawRaceMinionTask>(Race::PIRATE, 1, false));
+    cards.emplace("NEW1_016", CardDef(power));
 }
 
 void LegacyCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)

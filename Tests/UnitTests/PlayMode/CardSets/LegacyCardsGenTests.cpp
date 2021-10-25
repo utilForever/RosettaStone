@@ -7432,6 +7432,52 @@ TEST_CASE("[Neutral : Minion] - EX1_593 : Nightblade")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [NEW1_016] Captain's Parrot - COST:2 [ATK:1/HP:1]
+// - Race: Beast, Set: Legacy, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a Pirate from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - NEW1_016 : Captain's Parrot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Magma Rager");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Southsea Captain");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Murloc Tidehunter");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Captain's Parrot"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->GetRace(), Race::PIRATE);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [Mekka1] Homing Chicken (*) - COST:1 [ATK:0/HP:1]
 // - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
 // --------------------------------------------------------
