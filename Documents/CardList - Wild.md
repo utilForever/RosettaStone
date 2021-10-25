@@ -143,7 +143,7 @@ LEGACY | EX1_025 | Dragonling Mechanic | O
 LEGACY | EX1_062 | Old Murk-Eye | O
 LEGACY | EX1_066 | Acidic Swamp Ooze | O
 LEGACY | EX1_084 | Warsong Commander | O
-LEGACY | EX1_112 | Gelbin Mekkatorque |  
+LEGACY | EX1_112 | Gelbin Mekkatorque | O
 LEGACY | EX1_129 | Fan of Knives | O
 LEGACY | EX1_169 | Innervate | O
 LEGACY | EX1_173 | Starfire | O
@@ -191,11 +191,11 @@ LEGACY | EX1_622 | Shadow Word: Death | O
 LEGACY | NEW1_003 | Sacrificial Pact | O
 LEGACY | NEW1_004 | Vanish | O
 LEGACY | NEW1_011 | Kor'kron Elite | O
-LEGACY | NEW1_016 | Captain's Parrot |  
+LEGACY | NEW1_016 | Captain's Parrot | O
 LEGACY | NEW1_031 | Animal Companion | O
-LEGACY | PRO_001 | Elite Tauren Chieftain |  
+LEGACY | PRO_001 | Elite Tauren Chieftain | O
 
-- Progress: 98% (164 of 167 Cards)
+- Progress: 100% (167 of 167 Cards)
 
 ## Expert1
 
@@ -314,7 +314,7 @@ EXPERT1 | EX1_284 | Azure Drake | O
 EXPERT1 | EX1_287 | Counterspell | O
 EXPERT1 | EX1_289 | Ice Barrier | O
 EXPERT1 | EX1_294 | Mirror Entity | O
-EXPERT1 | EX1_295 | Ice Block |  
+EXPERT1 | EX1_295 | Ice Block | O
 EXPERT1 | EX1_298 | Ragnaros the Firelord | O
 EXPERT1 | EX1_301 | Felguard | O
 EXPERT1 | EX1_303 | Shadowflame | O
@@ -447,7 +447,7 @@ EXPERT1 | NEW1_041 | Stampeding Kodo | O
 EXPERT1 | tt_004 | Flesheating Ghoul | O
 EXPERT1 | tt_010 | Spellbender | O
 
-- Progress: 99% (244 of 245 Cards)
+- Progress: 100% (245 of 245 Cards)
 
 ## Demon Hunter Initiate
 
