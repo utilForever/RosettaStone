@@ -1504,6 +1504,16 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsHeroFatalPreDamaged())
+    };
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<AddEnchantmentTask>("EX1_295o", EntityType::HERO) });
+    cards.emplace("EX1_295", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
@@ -1657,6 +1667,9 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("EX1_295o"));
+    cards.emplace("EX1_295o", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [EX1_612o] Power of the Kirin Tor (*) - COST:0

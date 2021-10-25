@@ -3326,6 +3326,30 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_066", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
+    // [EX1_112] Gelbin Mekkatorque - COST:6 [ATK:6/HP:6]
+    // - Faction: Alliance, Set: Legacy, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon an AWESOME invention.
+    // --------------------------------------------------------
+    // Entourage: Mekka1, Mekka2, Mekka3, Mekka4
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace(
+        "EX1_112",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
+                Entourages{ "Mekka1", "Mekka2", "Mekka3", "Mekka4" }));
+
+    // --------------------------------------- MINION - NEUTRAL
     // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
@@ -3396,6 +3420,40 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
     cards.emplace("EX1_593", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [NEW1_016] Captain's Parrot - COST:2 [ATK:1/HP:1]
+    // - Race: Beast, Set: Legacy, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Draw a Pirate from your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawRaceMinionTask>(Race::PIRATE, 1, false));
+    cards.emplace("NEW1_016", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [PRO_001] Elite Tauren Chieftain - COST:5 [ATK:5/HP:5]
+    // - Set: Legacy, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give both players the power to ROCK!
+    //       (with a Power Chord card)
+    // --------------------------------------------------------
+    // Entourage: PRO_001a, PRO_001b, PRO_001c
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("PRO_001",
+                  CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                          Entourages{ "PRO_001a", "PRO_001b", "PRO_001c" }));
 }
 
 void LegacyCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
@@ -3517,6 +3575,153 @@ void LegacyCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("hexfrog", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [Mekka1] Homing Chicken (*) - COST:1 [ATK:0/HP:1]
+    // - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
+    // --------------------------------------------------------
+    // Text: At the start of your turn,
+    //       destroy this minion and draw 3 cards.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+                                      EntityType::SOURCE),
+                                  std::make_shared<DrawTask>(3) };
+    cards.emplace("Mekka1", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [Mekka2] Repair Bot (*) - COST:1 [ATK:0/HP:3]
+    // - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       restore 6 Health to a damaged character.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ALL),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<HealTask>(EntityType::STACK, 6)
+    };
+    cards.emplace("Mekka2", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [Mekka3] Emboldener 3000 (*) - COST:1 [ATK:0/HP:4]
+    // - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
+    // --------------------------------------------------------
+    // Text: At the end of your turn, give a random minion +1/+1.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<AddEnchantmentTask>("Mekka3e", EntityType::STACK)
+    };
+    cards.emplace("Mekka3", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [Mekka3e] Emboldened! (*) - COST:0
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Increased Stats.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(
+        std::vector<std::shared_ptr<IEffect>>{ Effects::AttackHealthN(1) }));
+    cards.emplace("Mekka3e", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [Mekka4] Poultryizer (*) - COST:1 [ATK:0/HP:3]
+    // - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
+    // --------------------------------------------------------
+    // Text: At the start of your turn,
+    //       transform a random minion into a 1/1 Chicken.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<TransformTask>(EntityType::STACK, "Mekka4t")
+    };
+    cards.emplace("Mekka4", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [Mekka4t] Chicken (*) - COST:0 [ATK:1/HP:1]
+    // - Race: Beast, Set: Legacy
+    // --------------------------------------------------------
+    // Text: <i>Hey Chicken!</i>
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("Mekka4t", CardDef(power));
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [PRO_001a] I Am Murloc (*) - COST:4
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Summon three, four, or five 1/1 Murlocs.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<MathRandTask>(3, 5));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<SummonTask>("PRO_001at", SummonSide::SPELL) }));
+    cards.emplace(
+        "PRO_001a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [PRO_001at] Murloc (*) - COST:0 [ATK:1/HP:1]
+    // - Race: Murloc, Set: Legacy
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("PRO_001at", CardDef(power));
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [PRO_001b] Rogues Do It... (*) - COST:4
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Deal 4 damage. Draw a card.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace(
+        "PRO_001b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [PRO_001c] Power of the Horde (*) - COST:4
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Summon a random Horde Warrior.
+    // --------------------------------------------------------
+    // Entourage: CS2_121, EX1_021, EX1_023, EX1_110, EX1_390, CS2_179
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace(
+        "PRO_001c",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
+                Entourages{ "CS2_121", "EX1_021", "EX1_023", "EX1_110",
+                            "EX1_390", "CS2_179" }));
 }
 
 void LegacyCardsGen::AddAll(std::map<std::string, CardDef>& cards)
