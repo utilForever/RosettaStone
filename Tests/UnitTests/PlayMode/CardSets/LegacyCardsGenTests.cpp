@@ -7165,6 +7165,56 @@ TEST_CASE("[Neutral : Minion] - EX1_066 : Acidic Swamp Ooze")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [EX1_112] Gelbin Mekkatorque - COST:6 [ATK:6/HP:6]
+// - Faction: Alliance, Set: Legacy, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon an AWESOME invention.
+// --------------------------------------------------------
+// Entourage: Mekka1, Mekka2, Mekka3, Mekka4
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - EX1_112 : Gelbin Mekkatorque")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Gelbin Mekkatorque"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    const bool isMekka = curField[1]->card->name == "Homing Chicken" ||
+                         curField[1]->card->name == "Repair Bot" ||
+                         curField[1]->card->name == "Emboldener 3000" ||
+                         curField[1]->card->name == "Poultryizer";
+    CHECK(isMekka);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
@@ -7379,4 +7429,194 @@ TEST_CASE("[Neutral : Minion] - EX1_593 : Nightblade")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [Mekka1] Homing Chicken (*) - COST:1 [ATK:0/HP:1]
+// - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       destroy this minion and draw 3 cards.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - Mekka1 : Homing Chicken")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("Mekka1"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 8);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [Mekka2] Repair Bot (*) - COST:1 [ATK:0/HP:3]
+// - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
+// --------------------------------------------------------
+// Text: At the end of your turn,
+//       restore 6 Health to a damaged character.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - Mekka2 : Repair Bot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("Mekka2"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    int totalHealth =
+        curPlayer->GetHero()->GetHealth() + opPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 40);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    totalHealth =
+        curPlayer->GetHero()->GetHealth() + opPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 41);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [Mekka3] Emboldener 3000 (*) - COST:1 [ATK:0/HP:4]
+// - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
+// --------------------------------------------------------
+// Text: At the end of your turn, give a random minion +1/+1.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - Mekka3 : Emboldener 3000")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("Mekka3"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    int totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack();
+    int totalHealth = curField[0]->GetHealth() + curField[1]->GetHealth();
+    CHECK_EQ(totalAttack, 1);
+    CHECK_EQ(totalHealth, 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    totalAttack = curField[0]->GetAttack() + curField[1]->GetAttack();
+    totalHealth = curField[0]->GetHealth() + curField[1]->GetHealth();
+    CHECK_EQ(totalAttack, 2);
+    CHECK_EQ(totalHealth, 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [Mekka4] Poultryizer (*) - COST:1 [ATK:0/HP:3]
+// - Race: Mechanical, Faction: Alliance, Set: Legacy, Rarity: Common
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       transform a random minion into a 1/1 Chicken.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - Mekka4 : Poultryizer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("Mekka4"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const bool isChicken = curField[0]->card->name == "Chicken" ||
+                           curField[1]->card->name == "Chicken";
+    CHECK(isChicken);
 }
