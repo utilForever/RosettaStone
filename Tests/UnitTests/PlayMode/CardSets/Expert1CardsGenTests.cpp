@@ -2748,6 +2748,68 @@ TEST_CASE("[Mage : Spell] - EX1_294 : Mirror Entity")
     CHECK_EQ(curSecret->GetCount(), 1);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [EX1_295] Ice Block - COST:3
+// - Faction: Neutral, Set: Expert1, Rarity: Epic
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When your hero takes fatal damage,
+//       prevent it and become <b>Immune</b> this turn.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - EX1_295 : Ice Block")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Block"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    curPlayer->GetHero()->SetDamage(25);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHero()->IsImmune(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->IsImmune(), false);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 5);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
