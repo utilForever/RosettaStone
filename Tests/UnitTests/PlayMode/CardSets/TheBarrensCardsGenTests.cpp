@@ -5020,3 +5020,53 @@ TEST_CASE("[Warrior : Minion] - BAR_896 : Stonemaul Anchorman")
     game.Process(opPlayer, HeroPowerTask(card1));
     CHECK_EQ(curHand.GetCount(), 5);
 }
+
+// --------------------------------------- MINION - WARRIOR
+// [WC_024] Man-at-Arms - COST:2 [ATK:2/HP:3]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you have a weapon equipped,
+//       gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - WC_024 : Man-at-Arms")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Man-at-Arms"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Man-at-Arms"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Outrider's Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+}

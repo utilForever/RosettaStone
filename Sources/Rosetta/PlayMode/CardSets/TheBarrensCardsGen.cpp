@@ -2911,6 +2911,14 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsWeaponEquipped()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "WC_024e", EntityType::SOURCE) }));
+    cards.emplace("WC_024", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [WC_025] Whetstone Hatchet - COST:1
@@ -2993,6 +3001,9 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("WC_024e"));
+    cards.emplace("WC_024e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [WC_025e] Armed - COST:0
