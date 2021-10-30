@@ -576,6 +576,19 @@ SelfCondition SelfCondition::HasReborn()
     });
 }
 
+SelfCondition SelfCondition::HasFrenzy()
+{
+    return SelfCondition([](Playable* playable) {
+        const auto minion = dynamic_cast<Minion*>(playable);
+        if (!minion)
+        {
+            return false;
+        }
+
+        return minion->HasFrenzy();
+    });
+}
+
 SelfCondition SelfCondition::HasInvokedTwice()
 {
     return SelfCondition(
