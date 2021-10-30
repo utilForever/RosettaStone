@@ -310,7 +310,7 @@ int Character::TakeDamage(Playable* source, int damage)
             minion->SetGameTag(GameTag::FRENZY, 0);
         }
 
-        player->game->ProcessTasks();
+        game->ProcessTasks();
     }
 
     // Process damage triggers
