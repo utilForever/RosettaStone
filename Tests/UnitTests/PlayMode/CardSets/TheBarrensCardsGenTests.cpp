@@ -4559,6 +4559,82 @@ TEST_CASE("[Warlock : Minion] - BAR_917 : Barrens Scavenger")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [BAR_334] Overlord Saurfang - COST:7 [ATK:5/HP:4]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Resurrect 2 friendly <b>Frenzy</b>
+//       minions. Deal 1 damage to all other minions.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - BAR_334 : Overlord Saurfang")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Overlord Saurfang"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stonemaul Anchorman"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stonemaul Anchorman"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card2));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card3));
+    game.Process(opPlayer, HeroPowerTask(card4));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
+    CHECK_EQ(curField[2]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [BAR_840] Whirling Combatant - COST:4 [ATK:3/HP:6]
 // - Set: THE_BARRENS, Rarity: Common
 // --------------------------------------------------------
@@ -4627,6 +4703,57 @@ TEST_CASE("[Warrior : Minion] - BAR_840 : Whirling Combatant")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
+// [BAR_841] Bulk Up - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a random <b>Taunt</b> minion in your hand +1/+1
+//       and copy it.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - BAR_841 : Bulk Up")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bulk Up"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    [[maybe_unused]] const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sen'jin Shieldmasta"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 12);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 6);
+    CHECK_EQ(curHand[2]->card->name, "Sen'jin Shieldmasta");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetHealth(), 6);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
 // [BAR_842] Conditioning (Rank 1) - COST:2
 // - Set: THE_BARRENS, Rarity: Rare
 // --------------------------------------------------------
@@ -4659,12 +4786,12 @@ TEST_CASE("[Warrior : Spell] - BAR_842 : Conditioning (Rank 1)")
         curPlayer, Cards::FindCardByName("Conditioning (Rank 1)"));
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Conditioning (Rank 1)"));
-    const auto card4 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card5 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card6 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
 
     const auto minion4 = dynamic_cast<Minion*>(card4);
     const auto minion5 = dynamic_cast<Minion*>(card5);
@@ -4732,6 +4859,122 @@ TEST_CASE("[Warrior : Spell] - BAR_842 : Conditioning (Rank 1)")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [BAR_843] Warsong Envoy - COST:1 [ATK:1/HP:3]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Gain +1 Attack
+//       for each damaged character.
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - BAR_843 : Warsong Envoy")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Warsong Envoy"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- WEAPON - WARRIOR
+// [BAR_844] Outrider's Axe - COST:4
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: After your hero attacks and kills a minion, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - BAR_844 : Outrider's Axe")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Outrider's Axe"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card3));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(opField.GetCount(), 1);
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [BAR_896] Stonemaul Anchorman - COST:5 [ATK:4/HP:6]
 // - Race: Pirate, Set: THE_BARRENS, Rarity: Common
 // --------------------------------------------------------
@@ -4776,4 +5019,54 @@ TEST_CASE("[Warrior : Minion] - BAR_896 : Stonemaul Anchorman")
 
     game.Process(opPlayer, HeroPowerTask(card1));
     CHECK_EQ(curHand.GetCount(), 5);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [WC_024] Man-at-Arms - COST:2 [ATK:2/HP:3]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you have a weapon equipped,
+//       gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - WC_024 : Man-at-Arms")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Man-at-Arms"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Man-at-Arms"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Outrider's Axe"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
 }

@@ -783,7 +783,7 @@ THE_BARRENS | BAR_328 | Vengeful Spirit |
 THE_BARRENS | BAR_329 | Death Speaker Blackthorn |  
 THE_BARRENS | BAR_330 | Tuskpiercer |  
 THE_BARRENS | BAR_333 | Kurtrus Ashfallen |  
-THE_BARRENS | BAR_334 | Overlord Saurfang |  
+THE_BARRENS | BAR_334 | Overlord Saurfang | O
 THE_BARRENS | BAR_430 | Horde Operative |  
 THE_BARRENS | BAR_533 | Thorngrowth Sentries | O
 THE_BARRENS | BAR_534 | Pride's Fury | O
@@ -816,10 +816,10 @@ THE_BARRENS | BAR_751 | Spawnpool Forager | O
 THE_BARRENS | BAR_801 | Wound Prey | O
 THE_BARRENS | BAR_812 | Oasis Ally | O
 THE_BARRENS | BAR_840 | Whirling Combatant | O
-THE_BARRENS | BAR_841 | Bulk Up |  
+THE_BARRENS | BAR_841 | Bulk Up | O
 THE_BARRENS | BAR_842 | Conditioning (Rank 1) | O
-THE_BARRENS | BAR_843 | Warsong Envoy |  
-THE_BARRENS | BAR_844 | Outrider's Axe |  
+THE_BARRENS | BAR_843 | Warsong Envoy | O
+THE_BARRENS | BAR_844 | Outrider's Axe | O
 THE_BARRENS | BAR_845 | Rancor |  
 THE_BARRENS | BAR_846 | Mor'shan Elite |  
 THE_BARRENS | BAR_847 | Rokara |  
@@ -864,7 +864,7 @@ THE_BARRENS | WC_020 | Perpetual Flame |
 THE_BARRENS | WC_021 | Unstable Shadow Blast |  
 THE_BARRENS | WC_022 | Final Gasp |  
 THE_BARRENS | WC_023 | Stealer of Souls |  
-THE_BARRENS | WC_024 | Man-at-Arms |  
+THE_BARRENS | WC_024 | Man-at-Arms | O
 THE_BARRENS | WC_025 | Whetstone Hatchet |  
 THE_BARRENS | WC_026 | Kresh, Lord of Turtling |  
 THE_BARRENS | WC_027 | Devouring Ectoplasm |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 45% (77 of 170 Cards)
+- Progress: 48% (82 of 170 Cards)
 
 ## United in Stormwind
 

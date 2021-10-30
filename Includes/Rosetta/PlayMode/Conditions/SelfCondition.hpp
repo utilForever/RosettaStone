@@ -275,6 +275,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasReborn();
 
+    //! SelfCondition wrapper for checking the entity has frenzy.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition HasFrenzy();
+
     //! SelfCondition wrapper for checking the player has invoked twice.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasInvokedTwice();

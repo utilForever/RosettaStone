@@ -2749,6 +2749,17 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()),
+        std::make_shared<SelfCondition>(SelfCondition::HasFrenzy()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    cards.emplace("BAR_334", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BAR_840] Whirling Combatant - COST:4 [ATK:3/HP:6]
@@ -2778,6 +2789,17 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::HasTaunt()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_841e", EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("BAR_841", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_842] Conditioning (Rank 1) - COST:2
@@ -2803,6 +2825,14 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<IncludeTask>(EntityType::ALL));
+    power.AddFrenzyTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }));
+    power.AddFrenzyTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddFrenzyTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_896e", EntityType::SOURCE, true));
+    cards.emplace("BAR_843", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [BAR_844] Outrider's Axe - COST:4
@@ -2813,6 +2843,14 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("BAR_844", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_845] Rancor - COST:4
@@ -2873,6 +2911,14 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsWeaponEquipped()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "WC_024e", EntityType::SOURCE) }));
+    cards.emplace("WC_024", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [WC_025] Whetstone Hatchet - COST:1
@@ -2910,6 +2956,9 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_841e"));
+    cards.emplace("BAR_841e", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_842t] Conditioning (Rank 2) - COST:2
@@ -2942,6 +2991,9 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("BAR_896e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [WC_024e] Armed - COST:0
@@ -2949,6 +3001,9 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("WC_024e"));
+    cards.emplace("WC_024e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [WC_025e] Armed - COST:0
