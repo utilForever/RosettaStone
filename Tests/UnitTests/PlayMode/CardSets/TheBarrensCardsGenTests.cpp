@@ -4786,12 +4786,12 @@ TEST_CASE("[Warrior : Spell] - BAR_842 : Conditioning (Rank 1)")
         curPlayer, Cards::FindCardByName("Conditioning (Rank 1)"));
     const auto card3 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Conditioning (Rank 1)"));
-    const auto card4 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card5 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card6 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
 
     const auto minion4 = dynamic_cast<Minion*>(card4);
     const auto minion5 = dynamic_cast<Minion*>(card5);
@@ -4856,6 +4856,54 @@ TEST_CASE("[Warrior : Spell] - BAR_842 : Conditioning (Rank 1)")
     CHECK_EQ(minion5->GetHealth(), 7);
     CHECK_EQ(minion6->GetAttack(), 10);
     CHECK_EQ(minion6->GetHealth(), 18);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [BAR_843] Warsong Envoy - COST:1 [ATK:1/HP:3]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Gain +1 Attack
+//       for each damaged character.
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - BAR_843 : Warsong Envoy")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Warsong Envoy"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
 }
 
 // --------------------------------------- MINION - WARRIOR

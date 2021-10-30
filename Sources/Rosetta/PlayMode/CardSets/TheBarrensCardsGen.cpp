@@ -2825,6 +2825,14 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<IncludeTask>(EntityType::ALL));
+    power.AddFrenzyTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }));
+    power.AddFrenzyTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddFrenzyTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_896e", EntityType::SOURCE, true));
+    cards.emplace("BAR_843", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [BAR_844] Outrider's Axe - COST:4
@@ -2967,6 +2975,9 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("BAR_896e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [WC_024e] Armed - COST:0
