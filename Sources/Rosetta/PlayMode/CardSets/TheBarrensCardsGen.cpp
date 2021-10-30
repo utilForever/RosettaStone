@@ -2843,6 +2843,14 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("BAR_844", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_845] Rancor - COST:4
