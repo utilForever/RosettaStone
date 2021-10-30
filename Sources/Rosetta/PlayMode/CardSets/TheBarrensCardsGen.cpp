@@ -2749,6 +2749,17 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()),
+        std::make_shared<SelfCondition>(SelfCondition::HasFrenzy()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 2));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    cards.emplace("BAR_334", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BAR_840] Whirling Combatant - COST:4 [ATK:3/HP:6]

@@ -4559,6 +4559,82 @@ TEST_CASE("[Warlock : Minion] - BAR_917 : Barrens Scavenger")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [BAR_334] Overlord Saurfang - COST:7 [ATK:5/HP:4]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Resurrect 2 friendly <b>Frenzy</b>
+//       minions. Deal 1 damage to all other minions.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - BAR_334 : Overlord Saurfang")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Overlord Saurfang"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stonemaul Anchorman"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stonemaul Anchorman"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card2));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card3));
+    game.Process(opPlayer, HeroPowerTask(card4));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
+    CHECK_EQ(curField[2]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [BAR_840] Whirling Combatant - COST:4 [ATK:3/HP:6]
 // - Set: THE_BARRENS, Rarity: Common
 // --------------------------------------------------------
