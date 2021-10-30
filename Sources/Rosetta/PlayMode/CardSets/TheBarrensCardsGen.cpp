@@ -2789,6 +2789,17 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(SelfCondition::HasTaunt()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_841e", EntityType::STACK));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("BAR_841", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_842] Conditioning (Rank 1) - COST:2
@@ -2921,6 +2932,9 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_841e"));
+    cards.emplace("BAR_841e", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [BAR_842t] Conditioning (Rank 2) - COST:2

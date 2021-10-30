@@ -4703,6 +4703,57 @@ TEST_CASE("[Warrior : Minion] - BAR_840 : Whirling Combatant")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
+// [BAR_841] Bulk Up - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a random <b>Taunt</b> minion in your hand +1/+1
+//       and copy it.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - BAR_841 : Bulk Up")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bulk Up"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    [[maybe_unused]] const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sen'jin Shieldmasta"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 12);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 6);
+    CHECK_EQ(curHand[2]->card->name, "Sen'jin Shieldmasta");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetAttack(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[2])->GetHealth(), 6);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
 // [BAR_842] Conditioning (Rank 1) - COST:2
 // - Set: THE_BARRENS, Rarity: Rare
 // --------------------------------------------------------
