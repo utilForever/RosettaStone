@@ -820,9 +820,9 @@ THE_BARRENS | BAR_841 | Bulk Up | O
 THE_BARRENS | BAR_842 | Conditioning (Rank 1) | O
 THE_BARRENS | BAR_843 | Warsong Envoy | O
 THE_BARRENS | BAR_844 | Outrider's Axe | O
-THE_BARRENS | BAR_845 | Rancor |  
-THE_BARRENS | BAR_846 | Mor'shan Elite |  
-THE_BARRENS | BAR_847 | Rokara |  
+THE_BARRENS | BAR_845 | Rancor | O
+THE_BARRENS | BAR_846 | Mor'shan Elite | O
+THE_BARRENS | BAR_847 | Rokara | O
 THE_BARRENS | BAR_848 | Lilypad Lurker | O
 THE_BARRENS | BAR_854 | Kindling Elemental |  
 THE_BARRENS | BAR_860 | Firemancer Flurgl | O
@@ -865,8 +865,8 @@ THE_BARRENS | WC_021 | Unstable Shadow Blast |
 THE_BARRENS | WC_022 | Final Gasp |  
 THE_BARRENS | WC_023 | Stealer of Souls |  
 THE_BARRENS | WC_024 | Man-at-Arms | O
-THE_BARRENS | WC_025 | Whetstone Hatchet |  
-THE_BARRENS | WC_026 | Kresh, Lord of Turtling |  
+THE_BARRENS | WC_025 | Whetstone Hatchet | O
+THE_BARRENS | WC_026 | Kresh, Lord of Turtling | O
 THE_BARRENS | WC_027 | Devouring Ectoplasm |  
 THE_BARRENS | WC_028 | Meeting Stone |  
 THE_BARRENS | WC_029 | Selfless Sidekick |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 48% (82 of 170 Cards)
+- Progress: 51% (87 of 170 Cards)
 
 ## United in Stormwind
 
