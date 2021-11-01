@@ -2859,6 +2859,37 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to all minions.
     //       Gain 2 Armor for each destroyed.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2, true));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, Playable* target) {
+            int count = 0;
+
+            player->GetFieldZone()->ForEach([&](Playable* minion) {
+                if (minion->isDestroyed)
+                {
+                    ++count;
+                }
+            });
+
+            player->opponent->GetFieldZone()->ForEach([&](Playable* minion) {
+                if (minion->isDestroyed)
+                {
+                    ++count;
+                }
+            });
+
+            const auto& armorTask = std::make_shared<ArmorTask>(2 * count);
+            armorTask->SetPlayer(player);
+            armorTask->SetSource(source);
+            armorTask->SetTarget(target);
+
+            armorTask->Run();
+
+            return TaskStatus::COMPLETE;
+        }));
+    cards.emplace("BAR_845", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BAR_846] Mor'shan Elite - COST:5 [ATK:4/HP:4]
