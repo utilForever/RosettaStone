@@ -83,6 +83,11 @@ void TriggerManager::OnAttackTrigger(Entity* sender)
     attackTrigger(sender);
 }
 
+void TriggerManager::OnAfterAttackTrigger(Entity* sender)
+{
+    afterAttackTrigger(sender);
+}
+
 void TriggerManager::OnSummonTrigger(Entity* sender)
 {
     summonTrigger(sender);

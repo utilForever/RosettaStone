@@ -81,6 +81,10 @@ class TriggerManager
     //! \param sender An entity that is the source of trigger.
     void OnAttackTrigger(Entity* sender);
 
+    //! Callback for trigger when an attack action is ended.
+    //! \param sender An entity that is the source of trigger.
+    void OnAfterAttackTrigger(Entity* sender);
+
     //! Callback for trigger when entity is summoned.
     //! \param sender An entity that is the source of trigger.
     void OnSummonTrigger(Entity* sender);
@@ -140,6 +144,7 @@ class TriggerManager
     TriggerEvent giveHealTrigger;
     TriggerEvent takeHealTrigger;
     TriggerEvent attackTrigger;
+    TriggerEvent afterAttackTrigger;
     TriggerEvent summonTrigger;
     TriggerEvent afterSummonTrigger;
     TriggerEvent dealDamageTrigger;
