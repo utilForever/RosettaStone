@@ -2902,6 +2902,14 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsAttackThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<CopyTask>(EntityType::SOURCE,
+                                                   ZoneType::PLAY) }));
+    cards.emplace("BAR_846", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BAR_847] Rokara - COST:3 [ATK:2/HP:3]
