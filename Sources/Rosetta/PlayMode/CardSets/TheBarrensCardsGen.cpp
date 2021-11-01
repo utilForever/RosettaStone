@@ -2978,6 +2978,12 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { ComplexTask::GiveBuffToRandomMinionInHand(
+        "WC_025e") };
+    cards.emplace("WC_025", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [WC_026] Kresh, Lord of Turtling - COST:6 [ATK:3/HP:9]
@@ -3059,6 +3065,9 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("WC_025e"));
+    cards.emplace("WC_025e", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [WC_026t] Turtle Spike - COST:4

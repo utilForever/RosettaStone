@@ -5267,3 +5267,46 @@ TEST_CASE("[Warrior : Minion] - WC_024 : Man-at-Arms")
     CHECK_EQ(curField[1]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetHealth(), 4);
 }
+
+// --------------------------------------- WEAPON - WARRIOR
+// [WC_025] Whetstone Hatchet - COST:1
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: After your hero attacks,
+//       give a minion in your hand +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - WC_025 : Whetstone Hatchet")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Whetstone Hatchet"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 1);
+}
