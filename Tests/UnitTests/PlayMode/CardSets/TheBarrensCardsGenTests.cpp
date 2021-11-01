@@ -5310,3 +5310,62 @@ TEST_CASE("[Warrior : Weapon] - WC_025 : Whetstone Hatchet")
     CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 2);
     CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 1);
 }
+
+// --------------------------------------- MINION - WARRIOR
+// [WC_026] Kresh, Lord of Turtling - COST:6 [ATK:3/HP:9]
+// - Race: Beast, Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Gain 8 Armor.
+//       <b>Deathrattle:</b> Equip a 2/5 Turtle Spike.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - WC_026 : Kresh, Lord of Turtling")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHero = *(curPlayer->GetHero());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kresh, Lord of Turtling"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHero.GetArmor(), 0);
+    CHECK_EQ(curHero.HasWeapon(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHero.GetArmor(), 8);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curHero.HasWeapon(), true);
+    CHECK_EQ(curHero.weapon->card->name, "Turtle Spike");
+    CHECK_EQ(curHero.weapon->GetAttack(), 2);
+    CHECK_EQ(curHero.weapon->GetDurability(), 5);
+}

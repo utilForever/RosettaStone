@@ -2997,6 +2997,10 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<ArmorTask>(8));
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("WC_026t"));
+    cards.emplace("WC_026", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddWarriorNonCollect(
@@ -3073,6 +3077,9 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // [WC_026t] Turtle Spike - COST:4
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_026t", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
