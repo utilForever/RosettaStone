@@ -160,6 +160,12 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
                     minion->afterAttackTrigger += instance->handler;
                     break;
                 }
+                case TriggerSource::MINIONS:
+                {
+                    game->triggerManager.afterAttackTrigger +=
+                        instance->handler;
+                    break;
+                }
                 case TriggerSource::ENCHANTMENT_TARGET:
                 {
                     const auto enchantment = dynamic_cast<Enchantment*>(source);
@@ -327,6 +333,11 @@ void Trigger::Remove() const
                 {
                     auto minion = dynamic_cast<Minion*>(m_owner);
                     minion->afterAttackTrigger -= handler;
+                    break;
+                }
+                case TriggerSource::MINIONS:
+                {
+                    game->triggerManager.afterAttackTrigger -= handler;
                     break;
                 }
                 case TriggerSource::ENCHANTMENT_TARGET:
@@ -681,7 +692,7 @@ void Trigger::Validate(Entity* source)
         const bool res = (playable != nullptr) ? condition->Evaluate(playable)
                                                : condition->Evaluate(m_owner);
 
-        if (conditionLogic == MultiCondLogic::AND && !res) 
+        if (conditionLogic == MultiCondLogic::AND && !res)
         {
             return;
         }

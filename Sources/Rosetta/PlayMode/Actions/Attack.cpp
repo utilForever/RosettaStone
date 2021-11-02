@@ -150,6 +150,7 @@ void Attack(Player* player, Character* source, Character* target,
     // Process after attack trigger
     player->game->taskQueue.StartEvent();
     source->afterAttackTrigger(source);
+    player->game->triggerManager.OnAfterAttackTrigger(source);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
 

@@ -2859,6 +2859,37 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to all minions.
     //       Gain 2 Armor for each destroyed.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2, true));
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, Entity* source, Playable* target) {
+            int count = 0;
+
+            player->GetFieldZone()->ForEach([&](Playable* minion) {
+                if (minion->isDestroyed)
+                {
+                    ++count;
+                }
+            });
+
+            player->opponent->GetFieldZone()->ForEach([&](Playable* minion) {
+                if (minion->isDestroyed)
+                {
+                    ++count;
+                }
+            });
+
+            const auto& armorTask = std::make_shared<ArmorTask>(2 * count);
+            armorTask->SetPlayer(player);
+            armorTask->SetSource(source);
+            armorTask->SetTarget(target);
+
+            armorTask->Run();
+
+            return TaskStatus::COMPLETE;
+        }));
+    cards.emplace("BAR_845", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BAR_846] Mor'shan Elite - COST:5 [ATK:4/HP:4]
@@ -2871,6 +2902,14 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsAttackThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<CopyTask>(EntityType::SOURCE,
+                                                   ZoneType::PLAY) }));
+    cards.emplace("BAR_846", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BAR_847] Rokara - COST:3 [ATK:2/HP:3]
@@ -2885,6 +2924,15 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNotDead())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_847e", EntityType::EVENT_SOURCE) };
+    cards.emplace("BAR_847", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [BAR_896] Stonemaul Anchorman - COST:5 [ATK:4/HP:6]
@@ -2930,6 +2978,12 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { ComplexTask::GiveBuffToRandomMinionInHand(
+        "WC_025e") };
+    cards.emplace("WC_025", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [WC_026] Kresh, Lord of Turtling - COST:6 [ATK:3/HP:9]
@@ -2943,6 +2997,10 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<ArmorTask>(8));
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("WC_026t"));
+    cards.emplace("WC_026", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddWarriorNonCollect(
@@ -3011,11 +3069,17 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("WC_025e"));
+    cards.emplace("WC_025e", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [WC_026t] Turtle Spike - COST:4
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_026t", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
@@ -4251,6 +4315,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_847e"));
+    cards.emplace("BAR_847e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_854e] Kindle - COST:0
