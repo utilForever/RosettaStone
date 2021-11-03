@@ -3315,6 +3315,7 @@
         "health": 5,
         "id": "BAR_081",
         "mechanics": [
+            "BATTLECRY",
             "DISCOVER"
         ],
         "name": "Southsea Scoundrel",
@@ -23547,6 +23548,691 @@
         "type": "MINION"
     },
     {
+        "artist": "Zoltan Boros",
+        "attack": 1,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 65580,
+        "flavor": "“Wow, there’s a whole sunken city down here!”",
+        "health": 1,
+        "id": "DED_001",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Druid of the Reef",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH",
+            "TAUNT"
+        ],
+        "set": "STORMWIND",
+        "text": "[x]<b>Choose One - </b>Transform into\na 3/1 Shark with <b>Rush</b>; or\na 1/3 Turtle with <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 65583,
+        "flavor": "Guff always makes the best decisions after 2 AM.",
+        "id": "DED_002",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Moonlit Guidance",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "spellSchool": "ARCANE",
+        "text": "[x]<b>Discover</b> a copy of\na card in your deck.\nIf you play it this turn,\ndraw the original.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Adam Byrne",
+        "attack": 2,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 65584,
+        "flavor": "<b>Choose Two –</b> Good; Cheap; or Fast.",
+        "health": 1,
+        "id": "DED_003",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Jerry Rig Carpenter",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "<b>Battlecry:</b> Draw a <b>Choose One</b> spell and split it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 65597,
+        "durability": 2,
+        "flavor": "Popular around Stormwind for slashing prices.",
+        "id": "DED_004",
+        "mechanics": [
+            "TRADEABLE"
+        ],
+        "name": "Blackwater Cutlass",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "[x]<b>Tradeable</b>\nAfter you <b>Trade</b> this,\nreduce the cost of a spell\nin your hand by (1).",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 65598,
+        "flavor": "Time to engage in some unfriendly negotiations.",
+        "id": "DED_005",
+        "name": "Parrrley",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "Swap this for a card in your opponent's deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 65599,
+        "elite": true,
+        "flavor": "“Please, Mr. Smite was my father. Call me Yorik.”",
+        "health": 5,
+        "id": "DED_006",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Mr. Smite",
+        "race": "PIRATE",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "CHARGE"
+        ],
+        "set": "STORMWIND",
+        "text": "Your Pirates have <b>Charge</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 65601,
+        "flavor": "She's a dynamite fishing trainer.",
+        "health": 2,
+        "id": "DED_007",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Defias Blastfisher",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry:</b> Deal 2 damage\nto a random enemy. Repeat\nfor each of your Beasts.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 65602,
+        "flavor": "What kind of crackers are you feeding that thing?",
+        "health": 4,
+        "id": "DED_008",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Monstrous Parrot",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry:</b> Repeat the last\nfriendly <b>Deathrattle</b>\nthat triggered.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jialuan Li",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 65603,
+        "flavor": "Reserved for Edwin’s favorite lapdogs.",
+        "id": "DED_009",
+        "mechanics": [
+            "TRADEABLE"
+        ],
+        "name": "Doggie Biscuit",
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "STORMWIND",
+        "text": "[x]<b>Tradeable</b>\nGive a minion +2/+3.\nAfter you <b>Trade</b> this, give\na friendly minion <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 65579,
+        "flavor": "WOULD YE LIKE CASH BACK?\n[  ] YAR HAR        [  ] YO HO",
+        "health": 8,
+        "id": "DED_500",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Wealth Redistributor",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "[x]<b>Taunt</b>. <b>Battlecry:</b> Swap the\nAttack of the highest and\nlowest Attack minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 65590,
+        "flavor": "Most parrots repeat curses, not blessings.",
+        "health": 4,
+        "id": "DED_501",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sunwing Squawker",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry:</b> Repeat the last\nspell you've cast on a\n  friendly minion on this.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Samche Chen",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 65591,
+        "flavor": "Paladins... Always stealing someone else’s thunder. And stats.",
+        "id": "DED_502",
+        "name": "Righteous Defense",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "spellSchool": "HOLY",
+        "text": "Set a minion's Attack and Health to 1. Give the stats it lost to a minion in your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "attack": 2,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 65604,
+        "flavor": "Throwing knives isn’t easy for a warlock. It’s quite painful, in fact.",
+        "health": 1,
+        "id": "DED_503",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shadowblade Slinger",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "targetingArrowText": "Deal damage to an enemy minion.",
+        "text": "[x]<b>Battlecry:</b> If you've taken\ndamage this turn, deal that\n much to an enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 65605,
+        "flavor": "All horns on deck!",
+        "id": "DED_504",
+        "mechanics": [
+            "TRADEABLE"
+        ],
+        "name": "Wicked Shipment",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "[x]<b>Tradeable</b>\nSummon 2 1/1 Imps.\n<i>(Upgrades by 2\nwhen <b>Traded</b>!)</i>",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 65606,
+        "flavor": "Breaks through the hard shell to reach the ship's gooey interior.",
+        "health": 3,
+        "id": "DED_505",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Hullbreaker",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry and Deathrattle:</b>\nDraw a spell. Your hero takes\ndamage equal to its Cost.",
+        "type": "MINION"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 65608,
+        "flavor": "Sorry guys, I TOTALLY meant to click greed.",
+        "id": "DED_506",
+        "mechanics": [
+            "TRADEABLE"
+        ],
+        "name": "Need for Greed",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "<b>Tradeable</b>\nDraw 3 cards. If drawn this turn, this costs (3).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 65609,
+        "flavor": "The extra eyes means he sees extra good.",
+        "health": 2,
+        "id": "DED_507",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Crow's Nest Lookout",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry:</b> Deal 2 damage\nto the left and right-most\nenemy minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 65610,
+        "flavor": "1v1 me on Proving Grounds, DH only, no items, 4 stocks.",
+        "id": "DED_508",
+        "name": "Proving Grounds",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "Summon two minions from your deck.\nThey fight!",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 65619,
+        "flavor": "He's been repeating the same shanty for a month. Four pirates walked the plank last week. Middle of the ocean, just walked right off.",
+        "health": 3,
+        "id": "DED_509",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Brilliant Macaw",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "<b>Battlecry:</b> Repeat the last <b>Battlecry</b> you played.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 65645,
+        "elite": true,
+        "flavor": "He’s not going to tear down the walls of Stormwind sitting around in the Hall of Fame.",
+        "health": 4,
+        "id": "DED_510",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Edwin, Defias Kingpin",
+        "race": "PIRATE",
+        "rarity": "LEGENDARY",
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry:</b> Draw a card. If you\nplay it this turn, gain +2/+2\nand repeat this effect.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 65655,
+        "flavor": "A moderately better dining companion than Suckerbeard.",
+        "health": 6,
+        "id": "DED_511",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Suckerhook",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "[x]At the end of your turn,\ntransform your weapon into\none that costs (1) more.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 65676,
+        "flavor": "Didn't seem to work out too well for this guy.",
+        "id": "DED_512",
+        "mechanics": [
+            "TRADEABLE"
+        ],
+        "name": "Amulet of Undying",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "STORMWIND",
+        "spellSchool": "SHADOW",
+        "text": "[x]<b>Tradeable</b>\nResurrect 1 friendly\n<b>Deathrattle</b> minion.\n<i>(Upgrades when <b>Traded</b>!)</i>",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 65677,
+        "flavor": "Do NOT eat Cookie’s Seafood Surprise.",
+        "health": 2,
+        "id": "DED_513",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Defias Leper",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "targetingArrowText": "Deal 2 damage.",
+        "text": "[x]<b>Battlecry:</b> If you're holding\na Shadow spell, deal\n2 damage.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 65678,
+        "flavor": "Whatever you do, DON’T let two of them meet.",
+        "health": 4,
+        "id": "DED_514",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Copycat",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "<b>Battlecry:</b> Add a copy of the next card your opponent plays to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Todd Harris",
+        "attack": 6,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 65682,
+        "flavor": "Nothing is more terrifying than a parrot squawking \"Pyroblast!\"",
+        "health": 6,
+        "id": "DED_515",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Grey Sage Parrot",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "<b>Battlecry:</b> Repeat the last spell you've cast that costs (5) or more.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 65683,
+        "flavor": "\"Cap'n! We've hit an iceberg! ...No, it’s not my fault!\"",
+        "health": 4,
+        "id": "DED_516",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Deepwater Evoker",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry:</b> Draw a spell.\nGain Armor equal to\nits Cost.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 65684,
+        "flavor": "On this ship, when you can’t use an int, learn how to float.",
+        "id": "DED_517",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Arcane Overflow",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "spellSchool": "ARCANE",
+        "text": "[x]Deal $8 damage to an\nenemy minion. Summon a\n Remnant with stats equal\nto the excess damage.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 65691,
+        "flavor": "Now THAT’S a lotta splash damage!",
+        "id": "DED_518",
+        "name": "Man the Cannons",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "Deal $3 damage to a minion and $1 damage to all other minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 65692,
+        "flavor": "\"... three.\"",
+        "health": 3,
+        "id": "DED_519",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Defias Cannoneer",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "text": "[x]After your hero attacks,\ndeal 2 damage to a\nrandom enemy twice.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 9,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 65699,
+        "flavor": "Talk about a name that limits design space.",
+        "health": 8,
+        "id": "DED_521",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Maddest Bomber",
+        "rarity": "EPIC",
+        "set": "STORMWIND",
+        "text": "<b>Battlecry:</b> Deal 12 damage randomly split among all other characters.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 65700,
+        "elite": true,
+        "flavor": "Unsurprisingly, \"Seafood Surprise\" was no one's favorite dish.",
+        "health": 3,
+        "id": "DED_522",
+        "mechanics": [
+            "DEATHRATTLE",
+            "LIFESTEAL"
+        ],
+        "name": "Cookie the Cook",
+        "race": "MURLOC",
+        "rarity": "LEGENDARY",
+        "set": "STORMWIND",
+        "text": "[x]<b>Lifesteal</b>\n<b>Deathrattle:</b> Equip a 2/3\n  Stirring Rod with <b>Lifesteal</b>. ",
+        "type": "MINION"
+    },
+    {
+        "artist": "Wayne Wu",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 65702,
+        "flavor": "We lost our last cook to one of these.",
+        "health": 3,
+        "id": "DED_523",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Golakka Glutton",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "STORMWIND",
+        "targetingArrowText": "Destroy a Beast.",
+        "text": "<b>Battlecry:</b> Destroy a Beast and gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 65704,
+        "flavor": "Has a questionable talent tree.",
+        "health": 4,
+        "id": "DED_524",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Multicaster",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "[x]<b>Battlecry:</b> Draw a card for\neach different spell school\n you've cast this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 65705,
+        "elite": true,
+        "flavor": "“Listen, this baby has blades, rockets, and rocket blades. Only thing it doesn’t have is good gas mileage.”",
+        "health": 8,
+        "id": "DED_525",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Goliath, Sneed's Masterpiece",
+        "race": "MECHANICAL",
+        "rarity": "LEGENDARY",
+        "set": "STORMWIND",
+        "targetingArrowText": "Deal 2 Damage. (@ left!)",
+        "text": "[x]<b>Battlecry:</b> Fire five rockets\nat enemy minions that deal\n2 damage each. <i>(You pick\nthe targets!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Akkapoj T.",
+        "attack": 5,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 64197,
+        "durability": 1,
+        "flavor": "Passed through the hands of countless smiths, and eventually the skulls of their enemies.",
+        "id": "DED_527",
+        "mechanics": [
+            "TRADEABLE"
+        ],
+        "name": "Blacksmithing Hammer",
+        "rarity": "RARE",
+        "set": "STORMWIND",
+        "text": "[x]<b>Tradeable</b>\nAfter you <b>Trade</b> this,\n gain +2 Durability.",
+        "type": "WEAPON"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "attack": 5,
         "cardClass": "NEUTRAL",
@@ -23658,6 +24344,7 @@
         "name": "Idol of Y'Shaarj",
         "rarity": "EPIC",
         "set": "DARKMOON_FAIRE",
+        "spellSchool": "SHADOW",
         "text": "Summon a 10/10 copy of a minion in your deck.",
         "type": "SPELL"
     },
@@ -24375,6 +25062,7 @@
         "name": "Mask of C'Thun",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
+        "spellSchool": "SHADOW",
         "text": "Deal $10 damage randomly split among all enemies.",
         "type": "SPELL"
     },
@@ -39883,6 +40571,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 78586,
+        "health": 30,
+        "id": "HERO_03m",
+        "name": "Edwin VanCleef",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 671,
@@ -51253,7 +51952,7 @@
         "name": "High Abbess Alura",
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
-        "text": "<b>Spellburst:</b> Cast a spell from your deck <i>(targets this if possible)</i>.",
+        "text": "<b><b>Spellburst</b>:</b> Cast a spell from your deck <i>(targets this if possible)</i>.",
         "type": "MINION"
     },
     {
@@ -60234,6 +60933,7 @@
         "name": "Puzzle Box of Yogg-Saron",
         "rarity": "EPIC",
         "set": "ULDUM",
+        "spellSchool": "SHADOW",
         "text": "Cast 10 random spells <i>(targets chosen randomly).</i>",
         "type": "SPELL"
     },
