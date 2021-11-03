@@ -4,7 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/Common/Macros.hpp>
 #include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 
@@ -12,28 +11,18 @@
 #include <lyra/help.hpp>
 #include <lyra/opt.hpp>
 
-#if defined(ROSETTASTONE_WINDOWS)
 #include <filesystem>
-#elif defined(ROSETTASTONE_LINUX)
-#include <experimental/filesystem>
-#endif
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <vector>
 
-#if defined(ROSETTASTONE_WINDOWS)
 namespace filesystem = std::filesystem;
-#elif defined(ROSETTASTONE_LINUX)
-namespace filesystem = std::experimental::filesystem;
-#endif
 
 using namespace RosettaStone;
 using namespace PlayMode;
 
 inline bool CheckCardImpl(const std::string& path, const std::string& id)
 {
-#if defined(ROSETTASTONE_WINDOWS) || defined(ROSETTASTONE_LINUX)
     const filesystem::path p(path + "/Tests/UnitTests/PlayMode/CardSets");
 
     if (!filesystem::exists(p))
@@ -68,11 +57,6 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
 
         fileInput.close();
     }
-#elif defined(ROSETTASTONE_MACOSX)
-    std::cerr
-        << "CheckCardImpl skip: apple-clang doesn't support <filesystem>\n";
-    exit(EXIT_FAILURE);
-#endif
 
     return false;
 }
