@@ -5369,3 +5369,68 @@ TEST_CASE("[Warrior : Minion] - WC_026 : Kresh, Lord of Turtling")
     CHECK_EQ(curHero.weapon->GetAttack(), 2);
     CHECK_EQ(curHero.weapon->GetDurability(), 5);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BAR_306] Sigil of Flame - COST:2
+// - Set: THE_BARRENS, Rarity: Epic
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: At the start of your next turn,
+//       deal 3 damage to all minions.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BAR_306 : Sigil of Flame")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sigil of Flame"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kresh, Lord of Turtling"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Kresh, Lord of Turtling"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+}

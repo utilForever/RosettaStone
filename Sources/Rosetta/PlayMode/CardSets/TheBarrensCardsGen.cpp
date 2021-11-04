@@ -3084,6 +3084,8 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
 
 void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_306] Sigil of Flame - COST:2
     // - Set: THE_BARRENS, Rarity: Epic
@@ -3092,6 +3094,12 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // Text: At the start of your next turn,
     //       deal 3 damage to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS, 3, true) };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("BAR_306", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_325] Razorboar - COST:2 [ATK:3/HP:2]
