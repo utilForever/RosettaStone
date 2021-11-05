@@ -3149,9 +3149,18 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Demons with <b>Lifesteal</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_327t", 2, SummonSide::SPELL));
+    cards.emplace(
+        "BAR_327",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_328] Vengeful Spirit - COST:4 [ATK:4/HP:4]
@@ -3269,6 +3278,8 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_327t] Ravenous Vilefiend - COST:2 [ATK:2/HP:2]
     // - Race: Demon, Set: THE_BARRENS
@@ -3278,6 +3289,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_327t", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BAR_891e] Fury - COST:0

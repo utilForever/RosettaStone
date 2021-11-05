@@ -5544,3 +5544,53 @@ TEST_CASE("[Demon Hunter : Minion] - BAR_326 : Razorfen Beastmaster")
     CHECK_EQ(curField[0]->card->name, "Razorfen Beastmaster");
     CHECK_EQ(curHand.GetCount(), 5);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BAR_327] Vile Call - COST:3
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon two 2/2 Demons with <b>Lifesteal</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BAR_327 : Vile Call")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vile Call"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Ravenous Vilefiend");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->HasLifesteal(), true);
+    CHECK_EQ(curField[1]->card->name, "Ravenous Vilefiend");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->HasLifesteal(), true);
+}
