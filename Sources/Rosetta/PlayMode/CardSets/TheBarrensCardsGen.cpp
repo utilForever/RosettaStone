@@ -3174,6 +3174,10 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(std::make_shared<DrawMinionTask>(
+        DrawMinionType::DEATHRATTLE, 2, false));
+    cards.emplace("BAR_328", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_329] Death Speaker Blackthorn - COST:7 [ATK:3/HP:6]

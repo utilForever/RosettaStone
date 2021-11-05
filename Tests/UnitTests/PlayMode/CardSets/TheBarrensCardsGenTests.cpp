@@ -5594,3 +5594,60 @@ TEST_CASE("[Demon Hunter : Spell] - BAR_327 : Vile Call")
     CHECK_EQ(curField[1]->GetHealth(), 2);
     CHECK_EQ(curField[1]->HasLifesteal(), true);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BAR_328] Vengeful Spirit - COST:4 [ATK:4/HP:4]
+// - Set: THE_BARRENS, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Outcast:</b> Draw 2 <b>Deathrattle</b> minions.
+// --------------------------------------------------------
+// GameTag:
+// - OUTCAST = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BAR_328 : Vengeful Spirit")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Savannah Highmane");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vengeful Spirit"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vengeful Spirit"));
+
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->HasDeathrattle(), true);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->HasDeathrattle(), true);
+}
