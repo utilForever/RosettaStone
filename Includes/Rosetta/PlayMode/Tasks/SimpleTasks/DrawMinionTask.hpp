@@ -16,6 +16,7 @@ enum class DrawMinionType
     DEFAULT,       //!< Don't care.
     LOWEST_COST,   //!< Lowest cost card.
     HIGHEST_COST,  //!< Highest cost card.
+    DEATHRATTLE,   //!< Has Deathrattle.
 };
 
 //!

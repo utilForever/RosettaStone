@@ -66,6 +66,11 @@ TaskStatus DrawMinionTask::Impl(Player* player)
                           return card1->GetCost() > card2->GetCost();
                       });
             break;
+        case DrawMinionType::DEATHRATTLE:
+            EraseIf(deckCards, [=](Playable* playable) {
+                return !playable->HasDeathrattle();
+            });
+            break;
     }
 
     for (int i = 0; i < m_amount; ++i)
