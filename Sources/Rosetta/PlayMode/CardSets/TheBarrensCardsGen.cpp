@@ -3111,6 +3111,16 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsCost(3, RelaSign::LEQ)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("BAR_325", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_326] Razorfen Beastmaster - COST:3 [ATK:3/HP:3]

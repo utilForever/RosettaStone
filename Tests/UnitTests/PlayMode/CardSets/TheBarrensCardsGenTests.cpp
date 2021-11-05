@@ -5434,3 +5434,58 @@ TEST_CASE("[Demon Hunter : Spell] - BAR_306 : Sigil of Flame")
     CHECK_EQ(curField[0]->GetHealth(), 6);
     CHECK_EQ(opField[0]->GetHealth(), 6);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BAR_325] Razorboar - COST:2 [ATK:3/HP:2]
+// - Race: Beast, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a <b>Deathrattle</b>
+//       minion that costs (3) or less from your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BAR_325 : Razorboar")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Razorboar"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Razorfen Beastmaster"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Plagued Protodrake"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Razorfen Beastmaster");
+    CHECK_EQ(curHand.GetCount(), 5);
+}
