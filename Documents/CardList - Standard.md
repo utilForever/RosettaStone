@@ -757,7 +757,7 @@ THE_BARRENS | BAR_080 | Shadow Hunter Vol'jin |
 THE_BARRENS | BAR_081 | Southsea Scoundrel |  
 THE_BARRENS | BAR_082 | Barrens Trapper |  
 THE_BARRENS | BAR_305 | Flurry (Rank 1) | O
-THE_BARRENS | BAR_306 | Sigil of Flame |  
+THE_BARRENS | BAR_306 | Sigil of Flame | O
 THE_BARRENS | BAR_307 | Void Flayer | O
 THE_BARRENS | BAR_308 | Power Word: Fortitude | O
 THE_BARRENS | BAR_309 | Desperate Prayer | O
@@ -776,10 +776,10 @@ THE_BARRENS | BAR_321 | Paralytic Poison | O
 THE_BARRENS | BAR_322 | Swinetusk Shank | O
 THE_BARRENS | BAR_323 | Yoink! |  
 THE_BARRENS | BAR_324 | Apothecary Helbrim | O
-THE_BARRENS | BAR_325 | Razorboar |  
-THE_BARRENS | BAR_326 | Razorfen Beastmaster |  
-THE_BARRENS | BAR_327 | Vile Call |  
-THE_BARRENS | BAR_328 | Vengeful Spirit |  
+THE_BARRENS | BAR_325 | Razorboar | O
+THE_BARRENS | BAR_326 | Razorfen Beastmaster | O
+THE_BARRENS | BAR_327 | Vile Call | O
+THE_BARRENS | BAR_328 | Vengeful Spirit | O
 THE_BARRENS | BAR_329 | Death Speaker Blackthorn |  
 THE_BARRENS | BAR_330 | Tuskpiercer |  
 THE_BARRENS | BAR_333 | Kurtrus Ashfallen |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 51% (87 of 170 Cards)
+- Progress: 54% (92 of 170 Cards)
 
 ## United in Stormwind
 
