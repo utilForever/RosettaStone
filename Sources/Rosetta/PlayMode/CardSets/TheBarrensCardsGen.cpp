@@ -3084,6 +3084,8 @@ void TheBarrensCardsGen::AddWarriorNonCollect(
 
 void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_306] Sigil of Flame - COST:2
     // - Set: THE_BARRENS, Rarity: Epic
@@ -3092,6 +3094,12 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // Text: At the start of your next turn,
     //       deal 3 damage to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS, 3, true) };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("BAR_306", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_325] Razorboar - COST:2 [ATK:3/HP:2]
@@ -3103,6 +3111,16 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsCost(3, RelaSign::LEQ)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("BAR_325", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_326] Razorfen Beastmaster - COST:3 [ATK:3/HP:3]
@@ -3114,6 +3132,16 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsCost(4, RelaSign::LEQ)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("BAR_326", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_327] Vile Call - COST:3
@@ -3121,9 +3149,18 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Demons with <b>Lifesteal</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_327t", 2, SummonSide::SPELL));
+    cards.emplace(
+        "BAR_327",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_328] Vengeful Spirit - COST:4 [ATK:4/HP:4]
@@ -3137,6 +3174,10 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddOutcastTask(std::make_shared<DrawMinionTask>(
+        DrawMinionType::DEATHRATTLE, 2, false));
+    cards.emplace("BAR_328", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_329] Death Speaker Blackthorn - COST:7 [ATK:3/HP:6]
@@ -3241,6 +3282,8 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 void TheBarrensCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_327t] Ravenous Vilefiend - COST:2 [ATK:2/HP:2]
     // - Race: Demon, Set: THE_BARRENS
@@ -3250,6 +3293,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_327t", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BAR_891e] Fury - COST:0
