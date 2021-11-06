@@ -122,6 +122,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
         // NOTE: Healing Totem (AT_132_SHAMANa), Searing Totem (AT_132_SHAMANb),
         //       Stoneclaw Totem (AT_132_SHAMANc), Wrath of Air Totem
         //       (AT_132_SHAMANd) doesn't have Race::TOTEM
+        // NOTE: Wailing Demon (WC_003t) doesn't have GameTag::TAUNT
         if (dbfID == 56091)
         {
             gameTags.emplace(GameTag::DEATHRATTLE, 1);
@@ -134,6 +135,10 @@ void CardLoader::Load(std::vector<Card*>& cards)
                  dbfID == 16225)
         {
             cardRace = static_cast<int>(Race::TOTEM);
+        }
+        else if (dbfID == 63500)
+        {
+            gameTags.emplace(GameTag::TAUNT, 1);
         }
 
         Card* card = new Card();
