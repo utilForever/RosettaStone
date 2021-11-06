@@ -3193,6 +3193,15 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsCost(5, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 3));
+    power.AddPowerTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("BAR_329", CardDef(power));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [BAR_330] Tuskpiercer - COST:1

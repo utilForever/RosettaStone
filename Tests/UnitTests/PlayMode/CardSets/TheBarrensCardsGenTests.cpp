@@ -5651,3 +5651,63 @@ TEST_CASE("[Demon Hunter : Minion] - BAR_328 : Vengeful Spirit")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->HasDeathrattle(), true);
     CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->HasDeathrattle(), true);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BAR_329] Death Speaker Blackthorn - COST:7 [ATK:3/HP:6]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon 3 <b>Deathrattle</b>
+//       minions that cost (5) or less from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BAR_329 : Death Speaker Blackthorn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Savannah Highmane");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Teacher's Pet");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Death Speaker Blackthorn"));
+
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 23);
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->HasDeathrattle(), true);
+    CHECK_LE(curField[1]->GetCost(), 5);
+    CHECK_EQ(curField[2]->HasDeathrattle(), true);
+    CHECK_LE(curField[2]->GetCost(), 5);
+    CHECK_EQ(curField[3]->HasDeathrattle(), true);
+    CHECK_LE(curField[3]->GetCost(), 5);
+}
