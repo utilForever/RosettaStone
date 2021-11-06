@@ -5827,3 +5827,79 @@ TEST_CASE("[Demon Hunter : Spell] - BAR_705 : Sigil of Silence")
     CHECK_EQ(opField[0]->HasTaunt(), false);
     CHECK_EQ(opField[0]->HasDeathrattle(), false);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BAR_891] Fury (Rank 1) - COST:1
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Give your hero +2 Attack this turn.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BAR_891 : Fury (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHero = *(curPlayer->GetHero());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fury (Rank 1)"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fury (Rank 1)"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fury (Rank 1)"));
+
+    CHECK_EQ(card1->card->name, "Fury (Rank 1)");
+    CHECK_EQ(card2->card->name, "Fury (Rank 1)");
+    CHECK_EQ(card3->card->name, "Fury (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHero.GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Fury (Rank 1)");
+    CHECK_EQ(card3->card->name, "Fury (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Fury (Rank 2)");
+    CHECK_EQ(card3->card->name, "Fury (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHero.GetAttack(), 3);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Fury (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Fury (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHero.GetAttack(), 4);
+}

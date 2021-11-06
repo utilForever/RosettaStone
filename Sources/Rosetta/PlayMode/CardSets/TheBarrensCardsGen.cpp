@@ -3260,6 +3260,12 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // Text: Give your hero +2 Attack this turn.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_891e", EntityType::HERO));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_891t")));
+    cards.emplace("BAR_891", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [WC_003] Sigil of Summoning - COST:2
@@ -3325,6 +3331,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_891e"));
+    cards.emplace("BAR_891e", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BAR_891e2] Fury - COST:0
@@ -3335,6 +3344,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_891e2"));
+    cards.emplace("BAR_891e2", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BAR_891e3] Fury - COST:0
@@ -3345,6 +3357,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_891e3"));
+    cards.emplace("BAR_891e3", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_891t] Fury (Rank 2) - COST:1
@@ -3354,6 +3369,12 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // Text: Give your hero +3 Attack this turn.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_891e2", EntityType::HERO));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_891t2")));
+    cards.emplace("BAR_891t", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_891t2] Fury (Rank 3) - COST:1
@@ -3362,6 +3383,10 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_891e3", EntityType::HERO));
+    cards.emplace("BAR_891t2", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [WC_003t] Wailing Demon - COST:2 [ATK:2/HP:2]
