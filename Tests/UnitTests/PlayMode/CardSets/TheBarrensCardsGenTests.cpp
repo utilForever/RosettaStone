@@ -5651,3 +5651,441 @@ TEST_CASE("[Demon Hunter : Minion] - BAR_328 : Vengeful Spirit")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->HasDeathrattle(), true);
     CHECK_EQ(dynamic_cast<Minion*>(curHand[5])->HasDeathrattle(), true);
 }
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [BAR_329] Death Speaker Blackthorn - COST:7 [ATK:3/HP:6]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon 3 <b>Deathrattle</b>
+//       minions that cost (5) or less from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BAR_329 : Death Speaker Blackthorn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Savannah Highmane");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Teacher's Pet");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Death Speaker Blackthorn"));
+
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 23);
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->HasDeathrattle(), true);
+    CHECK_LE(curField[1]->GetCost(), 5);
+    CHECK_EQ(curField[2]->HasDeathrattle(), true);
+    CHECK_LE(curField[2]->GetCost(), 5);
+    CHECK_EQ(curField[3]->HasDeathrattle(), true);
+    CHECK_LE(curField[3]->GetCost(), 5);
+}
+
+// ----------------------------------- WEAPON - DEMONHUNTER
+// [BAR_330] Tuskpiercer - COST:1
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Draw a <b>Deathrattle</b> minion.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Weapon] - BAR_330 : Tuskpiercer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Savannah Highmane");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tuskpiercer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tuskpiercer"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->HasDeathrattle(), true);
+}
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BAR_705] Sigil of Silence - COST:0
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: At the start of your next turn,
+//       <b>Silence</b> all enemy minions.
+// --------------------------------------------------------
+// RefTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BAR_705 : Sigil of Silence")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sigil of Silence"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kresh, Lord of Turtling"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Teacher's Pet"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->HasFrenzy(), true);
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->HasTaunt(), true);
+    CHECK_EQ(opField[0]->HasDeathrattle(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->HasFrenzy(), true);
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+    CHECK_EQ(opField[0]->HasTaunt(), false);
+    CHECK_EQ(opField[0]->HasDeathrattle(), false);
+}
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BAR_891] Fury (Rank 1) - COST:1
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Give your hero +2 Attack this turn.
+//       <i>(Upgrades when you have 5 Mana.)</i>
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BAR_891 : Fury (Rank 1)")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(4);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHero = *(curPlayer->GetHero());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fury (Rank 1)"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fury (Rank 1)"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fury (Rank 1)"));
+
+    CHECK_EQ(card1->card->name, "Fury (Rank 1)");
+    CHECK_EQ(card2->card->name, "Fury (Rank 1)");
+    CHECK_EQ(card3->card->name, "Fury (Rank 1)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHero.GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Fury (Rank 1)");
+    CHECK_EQ(card3->card->name, "Fury (Rank 1)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->card->name, "Fury (Rank 2)");
+    CHECK_EQ(card3->card->name, "Fury (Rank 2)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHero.GetAttack(), 3);
+
+    curPlayer->SetTotalMana(9);
+    opPlayer->SetTotalMana(9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Fury (Rank 2)");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card3->card->name, "Fury (Rank 3)");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHero.GetAttack(), 4);
+}
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [WC_003] Sigil of Summoning - COST:2
+// - Set: THE_BARRENS, Rarity: Rare
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: At the start of your next turn,
+//       summon two 2/2 Demons with <b>Taunt</b>.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - WC_003 : Sigil of Summoning")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sigil of Summoning"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Wailing Demon");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->card->name, "Wailing Demon");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [WC_040] Taintheart Tormenter - COST:8 [ATK:8/HP:8]
+// - Race: Demon, Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Your opponent's spells cost (2) more.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - WC_040 : Taintheart Tormenter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Taintheart Tormenter"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 4);
+    CHECK_EQ(card5->GetCost(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 4);
+    CHECK_EQ(card4->GetCost(), 6);
+    CHECK_EQ(card5->GetCost(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 6);
+    CHECK_EQ(card5->GetCost(), 12);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card5->GetCost(), 10);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [WC_701] Felrattler - COST:3 [ATK:3/HP:2]
+// - Race: Beast, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Deathrattle:</b> Deal 1 damage to all enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - WC_701 : Felrattler")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Felrattler"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 8);
+}

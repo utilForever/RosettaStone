@@ -780,8 +780,8 @@ THE_BARRENS | BAR_325 | Razorboar | O
 THE_BARRENS | BAR_326 | Razorfen Beastmaster | O
 THE_BARRENS | BAR_327 | Vile Call | O
 THE_BARRENS | BAR_328 | Vengeful Spirit | O
-THE_BARRENS | BAR_329 | Death Speaker Blackthorn |  
-THE_BARRENS | BAR_330 | Tuskpiercer |  
+THE_BARRENS | BAR_329 | Death Speaker Blackthorn | O
+THE_BARRENS | BAR_330 | Tuskpiercer | O
 THE_BARRENS | BAR_333 | Kurtrus Ashfallen |  
 THE_BARRENS | BAR_334 | Overlord Saurfang | O
 THE_BARRENS | BAR_430 | Horde Operative |  
@@ -803,7 +803,7 @@ THE_BARRENS | BAR_549 | Mark of the Spikeshell | O
 THE_BARRENS | BAR_550 | Galloping Savior | O
 THE_BARRENS | BAR_551 | Barak Kodobane |  
 THE_BARRENS | BAR_552 | Scabbs Cutterbutter |  
-THE_BARRENS | BAR_705 | Sigil of Silence |  
+THE_BARRENS | BAR_705 | Sigil of Silence | O
 THE_BARRENS | BAR_720 | Guff Runetotem | O
 THE_BARRENS | BAR_721 | Mankrik |  
 THE_BARRENS | BAR_735 | Xyrella | O
@@ -836,7 +836,7 @@ THE_BARRENS | BAR_880 | Conviction (Rank 1) | O
 THE_BARRENS | BAR_881 | Invigorating Sermon | O
 THE_BARRENS | BAR_888 | Rimetongue | O
 THE_BARRENS | BAR_890 | Crossroads Gossiper |  
-THE_BARRENS | BAR_891 | Fury (Rank 1) |  
+THE_BARRENS | BAR_891 | Fury (Rank 1) | O
 THE_BARRENS | BAR_896 | Stonemaul Anchorman | O
 THE_BARRENS | BAR_902 | Cariel Roame | O
 THE_BARRENS | BAR_910 | Grimoire of Sacrifice | O
@@ -849,7 +849,7 @@ THE_BARRENS | BAR_916 | Blood Shard Bristleback | O
 THE_BARRENS | BAR_917 | Barrens Scavenger | O
 THE_BARRENS | BAR_918 | Tamsin Roame |  
 THE_BARRENS | BAR_919 | Neeru Fireblade |  
-THE_BARRENS | WC_003 | Sigil of Summoning |  
+THE_BARRENS | WC_003 | Sigil of Summoning | O
 THE_BARRENS | WC_004 | Fangbound Druid | O
 THE_BARRENS | WC_005 | Primal Dungeoneer | O
 THE_BARRENS | WC_006 | Lady Anacondra | O
@@ -877,15 +877,15 @@ THE_BARRENS | WC_034 | Party Up! |
 THE_BARRENS | WC_035 | Archdruid Naralex |  
 THE_BARRENS | WC_036 | Deviate Dreadfang | O
 THE_BARRENS | WC_037 | Venomstrike Bow | O
-THE_BARRENS | WC_040 | Taintheart Tormenter |  
+THE_BARRENS | WC_040 | Taintheart Tormenter | O
 THE_BARRENS | WC_041 | Shattering Blast | O
 THE_BARRENS | WC_042 | Wailing Vapor | O
-THE_BARRENS | WC_701 | Felrattler |  
+THE_BARRENS | WC_701 | Felrattler | O
 THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 54% (92 of 170 Cards)
+- Progress: 58% (99 of 170 Cards)
 
 ## United in Stormwind
 

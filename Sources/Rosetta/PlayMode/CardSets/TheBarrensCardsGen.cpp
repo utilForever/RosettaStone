@@ -3193,6 +3193,15 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsCost(5, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 3));
+    power.AddPowerTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("BAR_329", CardDef(power));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [BAR_330] Tuskpiercer - COST:1
@@ -3203,6 +3212,10 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawMinionTask>(
+        DrawMinionType::DEATHRATTLE, 1, false));
+    cards.emplace("BAR_330", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_333] Kurtrus Ashfallen - COST:4 [ATK:3/HP:4]
@@ -3232,6 +3245,12 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<SilenceTask>(
+        EntityType::ENEMY_MINIONS) };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("BAR_705", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_891] Fury (Rank 1) - COST:1
@@ -3241,6 +3260,12 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // Text: Give your hero +2 Attack this turn.
     //       <i>(Upgrades when you have 5 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_891e", EntityType::HERO));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_891t")));
+    cards.emplace("BAR_891", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [WC_003] Sigil of Summoning - COST:2
@@ -3253,6 +3278,12 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "WC_003t", 2, SummonSide::SPELL) };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("WC_003", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [WC_040] Taintheart Tormenter - COST:8 [ATK:8/HP:8]
@@ -3265,6 +3296,14 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - AURA = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HAND, "WC_040e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("WC_040", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [WC_701] Felrattler - COST:3 [ATK:3/HP:2]
@@ -3277,6 +3316,10 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1));
+    cards.emplace("WC_701", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddDemonHunterNonCollect(
@@ -3306,6 +3349,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_891e"));
+    cards.emplace("BAR_891e", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BAR_891e2] Fury - COST:0
@@ -3316,6 +3362,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_891e2"));
+    cards.emplace("BAR_891e2", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [BAR_891e3] Fury - COST:0
@@ -3326,6 +3375,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_891e3"));
+    cards.emplace("BAR_891e3", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_891t] Fury (Rank 2) - COST:1
@@ -3335,6 +3387,12 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // Text: Give your hero +3 Attack this turn.
     //       <i>(Upgrades when you have 10 Mana.)</i>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_891e2", EntityType::HERO));
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_891t2")));
+    cards.emplace("BAR_891t", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_891t2] Fury (Rank 3) - COST:1
@@ -3343,6 +3401,10 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_891e3", EntityType::HERO));
+    cards.emplace("BAR_891t2", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [WC_003t] Wailing Demon - COST:2 [ATK:2/HP:2]
@@ -3353,6 +3415,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_003t", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
@@ -4521,6 +4586,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) more.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AddCost(2)));
+    cards.emplace("WC_040e", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddAll(std::map<std::string, CardDef>& cards)
