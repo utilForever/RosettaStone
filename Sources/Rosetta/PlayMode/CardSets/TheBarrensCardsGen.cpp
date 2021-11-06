@@ -3212,6 +3212,10 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawMinionTask>(
+        DrawMinionType::DEATHRATTLE, 1, false));
+    cards.emplace("BAR_330", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [BAR_333] Kurtrus Ashfallen - COST:4 [ATK:3/HP:4]
