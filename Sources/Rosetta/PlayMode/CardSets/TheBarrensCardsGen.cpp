@@ -3278,6 +3278,12 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "WC_003t", 2, SummonSide::SPELL) };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("WC_003", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [WC_040] Taintheart Tormenter - COST:8 [ATK:8/HP:8]
@@ -3397,6 +3403,9 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_003t", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
