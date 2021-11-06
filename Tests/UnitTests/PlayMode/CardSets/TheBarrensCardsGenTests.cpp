@@ -5938,8 +5938,8 @@ TEST_CASE("[Demon Hunter : Spell] - WC_003 : Sigil of Summoning")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sigil of Summoning"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sigil of Summoning"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField.GetCount(), 0);
@@ -5967,4 +5967,70 @@ TEST_CASE("[Demon Hunter : Spell] - WC_003 : Sigil of Summoning")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 2);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
+// [WC_040] Taintheart Tormenter - COST:8 [ATK:8/HP:8]
+// - Race: Demon, Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Your opponent's spells cost (2) more.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - WC_040 : Taintheart Tormenter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Taintheart Tormenter"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 4);
+    CHECK_EQ(card5->GetCost(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 4);
+    CHECK_EQ(card4->GetCost(), 6);
+    CHECK_EQ(card5->GetCost(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 6);
+    CHECK_EQ(card5->GetCost(), 12);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card5->GetCost(), 10);
 }

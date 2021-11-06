@@ -3296,6 +3296,14 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - AURA = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HAND, "WC_040e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("WC_040", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [WC_701] Felrattler - COST:3 [ATK:3/HP:2]
@@ -4574,6 +4582,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) more.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AddCost(2)));
+    cards.emplace("WC_040e", CardDef(power));
 }
 
 void TheBarrensCardsGen::AddAll(std::map<std::string, CardDef>& cards)
