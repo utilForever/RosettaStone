@@ -13,6 +13,11 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class RandomSpellTask : public ITask
 {
  public:
+    //! Constructs task with given \p cardClass and \p amount.
+    //! \param cardClass The card class to filter.
+    //! \param amount The amount of spell(s) to pick.
+    explicit RandomSpellTask(CardClass cardClass, int amount = 1);
+
     //! Constructs task with given various arguments.
     //! \param cardClass The card class to filter.
     //! \param tag The game tag.

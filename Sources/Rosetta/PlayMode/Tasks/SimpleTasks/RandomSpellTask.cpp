@@ -13,6 +13,12 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+RandomSpellTask::RandomSpellTask(CardClass cardClass, int amount)
+    : m_cardClass(cardClass), m_amount(amount)
+{
+    // Do nothing
+}
+
 RandomSpellTask::RandomSpellTask(CardClass cardClass, GameTag tag, int value,
                                  int amount, RelaSign relaSign, bool opposite)
     : m_cardClass(cardClass),
