@@ -81,14 +81,14 @@ TaskStatus RandomSpellTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    std::vector<Playable*> randomMinions;
-    randomMinions.reserve(m_amount);
+    std::vector<Playable*> randomSpells;
+    randomSpells.reserve(m_amount);
 
     if (m_amount > 1)
     {
         std::vector<Card*> list = result;
 
-        while (randomMinions.size() < static_cast<std::size_t>(m_amount) &&
+        while (randomSpells.size() < static_cast<std::size_t>(m_amount) &&
                !result.empty())
         {
             const auto idx = Random::get<std::size_t>(0, list.size() - 1);
@@ -97,7 +97,7 @@ TaskStatus RandomSpellTask::Impl(Player* player)
 
             list.erase(list.begin() + idx);
 
-            randomMinions.emplace_back(card);
+            randomSpells.emplace_back(card);
         }
     }
     else
@@ -105,10 +105,10 @@ TaskStatus RandomSpellTask::Impl(Player* player)
         const auto idx = Random::get<std::size_t>(0, result.size() - 1);
         auto card = Entity::GetFromCard(m_opposite ? player->opponent : player,
                                         result.at(idx));
-        randomMinions.emplace_back(card);
+        randomSpells.emplace_back(card);
     }
 
-    player->game->taskStack.playables = randomMinions;
+    player->game->taskStack.playables = randomSpells;
 
     return TaskStatus::COMPLETE;
 }
