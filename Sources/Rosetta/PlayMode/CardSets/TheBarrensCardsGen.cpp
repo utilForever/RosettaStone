@@ -3509,6 +3509,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("BAR_025", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_026] Death's Head Cultist - COST:3 [ATK:2/HP:4]
