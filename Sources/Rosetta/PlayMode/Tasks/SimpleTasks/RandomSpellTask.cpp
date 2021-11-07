@@ -33,52 +33,33 @@ RandomSpellTask::RandomSpellTask(CardClass cardClass, GameTag tag, int value,
 
 TaskStatus RandomSpellTask::Impl(Player* player)
 {
-    std::vector<Card*> result;
+    std::vector<Card*> cards, result;
 
     if (m_cardClass == CardClass::INVALID)
     {
-        const auto cards =
-            m_source->game->GetFormatType() == FormatType::STANDARD
-                ? Cards::GetAllStandardCards()
-                : Cards::GetAllWildCards();
-
-        for (const auto& card : cards)
-        {
-            if (Evaluate(card))
-            {
-                result.emplace_back(card);
-            }
-        }
+        cards = m_source->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetAllStandardCards()
+                    : Cards::GetAllWildCards();
     }
     else if (m_cardClass == CardClass::PLAYER_CLASS)
     {
         const auto playerClass = player->GetHero()->card->GetCardClass();
-        const auto cards =
-            m_source->game->GetFormatType() == FormatType::STANDARD
-                ? Cards::GetStandardCards(playerClass)
-                : Cards::GetWildCards(playerClass);
-
-        for (const auto& card : cards)
-        {
-            if (Evaluate(card))
-            {
-                result.emplace_back(card);
-            }
-        }
+        cards = m_source->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetStandardCards(playerClass)
+                    : Cards::GetWildCards(playerClass);
     }
     else
     {
-        const auto cards =
-            m_source->game->GetFormatType() == FormatType::STANDARD
-                ? Cards::GetStandardCards(m_cardClass)
-                : Cards::GetWildCards(m_cardClass);
+        cards = m_source->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetStandardCards(m_cardClass)
+                    : Cards::GetWildCards(m_cardClass);
+    }
 
-        for (const auto& card : cards)
+    for (const auto& card : cards)
+    {
+        if (Evaluate(card))
         {
-            if (Evaluate(card))
-            {
-                result.emplace_back(card);
-            }
+            result.emplace_back(card);
         }
     }
 
