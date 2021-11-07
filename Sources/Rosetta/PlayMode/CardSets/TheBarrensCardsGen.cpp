@@ -3422,6 +3422,8 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
 
 void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_020] Razormane Raider - COST:5 [ATK:5/HP:6]
     // - Set: THE_BARRENS, Rarity: Common
@@ -3431,6 +3433,12 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<IncludeTask>(EntityType::ENEMIES));
+    power.AddFrenzyTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddFrenzyTask(
+        std::make_shared<AttackTask>(EntityType::SOURCE, EntityType::STACK));
+    cards.emplace("BAR_020", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_021] Gold Road Grunt - COST:5 [ATK:3/HP:7]
