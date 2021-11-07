@@ -62,7 +62,7 @@ TaskStatus RandomSpellTask::Impl(Player* player)
             continue;
         }
 
-        if (Evaluate(card))
+        if (m_gameTag == GameTag::INVALID || Evaluate(card))
         {
             result.emplace_back(card);
         }
