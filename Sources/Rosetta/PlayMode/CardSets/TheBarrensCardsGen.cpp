@@ -3525,6 +3525,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<HealTask>(EntityType::HERO, 4));
+    cards.emplace("BAR_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_027] Darkspear Berserker - COST:4 [ATK:5/HP:7]
