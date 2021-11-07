@@ -6374,3 +6374,48 @@ TEST_CASE("[Neutral : Minion] - BAR_026 : Death's Head Cultist")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_027] Darkspear Berserker - COST:4 [ATK:5/HP:7]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Deal 5 damage to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_027 : Darkspear Berserker")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Darkspear Berserker"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
+}

@@ -3538,6 +3538,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
+    cards.emplace("BAR_027", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_042] Primordial Protector - COST:8 [ATK:6/HP:6]
