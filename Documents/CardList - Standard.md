@@ -714,13 +714,13 @@ DARKMOON_FAIRE | YOP_035 | Moonfang |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-THE_BARRENS | BAR_020 | Razormane Raider |  
-THE_BARRENS | BAR_021 | Gold Road Grunt |  
-THE_BARRENS | BAR_022 | Peon |  
-THE_BARRENS | BAR_024 | Oasis Thrasher |  
-THE_BARRENS | BAR_025 | Sunwell Initiate |  
-THE_BARRENS | BAR_026 | Death's Head Cultist |  
-THE_BARRENS | BAR_027 | Darkspear Berserker |  
+THE_BARRENS | BAR_020 | Razormane Raider | O
+THE_BARRENS | BAR_021 | Gold Road Grunt | O
+THE_BARRENS | BAR_022 | Peon | O
+THE_BARRENS | BAR_024 | Oasis Thrasher | O
+THE_BARRENS | BAR_025 | Sunwell Initiate | O
+THE_BARRENS | BAR_026 | Death's Head Cultist | O
+THE_BARRENS | BAR_027 | Darkspear Berserker | O
 THE_BARRENS | BAR_030 | Pack Kodo |  
 THE_BARRENS | BAR_031 | Sunscale Raptor |  
 THE_BARRENS | BAR_032 | Piercing Shot | O
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 58% (99 of 170 Cards)
+- Progress: 62% (106 of 170 Cards)
 
 ## United in Stormwind
 

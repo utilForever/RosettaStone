@@ -13,6 +13,12 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+RandomSpellTask::RandomSpellTask(CardClass cardClass, int amount)
+    : m_cardClass(cardClass), m_amount(amount)
+{
+    // Do nothing
+}
+
 RandomSpellTask::RandomSpellTask(CardClass cardClass, GameTag tag, int value,
                                  int amount, RelaSign relaSign, bool opposite)
     : m_cardClass(cardClass),
@@ -27,52 +33,38 @@ RandomSpellTask::RandomSpellTask(CardClass cardClass, GameTag tag, int value,
 
 TaskStatus RandomSpellTask::Impl(Player* player)
 {
-    std::vector<Card*> result;
+    std::vector<Card*> cards, result;
 
     if (m_cardClass == CardClass::INVALID)
     {
-        const auto cards =
-            m_source->game->GetFormatType() == FormatType::STANDARD
-                ? Cards::GetAllStandardCards()
-                : Cards::GetAllWildCards();
-
-        for (const auto& card : cards)
-        {
-            if (Evaluate(card))
-            {
-                result.emplace_back(card);
-            }
-        }
+        cards = m_source->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetAllStandardCards()
+                    : Cards::GetAllWildCards();
     }
     else if (m_cardClass == CardClass::PLAYER_CLASS)
     {
         const auto playerClass = player->GetHero()->card->GetCardClass();
-        const auto cards =
-            m_source->game->GetFormatType() == FormatType::STANDARD
-                ? Cards::GetStandardCards(playerClass)
-                : Cards::GetWildCards(playerClass);
-
-        for (const auto& card : cards)
-        {
-            if (Evaluate(card))
-            {
-                result.emplace_back(card);
-            }
-        }
+        cards = m_source->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetStandardCards(playerClass)
+                    : Cards::GetWildCards(playerClass);
     }
     else
     {
-        const auto cards =
-            m_source->game->GetFormatType() == FormatType::STANDARD
-                ? Cards::GetStandardCards(m_cardClass)
-                : Cards::GetWildCards(m_cardClass);
+        cards = m_source->game->GetFormatType() == FormatType::STANDARD
+                    ? Cards::GetStandardCards(m_cardClass)
+                    : Cards::GetWildCards(m_cardClass);
+    }
 
-        for (const auto& card : cards)
+    for (const auto& card : cards)
+    {
+        if (card->GetCardType() != CardType::SPELL)
         {
-            if (Evaluate(card))
-            {
-                result.emplace_back(card);
-            }
+            continue;
+        }
+
+        if (m_gameTag == GameTag::INVALID || Evaluate(card))
+        {
+            result.emplace_back(card);
         }
     }
 
@@ -81,14 +73,14 @@ TaskStatus RandomSpellTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    std::vector<Playable*> randomMinions;
-    randomMinions.reserve(m_amount);
+    std::vector<Playable*> randomSpells;
+    randomSpells.reserve(m_amount);
 
     if (m_amount > 1)
     {
         std::vector<Card*> list = result;
 
-        while (randomMinions.size() < static_cast<std::size_t>(m_amount) &&
+        while (randomSpells.size() < static_cast<std::size_t>(m_amount) &&
                !result.empty())
         {
             const auto idx = Random::get<std::size_t>(0, list.size() - 1);
@@ -97,7 +89,7 @@ TaskStatus RandomSpellTask::Impl(Player* player)
 
             list.erase(list.begin() + idx);
 
-            randomMinions.emplace_back(card);
+            randomSpells.emplace_back(card);
         }
     }
     else
@@ -105,10 +97,10 @@ TaskStatus RandomSpellTask::Impl(Player* player)
         const auto idx = Random::get<std::size_t>(0, result.size() - 1);
         auto card = Entity::GetFromCard(m_opposite ? player->opponent : player,
                                         result.at(idx));
-        randomMinions.emplace_back(card);
+        randomSpells.emplace_back(card);
     }
 
-    player->game->taskStack.playables = randomMinions;
+    player->game->taskStack.playables = randomSpells;
 
     return TaskStatus::COMPLETE;
 }
@@ -121,11 +113,9 @@ std::unique_ptr<ITask> RandomSpellTask::CloneImpl()
 
 bool RandomSpellTask::Evaluate(Card* card) const
 {
-    if (card->GetCardType() == CardType::SPELL &&
-        ((m_relaSign == RelaSign::EQ && card->gameTags[m_gameTag] == m_value) ||
-         (m_relaSign == RelaSign::GEQ &&
-          card->gameTags[m_gameTag] >= m_value) ||
-         (m_relaSign == RelaSign::LEQ && card->gameTags[m_gameTag] <= m_value)))
+    if ((m_relaSign == RelaSign::EQ && card->gameTags[m_gameTag] == m_value) ||
+        (m_relaSign == RelaSign::GEQ && card->gameTags[m_gameTag] >= m_value) ||
+        (m_relaSign == RelaSign::LEQ && card->gameTags[m_gameTag] <= m_value))
     {
         return true;
     }

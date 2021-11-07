@@ -3422,6 +3422,8 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
 
 void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_020] Razormane Raider - COST:5 [ATK:5/HP:6]
     // - Set: THE_BARRENS, Rarity: Common
@@ -3431,6 +3433,12 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<IncludeTask>(EntityType::ENEMIES));
+    power.AddFrenzyTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddFrenzyTask(
+        std::make_shared<AttackTask>(EntityType::SOURCE, EntityType::STACK));
+    cards.emplace("BAR_020", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_021] Gold Road Grunt - COST:5 [ATK:3/HP:7]
@@ -3443,6 +3451,21 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - FRENZY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            int damage = dynamic_cast<Minion*>(source)->GetDamage();
+
+            const auto& armorTask = std::make_shared<ArmorTask>(damage);
+            armorTask->SetPlayer(player);
+            armorTask->SetSource(source);
+            armorTask->SetTarget(target);
+
+            armorTask->Run();
+        }));
+
+    cards.emplace("BAR_021", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_022] Peon - COST:2 [ATK:2/HP:3]
@@ -3454,6 +3477,11 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<RandomSpellTask>(CardClass::PLAYER_CLASS, 1));
+    power.AddFrenzyTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("BAR_022", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_024] Oasis Thrasher - COST:2 [ATK:2/HP:3]
@@ -3464,6 +3492,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cards.emplace("BAR_024", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_025] Sunwell Initiate - COST:3 [ATK:3/HP:4]
@@ -3477,6 +3509,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("BAR_025", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_026] Death's Head Cultist - COST:3 [ATK:2/HP:4]
@@ -3489,6 +3525,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<HealTask>(EntityType::HERO, 4));
+    cards.emplace("BAR_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_027] Darkspear Berserker - COST:4 [ATK:5/HP:7]
@@ -3499,6 +3538,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
+    cards.emplace("BAR_027", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_042] Primordial Protector - COST:8 [ATK:6/HP:6]
