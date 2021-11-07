@@ -17,7 +17,7 @@ class RandomSpellTask : public ITask
     //! \param cardClass The card class to filter.
     //! \param tag The game tag.
     //! \param value The value of the game tag to filter.
-    //! \param amount The amount of minions to pick.
+    //! \param amount The amount of spell(s) to pick.
     //! \param relaSign The relation sign to filter.
     //! \param opposite The flag that indicates the card is for the opponent.
     explicit RandomSpellTask(CardClass cardClass, GameTag tag, int value,
