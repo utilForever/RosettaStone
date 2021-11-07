@@ -3477,6 +3477,11 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<RandomSpellTask>(CardClass::PLAYER_CLASS, 1));
+    power.AddFrenzyTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("BAR_022", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_024] Oasis Thrasher - COST:2 [ATK:2/HP:3]
