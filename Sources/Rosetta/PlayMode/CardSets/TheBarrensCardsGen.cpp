@@ -3451,6 +3451,21 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - FRENZY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            int damage = dynamic_cast<Minion*>(source)->GetDamage();
+
+            const auto& armorTask = std::make_shared<ArmorTask>(damage);
+            armorTask->SetPlayer(player);
+            armorTask->SetSource(source);
+            armorTask->SetTarget(target);
+
+            armorTask->Run();
+        }));
+
+    cards.emplace("BAR_021", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_022] Peon - COST:2 [ATK:2/HP:3]
