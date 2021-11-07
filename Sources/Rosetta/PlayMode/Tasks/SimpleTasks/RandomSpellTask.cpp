@@ -57,6 +57,11 @@ TaskStatus RandomSpellTask::Impl(Player* player)
 
     for (const auto& card : cards)
     {
+        if (card->GetCardType() != CardType::SPELL)
+        {
+            continue;
+        }
+
         if (Evaluate(card))
         {
             result.emplace_back(card);
@@ -108,11 +113,9 @@ std::unique_ptr<ITask> RandomSpellTask::CloneImpl()
 
 bool RandomSpellTask::Evaluate(Card* card) const
 {
-    if (card->GetCardType() == CardType::SPELL &&
-        ((m_relaSign == RelaSign::EQ && card->gameTags[m_gameTag] == m_value) ||
-         (m_relaSign == RelaSign::GEQ &&
-          card->gameTags[m_gameTag] >= m_value) ||
-         (m_relaSign == RelaSign::LEQ && card->gameTags[m_gameTag] <= m_value)))
+    if ((m_relaSign == RelaSign::EQ && card->gameTags[m_gameTag] == m_value) ||
+        (m_relaSign == RelaSign::GEQ && card->gameTags[m_gameTag] >= m_value) ||
+        (m_relaSign == RelaSign::LEQ && card->gameTags[m_gameTag] <= m_value))
     {
         return true;
     }
