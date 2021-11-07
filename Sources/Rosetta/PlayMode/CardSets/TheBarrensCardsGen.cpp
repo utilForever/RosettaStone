@@ -3492,6 +3492,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cards.emplace("BAR_024", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_025] Sunwell Initiate - COST:3 [ATK:3/HP:4]

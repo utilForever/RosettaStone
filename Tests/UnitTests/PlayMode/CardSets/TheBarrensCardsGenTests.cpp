@@ -6236,3 +6236,46 @@ TEST_CASE("[Neutral : Minion] - BAR_022 : Peon")
     CHECK_EQ(curHand[4]->card->GetCardType(), CardType::SPELL);
     CHECK_EQ(curHand[4]->card->IsCardClass(CardClass::HUNTER), true);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_024] Oasis Thrasher - COST:2 [ATK:2/HP:3]
+// - Race: Beast, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Deal 3 damage to the enemy Hero.
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_024 : Oasis Thrasher")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Oasis Thrasher"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+}
