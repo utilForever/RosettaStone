@@ -3549,6 +3549,14 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(DrawSpellType::HIGHEST_COST, 1, true));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::STACK, GameTag::COST));
+    power.AddPowerTask(std::make_shared<RandomMinionNumberTask>(GameTag::COST));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("BAR_042", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_060] Hog Rancher - COST:3 [ATK:3/HP:2]
