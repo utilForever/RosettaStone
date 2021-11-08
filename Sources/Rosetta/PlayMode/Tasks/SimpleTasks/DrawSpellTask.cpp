@@ -55,32 +55,28 @@ TaskStatus DrawSpellTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    if (static_cast<int>(deckCards.size()) <= m_amount)
+    switch (m_drawSpellType)
     {
-        for (int i = 0; i < m_amount; ++i)
-        {
-            if (m_addToStack)
-            {
-                player->game->taskStack.playables.emplace_back(deckCards[i]);
-            }
-
-            Generic::Draw(player, deckCards[i]);
-        }
+        case DrawSpellType::DEFAULT:
+            std::shuffle(deckCards.begin(), deckCards.end(),
+                         Random::get_engine());
+            break;
+        case DrawSpellType::HIGHEST_COST:
+            std::sort(deckCards.begin(), deckCards.end(),
+                      [](const Playable* card1, const Playable* card2) {
+                          return card1->GetCost() > card2->GetCost();
+                      });
+            break;
     }
-    else
+
+    for (int i = 0; i < m_amount; ++i)
     {
-        for (int i = 0; i < m_amount; ++i)
+        if (m_addToStack)
         {
-            const auto pick = Random::get<std::size_t>(0, deckCards.size() - 1);
-
-            if (m_addToStack)
-            {
-                player->game->taskStack.playables.emplace_back(deckCards[pick]);
-            }
-
-            Generic::Draw(player, deckCards[pick]);
-            deckCards.erase(std::begin(deckCards) + pick);
+            player->game->taskStack.playables.emplace_back(deckCards[i]);
         }
+
+        Generic::Draw(player, deckCards[i]);
     }
 
     return TaskStatus::COMPLETE;
