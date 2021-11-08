@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Spell.hpp>
@@ -36,60 +37,49 @@ TaskStatus DrawSpellTask::Impl(Player* player)
         player->game->taskStack.playables.clear();
     }
 
-    auto deck = player->GetDeckZone()->GetAll();
-    if (deck.empty())
+    auto deckCards = player->GetDeckZone()->GetAll();
+
+    EraseIf(deckCards, [=](Playable* playable) {
+        return playable->card->GetCardType() != CardType::SPELL;
+    });
+
+    if (m_spellSchool != SpellSchool::NONE)
+    {
+        EraseIf(deckCards, [=](Playable* playable) {
+            return playable->card->GetSpellSchool() != m_spellSchool;
+        });
+    }
+
+    if (deckCards.empty())
     {
         return TaskStatus::STOP;
     }
 
-    std::vector<Playable*> cards;
-    cards.reserve(m_amount);
-
-    for (auto& deckCard : deck)
-    {
-        if (deckCard->card->GetCardType() != CardType::SPELL)
-        {
-            continue;
-        }
-
-        if (auto spell = dynamic_cast<Spell*>(deckCard);
-            (spell && spell->GetSpellSchool() == m_spellSchool) ||
-            m_spellSchool == SpellSchool::NONE)
-        {
-            cards.emplace_back(deckCard);
-        }
-    }
-
-    if (cards.empty())
-    {
-        return TaskStatus::STOP;
-    }
-
-    if (static_cast<int>(cards.size()) <= m_amount)
+    if (static_cast<int>(deckCards.size()) <= m_amount)
     {
         for (int i = 0; i < m_amount; ++i)
         {
             if (m_addToStack)
             {
-                player->game->taskStack.playables.emplace_back(cards[i]);
+                player->game->taskStack.playables.emplace_back(deckCards[i]);
             }
 
-            Generic::Draw(player, cards[i]);
+            Generic::Draw(player, deckCards[i]);
         }
     }
     else
     {
         for (int i = 0; i < m_amount; ++i)
         {
-            const auto pick = Random::get<std::size_t>(0, cards.size() - 1);
+            const auto pick = Random::get<std::size_t>(0, deckCards.size() - 1);
 
             if (m_addToStack)
             {
-                player->game->taskStack.playables.emplace_back(cards[pick]);
+                player->game->taskStack.playables.emplace_back(deckCards[pick]);
             }
 
-            Generic::Draw(player, cards[pick]);
-            cards.erase(std::begin(cards) + pick);
+            Generic::Draw(player, deckCards[pick]);
+            deckCards.erase(std::begin(deckCards) + pick);
         }
     }
 
