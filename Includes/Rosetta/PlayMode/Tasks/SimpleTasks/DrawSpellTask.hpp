@@ -26,12 +26,11 @@ enum class DrawSpellType
 class DrawSpellTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount, \p spellSchool and \p addToStack.
-    //! \param amount The amount to draw minion card(s).
+    //! Constructs task with given \p spellSchool, \p amount and \p addToStack.
     //! \param spellSchool The stated school of the spell.
+    //! \param amount The amount to draw minion card(s).
     //! \param addToStack A flag to store card to stack.
-    explicit DrawSpellTask(int amount,
-                           SpellSchool spellSchool = SpellSchool::NONE,
+    explicit DrawSpellTask(SpellSchool spellSchool, int amount,
                            bool addToStack = false);
 
     //! Constructs task with given \p drawSpellType, \p amount and
@@ -40,7 +39,7 @@ class DrawSpellTask : public ITask
     //! \param amount The amount to draw minion card(s).
     //! \param addToStack A flag to store card to stack.
     explicit DrawSpellTask(DrawSpellType drawSpellType, int amount,
-                           bool addToStack);
+                           bool addToStack = false);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -52,9 +51,9 @@ class DrawSpellTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    int m_amount = 0;
     SpellSchool m_spellSchool = SpellSchool::NONE;
     DrawSpellType m_drawSpellType = DrawSpellType::DEFAULT;
+    int m_amount = 0;
     bool m_addToStack = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks

@@ -16,16 +16,16 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
-DrawSpellTask::DrawSpellTask(int amount, SpellSchool spellSchool,
+DrawSpellTask::DrawSpellTask(SpellSchool spellSchool, int amount,
                              bool addToStack)
-    : m_amount(amount), m_spellSchool(spellSchool), m_addToStack(addToStack)
+    : m_spellSchool(spellSchool), m_amount(amount), m_addToStack(addToStack)
 {
     // Do nothing
 }
 
 DrawSpellTask::DrawSpellTask(DrawSpellType drawSpellType, int amount,
                              bool addToStack)
-    : m_amount(amount), m_drawSpellType(drawSpellType), m_addToStack(addToStack)
+    : m_drawSpellType(drawSpellType), m_amount(amount), m_addToStack(addToStack)
 {
     // Do nothing
 }
@@ -84,7 +84,7 @@ TaskStatus DrawSpellTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DrawSpellTask::CloneImpl()
 {
-    return std::make_unique<DrawSpellTask>(m_amount, m_spellSchool,
+    return std::make_unique<DrawSpellTask>(m_spellSchool, m_amount,
                                            m_addToStack);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks
