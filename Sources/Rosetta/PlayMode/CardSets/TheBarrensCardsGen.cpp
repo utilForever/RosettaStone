@@ -3570,6 +3570,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_060t", 1, SummonSide::RIGHT));
+    cards.emplace("BAR_060", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_061] Ratchet Privateer - COST:3 [ATK:4/HP:3]
@@ -3982,6 +3986,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_060t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_061e] Privateering - COST:0
