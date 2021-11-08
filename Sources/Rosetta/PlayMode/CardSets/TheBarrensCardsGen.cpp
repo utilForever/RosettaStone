@@ -1028,8 +1028,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsFrostSpell()) }));
@@ -1221,7 +1220,7 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, SpellSchool::HOLY));
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(SpellSchool::HOLY, 1));
     cards.emplace("BAR_873", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
@@ -1742,8 +1741,7 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsHolySpell()) }));
@@ -2334,8 +2332,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsNatureSpell()) }));
