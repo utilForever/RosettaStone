@@ -22,6 +22,13 @@ DrawSpellTask::DrawSpellTask(int amount, SpellSchool spellSchool,
     // Do nothing
 }
 
+DrawSpellTask::DrawSpellTask(DrawSpellType drawSpellType, int amount,
+                             bool addToStack)
+    : m_amount(amount), m_drawSpellType(drawSpellType), m_addToStack(addToStack)
+{
+    // Do nothing
+}
+
 TaskStatus DrawSpellTask::Impl(Player* player)
 {
     if (m_addToStack)

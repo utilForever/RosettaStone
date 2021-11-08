@@ -34,6 +34,14 @@ class DrawSpellTask : public ITask
                            SpellSchool spellSchool = SpellSchool::NONE,
                            bool addToStack = false);
 
+    //! Constructs task with given \p drawSpellType, \p amount and
+    //! \p addToStack.
+    //! \param drawSpellType The type of draw spell task.
+    //! \param amount The amount to draw minion card(s).
+    //! \param addToStack A flag to store card to stack.
+    explicit DrawSpellTask(DrawSpellType drawSpellType, int amount,
+                           bool addToStack);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.
