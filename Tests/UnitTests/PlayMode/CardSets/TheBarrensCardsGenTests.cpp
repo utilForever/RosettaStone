@@ -6560,3 +6560,49 @@ TEST_CASE("[Neutral : Minion] - BAR_061 : Ratchet Privateer")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_062] Lushwater Murcenary - COST:2 [ATK:3/HP:2]
+// - Race: Murloc, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a Murloc, gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_062 : Lushwater Murcenary")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lushwater Murcenary"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lushwater Murcenary"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}

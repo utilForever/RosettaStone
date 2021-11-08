@@ -3598,6 +3598,15 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::MINIONS_NOSOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::MURLOC)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BAR_062e", EntityType::SOURCE) }));
+    cards.emplace("BAR_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_063] Lushwater Scout - COST:2 [ATK:1/HP:3]
@@ -4010,6 +4019,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_062e"));
+    cards.emplace("BAR_062e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_063e] Emboldened - COST:0
