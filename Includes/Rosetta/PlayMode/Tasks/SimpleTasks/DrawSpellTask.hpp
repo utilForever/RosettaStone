@@ -11,6 +11,13 @@
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+//! The type of draw spell task.
+enum class DrawSpellType
+{
+    DEFAULT,       //!< Don't care.
+    HIGHEST_COST,  //!< Highest cost card.
+};
+
 //!
 //! \brief DrawSpellTask class.
 //!
@@ -39,6 +46,7 @@ class DrawSpellTask : public ITask
 
     int m_amount = 0;
     SpellSchool m_spellSchool = SpellSchool::NONE;
+    DrawSpellType m_drawSpellType = DrawSpellType::DEFAULT;
     bool m_addToStack = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
