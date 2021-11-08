@@ -6656,6 +6656,52 @@ TEST_CASE("[Neutral : Minion] - BAR_063 : Lushwater Scout")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [BAR_065] Venomous Scorpid - COST:3 [ATK:1/HP:3]
+// - Race: Beast, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Poisonous</b>
+//       <b>Battlecry:</b> <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_065 : Venomous Scorpid")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Venomous Scorpid"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK(card->IsCardClass(CardClass::HUNTER));
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [BAR_069] Injured Marauder - COST:4 [ATK:5/HP:10]
 // - Set: THE_BARRENS, Rarity: Common
 // --------------------------------------------------------

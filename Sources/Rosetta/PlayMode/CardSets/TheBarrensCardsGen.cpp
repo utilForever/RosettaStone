@@ -3657,6 +3657,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("BAR_065", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_069] Injured Marauder - COST:4 [ATK:5/HP:10]
