@@ -16,6 +16,12 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+DrawSpellTask::DrawSpellTask(int amount, bool addToStack)
+    : m_amount(amount), m_addToStack(addToStack)
+{
+    // Do nothing
+}
+
 DrawSpellTask::DrawSpellTask(SpellSchool spellSchool, int amount,
                              bool addToStack)
     : m_spellSchool(spellSchool), m_amount(amount), m_addToStack(addToStack)

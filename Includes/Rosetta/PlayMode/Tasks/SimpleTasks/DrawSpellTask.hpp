@@ -26,6 +26,11 @@ enum class DrawSpellType
 class DrawSpellTask : public ITask
 {
  public:
+    //! Constructs task with given \p amount and \p addToStack.
+    //! \param amount The amount to draw minion card(s).
+    //! \param addToStack A flag to store card to stack.
+    explicit DrawSpellTask(int amount, bool addToStack = false);
+
     //! Constructs task with given \p spellSchool, \p amount and \p addToStack.
     //! \param spellSchool The stated school of the spell.
     //! \param amount The amount to draw minion card(s).
