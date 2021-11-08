@@ -3621,6 +3621,15 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_063e", EntityType::TARGET) };
+    cards.emplace("BAR_063", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_064] Talented Arcanist - COST:2 [ATK:1/HP:3]
@@ -4029,6 +4038,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Rush</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_063e"));
+    cards.emplace("BAR_063e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_072t] Demonspawn - COST:6 [ATK:5/HP:8]
