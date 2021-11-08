@@ -3669,6 +3669,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::SOURCE, 6));
+    cards.emplace("BAR_069", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_070] Gruntled Patron - COST:4 [ATK:3/HP:3]
