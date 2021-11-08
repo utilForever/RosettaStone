@@ -36,6 +36,17 @@ DrawSpellTask::DrawSpellTask(DrawSpellType drawSpellType, int amount,
     // Do nothing
 }
 
+DrawSpellTask::DrawSpellTask(SpellSchool spellSchool,
+                             DrawSpellType drawSpellType, int amount,
+                             bool addToStack)
+    : m_spellSchool(spellSchool),
+      m_drawSpellType(drawSpellType),
+      m_amount(amount),
+      m_addToStack(addToStack)
+{
+    // Do nothing
+}
+
 TaskStatus DrawSpellTask::Impl(Player* player)
 {
     if (m_addToStack)
@@ -90,7 +101,7 @@ TaskStatus DrawSpellTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DrawSpellTask::CloneImpl()
 {
-    return std::make_unique<DrawSpellTask>(m_spellSchool, m_amount,
-                                           m_addToStack);
+    return std::make_unique<DrawSpellTask>(m_spellSchool, m_drawSpellType,
+                                           m_amount, m_addToStack);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks
