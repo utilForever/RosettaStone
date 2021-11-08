@@ -3584,6 +3584,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_061e", EntityType::WEAPON));
+    cards.emplace("BAR_061", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_062] Lushwater Murcenary - COST:2 [ATK:3/HP:2]
@@ -3996,6 +4000,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_061e"));
+    cards.emplace("BAR_061e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_062e] Bolstered - COST:0
