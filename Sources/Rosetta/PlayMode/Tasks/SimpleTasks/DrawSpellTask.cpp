@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Spell.hpp>
@@ -15,9 +16,33 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
-DrawSpellTask::DrawSpellTask(int amount, SpellSchool spellSchool,
+DrawSpellTask::DrawSpellTask(int amount, bool addToStack)
+    : m_amount(amount), m_addToStack(addToStack)
+{
+    // Do nothing
+}
+
+DrawSpellTask::DrawSpellTask(SpellSchool spellSchool, int amount,
                              bool addToStack)
-    : m_amount(amount), m_spellSchool(spellSchool), m_addToStack(addToStack)
+    : m_spellSchool(spellSchool), m_amount(amount), m_addToStack(addToStack)
+{
+    // Do nothing
+}
+
+DrawSpellTask::DrawSpellTask(DrawSpellType drawSpellType, int amount,
+                             bool addToStack)
+    : m_drawSpellType(drawSpellType), m_amount(amount), m_addToStack(addToStack)
+{
+    // Do nothing
+}
+
+DrawSpellTask::DrawSpellTask(SpellSchool spellSchool,
+                             DrawSpellType drawSpellType, int amount,
+                             bool addToStack)
+    : m_spellSchool(spellSchool),
+      m_drawSpellType(drawSpellType),
+      m_amount(amount),
+      m_addToStack(addToStack)
 {
     // Do nothing
 }
@@ -29,61 +54,46 @@ TaskStatus DrawSpellTask::Impl(Player* player)
         player->game->taskStack.playables.clear();
     }
 
-    auto deck = player->GetDeckZone()->GetAll();
-    if (deck.empty())
+    auto deckCards = player->GetDeckZone()->GetAll();
+
+    EraseIf(deckCards, [=](Playable* playable) {
+        return playable->card->GetCardType() != CardType::SPELL;
+    });
+
+    if (m_spellSchool != SpellSchool::NONE)
+    {
+        EraseIf(deckCards, [=](Playable* playable) {
+            return playable->card->GetSpellSchool() != m_spellSchool;
+        });
+    }
+
+    if (deckCards.empty())
     {
         return TaskStatus::STOP;
     }
 
-    std::vector<Playable*> cards;
-    cards.reserve(m_amount);
-
-    for (auto& deckCard : deck)
+    switch (m_drawSpellType)
     {
-        if (deckCard->card->GetCardType() != CardType::SPELL)
-        {
-            continue;
-        }
-
-        if (auto spell = dynamic_cast<Spell*>(deckCard);
-            (spell && spell->GetSpellSchool() == m_spellSchool) ||
-            m_spellSchool == SpellSchool::NONE)
-        {
-            cards.emplace_back(deckCard);
-        }
+        case DrawSpellType::DEFAULT:
+            std::shuffle(deckCards.begin(), deckCards.end(),
+                         Random::get_engine());
+            break;
+        case DrawSpellType::HIGHEST_COST:
+            std::sort(deckCards.begin(), deckCards.end(),
+                      [](const Playable* card1, const Playable* card2) {
+                          return card1->GetCost() > card2->GetCost();
+                      });
+            break;
     }
 
-    if (cards.empty())
+    for (int i = 0; i < m_amount; ++i)
     {
-        return TaskStatus::STOP;
-    }
-
-    if (static_cast<int>(cards.size()) <= m_amount)
-    {
-        for (int i = 0; i < m_amount; ++i)
+        if (m_addToStack)
         {
-            if (m_addToStack)
-            {
-                player->game->taskStack.playables.emplace_back(cards[i]);
-            }
-
-            Generic::Draw(player, cards[i]);
+            player->game->taskStack.playables.emplace_back(deckCards[i]);
         }
-    }
-    else
-    {
-        for (int i = 0; i < m_amount; ++i)
-        {
-            const auto pick = Random::get<std::size_t>(0, cards.size() - 1);
 
-            if (m_addToStack)
-            {
-                player->game->taskStack.playables.emplace_back(cards[pick]);
-            }
-
-            Generic::Draw(player, cards[pick]);
-            cards.erase(std::begin(cards) + pick);
-        }
+        Generic::Draw(player, deckCards[i]);
     }
 
     return TaskStatus::COMPLETE;
@@ -91,7 +101,7 @@ TaskStatus DrawSpellTask::Impl(Player* player)
 
 std::unique_ptr<ITask> DrawSpellTask::CloneImpl()
 {
-    return std::make_unique<DrawSpellTask>(m_amount, m_spellSchool,
-                                           m_addToStack);
+    return std::make_unique<DrawSpellTask>(m_spellSchool, m_drawSpellType,
+                                           m_amount, m_addToStack);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks

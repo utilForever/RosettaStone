@@ -11,6 +11,13 @@
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
+//! The type of draw spell task.
+enum class DrawSpellType
+{
+    DEFAULT,       //!< Don't care.
+    HIGHEST_COST,  //!< Highest cost card.
+};
+
 //!
 //! \brief DrawSpellTask class.
 //!
@@ -19,13 +26,33 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class DrawSpellTask : public ITask
 {
  public:
-    //! Constructs task with given \p amount, \p spellSchool and \p addToStack.
+    //! Constructs task with given \p amount and \p addToStack.
     //! \param amount The amount to draw minion card(s).
-    //! \param spellSchool The stated school of the spell.
     //! \param addToStack A flag to store card to stack.
-    explicit DrawSpellTask(int amount,
-                           SpellSchool spellSchool = SpellSchool::NONE,
+    explicit DrawSpellTask(int amount, bool addToStack = false);
+
+    //! Constructs task with given \p spellSchool, \p amount and \p addToStack.
+    //! \param spellSchool The stated school of the spell.
+    //! \param amount The amount to draw minion card(s).
+    //! \param addToStack A flag to store card to stack.
+    explicit DrawSpellTask(SpellSchool spellSchool, int amount,
                            bool addToStack = false);
+
+    //! Constructs task with given \p drawSpellType, \p amount and
+    //! \p addToStack.
+    //! \param drawSpellType The type of draw spell task.
+    //! \param amount The amount to draw minion card(s).
+    //! \param addToStack A flag to store card to stack.
+    explicit DrawSpellTask(DrawSpellType drawSpellType, int amount,
+                           bool addToStack = false);
+
+    //! Constructs task with given various arguments.
+    //! \param spellSchool The stated school of the spell.
+    //! \param drawSpellType The type of draw spell task.
+    //! \param amount The amount to draw minion card(s).
+    //! \param addToStack A flag to store card to stack.
+    explicit DrawSpellTask(SpellSchool spellSchool, DrawSpellType drawSpellType,
+                           int amount, bool addToStack);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -37,8 +64,9 @@ class DrawSpellTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
-    int m_amount = 0;
     SpellSchool m_spellSchool = SpellSchool::NONE;
+    DrawSpellType m_drawSpellType = DrawSpellType::DEFAULT;
+    int m_amount = 0;
     bool m_addToStack = false;
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks

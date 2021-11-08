@@ -731,18 +731,18 @@ THE_BARRENS | BAR_037 | Warsong Wrangler |
 THE_BARRENS | BAR_038 | Tavish Stormpike |  
 THE_BARRENS | BAR_040 | South Coast Chieftain | O
 THE_BARRENS | BAR_041 | Nofin Can Stop Us | O
-THE_BARRENS | BAR_042 | Primordial Protector |  
+THE_BARRENS | BAR_042 | Primordial Protector | O
 THE_BARRENS | BAR_043 | Tinyfin's Caravan | O
 THE_BARRENS | BAR_044 | Chain Lightning (Rank 1) |  
 THE_BARRENS | BAR_045 | Arid Stormer | O
 THE_BARRENS | BAR_048 | Bru'kan |  
-THE_BARRENS | BAR_060 | Hog Rancher |  
-THE_BARRENS | BAR_061 | Ratchet Privateer |  
-THE_BARRENS | BAR_062 | Lushwater Murcenary |  
-THE_BARRENS | BAR_063 | Lushwater Scout |  
+THE_BARRENS | BAR_060 | Hog Rancher | O
+THE_BARRENS | BAR_061 | Ratchet Privateer | O
+THE_BARRENS | BAR_062 | Lushwater Murcenary | O
+THE_BARRENS | BAR_063 | Lushwater Scout | O
 THE_BARRENS | BAR_064 | Talented Arcanist |  
-THE_BARRENS | BAR_065 | Venomous Scorpid |  
-THE_BARRENS | BAR_069 | Injured Marauder |  
+THE_BARRENS | BAR_065 | Venomous Scorpid | O
+THE_BARRENS | BAR_069 | Injured Marauder | O
 THE_BARRENS | BAR_070 | Gruntled Patron |  
 THE_BARRENS | BAR_071 | Taurajo Brave |  
 THE_BARRENS | BAR_072 | Burning Blade Acolyte |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 62% (106 of 170 Cards)
+- Progress: 66% (113 of 170 Cards)
 
 ## United in Stormwind
 

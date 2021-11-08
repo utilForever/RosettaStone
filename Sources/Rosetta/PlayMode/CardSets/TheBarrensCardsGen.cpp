@@ -1028,8 +1028,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsFrostSpell()) }));
@@ -1221,7 +1220,7 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, SpellSchool::HOLY));
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(SpellSchool::HOLY, 1));
     cards.emplace("BAR_873", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
@@ -1742,8 +1741,7 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsHolySpell()) }));
@@ -2141,7 +2139,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE,
+        EntityType::MINIONS_NOSOURCE,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsControllingRace(Race::MURLOC)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
@@ -2334,8 +2332,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DrawSpellTask>(1, SpellSchool::NONE, true));
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
     power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsNatureSpell()) }));
@@ -3552,6 +3549,14 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(DrawSpellType::HIGHEST_COST, 1, true));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::STACK, GameTag::COST));
+    power.AddPowerTask(std::make_shared<RandomMinionNumberTask>(GameTag::COST));
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("BAR_042", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_060] Hog Rancher - COST:3 [ATK:3/HP:2]
@@ -3565,6 +3570,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_060t", 1, SummonSide::RIGHT));
+    cards.emplace("BAR_060", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_061] Ratchet Privateer - COST:3 [ATK:4/HP:3]
@@ -3575,6 +3584,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_061e", EntityType::WEAPON));
+    cards.emplace("BAR_061", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_062] Lushwater Murcenary - COST:2 [ATK:3/HP:2]
@@ -3585,6 +3598,15 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::MINIONS_NOSOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::MURLOC)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BAR_062e", EntityType::SOURCE) }));
+    cards.emplace("BAR_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_063] Lushwater Scout - COST:2 [ATK:1/HP:3]
@@ -3599,6 +3621,15 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_063e", EntityType::TARGET) };
+    cards.emplace("BAR_063", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_064] Talented Arcanist - COST:2 [ATK:1/HP:3]
@@ -3626,6 +3657,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("BAR_065", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_069] Injured Marauder - COST:4 [ATK:5/HP:10]
@@ -3638,6 +3672,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::SOURCE, 6));
+    cards.emplace("BAR_069", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_070] Gruntled Patron - COST:4 [ATK:3/HP:3]
@@ -3977,6 +4014,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_060t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_061e] Privateering - COST:0
@@ -3984,6 +4024,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_061e"));
+    cards.emplace("BAR_061e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_062e] Bolstered - COST:0
@@ -3991,6 +4034,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_062e"));
+    cards.emplace("BAR_062e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_063e] Emboldened - COST:0
@@ -3998,6 +4044,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and <b>Rush</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_063e"));
+    cards.emplace("BAR_063e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_072t] Demonspawn - COST:6 [ATK:5/HP:8]
