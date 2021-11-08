@@ -2139,7 +2139,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ConditionTask>(
-        EntityType::SOURCE,
+        EntityType::MINIONS_NOSOURCE,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsControllingRace(Race::MURLOC)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
