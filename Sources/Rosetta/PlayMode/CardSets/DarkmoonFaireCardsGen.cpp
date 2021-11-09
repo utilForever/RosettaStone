@@ -273,8 +273,10 @@ void DarkmoonFaireCardsGen::AddDruidNonCollect(
                                              EffectOperator::SET, 1) }));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
-        aura->removeTrigger = { TriggerType::AFTER_CAST, nullptr };
+        aura->removeTrigger = { TriggerType::TURN_END, nullptr };
     }
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
     cards.emplace("DMF_058o", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
