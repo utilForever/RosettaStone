@@ -104,6 +104,7 @@ int Player::GetCurrentSpellPower() const
 
     value += GetHero()->GetSpellPower();
     value += GetGameTag(GameTag::SPELLPOWER);
+    value += playerAuraEffects.GetValue(GameTag::SPELLPOWER);
 
     return value;
 }
