@@ -41,7 +41,7 @@ TaskStatus TransformCopyTask::Impl(Player* player)
     {
         for (auto& e : target->appliedEnchantments)
         {
-            auto instance = Enchantment::GetInstance(player, e->card, copy);
+            auto instance = Enchantment::GetInstance(target, e->card, copy);
             if (e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) > 0)
             {
                 instance->SetGameTag(

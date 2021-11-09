@@ -225,7 +225,7 @@ void Aura::Apply(Playable* entity)
         m_enchantmentCard->power.GetTrigger() != nullptr)
     {
         const auto instance =
-            Enchantment::GetInstance(entity->player, m_enchantmentCard, entity);
+            Enchantment::GetInstance(entity, m_enchantmentCard, entity);
 
         if (auto trigger = m_enchantmentCard->power.GetTrigger();
             trigger != nullptr)

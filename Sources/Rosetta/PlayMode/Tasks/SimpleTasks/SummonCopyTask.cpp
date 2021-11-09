@@ -112,7 +112,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
                 for (auto& enchantment : minion->appliedEnchantments)
                 {
                     auto instance = Enchantment::GetInstance(
-                        player, enchantment->card, copy);
+                        minion, enchantment->card, copy);
 
                     if (const auto value1 = enchantment->GetGameTag(
                             GameTag::TAG_SCRIPT_DATA_NUM_1);

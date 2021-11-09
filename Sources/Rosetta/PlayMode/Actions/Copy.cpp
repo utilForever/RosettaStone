@@ -70,7 +70,7 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
             for (auto& e : source->appliedEnchantments)
             {
                 auto instance =
-                    Enchantment::GetInstance(player, e->card, copiedEntity);
+                    Enchantment::GetInstance(source, e->card, copiedEntity);
                 if (e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) > 0)
                 {
                     instance->SetGameTag(

@@ -123,7 +123,7 @@ void AdjacentAura::Apply(Minion* minion)
 
     if (m_enchantmentCard != nullptr)
     {
-        Enchantment::GetInstance(minion->player, m_enchantmentCard, minion);
+        Enchantment::GetInstance(minion, m_enchantmentCard, minion);
     }
 }
 
