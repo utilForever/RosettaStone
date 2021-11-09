@@ -20,16 +20,16 @@ Enchantment::Enchantment(Player* player, Card* card,
     // Do nothing
 }
 
-std::shared_ptr<Enchantment> Enchantment::GetInstance(Player* player,
+std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
                                                       Card* card,
                                                       Entity* target, int num1,
                                                       int num2)
 {
-    const int id = player->game->GetNextID();
+    const int id = owner->player->game->GetNextID();
 
     std::map<GameTag, int> tags;
     tags[GameTag::ENTITY_ID] = id;
-    tags[GameTag::CONTROLLER] = player->playerID;
+    tags[GameTag::CONTROLLER] = owner->player->playerID;
     tags[GameTag::ZONE] = static_cast<int>(ZoneType::SETASIDE);
 
     if (num1 > 0)
@@ -43,17 +43,17 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Player* player,
     }
 
     auto instance =
-        std::make_shared<Enchantment>(player, card, tags, target, id);
+        std::make_shared<Enchantment>(owner->player, card, tags, target, id);
 
     target->appliedEnchantments.emplace_back(instance);
 
     if (card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] == 1)
     {
         instance->m_isOneTurnActive = true;
-        player->game->oneTurnEffectEnchantments.emplace_back(instance);
+        owner->game->oneTurnEffectEnchantments.emplace_back(instance);
     }
 
-    instance->orderOfPlay = player->game->GetNextOOP();
+    instance->orderOfPlay = owner->game->GetNextOOP();
 
     if (!card->power.GetDeathrattleTask().empty())
     {

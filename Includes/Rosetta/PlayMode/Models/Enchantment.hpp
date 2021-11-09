@@ -47,13 +47,13 @@ class Enchantment : public Playable
     Enchantment& operator=(Enchantment&&) noexcept = delete;
 
     //! Creates and adds a new Enchantment to the given player's game.
-    //! \param player The controller of the enchantment.
+    //! \param owner The owner of the enchantment.
     //! \param card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
     //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
     //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
     //! \return The resulting enchantment entity.
-    static std::shared_ptr<Enchantment> GetInstance(Player* player, Card* card,
+    static std::shared_ptr<Enchantment> GetInstance(Playable* owner, Card* card,
                                                     Entity* target,
                                                     int num1 = 0, int num2 = 0);
 
