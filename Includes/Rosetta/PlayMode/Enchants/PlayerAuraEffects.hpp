@@ -49,6 +49,7 @@ class PlayerAuraEffects
 
  private:
     int m_timeOut = 0;
+    int m_spellPower = 0;
     int m_spellPowerDouble = 0;
     int m_healingDoesDamage = 0;
     int m_canTargetMinionByHeroPower = 0;
