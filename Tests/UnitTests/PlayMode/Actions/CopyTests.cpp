@@ -43,8 +43,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetDeckZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -62,8 +62,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetHandZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -81,8 +81,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetDeckZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -100,8 +100,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetFieldZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -119,8 +119,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetHandZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -138,8 +138,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetFieldZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -157,8 +157,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetFieldZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -177,8 +177,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetHandZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -197,8 +197,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetDeckZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -217,8 +217,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetGraveyardZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -236,8 +236,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetGraveyardZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -255,8 +255,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetGraveyardZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -274,8 +274,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetHandZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
@@ -293,8 +293,8 @@ TEST_CASE("[Copy] - Copy")
             Entity::GetFromCard(curPlayer, Cards::FindCardByName("Ysera"),
                                 std::nullopt, curPlayer->GetHandZone());
 
-        auto enchantment =
-            std::make_shared<Enchantment>(curPlayer, &card, tags, playable, -1);
+        auto enchantment = std::make_shared<Enchantment>(curPlayer, &card, tags,
+                                                         nullptr, playable, -1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, 1);
         enchantment->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2, 2);
 
