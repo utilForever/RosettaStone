@@ -58,6 +58,10 @@ class Enchantment : public Playable
                                                     Entity* target,
                                                     int num1 = 0, int num2 = 0);
 
+    //! Returns the owner of enchantment.
+    //! \return the owner of enchantment.
+    Playable* GetOwner() const;
+
     //! Returns the target of enchantment.
     //! \return The target of enchantment.
     Entity* GetTarget() const;

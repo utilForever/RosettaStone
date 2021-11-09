@@ -66,6 +66,11 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
     return instance;
 }
 
+Playable* Enchantment::GetOwner() const
+{
+    return m_owner;
+}
+
 Entity* Enchantment::GetTarget() const
 {
     return m_target;
