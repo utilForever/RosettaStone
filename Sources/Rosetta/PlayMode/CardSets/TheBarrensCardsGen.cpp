@@ -1078,6 +1078,17 @@ void TheBarrensCardsGen::AddMageNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::SPELLPOWER, EffectOperator::ADD, 2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::TURN_END, nullptr };
+    }
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    cards.emplace("BAR_064e", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [BAR_064e2] Touch of Arcane - COST:0
@@ -3635,7 +3646,7 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [BAR_064] Talented Arcanist - COST:2 [ATK:1/HP:3]
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Your next spell this turn has
+    // Text: <b>Battlecry:</b> Your next spell this turn has
     //       <b>Spell Damage +2</b>.
     // --------------------------------------------------------
     // GameTag:
@@ -3644,6 +3655,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_064e", EntityType::SOURCE));
+    cards.emplace("BAR_064", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_065] Venomous Scorpid - COST:3 [ATK:1/HP:3]
