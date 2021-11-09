@@ -14,8 +14,11 @@
 namespace RosettaStone::PlayMode
 {
 Enchantment::Enchantment(Player* player, Card* card,
-                         std::map<GameTag, int> tags, Entity* target, int id)
-    : Playable(player, card, std::move(tags), id), m_target(target)
+                         std::map<GameTag, int> tags, Playable* owner,
+                         Entity* target, int id)
+    : Playable(player, card, std::move(tags), id),
+      m_owner(owner),
+      m_target(target)
 {
     // Do nothing
 }
@@ -42,8 +45,8 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
         }
     }
 
-    auto instance =
-        std::make_shared<Enchantment>(owner->player, card, tags, target, id);
+    auto instance = std::make_shared<Enchantment>(owner->player, card, tags,
+                                                  owner, target, id);
 
     target->appliedEnchantments.emplace_back(instance);
 

@@ -21,15 +21,16 @@ class Player;
 class Enchantment : public Playable
 {
  public:
-    //! Constructs enchantment with given \p player, \p card, \p tags
-    //! and \p target.
+    //! Constructs enchantment with given \p player, \p card, \p tags,
+    //! \p owner and \p target.
     //! \param player The owner of the card.
     //! \param card The card.
     //! \param tags The game tags.
+    //! \param owner The owner of enchantment.
     //! \param target A target of enchantment.
     //! \param id The ID.
     Enchantment(Player* player, Card* card, std::map<GameTag, int> tags,
-                Entity* target, int id);
+                Playable* owner, Entity* target, int id);
 
     //! Default destructor.
     ~Enchantment() = default;
@@ -85,6 +86,7 @@ class Enchantment : public Playable
     void Remove();
 
  private:
+    Playable* m_owner = nullptr;
     Entity* m_target = nullptr;
     Card* m_capturedCard = nullptr;
 
