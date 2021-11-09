@@ -454,6 +454,13 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
             continue;
         }
 
+        // If casted enchantment tries to activate own trigger, ignore it
+        if (auto enchantment = dynamic_cast<Enchantment*>(trigger->m_owner);
+            enchantment && enchantment->GetOwner() == source)
+        {
+            continue;
+        }
+
         if (trigger->m_sequenceType == type)
         {
             trigger->Validate(source);
