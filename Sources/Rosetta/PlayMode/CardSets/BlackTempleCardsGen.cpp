@@ -2524,10 +2524,8 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("BT_160e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BT_160e", EntityType::MINIONS_NOSOURCE));
     cards.emplace("BT_160", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
