@@ -3714,6 +3714,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace("BAR_071", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_072] Burning Blade Acolyte - COST:5 [ATK:1/HP:1]
