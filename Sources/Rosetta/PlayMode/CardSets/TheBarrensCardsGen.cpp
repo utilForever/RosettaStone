@@ -3731,6 +3731,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BAR_072t", SummonSide::DEATHRATTLE));
+    cards.emplace("BAR_072", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_073] Barrens Blacksmith - COST:5 [ATK:3/HP:5]
@@ -4079,6 +4083,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_072t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_073e] Reforged - COST:0
