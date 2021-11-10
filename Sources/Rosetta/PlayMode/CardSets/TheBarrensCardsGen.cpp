@@ -3700,6 +3700,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<SummonTask>("BAR_070", 1, SummonSide::RIGHT));
+    cards.emplace("BAR_070", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_071] Taurajo Brave - COST:6 [ATK:4/HP:8]
