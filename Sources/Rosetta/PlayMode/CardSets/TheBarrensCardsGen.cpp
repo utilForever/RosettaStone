@@ -3745,6 +3745,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_073e", EntityType::MINIONS_NOSOURCE));
+    cards.emplace("BAR_073", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_074] Far Watch Post - COST:2 [ATK:2/HP:3]
@@ -4093,6 +4097,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_073e"));
+    cards.emplace("BAR_073e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_074e] Spotted! - COST:0
