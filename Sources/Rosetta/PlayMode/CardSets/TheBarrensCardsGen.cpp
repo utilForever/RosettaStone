@@ -3782,6 +3782,12 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_ATTACK = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_075e", EntityType::MINIONS) };
+    cards.emplace("BAR_075", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_076] Mor'shan Watch Post - COST:3 [ATK:3/HP:4]
@@ -4124,6 +4130,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_075e"));
+    cards.emplace("BAR_075e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_076t] Watchful Grunt - COST:2 [ATK:2/HP:2]
