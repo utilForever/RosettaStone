@@ -56,7 +56,7 @@ void YoDCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Set: YoD, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Twinspell</b> <b>Choose One -</b>
-    //       Draw a card; or Summon a 3/2 Eagle.
+    //       Draw a card; or Summon a 3/2 Eagle.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -144,7 +144,7 @@ void YoDCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - Set: YoD, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Choose One -</b>
-    //       Draw a card; or Summon a 3/2 Eagle.
+    //       Draw a card; or Summon a 3/2 Eagle.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -292,7 +292,7 @@ void YoDCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [YOD_008] Arcane Amplifier - COST:3 [ATK:2/HP:5]
     // - Race: Elemental, Set: YoD, Rarity: Common
     // --------------------------------------------------------
-    // Text: Your Hero Power deals 2 extra damage.
+    // Text: Your Hero Power deals 2 extra damage.
     // --------------------------------------------------------
     // GameTag:
     // - HEROPOWER_DAMAGE = 1
@@ -332,7 +332,7 @@ void YoDCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: YoD, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Twinspell</b>
-    //       Summon two 1/1 Silver Hand Recruits with <b>Taunt</b>.
+    //       Summon two 1/1 Silver Hand Recruits with <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - TWINSPELL_COPY = 56144
@@ -383,7 +383,7 @@ void YoDCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // [YOD_012ts] Air Raid (*) - COST:2
     // - Set: YoD, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Summon two 1/1 Silver Hand Recruits with <b>Taunt</b>.
+    // Text: Summon two 1/1 Silver Hand Recruits with <b>Taunt</b>.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
@@ -421,8 +421,8 @@ void YoDCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [YOD_014] Aeon Reaver - COST:6 [ATK:4/HP:4]
     // - Race: Dragon, Set: YoD, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal damage to a minion equal
-    //       to its Attack.
+    // Text: <b>Battlecry:</b> Deal damage to a minion equal
+    //       to its Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -695,7 +695,7 @@ void YoDCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [YOD_024] Bomb Wrangler - COST:3 [ATK:2/HP:3]
     // - Set: YoD, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Whenever this minion takes damage, summon a 1/1 Boom Bot.
+    // Text: Whenever this minion takes damage, summon a 1/1 Boom Bot.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -791,8 +791,8 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [YOD_033] Boompistol Bully - COST:5 [ATK:5/HP:5]
     // - Faction: Neutral, Set: YoD, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Enemy <b>Battlecry</b> cards
-    //       cost (5) more next turn.
+    // Text: <b>Battlecry:</b> Enemy <b>Battlecry</b> cards
+    //       cost (5) more next turn.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1

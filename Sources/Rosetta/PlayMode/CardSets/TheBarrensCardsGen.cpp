@@ -108,8 +108,8 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:3]
     // - Set: THE_BARRENS, Rarity: Rare
     // --------------------------------------------------------
-    // Text: The first <b>Taunt</b> minion you play each turn
-    //       costs (2) less.
+    // Text: The first <b>Taunt</b> minion you play each turn
+    //       costs (2) less.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
@@ -597,7 +597,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - Set: THE_BARRENS, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a Beast from your deck.
-    //       Give all copies of it +2/+1 <i>(wherever they are)</i>.
+    //       Give all copies of it +2/+1 <i>(wherever they are)</i>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1506,7 +1506,7 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Holy
     // --------------------------------------------------------
-    // Text: Give three random friendly minions +3 Attack.
+    // Text: Give three random friendly minions +3 Attack.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
@@ -3407,7 +3407,7 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // - Set: THE_BARRENS, Rarity: Common
     // - Spell School: Fel
     // --------------------------------------------------------
-    // Text: Give your hero +4 Attack this turn.
+    // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -3647,7 +3647,7 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Your next spell this turn has
-    //       <b>Spell Damage +2</b>.
+    //       <b>Spell Damage +2</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3755,7 +3755,7 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: Can't attack. After your opponent draws a card,
-    //       it costs (1) more <i>(up to 10)</i>.  
+    //       it costs (1) more <i>(up to 10)</i>.
     // --------------------------------------------------------
     // GameTag:
     // - CANT_ATTACK = 1
@@ -3791,7 +3791,7 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: THE_BARRENS, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 5/5 Lookout for each
-    //       Watch Post you've summoned this game.
+    //       Watch Post you've summoned this game.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

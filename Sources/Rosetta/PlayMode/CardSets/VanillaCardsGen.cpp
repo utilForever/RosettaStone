@@ -122,7 +122,7 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // [VAN_HERO_07bp] Life Tap - COST:2
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Hero Power</b> Draw a card and take 2 damage.
+    // Text: <b>Hero Power</b> Draw a card and take 2 damage.
     // --------------------------------------------------------
 
     // ----------------------------------- HERO_POWER - WARLOCK
@@ -183,7 +183,7 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_005] Claw - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
+    // Text: Give your hero +2 Attack this turn. Gain 2 Armor.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ArmorTask>(2));
@@ -331,14 +331,14 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_161] Naturalize - COST:1
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: Destroy a minion. Your opponent draws 2 cards.
+    // Text: Destroy a minion. Your opponent draws 2 cards.
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_164] Nourish - COST:5
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b> Gain 2 Mana Crystals;
+    // Text: <b>Choose One -</b> Gain 2 Mana Crystals;
     //       or Draw 3 cards.
     // --------------------------------------------------------
     // GameTag:
@@ -364,7 +364,7 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b> Deal 2 damage;
+    // Text: <b>Choose One -</b> Deal 2 damage;
     //       or <b>Silence</b> a minion.
     // --------------------------------------------------------
     // GameTag:
@@ -406,7 +406,7 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_570] Bite - COST:4
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
+    // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
@@ -706,7 +706,7 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [VAN_DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Your other Beasts have +1 Attack.
+    // Text: Your other Beasts have +1 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
@@ -1245,7 +1245,7 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_087] Blessing of Might - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give a minion +3 Attack.
+    // Text: Give a minion +3 Attack.
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
@@ -1295,7 +1295,7 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_097] Truesilver Champion - COST:4
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Whenever your hero attacks, restore 2 Health to it.
+    // Text: Whenever your hero attacks, restore 2 Health to it.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1346,7 +1346,7 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_354] Lay on Hands - COST:8
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Restore #8 Health. Draw 3 cards.
+    // Text: Restore #8 Health. Draw 3 cards.
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - PALADIN
@@ -1388,7 +1388,7 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_365] Holy Wrath - COST:5
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Draw a card and deal damage equal to its Cost.
+    // Text: Draw a card and deal damage equal to its Cost.
     // --------------------------------------------------------
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
@@ -1399,7 +1399,7 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
     // Text: After you summon a minion,
-    //       give it +1/+1 and this loses 1 Durability.
+    //       give it +1/+1 and this loses 1 Durability.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1441,7 +1441,7 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: VANILLA, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
-    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
+    //       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -1526,14 +1526,14 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_004] Power Word: Shield - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give a minion +2 Health. Draw a card.
+    // Text: Give a minion +2 Health. Draw a card.
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_CS2_234] Shadow Word: Pain - COST:2
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Destroy a minion with 3 or less Attack.
+    // Text: Destroy a minion with 3 or less Attack.
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
@@ -1652,7 +1652,7 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_622] Shadow Word: Death - COST:3
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Destroy a minion with 5 or more Attack.
+    // Text: Destroy a minion with 5 or more Attack.
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
@@ -1740,14 +1740,14 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_074] Deadly Poison - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give your weapon +2 Attack.
+    // Text: Give your weapon +2 Attack.
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_CS2_075] Sinister Strike - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 3 damage to the enemy hero.
+    // Text: Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - ROGUE
@@ -1921,7 +1921,7 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [VAN_NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Combo:</b> Return a minion to its owner's hand.
+    // Text: <b>Combo:</b> Return a minion to its owner's hand.
     // --------------------------------------------------------
     // GameTag:
     // - COMBO = 1
@@ -2026,7 +2026,7 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_046] Bloodlust - COST:5
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give your minions +3 Attack this turn.
+    // Text: Give your minions +3 Attack this turn.
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
@@ -2071,7 +2071,7 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_244] Totemic Might - COST:0
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give your Totems +2 Health.
+    // Text: Give your Totems +2 Health.
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
@@ -2133,7 +2133,7 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_251] Forked Lightning - COST:1
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 2 damage to 2 random enemy minions.
+    // Text: Deal 2 damage to 2 random enemy minions.
     //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
@@ -2168,7 +2168,7 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
     // - Race: Totem, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Adjacent minions have +2 Attack.
+    // Text: Adjacent minions have +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - ADJACENT_BUFF = 1
@@ -2541,7 +2541,7 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_105] Heroic Strike - COST:2
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give your hero +4 Attack this turn.
+    // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
 
     // --------------------------------------- WEAPON - WARRIOR
@@ -2601,7 +2601,7 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Equip a 2/2 weapon.
+    // Text: <b>Battlecry:</b> Equip a 2/2 weapon.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2685,7 +2685,7 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage to a minion and
-    //       give it +2 Attack.
+    //       give it +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2712,7 +2712,7 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_607] Inner Rage - COST:0
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 1 damage to a minion and give it +2 Attack.
+    // Text: Deal 1 damage to a minion and give it +2 Attack.
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
@@ -2800,7 +2800,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 3 Health.
+    // Text: <b>Battlecry:</b> Restore 3 Health.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2935,7 +2935,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
     // - Faction: Alliance, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 2/2 Squire.
+    // Text: <b>Battlecry:</b> Summon a 2/2 Squire.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3055,7 +3055,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_188] Abusive Sergeant - COST:1 [ATK:2/HP:1]
     // - Faction: Alliance, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3075,7 +3075,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3]
     // - Faction: Horde, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 1/1 Boar.
+    // Text: <b>Battlecry:</b> Summon a 1/1 Boar.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3283,7 +3283,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
     // - Faction: Horde, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 2 Health.
+    // Text: <b>Battlecry:</b> Restore 2 Health.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3472,7 +3472,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
     // - Faction: Alliance, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3784,7 +3784,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: Adjacent minions have +1 Attack.
+    // Text: Adjacent minions have +1 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - ADJACENT_BUFF = 1
@@ -3883,7 +3883,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:7]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Whenever this minion takes damage, gain +3 Attack.
+    // Text: Whenever this minion takes damage, gain +3 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -3914,7 +3914,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
     // - Race: Murloc, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3988,7 +3988,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
     // - Race: Dragon, Set: VANILLA, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: Players only have 15 seconds to take their turns.
+    // Text: Players only have 15 seconds to take their turns.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -4085,7 +4085,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give adjacent minions
-    //       <b>Spell Damage +1</b>.
+    //       <b>Spell Damage +1</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1

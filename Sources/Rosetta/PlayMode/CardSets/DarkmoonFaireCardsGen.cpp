@@ -571,7 +571,7 @@ void DarkmoonFaireCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [YOP_028] Saddlemaster - COST:3 [ATK:3/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: After you play a Beast, add a random Beast to your hand.
+    // Text: After you play a Beast, add a random Beast to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -641,7 +641,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Add two 1/2 Sugar Elementals
-    //       to your hand.
+    //       to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -745,7 +745,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
-    //       summon a copy of this.
+    //       summon a copy of this.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -890,7 +890,7 @@ void DarkmoonFaireCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Divine Shield</b>
-    //       <b>Corrupt:</b> Gain +3/+3 and <b>Taunt</b>.
+    //       <b>Corrupt:</b> Gain +3/+3 and <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - CORRUPT = 1
@@ -1230,7 +1230,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [DMF_055] Idol of Y'Shaarj - COST:8
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Summon a 10/10 copy of a minion in your deck.
+    // Text: Summon a 10/10 copy of a minion in your deck.
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
@@ -1348,7 +1348,7 @@ void DarkmoonFaireCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: Your healing effects also give affected minions
-    //       +2 Health.
+    //       +2 Health.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1433,7 +1433,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Your next <b>Combo</b> card
-    //       this turn costs (2) less.
+    //       this turn costs (2) less.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1459,7 +1459,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: <b>Secret:</b> After a minion attacks your hero,
-    //       summon a copy of it with <b>Stealth</b>.
+    //       summon a copy of it with <b>Stealth</b>.
     // --------------------------------------------------------
     // GameTag:
     // - SECRET = 1
@@ -1721,7 +1721,7 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [DMF_703] Pit Master - COST:3 [ATK:1/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 3/2 Duelist.
+    // Text: <b>Battlecry:</b> Summon a 3/2 Duelist.
     //       <b>Corrupt:</b> Summon two.
     // --------------------------------------------------------
     // GameTag:
@@ -2110,7 +2110,7 @@ void DarkmoonFaireCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Swap the Cost and Attack of all minions in your deck.
+    // Text: Swap the Cost and Attack of all minions in your deck.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2165,7 +2165,7 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
-    //       Destroy 2 random enemy minions.
+    //       Destroy 2 random enemy minions.
     //       <b>Corrupt:</b> Destroy 3.
     // --------------------------------------------------------
     // GameTag:
@@ -2185,7 +2185,7 @@ void DarkmoonFaireCardsGen::AddWarlockNonCollect(
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Corrupted</b>
-    //       <b>Battlecry:</b> Remove the top 5 cards
+    //       <b>Battlecry:</b> Remove the top 5 cards
     //       from your opponent's deck.
     // --------------------------------------------------------
     // GameTag:
@@ -2218,7 +2218,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Race: Pirate, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
-    //       <b>Battlecry:</b> Equip a 3/2 Sword.
+    //       <b>Battlecry:</b> Equip a 3/2 Sword.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2252,7 +2252,7 @@ void DarkmoonFaireCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b> <b>Deathrattle:</b> Add two 1/1 Riders
-    //       with <b>Rush</b> to your hand.
+    //       with <b>Rush</b> to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1
@@ -2458,7 +2458,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // [DMF_217] Line Hopper - COST:3 [ATK:3/HP:4]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Your <b>Outcast</b> cards cost (1) less.
+    // Text: Your <b>Outcast</b> cards cost (1) less.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
@@ -2512,7 +2512,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
     // Text: <b>Rush</b>
     //       <b>Deathrattle:</b> Summon two 1/1 Assistants
-    //       with <b>Taunt</b>.  
+    //       with <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1
@@ -2531,7 +2531,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // --------------------------------------------------------
     // Text: Summon seven 1/1 Illidari with <b>Rush</b>.
-    //       If they all die this turn, summon seven more.
+    //       If they all die this turn, summon seven more.
     // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
@@ -2542,7 +2542,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion.
-    //       If it dies, add a temporary copy of this to your hand.
+    //       If it dies, add a temporary copy of this to your hand.
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
@@ -2612,7 +2612,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
-    //       <b>Corrupt:</b> Gain +1/+1 and <b>Lifesteal</b>.
+    //       <b>Corrupt:</b> Gain +1/+1 and <b>Lifesteal</b>.
     // --------------------------------------------------------
     // GameTag:
     // - CORRUPT = 1
@@ -2786,7 +2786,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you played an Elemental last turn,
-    //       deal 3 damage.
+    //       deal 3 damage.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3084,7 +3084,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [DMF_191] Showstopper - COST:2 [ATK:3/HP:2]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> <b>Silence</b> all minions.
+    // Text: <b>Deathrattle:</b> <b>Silence</b> all minions.
     // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1
@@ -3170,7 +3170,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: Summon a 2/4 Guard with <b>Taunt</b>.
-    //       If it's your only minion, summon another.
+    //       If it's your only minion, summon another.
     // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
@@ -3312,7 +3312,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [YOP_032] Armor Vendor - COST:1 [ATK:1/HP:3]
     // - Set: DARKMOON_FAIRE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give 4 Armor to each hero.
+    // Text: <b>Battlecry:</b> Give 4 Armor to each hero.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3347,7 +3347,7 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [YOP_035] Moonfang - COST:5 [ATK:6/HP:3]
     // - Race: Beast, Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: Can only take 1 damage at a time.
+    // Text: Can only take 1 damage at a time.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
