@@ -28,6 +28,11 @@ void TriggerManager::OnDrawCardTrigger(Entity* sender)
     drawCardTrigger(sender);
 }
 
+void TriggerManager::OnAfterDrawCardTrigger(Entity* sender)
+{
+    afterDrawCardTrigger(sender);
+}
+
 void TriggerManager::OnPlayCardTrigger(Entity* sender)
 {
     playCardTrigger(sender);
