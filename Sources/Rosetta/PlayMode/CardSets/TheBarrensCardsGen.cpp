@@ -3761,6 +3761,15 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_ATTACK = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_DRAW_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsCost(9, RelaSign::LEQ))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_074e", EntityType::TARGET) };
+    cards.emplace("BAR_074", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_075] Crossroads Watch Post - COST:4 [ATK:4/HP:6]
@@ -4105,6 +4114,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // [BAR_074e] Spotted! - COST:0
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AddCost(1)));
+    cards.emplace("BAR_074e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_075e] Patrolling - COST:0

@@ -7025,3 +7025,117 @@ TEST_CASE("[Neutral : Minion] - BAR_073 : Barrens Blacksmith")
     CHECK_EQ(curField[2]->GetAttack(), 3);
     CHECK_EQ(curField[2]->GetHealth(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_074] Far Watch Post - COST:2 [ATK:2/HP:3]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Can't attack. After your opponent draws a card,
+//       it costs (1) more <i>(up to 10)</i>.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_074 : Far Watch Post")
+{
+    // Normal Case
+    {
+        GameConfig config;
+        config.player1Class = CardClass::MAGE;
+        config.player2Class = CardClass::WARRIOR;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        for (int i = 0; i < 30; ++i)
+        {
+            config.player2Deck[i] = Cards::FindCardByName("Ice Barrier");
+        }
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+        auto& opHand = *(opPlayer->GetHandZone());
+
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Far Watch Post"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(opHand[5]->GetCost(), 4);
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(curField[0]->CanAttack(), false);
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(opHand[5]->GetCost(), 4);
+        CHECK_EQ(opHand[6]->GetCost(), 4);
+    }
+
+    // 10-cost Card Case
+    {
+        GameConfig config;
+        config.player1Class = CardClass::MAGE;
+        config.player2Class = CardClass::WARRIOR;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        for (int i = 0; i < 30; ++i)
+        {
+            config.player2Deck[i] = Cards::FindCardByName("Pyroblast");
+        }
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+        auto& opHand = *(opPlayer->GetHandZone());
+
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Far Watch Post"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(opHand[5]->GetCost(), 10);
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(curField[0]->CanAttack(), false);
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(opHand[5]->GetCost(), 10);
+        CHECK_EQ(opHand[6]->GetCost(), 10);
+    }
+}
