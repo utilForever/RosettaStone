@@ -105,6 +105,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::DRAW_CARD:
             game->triggerManager.drawCardTrigger += instance->handler;
             break;
+        case TriggerType::AFTER_DRAW_CARD:
+            game->triggerManager.afterDrawCardTrigger += instance->handler;
+            break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger += instance->handler;
             break;
@@ -281,6 +284,9 @@ void Trigger::Remove() const
             break;
         case TriggerType::DRAW_CARD:
             game->triggerManager.drawCardTrigger -= handler;
+            break;
+        case TriggerType::AFTER_DRAW_CARD:
+            game->triggerManager.afterDrawCardTrigger -= handler;
             break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger -= handler;
