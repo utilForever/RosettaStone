@@ -251,6 +251,14 @@ class Player : public Entity
     //! \param value The number of elemental minions that played last turn.
     void SetNumElementalPlayedLastTurn(int value);
 
+    //! Returns the number of Watch Posts that summoned this game.
+    //! \return The number of Watch Posts that summoned this game.
+    int GetNumWatchPostSummonedThisGame() const;
+
+    //! Sets the number of Watch Posts that summoned this game.
+    //! \param value The number of Watch Posts that summoned this game.
+    void SetNumWatchPostSummonedThisGame(int value);
+
     //! Returns the number of spells that cast this turn.
     //! \return The number of spells that cast this turn.
     int GetNumSpellsCastThisTurn() const;
