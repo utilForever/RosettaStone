@@ -153,13 +153,13 @@ TEST_CASE("[Warlock : Minion] - UNG_833 : Lakkari Felhound")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Lakkari Felhound"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Pyroblast"));
-    const auto card4 =
+    [[maybe_unused]] const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Blizzard"));
-    const auto card5 =
+    [[maybe_unused]] const auto card5 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
 
     CHECK_EQ(curHand.GetCount(), 5);
