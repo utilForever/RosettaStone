@@ -105,6 +105,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
         case TriggerType::DRAW_CARD:
             game->triggerManager.drawCardTrigger += instance->handler;
             break;
+        case TriggerType::AFTER_DRAW_CARD:
+            game->triggerManager.afterDrawCardTrigger += instance->handler;
+            break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger += instance->handler;
             break;
@@ -282,6 +285,9 @@ void Trigger::Remove() const
         case TriggerType::DRAW_CARD:
             game->triggerManager.drawCardTrigger -= handler;
             break;
+        case TriggerType::AFTER_DRAW_CARD:
+            game->triggerManager.afterDrawCardTrigger -= handler;
+            break;
         case TriggerType::PLAY_CARD:
             game->triggerManager.playCardTrigger -= handler;
             break;
@@ -450,6 +456,13 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
         // If summoned minion tries to activate trigger, ignore it
         if (auto minion = dynamic_cast<Minion*>(trigger->m_owner);
             minion && minion->IsSummoned())
+        {
+            continue;
+        }
+
+        // If casted enchantment tries to activate own trigger, ignore it
+        if (auto enchantment = dynamic_cast<Enchantment*>(trigger->m_owner);
+            enchantment && enchantment->GetOwner() == source)
         {
             continue;
         }

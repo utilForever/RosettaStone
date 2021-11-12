@@ -166,7 +166,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [BT_134] Bogbeam - COST:3
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 3 damage to a minion.
+    // Text: Deal 3 damage to a minion.
     //       Costs (0) if you have at least 7 Mana Crystals.
     // --------------------------------------------------------
     // PlayReq:
@@ -188,7 +188,7 @@ void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [BT_135] Glowfly Swarm - COST:5
     // - Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Summon a 2/2 Glowfly for each spell in your hand.
+    // Text: Summon a 2/2 Glowfly for each spell in your hand.
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - DRUID
@@ -391,7 +391,7 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [BT_205] Scrap Shot - COST:4
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 3 damage. Give a random Beast in your hand +3/+3.
+    // Text: Deal 3 damage. Give a random Beast in your hand +3/+3.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -518,7 +518,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Set: BLACK_TEMPLE, Rarity: Common
     // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: Reduce the Cost of spells in your deck by (1).
+    // Text: Reduce the Cost of spells in your deck by (1).
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
@@ -781,8 +781,8 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [BT_020] Aldor Attendant - COST:1 [ATK:1/HP:3]
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Reduce the Cost of your Librams
-    //       by (1) this game.
+    // Text: <b>Battlecry:</b> Reduce the Cost of your Librams
+    //       by (1) this game.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -794,7 +794,7 @@ void BlackTempleCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 8 Health. Summon an 8/8 Guardian
-    //       with <b>Taunt</b> and <b>Divine Shield</b>.
+    //       with <b>Taunt</b> and <b>Divine Shield</b>.
     // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
@@ -1639,7 +1639,7 @@ void BlackTempleCardsGen::AddShamanNonCollect(
     // - Set: BLACK_TEMPLE
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b> <b>Battlecry:</b> Draw 3 spells.
-    //       Reduce their Cost by (3).   
+    //       Reduce their Cost by (3).
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -1792,7 +1792,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // [BT_307] Darkglare - COST:3 [ATK:3/HP:4]
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: After your hero takes damage, refresh a Mana Crystals.
+    // Text: After your hero takes damage, refresh a Mana Crystals.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1852,7 +1852,7 @@ void BlackTempleCardsGen::AddWarlockNonCollect(
     // - Race: Demon, Set: BLACK_TEMPLE
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon 3 friendly Demons
-    //       that died this game.
+    //       that died this game.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2143,7 +2143,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [BT_187] Kayn Sunfury - COST:4 [ATK:3/HP:4]
     // - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Charge</b> All friendly attacks ignore <b>Taunt</b>.
+    // Text: <b>Charge</b> All friendly attacks ignore <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2306,7 +2306,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [BT_509] Fel Summoner - COST:6 [ATK:8/HP:3]
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Summon a random Demon from your hand.
+    // Text: <b>Deathrattle:</b> Summon a random Demon from your hand.
     // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1
@@ -2501,7 +2501,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon three 1/1 Huntresses
-    //       for your opponent.
+    //       for your opponent.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2524,10 +2524,8 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("BT_160e", EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BT_160e", EntityType::MINIONS_NOSOURCE));
     cards.emplace("BT_160", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
@@ -2556,7 +2554,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [BT_714] Frozen Shadoweaver - COST:3 [ATK:4/HP:3]
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> <b>Freeze</b> an enemy.
+    // Text: <b>Battlecry:</b> <b>Freeze</b> an enemy.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2793,7 +2791,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: After this damages a minion,
-    //       turn it into an Infectious Sporeling.
+    //       turn it into an Infectious Sporeling.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -2804,7 +2802,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 6 damage randomly split
-    //       among all other minions.
+    //       among all other minions.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1

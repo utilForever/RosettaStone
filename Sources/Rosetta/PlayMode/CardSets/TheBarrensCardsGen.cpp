@@ -108,8 +108,8 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:3]
     // - Set: THE_BARRENS, Rarity: Rare
     // --------------------------------------------------------
-    // Text: The first <b>Taunt</b> minion you play each turn
-    //       costs (2) less.
+    // Text: The first <b>Taunt</b> minion you play each turn
+    //       costs (2) less.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
@@ -597,7 +597,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - Set: THE_BARRENS, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a Beast from your deck.
-    //       Give all copies of it +2/+1 <i>(wherever they are)</i>.
+    //       Give all copies of it +2/+1 <i>(wherever they are)</i>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1078,6 +1078,17 @@ void TheBarrensCardsGen::AddMageNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::SPELLPOWER, EffectOperator::ADD, 2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::TURN_END, nullptr };
+    }
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    cards.emplace("BAR_064e", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [BAR_064e2] Touch of Arcane - COST:0
@@ -1495,7 +1506,7 @@ void TheBarrensCardsGen::AddPaladinNonCollect(
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Holy
     // --------------------------------------------------------
-    // Text: Give three random friendly minions +3 Attack.
+    // Text: Give three random friendly minions +3 Attack.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
@@ -3396,7 +3407,7 @@ void TheBarrensCardsGen::AddDemonHunterNonCollect(
     // - Set: THE_BARRENS, Rarity: Common
     // - Spell School: Fel
     // --------------------------------------------------------
-    // Text: Give your hero +4 Attack this turn.
+    // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -3635,8 +3646,8 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [BAR_064] Talented Arcanist - COST:2 [ATK:1/HP:3]
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Your next spell this turn has
-    //       <b>Spell Damage +2</b>.
+    // Text: <b>Battlecry:</b> Your next spell this turn has
+    //       <b>Spell Damage +2</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3644,6 +3655,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_064e", EntityType::SOURCE));
+    cards.emplace("BAR_064", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_065] Venomous Scorpid - COST:3 [ATK:1/HP:3]
@@ -3685,6 +3700,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<SummonTask>("BAR_070", 1, SummonSide::RIGHT));
+    cards.emplace("BAR_070", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_071] Taurajo Brave - COST:6 [ATK:4/HP:8]
@@ -3695,6 +3714,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace("BAR_071", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_072] Burning Blade Acolyte - COST:5 [ATK:1/HP:1]
@@ -3709,6 +3731,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("BAR_072t", SummonSide::DEATHRATTLE));
+    cards.emplace("BAR_072", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_073] Barrens Blacksmith - COST:5 [ATK:3/HP:5]
@@ -3719,18 +3745,31 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FRENZY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(std::make_shared<AddEnchantmentTask>(
+        "BAR_073e", EntityType::MINIONS_NOSOURCE));
+    cards.emplace("BAR_073", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_074] Far Watch Post - COST:2 [ATK:2/HP:3]
     // - Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: Can't attack. After your opponent draws a card,
-    //       it costs (1) more <i>(up to 10)</i>.  
+    //       it costs (1) more <i>(up to 10)</i>.
     // --------------------------------------------------------
     // GameTag:
     // - CANT_ATTACK = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_DRAW_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsCost(9, RelaSign::LEQ))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_074e", EntityType::TARGET) };
+    cards.emplace("BAR_074", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_075] Crossroads Watch Post - COST:4 [ATK:4/HP:6]
@@ -3743,6 +3782,12 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_ATTACK = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_075e", EntityType::MINIONS) };
+    cards.emplace("BAR_075", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_076] Mor'shan Watch Post - COST:3 [ATK:3/HP:4]
@@ -3755,18 +3800,30 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_ATTACK = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BAR_076t", SummonSide::RIGHT) };
+    cards.emplace("BAR_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_077] Kargal Battlescar - COST:7 [ATK:5/HP:5]
     // - Set: THE_BARRENS, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 5/5 Lookout for each
-    //       Watch Post you've summoned this game.
+    //       Watch Post you've summoned this game.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetPlayerGameTagTask>(
+        GameTag::NUM_WATCH_POSTS_SUMMONED_THIS_GAME));
+    power.AddPowerTask(std::make_shared<SummonNumberTask>("BAR_077t", false,
+                                                          SummonSide::RIGHT));
+    cards.emplace("BAR_077", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_078] Blademaster Samuro - COST:4 [ATK:1/HP:6]
@@ -4057,6 +4114,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_072t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_073e] Reforged - COST:0
@@ -4064,11 +4124,17 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_073e"));
+    cards.emplace("BAR_073e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_074e] Spotted! - COST:0
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AddCost(1)));
+    cards.emplace("BAR_074e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_075e] Patrolling - COST:0
@@ -4076,16 +4142,25 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_075e"));
+    cards.emplace("BAR_075e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_076t] Watchful Grunt - COST:2 [ATK:2/HP:2]
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_076t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_077t] Lookout - COST:5 [ATK:5/HP:5]
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_077t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_079_m1] Lesser Golem - COST:1 [ATK:1/HP:1]

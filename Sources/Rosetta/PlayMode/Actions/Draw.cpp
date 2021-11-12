@@ -79,6 +79,14 @@ Playable* Draw(Player* player, Playable* cardToDraw)
                 Draw(player, cardToDraw);
             }
         }
+
+        if (cardToDraw == nullptr)
+        {
+            player->game->taskQueue.StartEvent();
+            player->game->triggerManager.OnAfterDrawCardTrigger(playable);
+            player->game->ProcessTasks();
+            player->game->taskQueue.EndEvent();
+        }
     }
 
     return playable;

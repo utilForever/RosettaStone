@@ -16,7 +16,15 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
 {
     Game* game = minion->game;
 
+    // Add summoned minion to field zone
     minion->player->GetFieldZone()->Add(minion, fieldPos);
+
+    // Check 'Watch Post'
+    if (minion->card->IsWatchPost())
+    {
+        int val = minion->player->GetNumWatchPostSummonedThisGame();
+        minion->player->SetNumWatchPostSummonedThisGame(val + 1);
+    }
 
     // Check card has dormant
     if (minion->HasDormant())

@@ -39,7 +39,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * 60% Ashes of Outland (81 of 135 cards)
   * 57% Scholomance Academy (78 of 135 cards)
   * 46% Madness at the Darkmoon Faire (79 of 170 cards)
-  * 66% Forged in the Barrens (113 of 170 cards)
+  * 71% Forged in the Barrens (122 of 170 cards)
   * 1% United in Stormwind (2 of 170 card)
 
 ### Wild Format

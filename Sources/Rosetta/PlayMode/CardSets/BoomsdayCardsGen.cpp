@@ -106,7 +106,7 @@ void BoomsdayCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Set: BOOMSDAY, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Each player gains 2 Mana Crystals.
+    // Text: Each player gains 2 Mana Crystals.
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
@@ -266,7 +266,7 @@ void BoomsdayCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [BOT_033] Bomb Toss - COST:2
     // - Set: BOOMSDAY, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 2 damage. Summon a 0/2 Goblin Bomb.
+    // Text: Deal 2 damage. Summon a 0/2 Goblin Bomb.
     // --------------------------------------------------------
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
@@ -490,7 +490,7 @@ void BoomsdayCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Race: Elemental, Set: BOOMSDAY, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Your next spell this turn
-    //       has <b>Spell Damage +2</b>.
+    //       has <b>Spell Damage +2</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -503,7 +503,7 @@ void BoomsdayCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [BOT_600] Research Project - COST:2
     // - Set: BOOMSDAY, Rarity: Common
     // --------------------------------------------------------
-    // Text: Each player draws 2 cards.
+    // Text: Each player draws 2 cards.
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
@@ -1332,7 +1332,7 @@ void BoomsdayCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [BOT_059] Eternium Rover - COST:1 [ATK:1/HP:3]
     // - Race: Mechanical, Set: BOOMSDAY, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever this minion takes damage, gain 2 Armor.
+    // Text: Whenever this minion takes damage, gain 2 Armor.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1366,7 +1366,7 @@ void BoomsdayCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Race: Mechanical, Set: BOOMSDAY, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 5 damage randomly split
-    //       among all minions except Mechs.
+    //       among all minions except Mechs.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1604,7 +1604,7 @@ void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: BOOMSDAY, Rarity: Epic
     // --------------------------------------------------------
     // Text: After your opponent plays a minion,
-    //       summon a 1/1 copy of it.
+    //       summon a 1/1 copy of it.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1700,7 +1700,7 @@ void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [BOT_431] Whirliglider - COST:2 [ATK:2/HP:1]
     // - Set: BOOMSDAY, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 0/2 Goblin Bomb.
+    // Text: <b>Battlecry:</b> Summon a 0/2 Goblin Bomb.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1941,7 +1941,7 @@ void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [BOT_606] Kaboom Bot - COST:3 [ATK:2/HP:2]
     // - Race: Mechanical, Set: BOOMSDAY, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Deal 4 damage to a random
+    // Text: <b>Deathrattle:</b> Deal 4 damage to a random
     //       enemy minion.
     // --------------------------------------------------------
     // GameTag:

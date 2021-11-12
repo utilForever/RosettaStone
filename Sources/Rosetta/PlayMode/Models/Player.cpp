@@ -104,6 +104,7 @@ int Player::GetCurrentSpellPower() const
 
     value += GetHero()->GetSpellPower();
     value += GetGameTag(GameTag::SPELLPOWER);
+    value += playerAuraEffects.GetValue(GameTag::SPELLPOWER);
 
     return value;
 }
@@ -302,6 +303,16 @@ int Player::GetNumElementalPlayedLastTurn() const
 void Player::SetNumElementalPlayedLastTurn(int value)
 {
     SetGameTag(GameTag::NUM_ELEMENTAL_PLAYED_LAST_TURN, value);
+}
+
+int Player::GetNumWatchPostSummonedThisGame() const
+{
+    return GetGameTag(GameTag::NUM_WATCH_POSTS_SUMMONED_THIS_GAME);
+}
+
+void Player::SetNumWatchPostSummonedThisGame(int value)
+{
+    SetGameTag(GameTag::NUM_WATCH_POSTS_SUMMONED_THIS_GAME, value);
 }
 
 int Player::GetNumSpellsCastThisTurn() const

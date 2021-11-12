@@ -28,7 +28,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // [BT_173] Command the Illidari - COST:5
     // - Set: Demon Hunter Initiate, Rarity: Common
     // --------------------------------------------------------
-    // Text: Summon six 1/1 Illidari with <b>Rush</b>.
+    // Text: Summon six 1/1 Illidari with <b>Rush</b>.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<SummonTask>("BT_036t", 6));
@@ -52,7 +52,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // [BT_271] Flamereaper - COST:7 [ATK:4/HP:0]
     // - Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Also damages the minions next to whomever your hero attacks.
+    // Text: Also damages the minions next to whomever your hero attacks.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -127,7 +127,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // - Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
     // Text: After a friendly minion dies,
-    //       deal 3 damage to a random enemy.
+    //       deal 3 damage to a random enemy.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -226,7 +226,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>. After this attacks and kills a minion,
-    //       it may attack again.
+    //       it may attack again.
     // --------------------------------------------------------
     // GameTag:
     // - RUSH = 1
@@ -267,7 +267,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // - Set: Demon Hunter Initiate, Rarity: Common
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: <b>Silence</b> an enemy minion.
+    // Text: <b>Silence</b> an enemy minion.
     //       <b>Outcast:</b> Draw a card.
     // --------------------------------------------------------
     // PlayReq:
@@ -368,7 +368,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // [BT_814] Illidari Felblade - COST:4 [ATK:5/HP:3]
     // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Rush</b> <b>Outcast:</b> Gain <b>Immune</b> this turn.
+    // Text: <b>Rush</b> <b>Outcast:</b> Gain <b>Immune</b> this turn.
     // --------------------------------------------------------
     // GameTag:
     // - OUTCAST = 1
@@ -439,7 +439,7 @@ void DemonHunterInitCardsGen::AddDemonHunterNonCollect(
     // [BT_175t] Second Slice - COST:1
     // - Set: Demon Hunter Initiate, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your hero +2 Attack this turn.
+    // Text: Give your hero +2 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(

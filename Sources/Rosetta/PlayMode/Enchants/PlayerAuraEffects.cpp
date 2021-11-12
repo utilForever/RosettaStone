@@ -15,6 +15,8 @@ int PlayerAuraEffects::GetValue(GameTag tag) const
     {
         case GameTag::TIMEOUT:
             return m_timeOut;
+        case GameTag::SPELLPOWER:
+            return m_spellPower;
         case GameTag::SPELLPOWER_DOUBLE:
         case GameTag::SPELL_HEALING_DOUBLE:
             return m_spellPowerDouble;
@@ -52,6 +54,9 @@ void PlayerAuraEffects::SetValue(GameTag tag, int value)
     {
         case GameTag::TIMEOUT:
             m_timeOut = value;
+            break;
+        case GameTag::SPELLPOWER:
+            m_spellPower = value;
             break;
         case GameTag::SPELLPOWER_DOUBLE:
         case GameTag::SPELL_HEALING_DOUBLE:

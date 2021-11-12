@@ -14,22 +14,25 @@
 namespace RosettaStone::PlayMode
 {
 Enchantment::Enchantment(Player* player, Card* card,
-                         std::map<GameTag, int> tags, Entity* target, int id)
-    : Playable(player, card, std::move(tags), id), m_target(target)
+                         std::map<GameTag, int> tags, Playable* owner,
+                         Entity* target, int id)
+    : Playable(player, card, std::move(tags), id),
+      m_owner(owner),
+      m_target(target)
 {
     // Do nothing
 }
 
-std::shared_ptr<Enchantment> Enchantment::GetInstance(Player* player,
+std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
                                                       Card* card,
                                                       Entity* target, int num1,
                                                       int num2)
 {
-    const int id = player->game->GetNextID();
+    const int id = owner->player->game->GetNextID();
 
     std::map<GameTag, int> tags;
     tags[GameTag::ENTITY_ID] = id;
-    tags[GameTag::CONTROLLER] = player->playerID;
+    tags[GameTag::CONTROLLER] = owner->player->playerID;
     tags[GameTag::ZONE] = static_cast<int>(ZoneType::SETASIDE);
 
     if (num1 > 0)
@@ -42,18 +45,18 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Player* player,
         }
     }
 
-    auto instance =
-        std::make_shared<Enchantment>(player, card, tags, target, id);
+    auto instance = std::make_shared<Enchantment>(owner->player, card, tags,
+                                                  owner, target, id);
 
     target->appliedEnchantments.emplace_back(instance);
 
     if (card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] == 1)
     {
         instance->m_isOneTurnActive = true;
-        player->game->oneTurnEffectEnchantments.emplace_back(instance);
+        owner->game->oneTurnEffectEnchantments.emplace_back(instance);
     }
 
-    instance->orderOfPlay = player->game->GetNextOOP();
+    instance->orderOfPlay = owner->game->GetNextOOP();
 
     if (!card->power.GetDeathrattleTask().empty())
     {
@@ -61,6 +64,11 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Player* player,
     }
 
     return instance;
+}
+
+Playable* Enchantment::GetOwner() const
+{
+    return m_owner;
 }
 
 Entity* Enchantment::GetTarget() const

@@ -142,7 +142,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b> Gain 2 Mana Crystals;
+    // Text: <b>Choose One -</b> Gain 2 Mana Crystals;
     //       or Draw 3 cards.
     // --------------------------------------------------------
     // GameTag:
@@ -289,7 +289,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [CORE_TRL_243] Pounce - COST:0
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your hero +2 Attack this turn.
+    // Text: Give your hero +2 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -643,7 +643,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [CORE_AT_003] Fallen Hero - COST:2 [ATK:3/HP:2]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Your Hero Power deals 1 extra damage.
+    // Text: Your Hero Power deals 1 extra damage.
     // --------------------------------------------------------
     // GameTag:
     // - HEROPOWER_DAMAGE = 1
@@ -922,7 +922,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Spell Damage +2</b>
-    //       <b>Deathrattle:</b> The next minion you draw
+    //       <b>Deathrattle:</b> The next minion you draw
     //       inherits these powers.
     // --------------------------------------------------------
     // GameTag:
@@ -1034,7 +1034,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [CORE_CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever your hero attacks, restore 2 Health to it.
+    // Text: Whenever your hero attacks, restore 2 Health to it.
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 2
@@ -1413,7 +1413,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Common
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Destroy a minion with 5 or more Attack.
+    // Text: Destroy a minion with 5 or more Attack.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1608,7 +1608,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Give your weapon +2 Attack.
+    // Text: Give your weapon +2 Attack.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_WEAPON_EQUIPPED = 0
@@ -2641,7 +2641,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage to a minion
-    //       and give it +2 Attack.
+    //       and give it +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2769,7 +2769,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Common
     // - Spell School: Fel
     // --------------------------------------------------------
-    // Text: Give your hero +2 Attack this turn. Draw a card.
+    // Text: Give your hero +2 Attack this turn. Draw a card.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -2781,7 +2781,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [CORE_BT_036] Coordinated Strike - COST:3
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Summon three 1/1 Illidari with <b>Rush</b>.
+    // Text: Summon three 1/1 Illidari with <b>Rush</b>.
     // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
@@ -2996,7 +2996,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [CS3_017] Gan'arg Glaivesmith - COST:3 [ATK:3/HP:2]
     // - Race: Demon, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Outcast:</b> Give your hero +3 Attack this turn.
+    // Text: <b>Outcast:</b> Give your hero +3 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - OUTCAST = 1
@@ -3100,7 +3100,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 3 Health.
+    // Text: <b>Battlecry:</b> Restore 3 Health.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3188,7 +3188,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
     // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3355,7 +3355,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
     // - Faction: Horde, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 2 Health.
+    // Text: <b>Battlecry:</b> Restore 2 Health.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3430,7 +3430,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
     // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+    // Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3611,7 +3611,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Adjacent minions have +1 Attack.
+    // Text: Adjacent minions have +1 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - ADJACENT_BUFF = 1
@@ -3770,7 +3770,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever this minion takes damage, gain +3 Attack.
+    // Text: Whenever this minion takes damage, gain +3 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -3786,7 +3786,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+    // Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -4153,7 +4153,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Pirate, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you have a weapon equipped,
-    //       deal 2 damage.
+    //       deal 2 damage.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -4242,7 +4242,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Dragon, Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: At the end of each turn,
-    //       fill your board with 1/1 Whelps.
+    //       fill your board with 1/1 Whelps.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

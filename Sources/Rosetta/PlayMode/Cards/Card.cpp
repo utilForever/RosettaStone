@@ -310,6 +310,18 @@ bool Card::IsPoison() const
     return false;
 }
 
+bool Card::IsWatchPost() const
+{
+    if (id == "BAR_074" ||  // BAR_074: Far Watch Post
+        id == "BAR_075" ||  // BAR_075: Crossroads Watch Post
+        id == "BAR_076")    // BAR_076: Mor'shan Watch Post
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool Card::IsTransformMinion() const
 {
     // NOTE: Transformed minions list

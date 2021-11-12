@@ -2533,7 +2533,7 @@ void LegacyCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - Set: Legacy, Rarity: Free
     // - Spell School: Fel
     // --------------------------------------------------------
-    // Text: Give your hero +2 Attack this turn. Draw a card.
+    // Text: Give your hero +2 Attack this turn. Draw a card.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -2545,7 +2545,7 @@ void LegacyCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [BT_036] Coordinated Strike - COST:3
     // - Set: Legacy, Rarity: Free
     // --------------------------------------------------------
-    // Text: Summon three 1/1 Illidari with <b>Rush</b>.
+    // Text: Summon three 1/1 Illidari with <b>Rush</b>.
     // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
@@ -2558,7 +2558,7 @@ void LegacyCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [BT_142] Shadowhoof Slayer (*) - COST:1 [ATK:2/HP:1]
     // - Race: Demon, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
+    // Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2573,7 +2573,7 @@ void LegacyCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - Set: Legacy, Rarity: Free
     // - Spell School: Fel
     // --------------------------------------------------------
-    // Text: Deal 4 damage to all minions.
+    // Text: Deal 4 damage to all minions.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -2653,7 +2653,7 @@ void LegacyCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // [BT_512] Inner Demon - COST:8
     // - Set: Legacy, Rarity: Free
     // --------------------------------------------------------
-    // Text: Give your hero +8 Attack this turn.
+    // Text: Give your hero +8 Attack this turn.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(

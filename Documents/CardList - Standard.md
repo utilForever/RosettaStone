@@ -740,17 +740,17 @@ THE_BARRENS | BAR_060 | Hog Rancher | O
 THE_BARRENS | BAR_061 | Ratchet Privateer | O
 THE_BARRENS | BAR_062 | Lushwater Murcenary | O
 THE_BARRENS | BAR_063 | Lushwater Scout | O
-THE_BARRENS | BAR_064 | Talented Arcanist |  
+THE_BARRENS | BAR_064 | Talented Arcanist | O
 THE_BARRENS | BAR_065 | Venomous Scorpid | O
 THE_BARRENS | BAR_069 | Injured Marauder | O
-THE_BARRENS | BAR_070 | Gruntled Patron |  
-THE_BARRENS | BAR_071 | Taurajo Brave |  
-THE_BARRENS | BAR_072 | Burning Blade Acolyte |  
-THE_BARRENS | BAR_073 | Barrens Blacksmith |  
-THE_BARRENS | BAR_074 | Far Watch Post |  
-THE_BARRENS | BAR_075 | Crossroads Watch Post |  
-THE_BARRENS | BAR_076 | Mor'shan Watch Post |  
-THE_BARRENS | BAR_077 | Kargal Battlescar |  
+THE_BARRENS | BAR_070 | Gruntled Patron | O
+THE_BARRENS | BAR_071 | Taurajo Brave | O
+THE_BARRENS | BAR_072 | Burning Blade Acolyte | O
+THE_BARRENS | BAR_073 | Barrens Blacksmith | O
+THE_BARRENS | BAR_074 | Far Watch Post | O
+THE_BARRENS | BAR_075 | Crossroads Watch Post | O
+THE_BARRENS | BAR_076 | Mor'shan Watch Post | O
+THE_BARRENS | BAR_077 | Kargal Battlescar | O
 THE_BARRENS | BAR_078 | Blademaster Samuro |  
 THE_BARRENS | BAR_079 | Kazakus, Golem Shaper |  
 THE_BARRENS | BAR_080 | Shadow Hunter Vol'jin |  
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 66% (113 of 170 Cards)
+- Progress: 71% (122 of 170 Cards)
 
 ## United in Stormwind
 

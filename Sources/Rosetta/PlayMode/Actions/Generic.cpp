@@ -86,10 +86,10 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
     if (power.GetAura() != nullptr || power.GetTrigger() != nullptr ||
         !power.GetDeathrattleTask().empty())
     {
-        // Create Enchantment instance Only when it is needed.
+        // Create Enchantment instance only when it is needed.
         // As an owner entity for auras, triggers or deathrattle tasks.
-        auto enchantment = Enchantment::GetInstance(
-            creator->player, enchantmentCard, target, num1, num2);
+        auto enchantment = Enchantment::GetInstance(creator, enchantmentCard,
+                                                    target, num1, num2);
 
         if (auto aura = power.GetAura(); aura)
         {

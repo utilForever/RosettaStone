@@ -192,7 +192,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Destroy a minion. Your opponent draws 2 cards.
+    // Text: Destroy a minion. Your opponent draws 2 cards.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -211,7 +211,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
+    // Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -299,7 +299,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [EX1_570] Bite - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
+    // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -1355,7 +1355,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: If you control a <b>Secret</b> at the end
+    // Text: If you control a <b>Secret</b> at the end
     //       of your turn, gain +2/+2.
     // --------------------------------------------------------
     // GameTag:
@@ -1898,7 +1898,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Holy
     // --------------------------------------------------------
-    // Text: Draw a card and deal damage equal to its Cost.
+    // Text: Draw a card and deal damage equal to its Cost.
     // --------------------------------------------------------
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
@@ -2202,7 +2202,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give an enemy minion -2 Attack
-    //       until your next turn.
+    //       until your next turn.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3471,7 +3471,7 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Set: Expert1, Rarity: Rare
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Destroy a minion. Restore 3 Health to your hero.
+    // Text: Destroy a minion. Restore 3 Health to your hero.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -3979,7 +3979,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage to a minion
-    //       and give it +2 Attack.
+    //       and give it +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -4016,7 +4016,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [EX1_607] Inner Rage - COST:0
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 1 damage to a minion and give it +2 Attack.
+    // Text: Deal 1 damage to a minion and give it +2 Attack.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -6083,7 +6083,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
     // - Race: Dragon, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy all other minions and discard your hand.
+    // Text: <b>Battlecry:</b> Destroy all other minions and discard your hand.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -6131,7 +6131,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
     // Text: At the end of your turn,
-    //       summon a 2/2 Gnoll with <b>Taunt</b>.
+    //       summon a 2/2 Gnoll with <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

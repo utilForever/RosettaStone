@@ -42,7 +42,7 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Spell School: Nature
     // --------------------------------------------------------
     // Text: <b>Choose One</b> - Give your minions +1 Attack;
-    //       or Summon a 2/2 Treant.
+    //       or Summon a 2/2 Treant.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -1844,7 +1844,7 @@ void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
     // Text: After you play a <b>Battlecry</b> minion,
-    //       repeat the first <b>Battlecry</b> played this turn. 
+    //       repeat the first <b>Battlecry</b> played this turn.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -1999,7 +1999,7 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // [SW_084] Bloodbound Imp - COST:2 [ATK:2/HP:5]
     // - Race: Demon, Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever this attacks, deal 2 damage to your hero.
+    // Text: Whenever this attacks, deal 2 damage to your hero.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -2761,7 +2761,7 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Choose a friendly Beast.
-    //       Shuffle three 3/3 copies into your deck.
+    //       Shuffle three 3/3 copies into your deck.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2943,7 +2943,7 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Choose a flightpath and go <b>Dormant.</b>
-    //       Awaken with a bonus when you complete it!
+    //       Awaken with a bonus when you complete it!
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

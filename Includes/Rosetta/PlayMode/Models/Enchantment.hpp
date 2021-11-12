@@ -21,15 +21,16 @@ class Player;
 class Enchantment : public Playable
 {
  public:
-    //! Constructs enchantment with given \p player, \p card, \p tags
-    //! and \p target.
+    //! Constructs enchantment with given \p player, \p card, \p tags,
+    //! \p owner and \p target.
     //! \param player The owner of the card.
     //! \param card The card.
     //! \param tags The game tags.
+    //! \param owner The owner of enchantment.
     //! \param target A target of enchantment.
     //! \param id The ID.
     Enchantment(Player* player, Card* card, std::map<GameTag, int> tags,
-                Entity* target, int id);
+                Playable* owner, Entity* target, int id);
 
     //! Default destructor.
     ~Enchantment() = default;
@@ -47,15 +48,19 @@ class Enchantment : public Playable
     Enchantment& operator=(Enchantment&&) noexcept = delete;
 
     //! Creates and adds a new Enchantment to the given player's game.
-    //! \param player The controller of the enchantment.
+    //! \param owner The owner of the enchantment.
     //! \param card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
     //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
     //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
     //! \return The resulting enchantment entity.
-    static std::shared_ptr<Enchantment> GetInstance(Player* player, Card* card,
+    static std::shared_ptr<Enchantment> GetInstance(Playable* owner, Card* card,
                                                     Entity* target,
                                                     int num1 = 0, int num2 = 0);
+
+    //! Returns the owner of enchantment.
+    //! \return the owner of enchantment.
+    Playable* GetOwner() const;
 
     //! Returns the target of enchantment.
     //! \return The target of enchantment.
@@ -85,6 +90,7 @@ class Enchantment : public Playable
     void Remove();
 
  private:
+    Playable* m_owner = nullptr;
     Entity* m_target = nullptr;
     Card* m_capturedCard = nullptr;
 

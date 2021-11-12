@@ -6656,6 +6656,69 @@ TEST_CASE("[Neutral : Minion] - BAR_063 : Lushwater Scout")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [BAR_064] Talented Arcanist - COST:2 [ATK:1/HP:3]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Your next spell this turn has
+//       <b>Spell Damage +2</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_064 : Talented Arcanist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Talented Arcanist"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Talented Arcanist"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 2);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [BAR_065] Venomous Scorpid - COST:3 [ATK:1/HP:3]
 // - Race: Beast, Set: THE_BARRENS, Rarity: Common
 // --------------------------------------------------------
@@ -6741,4 +6804,546 @@ TEST_CASE("[Neutral : Minion] - BAR_069 : Injured Marauder")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_070] Gruntled Patron - COST:4 [ATK:3/HP:3]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Summon another Gruntled Patron.
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_070 : Gruntled Patron")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gruntled Patron"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->HasFrenzy(), false);
+    CHECK_EQ(curField[1]->HasFrenzy(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(curField[1]));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->HasFrenzy(), false);
+    CHECK_EQ(curField[2]->HasFrenzy(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_071] Taurajo Brave - COST:6 [ATK:4/HP:8]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Destroy a random enemy minion.
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_071 : Taurajo Brave")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Taurajo Brave"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(opField.GetCount(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_072] Burning Blade Acolyte - COST:5 [ATK:1/HP:1]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 5/8 Demonspawn
+//       with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_072 : Burning Blade Acolyte")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Burning Blade Acolyte"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Demonspawn");
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_073] Barrens Blacksmith - COST:5 [ATK:3/HP:5]
+// - Set: THE_BARRENS, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Frenzy:</b> Give your other minions +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - FRENZY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_073 : Barrens Blacksmith")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Barrens Blacksmith"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_074] Far Watch Post - COST:2 [ATK:2/HP:3]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: Can't attack. After your opponent draws a card,
+//       it costs (1) more <i>(up to 10)</i>.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_074 : Far Watch Post")
+{
+    // Normal Case
+    {
+        GameConfig config;
+        config.player1Class = CardClass::MAGE;
+        config.player2Class = CardClass::WARRIOR;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        for (int i = 0; i < 30; ++i)
+        {
+            config.player2Deck[i] = Cards::FindCardByName("Ice Barrier");
+        }
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+        auto& opHand = *(opPlayer->GetHandZone());
+
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Far Watch Post"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(opHand[5]->GetCost(), 4);
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(curField[0]->CanAttack(), false);
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(opHand[5]->GetCost(), 4);
+        CHECK_EQ(opHand[6]->GetCost(), 4);
+    }
+
+    // 10-cost Card Case
+    {
+        GameConfig config;
+        config.player1Class = CardClass::MAGE;
+        config.player2Class = CardClass::WARRIOR;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = false;
+        config.autoRun = false;
+
+        for (int i = 0; i < 30; ++i)
+        {
+            config.player2Deck[i] = Cards::FindCardByName("Pyroblast");
+        }
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* curPlayer = game.GetCurrentPlayer();
+        Player* opPlayer = game.GetOpponentPlayer();
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(0);
+        opPlayer->SetTotalMana(10);
+        opPlayer->SetUsedMana(0);
+
+        auto& curField = *(curPlayer->GetFieldZone());
+        auto& opHand = *(opPlayer->GetHandZone());
+
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Far Watch Post"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(opHand[5]->GetCost(), 10);
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(curField[0]->CanAttack(), false);
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(opHand[5]->GetCost(), 10);
+        CHECK_EQ(opHand[6]->GetCost(), 10);
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_075] Crossroads Watch Post - COST:4 [ATK:4/HP:6]
+// - Set: THE_BARRENS, Rarity: Epic
+// --------------------------------------------------------
+// Text: Can't attack. Whenever your opponent casts a spell,
+//       give your minions +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_075 : Crossroads Watch Post")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Crossroads Watch Post"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->CanAttack(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_076] Mor'shan Watch Post - COST:3 [ATK:3/HP:4]
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: Can't attack. After your opponent plays a minion,
+//       summon a 2/2 Grunt.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_076 : Mor'shan Watch Post")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mor'shan Watch Post"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Watchful Grunt");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Watchful Grunt");
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->CanAttack(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_077] Kargal Battlescar - COST:7 [ATK:5/HP:5]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 5/5 Lookout for each
+//       Watch Post you've summoned this game.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_077 : Kargal Battlescar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kargal Battlescar"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Far Watch Post"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mor'shan Watch Post"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mor'shan Watch Post"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Flamestrike"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card6));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->card->name, "Lookout");
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
+    CHECK_EQ(curField[2]->card->name, "Lookout");
+    CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->GetHealth(), 5);
+    CHECK_EQ(curField[3]->card->name, "Lookout");
+    CHECK_EQ(curField[3]->GetAttack(), 5);
+    CHECK_EQ(curField[3]->GetHealth(), 5);
 }
