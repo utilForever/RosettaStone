@@ -7896,11 +7896,11 @@ TEST_CASE("[Demon Hunter : Minion] - CORE_BT_323 : Sightless Watcher")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 30; i += 3)
     {
-        config.player1Deck[i * 3] = Cards::FindCardByName("Magma Rager");
-        config.player1Deck[i * 3 + 1] = Cards::FindCardByName("Wolfrider");
-        config.player1Deck[i * 3 + 2] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Magma Rager");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Wolfrider");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
