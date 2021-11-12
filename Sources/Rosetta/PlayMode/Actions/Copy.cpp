@@ -64,25 +64,25 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
             dynamic_cast<Character*>(source)->CopyInternalAttributes(character);
         }
 
-        if (!source->appliedEnchantments.empty())
+        for (const auto& enchantment : source->appliedEnchantments)
         {
-            for (auto& e : source->appliedEnchantments)
-            {
-                auto instance =
-                    Enchantment::GetInstance(source, e->card, copiedEntity);
-                if (e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) > 0)
-                {
-                    instance->SetGameTag(
-                        GameTag::TAG_SCRIPT_DATA_NUM_1,
-                        e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+            const auto instance = Enchantment::GetInstance(
+                source, enchantment->card, copiedEntity);
+            const int scriptNum1 =
+                enchantment->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
+            const int scriptNum2 =
+                enchantment->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
 
-                    if (e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2) > 0)
-                    {
-                        instance->SetGameTag(
-                            GameTag::TAG_SCRIPT_DATA_NUM_2,
-                            e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2));
-                    }
-                }
+            if (scriptNum1 > 0)
+            {
+                instance->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1,
+                                     scriptNum1);
+            }
+
+            if (scriptNum2 > 0)
+            {
+                instance->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2,
+                                     scriptNum2);
             }
         }
 
