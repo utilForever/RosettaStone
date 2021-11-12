@@ -253,6 +253,13 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         player->SetNumElementalPlayedThisTurn(val + 1);
     }
 
+    // Check 'Watch Post'
+    if (minion->card->IsWatchPost())
+    {
+        val = player->GetNumWatchPostSummonedThisGame();
+        player->SetNumWatchPostSummonedThisGame(val + 1);
+    }
+
     // Validate play minion trigger
     Trigger::ValidateTriggers(player->game, minion, SequenceType::PLAY_MINION);
 
