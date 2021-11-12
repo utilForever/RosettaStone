@@ -7,7 +7,6 @@
 #include "doctest_proxy.hpp"
 
 #include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
