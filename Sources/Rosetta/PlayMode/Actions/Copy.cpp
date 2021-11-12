@@ -144,7 +144,10 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
             player->GetSetasideZone()->Add(copiedEntity);
             break;
         }
-        default:
+        case ZoneType::INVALID:
+        case ZoneType::GRAVEYARD:
+        case ZoneType::REMOVEDFROMGAME:
+        case ZoneType::SECRET:
             break;
     }
 
