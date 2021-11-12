@@ -3800,6 +3800,12 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_ATTACK = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BAR_076t", SummonSide::RIGHT) };
+    cards.emplace("BAR_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_077] Kargal Battlescar - COST:7 [ATK:5/HP:5]
@@ -4138,6 +4144,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // [BAR_076t] Watchful Grunt - COST:2 [ATK:2/HP:2]
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_076t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_077t] Lookout - COST:5 [ATK:5/HP:5]
