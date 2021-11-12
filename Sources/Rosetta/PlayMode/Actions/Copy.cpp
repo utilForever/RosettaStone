@@ -22,35 +22,34 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
     //! zones (Play -> Hand, Hand -> Deck, Play -> Deck, Play/Hand/Deck ->
     //! Graveyard and Graveyard -> Play/Hand/Deck), it loses enchantments.
     //! References: https://playhearthstone.com/en-gb/blog/21965466
-    bool copyEnchantments;
+    bool copyEnchantments = false;
     const ZoneType sourceZone =
         (source->zone) ? source->zone->GetType() : ZoneType::PLAY;
 
-    if (sourceZone == ZoneType::GRAVEYARD)
-    {
-        copyEnchantments = false;
-    }
-    else if (sourceZone == targetZone)
-    {
-        copyEnchantments = true;
-    }
-    else if (targetZone == ZoneType::SETASIDE)
-    {
-        copyEnchantments = false;
-    }
-    else if (targetZone == ZoneType::PLAY)
+    if ((sourceZone == ZoneType::DECK && targetZone == ZoneType::DECK) ||
+        (sourceZone == ZoneType::HAND && targetZone == ZoneType::HAND) ||
+        (sourceZone == ZoneType::PLAY && targetZone == ZoneType::PLAY) ||
+        (sourceZone == ZoneType::DECK && targetZone == ZoneType::HAND) ||
+        (sourceZone == ZoneType::HAND && targetZone == ZoneType::PLAY) ||
+        (sourceZone == ZoneType::DECK && targetZone == ZoneType::PLAY))
     {
         copyEnchantments = true;
     }
-    else if (sourceZone == ZoneType::DECK)
-    {
-        copyEnchantments = true;
-    }
-    else if (sourceZone == ZoneType::HAND && targetZone != ZoneType::DECK)
-    {
-        copyEnchantments = true;
-    }
-    else
+    else if ((sourceZone == ZoneType::PLAY && targetZone == ZoneType::HAND) ||
+             (sourceZone == ZoneType::HAND && targetZone == ZoneType::DECK) ||
+             (sourceZone == ZoneType::PLAY && targetZone == ZoneType::DECK) ||
+             (sourceZone == ZoneType::PLAY &&
+              targetZone == ZoneType::GRAVEYARD) ||
+             (sourceZone == ZoneType::HAND &&
+              targetZone == ZoneType::GRAVEYARD) ||
+             (sourceZone == ZoneType::DECK &&
+              targetZone == ZoneType::GRAVEYARD) ||
+             (sourceZone == ZoneType::GRAVEYARD &&
+              targetZone == ZoneType::PLAY) ||
+             (sourceZone == ZoneType::GRAVEYARD &&
+              targetZone == ZoneType::HAND) ||
+             (sourceZone == ZoneType::GRAVEYARD &&
+              targetZone == ZoneType::DECK))
     {
         copyEnchantments = false;
     }
