@@ -3818,6 +3818,12 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetPlayerGameTagTask>(
+        GameTag::NUM_WATCH_POSTS_SUMMONED_THIS_GAME));
+    power.AddPowerTask(std::make_shared<SummonNumberTask>("BAR_077t", false,
+                                                          SummonSide::RIGHT));
+    cards.emplace("BAR_077", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_078] Blademaster Samuro - COST:4 [ATK:1/HP:6]
@@ -4152,6 +4158,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // [BAR_077t] Lookout - COST:5 [ATK:5/HP:5]
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_077t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_079_m1] Lesser Golem - COST:1 [ATK:1/HP:1]
