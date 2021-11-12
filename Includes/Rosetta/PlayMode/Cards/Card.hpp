@@ -90,6 +90,10 @@ class Card
     //! \return The flag that indicates whether it is Poison.
     bool IsPoison() const;
 
+    //! Returns the flag that indicates whether it is Watch Post.
+    //! \return The flag that indicates whether it is Watch Post.
+    bool IsWatchPost() const;
+
     //! Returns the flag that indicates whether it is a card with two Choose One
     //! options involving transform or specific summon effects is played while
     //! controlling Ossirian Tear.
