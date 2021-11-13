@@ -52,18 +52,18 @@ class OngoingEnchant : public Enchant, public IAura
 
     //! Gets the count of ongoing enchants.
     //! \return The count of ongoing enchants.
-    std::size_t GetCount() const;
+    int GetCount() const;
 
     //! Sets the count of ongoing enchants.
     //! \param value the count of ongoing enchants.
-    void SetCount(std::size_t value);
+    void SetCount(int value);
 
     Game* game = nullptr;
     Playable* target = nullptr;
 
  private:
-    std::size_t m_count = 1;
-    std::size_t m_lastCount = 1;
+    int m_count = 1;
+    int m_lastCount = 1;
     bool m_toBeUpdated = false;
 };
 }  // namespace RosettaStone::PlayMode
