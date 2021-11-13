@@ -28,12 +28,12 @@ void AdjacentAura::Update()
 {
     if (m_toBeRemoved)
     {
-        if (m_left != nullptr)
+        if (m_left)
         {
             Disapply(m_left);
         }
 
-        if (m_right != nullptr)
+        if (m_right)
         {
             Disapply(m_right);
         }
@@ -53,7 +53,7 @@ void AdjacentAura::Update()
     const int pos = m_owner->GetZonePosition();
 
     // Check left side
-    if (m_left != nullptr)
+    if (m_left)
     {
         if (m_left->GetZoneType() != ZoneType::PLAY ||
             m_left->GetZonePosition() != pos - 1)
@@ -63,7 +63,7 @@ void AdjacentAura::Update()
         }
     }
 
-    if (m_left == nullptr && pos > 0)
+    if (!m_left && pos > 0)
     {
         Minion* left = (*m_fieldZone)[pos - 1];
 
@@ -75,7 +75,7 @@ void AdjacentAura::Update()
     }
 
     // Check right side
-    if (m_right != nullptr)
+    if (m_right)
     {
         if (m_right->GetZoneType() != ZoneType::PLAY ||
             m_right->GetZonePosition() != pos + 1)
@@ -85,7 +85,7 @@ void AdjacentAura::Update()
         }
     }
 
-    if (m_right == nullptr && pos < m_fieldZone->GetCount() - 1)
+    if (!m_right && pos < m_fieldZone->GetCount() - 1)
     {
         Minion* right = (*m_fieldZone)[pos + 1];
 
@@ -114,28 +114,27 @@ void AdjacentAura::SetIsFieldChanged(bool isFieldChanged)
     m_isFieldChanged = isFieldChanged;
 }
 
-void AdjacentAura::Apply(Minion* minion)
+void AdjacentAura::Apply(Minion* minion) const
 {
     for (auto& effect : m_effects)
     {
         effect->ApplyAuraTo(minion);
     }
 
-    if (m_enchantmentCard != nullptr)
+    if (m_enchantmentCard)
     {
         Enchantment::GetInstance(minion, m_enchantmentCard, minion);
     }
 }
 
-void AdjacentAura::Disapply(Minion* minion)
+void AdjacentAura::Disapply(Minion* minion) const
 {
     for (auto& effect : m_effects)
     {
         effect->RemoveAuraFrom(minion);
     }
 
-    if (m_enchantmentCard != nullptr &&
-        m_enchantmentCard->power.GetTrigger() != nullptr)
+    if (m_enchantmentCard && m_enchantmentCard->power.GetTrigger())
     {
         const std::string cardID = m_enchantmentCard->id;
         auto enchantments = minion->appliedEnchantments;
@@ -151,7 +150,8 @@ void AdjacentAura::Disapply(Minion* minion)
     }
 }
 
-AdjacentAura::AdjacentAura(AdjacentAura& prototype, Minion& owner, bool cloning)
+AdjacentAura::AdjacentAura(const AdjacentAura& prototype, Minion& owner,
+                           bool cloning)
 {
     m_owner = &owner;
     m_enchantmentCard = prototype.m_enchantmentCard;
@@ -172,12 +172,12 @@ AdjacentAura::AdjacentAura(AdjacentAura& prototype, Minion& owner, bool cloning)
 
     if (cloning)
     {
-        if (prototype.m_left != nullptr)
+        if (prototype.m_left)
         {
             m_left = prototype.m_left;
         }
 
-        if (prototype.m_right != nullptr)
+        if (prototype.m_right)
         {
             m_right = prototype.m_right;
         }

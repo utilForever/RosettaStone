@@ -41,7 +41,7 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
         m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
 
-    auto instance = new SwitchingAura(*this, *owner);
+    const auto instance = new SwitchingAura(*this, *owner);
 
     AddToGame(*owner, *instance);
 
@@ -102,9 +102,9 @@ void SwitchingAura::Remove()
 
 void SwitchingAura::RemoveInternal()
 {
-    for (auto& entity : m_appliedEntities)
+    for (const auto& entity : m_appliedEntities)
     {
-        for (auto& effect : m_effects)
+        for (const auto& effect : m_effects)
         {
             effect->RemoveAuraFrom(entity);
         }

@@ -52,7 +52,7 @@ class AdaptiveEffect : public IAura
     //! Constructs adaptive effect with given \p prototype and \p owner.
     //! \param prototype An adaptive effect for prototype.
     //! \param owner An owner of adaptive effect.
-    AdaptiveEffect(AdaptiveEffect& prototype, Playable& owner);
+    AdaptiveEffect(const AdaptiveEffect& prototype, Playable& owner);
 
     Playable* m_owner = nullptr;
 

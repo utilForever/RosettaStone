@@ -54,7 +54,7 @@ void EnrageEffect::Update()
             }
         }
 
-        for (auto& effect : m_enchantmentCard->power.GetEnchant()->effects)
+        for (const auto& effect : m_enchantmentCard->power.GetEnchant()->effects)
         {
             effect->RemoveFrom(m_target);
         }
@@ -74,7 +74,7 @@ void EnrageEffect::Update()
 
         if (const auto weapon = &minion->player->GetWeapon(); weapon)
         {
-            if (m_curInstance != nullptr)
+            if (m_curInstance)
             {
                 m_curInstance->Remove();
             }
@@ -102,12 +102,13 @@ void EnrageEffect::Update()
             return;
         }
 
-        for (auto& effect : m_enchantmentCard->power.GetEnchant()->effects)
+        for (const auto& effect :
+             m_enchantmentCard->power.GetEnchant()->effects)
         {
             effect->RemoveFrom(minion);
         }
 
-        if (m_curInstance != nullptr)
+        if (m_curInstance)
         {
             m_curInstance->Remove();
         }

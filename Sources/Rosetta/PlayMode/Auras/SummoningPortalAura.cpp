@@ -126,7 +126,7 @@ void SummoningPortalAura::RemoveAll()
 {
     EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
 
-    for (auto& entity : m_appliedEntities)
+    for (const auto& entity : m_appliedEntities)
     {
         Disapply(entity);
     }
@@ -136,16 +136,17 @@ void SummoningPortalAura::CalculateCost(Playable* playable) const
 {
     std::size_t numSPAura = 0;
 
-    for (auto& aura : m_owner->game->auras)
+    for (const auto& aura : m_owner->game->auras)
     {
-        if (dynamic_cast<SummoningPortalAura*>(aura))
+        if (const auto spAura = dynamic_cast<SummoningPortalAura*>(aura);
+            spAura)
         {
             ++numSPAura;
         }
     }
 
-    auto minion = dynamic_cast<Minion*>(playable);
-    if (minion == nullptr)
+    const auto minion = dynamic_cast<Minion*>(playable);
+    if (!minion)
     {
         return;
     }
@@ -160,7 +161,7 @@ void SummoningPortalAura::CalculateCost(Playable* playable) const
 
     minion->SetCost(cost);
 
-    if (auto costManager = playable->costManager; costManager)
+    if (const auto costManager = playable->costManager; costManager)
     {
         costManager->QueueUpdate();
     }

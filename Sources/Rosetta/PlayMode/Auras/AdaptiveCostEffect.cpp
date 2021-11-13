@@ -31,7 +31,7 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
 
     auto instance = new AdaptiveCostEffect(*this, *owner);
 
-    if (owner->costManager == nullptr)
+    if (!owner->costManager)
     {
         owner->costManager = new CostManager();
     }
@@ -43,7 +43,7 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
 
 int AdaptiveCostEffect::Apply(int value) const
 {
-    if (m_costFunc != nullptr &&
+    if (m_costFunc &&
         (m_condition == std::nullopt || m_condition->Evaluate(m_owner)))
     {
         if (m_effectOp == EffectOperator::ADD)
@@ -92,7 +92,7 @@ void AdaptiveCostEffect::Clone(Playable* clone)
     Activate(clone, true);
 }
 
-AdaptiveCostEffect::AdaptiveCostEffect(AdaptiveCostEffect& prototype,
+AdaptiveCostEffect::AdaptiveCostEffect(const AdaptiveCostEffect& prototype,
                                        Playable& owner)
 {
     m_owner = &owner;

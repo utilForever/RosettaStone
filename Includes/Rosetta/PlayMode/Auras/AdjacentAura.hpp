@@ -54,15 +54,15 @@ class AdjacentAura : public IAura
     //! \param prototype An adjacent aura for prototype.
     //! \param owner An owner of adaptive effect.
     //! \param cloning The flag to indicate that it is cloned.
-    AdjacentAura(AdjacentAura& prototype, Minion& owner, bool cloning);
+    AdjacentAura(const AdjacentAura& prototype, Minion& owner, bool cloning);
 
     //! Applies aura's effect(s) to target minion.
     //! \param minion The minion to apply aura's effect(s).
-    void Apply(Minion* minion);
+    void Apply(Minion* minion) const;
 
     //! Disapplies aura's effect(s) to target minion.
     //! \param minion The minion to disapply aura's effect(s).
-    void Disapply(Minion* minion);
+    void Disapply(Minion* minion) const;
 
     Minion* m_owner = nullptr;
     Card* m_enchantmentCard = nullptr;

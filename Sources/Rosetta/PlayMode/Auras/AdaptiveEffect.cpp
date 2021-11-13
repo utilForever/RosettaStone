@@ -38,13 +38,13 @@ void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
     {
         if (const auto weapon = dynamic_cast<Weapon*>(owner); weapon)
         {
-            if (weapon->player->GetHero()->auraEffects != nullptr)
+            if (!weapon->player->GetHero()->auraEffects)
             {
                 weapon->player->GetHero()->auraEffects =
                     new AuraEffects(CardType::HERO);
             }
         }
-        else if (owner->auraEffects == nullptr)
+        else if (!owner->auraEffects)
         {
             owner->auraEffects = new AuraEffects(CardType::MINION);
         }
@@ -109,7 +109,7 @@ void AdaptiveEffect::Clone(Playable* clone)
     Activate(clone);
 }
 
-AdaptiveEffect::AdaptiveEffect(AdaptiveEffect& prototype, Playable& owner)
+AdaptiveEffect::AdaptiveEffect(const AdaptiveEffect& prototype, Playable& owner)
 {
     m_owner = &owner;
 
