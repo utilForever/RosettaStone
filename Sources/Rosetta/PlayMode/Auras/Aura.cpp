@@ -40,36 +40,32 @@ void Aura::Activate(Playable* owner, bool cloning)
         m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
 
-    auto instance = new Aura(*this, *owner);
+    const auto instance = new Aura(*this, *owner);
 
     AddToGame(*owner, *instance);
 
-    switch (removeTrigger.first)
+    if (removeTrigger.first == TriggerType::TURN_END)
     {
-        case TriggerType::NONE:
-            break;
-        case TriggerType::TURN_END:
-            owner->game->triggerManager.endTurnTrigger +=
-                instance->m_removeHandler;
-            break;
-        case TriggerType::CAST_SPELL:
-            owner->game->triggerManager.castSpellTrigger +=
-                instance->m_removeHandler;
-            break;
-        case TriggerType::PLAY_MINION:
-            owner->game->triggerManager.playMinionTrigger +=
-                instance->m_removeHandler;
-            break;
-        case TriggerType::INSPIRE:
-            owner->game->triggerManager.inspireTrigger +=
-                instance->m_removeHandler;
-            break;
-        case TriggerType::EQUIP_WEAPON:
-            owner->game->triggerManager.equipWeaponTrigger +=
-                instance->m_removeHandler;
-            break;
-        default:
-            break;
+        owner->game->triggerManager.endTurnTrigger += instance->m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::CAST_SPELL)
+    {
+        owner->game->triggerManager.castSpellTrigger +=
+            instance->m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::PLAY_MINION)
+    {
+        owner->game->triggerManager.playMinionTrigger +=
+            instance->m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::INSPIRE)
+    {
+        owner->game->triggerManager.inspireTrigger += instance->m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::EQUIP_WEAPON)
+    {
+        owner->game->triggerManager.equipWeaponTrigger +=
+            instance->m_removeHandler;
     }
 
     if (!cloning && !restless)
@@ -111,7 +107,7 @@ void Aura::Update()
             case AuraInstruction::REMOVE_ALL:
                 RemoveInternal();
                 break;
-            default:
+            case AuraInstruction::INVALID:
                 throw std::invalid_argument(
                     "Aura::Update() - Invalid aura instruction!");
         }
@@ -169,33 +165,39 @@ void Aura::Remove()
                     [this](Aura* aura) { return aura == this; });
             break;
         }
-        default:
-        {
-            // Do nothing
-        }
+        case AuraType::INVALID:
+        case AuraType::SELF:
+        case AuraType::HERO:
+        case AuraType::HERO_POWER:
+        case AuraType::ENEMY_HERO_POWER:
+        case AuraType::PLAYER:
+        case AuraType::ENEMY_PLAYER:
+        case AuraType::PLAYERS:
+            break;
     }
 
-    switch (removeTrigger.first)
+    if (removeTrigger.first == TriggerType::TURN_END)
     {
-        case TriggerType::NONE:
-            break;
-        case TriggerType::TURN_END:
-            m_owner->game->triggerManager.endTurnTrigger -= m_removeHandler;
-            break;
-        case TriggerType::CAST_SPELL:
-            m_owner->game->triggerManager.castSpellTrigger -= m_removeHandler;
-            break;
-        case TriggerType::INSPIRE:
-            m_owner->game->triggerManager.inspireTrigger -= m_removeHandler;
-            break;
-        case TriggerType::EQUIP_WEAPON:
-            m_owner->game->triggerManager.equipWeaponTrigger -= m_removeHandler;
-            break;
-        default:
-            break;
+        m_owner->game->triggerManager.endTurnTrigger -= m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::CAST_SPELL)
+    {
+        m_owner->game->triggerManager.castSpellTrigger -= m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::PLAY_MINION)
+    {
+        m_owner->game->triggerManager.playMinionTrigger -= m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::INSPIRE)
+    {
+        m_owner->game->triggerManager.inspireTrigger -= m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::EQUIP_WEAPON)
+    {
+        m_owner->game->triggerManager.equipWeaponTrigger -= m_removeHandler;
     }
 
-    if (auto enchantment = dynamic_cast<Enchantment*>(m_owner))
+    if (const auto enchantment = dynamic_cast<Enchantment*>(m_owner))
     {
         enchantment->Remove();
     }
@@ -208,7 +210,7 @@ void Aura::Clone(Playable* clone)
 
 void Aura::Apply(Playable* entity)
 {
-    if (condition != nullptr)
+    if (condition)
     {
         if (!condition->Evaluate(entity))
         {
@@ -216,19 +218,17 @@ void Aura::Apply(Playable* entity)
         }
     }
 
-    for (auto& effect : m_effects)
+    for (const auto& effect : m_effects)
     {
         effect->ApplyAuraTo(entity);
     }
 
-    if (m_enchantmentCard != nullptr &&
-        m_enchantmentCard->power.GetTrigger() != nullptr)
+    if (m_enchantmentCard && m_enchantmentCard->power.GetTrigger())
     {
         const auto instance =
             Enchantment::GetInstance(entity, m_enchantmentCard, entity);
 
-        if (auto trigger = m_enchantmentCard->power.GetTrigger();
-            trigger != nullptr)
+        if (const auto trigger = m_enchantmentCard->power.GetTrigger(); trigger)
         {
             trigger->Activate(instance.get());
         }
@@ -251,13 +251,12 @@ void Aura::Disapply(Playable* entity)
         return;
     }
 
-    for (auto& effect : m_effects)
+    for (const auto& effect : m_effects)
     {
         effect->RemoveAuraFrom(entity);
     }
 
-    if (m_enchantmentCard != nullptr &&
-        m_enchantmentCard->power.GetTrigger() != nullptr)
+    if (m_enchantmentCard && m_enchantmentCard->power.GetTrigger())
     {
         const std::string cardID = m_enchantmentCard->id;
         auto enchantments = entity->appliedEnchantments;
@@ -305,7 +304,7 @@ void Aura::NotifyEntityRemoved(Playable* entity)
         AuraUpdateInstruction(entity, AuraInstruction::REMOVE), 1);
 }
 
-Aura::Aura(Aura& prototype, Playable& owner)
+Aura::Aura(const Aura& prototype, Playable& owner)
     : condition(prototype.condition),
       removeTrigger(prototype.removeTrigger),
       restless(prototype.restless),
@@ -321,9 +320,9 @@ Aura::Aura(Aura& prototype, Playable& owner)
     }
 
     auto removeFunc = [this](Entity* source) {
-        if (removeTrigger.second != nullptr)
+        if (removeTrigger.second)
         {
-            if (dynamic_cast<Player*>(source))
+            if (const auto player = dynamic_cast<Player*>(source); player)
             {
                 source = m_owner;
             }
@@ -370,7 +369,14 @@ void Aura::AddToGame(Playable& owner, Aura& aura)
             owner.player->GetFieldZone()->auras.emplace_back(&aura);
             owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
-        default:
+        case AuraType::INVALID:
+        case AuraType::SELF:
+        case AuraType::HERO:
+        case AuraType::HERO_POWER:
+        case AuraType::ENEMY_HERO_POWER:
+        case AuraType::PLAYER:
+        case AuraType::ENEMY_PLAYER:
+        case AuraType::PLAYERS:
             break;
     }
 }
@@ -405,14 +411,14 @@ void Aura::UpdateInternal()
             break;
         }
         case AuraType::FIELD:
-            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            for (const auto& minion : m_owner->player->GetFieldZone()->GetAll())
             {
                 Apply(minion);
             }
             break;
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            for (const auto& minion : m_owner->player->GetFieldZone()->GetAll())
             {
                 if (minion != m_owner)
                 {
@@ -446,7 +452,7 @@ void Aura::UpdateInternal()
         }
         case AuraType::HAND:
         {
-            for (auto& card : m_owner->player->GetHandZone()->GetAll())
+            for (const auto& card : m_owner->player->GetHandZone()->GetAll())
             {
                 Apply(card);
             }
@@ -454,7 +460,7 @@ void Aura::UpdateInternal()
         }
         case AuraType::ENEMY_HAND:
         {
-            for (auto& card :
+            for (const auto& card :
                  m_owner->player->opponent->GetHandZone()->GetAll())
             {
                 Apply(card);
@@ -463,11 +469,11 @@ void Aura::UpdateInternal()
         }
         case AuraType::HANDS:
         {
-            for (auto& card : m_owner->player->GetHandZone()->GetAll())
+            for (const auto& card : m_owner->player->GetHandZone()->GetAll())
             {
                 Apply(card);
             }
-            for (auto& card :
+            for (const auto& card :
                  m_owner->player->opponent->GetHandZone()->GetAll())
             {
                 Apply(card);
@@ -476,11 +482,11 @@ void Aura::UpdateInternal()
         }
         case AuraType::FIELD_AND_HAND:
         {
-            for (auto& card : m_owner->player->GetHandZone()->GetAll())
+            for (const auto& card : m_owner->player->GetHandZone()->GetAll())
             {
                 Apply(card);
             }
-            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            for (const auto& minion : m_owner->player->GetFieldZone()->GetAll())
             {
                 Apply(minion);
             }
@@ -498,13 +504,13 @@ void Aura::UpdateInternal()
                 // minions that were frozen previously.
                 if (effectPtr->GetGameTag() == GameTag::CANT_BE_FROZEN)
                 {
-                    if (auto hero = m_owner->player->GetHero();
+                    if (const auto hero = m_owner->player->GetHero();
                         hero->IsFrozen())
                     {
                         hero->SetGameTag(GameTag::FROZEN, 0);
                     }
 
-                    for (auto& minion :
+                    for (const auto& minion :
                          m_owner->player->GetFieldZone()->GetAll())
                     {
                         if (minion->IsFrozen())
@@ -515,12 +521,12 @@ void Aura::UpdateInternal()
                 }
                 else if (effectPtr->GetGameTag() == GameTag::MEGA_WINDFURY)
                 {
-                    for (auto& minion :
+                    for (const auto& minion :
                          m_owner->player->GetFieldZone()->GetAll())
                     {
                         // A minion can't attack at first turn in play.
                         if (minion->GetNumAttacksThisTurn() == 0 &&
-                            minion->IsExhausted() == true)
+                            minion->IsExhausted())
                         {
                             break;
                         }
@@ -559,7 +565,8 @@ void Aura::UpdateInternal()
             }
             break;
         }
-        default:
+        case AuraType::INVALID:
+        case AuraType::SELF:
             throw std::invalid_argument(
                 "Aura::UpdateInternal() - Invalid aura type!");
     }
@@ -594,9 +601,9 @@ void Aura::RemoveInternal()
     }
     else
     {
-        for (auto& entity : m_appliedEntities)
+        for (const auto& entity : m_appliedEntities)
         {
-            for (auto& effect : m_effects)
+            for (const auto& effect : m_effects)
             {
                 effect->RemoveAuraFrom(entity);
             }
@@ -608,7 +615,7 @@ void Aura::RemoveInternal()
     if (m_enchantmentCard != nullptr &&
         m_enchantmentCard->power.GetTrigger() != nullptr)
     {
-        for (auto& entity : m_appliedEntities)
+        for (const auto& entity : m_appliedEntities)
         {
             auto enchantments = entity->appliedEnchantments;
 
@@ -644,12 +651,15 @@ void Aura::RenewAll()
 
     switch (m_type)
     {
+        case AuraType::SELF:
+            Renew(m_owner);
+            break;
         case AuraType::FIELD:
             m_owner->player->GetFieldZone()->ForEach(Renew);
             break;
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            for (const auto& minion : m_owner->player->GetFieldZone()->GetAll())
             {
                 if (minion != m_owner)
                 {
@@ -672,10 +682,16 @@ void Aura::RenewAll()
         case AuraType::HERO:
             Renew(m_owner->player->GetHero());
             break;
-        case AuraType::SELF:
-            Renew(m_owner);
-            break;
-        default:
+        case AuraType::INVALID:
+        case AuraType::ADJACENT:
+        case AuraType::HERO_POWER:
+        case AuraType::ENEMY_HERO_POWER:
+        case AuraType::HAND:
+        case AuraType::ENEMY_HAND:
+        case AuraType::FIELD_AND_HAND:
+        case AuraType::PLAYER:
+        case AuraType::ENEMY_PLAYER:
+        case AuraType::PLAYERS:
             throw std::invalid_argument(
                 "Aura::RenewAll() - Invalid aura type!");
     }

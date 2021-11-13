@@ -23,8 +23,9 @@ std::vector<int> RandomAgent::GetActionForMulligan(Game& state) const
     assert(m_playerType == PlayerType::PLAYER1 ||
            m_playerType == PlayerType::PLAYER2);
 
-    Player* player = m_playerType == PlayerType::PLAYER1 ? state.GetPlayer1()
-                                                         : state.GetPlayer2();
+    const Player* player = m_playerType == PlayerType::PLAYER1
+                               ? state.GetPlayer1()
+                               : state.GetPlayer2();
 
     std::vector<int> indices;
     for (std::size_t i = 0; i < player->choice->choices.size(); ++i)

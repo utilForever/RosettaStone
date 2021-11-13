@@ -23,7 +23,7 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
 //! \param player The player to add card to hand.
 //! \param entity A card to add.
 //! \return The flag that indicates a card is successfully added to hand.
-bool AddCardToHand(Player* player, Playable* entity);
+bool AddCardToHand(const Player* player, Playable* entity);
 
 //! Creates a new enchantment and attaches it to the given target.
 //! \param enchantmentCard The base card for the enchantment.
@@ -48,7 +48,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
 //! \param player The player to shuffle card into deck.
 //! \param sender The entity to call function to shuffle into deck.
 //! \param playable The playable to shuffle into deck.
-void ShuffleIntoDeck(Player* player, Entity* sender, Playable* playable);
+void ShuffleIntoDeck(const Player* player, Entity* sender, Playable* playable);
 
 //! Changes mana crystal of the player.
 //! \param player The player to change mana crystal.
@@ -66,7 +66,7 @@ void TransformMinion(Player* player, Minion* oldMinion, Card* card);
 //! \param player An owner of zone.
 //! \param zoneType The type of zone.
 //! \return The zone corresponding to the zone type.
-IZone* GetZone(Player* player, ZoneType zoneType);
+IZone* GetZone(const Player* player, ZoneType zoneType);
 }  // namespace RosettaStone::PlayMode::Generic
 
 #endif  // ROSETTASTONE_PLAYMODE_GENERIC_HPP

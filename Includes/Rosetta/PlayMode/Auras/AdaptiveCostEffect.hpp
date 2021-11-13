@@ -53,7 +53,7 @@ class AdaptiveCostEffect : public IAura
     //! Constructs adaptive cost effect with given \p prototype and \p owner.
     //! \param prototype An adaptive cost effect for prototype.
     //! \param owner An owner of adaptive cost effect.
-    AdaptiveCostEffect(AdaptiveCostEffect& prototype, Playable& owner);
+    AdaptiveCostEffect(const AdaptiveCostEffect& prototype, Playable& owner);
 
     Playable* m_owner = nullptr;
 

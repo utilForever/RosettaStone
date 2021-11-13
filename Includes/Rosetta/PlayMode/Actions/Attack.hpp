@@ -15,7 +15,7 @@ namespace RosettaStone::PlayMode::Generic
 //! \param source A pointer to source character.
 //! \param target A pointer to target character.
 //! \param skipPrePhase The flag indicates whether it skips pre-phase.
-void Attack(Player* player, Character* source, Character* target,
+void Attack(const Player* player, Character* source, Character* target,
             bool skipPrePhase);
 }  // namespace RosettaStone::PlayMode::Generic
 

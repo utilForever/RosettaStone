@@ -12,8 +12,8 @@
 
 namespace RosettaStone::PlayMode
 {
-OngoingEnchant::OngoingEnchant(std::vector<std::shared_ptr<IEffect>> effects)
-    : Enchant(std::move(effects))
+OngoingEnchant::OngoingEnchant(std::vector<std::shared_ptr<IEffect>> _effects)
+    : Enchant(std::move(_effects))
 {
     // Do nothing
 }
@@ -66,12 +66,12 @@ void OngoingEnchant::Clone(Playable* clone)
     copy->game->auras.emplace_back(copy);
 }
 
-std::size_t OngoingEnchant::GetCount() const
+int OngoingEnchant::GetCount() const
 {
     return m_count;
 }
 
-void OngoingEnchant::SetCount(std::size_t value)
+void OngoingEnchant::SetCount(int value)
 {
     m_count = value;
     m_toBeUpdated = true;

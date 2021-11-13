@@ -6664,13 +6664,13 @@ TEST_CASE("[Warlock : Minion] - CORE_UNG_833 : Lakkari Felhound")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Lakkari Felhound"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Pyroblast"));
-    const auto card4 =
+    [[maybe_unused]] const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Blizzard"));
-    const auto card5 =
+    [[maybe_unused]] const auto card5 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
 
     CHECK_EQ(curHand.GetCount(), 5);
@@ -7896,11 +7896,11 @@ TEST_CASE("[Demon Hunter : Minion] - CORE_BT_323 : Sightless Watcher")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 30; i += 3)
     {
-        config.player1Deck[i * 3] = Cards::FindCardByName("Magma Rager");
-        config.player1Deck[i * 3 + 1] = Cards::FindCardByName("Wolfrider");
-        config.player1Deck[i * 3 + 2] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Magma Rager");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Wolfrider");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -11758,9 +11758,9 @@ TEST_CASE("[Neutral : Minion] - CS3_025 : Overlord Runthak")
     const auto card1 = Generic::DrawCard(
         curPlayer,
         Cards::FindCardByName("Overlord Runthak", FormatType::STANDARD));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
     const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));

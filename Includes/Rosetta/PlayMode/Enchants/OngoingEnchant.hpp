@@ -25,9 +25,9 @@ namespace RosettaStone::PlayMode
 class OngoingEnchant : public Enchant, public IAura
 {
  public:
-    //! Constructs ongoing enchant with given \p effects.
-    //! \param effects A list of effect.
-    explicit OngoingEnchant(std::vector<std::shared_ptr<IEffect>> effects);
+    //! Constructs ongoing enchant with given \p _effects.
+    //! \param _effects A list of effect.
+    explicit OngoingEnchant(std::vector<std::shared_ptr<IEffect>> _effects);
 
     //! Activates enchant to \p entity.
     //! \param entity An entity to which enchant is activated.
@@ -52,18 +52,18 @@ class OngoingEnchant : public Enchant, public IAura
 
     //! Gets the count of ongoing enchants.
     //! \return The count of ongoing enchants.
-    std::size_t GetCount() const;
+    int GetCount() const;
 
     //! Sets the count of ongoing enchants.
     //! \param value the count of ongoing enchants.
-    void SetCount(std::size_t value);
+    void SetCount(int value);
 
     Game* game = nullptr;
     Playable* target = nullptr;
 
  private:
-    std::size_t m_count = 1;
-    std::size_t m_lastCount = 1;
+    int m_count = 1;
+    int m_lastCount = 1;
     bool m_toBeUpdated = false;
 };
 }  // namespace RosettaStone::PlayMode

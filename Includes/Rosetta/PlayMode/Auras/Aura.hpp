@@ -95,7 +95,7 @@ class Aura : public IAura
     //! Constructs aura with given \p prototype and \p owner.
     //! \param prototype An aura for prototype.
     //! \param owner An owner of aura.
-    Aura(Aura& prototype, Playable& owner);
+    Aura(const Aura& prototype, Playable& owner);
 
     //! Adds aura to the game.
     //! \param owner An owner of aura.

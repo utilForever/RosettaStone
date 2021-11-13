@@ -22,35 +22,34 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
     //! zones (Play -> Hand, Hand -> Deck, Play -> Deck, Play/Hand/Deck ->
     //! Graveyard and Graveyard -> Play/Hand/Deck), it loses enchantments.
     //! References: https://playhearthstone.com/en-gb/blog/21965466
-    bool copyEnchantments;
+    bool copyEnchantments = false;
     const ZoneType sourceZone =
         (source->zone) ? source->zone->GetType() : ZoneType::PLAY;
 
-    if (sourceZone == ZoneType::GRAVEYARD)
-    {
-        copyEnchantments = false;
-    }
-    else if (sourceZone == targetZone)
-    {
-        copyEnchantments = true;
-    }
-    else if (targetZone == ZoneType::SETASIDE)
-    {
-        copyEnchantments = false;
-    }
-    else if (targetZone == ZoneType::PLAY)
+    if ((sourceZone == ZoneType::DECK && targetZone == ZoneType::DECK) ||
+        (sourceZone == ZoneType::HAND && targetZone == ZoneType::HAND) ||
+        (sourceZone == ZoneType::PLAY && targetZone == ZoneType::PLAY) ||
+        (sourceZone == ZoneType::DECK && targetZone == ZoneType::HAND) ||
+        (sourceZone == ZoneType::HAND && targetZone == ZoneType::PLAY) ||
+        (sourceZone == ZoneType::DECK && targetZone == ZoneType::PLAY))
     {
         copyEnchantments = true;
     }
-    else if (sourceZone == ZoneType::DECK)
-    {
-        copyEnchantments = true;
-    }
-    else if (sourceZone == ZoneType::HAND && targetZone != ZoneType::DECK)
-    {
-        copyEnchantments = true;
-    }
-    else
+    else if ((sourceZone == ZoneType::PLAY && targetZone == ZoneType::HAND) ||
+             (sourceZone == ZoneType::HAND && targetZone == ZoneType::DECK) ||
+             (sourceZone == ZoneType::PLAY && targetZone == ZoneType::DECK) ||
+             (sourceZone == ZoneType::PLAY &&
+              targetZone == ZoneType::GRAVEYARD) ||
+             (sourceZone == ZoneType::HAND &&
+              targetZone == ZoneType::GRAVEYARD) ||
+             (sourceZone == ZoneType::DECK &&
+              targetZone == ZoneType::GRAVEYARD) ||
+             (sourceZone == ZoneType::GRAVEYARD &&
+              targetZone == ZoneType::PLAY) ||
+             (sourceZone == ZoneType::GRAVEYARD &&
+              targetZone == ZoneType::HAND) ||
+             (sourceZone == ZoneType::GRAVEYARD &&
+              targetZone == ZoneType::DECK))
     {
         copyEnchantments = false;
     }
@@ -65,25 +64,25 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
             dynamic_cast<Character*>(source)->CopyInternalAttributes(character);
         }
 
-        if (!source->appliedEnchantments.empty())
+        for (const auto& enchantment : source->appliedEnchantments)
         {
-            for (auto& e : source->appliedEnchantments)
-            {
-                auto instance =
-                    Enchantment::GetInstance(source, e->card, copiedEntity);
-                if (e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) > 0)
-                {
-                    instance->SetGameTag(
-                        GameTag::TAG_SCRIPT_DATA_NUM_1,
-                        e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+            const auto instance = Enchantment::GetInstance(
+                source, enchantment->card, copiedEntity);
+            const int scriptNum1 =
+                enchantment->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
+            const int scriptNum2 =
+                enchantment->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2);
 
-                    if (e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2) > 0)
-                    {
-                        instance->SetGameTag(
-                            GameTag::TAG_SCRIPT_DATA_NUM_2,
-                            e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2));
-                    }
-                }
+            if (scriptNum1 > 0)
+            {
+                instance->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1,
+                                     scriptNum1);
+            }
+
+            if (scriptNum2 > 0)
+            {
+                instance->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2,
+                                     scriptNum2);
             }
         }
 
@@ -145,7 +144,10 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
             player->GetSetasideZone()->Add(copiedEntity);
             break;
         }
-        default:
+        case ZoneType::INVALID:
+        case ZoneType::GRAVEYARD:
+        case ZoneType::REMOVEDFROMGAME:
+        case ZoneType::SECRET:
             break;
     }
 

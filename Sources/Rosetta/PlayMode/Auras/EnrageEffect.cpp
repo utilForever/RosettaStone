@@ -54,7 +54,8 @@ void EnrageEffect::Update()
             }
         }
 
-        for (auto& effect : m_enchantmentCard->power.GetEnchant()->effects)
+        for (const auto& effect :
+             m_enchantmentCard->power.GetEnchant()->effects)
         {
             effect->RemoveFrom(m_target);
         }
@@ -74,7 +75,7 @@ void EnrageEffect::Update()
 
         if (const auto weapon = &minion->player->GetWeapon(); weapon)
         {
-            if (m_curInstance != nullptr)
+            if (m_curInstance)
             {
                 m_curInstance->Remove();
             }
@@ -102,12 +103,13 @@ void EnrageEffect::Update()
             return;
         }
 
-        for (auto& effect : m_enchantmentCard->power.GetEnchant()->effects)
+        for (const auto& effect :
+             m_enchantmentCard->power.GetEnchant()->effects)
         {
             effect->RemoveFrom(minion);
         }
 
-        if (m_curInstance != nullptr)
+        if (m_curInstance)
         {
             m_curInstance->Remove();
         }
@@ -122,21 +124,17 @@ void EnrageEffect::Clone(Playable* clone)
 }
 
 EnrageEffect::EnrageEffect(EnrageEffect& prototype, Playable& owner)
-    : Aura(prototype, owner)
+    : Aura(prototype, owner), m_enraged(prototype.m_enraged)
 {
-    m_enraged = prototype.m_enraged;
     restless = true;
 
-    switch (m_type)
+    if (m_type == AuraType::SELF)
     {
-        case AuraType::SELF:
-            m_target = &owner;
-            break;
-        case AuraType::WEAPON:
-            m_target = &owner.player->GetWeapon();
-            break;
-        default:
-            break;
+        m_target = &owner;
+    }
+    else if (m_type == AuraType::WEAPON)
+    {
+        m_target = &owner.player->GetWeapon();
     }
 }
 }  // namespace RosettaStone::PlayMode

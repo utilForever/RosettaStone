@@ -46,7 +46,7 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
     target->TakeDamage(source, amount);
 }
 
-bool AddCardToHand(Player* player, Playable* entity)
+bool AddCardToHand(const Player* player, Playable* entity)
 {
     // Add card to graveyard if hand is full
     if (player->GetHandZone()->IsFull())
@@ -69,34 +69,33 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
 {
     Power& power = enchantmentCard->power;
 
-    const auto playable = dynamic_cast<Playable*>(target);
-    if (playable)
+    if (const auto playable = dynamic_cast<Playable*>(target))
     {
-        if (auto ongoingEnchant =
+        if (const auto ongoingEnchant =
                 dynamic_cast<OngoingEnchant*>(playable->ongoingEffect);
             dynamic_cast<OngoingEnchant*>(power.GetEnchant()) && ongoingEnchant)
         {
-            // Increment the count of existing OngoingEnchant
+            // Increment the count of existing ongoing enchant
             const int val = ongoingEnchant->GetCount();
             ongoingEnchant->SetCount(val + 1);
             return;
         }
     }
 
-    if (power.GetAura() != nullptr || power.GetTrigger() != nullptr ||
+    if (power.GetAura() || power.GetTrigger() ||
         !power.GetDeathrattleTask().empty())
     {
         // Create Enchantment instance only when it is needed.
         // As an owner entity for auras, triggers or deathrattle tasks.
-        auto enchantment = Enchantment::GetInstance(creator, enchantmentCard,
-                                                    target, num1, num2);
+        const auto enchantment = Enchantment::GetInstance(
+            creator, enchantmentCard, target, num1, num2);
 
-        if (auto aura = power.GetAura(); aura)
+        if (const auto aura = power.GetAura(); aura)
         {
             aura->Activate(enchantment.get());
         }
 
-        if (auto trigger = power.GetTrigger(); trigger)
+        if (const auto trigger = power.GetTrigger(); trigger)
         {
             trigger->Activate(enchantment.get());
         }
@@ -108,7 +107,7 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
         }
     }
 
-    if (auto enchant = power.GetEnchant(); enchant)
+    if (const auto enchant = power.GetEnchant(); enchant)
     {
         enchant->ActivateTo(target, num1, num2);
     }
@@ -142,20 +141,21 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
         playable->ongoingEffect->Remove();
     }
 
-    auto hand = dynamic_cast<HandZone*>(playable->zone);
-    auto field = dynamic_cast<FieldZone*>(playable->zone);
-    int id = playable->GetGameTag(GameTag::ENTITY_ID);
+    const auto deck = dynamic_cast<DeckZone*>(playable->zone);
+    const auto hand = dynamic_cast<HandZone*>(playable->zone);
+    const auto field = dynamic_cast<FieldZone*>(playable->zone);
+    const int id = playable->GetGameTag(GameTag::ENTITY_ID);
 
-    if (hand != nullptr)
+    if (hand)
     {
-        for (auto& aura : hand->auras)
+        for (const auto& aura : hand->auras)
         {
             aura->Disapply(playable);
         }
     }
-    else if (field != nullptr)
+    else if (field)
     {
-        for (auto& aura : field->auras)
+        for (const auto& aura : field->auras)
         {
             aura->Disapply(playable);
         }
@@ -164,19 +164,20 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     if (playable->card->GetCardType() == newCard->GetCardType())
     {
         playable->card = newCard;
-        for (auto& gameTag : newCard->gameTags)
+
+        for (const auto& gameTag : newCard->gameTags)
         {
             playable->SetGameTag(gameTag.first, gameTag.second);
         }
 
-        if (playable->costManager != nullptr)
+        if (playable->costManager)
         {
             playable->costManager->EntityChanged(newCard->GetCost());
         }
     }
     else
     {
-        Playable* entity;
+        Playable* entity = nullptr;
 
         switch (newCard->GetCardType())
         {
@@ -196,27 +197,37 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
                 entity =
                     new Weapon(player, newCard, playable->card->gameTags, id);
                 break;
-            default:
+            case CardType::INVALID:
+            case CardType::GAME:
+            case CardType::PLAYER:
+            case CardType::ENCHANTMENT:
+            case CardType::ITEM:
+            case CardType::TOKEN:
+            case CardType::HERO_POWER:
+            case CardType::BLANK:
+            case CardType::GAME_MODE_BUTTON:
+            case CardType::MOVE_MINION_HOVER_TARGET:
+            case CardType::LETTUCE_ABILITY:
                 throw std::invalid_argument(
                     "Generic::ChangeEntity() - Invalid card type");
         }
 
-        if (hand != nullptr)
+        if (hand)
         {
             hand->ChangeEntity(playable, entity);
         }
-        else if (field != nullptr)
+        else if (field)
         {
             field->ChangeEntity(playable, entity);
         }
-        else if (auto deck = dynamic_cast<DeckZone*>(playable->zone); deck)
+        else if (deck)
         {
             deck->ChangeEntity(playable, entity);
         }
 
         player->game->entityList[id] = entity;
 
-        if (playable->costManager != nullptr)
+        if (playable->costManager)
         {
             playable->costManager->EntityChanged(newCard->GetCost());
         }
@@ -229,28 +240,29 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     playable->SetTransformed(true);
 
     // Replay auras
-    if (hand != nullptr)
+    if (hand)
     {
-        if (auto trigger = playable->card->power.GetTrigger(); trigger)
+        if (const auto trigger = playable->card->power.GetTrigger(); trigger)
         {
             trigger->Activate(playable, TriggerActivation::HAND);
         }
 
-        if (auto effect = dynamic_cast<AdaptiveCostEffect*>(
+        if (const auto effect = dynamic_cast<AdaptiveCostEffect*>(
                 playable->card->power.GetAura());
             effect)
         {
             effect->Activate(playable);
         }
 
-        for (auto& aura : hand->auras)
+        for (const auto& aura : hand->auras)
         {
             aura->NotifyEntityAdded(playable);
         }
     }
-    else if (field != nullptr)
+    else if (field)
     {
-        auto minion = dynamic_cast<Minion*>(playable);
+        const auto minion = dynamic_cast<Minion*>(playable);
+
         if (minion->player == player->game->GetCurrentPlayer())
         {
             if (!minion->HasCharge())
@@ -279,26 +291,26 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
 
         FieldZone::ActivateAura(minion);
 
-        for (auto& aura : field->auras)
+        for (const auto& aura : field->auras)
         {
             aura->NotifyEntityAdded(playable);
         }
 
-        for (auto& aura : field->adjacentAuras)
+        for (const auto& aura : field->adjacentAuras)
         {
             aura->SetIsFieldChanged(true);
         }
     }
-    else if (auto deck = dynamic_cast<DeckZone*>(playable->zone); deck)
+    else if (deck)
     {
-        if (auto trigger = playable->card->power.GetTrigger(); trigger)
+        if (const auto trigger = playable->card->power.GetTrigger(); trigger)
         {
             trigger->Activate(playable, TriggerActivation::DECK);
         }
     }
 }
 
-void ShuffleIntoDeck(Player* player, Entity* sender, Playable* playable)
+void ShuffleIntoDeck(const Player* player, Entity* sender, Playable* playable)
 {
     // Add card to graveyard if deck is full
     if (player->GetDeckZone()->IsFull())
@@ -310,12 +322,12 @@ void ShuffleIntoDeck(Player* player, Entity* sender, Playable* playable)
     player->GetDeckZone()->Add(playable);
     player->GetDeckZone()->Shuffle();
 
-    if (auto p = dynamic_cast<Playable*>(sender); playable)
+    if (playable)
     {
         std::unique_ptr<EventMetaData> temp =
             std::move(player->game->currentEventData);
-        player->game->currentEventData =
-            std::make_unique<EventMetaData>(p, playable);
+        player->game->currentEventData = std::make_unique<EventMetaData>(
+            dynamic_cast<Playable*>(sender), playable);
         player->game->triggerManager.OnShuffleIntoDeckTrigger(playable);
         player->game->currentEventData = std::move(temp);
     }
@@ -358,17 +370,15 @@ void ChangeManaCrystal(Player* player, int amount, bool fill)
 
 void TransformMinion(Player* player, Minion* oldMinion, Card* card)
 {
-    const auto newMinion =
-        dynamic_cast<Minion*>(Entity::GetFromCard(player, card));
-    if (newMinion == nullptr)
+    if (const auto newMinion =
+            dynamic_cast<Minion*>(Entity::GetFromCard(player, card));
+        newMinion)
     {
-        return;
+        player->GetFieldZone()->Replace(oldMinion, newMinion);
     }
-
-    player->GetFieldZone()->Replace(oldMinion, newMinion);
 }
 
-IZone* GetZone(Player* player, ZoneType zoneType)
+IZone* GetZone(const Player* player, ZoneType zoneType)
 {
     switch (zoneType)
     {

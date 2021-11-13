@@ -151,8 +151,6 @@ TEST_CASE("[Druid : Minion] - BAR_535 : Thickhide Kodo")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Thickhide Kodo"));
     const auto card2 =
@@ -1939,7 +1937,6 @@ TEST_CASE("[Paladin : Minion] - BAR_871 : Soldier's Caravan")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto curSecret = curPlayer->GetSecretZone();
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Soldier's Caravan"));
@@ -2557,17 +2554,16 @@ TEST_CASE("[Priest : Minion] - BAR_307 : Void Flayer")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Void Flayer"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
-    const auto card4 =
+    [[maybe_unused]] const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Holy Smite"));
-    const auto card5 =
+    [[maybe_unused]] const auto card5 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Holy Nova"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
@@ -5471,9 +5467,9 @@ TEST_CASE("[Demon Hunter : Minion] - BAR_325 : Razorboar")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Razorboar"));
-    const auto card2 = Generic::DrawCard(
+    [[maybe_unused]] const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Razorfen Beastmaster"));
-    const auto card3 = Generic::DrawCard(
+    [[maybe_unused]] const auto card3 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Plagued Protodrake"));
     const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
@@ -5526,9 +5522,9 @@ TEST_CASE("[Demon Hunter : Minion] - BAR_326 : Razorfen Beastmaster")
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Razorfen Beastmaster"));
-    const auto card2 = Generic::DrawCard(
+    [[maybe_unused]] const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Razorfen Beastmaster"));
-    const auto card3 = Generic::DrawCard(
+    [[maybe_unused]] const auto card3 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Plagued Protodrake"));
     const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));

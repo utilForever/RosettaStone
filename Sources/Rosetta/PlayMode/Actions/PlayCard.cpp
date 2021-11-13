@@ -25,14 +25,15 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Check battlefield is full
-    if (dynamic_cast<Minion*>(source) != nullptr &&
+    if (source->card->GetCardType() == CardType::MINION &&
         player->GetFieldZone()->IsFull())
     {
         return;
     }
 
     // Check if we can play this card and the target is valid
-    if (!source->IsPlayableByPlayer() || !source->IsPlayableByCardReq(chooseOne) ||
+    if (!source->IsPlayableByPlayer() ||
+        !source->IsPlayableByCardReq(chooseOne) ||
         !source->IsValidPlayTarget(target, chooseOne))
     {
         return;
@@ -54,16 +55,14 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
                             tempUsed);
     }
 
-    const bool hasEcho = source->HasEcho();
-
     // Process keyword 'Corrupt'
-    for (auto& playable : player->GetHandZone()->GetAll())
+    for (const auto& playable : player->GetHandZone()->GetAll())
     {
         if (playable->HasCorrupt() && source->GetCost() > playable->GetCost())
         {
             Card* newCard = Cards::FindCardByDbfID(
                 playable->GetGameTag(GameTag::CORRUPTEDCARD));
-            if (newCard != nullptr && !newCard->name.empty())
+            if (newCard && !newCard->name.empty())
             {
                 ChangeEntity(player, playable, newCard, true);
             }
@@ -94,7 +93,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     source->player = player;
 
     // Set card target and validate target trigger
-    if (target != nullptr)
+    if (target)
     {
         source->SetCardTarget(target->GetGameTag(GameTag::ENTITY_ID));
         Trigger::ValidateTriggers(player->game, source, SequenceType::TARGET);
@@ -130,7 +129,17 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             PlayWeapon(player, weapon, target);
             break;
         }
-        default:
+        case CardType::INVALID:
+        case CardType::GAME:
+        case CardType::PLAYER:
+        case CardType::ENCHANTMENT:
+        case CardType::ITEM:
+        case CardType::TOKEN:
+        case CardType::HERO_POWER:
+        case CardType::BLANK:
+        case CardType::GAME_MODE_BUTTON:
+        case CardType::MOVE_MINION_HOVER_TARGET:
+        case CardType::LETTUCE_ABILITY:
             throw std::invalid_argument(
                 "Generic::PlayCard() - Invalid card type!");
     }
@@ -143,7 +152,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->game->ProcessDestroyAndUpdateAura();
 
     // Process echo card
-    if (source && hasEcho)
+    if (source->HasEcho())
     {
         if (const auto spell = dynamic_cast<Spell*>(source);
             spell && spell->IsCountered())
@@ -155,8 +164,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             std::map<GameTag, int> tags;
             tags.emplace(GameTag::GHOSTLY, 1);
 
-            Playable* playable = Entity::GetFromCard(player, source->card, tags,
-                                                     player->GetHandZone());
+            const Playable* playable = Entity::GetFromCard(
+                player, source->card, tags, player->GetHandZone());
 
             player->game->UpdateAura();
             player->game->ghostlyCards.emplace_back(
@@ -165,7 +174,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Reset transformed/summoned minions
-    for (auto& minion : player->GetFieldZone()->GetAll())
+    for (const auto& minion : player->GetFieldZone()->GetAll())
     {
         minion->SetTransformed(false);
         minion->SetSummoned(false);
@@ -199,13 +208,13 @@ void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
     player->SetHero(hero);
 
     // Process hero power trigger
-    if (auto trigger = hero->heroPower->card->power.GetTrigger(); trigger)
+    if (const auto trigger = hero->heroPower->card->power.GetTrigger(); trigger)
     {
         trigger->Activate(hero->heroPower);
     }
 
     // Process hero trigger
-    if (auto trigger = hero->card->power.GetTrigger(); trigger)
+    if (const auto trigger = hero->card->power.GetTrigger(); trigger)
     {
         trigger->Activate(hero);
     }
@@ -291,7 +300,7 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     player->game->taskQueue.EndEvent();
 
     // Process target trigger
-    if (target != nullptr)
+    if (target)
     {
         player->game->taskQueue.StartEvent();
         player->game->triggerManager.OnTargetTrigger(minion);
@@ -385,7 +394,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->ProcessDestroyAndUpdateAura();
 
     // Store minions in field to process spellburst task
-    auto minions = player->GetFieldZone()->GetAll();
+    const auto minions = player->GetFieldZone()->GetAll();
 
     // Check spell is countered
     if (spell->IsCountered())
@@ -395,7 +404,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     else
     {
         // Process target trigger
-        if (target != nullptr)
+        if (target)
         {
             player->game->taskQueue.StartEvent();
             player->game->triggerManager.OnTargetTrigger(spell);
@@ -460,7 +469,7 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
     }
 
     // Process target trigger
-    if (target != nullptr)
+    if (target)
     {
         player->game->taskQueue.StartEvent();
         player->game->triggerManager.OnTargetTrigger(weapon);
