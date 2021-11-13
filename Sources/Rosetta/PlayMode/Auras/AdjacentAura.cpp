@@ -152,9 +152,8 @@ void AdjacentAura::Disapply(Minion* minion) const
 
 AdjacentAura::AdjacentAura(const AdjacentAura& prototype, Minion& owner,
                            bool cloning)
+    : m_owner(&owner), m_enchantmentCard(prototype.m_enchantmentCard)
 {
-    m_owner = &owner;
-    m_enchantmentCard = prototype.m_enchantmentCard;
     if (prototype.m_effects.empty())
     {
         m_effects = m_enchantmentCard->power.GetEnchant()->effects;

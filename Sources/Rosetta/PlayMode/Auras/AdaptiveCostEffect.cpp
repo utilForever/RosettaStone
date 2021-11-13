@@ -94,11 +94,11 @@ void AdaptiveCostEffect::Clone(Playable* clone)
 
 AdaptiveCostEffect::AdaptiveCostEffect(const AdaptiveCostEffect& prototype,
                                        Playable& owner)
+    : m_owner(&owner),
+      m_costFunc(prototype.m_costFunc),
+      m_effectOp(prototype.m_effectOp),
+      m_condition(prototype.m_condition)
 {
-    m_owner = &owner;
-
-    m_costFunc = prototype.m_costFunc;
-    m_effectOp = prototype.m_effectOp;
-    m_condition = prototype.m_condition;
+    // Do nothing
 }
 }  // namespace RosettaStone::PlayMode

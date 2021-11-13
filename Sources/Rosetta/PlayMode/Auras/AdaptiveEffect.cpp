@@ -110,17 +110,15 @@ void AdaptiveEffect::Clone(Playable* clone)
 }
 
 AdaptiveEffect::AdaptiveEffect(const AdaptiveEffect& prototype, Playable& owner)
+    : m_owner(&owner),
+      m_condition(prototype.m_condition),
+      m_valueFunc(prototype.m_valueFunc),
+      m_tag(prototype.m_tag),
+      m_operator(prototype.m_operator),
+      m_lastValue(prototype.m_lastValue),
+      m_turnOn(prototype.m_turnOn),
+      m_isSwitching(prototype.m_isSwitching)
 {
-    m_owner = &owner;
-
-    m_condition = prototype.m_condition;
-    m_valueFunc = prototype.m_valueFunc;
-
-    m_tag = prototype.m_tag;
-    m_operator = prototype.m_operator;
-
-    m_lastValue = prototype.m_lastValue;
-    m_turnOn = prototype.m_turnOn;
-    m_isSwitching = prototype.m_isSwitching;
+    // Do nothing
 }
 }  // namespace RosettaStone::PlayMode

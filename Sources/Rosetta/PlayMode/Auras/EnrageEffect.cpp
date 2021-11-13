@@ -54,7 +54,8 @@ void EnrageEffect::Update()
             }
         }
 
-        for (const auto& effect : m_enchantmentCard->power.GetEnchant()->effects)
+        for (const auto& effect :
+             m_enchantmentCard->power.GetEnchant()->effects)
         {
             effect->RemoveFrom(m_target);
         }
@@ -123,9 +124,8 @@ void EnrageEffect::Clone(Playable* clone)
 }
 
 EnrageEffect::EnrageEffect(EnrageEffect& prototype, Playable& owner)
-    : Aura(prototype, owner)
+    : Aura(prototype, owner), m_enraged(prototype.m_enraged)
 {
-    m_enraged = prototype.m_enraged;
     restless = true;
 
     switch (m_type)
