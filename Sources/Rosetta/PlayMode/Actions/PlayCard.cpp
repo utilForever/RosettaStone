@@ -129,7 +129,17 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             PlayWeapon(player, weapon, target);
             break;
         }
-        default:
+        case CardType::INVALID:
+        case CardType::GAME:
+        case CardType::PLAYER:
+        case CardType::ENCHANTMENT:
+        case CardType::ITEM:
+        case CardType::TOKEN:
+        case CardType::HERO_POWER:
+        case CardType::BLANK:
+        case CardType::GAME_MODE_BUTTON:
+        case CardType::MOVE_MINION_HOVER_TARGET:
+        case CardType::LETTUCE_ABILITY:
             throw std::invalid_argument(
                 "Generic::PlayCard() - Invalid card type!");
     }
