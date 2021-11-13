@@ -12,8 +12,8 @@
 
 namespace RosettaStone::PlayMode
 {
-OngoingEnchant::OngoingEnchant(std::vector<std::shared_ptr<IEffect>> effects)
-    : Enchant(std::move(effects))
+OngoingEnchant::OngoingEnchant(std::vector<std::shared_ptr<IEffect>> _effects)
+    : Enchant(std::move(_effects))
 {
     // Do nothing
 }

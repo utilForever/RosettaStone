@@ -25,9 +25,9 @@ namespace RosettaStone::PlayMode
 class OngoingEnchant : public Enchant, public IAura
 {
  public:
-    //! Constructs ongoing enchant with given \p effects.
-    //! \param effects A list of effect.
-    explicit OngoingEnchant(std::vector<std::shared_ptr<IEffect>> effects);
+    //! Constructs ongoing enchant with given \p _effects.
+    //! \param _effects A list of effect.
+    explicit OngoingEnchant(std::vector<std::shared_ptr<IEffect>> _effects);
 
     //! Activates enchant to \p entity.
     //! \param entity An entity to which enchant is activated.
