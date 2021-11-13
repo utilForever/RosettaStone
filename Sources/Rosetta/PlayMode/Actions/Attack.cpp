@@ -10,7 +10,7 @@
 
 namespace RosettaStone::PlayMode::Generic
 {
-void Attack(Player* player, Character* source, Character* target,
+void Attack(const Player* player, Character* source, Character* target,
             bool skipPrePhase)
 {
     if (!skipPrePhase)
@@ -43,20 +43,19 @@ void Attack(Player* player, Character* source, Character* target,
 
     // Check source or target is destroyed
     if (source->isDestroyed || target->isDestroyed ||
-        (source->zone != nullptr &&
-         source->zone->GetType() != ZoneType::PLAY) ||
-        (target->zone != nullptr && target->zone->GetType() != ZoneType::PLAY))
+        (source->zone && source->zone->GetType() != ZoneType::PLAY) ||
+        (target->zone && target->zone->GetType() != ZoneType::PLAY))
     {
         player->game->ProcessDestroyAndUpdateAura();
         player->game->currentEventData.reset();
         return;
     }
 
-    auto hero = dynamic_cast<Hero*>(source);
-    auto minion = dynamic_cast<Minion*>(source);
-    auto realTarget =
+    const auto hero = dynamic_cast<Hero*>(source);
+    const auto minion = dynamic_cast<Minion*>(source);
+    const auto realTarget =
         dynamic_cast<Character*>(player->game->currentEventData->eventTarget);
-    auto targetHero = dynamic_cast<Hero*>(realTarget);
+    const auto targetHero = dynamic_cast<Hero*>(realTarget);
 
     // Set game step to MAIN_COMBAT
     player->game->step = Step::MAIN_COMBAT;
@@ -70,7 +69,7 @@ void Attack(Player* player, Character* source, Character* target,
     const bool isTargetDamaged = targetDamage > 0;
 
     // Freeze target if attacker is freezer
-    if (isTargetDamaged && minion != nullptr && minion->HasFreeze())
+    if (isTargetDamaged && minion && minion->HasFreeze())
     {
         if (!realTarget->player->CantBeFrozen())
         {
@@ -80,13 +79,11 @@ void Attack(Player* player, Character* source, Character* target,
 
     // Destroy target if attacker is poisonous
     const bool hasMinionPoisonous =
-        (minion != nullptr && minion->HasPoisonous()) ? true : false;
+        (minion && minion->HasPoisonous()) ? true : false;
     const bool hasWeaponPoisonous =
-        (hero != nullptr && hero->weapon != nullptr &&
-         hero->weapon->HasPoisonous())
-            ? true
-            : false;
-    if (isTargetDamaged && targetHero == nullptr &&
+        (hero && hero->HasWeapon() && hero->weapon->HasPoisonous()) ? true
+                                                                    : false;
+    if (isTargetDamaged && targetHero &&
         (hasMinionPoisonous || hasWeaponPoisonous) && !realTarget->isDestroyed)
     {
         realTarget->Destroy();
@@ -99,11 +96,10 @@ void Attack(Player* player, Character* source, Character* target,
         const int sourceDamage = source->TakeDamage(realTarget, targetAttack);
         const bool isSourceDamaged = sourceDamage > 0;
 
-        auto targetMinion = dynamic_cast<Minion*>(realTarget);
+        const auto targetMinion = dynamic_cast<Minion*>(realTarget);
 
         // Freeze source if defender is freezer
-        if (isSourceDamaged && targetMinion != nullptr &&
-            targetMinion->HasFreeze())
+        if (isSourceDamaged && targetMinion && targetMinion->HasFreeze())
         {
             if (!source->player->CantBeFrozen())
             {
@@ -113,7 +109,7 @@ void Attack(Player* player, Character* source, Character* target,
 
         // Destroy source if defender is poisonous
         const bool hasTargetMinionPoisonous =
-            (targetMinion != nullptr && targetMinion->HasPoisonous());
+            (targetMinion && targetMinion->HasPoisonous());
         if (isSourceDamaged && hasTargetMinionPoisonous && !source->isDestroyed)
         {
             source->Destroy();
@@ -127,7 +123,7 @@ void Attack(Player* player, Character* source, Character* target,
     }
 
     // Remove durability from weapon if hero attack
-    if (hero != nullptr && hero->weapon != nullptr &&
+    if (hero && hero->HasWeapon() &&
         hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
     {
         hero->weapon->RemoveDurability(1);
