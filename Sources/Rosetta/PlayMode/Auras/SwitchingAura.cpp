@@ -48,19 +48,18 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
     owner->game->triggerManager.startTurnTrigger += instance->m_onHandler;
     owner->game->triggerManager.endTurnTrigger += instance->m_offHandler;
 
-    switch (m_offTrigger)
+    if (m_offTrigger == TriggerType::PLAY_MINION)
     {
-        case TriggerType::PLAY_MINION:
-            owner->game->triggerManager.playMinionTrigger +=
-                instance->m_offHandler;
-            break;
-        case TriggerType::CAST_SPELL:
-            owner->game->triggerManager.castSpellTrigger +=
-                instance->m_offHandler;
-            break;
-        default:
-            throw std::invalid_argument(
-                "SwitchingAura::Activate() - Invalid trigger type!");
+        owner->game->triggerManager.playMinionTrigger += instance->m_offHandler;
+    }
+    else if (m_offTrigger == TriggerType::CAST_SPELL)
+    {
+        owner->game->triggerManager.castSpellTrigger += instance->m_offHandler;
+    }
+    else
+    {
+        throw std::invalid_argument(
+            "SwitchingAura::Activate() - Invalid trigger type!");
     }
 
     if (!cloning)
@@ -86,17 +85,18 @@ void SwitchingAura::Remove()
     m_owner->game->triggerManager.startTurnTrigger -= m_onHandler;
     m_owner->game->triggerManager.endTurnTrigger -= m_offHandler;
 
-    switch (m_offTrigger)
+    if (m_offTrigger == TriggerType::PLAY_MINION)
     {
-        case TriggerType::PLAY_MINION:
-            m_owner->game->triggerManager.playMinionTrigger -= m_offHandler;
-            break;
-        case TriggerType::CAST_SPELL:
-            m_owner->game->triggerManager.castSpellTrigger -= m_offHandler;
-            break;
-        default:
-            throw std::invalid_argument(
-                "SwitchingAura::Remove() - Invalid trigger type!");
+        m_owner->game->triggerManager.playMinionTrigger -= m_offHandler;
+    }
+    else if (m_offTrigger == TriggerType::CAST_SPELL)
+    {
+        m_owner->game->triggerManager.castSpellTrigger -= m_offHandler;
+    }
+    else
+    {
+        throw std::invalid_argument(
+            "SwitchingAura::Remove() - Invalid trigger type!");
     }
 }
 

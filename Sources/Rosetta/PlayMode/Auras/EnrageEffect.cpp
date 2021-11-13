@@ -128,16 +128,13 @@ EnrageEffect::EnrageEffect(EnrageEffect& prototype, Playable& owner)
 {
     restless = true;
 
-    switch (m_type)
+    if (m_type == AuraType::SELF)
     {
-        case AuraType::SELF:
-            m_target = &owner;
-            break;
-        case AuraType::WEAPON:
-            m_target = &owner.player->GetWeapon();
-            break;
-        default:
-            break;
+        m_target = &owner;
+    }
+    else if (m_type == AuraType::WEAPON)
+    {
+        m_target = &owner.player->GetWeapon();
     }
 }
 }  // namespace RosettaStone::PlayMode

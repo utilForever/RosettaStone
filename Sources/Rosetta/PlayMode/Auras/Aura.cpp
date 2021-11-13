@@ -44,32 +44,28 @@ void Aura::Activate(Playable* owner, bool cloning)
 
     AddToGame(*owner, *instance);
 
-    switch (removeTrigger.first)
+    if (removeTrigger.first == TriggerType::TURN_END)
     {
-        case TriggerType::NONE:
-            break;
-        case TriggerType::TURN_END:
-            owner->game->triggerManager.endTurnTrigger +=
-                instance->m_removeHandler;
-            break;
-        case TriggerType::CAST_SPELL:
-            owner->game->triggerManager.castSpellTrigger +=
-                instance->m_removeHandler;
-            break;
-        case TriggerType::PLAY_MINION:
-            owner->game->triggerManager.playMinionTrigger +=
-                instance->m_removeHandler;
-            break;
-        case TriggerType::INSPIRE:
-            owner->game->triggerManager.inspireTrigger +=
-                instance->m_removeHandler;
-            break;
-        case TriggerType::EQUIP_WEAPON:
-            owner->game->triggerManager.equipWeaponTrigger +=
-                instance->m_removeHandler;
-            break;
-        default:
-            break;
+        owner->game->triggerManager.endTurnTrigger += instance->m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::CAST_SPELL)
+    {
+        owner->game->triggerManager.castSpellTrigger +=
+            instance->m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::PLAY_MINION)
+    {
+        owner->game->triggerManager.playMinionTrigger +=
+            instance->m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::INSPIRE)
+    {
+        owner->game->triggerManager.inspireTrigger += instance->m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::EQUIP_WEAPON)
+    {
+        owner->game->triggerManager.equipWeaponTrigger +=
+            instance->m_removeHandler;
     }
 
     if (!cloning && !restless)
@@ -111,7 +107,7 @@ void Aura::Update()
             case AuraInstruction::REMOVE_ALL:
                 RemoveInternal();
                 break;
-            default:
+            case AuraInstruction::INVALID:
                 throw std::invalid_argument(
                     "Aura::Update() - Invalid aura instruction!");
         }
@@ -169,30 +165,36 @@ void Aura::Remove()
                     [this](Aura* aura) { return aura == this; });
             break;
         }
-        default:
-        {
-            // Do nothing
-        }
+        case AuraType::INVALID:
+        case AuraType::SELF:
+        case AuraType::HERO:
+        case AuraType::HERO_POWER:
+        case AuraType::ENEMY_HERO_POWER:
+        case AuraType::PLAYER:
+        case AuraType::ENEMY_PLAYER:
+        case AuraType::PLAYERS:
+            break;
     }
 
-    switch (removeTrigger.first)
+    if (removeTrigger.first == TriggerType::TURN_END)
     {
-        case TriggerType::NONE:
-            break;
-        case TriggerType::TURN_END:
-            m_owner->game->triggerManager.endTurnTrigger -= m_removeHandler;
-            break;
-        case TriggerType::CAST_SPELL:
-            m_owner->game->triggerManager.castSpellTrigger -= m_removeHandler;
-            break;
-        case TriggerType::INSPIRE:
-            m_owner->game->triggerManager.inspireTrigger -= m_removeHandler;
-            break;
-        case TriggerType::EQUIP_WEAPON:
-            m_owner->game->triggerManager.equipWeaponTrigger -= m_removeHandler;
-            break;
-        default:
-            break;
+        m_owner->game->triggerManager.endTurnTrigger -= m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::CAST_SPELL)
+    {
+        m_owner->game->triggerManager.castSpellTrigger -= m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::PLAY_MINION)
+    {
+        m_owner->game->triggerManager.playMinionTrigger -= m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::INSPIRE)
+    {
+        m_owner->game->triggerManager.inspireTrigger -= m_removeHandler;
+    }
+    else if (removeTrigger.first == TriggerType::EQUIP_WEAPON)
+    {
+        m_owner->game->triggerManager.equipWeaponTrigger -= m_removeHandler;
     }
 
     if (const auto enchantment = dynamic_cast<Enchantment*>(m_owner))
@@ -302,7 +304,7 @@ void Aura::NotifyEntityRemoved(Playable* entity)
         AuraUpdateInstruction(entity, AuraInstruction::REMOVE), 1);
 }
 
-Aura::Aura(Aura& prototype, Playable& owner)
+Aura::Aura(const Aura& prototype, Playable& owner)
     : condition(prototype.condition),
       removeTrigger(prototype.removeTrigger),
       restless(prototype.restless),
@@ -367,7 +369,14 @@ void Aura::AddToGame(Playable& owner, Aura& aura)
             owner.player->GetFieldZone()->auras.emplace_back(&aura);
             owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
-        default:
+        case AuraType::INVALID:
+        case AuraType::SELF:
+        case AuraType::HERO:
+        case AuraType::HERO_POWER:
+        case AuraType::ENEMY_HERO_POWER:
+        case AuraType::PLAYER:
+        case AuraType::ENEMY_PLAYER:
+        case AuraType::PLAYERS:
             break;
     }
 }
@@ -556,7 +565,8 @@ void Aura::UpdateInternal()
             }
             break;
         }
-        default:
+        case AuraType::INVALID:
+        case AuraType::SELF:
             throw std::invalid_argument(
                 "Aura::UpdateInternal() - Invalid aura type!");
     }
@@ -641,6 +651,9 @@ void Aura::RenewAll()
 
     switch (m_type)
     {
+        case AuraType::SELF:
+            Renew(m_owner);
+            break;
         case AuraType::FIELD:
             m_owner->player->GetFieldZone()->ForEach(Renew);
             break;
@@ -669,10 +682,16 @@ void Aura::RenewAll()
         case AuraType::HERO:
             Renew(m_owner->player->GetHero());
             break;
-        case AuraType::SELF:
-            Renew(m_owner);
-            break;
-        default:
+        case AuraType::INVALID:
+        case AuraType::ADJACENT:
+        case AuraType::HERO_POWER:
+        case AuraType::ENEMY_HERO_POWER:
+        case AuraType::HAND:
+        case AuraType::ENEMY_HAND:
+        case AuraType::FIELD_AND_HAND:
+        case AuraType::PLAYER:
+        case AuraType::ENEMY_PLAYER:
+        case AuraType::PLAYERS:
             throw std::invalid_argument(
                 "Aura::RenewAll() - Invalid aura type!");
     }

@@ -83,7 +83,7 @@ void SummoningPortalAura::Update()
                 RemoveAll();
             }
             break;
-            default:
+            case AuraInstruction::INVALID:
                 throw std::invalid_argument(
                     "SummoningPortalAura::Update() - Invalid aura "
                     "instruction!");
