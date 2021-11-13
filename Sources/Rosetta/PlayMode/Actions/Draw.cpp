@@ -37,7 +37,7 @@ Playable* Draw(Player* player, Playable* cardToDraw)
     // Add card to hand
     if (AddCardToHand(player, playable))
     {
-        if (cardToDraw == nullptr)
+        if (cardToDraw)
         {
             player->game->taskQueue.StartEvent();
             player->game->triggerManager.OnDrawCardTrigger(playable);
@@ -45,14 +45,14 @@ Playable* Draw(Player* player, Playable* cardToDraw)
             player->game->taskQueue.EndEvent();
         }
 
-        auto tasks = playable->card->power.GetTopdeckTask();
+        const auto tasks = playable->card->power.GetTopdeckTask();
 
         // Process topdeck tasks
         if (!tasks.empty())
         {
             for (auto& task : tasks)
             {
-                std::unique_ptr<ITask> clonedTask = task->Clone();
+                const std::unique_ptr<ITask> clonedTask = task->Clone();
 
                 clonedTask->SetPlayer(player);
                 clonedTask->SetSource(playable);
@@ -100,7 +100,7 @@ Playable* DrawCard(Player* player, Card* card)
     return playable;
 }
 
-Playable* FindAnotherSpellCard(Player* player)
+Playable* FindAnotherSpellCard(const Player* player)
 {
     std::vector<Playable*> cards;
     cards.reserve(MAX_DECK_SIZE);

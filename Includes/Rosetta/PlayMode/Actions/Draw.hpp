@@ -24,7 +24,7 @@ Playable* DrawCard(Player* player, Card* card);
 
 //! Finds another spell card from the deck.
 //! \param player The player to find another spell card from the deck.
-Playable* FindAnotherSpellCard(Player* player);
+Playable* FindAnotherSpellCard(const Player* player);
 }  // namespace RosettaStone::PlayMode::Generic
 
 #endif  // ROSETTASTONE_PLAYMODE_DRAW_HPP
