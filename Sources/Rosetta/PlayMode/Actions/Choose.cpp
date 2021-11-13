@@ -27,7 +27,7 @@ namespace RosettaStone::PlayMode::Generic
 void ChoiceMulligan(Player* player, const std::vector<int>& choices)
 {
     Choice* choice = player->choice;
-    if (choice == nullptr)
+    if (!choice)
     {
         return;
     }
@@ -56,8 +56,8 @@ void ChoiceMulligan(Player* player, const std::vector<int>& choices)
             // Process mulligan state
             player->mulliganState = Mulligan::DEALING;
 
-            auto hand = player->GetHandZone();
-            auto deck = player->GetDeckZone();
+            const auto hand = player->GetHandZone();
+            const auto deck = player->GetDeckZone();
 
             // Process redraw
             for (const auto& entityID : choices)
@@ -88,7 +88,7 @@ void ChoiceMulligan(Player* player, const std::vector<int>& choices)
 bool ChoicePick(Player* player, int choice)
 {
     Choice* choiceVal = player->choice;
-    if (choiceVal == nullptr)
+    if (!choiceVal)
     {
         return false;
     }
@@ -109,7 +109,7 @@ bool ChoicePick(Player* player, int choice)
     // Get picked card using entity ID
     Playable* playable = player->game->entityList[choice];
     // Block it if player tries to pick a card that doesn't exist
-    if (playable == nullptr)
+    if (!playable)
     {
         return false;
     }
@@ -155,7 +155,7 @@ bool ChoicePick(Player* player, int choice)
         }
         case ChoiceAction::ENCHANTMENT:
         {
-            player->game->taskStack.num[0] = static_cast<int>(choice);
+            player->game->taskStack.num[0] = choice;
             break;
         }
         case ChoiceAction::DRAW_FROM_DECK:
@@ -193,7 +193,8 @@ bool ChoicePick(Player* player, int choice)
         }
         case ChoiceAction::ENVOY_OF_LAZUL:
         {
-            for (auto& handCard : player->opponent->GetHandZone()->GetAll())
+            for (const auto& handCard :
+                 player->opponent->GetHandZone()->GetAll())
             {
                 if (handCard->card->id == playable->card->id)
                 {
@@ -233,7 +234,7 @@ bool ChoicePick(Player* player, int choice)
         {
             player->GetDeckZone()->Remove(playable);
 
-            auto spellToCast = dynamic_cast<Spell*>(playable);
+            const auto spellToCast = dynamic_cast<Spell*>(playable);
             if (!spellToCast)
             {
                 throw std::logic_error(
@@ -251,7 +252,7 @@ bool ChoicePick(Player* player, int choice)
             player->game->ProcessDestroyAndUpdateAura();
             player->game->taskQueue.EndEvent();
 
-            while (player->choice != nullptr)
+            while (player->choice)
             {
                 const auto idx = Random::get<std::size_t>(
                     0, player->choice->choices.size() - 1);
@@ -314,12 +315,13 @@ bool ChoicePick(Player* player, int choice)
     }
 
     Choice* nextChoice = choiceVal->TryPopNextChoice(choice);
-    if (nextChoice == nullptr)
+    if (!nextChoice)
     {
         // Process after choose tasks
-        if (choiceVal->source != nullptr)
+        if (choiceVal->source)
         {
-            auto tasks = choiceVal->source->card->power.GetAfterChooseTask();
+            const auto tasks =
+                choiceVal->source->card->power.GetAfterChooseTask();
 
             if (!choiceVal->entityStack.empty())
             {
@@ -335,7 +337,7 @@ bool ChoicePick(Player* player, int choice)
 
             for (auto& task : tasks)
             {
-                std::unique_ptr<ITask> clonedTask = task->Clone();
+                const std::unique_ptr<ITask> clonedTask = task->Clone();
 
                 clonedTask->SetPlayer(player);
                 clonedTask->SetSource(choiceVal->source);
@@ -382,7 +384,7 @@ void CreateChoice(Player* player, Entity* source, ChoiceType type,
                   ChoiceAction action, const std::vector<int>& choices)
 {
     // Block it if choice is exist
-    if (player->choice != nullptr)
+    if (player->choice)
     {
         return;
     }
@@ -415,7 +417,7 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
         choiceIDs.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
     }
 
-    if (player->choice == nullptr)
+    if (player->choice)
     {
         player->choice = new Choice(player);
         player->choice->choiceType = type;
