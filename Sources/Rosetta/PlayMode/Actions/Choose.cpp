@@ -409,7 +409,7 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
         choiceIDs.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
     }
 
-    if (player->choice)
+    if (!player->choice)
     {
         player->choice = new Choice(player);
         player->choice->choiceType = type;

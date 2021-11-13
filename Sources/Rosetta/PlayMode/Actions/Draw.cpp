@@ -37,7 +37,7 @@ Playable* Draw(Player* player, Playable* cardToDraw)
     // Add card to hand
     if (AddCardToHand(player, playable))
     {
-        if (cardToDraw)
+        if (!cardToDraw)
         {
             player->game->taskQueue.StartEvent();
             player->game->triggerManager.OnDrawCardTrigger(playable);

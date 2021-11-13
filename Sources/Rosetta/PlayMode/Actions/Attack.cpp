@@ -83,7 +83,7 @@ void Attack(const Player* player, Character* source, Character* target,
     const bool hasWeaponPoisonous =
         (hero && hero->HasWeapon() && hero->weapon->HasPoisonous()) ? true
                                                                     : false;
-    if (isTargetDamaged && targetHero &&
+    if (isTargetDamaged && !targetHero &&
         (hasMinionPoisonous || hasWeaponPoisonous) && !realTarget->isDestroyed)
     {
         realTarget->Destroy();
