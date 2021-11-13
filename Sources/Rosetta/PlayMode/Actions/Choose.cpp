@@ -49,39 +49,31 @@ void ChoiceMulligan(Player* player, const std::vector<int>& choices)
     }
 
     // Process mulligan by choice action
-    switch (choice->choiceAction)
+    if (choice->choiceAction == ChoiceAction::HAND)
     {
-        case ChoiceAction::HAND:
+        // Process mulligan state
+        player->mulliganState = Mulligan::DEALING;
+
+        const auto hand = player->GetHandZone();
+        const auto deck = player->GetDeckZone();
+
+        // Process redraw
+        for (const auto& entityID : choices)
         {
-            // Process mulligan state
-            player->mulliganState = Mulligan::DEALING;
+            Playable* entity = player->game->entityList[entityID];
+            Playable* playable = deck->Remove(deck->GetTopCard());
 
-            const auto hand = player->GetHandZone();
-            const auto deck = player->GetDeckZone();
+            AddCardToHand(player, playable);
+            hand->Swap(entity, playable);
 
-            // Process redraw
-            for (const auto& entityID : choices)
-            {
-                Playable* entity = player->game->entityList[entityID];
-                Playable* playable = deck->Remove(deck->GetTopCard());
-
-                AddCardToHand(player, playable);
-                hand->Swap(entity, playable);
-
-                hand->Remove(entity);
-                deck->Add(entity);
-                deck->Shuffle();
-            }
-
-            // It's done! - Reset choice
-            delete player->choice;
-            player->choice = nullptr;
-
-            break;
+            hand->Remove(entity);
+            deck->Add(entity);
+            deck->Shuffle();
         }
-        default:
-            throw std::invalid_argument(
-                "ChoiceMulligan() - Invalid choice action!");
+
+        // It's done! - Reset choice
+        delete player->choice;
+        player->choice = nullptr;
     }
 }
 
