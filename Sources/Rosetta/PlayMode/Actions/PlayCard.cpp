@@ -25,7 +25,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Check battlefield is full
-    if (dynamic_cast<Minion*>(source) && player->GetFieldZone()->IsFull())
+    if (source->card->GetCardType() == CardType::MINION &&
+        player->GetFieldZone()->IsFull())
     {
         return;
     }
@@ -53,8 +54,6 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         player->SetUsedMana(player->GetUsedMana() + source->GetCost() -
                             tempUsed);
     }
-
-    const bool hasEcho = source->HasEcho();
 
     // Process keyword 'Corrupt'
     for (const auto& playable : player->GetHandZone()->GetAll())
@@ -143,7 +142,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     player->game->ProcessDestroyAndUpdateAura();
 
     // Process echo card
-    if (source && hasEcho)
+    if (source->HasEcho())
     {
         if (const auto spell = dynamic_cast<Spell*>(source);
             spell && spell->IsCountered())
@@ -155,8 +154,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             std::map<GameTag, int> tags;
             tags.emplace(GameTag::GHOSTLY, 1);
 
-            Playable* playable = Entity::GetFromCard(player, source->card, tags,
-                                                     player->GetHandZone());
+            const Playable* playable = Entity::GetFromCard(
+                player, source->card, tags, player->GetHandZone());
 
             player->game->UpdateAura();
             player->game->ghostlyCards.emplace_back(
