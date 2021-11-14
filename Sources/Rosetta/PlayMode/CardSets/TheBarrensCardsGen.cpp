@@ -3887,6 +3887,15 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::HasDeathrattle());
+    }
+    cards.emplace("BAR_082", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_430] Horde Operative - COST:3 [ATK:3/HP:4]
