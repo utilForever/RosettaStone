@@ -3937,6 +3937,15 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsHoldingSpell(SpellSchool::NATURE)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BAR_743e", EntityType::SOURCE) }));
+    cards.emplace("BAR_743", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_744] Spirit Healer - COST:4 [ATK:3/HP:6]
@@ -4574,6 +4583,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_743e"));
+    cards.emplace("BAR_743e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_744e] Lifted Spirits - COST:0
