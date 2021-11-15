@@ -3973,6 +3973,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 3));
+    cards.emplace("BAR_745", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_854] Kindling Elemental - COST:1 [ATK:1/HP:2]
