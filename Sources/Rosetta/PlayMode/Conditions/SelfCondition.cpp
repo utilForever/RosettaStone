@@ -349,6 +349,22 @@ SelfCondition SelfCondition::IsHoldingRace(Race race)
     });
 }
 
+SelfCondition SelfCondition::IsHoldingSpell(SpellSchool spellSchool)
+{
+    return SelfCondition([spellSchool](Playable* playable) {
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (handCard->card->GetCardType() == CardType::SPELL &&
+                handCard->card->GetSpellSchool() == spellSchool)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsAnotherClassCard()
 {
     return SelfCondition([](Playable* playable) {

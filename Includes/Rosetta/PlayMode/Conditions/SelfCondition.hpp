@@ -189,6 +189,12 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHoldingRace(Race race);
 
+    //! SelfCondition wrapper for checking the player has spell card
+    //! with \p spellSchool in hand zone.
+    //! \param spellSchool The spell school for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHoldingSpell(SpellSchool spellSchool);
+
     //! SelfCondition wrapper for checking the entity is another class card.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsAnotherClassCard();
