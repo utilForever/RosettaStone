@@ -7399,3 +7399,56 @@ TEST_CASE("[Neutral : Minion] - BAR_082 : Barrens Trapper")
     CHECK_EQ(card2->GetCost(), 2);
     CHECK_EQ(card3->GetCost(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_721] Mankrik - COST:3 [ATK:3/HP:4]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Help Mankrik find his wife!
+//       She was last seen somewhere in your deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_721 : Mankrik")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mankrik"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Mankrik, Consumed by Hatred");
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 13);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 17);
+}

@@ -3920,6 +3920,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "BAR_721t"));
+    cards.emplace("BAR_721", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_743] Toad of the Wilds - COST:2 [ATK:2/HP:2]
@@ -4545,11 +4549,24 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(
+        std::make_shared<SummonTask>("BAR_721t2", SummonSide::SPELL, true));
+    power.AddTopdeckTask(std::make_shared<AttackTask>(
+        EntityType::STACK, EntityType::ENEMY_HERO, true));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("BAR_721t2", SummonSide::SPELL, true));
+    power.AddPowerTask(std::make_shared<AttackTask>(
+        EntityType::STACK, EntityType::ENEMY_HERO, true));
+    cards.emplace("BAR_721t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [BAR_721t2] Mankrik, Consumed by Hatred - COST:5 [ATK:3/HP:10]
+    // [BAR_721t2] Mankrik, Consumed by Hatred - COST:5 [ATK:3/HP:7]
     // - Set: THE_BARRENS
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("BAR_721t2", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_743e] Toadin' Wild - COST:0
