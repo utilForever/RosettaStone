@@ -337,9 +337,10 @@ SelfCondition SelfCondition::IsHoldingSecret()
 SelfCondition SelfCondition::IsHoldingRace(Race race)
 {
     return SelfCondition([race](Playable* playable) {
-        for (auto& minion : playable->player->GetHandZone()->GetAll())
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
         {
-            if (minion->card->GetRace() == race)
+            if (handCard->card->GetCardType() == CardType::MINION &&
+                handCard->card->GetRace() == race)
             {
                 return true;
             }
