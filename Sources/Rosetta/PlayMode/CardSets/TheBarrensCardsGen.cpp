@@ -1318,9 +1318,7 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::MINIONS, 1));
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("BAR_880e", EntityType::STACK));
+    power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField("BAR_880e"));
     power.AddTrigger(
         std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_880t")));
     cards.emplace(

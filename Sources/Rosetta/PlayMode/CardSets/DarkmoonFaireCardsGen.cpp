@@ -1759,11 +1759,8 @@ void DarkmoonFaireCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = {
-        std::make_shared<IncludeTask>(EntityType::MINIONS),
-        std::make_shared<RandomTask>(EntityType::STACK, 1),
-        std::make_shared<AddEnchantmentTask>("DMF_705e", EntityType::STACK)
-    };
+    power.GetTrigger()->tasks =
+        ComplexTask::GiveBuffToRandomMinionInField("DMF_705e");
     cards.emplace("DMF_705", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
