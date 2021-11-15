@@ -146,50 +146,50 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotRace(Race race);
 
-    //! SelfCondition wrapper for checking there is the entity
+    //! SelfCondition wrapper for checking there is a minion
     //! with \p race in field zone.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingRace(Race race);
 
-    //! SelfCondition wrapper for checking there is the entity
+    //! SelfCondition wrapper for checking there is a minion
     //! with \p race in opponent's field zone.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOpControllingRace(Race race);
 
-    //! SelfCondition wrapper for checking the secret exists
+    //! SelfCondition wrapper for checking a secret exists
     //! in the owner's secret zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingSecret();
 
-    //! SelfCondition wrapper for checking the quest exists
+    //! SelfCondition wrapper for checking a quest exists
     //! in the owner's secret zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingQuest();
 
-    //! SelfCondition wrapper for checking there is the entity
-    //! with stealthed minion in field zone.
+    //! SelfCondition wrapper for checking there is a stealthed
+    //! minion in field zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingStealthedMinion();
 
-    //! SelfCondition wrapper for checking there is the entity
-    //! with Lackey in field zone.
+    //! SelfCondition wrapper for checking there is a Lackey minion
+    //! in field zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingLackey();
 
-    //! SelfCondition wrapper for checking the player has secret card
-    //! in hand zone.
+    //! SelfCondition wrapper for checking the player has
+    //! a secret card in hand zone.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHoldingSecret();
 
-    //! SelfCondition wrapper for checking the player has entity
+    //! SelfCondition wrapper for checking the player has a minion
     //! with \p race in hand zone.
     //! \param race The race for checking.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHoldingRace(Race race);
 
-    //! SelfCondition wrapper for checking the player has spell card
+    //! SelfCondition wrapper for checking the player has a spell
     //! with \p spellSchool in hand zone.
     //! \param spellSchool The spell school for checking.
     //! \return Generated SelfCondition for intended purpose.
@@ -425,7 +425,6 @@ class SelfCondition
 
     //! SelfCondition wrapper for checking the field of event target
     //! is not full.
-    //! \param cardType The type of the card to check.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsEventTargetFieldNotFull();
 
