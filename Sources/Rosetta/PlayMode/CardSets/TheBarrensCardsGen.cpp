@@ -4004,6 +4004,12 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SECRET_REVEALED));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BAR_890e", EntityType::SOURCE) };
+    cards.emplace("BAR_890", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_027] Devouring Ectoplasm - COST:3 [ATK:3/HP:2]
@@ -4675,6 +4681,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_890e"));
+    cards.emplace("BAR_890e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [BAR_COIN1] The Coin - COST:0
