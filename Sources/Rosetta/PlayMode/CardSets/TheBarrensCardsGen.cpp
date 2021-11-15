@@ -3987,6 +3987,10 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BAR_854e", EntityType::SOURCE));
+    cards.emplace("BAR_854", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_890] Crossroads Gossiper - COST:3 [ATK:4/HP:3]
@@ -4652,6 +4656,18 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Your next Elemental costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::ELEMENTAL));
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsRace(Race::ELEMENTAL)) };
+    }
+    cards.emplace("BAR_854e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_890e] Shameless - COST:0

@@ -7589,3 +7589,63 @@ TEST_CASE("[Neutral : Minion] - BAR_745 : Hecklefang Hyena")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_854] Kindling Elemental - COST:1 [ATK:1/HP:2]
+// - Race: Elemental, Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> The next Elemental you play
+//       costs (1) less.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_854 : Kindling Elemental")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kindling Elemental"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Unbound Elemental"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wailing Vapor"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wailing Vapor"));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stranglethorn Tiger"));
+
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 1);
+    CHECK_EQ(card5->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(card2->GetCost(), 1);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 0);
+    CHECK_EQ(card5->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 1);
+    CHECK_EQ(card5->GetCost(), 5);
+}
