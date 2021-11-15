@@ -755,7 +755,7 @@ THE_BARRENS | BAR_078 | Blademaster Samuro |
 THE_BARRENS | BAR_079 | Kazakus, Golem Shaper |  
 THE_BARRENS | BAR_080 | Shadow Hunter Vol'jin |  
 THE_BARRENS | BAR_081 | Southsea Scoundrel |  
-THE_BARRENS | BAR_082 | Barrens Trapper |  
+THE_BARRENS | BAR_082 | Barrens Trapper | O
 THE_BARRENS | BAR_305 | Flurry (Rank 1) | O
 THE_BARRENS | BAR_306 | Sigil of Flame | O
 THE_BARRENS | BAR_307 | Void Flayer | O
@@ -805,11 +805,11 @@ THE_BARRENS | BAR_551 | Barak Kodobane |
 THE_BARRENS | BAR_552 | Scabbs Cutterbutter |  
 THE_BARRENS | BAR_705 | Sigil of Silence | O
 THE_BARRENS | BAR_720 | Guff Runetotem | O
-THE_BARRENS | BAR_721 | Mankrik |  
+THE_BARRENS | BAR_721 | Mankrik | O
 THE_BARRENS | BAR_735 | Xyrella | O
-THE_BARRENS | BAR_743 | Toad of the Wilds |  
-THE_BARRENS | BAR_744 | Spirit Healer |  
-THE_BARRENS | BAR_745 | Hecklefang Hyena |  
+THE_BARRENS | BAR_743 | Toad of the Wilds | O
+THE_BARRENS | BAR_744 | Spirit Healer | O
+THE_BARRENS | BAR_745 | Hecklefang Hyena | O
 THE_BARRENS | BAR_748 | Varden Dawngrasp | O
 THE_BARRENS | BAR_750 | Earth Revenant | O
 THE_BARRENS | BAR_751 | Spawnpool Forager | O
@@ -824,7 +824,7 @@ THE_BARRENS | BAR_845 | Rancor | O
 THE_BARRENS | BAR_846 | Mor'shan Elite | O
 THE_BARRENS | BAR_847 | Rokara | O
 THE_BARRENS | BAR_848 | Lilypad Lurker | O
-THE_BARRENS | BAR_854 | Kindling Elemental |  
+THE_BARRENS | BAR_854 | Kindling Elemental | O
 THE_BARRENS | BAR_860 | Firemancer Flurgl | O
 THE_BARRENS | BAR_871 | Soldier's Caravan | O
 THE_BARRENS | BAR_873 | Knight of Anointment | O
@@ -835,7 +835,7 @@ THE_BARRENS | BAR_879 | Cannonmaster Smythe |
 THE_BARRENS | BAR_880 | Conviction (Rank 1) | O
 THE_BARRENS | BAR_881 | Invigorating Sermon | O
 THE_BARRENS | BAR_888 | Rimetongue | O
-THE_BARRENS | BAR_890 | Crossroads Gossiper |  
+THE_BARRENS | BAR_890 | Crossroads Gossiper | O
 THE_BARRENS | BAR_891 | Fury (Rank 1) | O
 THE_BARRENS | BAR_896 | Stonemaul Anchorman | O
 THE_BARRENS | BAR_902 | Cariel Roame | O
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 71% (122 of 170 Cards)
+- Progress: 75% (129 of 170 Cards)
 
 ## United in Stormwind
 

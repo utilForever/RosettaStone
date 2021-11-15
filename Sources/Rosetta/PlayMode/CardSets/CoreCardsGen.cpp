@@ -1165,9 +1165,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsFieldCount(2, RelaSign::GEQ)) };
     power.GetTrigger()->tasks = { ComplexTask::ActivateSecret(
-        TaskList{ std::make_shared<RandomTask>(EntityType::MINIONS, 1),
-                  std::make_shared<AddEnchantmentTask>("FP1_020e",
-                                                       EntityType::STACK) }) };
+        ComplexTask::GiveBuffToRandomMinionInField("FP1_020e")) };
     cards.emplace("CORE_FP1_020", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
