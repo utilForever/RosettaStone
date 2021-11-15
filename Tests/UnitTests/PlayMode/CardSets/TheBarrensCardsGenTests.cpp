@@ -7503,3 +7503,53 @@ TEST_CASE("[Neutral : Minion] - BAR_743 : Toad of the Wilds")
     CHECK_EQ(curField[1]->GetAttack(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BAR_744] Spirit Healer - COST:4 [ATK:3/HP:6]
+// - Set: THE_BARRENS, Rarity: Epic
+// --------------------------------------------------------
+// Text: After you cast a Holy spell,
+//       give a random friendly minion +2 Health.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BAR_744 : Spirit Healer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spirit Healer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Holy Light"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+}

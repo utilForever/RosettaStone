@@ -3957,6 +3957,14 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsHolySpell())
+    };
+    power.GetTrigger()->tasks =
+        ComplexTask::GiveBuffToRandomMinionInField("BAR_744e");
+    cards.emplace("BAR_744", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_745] Hecklefang Hyena - COST:2 [ATK:2/HP:4]
@@ -4593,6 +4601,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Health
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_744e"));
+    cards.emplace("BAR_744e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_842e] Gains - COST:0
