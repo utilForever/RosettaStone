@@ -4104,6 +4104,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::EquipWeaponFromDeck());
+    cards.emplace("WC_029", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_030] Mutanus the Devourer - COST:7 [ATK:4/HP:4]

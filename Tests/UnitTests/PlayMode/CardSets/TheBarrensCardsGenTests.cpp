@@ -7914,3 +7914,52 @@ TEST_CASE("[Neutral : Minion] - WC_028 : Meeting Stone")
     CHECK_EQ(curHand.GetCount(), 1);
     CHECK_EQ(curHand[0]->card->IsAdventurer(), true);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [WC_029] Selfless Sidekick - COST:7 [ATK:6/HP:6]
+// - Set: THE_BARRENS, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Equip a random weapon from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - WC_029 : Selfless Sidekick")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fiery War Axe");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Selfless Sidekick"));
+
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
+    CHECK_EQ(curDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curDeck.GetCount(), 25);
+}
