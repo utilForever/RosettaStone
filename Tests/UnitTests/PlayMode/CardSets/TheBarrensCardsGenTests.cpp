@@ -2523,6 +2523,52 @@ TEST_CASE("[Paladin : Spell] - WC_033 : Judgment of Justice")
     CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [WC_034] Party Up! - COST:7
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon five 2/2 Adventurers with random bonus effects.
+// --------------------------------------------------------
+// Entourage: WC_034t,  WC_034t2, WC_034t3, WC_034t4
+//            WC_034t5, WC_034t6, WC_034t7, WC_034t8
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - WC_034 : Party Up!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Party Up!"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[0]->card->IsAdventurer(), true);
+    CHECK_EQ(curField[1]->card->IsAdventurer(), true);
+    CHECK_EQ(curField[2]->card->IsAdventurer(), true);
+    CHECK_EQ(curField[3]->card->IsAdventurer(), true);
+    CHECK_EQ(curField[4]->card->IsAdventurer(), true);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [BAR_307] Void Flayer - COST:4 [ATK:3/HP:4]
 // - Set: THE_BARRENS, Rarity: Rare

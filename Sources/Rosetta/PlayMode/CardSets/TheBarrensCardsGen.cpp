@@ -21,6 +21,8 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
@@ -1415,6 +1417,21 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon five 2/2 Adventurers with random bonus effects.
     // --------------------------------------------------------
+    // Entourage: WC_034t,  WC_034t2, WC_034t3, WC_034t4
+    //            WC_034t5, WC_034t6, WC_034t7, WC_034t8
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>(5));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace(
+        "WC_034",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
+                Entourages{ "WC_034t", "WC_034t2", "WC_034t3", "WC_034t4",
+                            "WC_034t5", "WC_034t6", "WC_034t7", "WC_034t8" }));
 }
 
 void TheBarrensCardsGen::AddPaladinNonCollect(
@@ -4732,6 +4749,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t2] Burly Adventurer - COST:2 [ATK:2/HP:2]
@@ -4742,6 +4762,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t2", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t3] Devout Adventurer - COST:2 [ATK:2/HP:2]
@@ -4752,6 +4775,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t3", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t4] Relentless Adventurer - COST:2 [ATK:2/HP:2]
@@ -4762,6 +4788,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t4", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t5] Arcane Adventurer - COST:2 [ATK:2/HP:2]
@@ -4772,6 +4801,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t5", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t6] Sneaky Adventurer - COST:2 [ATK:2/HP:2]
@@ -4782,6 +4814,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t6", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t7] Vital Adventurer - COST:2 [ATK:2/HP:2]
@@ -4792,6 +4827,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t7", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t8] Swift Adventurer - COST:2 [ATK:2/HP:2]
@@ -4802,6 +4840,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t8", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [WC_035e] Dreaming - COST:0
