@@ -2670,6 +2670,30 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to a minion. If it dies,
     //       summon a 2/2 Adventurer with a random bonus effect.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // Entourage: WC_034t,  WC_034t2, WC_034t3, WC_034t4
+    //            WC_034t5, WC_034t6, WC_034t7, WC_034t8
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomEntourageTask>(),
+                        std::make_shared<SummonStackTask>() }));
+    cards.emplace(
+        "WC_022",
+        CardDef(power,
+                PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                          { PlayReq::REQ_MINION_TARGET, 0 } },
+                ChooseCardIDs{},
+                Entourages{ "WC_034t", "WC_034t2", "WC_034t3", "WC_034t4",
+                            "WC_034t5", "WC_034t6", "WC_034t7", "WC_034t8" }));
 
     // --------------------------------------- MINION - WARLOCK
     // [WC_023] Stealer of Souls - COST:4 [ATK:2/HP:6]

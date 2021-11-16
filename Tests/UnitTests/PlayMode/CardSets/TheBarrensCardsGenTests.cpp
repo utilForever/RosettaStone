@@ -4600,6 +4600,70 @@ TEST_CASE("[Warlock : Minion] - BAR_917 : Barrens Scavenger")
     CHECK_EQ(card1->GetCost(), 1);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [WC_022] Final Gasp - COST:1
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Deal 1 damage to a minion. If it dies,
+//       summon a 2/2 Adventurer with a random bonus effect.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// Entourage: WC_034t,  WC_034t2, WC_034t3, WC_034t4
+//            WC_034t5, WC_034t6, WC_034t7, WC_034t8
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - WC_022 : Final Gasp")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Final Gasp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Final Gasp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Kobold Geomancer"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->IsAdventurer(), true);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [BAR_334] Overlord Saurfang - COST:7 [ATK:5/HP:4]
 // - Set: THE_BARRENS, Rarity: Legendary
