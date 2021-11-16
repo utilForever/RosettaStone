@@ -4062,6 +4062,17 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    // Entourage: WC_034t,  WC_034t2, WC_034t3, WC_034t4
+    //            WC_034t5, WC_034t6, WC_034t7, WC_034t8
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomEntourageTask>());
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>());
+    cards.emplace(
+        "WC_027",
+        CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                Entourages{ "WC_034t", "WC_034t2", "WC_034t3", "WC_034t4",
+                            "WC_034t5", "WC_034t6", "WC_034t7", "WC_034t8" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_028] Meeting Stone - COST:1 [ATK:0/HP:2]
