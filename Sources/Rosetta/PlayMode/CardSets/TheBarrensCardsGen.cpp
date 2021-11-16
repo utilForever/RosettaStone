@@ -4084,6 +4084,16 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<RandomEntourageTask>(),
+                                  std::make_shared<AddStackToTask>(
+                                      EntityType::HAND) };
+    cards.emplace(
+        "WC_028",
+        CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                Entourages{ "WC_034t", "WC_034t2", "WC_034t3", "WC_034t4",
+                            "WC_034t5", "WC_034t6", "WC_034t7", "WC_034t8" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_029] Selfless Sidekick - COST:7 [ATK:6/HP:6]
