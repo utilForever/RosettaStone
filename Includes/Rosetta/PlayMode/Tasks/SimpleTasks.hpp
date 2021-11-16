@@ -105,6 +105,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
 #endif  // ROSETTASTONE_PLAYMODE_SIMPLE_TASKS_HPP
