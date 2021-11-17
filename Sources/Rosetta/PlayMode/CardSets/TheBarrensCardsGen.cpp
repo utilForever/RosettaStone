@@ -507,7 +507,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<CustomTask>(
         []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
-            if (target == nullptr)
+            if (!target)
             {
                 return;
             }
