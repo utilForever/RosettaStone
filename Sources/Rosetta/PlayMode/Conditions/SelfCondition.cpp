@@ -1109,6 +1109,21 @@ SelfCondition SelfCondition::HasSoulFragmentInDeck()
     });
 }
 
+SelfCondition SelfCondition::NotExistInSecretZone()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& secretCard : playable->player->GetSecretZone()->GetAll())
+        {
+            if (playable->card->dbfID == secretCard->card->dbfID)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    });
+}
+
 SelfCondition SelfCondition::CheckThreshold(RelaSign relaSign)
 {
     return SelfCondition([relaSign](Playable* playable) {
