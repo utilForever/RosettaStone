@@ -25,6 +25,7 @@
 * ArmorTask
 * AttackTask
 * CastRandomSpellTask
+* CastSpellStackTask
 * ChanceTask
 * ChangeAttackingTargetTask
 * ChangeEntityTask
@@ -111,4 +112,5 @@
 * TransformCopyTask
 * TransformMinionTask
 * TransformTask
+* WeaponStackTask
 * WeaponTask
