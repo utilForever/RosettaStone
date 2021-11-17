@@ -2002,6 +2002,91 @@ TEST_CASE("[Paladin : Minion] - BAR_873 : Knight of Anointment")
     CHECK_EQ(curHand[4]->card->name, "Holy Light");
 }
 
+// --------------------------------------- WEAPON - PALADIN
+// [BAR_875] Sword of the Fallen - COST:2
+// - Set: THE_BARRENS, Rarity: Rare
+// --------------------------------------------------------
+// Text: After your hero attacks,
+//       cast a <b>Secret</b> from your deck.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Weapon] - BAR_875 : Sword of the Fallen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 7; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Noble Sacrifice");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sword of the Fallen"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 3);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curDeck.GetCount(), 2);
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(curSecret[0]->card->name, "Noble Sacrifice");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 1);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    CHECK_EQ(curSecret.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curSecret.GetCount(), 0);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [BAR_876] Northwatch Commander - COST:3 [ATK:3/HP:4]
 // - Set: THE_BARRENS, Rarity: Rare
@@ -4635,10 +4720,10 @@ TEST_CASE("[Warlock : Spell] - WC_021 : Unstable Shadow Blast")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unstable Shadow Blast"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unstable Shadow Blast"));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Unstable Shadow Blast"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Unstable Shadow Blast"));
     const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
     const auto card4 =

@@ -1249,6 +1249,11 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { ComplexTask::CastSecretFromDeck() };
+    cards.emplace("BAR_875", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_876] Northwatch Commander - COST:3 [ATK:3/HP:4]
