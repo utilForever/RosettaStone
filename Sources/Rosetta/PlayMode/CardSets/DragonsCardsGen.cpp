@@ -852,48 +852,7 @@ void DragonsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
-    power.GetTrigger()->tasks = {
-        std::make_shared<IncludeTask>(EntityType::DECK),
-        std::make_shared<FilterStackTask>(SelfCondList{
-            std::make_shared<SelfCondition>(SelfCondition::IsSecret()) }),
-        std::make_shared<FuncPlayableTask>(
-            [=](const std::vector<Playable*>& playables) {
-                if (playables.empty())
-                {
-                    return std::vector<Playable*>{};
-                }
-
-                auto player = playables[0]->player;
-
-                EraseIf(const_cast<std::vector<Playable*>&>(playables),
-                        [=](Playable* playable) {
-                            return player->GetSecretZone()->Exist(playable);
-                        });
-
-                if (playables.empty())
-                {
-                    return std::vector<Playable*>{};
-                }
-
-                auto pick = *Random::get(playables);
-
-                // Remove it from deck zone
-                player->GetDeckZone()->Remove(pick);
-                if (auto trigger = pick->card->power.GetTrigger(); trigger)
-                {
-                    trigger->Activate(pick);
-                }
-
-                // Add it to secret zone
-                player->GetSecretZone()->Add(pick);
-                if (player == player->game->GetCurrentPlayer())
-                {
-                    pick->SetExhausted(true);
-                }
-
-                return std::vector<Playable*>{};
-            })
-    };
+    power.GetTrigger()->tasks = { ComplexTask::CastSecretFromDeck() };
     cards.emplace("DRG_252", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
