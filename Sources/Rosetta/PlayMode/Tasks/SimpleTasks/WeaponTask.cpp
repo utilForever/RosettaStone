@@ -25,11 +25,6 @@ TaskStatus WeaponTask::Impl(Player* player)
 
     Player* owner = m_isOpponent ? player->opponent : player;
 
-    if (owner->GetHero()->HasWeapon())
-    {
-        owner->GetWeapon().Destroy();
-    }
-
     const auto weapon =
         dynamic_cast<Weapon*>(Entity::GetFromCard(owner, weaponCard));
     Generic::PlayWeapon(owner, weapon, nullptr);

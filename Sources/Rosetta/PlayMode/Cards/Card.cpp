@@ -322,6 +322,23 @@ bool Card::IsWatchPost() const
     return false;
 }
 
+bool Card::IsAdventurer() const
+{
+    if (id == "WC_034t" ||   // WC_034t: Deadly Adventurer
+        id == "WC_034t2" ||  // WC_034t2: Burly Adventurer
+        id == "WC_034t3" ||  // WC_034t3: Devout Adventurer
+        id == "WC_034t4" ||  // WC_034t4: Relentless Adventurer
+        id == "WC_034t5" ||  // WC_034t5: Arcane Adventurer
+        id == "WC_034t6" ||  // WC_034t6: Sneaky Adventurer
+        id == "WC_034t7" ||  // WC_034t7: Vital Adventurer
+        id == "WC_034t8")    // WC_034t8: Swift Adventurer
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool Card::IsTransformMinion() const
 {
     // NOTE: Transformed minions list

@@ -94,6 +94,10 @@ class Card
     //! \return The flag that indicates whether it is Watch Post.
     bool IsWatchPost() const;
 
+    //! Returns the flag that indicates whether it is Adventurer.
+    //! \return the flag that indicates whether it is Adventurer.
+    bool IsAdventurer() const;
+
     //! Returns the flag that indicates whether it is a card with two Choose One
     //! options involving transform or specific summon effects is played while
     //! controlling Ossirian Tear.

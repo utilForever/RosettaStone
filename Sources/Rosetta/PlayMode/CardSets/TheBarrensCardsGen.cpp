@@ -21,6 +21,8 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
@@ -505,7 +507,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(std::make_shared<CustomTask>(
         []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
-            if (target == nullptr)
+            if (!target)
             {
                 return;
             }
@@ -1247,6 +1249,11 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { ComplexTask::CastSecretFromDeck() };
+    cards.emplace("BAR_875", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [BAR_876] Northwatch Commander - COST:3 [ATK:3/HP:4]
@@ -1415,6 +1422,21 @@ void TheBarrensCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon five 2/2 Adventurers with random bonus effects.
     // --------------------------------------------------------
+    // Entourage: WC_034t,  WC_034t2, WC_034t3, WC_034t4
+    //            WC_034t5, WC_034t6, WC_034t7, WC_034t8
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>(5));
+    power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace(
+        "WC_034",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
+                Entourages{ "WC_034t", "WC_034t2", "WC_034t3", "WC_034t4",
+                            "WC_034t5", "WC_034t6", "WC_034t7", "WC_034t8" }));
 }
 
 void TheBarrensCardsGen::AddPaladinNonCollect(
@@ -2644,6 +2666,42 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
+            if (!target)
+            {
+                return;
+            }
+
+            const auto realSource = dynamic_cast<Playable*>(source);
+            const auto realTarget = dynamic_cast<Character*>(target);
+
+            const int targetHealth = realTarget->GetHealth();
+            int realDamage = 6 + source->player->GetCurrentSpellPower();
+
+            Generic::TakeDamageToCharacter(realSource, realTarget, realDamage,
+                                           true);
+
+            if (realTarget->isDestroyed)
+            {
+                const int remainDamage = realDamage - targetHealth;
+                if (remainDamage > 0)
+                {
+                    Generic::TakeDamageToCharacter(realSource,
+                                                   player->GetHero(),
+                                                   remainDamage, false);
+                }
+            }
+        }));
+    cards.emplace(
+        "WC_021",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [WC_022] Final Gasp - COST:1
@@ -2653,6 +2711,30 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to a minion. If it dies,
     //       summon a 2/2 Adventurer with a random bonus effect.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // Entourage: WC_034t,  WC_034t2, WC_034t3, WC_034t4
+    //            WC_034t5, WC_034t6, WC_034t7, WC_034t8
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomEntourageTask>(),
+                        std::make_shared<SummonStackTask>() }));
+    cards.emplace(
+        "WC_022",
+        CardDef(power,
+                PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                          { PlayReq::REQ_MINION_TARGET, 0 } },
+                ChooseCardIDs{},
+                Entourages{ "WC_034t", "WC_034t2", "WC_034t3", "WC_034t4",
+                            "WC_034t5", "WC_034t6", "WC_034t7", "WC_034t8" }));
 
     // --------------------------------------- MINION - WARLOCK
     // [WC_023] Stealer of Souls - COST:4 [ATK:2/HP:6]
@@ -4021,6 +4103,17 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    // Entourage: WC_034t,  WC_034t2, WC_034t3, WC_034t4
+    //            WC_034t5, WC_034t6, WC_034t7, WC_034t8
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomEntourageTask>());
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>());
+    cards.emplace(
+        "WC_027",
+        CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                Entourages{ "WC_034t", "WC_034t2", "WC_034t3", "WC_034t4",
+                            "WC_034t5", "WC_034t6", "WC_034t7", "WC_034t8" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_028] Meeting Stone - COST:1 [ATK:0/HP:2]
@@ -4032,6 +4125,16 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<RandomEntourageTask>(),
+                                  std::make_shared<AddStackToTask>(
+                                      EntityType::HAND) };
+    cards.emplace(
+        "WC_028",
+        CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                Entourages{ "WC_034t", "WC_034t2", "WC_034t3", "WC_034t4",
+                            "WC_034t5", "WC_034t6", "WC_034t7", "WC_034t8" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_029] Selfless Sidekick - COST:7 [ATK:6/HP:6]
@@ -4042,6 +4145,9 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::EquipWeaponFromDeck());
+    cards.emplace("WC_029", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_030] Mutanus the Devourer - COST:7 [ATK:4/HP:4]
@@ -4732,6 +4838,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t2] Burly Adventurer - COST:2 [ATK:2/HP:2]
@@ -4742,6 +4851,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t2", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t3] Devout Adventurer - COST:2 [ATK:2/HP:2]
@@ -4752,6 +4864,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t3", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t4] Relentless Adventurer - COST:2 [ATK:2/HP:2]
@@ -4762,6 +4877,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t4", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t5] Arcane Adventurer - COST:2 [ATK:2/HP:2]
@@ -4772,6 +4890,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t5", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t6] Sneaky Adventurer - COST:2 [ATK:2/HP:2]
@@ -4782,6 +4903,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t6", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t7] Vital Adventurer - COST:2 [ATK:2/HP:2]
@@ -4792,6 +4916,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t7", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [WC_034t8] Swift Adventurer - COST:2 [ATK:2/HP:2]
@@ -4802,6 +4929,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("WC_034t8", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [WC_035e] Dreaming - COST:0

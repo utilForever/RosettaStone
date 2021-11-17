@@ -526,6 +526,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition HasSoulFragmentInDeck();
 
+    //! SelfCondition wrapper for checking the secret doesn't exist
+    //! in secret zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition NotExistInSecretZone();
+
     //! SelfCondition wrapper for checking the threshold value.
     //! \param relaSign The comparer to check condition.
     //! \return Generated SelfCondition for intended purpose.

@@ -828,7 +828,7 @@ THE_BARRENS | BAR_854 | Kindling Elemental | O
 THE_BARRENS | BAR_860 | Firemancer Flurgl | O
 THE_BARRENS | BAR_871 | Soldier's Caravan | O
 THE_BARRENS | BAR_873 | Knight of Anointment | O
-THE_BARRENS | BAR_875 | Sword of the Fallen |  
+THE_BARRENS | BAR_875 | Sword of the Fallen | O
 THE_BARRENS | BAR_876 | Northwatch Commander | O
 THE_BARRENS | BAR_878 | Veteran Warmedic | O
 THE_BARRENS | BAR_879 | Cannonmaster Smythe |  
@@ -861,19 +861,19 @@ THE_BARRENS | WC_015 | Water Moccasin |
 THE_BARRENS | WC_016 | Shroud of Concealment |  
 THE_BARRENS | WC_017 | Savory Deviate Delight |  
 THE_BARRENS | WC_020 | Perpetual Flame |  
-THE_BARRENS | WC_021 | Unstable Shadow Blast |  
-THE_BARRENS | WC_022 | Final Gasp |  
+THE_BARRENS | WC_021 | Unstable Shadow Blast | O
+THE_BARRENS | WC_022 | Final Gasp | O
 THE_BARRENS | WC_023 | Stealer of Souls |  
 THE_BARRENS | WC_024 | Man-at-Arms | O
 THE_BARRENS | WC_025 | Whetstone Hatchet | O
 THE_BARRENS | WC_026 | Kresh, Lord of Turtling | O
-THE_BARRENS | WC_027 | Devouring Ectoplasm |  
-THE_BARRENS | WC_028 | Meeting Stone |  
-THE_BARRENS | WC_029 | Selfless Sidekick |  
+THE_BARRENS | WC_027 | Devouring Ectoplasm | O
+THE_BARRENS | WC_028 | Meeting Stone | O
+THE_BARRENS | WC_029 | Selfless Sidekick | O
 THE_BARRENS | WC_030 | Mutanus the Devourer |  
 THE_BARRENS | WC_032 | Seedcloud Buckler | O
 THE_BARRENS | WC_033 | Judgment of Justice | O
-THE_BARRENS | WC_034 | Party Up! |  
+THE_BARRENS | WC_034 | Party Up! | O
 THE_BARRENS | WC_035 | Archdruid Naralex |  
 THE_BARRENS | WC_036 | Deviate Dreadfang | O
 THE_BARRENS | WC_037 | Venomstrike Bow | O
@@ -885,7 +885,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 75% (129 of 170 Cards)
+- Progress: 80% (136 of 170 Cards)
 
 ## United in Stormwind
 

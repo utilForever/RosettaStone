@@ -18,6 +18,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CastRandomSpellTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CastSpellStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChanceTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeAttackingTargetTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeEntityTask.hpp>
@@ -105,6 +106,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformMinionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/TransformTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/WeaponTask.hpp>
 
 #endif  // ROSETTASTONE_PLAYMODE_SIMPLE_TASKS_HPP
