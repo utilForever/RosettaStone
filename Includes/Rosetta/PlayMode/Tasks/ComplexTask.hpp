@@ -75,6 +75,19 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for casting a secret from your deck.
+    static TaskList CastSecretFromDeck()
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::DECK),
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsSecret()),
+                std::make_shared<SelfCondition>(SelfCondition::NotExistInSecretZone()) }),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::CastSpellStackTask>(true)
+        };
+    }
+
     //! Returns a list of task for equipping a weapon from your deck.
     static TaskList EquipWeaponFromDeck()
     {
