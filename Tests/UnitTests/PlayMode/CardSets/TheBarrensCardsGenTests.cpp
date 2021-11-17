@@ -4601,6 +4601,62 @@ TEST_CASE("[Warlock : Minion] - BAR_917 : Barrens Scavenger")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [WC_021] Unstable Shadow Blast - COST:2
+// - Set: THE_BARRENS, Rarity: Common
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Deal 6 damage to a minion.
+//       Excess damage hits your hero.
+// --------------------------------------------------------
+// GameTag:
+// - ImmuneToSpellpower = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - WC_021 : Unstable Shadow Blast")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unstable Shadow Blast"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unstable Shadow Blast"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card5));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [WC_022] Final Gasp - COST:1
 // - Set: THE_BARRENS, Rarity: Common
 // - Spell School: Shadow
