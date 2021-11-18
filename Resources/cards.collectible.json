@@ -2497,6 +2497,50 @@
         "type": "MINION"
     },
     {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 66875,
+        "elite": true,
+        "flavor": "Inside your deck there are two wolves.\nOne is a frostwolf. The other is a frostwolf.\nYou are a Frostwolf.",
+        "health": 4,
+        "howToEarn": "Obtainable with the release of Fractured in Alterac Valley.",
+        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
+        "id": "AV_100",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Drek'Thar",
+        "rarity": "LEGENDARY",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Battlecry</b>: If this costs\nmore than every minion\nin your deck, summon\n2 of them.",
+        "type": "MINION"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 67239,
+        "elite": true,
+        "flavor": "His favorite modes of transportation? Van, car, board, bike.",
+        "health": 4,
+        "howToEarn": "Obtainable with the release of Fractured in Alterac Valley.",
+        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
+        "id": "AV_223",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Vanndar Stormpike",
+        "rarity": "LEGENDARY",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Battlecry</b>: If this costs\nless than every minion\nin your deck, reduce\ntheir Cost by (3).",
+        "type": "MINION"
+    },
+    {
         "artist": "Mauricio Herrera",
         "attack": 5,
         "cardClass": "NEUTRAL",
@@ -3977,7 +4021,7 @@
         "cost": 2,
         "dbfId": 63033,
         "flavor": "Where there's a quill, there's a way.",
-        "health": 3,
+        "health": 2,
         "id": "BAR_537",
         "mechanics": [
             "AURA"
@@ -9806,7 +9850,7 @@
         "artist": "Konstantin Turovec",
         "cardClass": "PRIEST",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 56595,
         "flavor": "I am rejuvenated, I am renewed, I am my own nightlight!",
         "id": "BT_252",
@@ -23557,6 +23601,7 @@
         "flavor": "“Wow, there’s a whole sunken city down here!”",
         "health": 1,
         "id": "DED_001",
+        "isMiniSet": true,
         "mechanics": [
             "CHOOSE_ONE"
         ],
@@ -23578,6 +23623,7 @@
         "dbfId": 65583,
         "flavor": "Guff always makes the best decisions after 2 AM.",
         "id": "DED_002",
+        "isMiniSet": true,
         "mechanics": [
             "DISCOVER"
         ],
@@ -23598,6 +23644,7 @@
         "flavor": "<b>Choose Two –</b> Good; Cheap; or Fast.",
         "health": 1,
         "id": "DED_003",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -23618,6 +23665,7 @@
         "durability": 2,
         "flavor": "Popular around Stormwind for slashing prices.",
         "id": "DED_004",
+        "isMiniSet": true,
         "mechanics": [
             "TRADEABLE"
         ],
@@ -23635,6 +23683,7 @@
         "dbfId": 65598,
         "flavor": "Time to engage in some unfriendly negotiations.",
         "id": "DED_005",
+        "isMiniSet": true,
         "name": "Parrrley",
         "rarity": "RARE",
         "set": "STORMWIND",
@@ -23652,6 +23701,7 @@
         "flavor": "“Please, Mr. Smite was my father. Call me Yorik.”",
         "health": 5,
         "id": "DED_006",
+        "isMiniSet": true,
         "mechanics": [
             "AURA"
         ],
@@ -23675,6 +23725,7 @@
         "flavor": "She's a dynamite fishing trainer.",
         "health": 2,
         "id": "DED_007",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -23695,6 +23746,7 @@
         "flavor": "What kind of crackers are you feeding that thing?",
         "health": 4,
         "id": "DED_008",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -23716,6 +23768,7 @@
         "dbfId": 65603,
         "flavor": "Reserved for Edwin’s favorite lapdogs.",
         "id": "DED_009",
+        "isMiniSet": true,
         "mechanics": [
             "TRADEABLE"
         ],
@@ -23738,6 +23791,7 @@
         "flavor": "WOULD YE LIKE CASH BACK?\n[  ] YAR HAR        [  ] YO HO",
         "health": 8,
         "id": "DED_500",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY",
             "TAUNT"
@@ -23759,6 +23813,7 @@
         "flavor": "Most parrots repeat curses, not blessings.",
         "health": 4,
         "id": "DED_501",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -23777,6 +23832,7 @@
         "dbfId": 65591,
         "flavor": "Paladins... Always stealing someone else’s thunder. And stats.",
         "id": "DED_502",
+        "isMiniSet": true,
         "name": "Righteous Defense",
         "rarity": "RARE",
         "set": "STORMWIND",
@@ -23794,6 +23850,7 @@
         "flavor": "Throwing knives isn’t easy for a warlock. It’s quite painful, in fact.",
         "health": 1,
         "id": "DED_503",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -23813,6 +23870,7 @@
         "dbfId": 65605,
         "flavor": "All horns on deck!",
         "id": "DED_504",
+        "isMiniSet": true,
         "mechanics": [
             "TRADEABLE"
         ],
@@ -23832,6 +23890,7 @@
         "flavor": "Breaks through the hard shell to reach the ship's gooey interior.",
         "health": 3,
         "id": "DED_505",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY",
             "DEATHRATTLE"
@@ -23851,6 +23910,7 @@
         "dbfId": 65608,
         "flavor": "Sorry guys, I TOTALLY meant to click greed.",
         "id": "DED_506",
+        "isMiniSet": true,
         "mechanics": [
             "TRADEABLE"
         ],
@@ -23870,6 +23930,7 @@
         "flavor": "The extra eyes means he sees extra good.",
         "health": 2,
         "id": "DED_507",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -23888,6 +23949,7 @@
         "dbfId": 65610,
         "flavor": "1v1 me on Proving Grounds, DH only, no items, 4 stocks.",
         "id": "DED_508",
+        "isMiniSet": true,
         "name": "Proving Grounds",
         "rarity": "RARE",
         "set": "STORMWIND",
@@ -23904,6 +23966,7 @@
         "flavor": "He's been repeating the same shanty for a month. Four pirates walked the plank last week. Middle of the ocean, just walked right off.",
         "health": 3,
         "id": "DED_509",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -23925,6 +23988,7 @@
         "flavor": "He’s not going to tear down the walls of Stormwind sitting around in the Hall of Fame.",
         "health": 4,
         "id": "DED_510",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -23945,6 +24009,7 @@
         "flavor": "A moderately better dining companion than Suckerbeard.",
         "health": 6,
         "id": "DED_511",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -23963,6 +24028,7 @@
         "dbfId": 65676,
         "flavor": "Didn't seem to work out too well for this guy.",
         "id": "DED_512",
+        "isMiniSet": true,
         "mechanics": [
             "TRADEABLE"
         ],
@@ -23986,6 +24052,7 @@
         "flavor": "Do NOT eat Cookie’s Seafood Surprise.",
         "health": 2,
         "id": "DED_513",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -24007,6 +24074,7 @@
         "flavor": "Whatever you do, DON’T let two of them meet.",
         "health": 4,
         "id": "DED_514",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -24027,6 +24095,7 @@
         "flavor": "Nothing is more terrifying than a parrot squawking \"Pyroblast!\"",
         "health": 6,
         "id": "DED_515",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -24047,6 +24116,7 @@
         "flavor": "\"Cap'n! We've hit an iceberg! ...No, it’s not my fault!\"",
         "health": 4,
         "id": "DED_516",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -24065,6 +24135,7 @@
         "dbfId": 65684,
         "flavor": "On this ship, when you can’t use an int, learn how to float.",
         "id": "DED_517",
+        "isMiniSet": true,
         "mechanics": [
             "ImmuneToSpellpower"
         ],
@@ -24083,6 +24154,7 @@
         "dbfId": 65691,
         "flavor": "Now THAT’S a lotta splash damage!",
         "id": "DED_518",
+        "isMiniSet": true,
         "name": "Man the Cannons",
         "rarity": "COMMON",
         "set": "STORMWIND",
@@ -24099,6 +24171,7 @@
         "flavor": "\"... three.\"",
         "health": 3,
         "id": "DED_519",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -24119,6 +24192,7 @@
         "flavor": "Talk about a name that limits design space.",
         "health": 8,
         "id": "DED_521",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -24139,6 +24213,7 @@
         "flavor": "Unsurprisingly, \"Seafood Surprise\" was no one's favorite dish.",
         "health": 3,
         "id": "DED_522",
+        "isMiniSet": true,
         "mechanics": [
             "DEATHRATTLE",
             "LIFESTEAL"
@@ -24160,6 +24235,7 @@
         "flavor": "We lost our last cook to one of these.",
         "health": 3,
         "id": "DED_523",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -24181,6 +24257,7 @@
         "flavor": "Has a questionable talent tree.",
         "health": 4,
         "id": "DED_524",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -24202,6 +24279,7 @@
         "flavor": "“Listen, this baby has blades, rockets, and rocket blades. Only thing it doesn’t have is good gas mileage.”",
         "health": 8,
         "id": "DED_525",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -24223,6 +24301,7 @@
         "durability": 1,
         "flavor": "Passed through the hands of countless smiths, and eventually the skulls of their enemies.",
         "id": "DED_527",
+        "isMiniSet": true,
         "mechanics": [
             "TRADEABLE"
         ],
@@ -30609,7 +30688,7 @@
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
@@ -40296,6 +40375,28 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 78174,
+        "health": 30,
+        "id": "HERO_01o",
+        "name": "Vanndar Stormpike",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 77317,
+        "health": 30,
+        "id": "HERO_01p",
+        "name": "Forge-wrought Garrosh",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 1066,
@@ -40450,6 +40551,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 77321,
+        "health": 30,
+        "id": "HERO_02o",
+        "name": "Mechaconduit Thrall",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 930,
@@ -40577,6 +40689,17 @@
         "health": 30,
         "id": "HERO_03m",
         "name": "Edwin VanCleef",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 77316,
+        "health": 30,
+        "id": "HERO_03n",
+        "name": "Titanblade Valeera",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -40725,6 +40848,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 77319,
+        "health": 30,
+        "id": "HERO_04n",
+        "name": "Star Ascendant Uther",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 31,
@@ -40830,6 +40964,17 @@
         "health": 30,
         "id": "HERO_05o",
         "name": "Robin Hood Rexxar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 77315,
+        "health": 30,
+        "id": "HERO_05p",
+        "name": "Iron Hunter Rexxar",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -41001,6 +41146,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 78180,
+        "health": 30,
+        "id": "HERO_06p",
+        "name": "Steel Guardian Malfurion",
+        "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -41144,6 +41300,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 77314,
+        "health": 30,
+        "id": "HERO_07n",
+        "name": "Fel Colossus Gul'dan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 637,
@@ -41183,6 +41350,17 @@
         "health": 30,
         "id": "HERO_08c",
         "name": "Fire Mage Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 60157,
+        "health": 30,
+        "id": "HERO_08d",
+        "name": "Celeste",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -41282,6 +41460,17 @@
         "health": 30,
         "id": "HERO_08n",
         "name": "Red Riding Hood Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 77318,
+        "health": 30,
+        "id": "HERO_08o",
+        "name": "Arcane Sentinel Jaina",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -41419,6 +41608,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 77320,
+        "health": 30,
+        "id": "HERO_09n",
+        "name": "Holy Leviathan Anduin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
@@ -41525,6 +41725,17 @@
         "health": 30,
         "id": "HERO_10k",
         "name": "Ember Court Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 78177,
+        "health": 30,
+        "id": "HERO_10l",
+        "name": "Infernal Armor Illidan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -56222,7 +56433,7 @@
         "name": "Garrote",
         "rarity": "EPIC",
         "set": "STORMWIND",
-        "text": "[x]Deal $2 damage to the\nenemy hero. Shuffle 3\nBleeds into your deck that\ndeal $2 more when drawn.",
+        "text": "[x]Deal $2 damage to the\nenemy hero. Shuffle 2\nBleeds into your deck that\ndeal $2 more when drawn.",
         "type": "SPELL"
     },
     {
@@ -64251,10 +64462,15 @@
         "flavor": "Millennia of evolutionary pressures turned his species into the Faerie Dragons we know today.",
         "health": 12,
         "id": "UNG_852",
+        "mechanics": [
+            "CANT_BE_TARGETED_BY_SPELLS",
+            "CANT_BE_TARGETED_BY_HERO_POWERS"
+        ],
         "name": "Tyrantus",
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "UNGORO",
+        "text": "Can't be targeted by spells or Hero Powers.",
         "type": "MINION"
     },
     {
@@ -67932,7 +68148,7 @@
         "rarity": "LEGENDARY",
         "set": "VANILLA",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
@@ -71937,6 +72153,7 @@
         "dbfId": 63264,
         "flavor": "Look, summoning ain’t exactly a science. Sometimes it takes a turn.",
         "id": "WC_003",
+        "isMiniSet": true,
         "name": "Sigil of Summoning",
         "rarity": "RARE",
         "referencedTags": [
@@ -71957,6 +72174,7 @@
         "flavor": "Bound by the law of the fang, these druid floss their teeth twice a day.",
         "health": 3,
         "id": "WC_004",
+        "isMiniSet": true,
         "mechanics": [
             "DEATHRATTLE",
             "TAUNT"
@@ -71977,6 +72195,7 @@
         "flavor": "They wanted a Mature Dungeoneer. Instead they got this.",
         "health": 3,
         "id": "WC_005",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -71997,6 +72216,7 @@
         "flavor": "Do you think she got her name before or after she turned into a snake?",
         "health": 7,
         "id": "WC_006",
+        "isMiniSet": true,
         "mechanics": [
             "AURA"
         ],
@@ -72014,6 +72234,7 @@
         "dbfId": 63334,
         "flavor": "\"Awww, it's so cute!\" —Famous last words",
         "id": "WC_007",
+        "isMiniSet": true,
         "name": "Serpentbloom",
         "rarity": "COMMON",
         "referencedTags": [
@@ -72033,6 +72254,7 @@
         "flavor": "Loves candles. Hates deodorant.",
         "health": 6,
         "id": "WC_008",
+        "isMiniSet": true,
         "mechanics": [
             "FRENZY"
         ],
@@ -72055,6 +72277,7 @@
         "flavor": "\"Please do smaller pulls, this is my first time healing.\"",
         "health": 3,
         "id": "WC_013",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -72072,6 +72295,7 @@
         "dbfId": 63347,
         "flavor": "Time to EVEN out the playing field.",
         "id": "WC_014",
+        "isMiniSet": true,
         "name": "Against All Odds",
         "rarity": "EPIC",
         "set": "THE_BARRENS",
@@ -72089,6 +72313,7 @@
         "flavor": "You need to be specific when you're ordering waterproof shoewear.",
         "health": 5,
         "id": "WC_015",
+        "isMiniSet": true,
         "mechanics": [
             "STEALTH"
         ],
@@ -72110,6 +72335,7 @@
         "dbfId": 63358,
         "flavor": "This page left intentionally blank.",
         "id": "WC_016",
+        "isMiniSet": true,
         "name": "Shroud of Concealment",
         "rarity": "RARE",
         "referencedTags": [
@@ -72128,6 +72354,7 @@
         "dbfId": 63359,
         "flavor": "\"Savory\" is a creative way to put it.",
         "id": "WC_017",
+        "isMiniSet": true,
         "name": "Savory Deviate Delight",
         "rarity": "RARE",
         "referencedTags": [
@@ -72145,6 +72372,7 @@
         "dbfId": 63098,
         "flavor": "Flame is perpetual.*\n *<i>Perpetual only applies to current turn.</i>",
         "id": "WC_020",
+        "isMiniSet": true,
         "mechanics": [
             "OVERLOAD"
         ],
@@ -72164,6 +72392,7 @@
         "dbfId": 63368,
         "flavor": "\"Unstable\" usually means \"awesome!\"",
         "id": "WC_021",
+        "isMiniSet": true,
         "mechanics": [
             "ImmuneToSpellpower"
         ],
@@ -72182,6 +72411,7 @@
         "dbfId": 63369,
         "flavor": "And with a raspy whisper, he uttered his final words, \"rez plz.\"",
         "id": "WC_022",
+        "isMiniSet": true,
         "name": "Final Gasp",
         "rarity": "COMMON",
         "set": "THE_BARRENS",
@@ -72199,6 +72429,7 @@
         "flavor": "The tooth fairy gig didn't work out.",
         "health": 6,
         "id": "WC_023",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -72219,6 +72450,7 @@
         "flavor": "Arch nemesis of the Man-at-Legs.",
         "health": 3,
         "id": "WC_024",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -72238,6 +72470,7 @@
         "durability": 4,
         "flavor": "A bad hatchet can make a good spear better.",
         "id": "WC_025",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -72258,6 +72491,7 @@
         "flavor": "Never should have flushed him.",
         "health": 9,
         "id": "WC_026",
+        "isMiniSet": true,
         "mechanics": [
             "DEATHRATTLE",
             "FRENZY"
@@ -72279,6 +72513,7 @@
         "flavor": "When it's on keto, it only devours tauren.",
         "health": 2,
         "id": "WC_027",
+        "isMiniSet": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -72298,6 +72533,7 @@
         "flavor": "\"I'm clicking on it, but nothing's happening.\"",
         "health": 2,
         "id": "WC_028",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -72317,6 +72553,7 @@
         "flavor": "\"I got a real sense of humility from her when she bashed that quilboar's head in.\"",
         "health": 6,
         "id": "WC_029",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -72337,6 +72574,7 @@
         "flavor": "As long as Naralex stays under the blanket, Mutanus can't get him.",
         "health": 4,
         "id": "WC_030",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -72357,6 +72595,7 @@
         "durability": 3,
         "flavor": "A shield to some, a frisbee to others (mainly dogs).",
         "id": "WC_032",
+        "isMiniSet": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -72377,6 +72616,7 @@
         "dbfId": 62921,
         "flavor": "Look, we don't need a jury. We've got a paladin right here!",
         "id": "WC_033",
+        "isMiniSet": true,
         "mechanics": [
             "SECRET"
         ],
@@ -72395,6 +72635,7 @@
         "dbfId": 63102,
         "flavor": "Random? But what if we don't get a tank?",
         "id": "WC_034",
+        "isMiniSet": true,
         "name": "Party Up!",
         "rarity": "RARE",
         "set": "THE_BARRENS",
@@ -72412,6 +72653,7 @@
         "flavor": "\"Dormant? I think you mean naptime.\"",
         "health": 3,
         "id": "WC_035",
+        "isMiniSet": true,
         "name": "Archdruid Naralex",
         "rarity": "LEGENDARY",
         "set": "THE_BARRENS",
@@ -72428,6 +72670,7 @@
         "flavor": "Even with wings, snakes STILL don't have legs.",
         "health": 9,
         "id": "WC_036",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -72451,6 +72694,7 @@
         "durability": 2,
         "flavor": "\"You know you only have to coat the arrowhead in poison and not the entire bow, right?\"",
         "id": "WC_037",
+        "isMiniSet": true,
         "mechanics": [
             "POISONOUS"
         ],
@@ -72470,6 +72714,7 @@
         "flavor": "Oh boo hoo, did someone's World Tree burn down?",
         "health": 8,
         "id": "WC_040",
+        "isMiniSet": true,
         "mechanics": [
             "AURA",
             "TAUNT"
@@ -72489,6 +72734,7 @@
         "dbfId": 63515,
         "flavor": "Let's be honest, they weren't going to unfreeze anyway.",
         "id": "WC_041",
+        "isMiniSet": true,
         "name": "Shattering Blast",
         "rarity": "RARE",
         "set": "THE_BARRENS",
@@ -72506,6 +72752,7 @@
         "flavor": "If you have The Vapors, your Humors might be imbalanced.",
         "health": 3,
         "id": "WC_042",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -72526,6 +72773,7 @@
         "flavor": "It only rattles when YOU'RE in danger.",
         "health": 2,
         "id": "WC_701",
+        "isMiniSet": true,
         "mechanics": [
             "DEATHRATTLE",
             "RUSH"
@@ -72547,6 +72795,7 @@
         "flavor": "When it's her turn to cook, she'll always go for a Light sear.",
         "health": 2,
         "id": "WC_803",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY",
             "DISCOVER"
@@ -72567,6 +72816,7 @@
         "flavor": "It's a woven blanket of ice but surprisingly comforting.",
         "health": 3,
         "id": "WC_805",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -72589,6 +72839,7 @@
         "flavor": "His real name is Melvin, but he prefers his friends call him ... <sigh> ...\"Floecaster.\"",
         "health": 5,
         "id": "WC_806",
+        "isMiniSet": true,
         "name": "Floecaster",
         "rarity": "COMMON",
         "set": "THE_BARRENS",
@@ -73308,6 +73559,7 @@
         "dbfId": 61939,
         "flavor": "\"Don't read texts and drive.\"",
         "id": "YOP_001",
+        "isMiniSet": true,
         "mechanics": [
             "DISCOVER"
         ],
@@ -73330,6 +73582,7 @@
         "flavor": "Some drivers rev their engines. This one growls all on its own.",
         "health": 6,
         "id": "YOP_002",
+        "isMiniSet": true,
         "name": "Felsaber",
         "race": "DEMON",
         "rarity": "COMMON",
@@ -73351,6 +73604,7 @@
         "flavor": "Always brings his own reusable shopping bag, satchel, barrel, trunk, tray, and fluffy pillow.",
         "health": 4,
         "id": "YOP_003",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY",
             "CORRUPT"
@@ -73373,6 +73627,7 @@
         "flavor": "\"Time to roll. Rusted Legion, ho!\"",
         "health": 4,
         "id": "YOP_004",
+        "isMiniSet": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -73395,6 +73650,7 @@
         "dbfId": 61943,
         "flavor": "The Alliance and Horde join forces to enforce the fire safety capacity.",
         "id": "YOP_005",
+        "isMiniSet": true,
         "multiClassGroup": "PALADIN_WARRIOR",
         "name": "Barricade",
         "rarity": "COMMON",
@@ -73417,6 +73673,7 @@
         "dbfId": 61944,
         "flavor": "\"My mount and I share a special connection. Just not a good one.\"",
         "id": "YOP_006",
+        "isMiniSet": true,
         "multiClassGroup": "PRIEST_WARLOCK",
         "name": "Hysteria",
         "rarity": "RARE",
@@ -73436,6 +73693,7 @@
         "flavor": "Fear is the mind-killer, and also the name of my wurm.",
         "health": 5,
         "id": "YOP_007",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -73458,6 +73716,7 @@
         "flavor": "All the steed, half the calories.",
         "health": 6,
         "id": "YOP_008",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -73480,6 +73739,7 @@
         "dbfId": 61947,
         "flavor": "One for the squire, two for the gnome, three for the glory, and GO, GO, GO!",
         "id": "YOP_009",
+        "isMiniSet": true,
         "multiClassGroup": "PALADIN_PRIEST",
         "name": "Rally!",
         "rarity": "RARE",
@@ -73498,6 +73758,7 @@
         "flavor": "\"Look at your deck, now back to me, now back at your deck, now back to me. Who am I? None of your—I'm on a horse.\"",
         "health": 5,
         "id": "YOP_010",
+        "isMiniSet": true,
         "mechanics": [
             "SPELLBURST"
         ],
@@ -73520,6 +73781,7 @@
         "durability": 3,
         "flavor": "You really can't judge a book by its cover.",
         "id": "YOP_011",
+        "isMiniSet": true,
         "mechanics": [
             "CORRUPT"
         ],
@@ -73542,6 +73804,7 @@
         "flavor": "Ride or die takes on a new meaning.",
         "health": 5,
         "id": "YOP_012",
+        "isMiniSet": true,
         "mechanics": [
             "AURA"
         ],
@@ -73564,6 +73827,7 @@
         "durability": 2,
         "flavor": "Great for driving, terrible for steering.",
         "id": "YOP_013",
+        "isMiniSet": true,
         "name": "Spiked Wheel",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
@@ -73580,6 +73844,7 @@
         "flavor": "With one inch of clearance, Ironclad proved ineffective against speedbumps.",
         "health": 4,
         "id": "YOP_014",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -73602,6 +73867,7 @@
         "dbfId": 61953,
         "flavor": "Pouring iced milk into your vehicle's fuel tank does NOT provide a Nitro boost, but it does go great with your victory cookies.",
         "id": "YOP_015",
+        "isMiniSet": true,
         "mechanics": [
             "CORRUPT"
         ],
@@ -73623,6 +73889,7 @@
         "flavor": "\"These do NOT spark joy!\"",
         "health": 3,
         "id": "YOP_016",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -73643,6 +73910,7 @@
         "dbfId": 61955,
         "flavor": "It's not personal, it's just monkey business.",
         "id": "YOP_017",
+        "isMiniSet": true,
         "mechanics": [
             "SECRET"
         ],
@@ -73667,6 +73935,7 @@
         "flavor": "She learned exactly one thing from her old man: copying.",
         "health": 5,
         "id": "YOP_018",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY",
             "DISCOVER",
@@ -73687,6 +73956,7 @@
         "dbfId": 61957,
         "flavor": "So THIS is why she was AFK.",
         "id": "YOP_019",
+        "isMiniSet": true,
         "name": "Conjure Mana Biscuit",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
@@ -73704,6 +73974,7 @@
         "flavor": "It’s just not the same without a super suit.",
         "health": 3,
         "id": "YOP_020",
+        "isMiniSet": true,
         "mechanics": [
             "SPELLBURST"
         ],
@@ -73727,6 +73998,7 @@
         "flavor": "It's actually pretty easy to escape chains when you can burst into flames.",
         "health": 3,
         "id": "YOP_021",
+        "isMiniSet": true,
         "mechanics": [
             "SPELLPOWER"
         ],
@@ -73749,6 +74021,7 @@
         "flavor": "\"Get IT off me!!!\"",
         "health": 4,
         "id": "YOP_022",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY",
             "OVERLOAD"
@@ -73769,6 +74042,7 @@
         "dbfId": 61961,
         "flavor": "\"And they win it by a landslide! Wait, where did all the other racers go?\"",
         "id": "YOP_023",
+        "isMiniSet": true,
         "name": "Landslide",
         "rarity": "RARE",
         "referencedTags": [
@@ -73791,6 +74065,7 @@
         "dbfId": 61962,
         "flavor": "Plainsrunning will result in disqualification.",
         "id": "YOP_024",
+        "isMiniSet": true,
         "mechanics": [
             "OVERLOAD"
         ],
@@ -73812,6 +74087,7 @@
         "flavor": "Some dragons dream of conquering Azeroth, some just dream of being 5/6s.",
         "health": 4,
         "id": "YOP_025",
+        "isMiniSet": true,
         "mechanics": [
             "CORRUPT",
             "TAUNT"
@@ -73831,6 +74107,7 @@
         "dbfId": 61964,
         "flavor": "If you can’t outrun a tree, you really shouldn’t be here anyway.",
         "id": "YOP_026",
+        "isMiniSet": true,
         "name": "Arbor Up",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
@@ -73846,6 +74123,7 @@
         "dbfId": 61965,
         "flavor": "On second thought, bolas aren't very good against flying worms.",
         "id": "YOP_027",
+        "isMiniSet": true,
         "name": "Bola Shot",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
@@ -73862,6 +74140,7 @@
         "flavor": "Seat covers. Check.\nRacing stripes. Check.\nCupholder. Check.",
         "health": 4,
         "id": "YOP_028",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -73882,6 +74161,7 @@
         "dbfId": 61967,
         "flavor": "Just don't put a Resizing Pouch inside the Resizing Pouch.",
         "id": "YOP_029",
+        "isMiniSet": true,
         "mechanics": [
             "DISCOVER"
         ],
@@ -73906,6 +74186,7 @@
         "flavor": "She only shoots people who pet her cat without asking first.",
         "health": 3,
         "id": "YOP_030",
+        "isMiniSet": true,
         "mechanics": [
             "AURA"
         ],
@@ -73926,6 +74207,7 @@
         "flavor": "\"Now I'm falling asleep and she's calling a crab…\"",
         "health": 4,
         "id": "YOP_031",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY",
             "RUSH"
@@ -73950,6 +74232,7 @@
         "flavor": "\"You look like the kind of person that would buy three sets of armor. One to wear, a spare, and a spare for the spare.\"",
         "health": 3,
         "id": "YOP_032",
+        "isMiniSet": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -73967,6 +74250,7 @@
         "dbfId": 61971,
         "flavor": "\"That's the last time I let an imp spit gasoline into my car.\"",
         "id": "YOP_033",
+        "isMiniSet": true,
         "name": "Backfire",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
@@ -73984,6 +74268,7 @@
         "flavor": "It has been 5 minutes since our last Azeroth Racing League violation.",
         "health": 9,
         "id": "YOP_034",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -74005,6 +74290,7 @@
         "flavor": "Moonforehead just didn't have the same ring to it.",
         "health": 3,
         "id": "YOP_035",
+        "isMiniSet": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
