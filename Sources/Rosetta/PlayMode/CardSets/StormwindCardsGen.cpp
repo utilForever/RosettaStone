@@ -898,7 +898,7 @@ void StormwindCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // - Set: STORMWIND
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> For the rest of the game,
-    //       you have <b>Spell Damage +3</b>.
+    //       you have <b>Spell Damage +2</b>.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -1459,7 +1459,7 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Set: STORMWIND, Rarity: Epic
     // --------------------------------------------------------
     // Text: Deal 2 damage to the enemy hero.
-    //       Shuffle 3 Bleeds into your deck that
+    //       Shuffle 2 Bleeds into your deck that
     //       deal 2 more when drawn.
     // --------------------------------------------------------
 

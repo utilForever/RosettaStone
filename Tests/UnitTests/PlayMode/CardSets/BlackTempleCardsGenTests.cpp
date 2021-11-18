@@ -1198,7 +1198,7 @@ TEST_CASE("[Paladin : Spell] - BT_024 : Libram of Hope")
 }
 
 // ----------------------------------------- SPELL - PRIEST
-// [BT_252] Renew - COST:2
+// [BT_252] Renew - COST:1
 // - Set: BLACK_TEMPLE, Rarity: Common
 // - Spell School: Holy
 // --------------------------------------------------------
