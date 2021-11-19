@@ -107,7 +107,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 70;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 71;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -140,7 +140,7 @@ constexpr int NUM_TIER2_MINIONS = 25;
 constexpr int NUM_TIER3_MINIONS = 29;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 28;
+constexpr int NUM_TIER4_MINIONS = 29;
 
 //! The number of tier 5 minions in Battlegrounds.
 constexpr int NUM_TIER5_MINIONS = 25;

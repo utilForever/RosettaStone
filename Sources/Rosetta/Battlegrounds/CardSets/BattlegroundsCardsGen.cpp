@@ -234,7 +234,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
     cards.emplace("BGS_055", CardDef{ power });
 
     // --------------------------------- MINION - BATTLEGROUNDS
-    // [BGS_061] Scallywag - TIER:1 [ATK:2/HP:1]
+    // [BGS_061] Scallywag - TIER:1 [ATK:3/HP:1]
     // - Race: Pirate, Set: Battlegrounds
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon a 1/1 Pirate.

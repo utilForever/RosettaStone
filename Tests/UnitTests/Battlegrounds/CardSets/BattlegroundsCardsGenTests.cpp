@@ -645,7 +645,7 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_055 : Deck Swabbie")
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
-// [BGS_061] Scallywag - TIER:1 [ATK:2/HP:1]
+// [BGS_061] Scallywag - TIER:1 [ATK:3/HP:1]
 // - Race: Pirate, Set: Battlegrounds
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 1/1 Pirate.
@@ -695,8 +695,7 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_061 : Scallywag")
     battle.Attack();
 
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
-    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
-    CHECK_EQ(battle.GetPlayer2Field()[0].GetHealth(), 1);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 0);
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
