@@ -16,5 +16,5 @@ TEST_CASE("[Cards] - GetAllCards")
     const auto cards = Cards::GetInstance().GetAllCards();
 
     CHECK_FALSE(cards.empty());
-    CHECK_EQ(static_cast<int>(cards.size()), NUM_ALL_CARDS);
+    CHECK_EQ(static_cast<int>(cards.size()), NUM_BATTLEGROUNDS_CARDS);
 }

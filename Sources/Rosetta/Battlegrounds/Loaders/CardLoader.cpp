@@ -10,7 +10,7 @@
 
 namespace RosettaStone::Battlegrounds
 {
-void CardLoader::Load(std::array<Card, NUM_ALL_CARDS>& cards)
+void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");

@@ -40,7 +40,7 @@ class Cards
 
     //! Returns a list of all cards.
     //! \return A list of all cards.
-    static const std::array<Card, NUM_ALL_CARDS>& GetAllCards();
+    static const std::array<Card, NUM_BATTLEGROUNDS_CARDS>& GetAllCards();
 
     //! Returns a card that matches \p id.
     //! \param id The ID of the card.
@@ -89,7 +89,7 @@ class Cards
     //! Constructor: Loads card data.
     Cards();
 
-    static std::array<Card, NUM_ALL_CARDS> m_cards;
+    static std::array<Card, NUM_BATTLEGROUNDS_CARDS> m_cards;
     static std::array<Card, NUM_BATTLEGROUNDS_HEROES> m_curHeroes;
     static std::array<Card, NUM_TIER1_MINIONS> m_tier1Minions;
     static std::array<Card, NUM_TIER2_MINIONS> m_tier2Minions;
