@@ -68,8 +68,8 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
     CardSet::VANILLA,  // Classic, 2021
 };
 
-//! The number of all cards.
-constexpr int NUM_ALL_CARDS = 17756;
+//! The number of Play mode cards.
+constexpr int NUM_PLAY_MODE_CARDS = 13141;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
