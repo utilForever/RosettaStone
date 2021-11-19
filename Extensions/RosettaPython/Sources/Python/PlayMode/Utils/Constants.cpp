@@ -18,7 +18,7 @@ void AddConstants(pybind11::module& m)
 
     m.attr("INVALID_CARD_ID") = pybind11::str(INVALID_CARD_ID);
 
-    m.attr("NUM_ALL_CARDS") = pybind11::int_(NUM_ALL_CARDS);
+    m.attr("NUM_PLAY_MODE_CARDS") = pybind11::int_(NUM_PLAY_MODE_CARDS);
     m.attr("NUM_PLAYER_CLASS") = pybind11::int_(NUM_PLAYER_CLASS);
     m.attr("START_DECK_SIZE") = pybind11::int_(START_DECK_SIZE);
     m.attr("MAX_DECK_SIZE") = pybind11::int_(MAX_DECK_SIZE);
