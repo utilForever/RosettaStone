@@ -23,8 +23,8 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
 
     Minion minion1(Cards::FindCardByDbfID(49169));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
     player1.recruitField.Add(minion1);
     player1.currentTier = 4;
 
@@ -51,8 +51,8 @@ TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
     Minion minion1(Cards::FindCardByDbfID(42467));
     Minion minion2(Cards::FindCardByDbfID(60628));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
     player1.recruitField.Add(minion1);
     player2.recruitField.Add(minion2);
     player2.currentTier = 3;
@@ -83,8 +83,8 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
     Minion minion1(Cards::FindCardByDbfID(49169));
     Minion minion2(Cards::FindCardByDbfID(49169));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
     player1.recruitField.Add(minion1);
     player2.recruitField.Add(minion2);
 
@@ -114,8 +114,8 @@ TEST_CASE("[Battle] - Next Attacker")
     Minion minion4(Cards::FindCardByDbfID(1915));
     Minion minion5(Cards::FindCardByDbfID(1915));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
     player1.recruitField.Add(minion1);
     player1.recruitField.Add(minion2);
     player1.recruitField.Add(minion3);
