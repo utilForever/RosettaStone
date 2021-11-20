@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/CardSets/AlteracValleyCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
@@ -38,6 +39,7 @@ std::map<std::string, CardDef> CardDefs::m_data;
 
 CardDefs::CardDefs()
 {
+    AlteracValleyCardsGen::AddAll(m_data);
     VanillaCardsGen::AddAll(m_data);
     CoreCardsGen::AddAll(m_data);
     LegacyCardsGen::AddAll(m_data);
