@@ -178,11 +178,11 @@ TEST_CASE("[Battlegrounds : Minion] - LOOT_013 : Vulgar Homunculus")
 
     game.SetPlayerPair(0, 1);
 
-    CHECK_EQ(player1.hero.health, 40);
+    CHECK_EQ(player1.hero.health, 55);
 
     player1.hand.Add(minion1);
     player1.PlayCard(0, 0);
-    CHECK_EQ(player1.hero.health, 38);
+    CHECK_EQ(player1.hero.health, 53);
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
@@ -211,17 +211,17 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_004 : Wrath Weaver")
 
     game.SetPlayerPair(0, 1);
 
-    CHECK_EQ(player1.hero.health, 40);
+    CHECK_EQ(player1.hero.health, 55);
 
     player1.hand.Add(minion1);
     player1.PlayCard(0, 0);
-    CHECK_EQ(player1.hero.health, 40);
+    CHECK_EQ(player1.hero.health, 55);
     CHECK_EQ(player1.recruitField[0].GetAttack(), 1);
     CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
 
     player1.hand.Add(minion2);
     player1.PlayCard(0, 1);
-    CHECK_EQ(player1.hero.health, 37);
+    CHECK_EQ(player1.hero.health, 52);
     CHECK_EQ(player1.recruitField[0].GetAttack(), 3);
     CHECK_EQ(player1.recruitField[0].GetHealth(), 5);
 }
