@@ -6,6 +6,7 @@
 * [Madness at the Darkmoon Faire](#madness-at-the-darkmoon-faire)
 * [Forged in the Barrens](#forged-in-the-barrens)
 * [United in Stormwind](#united-in-stormwind)
+* [Fractured in Alterac Valley](#fractured-in-alterac-valley)
 
 ## Core
 
@@ -1063,3 +1064,12 @@ STORMWIND | DED_525 | Goliath, Sneed's Masterpiece |
 STORMWIND | DED_527 | Blacksmithing Hammer |  
 
 - Progress: 1% (2 of 170 Cards)
+
+## Fractured in Alterac Valley
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+ALTERAC_VALLEY | AV_100 | Drek'Thar |  
+ALTERAC_VALLEY | AV_223 | Vanndar Stormpike |  
+
+- Progress: 0% (0 of 2 Cards)
