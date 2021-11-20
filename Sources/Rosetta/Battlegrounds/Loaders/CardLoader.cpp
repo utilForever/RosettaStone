@@ -27,22 +27,6 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
 
     for (auto& cardData : j)
     {
-        const int normalDbfID =
-            cardData["battlegroundsNormalDbfId"].is_null()
-                ? 0
-                : cardData["battlegroundsNormalDbfId"].get<int>();
-        const int premiumDbfID =
-            cardData["battlegroundsPremiumDbfId"].is_null()
-                ? 0
-                : cardData["battlegroundsPremiumDbfId"].get<int>();
-        const bool isBattlegroundsHero =
-            !cardData["battlegroundsHero"].is_null();
-
-        if (!isBattlegroundsHero && normalDbfID == 0 && premiumDbfID == 0)
-        {
-            continue;
-        }
-
         const std::string id = cardData["id"].get<std::string>();
 
         // NOTE: Check invalid card type for 'Placeholder'
@@ -58,6 +42,16 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
                 : StrToEnum<CardSet>(cardData["set"].get<std::string>());
         const int dbfID =
             cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
+        const int normalDbfID =
+            cardData["battlegroundsNormalDbfId"].is_null()
+                ? 0
+                : cardData["battlegroundsNormalDbfId"].get<int>();
+        const int premiumDbfID =
+            cardData["battlegroundsPremiumDbfId"].is_null()
+                ? 0
+                : cardData["battlegroundsPremiumDbfId"].get<int>();
+        const bool isBattlegroundsHero =
+            !cardData["battlegroundsHero"].is_null();
 
         const std::string name = cardData["name"].is_null()
                                      ? ""
