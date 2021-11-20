@@ -27,6 +27,16 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
 
     for (auto& cardData : j)
     {
+        const int cardSet = cardData["set"].is_null()
+                                ? 1
+                                : static_cast<int>(StrToEnum<CardSet>(
+                                      cardData["set"].get<std::string>()));
+
+        if (static_cast<CardSet>(cardSet) == CardSet::LETTUCE)
+        {
+            continue;
+        }
+
         const std::string id = cardData["id"].get<std::string>();
 
         // NOTE: Check invalid card type for 'Placeholder'
@@ -36,10 +46,6 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
             continue;
         }
 
-        const CardSet cardSet =
-            cardData["set"].is_null()
-                ? CardSet::INVALID
-                : StrToEnum<CardSet>(cardData["set"].get<std::string>());
         const int dbfID =
             cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
         const int normalDbfID =
