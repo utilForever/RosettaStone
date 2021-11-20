@@ -38,14 +38,6 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
         }
 
         const std::string id = cardData["id"].get<std::string>();
-
-        // NOTE: Check invalid card type for 'Placeholder'
-        // See https://hearthstone.gamepedia.com/Placeholder_Card
-        if (id == "PlaceholderCard")
-        {
-            continue;
-        }
-
         const int dbfID =
             cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
         const int normalDbfID =
