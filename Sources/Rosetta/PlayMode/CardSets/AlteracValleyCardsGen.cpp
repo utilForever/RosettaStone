@@ -108,11 +108,40 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
 
 void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- MINION - NEUTRAL
+    // [AV_100] Drek'Thar - COST:4 [ATK:4/HP:4]
+    // - Set: ALTERAC_VALLEY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry</b>: If this costs more than
+    //       every minion in your deck, summon 2 of them.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [AV_223] Vanndar Stormpike - COST:4 [ATK:4/HP:4]
+    // - Set: ALTERAC_VALLEY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry</b>: If this costs less than
+    //       every minion in your deck, reduce their Cost by (3).
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [AV_223e] Occupy the Keep - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Costs (3) less.
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddAll(std::map<std::string, CardDef>& cards)
