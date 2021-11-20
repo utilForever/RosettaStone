@@ -107,7 +107,7 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cards.emplace("BAR_536", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
-    // [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:3]
+    // [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:2]
     // - Set: THE_BARRENS, Rarity: Rare
     // --------------------------------------------------------
     // Text: The first <b>Taunt</b> minion you play each turn

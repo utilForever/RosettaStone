@@ -25,7 +25,7 @@ std::vector<Card*> Cards::m_poisons;
 
 Cards::Cards()
 {
-    m_cards.reserve(NUM_ALL_CARDS);
+    m_cards.reserve(NUM_PLAY_MODE_CARDS);
 
     CardLoader::Load(m_cards);
     InternalCardLoader::Load(m_cards);

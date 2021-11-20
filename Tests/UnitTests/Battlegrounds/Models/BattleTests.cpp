@@ -23,8 +23,8 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
 
     Minion minion1(Cards::FindCardByDbfID(49169));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
     player1.recruitField.Add(minion1);
     player1.currentTier = 4;
 
@@ -36,8 +36,8 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 0);
 
     CHECK_EQ(battle.GetResult(), BattleResult::PLAYER1_WIN);
-    CHECK_EQ(player1.hero.health, 40);
-    CHECK_EQ(player2.hero.health, 32);
+    CHECK_EQ(player1.hero.health, 55);
+    CHECK_EQ(player2.hero.health, 47);
 }
 
 TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
@@ -51,8 +51,8 @@ TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
     Minion minion1(Cards::FindCardByDbfID(42467));
     Minion minion2(Cards::FindCardByDbfID(60628));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
     player1.recruitField.Add(minion1);
     player2.recruitField.Add(minion2);
     player2.currentTier = 3;
@@ -68,8 +68,8 @@ TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
     CHECK_EQ(p2Field[0].GetHealth(), 1);
 
     CHECK_EQ(battle.GetResult(), BattleResult::PLAYER2_WIN);
-    CHECK_EQ(player1.hero.health, 37);
-    CHECK_EQ(player2.hero.health, 40);
+    CHECK_EQ(player1.hero.health, 52);
+    CHECK_EQ(player2.hero.health, 55);
 }
 
 TEST_CASE("[Battle] - Draw (0 attack minions only)")
@@ -83,8 +83,8 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
     Minion minion1(Cards::FindCardByDbfID(49169));
     Minion minion2(Cards::FindCardByDbfID(49169));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
     player1.recruitField.Add(minion1);
     player2.recruitField.Add(minion2);
 
@@ -96,8 +96,8 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
 
     CHECK_EQ(battle.GetResult(), BattleResult::DRAW);
-    CHECK_EQ(player1.hero.health, 40);
-    CHECK_EQ(player2.hero.health, 40);
+    CHECK_EQ(player1.hero.health, 55);
+    CHECK_EQ(player2.hero.health, 55);
 }
 
 TEST_CASE("[Battle] - Next Attacker")
@@ -114,8 +114,8 @@ TEST_CASE("[Battle] - Next Attacker")
     Minion minion4(Cards::FindCardByDbfID(1915));
     Minion minion5(Cards::FindCardByDbfID(1915));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
     player1.recruitField.Add(minion1);
     player1.recruitField.Add(minion2);
     player1.recruitField.Add(minion3);

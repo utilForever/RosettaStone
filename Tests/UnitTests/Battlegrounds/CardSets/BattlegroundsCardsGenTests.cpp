@@ -33,8 +33,8 @@ TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
 
     Minion minion1(Cards::FindCardByName("Alleycat"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -67,8 +67,8 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_531 : Scavenging Hyena")
     Minion minion2(Cards::FindCardByName("Scavenging Hyena"));
     Minion minion3(Cards::FindCardByName("Scavenging Hyena"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -118,8 +118,8 @@ TEST_CASE("[Battlegrounds : Minion] - YOD_026 : Fiendish Servant")
     Minion minion2(Cards::FindCardByID("YOD_026"));
     Minion minion3(Cards::FindCardByID("YOD_026"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -173,16 +173,16 @@ TEST_CASE("[Battlegrounds : Minion] - LOOT_013 : Vulgar Homunculus")
 
     Minion minion1(Cards::FindCardByID("LOOT_013"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
-    CHECK_EQ(player1.hero.health, 40);
+    CHECK_EQ(player1.hero.health, 55);
 
     player1.hand.Add(minion1);
     player1.PlayCard(0, 0);
-    CHECK_EQ(player1.hero.health, 38);
+    CHECK_EQ(player1.hero.health, 53);
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
@@ -206,22 +206,22 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_004 : Wrath Weaver")
     Minion minion1(Cards::FindCardByID("BGS_004"));
     Minion minion2(Cards::FindCardByID("LOOT_013"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
-    CHECK_EQ(player1.hero.health, 40);
+    CHECK_EQ(player1.hero.health, 55);
 
     player1.hand.Add(minion1);
     player1.PlayCard(0, 0);
-    CHECK_EQ(player1.hero.health, 40);
+    CHECK_EQ(player1.hero.health, 55);
     CHECK_EQ(player1.recruitField[0].GetAttack(), 1);
     CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
 
     player1.hand.Add(minion2);
     player1.PlayCard(0, 1);
-    CHECK_EQ(player1.hero.health, 37);
+    CHECK_EQ(player1.hero.health, 52);
     CHECK_EQ(player1.recruitField[0].GetAttack(), 3);
     CHECK_EQ(player1.recruitField[0].GetHealth(), 5);
 }
@@ -263,8 +263,8 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_019 : Red Whelp")
     Minion minion3(Cards::FindCardByID("BGS_039"));
     Minion minion4(Cards::FindCardByID("BGS_039"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -309,8 +309,8 @@ TEST_CASE("[Battlegrounds : Minion] - BOT_445 : Mecharoo")
     Minion minion2(Cards::FindCardByID("BOT_445"));
     Minion minion3(Cards::FindCardByID("BOT_445"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -363,8 +363,8 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
     Minion minion1(Cards::FindCardByID("GVG_103"));
     Minion minion2(Cards::FindCardByID("GVG_103"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -460,8 +460,8 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_509 : Murloc Tidecaller")
     Minion minion2(Cards::FindCardByID("EX1_509"));
     Minion minion3(Cards::FindCardByID("BGS_039"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -508,8 +508,8 @@ TEST_CASE("[Battlegrounds : Minion] - EX1_506 : Murloc Tidehunter")
     Minion minion1(Cards::FindCardByID("EX1_506"));
     Minion minion2(Cards::FindCardByID("EX1_506"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -560,8 +560,8 @@ TEST_CASE("[Battlegrounds : Minion] - UNG_073 : Rockpool Hunter")
     Minion minion2(Cards::FindCardByID("BGS_039"));
     Minion minion3(Cards::FindCardByID("UNG_073"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -617,8 +617,8 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_055 : Deck Swabbie")
     Minion minion1(Cards::FindCardByID("BGS_055"));
     Minion minion2(Cards::FindCardByID("BGS_055"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.GetGameState().nextPhase = Phase::RECRUIT;
     GameManager::ProcessNextPhase(game, game.GetGameState().nextPhase);
@@ -645,7 +645,7 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_055 : Deck Swabbie")
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
-// [BGS_061] Scallywag - TIER:1 [ATK:2/HP:1]
+// [BGS_061] Scallywag - TIER:1 [ATK:3/HP:1]
 // - Race: Pirate, Set: Battlegrounds
 // --------------------------------------------------------
 // Text: <b>Deathrattle:</b> Summon a 1/1 Pirate.
@@ -666,8 +666,8 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_061 : Scallywag")
     Minion minion2(Cards::FindCardByID("BGS_061"));
     Minion minion3(Cards::FindCardByID("LOOT_013"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 
@@ -695,8 +695,7 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_061 : Scallywag")
     battle.Attack();
 
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 1);
-    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
-    CHECK_EQ(battle.GetPlayer2Field()[0].GetHealth(), 1);
+    CHECK_EQ(battle.GetPlayer2Field().GetCount(), 0);
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
@@ -739,8 +738,8 @@ TEST_CASE("[Battlegrounds : Minion] - OG_221 : Selfless Hero")
     Minion minion2(Cards::FindCardByID("BGS_061"));
     Minion minion3(Cards::FindCardByID("LOOT_013"));
 
-    player1.hero.Initialize(Cards::FindCardByDbfID(58536));
-    player2.hero.Initialize(Cards::FindCardByDbfID(58536));
+    player1.hero.Initialize(Cards::FindCardByDbfID(59397));
+    player2.hero.Initialize(Cards::FindCardByDbfID(59397));
 
     game.SetPlayerPair(0, 1);
 

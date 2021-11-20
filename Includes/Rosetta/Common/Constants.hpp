@@ -24,17 +24,18 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 6> STANDARD_CARD_SETS = {
+constexpr std::array<CardSet, 7> STANDARD_CARD_SETS = {
     CardSet::CORE,            // Core, 2021
     CardSet::BLACK_TEMPLE,    // Ashes of Outland, 2020
     CardSet::SCHOLOMANCE,     // Scholomance Academy, 2020
     CardSet::DARKMOON_FAIRE,  // Madness at the Darkmoon Faire, 2020
     CardSet::THE_BARRENS,     // Forged in the Barrens, 2021
     CardSet::STORMWIND,       // United in Stormwind, 2021
+    CardSet::ALTERAC_VALLEY,  // Fractured in Alterac Valley, 2021
 };
 
 //! Specifies which card sets combine into the WILD set.
-constexpr std::array<CardSet, 28> WILD_CARD_SETS = {
+constexpr std::array<CardSet, 29> WILD_CARD_SETS = {
     CardSet::EXPERT1,                // Classic, 2014
     CardSet::LEGACY,                 // Legacy, 2021
     CardSet::NAXX,                   // Curse of Naxxramas, 2014
@@ -61,6 +62,7 @@ constexpr std::array<CardSet, 28> WILD_CARD_SETS = {
     CardSet::DARKMOON_FAIRE,         // Madness at the Darkmoon Faire, 2020
     CardSet::THE_BARRENS,            // Forged in the Barrens, 2021
     CardSet::STORMWIND,              // United in Stormwind, 2021
+    CardSet::ALTERAC_VALLEY,         // Fractured in Alterac Valley, 2021
 };
 
 //! Specifies which card sets combine into the CLASSIC set.
@@ -68,8 +70,11 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
     CardSet::VANILLA,  // Classic, 2021
 };
 
-//! The number of all cards.
-constexpr int NUM_ALL_CARDS = 17627;
+//! The number of Play mode cards.
+constexpr int NUM_PLAY_MODE_CARDS = 13141;
+
+//! The number of Battlegrounds cards.
+constexpr int NUM_BATTLEGROUNDS_CARDS = 14109;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -107,7 +112,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 70;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 71;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -140,7 +145,7 @@ constexpr int NUM_TIER2_MINIONS = 25;
 constexpr int NUM_TIER3_MINIONS = 29;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 28;
+constexpr int NUM_TIER4_MINIONS = 29;
 
 //! The number of tier 5 minions in Battlegrounds.
 constexpr int NUM_TIER5_MINIONS = 25;

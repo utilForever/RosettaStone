@@ -10,7 +10,7 @@
 
 namespace RosettaStone::Battlegrounds
 {
-void CardLoader::Load(std::array<Card, NUM_ALL_CARDS>& cards)
+void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
 {
     // Read card data from JSON file
     std::ifstream cardFile(RESOURCES_DIR "cards.json");
@@ -27,19 +27,17 @@ void CardLoader::Load(std::array<Card, NUM_ALL_CARDS>& cards)
 
     for (auto& cardData : j)
     {
-        const std::string id = cardData["id"].get<std::string>();
+        const int cardSet = cardData["set"].is_null()
+                                ? 1
+                                : static_cast<int>(StrToEnum<CardSet>(
+                                      cardData["set"].get<std::string>()));
 
-        // NOTE: Check invalid card type for 'Placeholder'
-        // See https://hearthstone.gamepedia.com/Placeholder_Card
-        if (id == "PlaceholderCard")
+        if (static_cast<CardSet>(cardSet) == CardSet::LETTUCE)
         {
             continue;
         }
 
-        const CardSet cardSet =
-            cardData["set"].is_null()
-                ? CardSet::INVALID
-                : StrToEnum<CardSet>(cardData["set"].get<std::string>());
+        const std::string id = cardData["id"].get<std::string>();
         const int dbfID =
             cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
         const int normalDbfID =
@@ -50,6 +48,8 @@ void CardLoader::Load(std::array<Card, NUM_ALL_CARDS>& cards)
             cardData["battlegroundsPremiumDbfId"].is_null()
                 ? 0
                 : cardData["battlegroundsPremiumDbfId"].get<int>();
+        const bool isBattlegroundsHero =
+            !cardData["battlegroundsHero"].is_null();
 
         const std::string name = cardData["name"].is_null()
                                      ? ""
@@ -81,9 +81,6 @@ void CardLoader::Load(std::array<Card, NUM_ALL_CARDS>& cards)
             GameTag gameTag = StrToEnum<GameTag>(mechanic.get<std::string>());
             gameTags.emplace(gameTag, 1);
         }
-
-        const bool isBattlegroundsHero =
-            cardData["battlegroundsHero"].is_null() ? false : true;
 
         Card card;
         card.id = id;

@@ -965,7 +965,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
 
     // ----------------------------------------- SPELL - PRIEST
-    // [BT_252] Renew - COST:2
+    // [BT_252] Renew - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Common
     // - Spell School: Holy
     // --------------------------------------------------------

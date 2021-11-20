@@ -256,7 +256,7 @@ TEST_CASE("[Druid : Spell] - BAR_536 : Living Seed (Rank 1)")
 }
 
 // ----------------------------------------- MINION - DRUID
-// [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:3]
+// [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:2]
 // - Set: THE_BARRENS, Rarity: Rare
 // --------------------------------------------------------
 // Text: The first <b>Taunt</b> minion you play each turn
