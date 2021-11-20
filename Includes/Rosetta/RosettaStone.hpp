@@ -83,6 +83,7 @@
 #include <Rosetta/PlayMode/Auras/IAura.hpp>
 #include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
+#include <Rosetta/PlayMode/CardSets/AlteracValleyCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
