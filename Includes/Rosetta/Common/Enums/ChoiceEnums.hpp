@@ -16,6 +16,7 @@ enum class DiscoverType
     DECK,
     SPELL_FROM_DECK,
     BASIC_TOTEM,
+    BASIC_TOTEM_CLASSIC,
     CHOOSE_ONE,
     FOUR_COST_CARD,
     SIX_COST_MINION_SUMMON,
