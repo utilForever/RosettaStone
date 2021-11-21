@@ -38,6 +38,14 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a 6/6 Infernal.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("VAN_EX1_tk34"));
+    cards.emplace(
+        "VAN_EX1_tk33",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [VAN_HERO_01bp] Armor Up! - COST:2
@@ -2287,6 +2295,8 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_CS2_057] Shadow Bolt - COST:3
     // - Set: VANILLA, Rarity: Free
@@ -2497,6 +2507,10 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReplaceHeroTask>(
+        "EX1_323h", "VAN_EX1_tk33", "EX1_323w"));
+    cards.emplace("VAN_EX1_323", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_596] Demonfire - COST:2
@@ -2517,10 +2531,15 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void VanillaCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_tk34] Infernal - COST:6 [ATK:6/HP:6]
     // - Race: Demon, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_tk34", CardDef(power));
 }
 
 void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
