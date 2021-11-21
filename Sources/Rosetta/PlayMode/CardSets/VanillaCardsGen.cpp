@@ -4,14 +4,22 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -73,6 +81,56 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a random Totem.
     // --------------------------------------------------------
+    // Entourage: VAN_CS2_050, VAN_CS2_051, VAN_CS2_052, VAN_NEW1_009
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
+        std::vector<Card*> totemCards;
+        totemCards.reserve(4);
+
+        for (const auto& id : playable->card->entourages)
+        {
+            bool exist = false;
+            for (const auto& minion : minions)
+            {
+                if (id == minion->card->id)
+                {
+                    exist = true;
+                    break;
+                }
+            }
+
+            if (!exist)
+            {
+                totemCards.emplace_back(Cards::FindCardByID(id));
+            }
+        }
+
+        if (totemCards.empty())
+        {
+            return 0;
+        }
+
+        const auto idx = Random::get<std::size_t>(0, totemCards.size() - 1);
+        Playable* totem =
+            Entity::GetFromCard(playable->player, totemCards[idx]);
+        playable->player->GetFieldZone()->Add(dynamic_cast<Minion*>(totem));
+
+        return 0;
+    }));
+    cards.emplace(
+        "VAN_HERO_02bp",
+        CardDef(power,
+                PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                          { PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY, 0 } },
+                ChooseCardIDs{},
+                Entourages{ "VAN_CS2_050", "VAN_CS2_051", "VAN_CS2_052",
+                            "VAN_NEW1_009" }));
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [VAN_HERO_02bp2] Totemic Slam - COST:2
@@ -2245,10 +2303,15 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_CS2_050] Searing Totem - COST:1 [ATK:1/HP:1]
     // - Race: Totem, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_050", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_CS2_051] Stoneclaw Totem - COST:1 [ATK:0/HP:2]
@@ -2259,6 +2322,9 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_051", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_CS2_052] Wrath of Air Totem - COST:1 [ATK:0/HP:2]
@@ -2269,6 +2335,9 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_052", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_tk11] Spirit Wolf - COST:2 [ATK:2/HP:3]
@@ -2297,6 +2366,11 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(
+        EntityType::MINIONS, 1) };
+    cards.emplace("VAN_NEW1_009", CardDef(power));
 }
 
 void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)

@@ -85,6 +85,78 @@ TEST_CASE("[Warrior : Hero Power] - VAN_HERO_01bp : Armor Up!")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
 }
 
+// ------------------------------------ HERO_POWER - SHAMAN
+// [VAN_HERO_02bp] Totemic Call - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Summon a random Totem.
+// --------------------------------------------------------
+// Entourage: VAN_CS2_050, VAN_CS2_051, VAN_CS2_052, VAN_NEW1_009
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Hero Power] - VAN_HERO_02bp : Totemic Call")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(opField.GetCount(), 4);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [VAN_CS2_005] Claw - COST:1
 // - Set: VANILLA, Rarity: Free
