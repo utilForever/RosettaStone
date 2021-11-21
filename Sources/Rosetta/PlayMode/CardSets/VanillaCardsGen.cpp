@@ -53,6 +53,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Gain 2 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace("VAN_HERO_01bp", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [VAN_HERO_01bp2] Tank Up! - COST:2
