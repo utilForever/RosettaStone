@@ -3665,10 +3665,10 @@ TEST_CASE("[Paladin : Minion] - ULD_500 : Sir Finley of the Sands")
             CHECK_EQ(curField[1]->card->name, "Stoneclaw Totem");
         }
 
-        SUBCASE("Shaman - Wrath of Air Totem")
+        SUBCASE("Shaman - Strength Totem")
         {
             TestUtils::ChooseNthChoice(game, 4);
-            CHECK_EQ(curField[1]->card->name, "Wrath of Air Totem");
+            CHECK_EQ(curField[1]->card->name, "Strength Totem");
         }
     }
 
