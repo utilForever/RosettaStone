@@ -17,6 +17,40 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ----------------------------------- HERO_POWER - WARRIOR
+// [VAN_CS2_102_H3] Armor Up! - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Gain 2 Armor.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Hero Power] - VAN_CS2_102_H3 : Armor Up!")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [VAN_CS2_005] Claw - COST:1
 // - Set: VANILLA, Rarity: Free

@@ -20,12 +20,17 @@ void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- HERO_POWER - WARRIOR
     // [VAN_CS2_102_H3] Armor Up! - COST:2
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Gain 2 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace("VAN_CS2_102_H3", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [VAN_EX1_tk33] INFERNO! - COST:2
