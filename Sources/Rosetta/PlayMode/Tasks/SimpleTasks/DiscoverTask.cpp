@@ -274,7 +274,7 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             cardsForGeneration = { Cards::FindCardByID("AT_132_SHAMANa"),
                                    Cards::FindCardByID("AT_132_SHAMANb"),
                                    Cards::FindCardByID("AT_132_SHAMANc"),
-                                   Cards::FindCardByID("AT_132_SHAMANd") };
+                                   Cards::FindCardByID("AT_132_SHAMANe") };
             break;
         case DiscoverType::CHOOSE_ONE:
             choiceAction = ChoiceAction::HAND;
