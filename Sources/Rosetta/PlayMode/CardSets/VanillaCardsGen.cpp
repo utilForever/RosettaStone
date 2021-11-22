@@ -361,6 +361,10 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +2 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("VAN_HERO_10pe2",
+                                                            EntityType::HERO));
+    cards.emplace("VAN_HERO_10bp2", CardDef(power));
 }
 
 void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -3002,6 +3006,9 @@ void VanillaCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_HERO_10pe2"));
+    cards.emplace("VAN_HERO_10pe2", CardDef(power));
 }
 
 void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
