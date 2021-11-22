@@ -197,6 +197,45 @@ TEST_CASE("[Rogue : Hero Power] - VAN_HERO_03bp : Dagger Mastery")
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 1);
 }
 
+// ----------------------------------- HERO_POWER - PALADIN
+// [VAN_HERO_04bp] Reinforce - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Hero Power] - VAN_HERO_04bp : Reinforce")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [VAN_CS2_005] Claw - COST:1
 // - Set: VANILLA, Rarity: Free

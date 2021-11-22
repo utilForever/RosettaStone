@@ -174,6 +174,15 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_CS2_101t", SummonSide::DEFAULT));
+    cards.emplace(
+        "VAN_HERO_04bp",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [VAN_HERO_04bp2] The Silver Hand - COST:2
@@ -1564,10 +1573,15 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void VanillaCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [VAN_CS2_101t] Silver Hand Recruit - COST:1 [ATK:1/HP:1]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_101t", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [VAN_EX1_130a] Defender - COST:1 [ATK:2/HP:1]
