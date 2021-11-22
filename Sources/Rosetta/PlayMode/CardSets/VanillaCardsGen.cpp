@@ -350,6 +350,10 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +1 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("VAN_HERO_10bpe",
+                                                            EntityType::HERO));
+    cards.emplace("VAN_HERO_10bp", CardDef(power));
 
     // ------------------------------- HERO_POWER - DEMONHUNTER
     // [VAN_HERO_10bp2] Demon's Bite - COST:1
@@ -2974,6 +2978,8 @@ void VanillaCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 void VanillaCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [VAN_HERO_10bpe] Demon Claws - COST:0
     // - Set: VANILLA
@@ -2983,6 +2989,9 @@ void VanillaCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_HERO_10bpe"));
+    cards.emplace("VAN_HERO_10bpe", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [VAN_HERO_10pe2] Demon's Bite - COST:0
