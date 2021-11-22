@@ -274,6 +274,13 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             cardsForGeneration = { Cards::FindCardByID("AT_132_SHAMANa"),
                                    Cards::FindCardByID("AT_132_SHAMANb"),
                                    Cards::FindCardByID("AT_132_SHAMANc"),
+                                   Cards::FindCardByID("AT_132_SHAMANe") };
+            break;
+        case DiscoverType::BASIC_TOTEM_CLASSIC:
+            choiceAction = ChoiceAction::SUMMON;
+            cardsForGeneration = { Cards::FindCardByID("AT_132_SHAMANa"),
+                                   Cards::FindCardByID("AT_132_SHAMANb"),
+                                   Cards::FindCardByID("AT_132_SHAMANc"),
                                    Cards::FindCardByID("AT_132_SHAMANd") };
             break;
         case DiscoverType::CHOOSE_ONE:

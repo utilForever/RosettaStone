@@ -128,7 +128,8 @@ void CardLoader::Load(std::vector<Card*>& cards)
         // NOTE: Carousel Gryphon (DMF_064) doesn't have GameTag::DIVINE_SHIELD
         // NOTE: Healing Totem (AT_132_SHAMANa), Searing Totem (AT_132_SHAMANb),
         //       Stoneclaw Totem (AT_132_SHAMANc), Wrath of Air Totem
-        //       (AT_132_SHAMANd) doesn't have Race::TOTEM
+        //       (AT_132_SHAMANd), Strength Totem (AT_132_SHAMANe)
+        //       doesn't have Race::TOTEM
         // NOTE: Wailing Demon (WC_003t) doesn't have GameTag::TAUNT
         if (dbfID == 56091)
         {
@@ -139,7 +140,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
             gameTags.emplace(GameTag::DIVINE_SHIELD, 1);
         }
         else if (dbfID == 16221 || dbfID == 16222 || dbfID == 16223 ||
-                 dbfID == 16225)
+                 dbfID == 16225 || dbfID == 72268)
         {
             cardRace = static_cast<int>(Race::TOTEM);
         }

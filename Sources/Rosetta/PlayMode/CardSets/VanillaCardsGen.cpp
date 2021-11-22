@@ -4,14 +4,22 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -20,12 +28,17 @@ void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- HERO_POWER - WARRIOR
     // [VAN_CS2_102_H3] Armor Up! - COST:2
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Gain 2 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace("VAN_CS2_102_H3", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [VAN_EX1_tk33] INFERNO! - COST:2
@@ -33,6 +46,14 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a 6/6 Infernal.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("VAN_EX1_tk34"));
+    cards.emplace(
+        "VAN_EX1_tk33",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [VAN_HERO_01bp] Armor Up! - COST:2
@@ -40,6 +61,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Gain 2 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace("VAN_HERO_01bp", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARRIOR
     // [VAN_HERO_01bp2] Tank Up! - COST:2
@@ -47,6 +71,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Gain 4 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    cards.emplace("VAN_HERO_01bp2", CardDef(power));
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [VAN_HERO_02bp] Totemic Call - COST:2
@@ -54,6 +81,56 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a random Totem.
     // --------------------------------------------------------
+    // Entourage: VAN_CS2_050, VAN_CS2_051, VAN_CS2_052, VAN_NEW1_009
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
+        std::vector<Card*> totemCards;
+        totemCards.reserve(4);
+
+        for (const auto& id : playable->card->entourages)
+        {
+            bool exist = false;
+            for (const auto& minion : minions)
+            {
+                if (id == minion->card->id)
+                {
+                    exist = true;
+                    break;
+                }
+            }
+
+            if (!exist)
+            {
+                totemCards.emplace_back(Cards::FindCardByID(id));
+            }
+        }
+
+        if (totemCards.empty())
+        {
+            return 0;
+        }
+
+        const auto idx = Random::get<std::size_t>(0, totemCards.size() - 1);
+        Playable* totem =
+            Entity::GetFromCard(playable->player, totemCards[idx]);
+        playable->player->GetFieldZone()->Add(dynamic_cast<Minion*>(totem));
+
+        return 0;
+    }));
+    cards.emplace(
+        "VAN_HERO_02bp",
+        CardDef(power,
+                PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                          { PlayReq::REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY, 0 } },
+                ChooseCardIDs{},
+                Entourages{ "VAN_CS2_050", "VAN_CS2_051", "VAN_CS2_052",
+                            "VAN_NEW1_009" }));
 
     // ------------------------------------ HERO_POWER - SHAMAN
     // [VAN_HERO_02bp2] Totemic Slam - COST:2
@@ -61,6 +138,15 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a Totem of your choice.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::BASIC_TOTEM_CLASSIC, 4));
+    cards.emplace(
+        "VAN_HERO_02bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [VAN_HERO_03bp] Dagger Mastery - COST:2
@@ -68,6 +154,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Equip a 1/2 Dagger.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("VAN_CS2_082"));
+    cards.emplace("VAN_HERO_03bp", CardDef(power));
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [VAN_HERO_03bp2] Poisoned Daggers - COST:2
@@ -75,6 +164,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Equip a 2/2 Weapon.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("AT_132_ROGUEt"));
+    cards.emplace("VAN_HERO_03bp2", CardDef(power));
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [VAN_HERO_04bp] Reinforce - COST:2
@@ -82,6 +174,15 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon a 1/1 Silver Hand Recruit.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_CS2_101t", SummonSide::DEFAULT));
+    cards.emplace(
+        "VAN_HERO_04bp",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [VAN_HERO_04bp2] The Silver Hand - COST:2
@@ -89,6 +190,15 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon two 1/1 Recruits.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_CS2_101t", 2, SummonSide::DEFAULT));
+    cards.emplace(
+        "VAN_HERO_04bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------ HERO_POWER - HUNTER
     // [VAN_HERO_05bp] Steady Shot - COST:2
@@ -96,6 +206,17 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_STEADY_SHOT = 0
+    // - REQ_MINION_OR_ENEMY_HERO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, false));
+    cards.emplace(
+        "VAN_HERO_05bp",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
+                                 { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
 
     // ------------------------------------ HERO_POWER - HUNTER
     // [VAN_HERO_05bp2] Ballista Shot - COST:2
@@ -103,6 +224,17 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_STEADY_SHOT = 0
+    // - REQ_MINION_OR_ENEMY_HERO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, false));
+    cards.emplace(
+        "VAN_HERO_05bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
+                                 { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
 
     // ------------------------------------- HERO_POWER - DRUID
     // [VAN_HERO_06bp] Shapeshift - COST:2
@@ -110,6 +242,11 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_017o", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(1));
+    cards.emplace("VAN_HERO_06bp", CardDef(power));
 
     // ------------------------------------- HERO_POWER - DRUID
     // [VAN_HERO_06bp2] Dire Shapeshift - COST:2
@@ -117,6 +254,11 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +2 Attack this turn. +2 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("AT_132_DRUIDe",
+                                                            EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace("VAN_HERO_06bp2", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [VAN_HERO_07bp] Life Tap - COST:2
@@ -124,6 +266,11 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Draw a card and take 2 damage.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 2, false));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_HERO_07bp", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [VAN_HERO_07bp2] Soul Tap - COST:2
@@ -131,6 +278,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_HERO_07bp2", CardDef(power));
 
     // -------------------------------------- HERO_POWER - MAGE
     // [VAN_HERO_08bp] Fireblast - COST:2
@@ -138,6 +288,15 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 1 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, false));
+    cards.emplace(
+        "VAN_HERO_08bp",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // -------------------------------------- HERO_POWER - MAGE
     // [VAN_HERO_08bp2] Fireblast Rank 2 - COST:2
@@ -145,6 +304,15 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 2 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, false));
+    cards.emplace(
+        "VAN_HERO_08bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [VAN_HERO_09bp] Lesser Heal - COST:2
@@ -152,6 +320,14 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Restore 2 Health.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "VAN_HERO_09bp",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [VAN_HERO_09bp2] Heal - COST:2
@@ -159,6 +335,14 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Restore 4 Health.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 4));
+    cards.emplace(
+        "VAN_HERO_09bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------- HERO_POWER - DEMONHUNTER
     // [VAN_HERO_10bp] Demon Claws - COST:1
@@ -166,6 +350,10 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +1 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("VAN_HERO_10bpe",
+                                                            EntityType::HERO));
+    cards.emplace("VAN_HERO_10bp", CardDef(power));
 
     // ------------------------------- HERO_POWER - DEMONHUNTER
     // [VAN_HERO_10bp2] Demon's Bite - COST:1
@@ -173,6 +361,10 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +2 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("VAN_HERO_10pe2",
+                                                            EntityType::HERO));
+    cards.emplace("VAN_HERO_10bp2", CardDef(power));
 }
 
 void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -1472,10 +1664,15 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void VanillaCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - PALADIN
     // [VAN_CS2_101t] Silver Hand Recruit - COST:1 [ATK:1/HP:1]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_101t", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [VAN_EX1_130a] Defender - COST:1 [ATK:2/HP:1]
@@ -1943,10 +2140,15 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- WEAPON - ROGUE
     // [VAN_CS2_082] Wicked Knife - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_082", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [VAN_EX1_145o] Preparation - COST:0
@@ -2226,10 +2428,15 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_CS2_050] Searing Totem - COST:1 [ATK:1/HP:1]
     // - Race: Totem, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_050", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_CS2_051] Stoneclaw Totem - COST:1 [ATK:0/HP:2]
@@ -2240,6 +2447,9 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_051", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_CS2_052] Wrath of Air Totem - COST:1 [ATK:0/HP:2]
@@ -2250,6 +2460,9 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_052", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_tk11] Spirit Wolf - COST:2 [ATK:2/HP:3]
@@ -2278,10 +2491,17 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(
+        EntityType::MINIONS, 1) };
+    cards.emplace("VAN_NEW1_009", CardDef(power));
 }
 
 void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_CS2_057] Shadow Bolt - COST:3
     // - Set: VANILLA, Rarity: Free
@@ -2492,6 +2712,10 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReplaceHeroTask>(
+        "EX1_323h", "VAN_EX1_tk33", "EX1_323w"));
+    cards.emplace("VAN_EX1_323", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_596] Demonfire - COST:2
@@ -2512,10 +2736,15 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void VanillaCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_tk34] Infernal - COST:6 [ATK:6/HP:6]
     // - Race: Demon, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_tk34", CardDef(power));
 }
 
 void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
@@ -2753,6 +2982,8 @@ void VanillaCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 void VanillaCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [VAN_HERO_10bpe] Demon Claws - COST:0
     // - Set: VANILLA
@@ -2762,6 +2993,9 @@ void VanillaCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_HERO_10bpe"));
+    cards.emplace("VAN_HERO_10bpe", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [VAN_HERO_10pe2] Demon's Bite - COST:0
@@ -2772,6 +3006,9 @@ void VanillaCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_HERO_10pe2"));
+    cards.emplace("VAN_HERO_10pe2", CardDef(power));
 }
 
 void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)

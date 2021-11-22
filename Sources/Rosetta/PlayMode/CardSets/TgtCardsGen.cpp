@@ -1202,6 +1202,21 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("AT_132_SHAMANd", CardDef(power));
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [AT_132_SHAMANe] Strength Totem (*) - COST:0 [ATK:0/HP:2]
+    // - Set: Tgt
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       give another friendly minion +1 Attack.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("CS2_058e", EntityType::STACK)
+    };
+    cards.emplace("AT_132_SHAMANe", CardDef(power));
 }
 
 void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
