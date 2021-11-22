@@ -254,6 +254,11 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +2 Attack this turn. +2 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>("AT_132_DRUIDe",
+                                                            EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(2));
+    cards.emplace("VAN_HERO_06bp2", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [VAN_HERO_07bp] Life Tap - COST:2
