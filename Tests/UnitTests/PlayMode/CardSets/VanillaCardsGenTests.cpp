@@ -236,6 +236,42 @@ TEST_CASE("[Paladin : Hero Power] - VAN_HERO_04bp : Reinforce")
     CHECK_EQ(curField[0]->GetHealth(), 1);
 }
 
+// ------------------------------------ HERO_POWER - HUNTER
+// [VAN_HERO_05bp] Steady Shot - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_STEADY_SHOT = 0
+// - REQ_MINION_OR_ENEMY_HERO = 0
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Hero Power] - VAN_HERO_05bp : Steady Shot")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [VAN_CS2_005] Claw - COST:1
 // - Set: VANILLA, Rarity: Free

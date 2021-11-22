@@ -206,6 +206,17 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 2 damage to the enemy hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_STEADY_SHOT = 0
+    // - REQ_MINION_OR_ENEMY_HERO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, false));
+    cards.emplace(
+        "VAN_HERO_05bp",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_STEADY_SHOT, 0 },
+                                 { PlayReq::REQ_MINION_OR_ENEMY_HERO, 0 } }));
 
     // ------------------------------------ HERO_POWER - HUNTER
     // [VAN_HERO_05bp2] Ballista Shot - COST:2
