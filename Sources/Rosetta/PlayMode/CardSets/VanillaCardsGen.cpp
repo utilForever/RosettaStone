@@ -164,6 +164,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Equip a 2/2 Weapon.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("AT_132_ROGUEt"));
+    cards.emplace("VAN_HERO_03bp2", CardDef(power));
 
     // ----------------------------------- HERO_POWER - PALADIN
     // [VAN_HERO_04bp] Reinforce - COST:2
