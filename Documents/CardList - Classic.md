@@ -250,7 +250,7 @@ VANILLA | VAN_EX1_316 | Power Overwhelming |
 VANILLA | VAN_EX1_317 | Sense Demons |  
 VANILLA | VAN_EX1_319 | Flame Imp |  
 VANILLA | VAN_EX1_320 | Bane of Doom |  
-VANILLA | VAN_EX1_323 | Lord Jaraxxus |  
+VANILLA | VAN_EX1_323 | Lord Jaraxxus | O
 VANILLA | VAN_EX1_332 | Silence |  
 VANILLA | VAN_EX1_334 | Shadow Madness |  
 VANILLA | VAN_EX1_335 | Lightspawn |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender |  
 
-- Progress: 1% (5 of 382 Cards)
+- Progress: 1% (6 of 382 Cards)
