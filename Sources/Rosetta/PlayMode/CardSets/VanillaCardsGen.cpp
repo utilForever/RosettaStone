@@ -242,6 +242,11 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> +1 Attack this turn. +1 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_017o", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(1));
+    cards.emplace("VAN_HERO_06bp", CardDef(power));
 
     // ------------------------------------- HERO_POWER - DRUID
     // [VAN_HERO_06bp2] Dire Shapeshift - COST:2
