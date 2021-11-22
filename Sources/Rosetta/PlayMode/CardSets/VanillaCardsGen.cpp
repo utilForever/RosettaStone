@@ -190,6 +190,15 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Summon two 1/1 Recruits.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_CS2_101t", 2, SummonSide::DEFAULT));
+    cards.emplace(
+        "VAN_HERO_04bp2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------ HERO_POWER - HUNTER
     // [VAN_HERO_05bp] Steady Shot - COST:2
