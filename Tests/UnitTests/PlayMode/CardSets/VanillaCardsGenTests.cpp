@@ -417,6 +417,50 @@ TEST_CASE("[Mage : Hero Power] - VAN_HERO_08bp : Fireblast")
     CHECK_EQ(opField[0]->GetHealth(), 2);
 }
 
+// ------------------------------------ HERO_POWER - PRIEST
+// [VAN_HERO_09bp] Lesser Heal - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Restore 2 Health.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Hero Power] - VAN_HERO_09bp : Lesser Heal")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [VAN_CS2_005] Claw - COST:1
 // - Set: VANILLA, Rarity: Free
