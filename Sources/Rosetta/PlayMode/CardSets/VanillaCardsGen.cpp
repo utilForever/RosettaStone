@@ -154,6 +154,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Equip a 1/2 Dagger.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("VAN_CS2_082"));
+    cards.emplace("VAN_HERO_03bp", CardDef(power));
 
     // ------------------------------------- HERO_POWER - ROGUE
     // [VAN_HERO_03bp2] Poisoned Daggers - COST:2
@@ -2029,10 +2032,15 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- WEAPON - ROGUE
     // [VAN_CS2_082] Wicked Knife - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_082", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [VAN_EX1_145o] Preparation - COST:0

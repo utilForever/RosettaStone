@@ -157,6 +157,46 @@ TEST_CASE("[Shaman : Hero Power] - VAN_HERO_02bp : Totemic Call")
     CHECK_EQ(opField.GetCount(), 4);
 }
 
+// ------------------------------------- HERO_POWER - ROGUE
+// [VAN_HERO_03bp] Dagger Mastery - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Equip a 1/2 Dagger.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Hero Power] - VAN_HERO_03bp : Dagger Mastery")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 1);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [VAN_CS2_005] Claw - COST:1
 // - Set: VANILLA, Rarity: Free
