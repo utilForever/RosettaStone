@@ -278,6 +278,9 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_HERO_07bp2", CardDef(power));
 
     // -------------------------------------- HERO_POWER - MAGE
     // [VAN_HERO_08bp] Fireblast - COST:2
