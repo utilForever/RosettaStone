@@ -333,6 +333,41 @@ TEST_CASE("[Druid : Hero Power] - VAN_HERO_06bp : Shapeshift")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
 }
 
+// ----------------------------------- HERO_POWER - WARLOCK
+// [VAN_HERO_07bp] Life Tap - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Hero Power</b> Draw a card and take 2 damage.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Hero Power] - VAN_HERO_07bp : Life Tap")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [VAN_CS2_005] Claw - COST:1
 // - Set: VANILLA, Rarity: Free

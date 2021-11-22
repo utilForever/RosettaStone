@@ -266,6 +266,11 @@ void VanillaCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Draw a card and take 2 damage.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 2, false));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_HERO_07bp", CardDef(power));
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [VAN_HERO_07bp2] Soul Tap - COST:2
