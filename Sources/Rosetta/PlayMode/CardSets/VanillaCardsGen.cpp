@@ -596,6 +596,11 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_EX1_164",
+        CardDef(power, ChooseCardIDs{ "VAN_EX1_164a", "VAN_EX1_164b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
@@ -851,6 +856,9 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 2 Mana Crystals.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(2, true));
+    cards.emplace("VAN_EX1_164a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_164b] Enrich - COST:5
@@ -858,6 +866,9 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 3 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(3));
+    cards.emplace("VAN_EX1_164b", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_165a] Cat Form - COST:0

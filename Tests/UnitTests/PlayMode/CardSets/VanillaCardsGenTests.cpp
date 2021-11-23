@@ -1240,6 +1240,64 @@ TEST_CASE("[Druid : Spell] - VAN_EX1_161 : Naturalize")
     CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
 }
 
+ // ------------------------------------------ SPELL - DRUID
+// [VAN_EX1_164] Nourish - COST:5
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Gain 2 Mana Crystals;
+//       or Draw 3 cards.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - VAN_EX1_164 : Nourish")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(6);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nourish", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nourish", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Nourish", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curPlayer->GetTotalMana(), 8);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3, 1));
+    CHECK_EQ(opPlayer->GetTotalMana(), 10);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK_EQ(curHand.GetCount(), 8);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [VAN_CS2_062] Hellfire - COST:4
 // - Set: VANILLA, Rarity: Free
