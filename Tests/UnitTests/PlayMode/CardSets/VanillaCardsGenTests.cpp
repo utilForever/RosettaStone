@@ -1055,6 +1055,82 @@ TEST_CASE("[Druid : Spell] - VAN_EX1_155 : Mark of Nature")
     CHECK_EQ(curField[1]->HasTaunt(), true);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [VAN_EX1_158] Soul of the Forest - COST:4
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Give your minions
+//       "<b>Deathrattle:</b> Summon a 2/2 Treant."
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - VAN_EX1_158 : Soul of the Forest")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Soul of the Forest", FormatType::CLASSIC));
+    const auto card8 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Hellfire", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(opPlayer, PlayCardTask::Spell(card7));
+    CHECK_FALSE(opField[0]->appliedEnchantments.empty());
+    CHECK_FALSE(opField[1]->appliedEnchantments.empty());
+    CHECK_FALSE(opField[2]->appliedEnchantments.empty());
+
+    game.Process(opPlayer, PlayCardTask::Spell(card8));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->card->name, "Treant");
+    CHECK_EQ(opField[1]->card->name, "Treant");
+    CHECK_EQ(opField[2]->card->name, "Treant");
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
 // - Race: Demon, Set: VANILLA, Rarity: Legendary

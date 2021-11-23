@@ -547,6 +547,10 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "VAN_EX1_158e", EntityType::MINIONS));
+    cards.emplace("VAN_EX1_158", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_160] Power of the Wild - COST:2
@@ -793,6 +797,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon a 2/2 Treant.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_158t", SummonSide::DEFAULT));
+    cards.emplace("VAN_EX1_158e", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_160a] Summon a Panther - COST:2
