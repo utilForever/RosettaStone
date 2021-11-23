@@ -2627,6 +2627,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage to all characters.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 3, true));
+    cards.emplace("VAN_CS2_062", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_CS2_063] Corruption - COST:1
