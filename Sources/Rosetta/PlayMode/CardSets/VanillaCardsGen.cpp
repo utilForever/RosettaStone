@@ -562,6 +562,11 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_EX1_160",
+        CardDef(power, ChooseCardIDs{ "VAN_EX1_160a", "VAN_EX1_160b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_161] Naturalize - COST:1
@@ -808,6 +813,15 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a 3/2 Panther.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("EX1_160t", SummonSide::SPELL));
+    cards.emplace(
+        "VAN_EX1_160a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_160b] Leader of the Pack - COST:2
@@ -815,6 +829,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your minions +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_160be", EntityType::MINIONS));
+    cards.emplace("VAN_EX1_160b", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_164a] Rampant Growth - COST:5
