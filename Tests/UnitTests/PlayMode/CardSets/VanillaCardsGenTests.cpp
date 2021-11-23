@@ -913,6 +913,20 @@ TEST_CASE("[Druid : Spell] - VAN_CS2_013 : Wild Growth")
     CHECK_EQ(curPlayer->GetTotalMana(), 10);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [VAN_CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - VAN_CS2_232 : Ironbark Protector")
+{
+    // Do nothing
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
 // - Race: Demon, Set: VANILLA, Rarity: Legendary

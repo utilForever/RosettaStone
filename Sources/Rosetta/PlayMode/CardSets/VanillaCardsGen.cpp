@@ -486,6 +486,9 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_232", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_154] Wrath - COST:2
