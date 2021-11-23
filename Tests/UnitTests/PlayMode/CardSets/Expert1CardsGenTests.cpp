@@ -180,9 +180,9 @@ TEST_CASE("[Druid : Spell] - EX1_155 : Mark of Nature")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
     const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_155"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mark of Nature"));
     const auto card4 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("EX1_155"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mark of Nature"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
@@ -190,12 +190,12 @@ TEST_CASE("[Druid : Spell] - EX1_155 : Mark of Nature")
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1, 1));
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 1);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card2, 2));
     CHECK_EQ(curField[1]->GetAttack(), 1);
     CHECK_EQ(curField[1]->GetHealth(), 5);
-    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
 }
 
 // ------------------------------------------ SPELL - DRUID
