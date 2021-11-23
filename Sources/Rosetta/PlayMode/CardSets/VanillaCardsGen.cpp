@@ -454,6 +454,18 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Deal 4 damage to an enemy and 1 damage
     //       to all other enemies.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMIES_NOTARGET, 1, true));
+    cards.emplace("VAN_CS2_012",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_CS2_013] Wild Growth - COST:2
