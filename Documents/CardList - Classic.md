@@ -19,8 +19,8 @@ VANILLA | VAN_CS2_007 | Healing Touch | O
 VANILLA | VAN_CS2_008 | Moonfire | O
 VANILLA | VAN_CS2_009 | Mark of the Wild | O
 VANILLA | VAN_CS2_011 | Savage Roar | O
-VANILLA | VAN_CS2_012 | Swipe |  
-VANILLA | VAN_CS2_013 | Wild Growth |  
+VANILLA | VAN_CS2_012 | Swipe | O
+VANILLA | VAN_CS2_013 | Wild Growth | O
 VANILLA | VAN_CS2_022 | Polymorph |  
 VANILLA | VAN_CS2_023 | Arcane Intellect |  
 VANILLA | VAN_CS2_024 | Frostbolt |  
@@ -43,7 +43,7 @@ VANILLA | VAN_CS2_053 | Far Sight |
 VANILLA | VAN_CS2_057 | Shadow Bolt |  
 VANILLA | VAN_CS2_059 | Blood Imp |  
 VANILLA | VAN_CS2_061 | Drain Life |  
-VANILLA | VAN_CS2_062 | Hellfire |  
+VANILLA | VAN_CS2_062 | Hellfire | O
 VANILLA | VAN_CS2_063 | Corruption |  
 VANILLA | VAN_CS2_064 | Dread Infernal |  
 VANILLA | VAN_CS2_065 | Voidwalker |  
@@ -112,7 +112,7 @@ VANILLA | VAN_CS2_222 | Stormwind Champion |
 VANILLA | VAN_CS2_226 | Frostwolf Warlord |  
 VANILLA | VAN_CS2_227 | Venture Co. Mercenary |  
 VANILLA | VAN_CS2_231 | Wisp |  
-VANILLA | VAN_CS2_232 | Ironbark Protector |  
+VANILLA | VAN_CS2_232 | Ironbark Protector | O
 VANILLA | VAN_CS2_233 | Blade Flurry |  
 VANILLA | VAN_CS2_234 | Shadow Word: Pain |  
 VANILLA | VAN_CS2_235 | Northshire Cleric |  
@@ -197,13 +197,13 @@ VANILLA | VAN_EX1_136 | Redemption |
 VANILLA | VAN_EX1_137 | Headcrack |  
 VANILLA | VAN_EX1_144 | Shadowstep |  
 VANILLA | VAN_EX1_145 | Preparation |  
-VANILLA | VAN_EX1_154 | Wrath |  
-VANILLA | VAN_EX1_155 | Mark of Nature |  
-VANILLA | VAN_EX1_158 | Soul of the Forest |  
-VANILLA | VAN_EX1_160 | Power of the Wild |  
-VANILLA | VAN_EX1_161 | Naturalize |  
+VANILLA | VAN_EX1_154 | Wrath | O
+VANILLA | VAN_EX1_155 | Mark of Nature | O
+VANILLA | VAN_EX1_158 | Soul of the Forest | O
+VANILLA | VAN_EX1_160 | Power of the Wild | O
+VANILLA | VAN_EX1_161 | Naturalize | O
 VANILLA | VAN_EX1_162 | Dire Wolf Alpha |  
-VANILLA | VAN_EX1_164 | Nourish |  
+VANILLA | VAN_EX1_164 | Nourish | O
 VANILLA | VAN_EX1_165 | Druid of the Claw |  
 VANILLA | VAN_EX1_166 | Keeper of the Grove |  
 VANILLA | VAN_EX1_169 | Innervate |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender |  
 
-- Progress: 1% (6 of 382 Cards)
+- Progress: 4% (16 of 382 Cards)

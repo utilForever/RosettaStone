@@ -547,7 +547,8 @@ void LegacyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [CS2_012] Swipe - COST:4
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 4 damage to an enemy and 1 damage to all other enemies.
+    // Text: Deal 4 damage to an enemy and 1 damage
+    //       to all other enemies.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
