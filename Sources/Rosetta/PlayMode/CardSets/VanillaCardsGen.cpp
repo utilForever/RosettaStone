@@ -473,6 +473,9 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain an empty Mana Crystal.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false));
+    cards.emplace("VAN_CS2_013", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
