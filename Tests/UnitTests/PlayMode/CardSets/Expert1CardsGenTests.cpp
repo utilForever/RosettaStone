@@ -382,7 +382,8 @@ TEST_CASE("[Druid : Spell] - EX1_161 : Naturalize")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Nature
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Gain 2 Mana Crystals; or Draw 3 cards.
+// Text: <b>Choose One -</b> Gain 2 Mana Crystals;
+//       or Draw 3 cards.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
