@@ -522,9 +522,20 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_155",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          ChooseCardIDs{ "VAN_EX1_155a", "VAN_EX1_155b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_158] Soul of the Forest - COST:4
@@ -746,6 +757,17 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +4 Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_155ae", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_155a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_155b] Thick Hide - COST:3
@@ -753,6 +775,17 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +4 Health and <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_155be", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_155b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [VAN_EX1_158e] Soul of the Forest - COST:0
