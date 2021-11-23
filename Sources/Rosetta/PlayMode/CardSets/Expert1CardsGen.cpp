@@ -162,7 +162,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Give your minions "<b>Deathrattle:</b> Summon a 2/2 Treant."
+    // Text: Give your minions
+    //       "<b>Deathrattle:</b> Summon a 2/2 Treant."
     // --------------------------------------------------------
     // RefTag:
     // - DEATHRATTLE = 1
