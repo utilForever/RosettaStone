@@ -500,6 +500,17 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_154",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          ChooseCardIDs{ "VAN_EX1_154a", "VAN_EX1_154b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_155] Mark of Nature - COST:3
@@ -698,6 +709,17 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "VAN_EX1_154a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_154b] Nature's Wrath - COST:2
@@ -705,6 +727,18 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion. Draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace(
+        "VAN_EX1_154b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_155a] Tiger's Fury - COST:3
