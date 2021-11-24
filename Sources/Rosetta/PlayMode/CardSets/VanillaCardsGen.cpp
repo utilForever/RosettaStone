@@ -616,6 +616,12 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "OG_044a"));
+    cards.emplace(
+        "VAN_EX1_165",
+        CardDef(power, ChooseCardIDs{ "VAN_EX1_165a", "VAN_EX1_165b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
@@ -876,6 +882,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "VAN_EX1_165t1"));
+    cards.emplace("VAN_EX1_165a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_165b] Bear Form - COST:0
@@ -883,6 +893,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2 Health and <b>Taunt</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "VAN_EX1_165t2"));
+    cards.emplace("VAN_EX1_165b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_165t1] Druid of the Claw - COST:5 [ATK:4/HP:4]
@@ -893,6 +907,9 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_165t1", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_165t2] Druid of the Claw - COST:5 [ATK:4/HP:6]
@@ -903,6 +920,9 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_165t2", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_166a] Moonfire - COST:4

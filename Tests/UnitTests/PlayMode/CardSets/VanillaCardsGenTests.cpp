@@ -1240,7 +1240,7 @@ TEST_CASE("[Druid : Spell] - VAN_EX1_161 : Naturalize")
     CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
 }
 
- // ------------------------------------------ SPELL - DRUID
+// ------------------------------------------ SPELL - DRUID
 // [VAN_EX1_164] Nourish - COST:5
 // - Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
@@ -1296,6 +1296,71 @@ TEST_CASE("[Druid : Spell] - VAN_EX1_164 : Nourish")
 
     game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
     CHECK_EQ(curHand.GetCount(), 8);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [VAN_EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> <b>Charge</b>;
+//       or +2 Health and <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - CHARGE = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - VAN_EX1_165 : Druid of the Claw")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Druid of the Claw", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Druid of the Claw", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silence", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->CanAttack(), true);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
 }
 
 // ---------------------------------------- SPELL - WARLOCK
