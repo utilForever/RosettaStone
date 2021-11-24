@@ -481,20 +481,20 @@ TEST_CASE("[Druid : Minion] - EX1_165 : Druid of the Claw")
     game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 4);
-    CHECK(curField[0]->CanAttack());
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[0]->CanAttack(), true);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
     CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 6);
-    CHECK_FALSE(curField[1]->CanAttack());
-    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
     CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 6);
-    CHECK_FALSE(curField[1]->CanAttack());
-    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
 }
 
 // ----------------------------------------- MINION - DRUID
