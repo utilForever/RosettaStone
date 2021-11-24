@@ -656,7 +656,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_165b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:4/HP:4]
+    // [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:5/HP:4]
     // - Race: Beast, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Charge</b>
@@ -669,7 +669,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_165t1", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:4/HP:6]
+    // [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:5/HP:6]
     // - Race: Beast, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
