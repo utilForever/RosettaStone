@@ -728,6 +728,11 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_EX1_573",
+        CardDef(power, ChooseCardIDs{ "VAN_EX1_573a", "VAN_EX1_573b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_578] Savagery - COST:1
@@ -1018,6 +1023,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your other minions +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_573ae", EntityType::MINIONS_NOSOURCE));
+    cards.emplace("VAN_EX1_573a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_573b] Shan'do's Lesson - COST:9
@@ -1025,6 +1034,12 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants with <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonTask>("EX1_573t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_573t", SummonSide::LEFT) },
+        1));
+    cards.emplace("VAN_EX1_573b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_tk9] Treant - COST:1 [ATK:2/HP:2]
