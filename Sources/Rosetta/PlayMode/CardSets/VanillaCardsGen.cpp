@@ -685,6 +685,11 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_EX1_178",
+        CardDef(power, ChooseCardIDs{ "VAN_EX1_178a", "VAN_EX1_178b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_570] Bite - COST:4
@@ -986,6 +991,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +5 Health and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_178ae", EntityType::SOURCE));
+    cards.emplace("VAN_EX1_178a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_178b] Uproot - COST:7
@@ -993,6 +1002,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +5 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_178be", EntityType::SOURCE));
+    cards.emplace("VAN_EX1_178b", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_573a] Demigod's Favor - COST:9
