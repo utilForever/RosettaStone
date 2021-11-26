@@ -652,6 +652,9 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 2 Mana Crystals this turn only.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TempManaTask>(2));
+    cards.emplace("VAN_EX1_169", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_173] Starfire - COST:6
