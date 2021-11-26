@@ -1240,7 +1240,7 @@ TEST_CASE("[Druid : Spell] - VAN_EX1_161 : Naturalize")
     CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
 }
 
- // ------------------------------------------ SPELL - DRUID
+// ------------------------------------------ SPELL - DRUID
 // [VAN_EX1_164] Nourish - COST:5
 // - Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
@@ -1296,6 +1296,687 @@ TEST_CASE("[Druid : Spell] - VAN_EX1_164 : Nourish")
 
     game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
     CHECK_EQ(curHand.GetCount(), 8);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [VAN_EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> <b>Charge</b>;
+//       or +2 Health and <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - CHARGE = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - VAN_EX1_165 : Druid of the Claw")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Druid of the Claw", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Druid of the Claw", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silence", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->CanAttack(), true);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [VAN_EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Deal 2 damage;
+//       or <b>Silence</b> a minion.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+// RefTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - VAN_EX1_166 : Keeper of the Grove")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Keeper of the Grove", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Keeper of the Grove", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Archmage", FormatType::CLASSIC));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero(), 1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opPlayer->GetCurrentSpellPower(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3, 2));
+    CHECK_EQ(opPlayer->GetCurrentSpellPower(), 0);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [VAN_EX1_169] Innervate - COST:0
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Gain 2 Mana Crystals this turn only.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - VAN_EX1_169 : Innervate")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(8);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Innervate", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Innervate", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Dragonling Mechanic", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 2);
+    CHECK_EQ(curPlayer->GetTotalMana(), 8);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+    CHECK_EQ(curPlayer->GetTotalMana(), 8);
+    CHECK_EQ(curPlayer->GetUsedMana(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 1);
+    CHECK_EQ(curPlayer->GetTotalMana(), 9);
+    CHECK_EQ(curPlayer->GetUsedMana(), 0);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [VAN_EX1_173] Starfire - COST:6
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Deal 5 damage. Draw a card.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - VAN_EX1_173 : Starfire")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Starfire", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [VAN_EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> +5 Attack;
+//       or +5 Health and <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - VAN_EX1_178 : Ancient of War")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ancient of War", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ancient of War", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2, 2));
+    CHECK_EQ(opField[0]->GetAttack(), 10);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [VAN_EX1_570] Bite - COST:4
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give your hero +4 Attack this turn. Gain 4 Armor.
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - VAN_EX1_570 : Bite")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bite", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [VAN_EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Give your other minions +2/+2;
+//       or Summon two 2/2 Treants with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - VAN_EX1_573 : Cenarius")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Cenarius", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Cenarius", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 8);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->HasTaunt(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 1));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->GetAttack(), 7);
+    CHECK_EQ(curField[1]->GetHealth(), 10);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
+    CHECK_EQ(curField[2]->GetAttack(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 4);
+    CHECK_EQ(curField[2]->HasTaunt(), true);
+    CHECK_EQ(curField[3]->GetAttack(), 5);
+    CHECK_EQ(curField[3]->GetHealth(), 8);
+    CHECK_EQ(curField[3]->HasTaunt(), false);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [VAN_EX1_578] Savagery - COST:1
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal damage equal to your hero's Attack to a minion.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - VAN_EX1_578 : Savagery")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Malygos", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Savagery", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Savagery", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 11);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask());
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [VAN_NEW1_007] Starfall - COST:5
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Deal 5 damage to a minion;
+//       or 2 damage to all enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - VAN_NEW1_007 : Starfall")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Starfall", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Starfall", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Starfall", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card1, 2));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card7, 1));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card5, 1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 0);
+}
+
+// ----------------------------------------- MINION - DRUID
+// [VAN_NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Draw 2 cards;
+//       or Restore 5 Health.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - VAN_NEW1_008 : Ancient of Lore")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(15);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ancient of Lore", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ancient of Lore", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    CHECK_EQ(card1->GetZoneType(), ZoneType::PLAY);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, curPlayer->GetHero(), 2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_332] Silence - COST:0
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Silence</b> a minion.
+// --------------------------------------------------------
+// GameTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_332 : Silence")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silence", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silence", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Leper Gnome", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Malygos", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField[0]->HasDeathrattle(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetSpellPower(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    CHECK_EQ(opField[0]->GetSpellPower(), 0);
 }
 
 // ---------------------------------------- SPELL - WARLOCK

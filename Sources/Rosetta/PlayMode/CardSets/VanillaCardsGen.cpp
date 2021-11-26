@@ -616,6 +616,12 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "OG_044a"));
+    cards.emplace(
+        "VAN_EX1_165",
+        CardDef(power, ChooseCardIDs{ "VAN_EX1_165a", "VAN_EX1_165b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
@@ -627,9 +633,18 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_EX1_166",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
+                ChooseCardIDs{ "VAN_EX1_166a", "VAN_EX1_166b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_169] Innervate - COST:0
@@ -637,6 +652,9 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 2 Mana Crystals this turn only.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TempManaTask>(2));
+    cards.emplace("VAN_EX1_169", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_173] Starfire - COST:6
@@ -644,6 +662,15 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage. Draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 5));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace(
+        "VAN_EX1_173",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
@@ -658,6 +685,11 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_EX1_178",
+        CardDef(power, ChooseCardIDs{ "VAN_EX1_178a", "VAN_EX1_178b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_570] Bite - COST:4
@@ -665,6 +697,11 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_570e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    cards.emplace("VAN_EX1_570", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_571] Force of Nature - COST:6
@@ -691,6 +728,11 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_EX1_573",
+        CardDef(power, ChooseCardIDs{ "VAN_EX1_573a", "VAN_EX1_573b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_578] Savagery - COST:1
@@ -701,6 +743,19 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::HERO, GameTag::ATK));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
+    cards.emplace(
+        "VAN_EX1_578",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_007] Starfall - COST:5
@@ -712,6 +767,17 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_007",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          ChooseCardIDs{ "VAN_NEW1_007a", "VAN_NEW1_007b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
@@ -723,6 +789,15 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_NEW1_008",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
+                ChooseCardIDs{ "VAN_NEW1_008a", "VAN_NEW1_008b" }));
 }
 
 void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
@@ -876,6 +951,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "VAN_EX1_165t1"));
+    cards.emplace("VAN_EX1_165a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_165b] Bear Form - COST:0
@@ -883,6 +962,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2 Health and <b>Taunt</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "VAN_EX1_165t2"));
+    cards.emplace("VAN_EX1_165b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_165t1] Druid of the Claw - COST:5 [ATK:4/HP:4]
@@ -893,6 +976,9 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_165t1", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_165t2] Druid of the Claw - COST:5 [ATK:4/HP:6]
@@ -903,6 +989,9 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_165t2", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_166a] Moonfire - COST:4
@@ -910,6 +999,14 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "VAN_EX1_166a",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_166b] Dispel - COST:4
@@ -920,6 +1017,16 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_166b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_178a] Rooted - COST:7
@@ -927,6 +1034,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +5 Health and <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_178ae", EntityType::SOURCE));
+    cards.emplace("VAN_EX1_178a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_178b] Uproot - COST:7
@@ -934,6 +1045,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +5 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_178be", EntityType::SOURCE));
+    cards.emplace("VAN_EX1_178b", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_573a] Demigod's Favor - COST:9
@@ -941,6 +1056,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your other minions +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_573ae", EntityType::MINIONS_NOSOURCE));
+    cards.emplace("VAN_EX1_573a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_573b] Shan'do's Lesson - COST:9
@@ -948,6 +1067,12 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants with <b>Taunt</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonTask>("EX1_573t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_573t", SummonSide::LEFT) },
+        1));
+    cards.emplace("VAN_EX1_573b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_tk9] Treant - COST:1 [ATK:2/HP:2]
@@ -971,6 +1096,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    cards.emplace("VAN_NEW1_007a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_007b] Starlord - COST:5
@@ -978,6 +1107,17 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage to a minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    cards.emplace(
+        "VAN_NEW1_007b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_008a] Ancient Teachings - COST:7
@@ -985,6 +1125,9 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cards.emplace("VAN_NEW1_008a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_008b] Ancient Secrets - COST:7
@@ -992,6 +1135,14 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 5 Health.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
+    cards.emplace(
+        "VAN_NEW1_008b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 }
 
 void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -1815,6 +1966,8 @@ void VanillaCardsGen::AddPaladinNonCollect(
 
 void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_CS1_112] Holy Nova - COST:5
     // - Set: VANILLA, Rarity: Free
@@ -1910,6 +2063,16 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_332",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_334] Shadow Madness - COST:4

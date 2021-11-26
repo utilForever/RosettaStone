@@ -247,7 +247,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.
+    // Text: <b>Choose One -</b> Deal 2 damage;
+    //       or <b>Silence</b> a minion.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -269,7 +270,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b>+5 Attack; or +5 Health and <b>Taunt</b>.
+    // Text: <b>Choose One -</b>+5 Attack;
+    //       or +5 Health and <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -372,8 +374,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Set: Expert1, Rarity: Rare
     // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b>
-    //       Deal 5 damage to a minion;
+    // Text: <b>Choose One -</b> Deal 5 damage to a minion;
     //       or 2 damage to all enemy minions.
     // --------------------------------------------------------
     // GameTag:
@@ -395,7 +396,8 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
     // - Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b> Draw 2 cards; or Restore 5 Health.
+    // Text: <b>Choose One -</b> Draw 2 cards;
+    //       or Restore 5 Health.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
@@ -656,7 +658,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_165b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:4/HP:4]
+    // [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:5/HP:4]
     // - Race: Beast, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Charge</b>
@@ -669,7 +671,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_165t1", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
-    // [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:4/HP:6]
+    // [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:5/HP:6]
     // - Race: Beast, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>

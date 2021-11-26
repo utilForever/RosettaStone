@@ -204,12 +204,12 @@ VANILLA | VAN_EX1_160 | Power of the Wild | O
 VANILLA | VAN_EX1_161 | Naturalize | O
 VANILLA | VAN_EX1_162 | Dire Wolf Alpha |  
 VANILLA | VAN_EX1_164 | Nourish | O
-VANILLA | VAN_EX1_165 | Druid of the Claw |  
-VANILLA | VAN_EX1_166 | Keeper of the Grove |  
-VANILLA | VAN_EX1_169 | Innervate |  
+VANILLA | VAN_EX1_165 | Druid of the Claw | O
+VANILLA | VAN_EX1_166 | Keeper of the Grove | O
+VANILLA | VAN_EX1_169 | Innervate | O
 VANILLA | VAN_EX1_170 | Emperor Cobra |  
-VANILLA | VAN_EX1_173 | Starfire |  
-VANILLA | VAN_EX1_178 | Ancient of War |  
+VANILLA | VAN_EX1_173 | Starfire | O
+VANILLA | VAN_EX1_178 | Ancient of War | O
 VANILLA | VAN_EX1_238 | Lightning Bolt |  
 VANILLA | VAN_EX1_241 | Lava Burst |  
 VANILLA | VAN_EX1_243 | Dust Devil |  
@@ -251,7 +251,7 @@ VANILLA | VAN_EX1_317 | Sense Demons |
 VANILLA | VAN_EX1_319 | Flame Imp |  
 VANILLA | VAN_EX1_320 | Bane of Doom |  
 VANILLA | VAN_EX1_323 | Lord Jaraxxus | O
-VANILLA | VAN_EX1_332 | Silence |  
+VANILLA | VAN_EX1_332 | Silence | O
 VANILLA | VAN_EX1_334 | Shadow Madness |  
 VANILLA | VAN_EX1_335 | Lightspawn |  
 VANILLA | VAN_EX1_339 | Thoughtsteal |  
@@ -315,13 +315,13 @@ VANILLA | VAN_EX1_563 | Malygos |
 VANILLA | VAN_EX1_564 | Faceless Manipulator |  
 VANILLA | VAN_EX1_565 | Flametongue Totem |  
 VANILLA | VAN_EX1_567 | Doomhammer |  
-VANILLA | VAN_EX1_570 | Bite |  
+VANILLA | VAN_EX1_570 | Bite | O
 VANILLA | VAN_EX1_571 | Force of Nature |  
 VANILLA | VAN_EX1_572 | Ysera |  
-VANILLA | VAN_EX1_573 | Cenarius |  
+VANILLA | VAN_EX1_573 | Cenarius | O
 VANILLA | VAN_EX1_575 | Mana Tide Totem |  
 VANILLA | VAN_EX1_577 | The Beast |  
-VANILLA | VAN_EX1_578 | Savagery |  
+VANILLA | VAN_EX1_578 | Savagery | O
 VANILLA | VAN_EX1_581 | Sap |  
 VANILLA | VAN_EX1_582 | Dalaran Mage |  
 VANILLA | VAN_EX1_583 | Priestess of Elune |  
@@ -359,8 +359,8 @@ VANILLA | VAN_EX1_626 | Mass Dispel |
 VANILLA | VAN_NEW1_003 | Sacrificial Pact |  
 VANILLA | VAN_NEW1_004 | Vanish |  
 VANILLA | VAN_NEW1_005 | Kidnapper |  
-VANILLA | VAN_NEW1_007 | Starfall |  
-VANILLA | VAN_NEW1_008 | Ancient of Lore |  
+VANILLA | VAN_NEW1_007 | Starfall | O
+VANILLA | VAN_NEW1_008 | Ancient of Lore | O
 VANILLA | VAN_NEW1_010 | Al'Akir the Windlord |  
 VANILLA | VAN_NEW1_011 | Kor'kron Elite |  
 VANILLA | VAN_NEW1_012 | Mana Wyrm |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender |  
 
-- Progress: 4% (16 of 382 Cards)
+- Progress: 7% (27 of 382 Cards)

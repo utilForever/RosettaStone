@@ -481,27 +481,28 @@ TEST_CASE("[Druid : Minion] - EX1_165 : Druid of the Claw")
     game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 4);
-    CHECK(curField[0]->CanAttack());
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[0]->CanAttack(), true);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
     CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 6);
-    CHECK_FALSE(curField[1]->CanAttack());
-    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
     CHECK_EQ(curField[1]->GetAttack(), 5);
     CHECK_EQ(curField[1]->GetHealth(), 6);
-    CHECK_FALSE(curField[1]->CanAttack());
-    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[1]->CanAttack(), false);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
 }
 
 // ----------------------------------------- MINION - DRUID
 // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Deal 2 damage; or <b>Silence</b> a minion.
+// Text: <b>Choose One -</b> Deal 2 damage;
+//       or <b>Silence</b> a minion.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
@@ -560,7 +561,8 @@ TEST_CASE("[Druid : Minion] - EX1_166 : Keeper of the Grove")
 // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Choose One -</b>+5 Attack; or +5 Health and <b>Taunt</b>.
+// Text: <b>Choose One -</b>+5 Attack;
+//       or +5 Health and <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
@@ -928,8 +930,7 @@ TEST_CASE("[Druid : Spell] - EX1_578 : Savagery")
 // - Set: Expert1, Rarity: Rare
 // - Spell School: Arcane
 // --------------------------------------------------------
-// Text: <b>Choose One -</b>
-//       Deal 5 damage to a minion;
+// Text: <b>Choose One -</b> Deal 5 damage to a minion;
 //       or 2 damage to all enemy minions.
 // --------------------------------------------------------
 // GameTag:
@@ -1003,7 +1004,8 @@ TEST_CASE("[Druid : Spell] - NEW1_007 : Starfall")
 // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Draw 2 cards; or Restore 5 Health.
+// Text: <b>Choose One -</b> Draw 2 cards;
+//       or Restore 5 Health.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
