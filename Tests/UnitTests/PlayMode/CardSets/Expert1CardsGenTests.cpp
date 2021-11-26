@@ -930,8 +930,7 @@ TEST_CASE("[Druid : Spell] - EX1_578 : Savagery")
 // - Set: Expert1, Rarity: Rare
 // - Spell School: Arcane
 // --------------------------------------------------------
-// Text: <b>Choose One -</b>
-//       Deal 5 damage to a minion;
+// Text: <b>Choose One -</b> Deal 5 damage to a minion;
 //       or 2 damage to all enemy minions.
 // --------------------------------------------------------
 // GameTag:

@@ -374,8 +374,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Set: Expert1, Rarity: Rare
     // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: <b>Choose One -</b>
-    //       Deal 5 damage to a minion;
+    // Text: <b>Choose One -</b> Deal 5 damage to a minion;
     //       or 2 damage to all enemy minions.
     // --------------------------------------------------------
     // GameTag:
