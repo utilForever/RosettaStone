@@ -697,6 +697,11 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_570e", EntityType::HERO));
+    power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    cards.emplace("VAN_EX1_570", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_EX1_571] Force of Nature - COST:6
