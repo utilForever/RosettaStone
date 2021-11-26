@@ -1004,7 +1004,8 @@ TEST_CASE("[Druid : Spell] - NEW1_007 : Starfall")
 // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
 // - Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Draw 2 cards; or Restore 5 Health.
+// Text: <b>Choose One -</b> Draw 2 cards;
+//       or Restore 5 Health.
 // --------------------------------------------------------
 // GameTag:
 // - CHOOSE_ONE = 1
