@@ -767,6 +767,17 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_007",
+                  CardDef(power,
+                          PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                    { PlayReq::REQ_MINION_TARGET, 0 } },
+                          ChooseCardIDs{ "VAN_NEW1_007a", "VAN_NEW1_007b" }));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
@@ -1076,6 +1087,10 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    cards.emplace("VAN_NEW1_007a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_007b] Starlord - COST:5
@@ -1083,6 +1098,17 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage to a minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    cards.emplace(
+        "VAN_NEW1_007b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_008a] Ancient Teachings - COST:7
