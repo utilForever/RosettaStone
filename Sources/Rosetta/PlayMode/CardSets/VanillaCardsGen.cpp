@@ -1865,6 +1865,8 @@ void VanillaCardsGen::AddPaladinNonCollect(
 
 void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_CS1_112] Holy Nova - COST:5
     // - Set: VANILLA, Rarity: Free
@@ -1960,6 +1962,16 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_332",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_334] Shadow Madness - COST:4
