@@ -789,6 +789,15 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "VAN_NEW1_008",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
+                ChooseCardIDs{ "VAN_NEW1_008a", "VAN_NEW1_008b" }));
 }
 
 void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
@@ -1116,6 +1125,9 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cards.emplace("VAN_NEW1_008a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_008b] Ancient Secrets - COST:7
@@ -1123,6 +1135,14 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 5 Health.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
+    cards.emplace(
+        "VAN_NEW1_008b",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 }
 
 void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
