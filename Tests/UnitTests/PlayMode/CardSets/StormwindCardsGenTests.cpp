@@ -349,6 +349,71 @@ TEST_CASE("[Shaman : Spell] - SW_437 : Composting")
     CHECK_EQ(curField.GetCount(), 1);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [SW_439] Vibrant Squirrel - COST:1 [ATK:2/HP:1]
+// - Race: Beast, Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Shuffle 4 Acorns into your deck.
+//       When drawn, summon a 2/1 Squirrel.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_439 : Vibrant Squirrel")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vibrant Squirrel"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->card->name, "Satisfied Squirrel");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->card->name, "Satisfied Squirrel");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->card->name, "Satisfied Squirrel");
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->card->name, "Satisfied Squirrel");
+    CHECK_EQ(curField[3]->GetAttack(), 2);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SW_055] Impatient Shopkeep - COST:3 [ATK:3/HP:3]
 // - Set: STORMWIND, Rarity: Common

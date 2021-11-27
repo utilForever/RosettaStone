@@ -161,6 +161,10 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SW_439t", 4));
+    cards.emplace("SW_439", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_447] Sheldras Moontree - COST:8 [ATK:5/HP:5]
@@ -388,11 +392,18 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<SummonTask>("SW_439t2"));
+    power.AddPowerTask(std::make_shared<SummonTask>("SW_439t2"));
+    cards.emplace("SW_439t", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_439t2] Satisfied Squirrel - COST:1 [ATK:2/HP:1]
     // - Race: Beast, Set: STORMWIND
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_439t2", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_447e] Elune's Guidance - COST:0
