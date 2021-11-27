@@ -107,6 +107,12 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "SW_431e", EntityType::HERO) };
+    cards.emplace("SW_431", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_432] Kodo Mount - COST:4
@@ -339,6 +345,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_431e"));
+    cards.emplace("SW_431e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_432e] On a Kodo - COST:0

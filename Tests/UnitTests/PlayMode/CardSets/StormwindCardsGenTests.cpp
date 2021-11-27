@@ -226,6 +226,62 @@ TEST_CASE("[Druid : Spell] - SW_429 : Best in Shell")
     CHECK_EQ(curField[1]->HasTaunt(), true);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [SW_431] Park Panther - COST:4 [ATK:4/HP:4]
+// - Race: Beast, Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b>. Whenever this attacks,
+//       give your hero +3 Attack this turn.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - SW_431 : Park Panther")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Park Panther"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SW_055] Impatient Shopkeep - COST:3 [ATK:3/HP:3]
 // - Set: STORMWIND, Rarity: Common
