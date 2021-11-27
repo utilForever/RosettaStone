@@ -146,6 +146,10 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_437e", EntityType::MINIONS));
+    cards.emplace("SW_437", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_439] Vibrant Squirrel - COST:1 [ATK:2/HP:1]
@@ -3147,6 +3151,8 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_001e] Inscription Enchant - COST:0
     // - Set: STORMWIND
@@ -3515,6 +3521,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("SW_437e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_457e] Reinforced Hide - COST:0
