@@ -173,6 +173,59 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 19);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [SW_429] Best in Shell - COST:6
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Tradeable</b>
+//       Summon two 2/7 Turtles with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - TRADEABLE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - SW_429 : Best in Shell")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Best in Shell"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Goldshell Turtle");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->card->name, "Goldshell Turtle");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SW_055] Impatient Shopkeep - COST:3 [ATK:3/HP:3]
 // - Set: STORMWIND, Rarity: Common

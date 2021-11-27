@@ -11,6 +11,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 
 void StormwindCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -82,9 +83,18 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SW_429t", 2, SummonSide::SPELL));
+    cards.emplace(
+        "SW_429",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_431] Park Panther - COST:4 [ATK:4/HP:4]
@@ -316,6 +326,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_429t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_431e] Rawr! - COST:0
