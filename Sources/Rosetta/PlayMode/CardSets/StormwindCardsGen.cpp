@@ -11,6 +11,8 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using ChooseCardIDs = std::vector<std::string>;
+
 void StormwindCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -47,6 +49,10 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_422",
+                  CardDef(power, ChooseCardIDs{ "SW_422a", "SW_422b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_428] Lost in the Park - COST:1
@@ -200,6 +206,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Summon a 2/2 Treant.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("EX1_158t", SummonSide::DEFAULT));
+    cards.emplace("SW_422a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_422b] Fertilizer - COST:1
@@ -208,6 +218,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Give your minions +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_422e", EntityType::MINIONS));
+    cards.emplace("SW_422b", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_422e] Replanted - COST:0
@@ -215,6 +229,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_422e"));
+    cards.emplace("SW_422e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_422t] Treant - COST:2 [ATK:2/HP:2]
