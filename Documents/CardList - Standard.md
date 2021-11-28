@@ -892,6 +892,41 @@ THE_BARRENS | WC_806 | Floecaster | O
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
+STORMWIND | DED_001 | Druid of the Reef | O
+STORMWIND | DED_002 | Moonlit Guidance |  
+STORMWIND | DED_003 | Jerry Rig Carpenter |  
+STORMWIND | DED_004 | Blackwater Cutlass |  
+STORMWIND | DED_005 | Parrrley |  
+STORMWIND | DED_006 | Mr. Smite |  
+STORMWIND | DED_007 | Defias Blastfisher |  
+STORMWIND | DED_008 | Monstrous Parrot |  
+STORMWIND | DED_009 | Doggie Biscuit |  
+STORMWIND | DED_500 | Wealth Redistributor |  
+STORMWIND | DED_501 | Sunwing Squawker |  
+STORMWIND | DED_502 | Righteous Defense |  
+STORMWIND | DED_503 | Shadowblade Slinger |  
+STORMWIND | DED_504 | Wicked Shipment |  
+STORMWIND | DED_505 | Hullbreaker |  
+STORMWIND | DED_506 | Need for Greed |  
+STORMWIND | DED_507 | Crow's Nest Lookout |  
+STORMWIND | DED_508 | Proving Grounds |  
+STORMWIND | DED_509 | Brilliant Macaw |  
+STORMWIND | DED_510 | Edwin, Defias Kingpin |  
+STORMWIND | DED_511 | Suckerhook |  
+STORMWIND | DED_512 | Amulet of Undying |  
+STORMWIND | DED_513 | Defias Leper |  
+STORMWIND | DED_514 | Copycat |  
+STORMWIND | DED_515 | Grey Sage Parrot |  
+STORMWIND | DED_516 | Deepwater Evoker |  
+STORMWIND | DED_517 | Arcane Overflow |  
+STORMWIND | DED_518 | Man the Cannons |  
+STORMWIND | DED_519 | Defias Cannoneer |  
+STORMWIND | DED_521 | Maddest Bomber |  
+STORMWIND | DED_522 | Cookie the Cook |  
+STORMWIND | DED_523 | Golakka Glutton |  
+STORMWIND | DED_524 | Multicaster |  
+STORMWIND | DED_525 | Goliath, Sneed's Masterpiece |  
+STORMWIND | DED_527 | Blacksmithing Hammer |  
 STORMWIND | SW_001 | Celestial Ink Set |  
 STORMWIND | SW_003 | Runed Mithril Rod |  
 STORMWIND | SW_006 | Stubborn Suspect |  
@@ -996,17 +1031,17 @@ STORMWIND | SW_412 | SI:7 Extortion |
 STORMWIND | SW_413 | SI:7 Operative |  
 STORMWIND | SW_417 | SI:7 Assassin |  
 STORMWIND | SW_418 | SI:7 Skulker |  
-STORMWIND | SW_419 | Oracle of Elune |  
-STORMWIND | SW_422 | Sow the Soil |  
+STORMWIND | SW_419 | Oracle of Elune | O
+STORMWIND | SW_422 | Sow the Soil | O
 STORMWIND | SW_428 | Lost in the Park | O
-STORMWIND | SW_429 | Best in Shell |  
-STORMWIND | SW_431 | Park Panther |  
-STORMWIND | SW_432 | Kodo Mount |  
+STORMWIND | SW_429 | Best in Shell | O
+STORMWIND | SW_431 | Park Panther | O
+STORMWIND | SW_432 | Kodo Mount | O
 STORMWIND | SW_433 | Seek Guidance |  
 STORMWIND | SW_434 | Loan Shark |  
-STORMWIND | SW_436 | Wickerclaw |  
-STORMWIND | SW_437 | Composting |  
-STORMWIND | SW_439 | Vibrant Squirrel |  
+STORMWIND | SW_436 | Wickerclaw | O
+STORMWIND | SW_437 | Composting | O
+STORMWIND | SW_439 | Vibrant Squirrel | O
 STORMWIND | SW_440 | Call of the Grave |  
 STORMWIND | SW_441 | Shard of the Naaru |  
 STORMWIND | SW_442 | Void Shard |  
@@ -1027,43 +1062,8 @@ STORMWIND | SW_459 | Stormwind Piper |
 STORMWIND | SW_460 | Devouring Swarm |  
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
-STORMWIND | DED_001 | Druid of the Reef |  
-STORMWIND | DED_002 | Moonlit Guidance |  
-STORMWIND | DED_003 | Jerry Rig Carpenter |  
-STORMWIND | DED_004 | Blackwater Cutlass |  
-STORMWIND | DED_005 | Parrrley |  
-STORMWIND | DED_006 | Mr. Smite |  
-STORMWIND | DED_007 | Defias Blastfisher |  
-STORMWIND | DED_008 | Monstrous Parrot |  
-STORMWIND | DED_009 | Doggie Biscuit |  
-STORMWIND | DED_500 | Wealth Redistributor |  
-STORMWIND | DED_501 | Sunwing Squawker |  
-STORMWIND | DED_502 | Righteous Defense |  
-STORMWIND | DED_503 | Shadowblade Slinger |  
-STORMWIND | DED_504 | Wicked Shipment |  
-STORMWIND | DED_505 | Hullbreaker |  
-STORMWIND | DED_506 | Need for Greed |  
-STORMWIND | DED_507 | Crow's Nest Lookout |  
-STORMWIND | DED_508 | Proving Grounds |  
-STORMWIND | DED_509 | Brilliant Macaw |  
-STORMWIND | DED_510 | Edwin, Defias Kingpin |  
-STORMWIND | DED_511 | Suckerhook |  
-STORMWIND | DED_512 | Amulet of Undying |  
-STORMWIND | DED_513 | Defias Leper |  
-STORMWIND | DED_514 | Copycat |  
-STORMWIND | DED_515 | Grey Sage Parrot |  
-STORMWIND | DED_516 | Deepwater Evoker |  
-STORMWIND | DED_517 | Arcane Overflow |  
-STORMWIND | DED_518 | Man the Cannons |  
-STORMWIND | DED_519 | Defias Cannoneer |  
-STORMWIND | DED_521 | Maddest Bomber |  
-STORMWIND | DED_522 | Cookie the Cook |  
-STORMWIND | DED_523 | Golakka Glutton |  
-STORMWIND | DED_524 | Multicaster |  
-STORMWIND | DED_525 | Goliath, Sneed's Masterpiece |  
-STORMWIND | DED_527 | Blacksmithing Hammer |  
 
-- Progress: 1% (2 of 170 Cards)
+- Progress: 6% (11 of 170 Cards)
 
 ## Fractured in Alterac Valley
 
