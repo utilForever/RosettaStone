@@ -121,9 +121,20 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +4/+2 and <b>Rush</b>.
     //       When it dies, summon a Kodo.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_432e", EntityType::TARGET));
+    cards.emplace(
+        "SW_432",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_436] Wickerclaw - COST:2 [ATK:1/HP:4]
@@ -370,6 +381,11 @@ void StormwindCardsGen::AddDruidNonCollect(
     // Text: +4/+2 and <b>Rush</b>.
     //       <b>Deathrattle:</b> Summon a Kodo.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_432e"));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SW_432t", SummonSide::DEATHRATTLE));
+    cards.emplace("SW_432e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_432t] Guff's Kodo - COST:3 [ATK:4/HP:2]
@@ -380,6 +396,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_432t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_436e] Wicked Claws - COST:0
