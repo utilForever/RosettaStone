@@ -11,6 +11,10 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+
 void StormwindCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -35,6 +39,14 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsCost(2, RelaSign::LEQ))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<SummonCopyTask>(
+        EntityType::TARGET) };
+    cards.emplace("SW_419", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_422] Sow the Soil - COST:1
@@ -47,6 +59,10 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_422",
+                  CardDef(power, ChooseCardIDs{ "SW_422a", "SW_422b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_428] Lost in the Park - COST:1
@@ -76,9 +92,18 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SW_429t", 2, SummonSide::SPELL));
+    cards.emplace(
+        "SW_429",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_431] Park Panther - COST:4 [ATK:4/HP:4]
@@ -91,6 +116,12 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "SW_431e", EntityType::HERO) };
+    cards.emplace("SW_431", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_432] Kodo Mount - COST:4
@@ -99,9 +130,20 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +4/+2 and <b>Rush</b>.
     //       When it dies, summon a Kodo.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_432e", EntityType::TARGET));
+    cards.emplace(
+        "SW_432",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_436] Wickerclaw - COST:2 [ATK:1/HP:4]
@@ -113,6 +155,12 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "SW_436e", EntityType::SOURCE) };
+    cards.emplace("SW_436", CardDef(power, 4, 0));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_437] Composting - COST:2
@@ -124,6 +172,10 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_437e", EntityType::MINIONS));
+    cards.emplace("SW_437", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_439] Vibrant Squirrel - COST:1 [ATK:2/HP:1]
@@ -135,6 +187,10 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SW_439t", 4));
+    cards.emplace("SW_439", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_447] Sheldras Moontree - COST:8 [ATK:5/HP:5]
@@ -163,6 +219,11 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "DED_001c"));
+    cards.emplace("DED_001",
+                  CardDef(power, ChooseCardIDs{ "DED_001a", "DED_001b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DED_002] Moonlit Guidance - COST:2
@@ -200,6 +261,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Summon a 2/2 Treant.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("EX1_158t", SummonSide::DEFAULT));
+    cards.emplace("SW_422a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_422b] Fertilizer - COST:1
@@ -208,6 +273,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Give your minions +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_422e", EntityType::MINIONS));
+    cards.emplace("SW_422b", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_422e] Replanted - COST:0
@@ -215,6 +284,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_422e"));
+    cards.emplace("SW_422e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_422t] Treant - COST:2 [ATK:2/HP:2]
@@ -299,6 +371,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_429t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_431e] Rawr! - COST:0
@@ -309,6 +384,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_431e"));
+    cards.emplace("SW_431e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_432e] On a Kodo - COST:0
@@ -317,6 +395,11 @@ void StormwindCardsGen::AddDruidNonCollect(
     // Text: +4/+2 and <b>Rush</b>.
     //       <b>Deathrattle:</b> Summon a Kodo.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_432e"));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SW_432t", SummonSide::DEATHRATTLE));
+    cards.emplace("SW_432e", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_432t] Guff's Kodo - COST:3 [ATK:4/HP:2]
@@ -327,6 +410,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_432t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_436e] Wicked Claws - COST:0
@@ -334,6 +420,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_436e"));
+    cards.emplace("SW_436e", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_439t] Acorn - COST:1
@@ -345,11 +434,18 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<SummonTask>("SW_439t2"));
+    power.AddPowerTask(std::make_shared<SummonTask>("SW_439t2"));
+    cards.emplace("SW_439t", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [SW_439t2] Satisfied Squirrel - COST:1 [ATK:2/HP:1]
     // - Race: Beast, Set: STORMWIND
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_439t2", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [SW_447e] Elune's Guidance - COST:0
@@ -374,6 +470,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "DED_001at"));
+    cards.emplace("DED_001a", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DED_001at] Druid of the Reef - COST:1 [ATK:3/HP:1]
@@ -384,6 +484,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DED_001at", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DED_001b] Sea Turtle Form - COST:1 [ATK:1/HP:3]
@@ -394,6 +497,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "DED_001bt"));
+    cards.emplace("DED_001b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DED_001bt] Druid of the Reef - COST:1 [ATK:1/HP:3]
@@ -404,6 +511,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DED_001bt", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DED_001c] Druid of the Reef - COST:1 [ATK:3/HP:3]
@@ -416,6 +526,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DED_001c", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [DED_002e] Path of the Moon - COST:0
@@ -3108,6 +3221,8 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_001e] Inscription Enchant - COST:0
     // - Set: STORMWIND
@@ -3476,6 +3591,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("SW_437e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_457e] Reinforced Hide - COST:0
