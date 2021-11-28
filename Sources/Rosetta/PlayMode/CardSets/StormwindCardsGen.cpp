@@ -13,6 +13,7 @@ namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void StormwindCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -38,6 +39,14 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsCost(2, RelaSign::LEQ))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<SummonCopyTask>(
+        EntityType::TARGET) };
+    cards.emplace("SW_419", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_422] Sow the Soil - COST:1
