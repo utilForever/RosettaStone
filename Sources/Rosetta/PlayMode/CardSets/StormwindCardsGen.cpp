@@ -219,6 +219,11 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "DED_001c"));
+    cards.emplace("DED_001",
+                  CardDef(power, ChooseCardIDs{ "DED_001a", "DED_001b" }));
 
     // ------------------------------------------ SPELL - DRUID
     // [DED_002] Moonlit Guidance - COST:2
@@ -465,6 +470,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "DED_001at"));
+    cards.emplace("DED_001a", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DED_001at] Druid of the Reef - COST:1 [ATK:3/HP:1]
@@ -475,6 +484,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DED_001at", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DED_001b] Sea Turtle Form - COST:1 [ATK:1/HP:3]
@@ -485,6 +497,10 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "DED_001bt"));
+    cards.emplace("DED_001b", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DED_001bt] Druid of the Reef - COST:1 [ATK:1/HP:3]
@@ -495,6 +511,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DED_001bt", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [DED_001c] Druid of the Reef - COST:1 [ATK:3/HP:3]
@@ -507,6 +526,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DED_001c", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [DED_002e] Path of the Moon - COST:0
