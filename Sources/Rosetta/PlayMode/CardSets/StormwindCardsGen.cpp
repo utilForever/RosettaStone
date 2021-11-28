@@ -135,6 +135,12 @@ void StormwindCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::GAIN_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "SW_436e", EntityType::SOURCE) };
+    cards.emplace("SW_436", CardDef(power, 4, 0));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_437] Composting - COST:2
@@ -381,6 +387,9 @@ void StormwindCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_436e"));
+    cards.emplace("SW_436e", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [SW_439t] Acorn - COST:1

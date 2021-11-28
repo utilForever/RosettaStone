@@ -283,6 +283,57 @@ TEST_CASE("[Druid : Minion] - SW_431 : Park Panther")
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [SW_436] Wickerclaw - COST:2 [ATK:1/HP:4]
+// - Race: Beast, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: After your hero gains Attack,
+//       this minion gains +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - SW_436 : Wickerclaw")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wickerclaw"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [SW_437] Composting - COST:2
 // - Set: STORMWIND, Rarity: Epic
