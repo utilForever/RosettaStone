@@ -543,6 +543,8 @@ void StormwindCardsGen::AddDruidNonCollect(
 
 void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [SW_320] Rats of Extraordinary Size - COST:6
     // - Set: STORMWIND, Rarity: Epic
@@ -559,6 +561,17 @@ void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage.
     //       Your next Hero Power deals 2 more damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_321e", EntityType::HERO));
+    cards.emplace(
+        "SW_321",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [SW_322] Defend the Dwarven District - COST:1
@@ -696,6 +709,8 @@ void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [SW_320e] Extraordinarily Sized - COST:0
     // - Set: STORMWIND
@@ -709,6 +724,13 @@ void StormwindCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: Your next Hero Power deals 2 more damage.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(GameTag::HEROPOWER_DAMAGE,
+                                               EffectOperator::ADD, 2));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("SW_321e", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [SW_322t] Take the High Ground - COST:1

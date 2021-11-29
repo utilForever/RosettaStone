@@ -648,3 +648,54 @@ TEST_CASE("[Druid : Minion] - DED_001 : Druid of the Reef")
     CHECK_EQ(curField[1]->GetHealth(), 3);
     CHECK_EQ(curField[1]->HasTaunt(), true);
 }
+
+// ----------------------------------------- SPELL - HUNTER
+// [SW_321] Aimed Shot - COST:3
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage.
+//       Your next Hero Power deals 2 more damage.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - SW_321 : Aimed Shot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Aimed Shot"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curPlayer->GetHero()->GetHeroPowerDamage(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHeroPowerDamage(), 2);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 23);
+    CHECK_EQ(curPlayer->GetHero()->GetHeroPowerDamage(), 0);
+}
