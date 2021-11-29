@@ -606,6 +606,10 @@ void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SW_455t", 5, SummonSide::DEATHRATTLE));
+    cards.emplace("SW_455", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [SW_457] Leatherworking Kit - COST:1
@@ -780,6 +784,9 @@ void StormwindCardsGen::AddHunterNonCollect(
     // [SW_455t] Rat - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: STORMWIND
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_455t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [SW_458e] On a Ram - COST:0
