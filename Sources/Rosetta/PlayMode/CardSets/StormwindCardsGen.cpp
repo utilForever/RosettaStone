@@ -2879,6 +2879,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - SPELLPOWER = 1
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_061", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_062] Goldshire Gnoll - COST:10 [ATK:5/HP:4]

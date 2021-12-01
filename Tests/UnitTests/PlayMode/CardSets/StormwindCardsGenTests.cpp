@@ -818,3 +818,19 @@ TEST_CASE("[Mage : Spell] - SW_107 : Fire Sale")
     CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(opField[0]->GetHealth(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [SW_061] Guild Trader - COST:4 [ATK:3/HP:4]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Tradeable</b>
+//       <b>Spell Damage +2</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// - TRADEABLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_061 : Guild Trader")
+{
+    // Do nothing
+}
