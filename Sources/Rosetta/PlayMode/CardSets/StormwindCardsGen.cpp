@@ -2969,6 +2969,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("SW_068", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_069] Enthusiastic Banker - COST:3 [ATK:2/HP:3]
