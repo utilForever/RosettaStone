@@ -966,14 +966,14 @@ STORMWIND | SW_056 | Spice Bread Baker |
 STORMWIND | SW_057 | Package Runner |  
 STORMWIND | SW_059 | Deeprun Engineer |  
 STORMWIND | SW_060 | Florist |  
-STORMWIND | SW_061 | Guild Trader |  
+STORMWIND | SW_061 | Guild Trader | O
 STORMWIND | SW_062 | Goldshire Gnoll |  
 STORMWIND | SW_063 | Battleground Battlemaster |  
 STORMWIND | SW_064 | Northshire Farmer |  
 STORMWIND | SW_065 | Pandaren Importer |  
 STORMWIND | SW_066 | Royal Librarian |  
 STORMWIND | SW_067 | Stockades Guard |  
-STORMWIND | SW_068 | Mo'arg Forgefiend |  
+STORMWIND | SW_068 | Mo'arg Forgefiend | O
 STORMWIND | SW_069 | Enthusiastic Banker |  
 STORMWIND | SW_070 | Mailbox Dancer |  
 STORMWIND | SW_071 | Lion's Guard |  
@@ -1000,7 +1000,7 @@ STORMWIND | SW_093 | Stormwind Freebooter |
 STORMWIND | SW_094 | Heavy Plate |  
 STORMWIND | SW_095 | Investment Opportunity |  
 STORMWIND | SW_097 | Remote-Controlled Golem |  
-STORMWIND | SW_107 | Fire Sale |  
+STORMWIND | SW_107 | Fire Sale | O
 STORMWIND | SW_108 | First Flame |  
 STORMWIND | SW_109 | Clumsy Courier |  
 STORMWIND | SW_110 | Ignite |  
@@ -1021,7 +1021,7 @@ STORMWIND | SW_316 | Noble Mount |
 STORMWIND | SW_317 | Catacomb Guard |  
 STORMWIND | SW_319 | Peasant |  
 STORMWIND | SW_320 | Rats of Extraordinary Size |  
-STORMWIND | SW_321 | Aimed Shot |  
+STORMWIND | SW_321 | Aimed Shot | O
 STORMWIND | SW_322 | Defend the Dwarven District |  
 STORMWIND | SW_323 | The Rat King |  
 STORMWIND | SW_400 | Entrapped Sorceress |  
@@ -1055,7 +1055,7 @@ STORMWIND | SW_450 | Sorcerer's Gambit |
 STORMWIND | SW_451 | Metamorfin |  
 STORMWIND | SW_452 | Chaos Leech |  
 STORMWIND | SW_454 | Lion's Frenzy |  
-STORMWIND | SW_455 | Rodent Nest |  
+STORMWIND | SW_455 | Rodent Nest | O
 STORMWIND | SW_457 | Leatherworking Kit |  
 STORMWIND | SW_458 | Ramming Mount |  
 STORMWIND | SW_459 | Stormwind Piper |  
@@ -1063,7 +1063,7 @@ STORMWIND | SW_460 | Devouring Swarm |
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 6% (11 of 170 Cards)
+- Progress: 9% (16 of 170 Cards)
 
 ## Fractured in Alterac Valley
 

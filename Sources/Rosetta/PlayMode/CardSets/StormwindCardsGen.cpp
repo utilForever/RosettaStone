@@ -543,6 +543,8 @@ void StormwindCardsGen::AddDruidNonCollect(
 
 void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [SW_320] Rats of Extraordinary Size - COST:6
     // - Set: STORMWIND, Rarity: Epic
@@ -559,6 +561,17 @@ void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage.
     //       Your next Hero Power deals 2 more damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_321e", EntityType::HERO));
+    cards.emplace(
+        "SW_321",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [SW_322] Defend the Dwarven District - COST:1
@@ -593,6 +606,10 @@ void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SW_455t", 5, SummonSide::DEATHRATTLE));
+    cards.emplace("SW_455", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [SW_457] Leatherworking Kit - COST:1
@@ -696,6 +713,8 @@ void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [SW_320e] Extraordinarily Sized - COST:0
     // - Set: STORMWIND
@@ -709,6 +728,13 @@ void StormwindCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: Your next Hero Power deals 2 more damage.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(GameTag::HEROPOWER_DAMAGE,
+                                               EffectOperator::ADD, 2));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("SW_321e", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [SW_322t] Take the High Ground - COST:1
@@ -758,6 +784,9 @@ void StormwindCardsGen::AddHunterNonCollect(
     // [SW_455t] Rat - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: STORMWIND
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_455t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [SW_458e] On a Ram - COST:0
@@ -806,6 +835,8 @@ void StormwindCardsGen::AddHunterNonCollect(
 
 void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ WEAPON - MAGE
     // [SW_001] Celestial Ink Set - COST:2
     // - Set: STORMWIND, Rarity: Rare
@@ -829,6 +860,10 @@ void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 3, true));
+    cards.emplace("SW_107", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [SW_108] First Flame - COST:1
@@ -2844,6 +2879,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - SPELLPOWER = 1
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_061", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_062] Goldshire Gnoll - COST:10 [ATK:5/HP:4]
@@ -2931,6 +2969,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("SW_068", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_069] Enthusiastic Banker - COST:3 [ATK:2/HP:3]
