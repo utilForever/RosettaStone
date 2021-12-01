@@ -835,6 +835,8 @@ void StormwindCardsGen::AddHunterNonCollect(
 
 void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ WEAPON - MAGE
     // [SW_001] Celestial Ink Set - COST:2
     // - Set: STORMWIND, Rarity: Rare
@@ -858,6 +860,10 @@ void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 3, true));
+    cards.emplace("SW_107", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [SW_108] First Flame - COST:1
