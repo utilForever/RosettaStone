@@ -175,7 +175,8 @@ TEST_CASE("[Cards] - FindCardByType")
     CHECK(cards6.empty());
     CHECK(cards8.empty());
     CHECK(cards10.empty());
-    CHECK(cards11.empty());
+    // NOTE: PVPDR_Duels_Buckets_HonorableR, PVPDR_Duels_Buckets_IceCold,
+    CHECK(!cards11.empty());
 }
 
 TEST_CASE("[Cards] - FindCardByRace")
