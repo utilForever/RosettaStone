@@ -137,7 +137,8 @@ def test_find_card_by_type():
 	assert not cards6
 	assert not cards8
 	assert not cards10
-	assert not cards11
+	# NOTE: PVPDR_Duels_Buckets_HonorableR, PVPDR_Duels_Buckets_IceCold,
+	assert cards11
 
 def test_find_card_by_race():
 	cards = pyRosetta.Cards.find_card_by_race(pyRosetta.Race.INVALID)
