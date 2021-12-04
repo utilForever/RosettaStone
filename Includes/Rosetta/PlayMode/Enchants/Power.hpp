@@ -73,6 +73,10 @@ class Power
     //! \return A list of frenzy tasks.
     std::vector<std::shared_ptr<ITask>>& GetFrenzyTask();
 
+    //! Returns a list of honorable kill tasks.
+    //! \return A list of honorable kill tasks.
+    std::vector<std::shared_ptr<ITask>>& GetHonorableKillTask();
+
     //! Clears power task and enchant.
     void ClearData();
 
@@ -136,6 +140,10 @@ class Power
     //! \param tasks A list of frenzy task.
     void AddFrenzyTask(TaskList tasks);
 
+    //! Adds honorable kill task.
+    //! \param task A pointer to honorable kill task.
+    void AddHonorableKillTask(std::shared_ptr<ITask> task);
+
  private:
     std::shared_ptr<IAura> m_aura;
     std::shared_ptr<Enchant> m_enchant;
@@ -149,6 +157,7 @@ class Power
     std::vector<std::shared_ptr<ITask>> m_outcastTask;
     std::vector<std::shared_ptr<ITask>> m_spellburstTask;
     std::vector<std::shared_ptr<ITask>> m_frenzyTask;
+    std::vector<std::shared_ptr<ITask>> m_honorableKillTask;
 };
 }  // namespace RosettaStone::PlayMode
 

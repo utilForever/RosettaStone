@@ -4,6 +4,10 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/AlteracValleyCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
@@ -2190,6 +2194,8 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
 
 void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [AV_100] Drek'Thar - COST:4 [ATK:4/HP:4]
     // - Set: ALTERAC_VALLEY, Rarity: Legendary
@@ -2246,6 +2252,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HONORABLEKILL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(
+        std::make_shared<AddEnchantmentTask>("AV_121e", EntityType::SOURCE));
+    cards.emplace("AV_121", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_122] Corporal - COST:2 [ATK:2/HP:3]
@@ -2606,12 +2616,17 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_121e] Gnome's Honor - COST:0
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_121e"));
+    cards.emplace("AV_121e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_123e] Scouted - COST:0

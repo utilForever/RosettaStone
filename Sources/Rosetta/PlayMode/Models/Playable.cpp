@@ -174,6 +174,11 @@ bool Playable::HasTradeable() const
     return GetGameTag(GameTag::TRADEABLE) == 1;
 }
 
+bool Playable::HasHonorableKill() const
+{
+    return GetGameTag(GameTag::HONORABLEKILL) == 1;
+}
+
 bool Playable::CanActivateSpellburst() const
 {
     if (!HasSpellburst())
@@ -620,6 +625,9 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             break;
         case PowerType::FRENZY:
             tasks = card->power.GetFrenzyTask();
+            break;
+        case PowerType::HONORABLE_KILL:
+            tasks = card->power.GetHonorableKillTask();
             break;
         default:
             throw std::invalid_argument(

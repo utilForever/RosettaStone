@@ -318,11 +318,33 @@ int Character::TakeDamage(Playable* source, int damage)
     game->triggerManager.OnTakeDamageTrigger(this);
     game->triggerManager.OnDealDamageTrigger(source);
 
+    // Check if the source has Honorable Kill
+    if (source->HasHonorableKill() &&
+        source->player == game->GetCurrentPlayer() && GetHealth() == 0)
+    {
+        const TaskList tasks =
+            (hero && hero->HasWeapon())
+                ? hero->weapon->card->power.GetHonorableKillTask()
+                : source->card->power.GetHonorableKillTask();
+
+        for (auto& task : tasks)
+        {
+            std::unique_ptr<ITask> clonedTask = task->Clone();
+
+            clonedTask->SetPlayer(source->player);
+            clonedTask->SetSource(source);
+            clonedTask->SetTarget(nullptr);
+
+            player->game->taskQueue.Enqueue(std::move(clonedTask));
+        }
+    }
+
     game->ProcessTasks();
     game->taskQueue.EndEvent();
     game->currentEventData.reset();
     game->currentEventData = std::move(tempEventData);
 
+    // Check if the source has Lifesteal
     if (source->HasLifesteal() && amount > 0)
     {
         source->player->GetHero()->TakeHeal(source, amount);

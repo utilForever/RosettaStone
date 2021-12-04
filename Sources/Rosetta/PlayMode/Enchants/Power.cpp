@@ -65,6 +65,11 @@ std::vector<std::shared_ptr<ITask>>& Power::GetFrenzyTask()
     return m_frenzyTask;
 }
 
+std::vector<std::shared_ptr<ITask>>& Power::GetHonorableKillTask()
+{
+    return m_honorableKillTask;
+}
+
 void Power::ClearData()
 {
     m_aura.reset();
@@ -79,6 +84,7 @@ void Power::ClearData()
     m_outcastTask.clear();
     m_spellburstTask.clear();
     m_frenzyTask.clear();
+    m_honorableKillTask.clear();
 }
 
 void Power::AddAura(std::shared_ptr<IAura> aura)
@@ -155,5 +161,10 @@ void Power::AddFrenzyTask(std::shared_ptr<ITask> task)
 void Power::AddFrenzyTask(TaskList tasks)
 {
     m_frenzyTask.insert(m_frenzyTask.end(), tasks.begin(), tasks.end());
+}
+
+void Power::AddHonorableKillTask(std::shared_ptr<ITask> task)
+{
+    m_honorableKillTask.emplace_back(task);
 }
 }  // namespace RosettaStone::PlayMode

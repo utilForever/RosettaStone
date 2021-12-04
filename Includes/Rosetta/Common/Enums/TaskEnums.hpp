@@ -28,6 +28,7 @@ enum class PowerType
     OUTCAST,
     SPELLBURST,
     FRENZY,
+    HONORABLE_KILL,
     START_OF_COMBAT,
 };
 
