@@ -174,6 +174,11 @@ bool Playable::HasTradeable() const
     return GetGameTag(GameTag::TRADEABLE) == 1;
 }
 
+bool Playable::HasHonorableKill() const
+{
+    return GetGameTag(GameTag::HONORABLEKILL) == 1;
+}
+
 bool Playable::CanActivateSpellburst() const
 {
     if (!HasSpellburst())
