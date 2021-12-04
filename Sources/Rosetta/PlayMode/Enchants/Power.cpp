@@ -156,4 +156,9 @@ void Power::AddFrenzyTask(TaskList tasks)
 {
     m_frenzyTask.insert(m_frenzyTask.end(), tasks.begin(), tasks.end());
 }
+
+void Power::AddHonorableKillTask(std::shared_ptr<ITask> task)
+{
+    m_honorableKillTask.emplace_back(task);
+}
 }  // namespace RosettaStone::PlayMode
