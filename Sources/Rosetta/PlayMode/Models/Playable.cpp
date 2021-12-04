@@ -626,6 +626,9 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
         case PowerType::FRENZY:
             tasks = card->power.GetFrenzyTask();
             break;
+        case PowerType::HONORABLE_KILL:
+            tasks = card->power.GetHonorableKillTask();
+            break;
         default:
             throw std::invalid_argument(
                 "Playable::ActivateTask() - Invalid power type");
