@@ -1070,6 +1070,139 @@ STORMWIND | SW_463 | Imported Tarantula |
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 ALTERAC_VALLEY | AV_100 | Drek'Thar |  
+ALTERAC_VALLEY | AV_101 | Herald of Lokholar |  
+ALTERAC_VALLEY | AV_102 | Popsicooler |  
+ALTERAC_VALLEY | AV_107 | Glaciate |  
+ALTERAC_VALLEY | AV_108 | Shield Shatter |  
+ALTERAC_VALLEY | AV_109 | Frozen Buckler |  
+ALTERAC_VALLEY | AV_112 | Snowblind Harpy |  
+ALTERAC_VALLEY | AV_113 | Beaststalker Tavish |  
+ALTERAC_VALLEY | AV_114 | Shivering Sorceress |  
+ALTERAC_VALLEY | AV_115 | Amplified Snowflurry |  
+ALTERAC_VALLEY | AV_116 | Arcane Brilliance |  
+ALTERAC_VALLEY | AV_118 | Battleworn Vanguard |  
+ALTERAC_VALLEY | AV_119 | To the Front! |  
+ALTERAC_VALLEY | AV_121 | Gnome Private | O
+ALTERAC_VALLEY | AV_122 | Corporal |  
+ALTERAC_VALLEY | AV_123 | Sneaky Scout |  
+ALTERAC_VALLEY | AV_124 | Direwolf Commander |  
+ALTERAC_VALLEY | AV_125 | Tower Sergeant |  
+ALTERAC_VALLEY | AV_126 | Bunker Sergeant |  
+ALTERAC_VALLEY | AV_127 | Ice Revenant |  
+ALTERAC_VALLEY | AV_128 | Frozen Mammoth |  
+ALTERAC_VALLEY | AV_129 | Blood Guard |  
+ALTERAC_VALLEY | AV_130 | Legionnaire |  
+ALTERAC_VALLEY | AV_131 | Knight-Captain |  
+ALTERAC_VALLEY | AV_132 | Troll Centurion |  
+ALTERAC_VALLEY | AV_133 | Icehoof Protector |  
+ALTERAC_VALLEY | AV_134 | Frostwolf Warmaster |  
+ALTERAC_VALLEY | AV_135 | Stormpike Marshal |  
+ALTERAC_VALLEY | AV_136 | Kobold Taskmaster |  
+ALTERAC_VALLEY | AV_137 | Irondeep Trogg |  
+ALTERAC_VALLEY | AV_138 | Grimtotem Bounty Hunter |  
+ALTERAC_VALLEY | AV_139 | Abominable Lieutenant |  
+ALTERAC_VALLEY | AV_141t | Lokholar the Ice Lord |  
+ALTERAC_VALLEY | AV_142t | Ivus, the Forest Lord |  
+ALTERAC_VALLEY | AV_143 | Korrak the Bloodrager |  
+ALTERAC_VALLEY | AV_145 | Captain Galvangar |  
+ALTERAC_VALLEY | AV_147 | Dun Baldar Bunker |  
+ALTERAC_VALLEY | AV_200 | Magister Dawngrasp |  
+ALTERAC_VALLEY | AV_201 | Coldtooth Yeti |  
+ALTERAC_VALLEY | AV_202 | Rokara, the Valorous |  
+ALTERAC_VALLEY | AV_203 | Shadowcrafter Scabbs |  
+ALTERAC_VALLEY | AV_204 | Kurtrus, Demon-Render |  
+ALTERAC_VALLEY | AV_205 | Wildheart Guff |  
+ALTERAC_VALLEY | AV_206 | Lightforged Cariel |  
+ALTERAC_VALLEY | AV_207 | Xyrella, the Devout |  
+ALTERAC_VALLEY | AV_209 | Dreadprison Glaive |  
+ALTERAC_VALLEY | AV_210 | Pathmaker |  
+ALTERAC_VALLEY | AV_211 | Dire Frostwolf |  
+ALTERAC_VALLEY | AV_212 | Siphon Mana |  
+ALTERAC_VALLEY | AV_213 | Vitality Surge |  
+ALTERAC_VALLEY | AV_215 | Frantic Hippogryph |  
+ALTERAC_VALLEY | AV_218 | Mass Polymorph |  
+ALTERAC_VALLEY | AV_219 | Ram Commander |  
+ALTERAC_VALLEY | AV_222 | Spammy Arcanist |  
 ALTERAC_VALLEY | AV_223 | Vanndar Stormpike |  
+ALTERAC_VALLEY | AV_224 | Spring the Trap |  
+ALTERAC_VALLEY | AV_226 | Ice Trap |  
+ALTERAC_VALLEY | AV_238 | Gankster |  
+ALTERAC_VALLEY | AV_244 | Bloodseeker |  
+ALTERAC_VALLEY | AV_250 | Snowball Fight! |  
+ALTERAC_VALLEY | AV_251 | Cheaty Snobold |  
+ALTERAC_VALLEY | AV_255 | Snowfall Guardian |  
+ALTERAC_VALLEY | AV_256 | Reflecto Engineer |  
+ALTERAC_VALLEY | AV_257 | Bearon Gla'shear |  
+ALTERAC_VALLEY | AV_258 | Bru'kan of the Elements |  
+ALTERAC_VALLEY | AV_259 | Frostbite |  
+ALTERAC_VALLEY | AV_260 | Sleetbreaker |  
+ALTERAC_VALLEY | AV_261 | Flag Runner |  
+ALTERAC_VALLEY | AV_262 | Warden of Chains |  
+ALTERAC_VALLEY | AV_264 | Sigil of Reckoning |  
+ALTERAC_VALLEY | AV_265 | Ur'zul Giant |  
+ALTERAC_VALLEY | AV_266 | Windchill |  
+ALTERAC_VALLEY | AV_267 | Caria Felsoul |  
+ALTERAC_VALLEY | AV_268 | Wildpaw Cavern |  
+ALTERAC_VALLEY | AV_269 | Flanking Maneuver |  
+ALTERAC_VALLEY | AV_277 | Seeds of Destruction |  
+ALTERAC_VALLEY | AV_281 | Felfire in the Hole! |  
+ALTERAC_VALLEY | AV_282 | Build a Snowman |  
+ALTERAC_VALLEY | AV_283 | Rune of the Archmage |  
+ALTERAC_VALLEY | AV_284 | Balinda Stonehearth |  
+ALTERAC_VALLEY | AV_285 | Full-Blown Evil |  
+ALTERAC_VALLEY | AV_286 | Felwalker |  
+ALTERAC_VALLEY | AV_290 | Iceblood Tower |  
+ALTERAC_VALLEY | AV_291 | Frostsaber Matriarch |  
+ALTERAC_VALLEY | AV_292 | Heart of the Wild |  
+ALTERAC_VALLEY | AV_293 | Wing Commander Mulverick |  
+ALTERAC_VALLEY | AV_294 | Clawfury Adept |  
+ALTERAC_VALLEY | AV_295 | Capture Coldtooth Mine |  
+ALTERAC_VALLEY | AV_296 | Pride Seeker |  
+ALTERAC_VALLEY | AV_298 | Wildpaw Gnoll |  
+ALTERAC_VALLEY | AV_308 | Grave Defiler |  
+ALTERAC_VALLEY | AV_309 | Piggyback Imp |  
+ALTERAC_VALLEY | AV_312 | Sacrificial Summoner |  
+ALTERAC_VALLEY | AV_313 | Hollow Abomination |  
+ALTERAC_VALLEY | AV_315 | Deliverance |  
+ALTERAC_VALLEY | AV_316 | Dreadlich Tamsin |  
+ALTERAC_VALLEY | AV_317 | Tamsin's Phylactery |  
+ALTERAC_VALLEY | AV_321 | Glory Chaser |  
+ALTERAC_VALLEY | AV_322 | Snowed In |  
+ALTERAC_VALLEY | AV_323 | Scrapsmith |  
+ALTERAC_VALLEY | AV_324 | Shadow Word: Devour |  
+ALTERAC_VALLEY | AV_325 | Undying Disciple |  
+ALTERAC_VALLEY | AV_326 | Luminous Geode |  
+ALTERAC_VALLEY | AV_328 | Spirit Guide |  
+ALTERAC_VALLEY | AV_329 | Bless |  
+ALTERAC_VALLEY | AV_330 | Gift of the Naaru |  
+ALTERAC_VALLEY | AV_331 | Najak Hexxen |  
+ALTERAC_VALLEY | AV_333 | Revive Pet |  
+ALTERAC_VALLEY | AV_334 | Stormpike Battle Ram |  
+ALTERAC_VALLEY | AV_335 | Ram Tamer |  
+ALTERAC_VALLEY | AV_336 | Wing Commander Ichman |  
+ALTERAC_VALLEY | AV_337 | Mountain Bear |  
+ALTERAC_VALLEY | AV_338 | Hold the Bridge |  
+ALTERAC_VALLEY | AV_339 | Templar Captain |  
+ALTERAC_VALLEY | AV_340 | Brasswing |  
+ALTERAC_VALLEY | AV_341 | Cavalry Horn |  
+ALTERAC_VALLEY | AV_342 | Protect the Innocent |  
+ALTERAC_VALLEY | AV_343 | Stonehearth Vindicator |  
+ALTERAC_VALLEY | AV_344 | Dun Baldar Bridge |  
+ALTERAC_VALLEY | AV_345 | Saidan the Scarlet |  
+ALTERAC_VALLEY | AV_360 | Frostwolf Kennels |  
+ALTERAC_VALLEY | AV_400 | Snowfall Graveyard |  
+ALTERAC_VALLEY | AV_401 | Stormpike Quartermaster |  
+ALTERAC_VALLEY | AV_402 | The Lobotomizer |  
+ALTERAC_VALLEY | AV_403 | Cera'thine Fleetrunner |  
+ALTERAC_VALLEY | AV_405 | Contraband Stash |  
+ALTERAC_VALLEY | AV_565 | Axe Berserker |  
+ALTERAC_VALLEY | AV_601 | Forsaken Lieutenant |  
+ALTERAC_VALLEY | AV_657 | Desecrated Graveyard |  
+ALTERAC_VALLEY | AV_660 | Iceblood Garrison |  
+ALTERAC_VALLEY | AV_661 | Field of Strife |  
+ALTERAC_VALLEY | AV_664 | Stormpike Aid Station |  
+ALTERAC_VALLEY | AV_704 | Humongous Owl |  
+ALTERAC_VALLEY | AV_710 | Reconnaissance |  
+ALTERAC_VALLEY | AV_711 | Double Agent |  
 
-- Progress: 0% (0 of 2 Cards)
+- Progress: 0% (1 of 135 Cards)

@@ -37,6 +37,7 @@
 * [x] Dormant
 * [x] Echo
 * [ ] Frenzy
+* [x] Honorable Kill
 * [x] Immune
 * [ ] Inspire
 * [x] Invoke
