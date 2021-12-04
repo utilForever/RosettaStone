@@ -149,6 +149,7 @@ class Power
     std::vector<std::shared_ptr<ITask>> m_outcastTask;
     std::vector<std::shared_ptr<ITask>> m_spellburstTask;
     std::vector<std::shared_ptr<ITask>> m_frenzyTask;
+    std::vector<std::shared_ptr<ITask>> m_honorableKillTask;
 };
 }  // namespace RosettaStone::PlayMode
 
