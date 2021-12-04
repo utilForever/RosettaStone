@@ -65,6 +65,11 @@ std::vector<std::shared_ptr<ITask>>& Power::GetFrenzyTask()
     return m_frenzyTask;
 }
 
+std::vector<std::shared_ptr<ITask>>& Power::GetHonorableKillTask()
+{
+    return m_honorableKillTask;
+}
+
 void Power::ClearData()
 {
     m_aura.reset();

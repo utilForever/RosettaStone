@@ -73,6 +73,10 @@ class Power
     //! \return A list of frenzy tasks.
     std::vector<std::shared_ptr<ITask>>& GetFrenzyTask();
 
+    //! Returns a list of honorable kill tasks.
+    //! \return A list of honorable kill tasks.
+    std::vector<std::shared_ptr<ITask>>& GetHonorableKillTask();
+
     //! Clears power task and enchant.
     void ClearData();
 
