@@ -1189,7 +1189,7 @@ ALTERAC_VALLEY | AV_342 | Protect the Innocent |
 ALTERAC_VALLEY | AV_343 | Stonehearth Vindicator |  
 ALTERAC_VALLEY | AV_344 | Dun Baldar Bridge |  
 ALTERAC_VALLEY | AV_345 | Saidan the Scarlet |  
-ALTERAC_VALLEY | AV_360 | Frostwolf Kennels |  
+ALTERAC_VALLEY | AV_360 | Frostwolf Kennels | O
 ALTERAC_VALLEY | AV_400 | Snowfall Graveyard |  
 ALTERAC_VALLEY | AV_401 | Stormpike Quartermaster |  
 ALTERAC_VALLEY | AV_402 | The Lobotomizer |  
@@ -1205,4 +1205,4 @@ ALTERAC_VALLEY | AV_704 | Humongous Owl |
 ALTERAC_VALLEY | AV_710 | Reconnaissance |  
 ALTERAC_VALLEY | AV_711 | Double Agent |  
 
-- Progress: 0% (1 of 135 Cards)
+- Progress: 1% (2 of 135 Cards)
