@@ -500,6 +500,16 @@ void Trigger::ProcessInternal(Entity* source)
         Remove();
     }
 
+    if (lastTurn > 0)
+    {
+        ++curTurn;
+
+        if (curTurn == lastTurn)
+        {
+            Remove();
+        }
+    }
+
     ProcessTasks(source);
 
     if (const auto spell = dynamic_cast<Spell*>(m_owner);
