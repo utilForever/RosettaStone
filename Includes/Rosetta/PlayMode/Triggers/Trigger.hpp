@@ -71,7 +71,11 @@ class Trigger
 
     TriggerEventHandler handler;
 
+    int curTurn = 0;
+    int lastTurn = 0;
+
     float percentage = 1.0f;
+
     bool eitherTurn = false;
     bool fastExecution = false;
     bool removeAfterTriggered = false;

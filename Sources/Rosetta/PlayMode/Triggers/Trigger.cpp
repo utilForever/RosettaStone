@@ -52,6 +52,8 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
       tasks(prototype.tasks),
       conditions(prototype.conditions),
       conditionLogic(prototype.conditionLogic),
+      curTurn(prototype.curTurn),
+      lastTurn(prototype.lastTurn),
       eitherTurn(prototype.eitherTurn),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
@@ -496,6 +498,16 @@ void Trigger::ProcessInternal(Entity* source)
     if (removeAfterTriggered)
     {
         Remove();
+    }
+
+    if (lastTurn > 0)
+    {
+        ++curTurn;
+
+        if (curTurn == lastTurn)
+        {
+            Remove();
+        }
     }
 
     ProcessTasks(source);
