@@ -296,6 +296,8 @@ void AlteracValleyCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [AV_210] Pathmaker - COST:3 [ATK:3/HP:4]
     // - Set: ALTERAC_VALLEY, Rarity: Rare
@@ -400,6 +402,12 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "AV_211t", SummonSide::SPELL) };
+    power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_360", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddDruidNonCollect(
@@ -2739,6 +2747,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_211t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_218t] Sheep - COST:1 [ATK:1/HP:1]
