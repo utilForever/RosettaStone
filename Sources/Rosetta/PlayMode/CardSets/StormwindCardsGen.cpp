@@ -1226,9 +1226,20 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +1/+1 and <b>Divine Shield</b>.
     //       When it dies, summon a Warhorse.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_316e", EntityType::TARGET));
+    cards.emplace(
+        "SW_316",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [SW_317] Catacomb Guard - COST:3 [ATK:1/HP:4]
@@ -1279,6 +1290,8 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [SW_313t] Pave the Way - COST:1
     // - Set: STORMWIND, Rarity: Legendary
@@ -1330,6 +1343,9 @@ void StormwindCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_316t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DED_500e] Redistributed - COST:0
@@ -3636,6 +3652,11 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // Text: +1/+1 and <b>Divine Shield</b>.
     //       <b>Deathrattle:</b> Summon a Warhorse.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_316e"));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SW_316t", SummonSide::DEATHRATTLE));
+    cards.emplace("SW_316e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_322e] Practiced - COST:0
