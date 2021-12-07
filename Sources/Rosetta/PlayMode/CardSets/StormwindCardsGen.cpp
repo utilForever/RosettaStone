@@ -2427,6 +2427,8 @@ void StormwindCardsGen::AddWarlockNonCollect(
 
 void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [SW_021] Cowardly Grunt - COST:6 [ATK:6/HP:2]
     // - Set: STORMWIND, Rarity: Rare
@@ -2520,6 +2522,9 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("SW_094", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [SW_097] Remote-Controlled Golem - COST:4 [ATK:3/HP:6]
