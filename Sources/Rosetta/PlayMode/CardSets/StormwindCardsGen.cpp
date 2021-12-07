@@ -873,6 +873,19 @@ void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a minion.
     //       Add a Second Flame to your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SW_108t"));
+    cards.emplace(
+        "SW_108",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [SW_109] Clumsy Courier - COST:7 [ATK:4/HP:5]
@@ -984,6 +997,8 @@ void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void StormwindCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------- ENCHANTMENT - MAGE
     // [SW_059e] Engineered - COST:0
     // - Set: STORMWIND
@@ -998,6 +1013,17 @@ void StormwindCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cards.emplace(
+        "SW_108t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [SW_112e] Burning Hot! - COST:0
@@ -1081,6 +1107,8 @@ void StormwindCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [SW_046] City Tax - COST:2
     // - Set: STORMWIND, Rarity: Common
@@ -1092,6 +1120,10 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true));
+    cards.emplace("SW_046", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [SW_047] Highlord Fordragon - COST:6 [ATK:5/HP:5]
@@ -1194,9 +1226,20 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +1/+1 and <b>Divine Shield</b>.
     //       When it dies, summon a Warhorse.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_316e", EntityType::TARGET));
+    cards.emplace(
+        "SW_316",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [SW_317] Catacomb Guard - COST:3 [ATK:1/HP:4]
@@ -1247,6 +1290,8 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [SW_313t] Pave the Way - COST:1
     // - Set: STORMWIND, Rarity: Legendary
@@ -1298,6 +1343,9 @@ void StormwindCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_316t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [DED_500e] Redistributed - COST:0
@@ -1323,6 +1371,8 @@ void StormwindCardsGen::AddPaladinNonCollect(
 
 void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- WEAPON - PRIEST
     // [SW_012] Shadowcloth Needle - COST:2
     // - Set: STORMWIND, Rarity: Rare
@@ -1379,6 +1429,10 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::ENEMY_MINIONS));
+    cards.emplace("SW_441", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [SW_442] Void Shard - COST:4
@@ -1391,6 +1445,15 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cards.emplace(
+        "SW_442",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [SW_443] Elekk Mount - COST:7
@@ -1399,9 +1462,20 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +4/+7 and <b>Taunt</b>.
     //       When it dies, summon an Elekk.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_443e", EntityType::TARGET));
+    cards.emplace(
+        "SW_443",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [SW_444] Twilight Deceptor - COST:2 [ATK:2/HP:3]
@@ -1491,6 +1565,8 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddPriestNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [SW_433t] Discover the Void Shard - COST:1
     // - Set: STORMWIND, Rarity: Legendary
@@ -1546,6 +1622,11 @@ void StormwindCardsGen::AddPriestNonCollect(
     // Text: +4/+7 and <b>Taunt</b>.
     //       <b>Deathrattle:</b> Summon an Elekk.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_443e"));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SW_443t", SummonSide::DEATHRATTLE));
+    cards.emplace("SW_443e", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [SW_443t] Xyrella's Elekk - COST:6 [ATK:4/HP:7]
@@ -1556,6 +1637,9 @@ void StormwindCardsGen::AddPriestNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_443t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [SW_446e] Voidtouched - COST:0
@@ -1576,6 +1660,7 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - ROGUE
     // [SW_052] Find the Imposter - COST:1
@@ -1870,6 +1955,8 @@ void StormwindCardsGen::AddRogueNonCollect(
 
 void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- WEAPON - SHAMAN
     // [SW_025] Auctionhouse Gavel - COST:2
     // - Set: STORMWIND, Rarity: Rare
@@ -1936,6 +2023,9 @@ void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - OVERLOAD = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_033", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [SW_034] Tiny Toys - COST:6
@@ -2337,6 +2427,8 @@ void StormwindCardsGen::AddWarlockNonCollect(
 
 void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARRIOR
     // [SW_021] Cowardly Grunt - COST:6 [ATK:6/HP:2]
     // - Set: STORMWIND, Rarity: Rare
@@ -2430,6 +2522,9 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("SW_094", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [SW_097] Remote-Controlled Golem - COST:4 [ATK:3/HP:6]
@@ -3589,6 +3684,11 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // Text: +1/+1 and <b>Divine Shield</b>.
     //       <b>Deathrattle:</b> Summon a Warhorse.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_316e"));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SW_316t", SummonSide::DEATHRATTLE));
+    cards.emplace("SW_316e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_322e] Practiced - COST:0
