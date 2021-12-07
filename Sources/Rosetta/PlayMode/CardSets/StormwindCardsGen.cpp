@@ -1660,6 +1660,7 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - ROGUE
     // [SW_052] Find the Imposter - COST:1
@@ -1954,6 +1955,8 @@ void StormwindCardsGen::AddRogueNonCollect(
 
 void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- WEAPON - SHAMAN
     // [SW_025] Auctionhouse Gavel - COST:2
     // - Set: STORMWIND, Rarity: Rare
@@ -2020,6 +2023,9 @@ void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - OVERLOAD = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_033", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [SW_034] Tiny Toys - COST:6

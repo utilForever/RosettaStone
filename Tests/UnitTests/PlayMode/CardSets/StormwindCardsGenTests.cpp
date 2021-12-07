@@ -1169,6 +1169,23 @@ TEST_CASE("[Priest : Spell] - SW_443 : Elekk Mount")
     CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [SW_033] Canal Slogger - COST:4 [ATK:6/HP:4]
+// - Race: Elemental, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>, <b>Lifesteal</b>
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// RefTag:
+// - LIFESTEAL = 1
+// - OVERLOAD = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - SW_033 : Canal Slogger")
+{
+    // Do nothing
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SW_061] Guild Trader - COST:4 [ATK:3/HP:4]
 // - Set: STORMWIND, Rarity: Common
