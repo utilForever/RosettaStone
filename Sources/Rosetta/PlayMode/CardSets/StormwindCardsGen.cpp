@@ -1355,6 +1355,8 @@ void StormwindCardsGen::AddPaladinNonCollect(
 
 void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- WEAPON - PRIEST
     // [SW_012] Shadowcloth Needle - COST:2
     // - Set: STORMWIND, Rarity: Rare
@@ -1411,6 +1413,10 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::ENEMY_MINIONS));
+    cards.emplace("SW_441", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [SW_442] Void Shard - COST:4
