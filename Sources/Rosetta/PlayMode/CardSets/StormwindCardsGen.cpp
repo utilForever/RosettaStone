@@ -873,6 +873,19 @@ void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a minion.
     //       Add a Second Flame to your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "SW_108t"));
+    cards.emplace(
+        "SW_108",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [SW_109] Clumsy Courier - COST:7 [ATK:4/HP:5]
@@ -984,6 +997,8 @@ void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void StormwindCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------- ENCHANTMENT - MAGE
     // [SW_059e] Engineered - COST:0
     // - Set: STORMWIND
@@ -998,6 +1013,17 @@ void StormwindCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cards.emplace(
+        "SW_108t",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [SW_112e] Burning Hot! - COST:0
