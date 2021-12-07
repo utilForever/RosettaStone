@@ -942,7 +942,7 @@ STORMWIND | SW_029 | Harbor Scamp |
 STORMWIND | SW_030 | Cargo Guard |  
 STORMWIND | SW_031 | Command the Elements |  
 STORMWIND | SW_032 | Granite Forgeborn |  
-STORMWIND | SW_033 | Canal Slogger |  
+STORMWIND | SW_033 | Canal Slogger | O
 STORMWIND | SW_034 | Tiny Toys |  
 STORMWIND | SW_035 | Charged Call |  
 STORMWIND | SW_036 | Two-Faced Investor |  
@@ -954,7 +954,7 @@ STORMWIND | SW_042 | Persistent Peddler |
 STORMWIND | SW_043 | Felgorger |  
 STORMWIND | SW_044 | Jace Darkweaver |  
 STORMWIND | SW_045 | Auctioneer Jaxon |  
-STORMWIND | SW_046 | City Tax |  
+STORMWIND | SW_046 | City Tax | O
 STORMWIND | SW_047 | Highlord Fordragon |  
 STORMWIND | SW_048 | Prismatic Jewel Kit |  
 STORMWIND | SW_049 | Blessed Goods |  
@@ -997,11 +997,11 @@ STORMWIND | SW_090 | Touch of the Nathrezim |
 STORMWIND | SW_091 | The Demon Seed |  
 STORMWIND | SW_092 | Anetheron |  
 STORMWIND | SW_093 | Stormwind Freebooter |  
-STORMWIND | SW_094 | Heavy Plate |  
+STORMWIND | SW_094 | Heavy Plate | O
 STORMWIND | SW_095 | Investment Opportunity |  
 STORMWIND | SW_097 | Remote-Controlled Golem |  
 STORMWIND | SW_107 | Fire Sale | O
-STORMWIND | SW_108 | First Flame |  
+STORMWIND | SW_108 | First Flame | O
 STORMWIND | SW_109 | Clumsy Courier |  
 STORMWIND | SW_110 | Ignite |  
 STORMWIND | SW_111 | Sanctum Chandler |  
@@ -1017,7 +1017,7 @@ STORMWIND | SW_311 | Garrote |
 STORMWIND | SW_313 | Rise to the Occasion |  
 STORMWIND | SW_314 | Lightbringer's Hammer |  
 STORMWIND | SW_315 | Alliance Bannerman |  
-STORMWIND | SW_316 | Noble Mount |  
+STORMWIND | SW_316 | Noble Mount | O
 STORMWIND | SW_317 | Catacomb Guard |  
 STORMWIND | SW_319 | Peasant |  
 STORMWIND | SW_320 | Rats of Extraordinary Size |  
@@ -1043,9 +1043,9 @@ STORMWIND | SW_436 | Wickerclaw | O
 STORMWIND | SW_437 | Composting | O
 STORMWIND | SW_439 | Vibrant Squirrel | O
 STORMWIND | SW_440 | Call of the Grave |  
-STORMWIND | SW_441 | Shard of the Naaru |  
-STORMWIND | SW_442 | Void Shard |  
-STORMWIND | SW_443 | Elekk Mount |  
+STORMWIND | SW_441 | Shard of the Naaru | O
+STORMWIND | SW_442 | Void Shard | O
+STORMWIND | SW_443 | Elekk Mount | O
 STORMWIND | SW_444 | Twilight Deceptor |  
 STORMWIND | SW_445 | Psyfiend |  
 STORMWIND | SW_446 | Voidtouched Attendant |  
@@ -1063,7 +1063,7 @@ STORMWIND | SW_460 | Devouring Swarm |
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 9% (16 of 170 Cards)
+- Progress: 14% (24 of 170 Cards)
 
 ## Fractured in Alterac Valley
 
