@@ -878,6 +878,65 @@ TEST_CASE("[Mage : Spell] - SW_108 : First Flame")
     CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [SW_046] City Tax - COST:2
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Tradeable</b>
+//       <b>Lifesteal</b>. Deal 1 damage to all enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - LIFESTEAL = 1
+// - TRADEABLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - SW_046 : City Tax")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("City Tax"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[1]->GetHealth(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 17);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[1]->GetHealth(), 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SW_061] Guild Trader - COST:4 [ATK:3/HP:4]
 // - Set: STORMWIND, Rarity: Common

@@ -1107,6 +1107,8 @@ void StormwindCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [SW_046] City Tax - COST:2
     // - Set: STORMWIND, Rarity: Common
@@ -1118,6 +1120,10 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - LIFESTEAL = 1
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true));
+    cards.emplace("SW_046", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [SW_047] Highlord Fordragon - COST:6 [ATK:5/HP:5]
