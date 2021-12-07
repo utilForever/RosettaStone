@@ -1462,9 +1462,20 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Give a minion +4/+7 and <b>Taunt</b>.
     //       When it dies, summon an Elekk.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_443e", EntityType::TARGET));
+    cards.emplace(
+        "SW_443",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [SW_444] Twilight Deceptor - COST:2 [ATK:2/HP:3]
@@ -1554,6 +1565,8 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddPriestNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [SW_433t] Discover the Void Shard - COST:1
     // - Set: STORMWIND, Rarity: Legendary
@@ -1609,6 +1622,11 @@ void StormwindCardsGen::AddPriestNonCollect(
     // Text: +4/+7 and <b>Taunt</b>.
     //       <b>Deathrattle:</b> Summon an Elekk.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_443e"));
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("SW_443t", SummonSide::DEATHRATTLE));
+    cards.emplace("SW_443e", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [SW_443t] Xyrella's Elekk - COST:6 [ATK:4/HP:7]
@@ -1619,6 +1637,9 @@ void StormwindCardsGen::AddPriestNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_443t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [SW_446e] Voidtouched - COST:0
