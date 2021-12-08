@@ -1186,6 +1186,47 @@ TEST_CASE("[Shaman : Minion] - SW_033 : Canal Slogger")
     // Do nothing
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [SW_093] Stormwind Freebooter - COST:3 [ATK:3/HP:4]
+// - Race: Pirate, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your hero +2 Attack this turn.
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - SW_093 : Stormwind Freebooter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stormwind Freebooter"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [SW_094] Heavy Plate - COST:3
 // - Set: STORMWIND, Rarity: Common
