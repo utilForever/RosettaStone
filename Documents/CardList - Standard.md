@@ -919,7 +919,7 @@ STORMWIND | DED_514 | Copycat |
 STORMWIND | DED_515 | Grey Sage Parrot |  
 STORMWIND | DED_516 | Deepwater Evoker |  
 STORMWIND | DED_517 | Arcane Overflow |  
-STORMWIND | DED_518 | Man the Cannons |  
+STORMWIND | DED_518 | Man the Cannons | O
 STORMWIND | DED_519 | Defias Cannoneer |  
 STORMWIND | DED_521 | Maddest Bomber |  
 STORMWIND | DED_522 | Cookie the Cook |  
@@ -931,15 +931,15 @@ STORMWIND | SW_001 | Celestial Ink Set |
 STORMWIND | SW_003 | Runed Mithril Rod |  
 STORMWIND | SW_006 | Stubborn Suspect |  
 STORMWIND | SW_012 | Shadowcloth Needle |  
-STORMWIND | SW_021 | Cowardly Grunt |  
+STORMWIND | SW_021 | Cowardly Grunt | O
 STORMWIND | SW_023 | Provoke |  
 STORMWIND | SW_024 | Lothar |  
 STORMWIND | SW_025 | Auctionhouse Gavel |  
 STORMWIND | SW_026 | Spirit Alpha |  
 STORMWIND | SW_027 | Shiver Their Timbers! |  
 STORMWIND | SW_028 | Raid the Docks |  
-STORMWIND | SW_029 | Harbor Scamp |  
-STORMWIND | SW_030 | Cargo Guard |  
+STORMWIND | SW_029 | Harbor Scamp | O
+STORMWIND | SW_030 | Cargo Guard | O
 STORMWIND | SW_031 | Command the Elements |  
 STORMWIND | SW_032 | Granite Forgeborn |  
 STORMWIND | SW_033 | Canal Slogger | O
@@ -972,16 +972,16 @@ STORMWIND | SW_063 | Battleground Battlemaster |
 STORMWIND | SW_064 | Northshire Farmer |  
 STORMWIND | SW_065 | Pandaren Importer |  
 STORMWIND | SW_066 | Royal Librarian |  
-STORMWIND | SW_067 | Stockades Guard |  
+STORMWIND | SW_067 | Stockades Guard | O
 STORMWIND | SW_068 | Mo'arg Forgefiend | O
 STORMWIND | SW_069 | Enthusiastic Banker |  
 STORMWIND | SW_070 | Mailbox Dancer |  
 STORMWIND | SW_071 | Lion's Guard |  
-STORMWIND | SW_072 | Rustrot Viper |  
+STORMWIND | SW_072 | Rustrot Viper | O
 STORMWIND | SW_073 | Cheesemonger |  
 STORMWIND | SW_074 | Nobleman |  
 STORMWIND | SW_075 | Elwynn Boar |  
-STORMWIND | SW_076 | City Architect |  
+STORMWIND | SW_076 | City Architect | O
 STORMWIND | SW_077 | Stockades Prisoner |  
 STORMWIND | SW_078 | Lady Prestor |  
 STORMWIND | SW_079 | Flightmaster Dungar |  
@@ -996,7 +996,7 @@ STORMWIND | SW_089 | Entitled Customer |
 STORMWIND | SW_090 | Touch of the Nathrezim |  
 STORMWIND | SW_091 | The Demon Seed |  
 STORMWIND | SW_092 | Anetheron |  
-STORMWIND | SW_093 | Stormwind Freebooter |  
+STORMWIND | SW_093 | Stormwind Freebooter | O
 STORMWIND | SW_094 | Heavy Plate | O
 STORMWIND | SW_095 | Investment Opportunity |  
 STORMWIND | SW_097 | Remote-Controlled Golem |  
@@ -1063,7 +1063,7 @@ STORMWIND | SW_460 | Devouring Swarm |
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 14% (24 of 170 Cards)
+- Progress: 18% (32 of 170 Cards)
 
 ## Fractured in Alterac Valley
 

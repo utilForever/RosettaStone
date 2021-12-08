@@ -1186,6 +1186,196 @@ TEST_CASE("[Shaman : Minion] - SW_033 : Canal Slogger")
     // Do nothing
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [SW_021] Cowardly Grunt - COST:6 [ATK:6/HP:2]
+// - Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a minion from your deck.
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - SW_021 : Cowardly Grunt")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Fiery War Axe");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cowardly Grunt"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Wisp");
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [SW_029] Harbor Scamp - COST:2 [ATK:2/HP:2]
+// - Race: Pirate, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a Pirate.
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - SW_029 : Harbor Scamp")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Stonemaul Anchorman");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Harbor Scamp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->GetRace(), Race::PIRATE);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [SW_030] Cargo Guard - COST:3 [ATK:2/HP:4]
+// - Race: Pirate, Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, gain 3 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - SW_030 : Cargo Guard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cargo Guard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 6);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [SW_093] Stormwind Freebooter - COST:3 [ATK:3/HP:4]
+// - Race: Pirate, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your hero +2 Attack this turn.
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - SW_093 : Stormwind Freebooter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stormwind Freebooter"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [SW_094] Heavy Plate - COST:3
 // - Set: STORMWIND, Rarity: Common
@@ -1223,6 +1413,73 @@ TEST_CASE("[Warrior : Spell] - SW_094 : Heavy Plate")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [DED_518] Man the Cannons - COST:2
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage to a minion and 1 damage to all other minions.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - DED_518 : Man the Cannons")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Man the Cannons"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[1]->GetHealth(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[1]->GetHealth(), 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [SW_061] Guild Trader - COST:4 [ATK:3/HP:4]
 // - Set: STORMWIND, Rarity: Common
@@ -1237,6 +1494,57 @@ TEST_CASE("[Warrior : Spell] - SW_094 : Heavy Plate")
 TEST_CASE("[Neutral : Minion] - SW_061 : Guild Trader")
 {
     // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SW_067] Stockades Guard - COST:1 [ATK:1/HP:3]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a friendly minion <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_067 : Stockades Guard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stockades Guard"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -1283,4 +1591,102 @@ TEST_CASE("[Neutral : Minion] - SW_068 : Mo'arg Forgefiend")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SW_072] Rustrot Viper - COST:3 [ATK:3/HP:4]
+// - Race: Beast, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Tradeable</b>
+//       <b>Battlecry:</b> Destroy your opponent's weapon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TRADEABLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_072 : Rustrot Viper")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Rustrot Viper"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SW_076] City Architect - COST:6 [ATK:4/HP:4]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 0/5 Castle Walls
+//       with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_076 : City Architect")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("City Architect"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Castle Wall");
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->card->name, "City Architect");
+    CHECK_EQ(curField[2]->card->name, "Castle Wall");
+    CHECK_EQ(curField[2]->GetAttack(), 0);
+    CHECK_EQ(curField[2]->GetHealth(), 5);
+    CHECK_EQ(curField[2]->HasTaunt(), true);
 }

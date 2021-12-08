@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -2438,6 +2439,9 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(ComplexTask::SummonMinionFromDeck());
+    cards.emplace("SW_021", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [SW_023] Provoke - COST:0
@@ -2491,6 +2495,11 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::PIRATE)) }));
+    cards.emplace("SW_029", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [SW_030] Cargo Guard - COST:3 [ATK:2/HP:4]
@@ -2501,6 +2510,10 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(3) };
+    cards.emplace("SW_030", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [SW_093] Stormwind Freebooter - COST:3 [ATK:3/HP:4]
@@ -2511,6 +2524,10 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_093e", EntityType::HERO));
+    cards.emplace("SW_093", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [SW_094] Heavy Plate - COST:3
@@ -2544,6 +2561,19 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage to a minion and 1 damage to all other minions.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS_NOTARGET, 1, true));
+    cards.emplace(
+        "DED_518",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [DED_519] Defias Cannoneer - COST:3 [ATK:3/HP:3]
@@ -3049,9 +3079,22 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::TAUNT, 1));
+    cards.emplace(
+        "SW_067",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_068] Mo'arg Forgefiend - COST:8 [ATK:8/HP:8]
@@ -3117,6 +3160,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    cards.emplace("SW_072", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_073] Cheesemonger - COST:4 [ATK:3/HP:6]
@@ -3165,6 +3211,12 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SW_076t", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SW_076t", SummonSide::RIGHT));
+    cards.emplace("SW_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_077] Stockades Prisoner - COST:2 [ATK:5/HP:4]
@@ -3516,6 +3568,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_076t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_077e] Locked Up - COST:0
@@ -3655,6 +3710,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_093e"));
+    cards.emplace("SW_093e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_307e] Booming Business - COST:0

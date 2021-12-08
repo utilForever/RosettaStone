@@ -124,14 +124,15 @@ void CardLoader::Load(std::vector<Card*>& cards)
             gameTags.emplace(gameTag, 1);
         }
 
-        // NOTE: Skyvateer (YOD_016) doesn't have GameTag::DEATHRATTLE
+        // NOTE: Skyvateer (YOD_016), Cowardly Grunt (SW_021)
+        //       doesn't have GameTag::DEATHRATTLE
         // NOTE: Carousel Gryphon (DMF_064) doesn't have GameTag::DIVINE_SHIELD
         // NOTE: Healing Totem (AT_132_SHAMANa), Searing Totem (AT_132_SHAMANb),
         //       Stoneclaw Totem (AT_132_SHAMANc), Wrath of Air Totem
         //       (AT_132_SHAMANd), Strength Totem (AT_132_SHAMANe)
         //       doesn't have Race::TOTEM
         // NOTE: Wailing Demon (WC_003t) doesn't have GameTag::TAUNT
-        if (dbfID == 56091)
+        if (dbfID == 56091 || dbfID == 64196)
         {
             gameTags.emplace(GameTag::DEATHRATTLE, 1);
         }
