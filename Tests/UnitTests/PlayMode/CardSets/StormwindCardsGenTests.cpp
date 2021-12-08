@@ -1187,6 +1187,55 @@ TEST_CASE("[Shaman : Minion] - SW_033 : Canal Slogger")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [SW_030] Cargo Guard - COST:3 [ATK:2/HP:4]
+// - Race: Pirate, Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, gain 3 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - SW_030 : Cargo Guard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cargo Guard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 6);
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [SW_093] Stormwind Freebooter - COST:3 [ATK:3/HP:4]
 // - Race: Pirate, Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------

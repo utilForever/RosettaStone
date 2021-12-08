@@ -2501,6 +2501,10 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(3) };
+    cards.emplace("SW_030", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [SW_093] Stormwind Freebooter - COST:3 [ATK:3/HP:4]
