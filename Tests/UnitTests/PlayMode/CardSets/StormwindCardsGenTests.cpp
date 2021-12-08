@@ -1187,6 +1187,60 @@ TEST_CASE("[Shaman : Minion] - SW_033 : Canal Slogger")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [SW_021] Cowardly Grunt - COST:6 [ATK:6/HP:2]
+// - Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a minion from your deck.
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - SW_021 : Cowardly Grunt")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Fiery War Axe");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cowardly Grunt"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Wisp");
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [SW_029] Harbor Scamp - COST:2 [ATK:2/HP:2]
 // - Race: Pirate, Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
@@ -1227,7 +1281,7 @@ TEST_CASE("[Warrior : Minion] - SW_029 : Harbor Scamp")
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Harbor Scamp"));
 
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->GetRace(), Race::PIRATE);
 }

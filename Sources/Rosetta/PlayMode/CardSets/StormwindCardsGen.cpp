@@ -2439,6 +2439,9 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(ComplexTask::SummonMinionFromDeck());
+    cards.emplace("SW_021", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [SW_023] Provoke - COST:0
