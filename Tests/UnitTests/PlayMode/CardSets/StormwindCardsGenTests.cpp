@@ -1682,11 +1682,11 @@ TEST_CASE("[Neutral : Minion] - SW_076 : City Architect")
     CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curField[0]->card->name, "Castle Wall");
     CHECK_EQ(curField[0]->GetAttack(), 0);
-    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
     CHECK_EQ(curField[0]->HasTaunt(), true);
     CHECK_EQ(curField[1]->card->name, "City Architect");
     CHECK_EQ(curField[2]->card->name, "Castle Wall");
     CHECK_EQ(curField[2]->GetAttack(), 0);
-    CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->GetHealth(), 5);
     CHECK_EQ(curField[2]->HasTaunt(), true);
 }
