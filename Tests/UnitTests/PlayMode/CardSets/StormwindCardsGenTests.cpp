@@ -1592,3 +1592,54 @@ TEST_CASE("[Neutral : Minion] - SW_068 : Mo'arg Forgefiend")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [SW_076] City Architect - COST:6 [ATK:4/HP:4]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon two 0/5 Castle Walls
+//       with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_076 : City Architect")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("City Architect"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Castle Wall");
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->card->name, "City Architect");
+    CHECK_EQ(curField[2]->card->name, "Castle Wall");
+    CHECK_EQ(curField[2]->GetAttack(), 0);
+    CHECK_EQ(curField[2]->GetAttack(), 5);
+    CHECK_EQ(curField[2]->HasTaunt(), true);
+}

@@ -3208,6 +3208,12 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SW_076t", SummonSide::LEFT));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("SW_076t", SummonSide::RIGHT));
+    cards.emplace("SW_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_077] Stockades Prisoner - COST:2 [ATK:5/HP:4]
@@ -3559,6 +3565,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("SW_076t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_077e] Locked Up - COST:0
