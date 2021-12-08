@@ -3160,6 +3160,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    cards.emplace("SW_072", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_073] Cheesemonger - COST:4 [ATK:3/HP:6]

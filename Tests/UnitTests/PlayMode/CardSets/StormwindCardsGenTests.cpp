@@ -1594,6 +1594,53 @@ TEST_CASE("[Neutral : Minion] - SW_068 : Mo'arg Forgefiend")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SW_072] Rustrot Viper - COST:3 [ATK:3/HP:4]
+// - Race: Beast, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Tradeable</b>
+//       <b>Battlecry:</b> Destroy your opponent's weapon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TRADEABLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_072 : Rustrot Viper")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Rustrot Viper"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SW_076] City Architect - COST:6 [ATK:4/HP:4]
 // - Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
