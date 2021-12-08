@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -2491,6 +2492,11 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::PIRATE)) }));
+    cards.emplace("SW_029", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [SW_030] Cargo Guard - COST:3 [ATK:2/HP:4]
