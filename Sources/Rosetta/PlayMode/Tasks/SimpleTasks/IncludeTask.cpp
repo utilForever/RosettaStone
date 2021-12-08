@@ -203,6 +203,26 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::ALL_MINIONS_NOTARGET:
+            for (auto& minion : player->GetFieldZone()->GetAll())
+            {
+                if (target == minion)
+                {
+                    continue;
+                }
+
+                entities.emplace_back(minion);
+            }
+            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+            {
+                if (target == minion)
+                {
+                    continue;
+                }
+
+                entities.emplace_back(minion);
+            }
+            break;
         case EntityType::ALL_MINIONS_NOEVENTSOURCE:
             for (auto& minion : player->GetFieldZone()->GetAll())
             {
