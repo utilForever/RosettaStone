@@ -1210,6 +1210,56 @@ TEST_CASE("[Priest : Minion] - SW_445 : Psyfiend")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [DED_513] Defias Leper - COST:2 [ATK:3/HP:2]
+// - Race: Pirate, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Shadow spell,
+//       deal 2 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_DRAG_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - SW_445 : Psyfiend")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Defias Leper"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Defias Leper"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mortal Coil"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [SW_033] Canal Slogger - COST:4 [ATK:6/HP:4]
 // - Race: Elemental, Set: STORMWIND, Rarity: Common
