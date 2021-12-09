@@ -1980,8 +1980,10 @@ void StormwindCardsGen::AddRogueNonCollect(
     // - TOPDECK = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddTopdeckTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddTopdeckTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
     cards.emplace("SW_311t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
@@ -2195,11 +2197,16 @@ void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("DED_522t"));
+    cards.emplace("DED_522", CardDef(power));
 }
 
 void StormwindCardsGen::AddShamanNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [SW_025e] Sold! - COST:0
     // - Set: STORMWIND
@@ -2285,6 +2292,9 @@ void StormwindCardsGen::AddShamanNonCollect(
     // - ELITE = 1
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DED_522t", CardDef(power));
 }
 
 void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)

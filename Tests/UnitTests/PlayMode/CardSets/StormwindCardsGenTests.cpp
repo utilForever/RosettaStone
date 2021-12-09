@@ -1534,6 +1534,56 @@ TEST_CASE("[Shaman : Spell] - SW_095 : Investment Opportunity")
     CHECK_EQ(curHand[4]->HasOverload(), true);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [DED_522] Cookie the Cook - COST:3 [ATK:2/HP:3]
+// - Race: Murloc, Set: STORMWIND, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Lifesteal</b>
+//       <b>Deathrattle:</b> Equip a 2/3 Stirring Rod
+//       with <b>Lifesteal</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - DED_522 : Cookie the Cook")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cookie the Cook"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->HasLifesteal(), true);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [SW_021] Cowardly Grunt - COST:6 [ATK:6/HP:2]
 // - Set: STORMWIND, Rarity: Rare
