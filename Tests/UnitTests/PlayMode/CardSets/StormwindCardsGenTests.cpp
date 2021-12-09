@@ -1169,6 +1169,47 @@ TEST_CASE("[Priest : Spell] - SW_443 : Elekk Mount")
     CHECK_EQ(curField[0]->HasTaunt(), true);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [SW_445] Psyfiend - COST:3 [ATK:3/HP:4]
+// - Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you cast a Shadow spell,
+//       deal 2 damage to each Hero.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - SW_445 : Psyfiend")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Psyfiend"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mortal Coil"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [SW_033] Canal Slogger - COST:4 [ATK:6/HP:4]
 // - Race: Elemental, Set: STORMWIND, Rarity: Common

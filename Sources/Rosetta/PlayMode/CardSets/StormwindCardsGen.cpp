@@ -1499,6 +1499,16 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsShadowSpell())
+    };
+    power.GetTrigger()->tasks = {
+        std::make_shared<DamageTask>(EntityType::HERO, 2),
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2)
+    };
+    cards.emplace("SW_445", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [SW_446] Voidtouched Attendant - COST:1 [ATK:1/HP:3]
