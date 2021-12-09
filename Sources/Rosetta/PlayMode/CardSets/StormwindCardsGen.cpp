@@ -1817,6 +1817,12 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "GAME_005", 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "GAME_005", 2));
+    cards.emplace("SW_434", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [DED_004] Blackwater Cutlass - COST:1

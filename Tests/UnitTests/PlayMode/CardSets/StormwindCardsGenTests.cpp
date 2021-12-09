@@ -1419,6 +1419,58 @@ TEST_CASE("[Rogue : Minion] - SW_413 : SI:7 Operative")
     CHECK_EQ(curField[0]->HasStealth(), true);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [SW_434] Loan Shark - COST:3 [ATK:3/HP:4]
+// - Race: Beast, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your opponent a Coin.
+//       <b>Deathrattle:</b> You get two.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - SW_434 : Loan Shark")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Loan Shark"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opHand.GetCount(), 3);
+    CHECK_EQ(opHand[2]->card->name, "The Coin");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "The Coin");
+    CHECK_EQ(curHand[1]->card->name, "The Coin");
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [SW_033] Canal Slogger - COST:4 [ATK:6/HP:4]
 // - Race: Elemental, Set: STORMWIND, Rarity: Common
