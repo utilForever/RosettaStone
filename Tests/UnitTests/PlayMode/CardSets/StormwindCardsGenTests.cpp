@@ -1123,7 +1123,7 @@ TEST_CASE("[Priest : Spell] - SW_442 : Void Shard")
 TEST_CASE("[Priest : Spell] - SW_443 : Elekk Mount")
 {
     GameConfig config;
-    config.player1Class = CardClass::PALADIN;
+    config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -1182,7 +1182,7 @@ TEST_CASE("[Priest : Spell] - SW_443 : Elekk Mount")
 TEST_CASE("[Priest : Minion] - SW_445 : Psyfiend")
 {
     GameConfig config;
-    config.player1Class = CardClass::PALADIN;
+    config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -1226,7 +1226,7 @@ TEST_CASE("[Priest : Minion] - SW_445 : Psyfiend")
 TEST_CASE("[Priest : Minion] - SW_445 : Psyfiend")
 {
     GameConfig config;
-    config.player1Class = CardClass::PALADIN;
+    config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
@@ -1258,6 +1258,61 @@ TEST_CASE("[Priest : Minion] - SW_445 : Psyfiend")
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [SW_311] Garrote - COST:2
+// - Set: STORMWIND, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 2 damage to the enemy hero.
+//       Shuffle 2 Bleeds into your deck that
+//       deal 2 more when drawn.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - SW_311 : Garrote")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Garrote"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodmage Thalnos"));
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 18);
+    CHECK_EQ(curDeck.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 13);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 7);
 }
 
 // ---------------------------------------- MINION - SHAMAN

@@ -1674,6 +1674,8 @@ void StormwindCardsGen::AddPriestNonCollect(
 
 void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [SW_050] Maestra of the Masquerade - COST:2 [ATK:3/HP:2]
     // - Set: STORMWIND, Rarity: Legendary
@@ -1718,6 +1720,12 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     //       Shuffle 2 Bleeds into your deck that
     //       deal 2 more when drawn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SW_311t", 2));
+    cards.emplace("SW_311", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [SW_405] Sketchy Information - COST:3
@@ -1826,6 +1834,8 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - ROGUE
     // [SW_052t] Learn the Truth - COST:1
     // - Set: STORMWIND, Rarity: Legendary
@@ -1943,6 +1953,10 @@ void StormwindCardsGen::AddRogueNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    cards.emplace("SW_311t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [SW_411e] Well Informed - COST:0
