@@ -1785,6 +1785,15 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsEventTargetIs(CardType::MINION)) };
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::STEALTH, 1) };
+    cards.emplace("SW_413", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [SW_417] SI:7 Assassin - COST:7 [ATK:4/HP:4]

@@ -1363,6 +1363,62 @@ TEST_CASE("[Rogue : Spell] - SW_412 : SI:7 Extortion")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [SW_413] SI:7 Operative - COST:3 [ATK:2/HP:4]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       After this attacks a minion, gain <b>Stealth</b>.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - SW_413 : SI:7 Operative")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("SI:7 Operative"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasStealth(), false);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(curField[0]->HasStealth(), true);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [SW_033] Canal Slogger - COST:4 [ATK:6/HP:4]
 // - Race: Elemental, Set: STORMWIND, Rarity: Common
