@@ -1488,6 +1488,52 @@ TEST_CASE("[Shaman : Minion] - SW_033 : Canal Slogger")
     // Do nothing
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [SW_095] Investment Opportunity - COST:1
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw an <b>Overload</b> card.
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - SW_095 : Investment Opportunity")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Feral Spirit");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Investment Opportunity"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->HasOverload(), true);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [SW_021] Cowardly Grunt - COST:6 [ATK:6/HP:2]
 // - Set: STORMWIND, Rarity: Rare

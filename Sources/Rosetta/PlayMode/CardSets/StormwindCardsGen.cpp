@@ -2123,6 +2123,11 @@ void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsOverloadCard()) }));
+    cards.emplace("SW_095", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [SW_114] Overdraft - COST:1
