@@ -1499,6 +1499,16 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsShadowSpell())
+    };
+    power.GetTrigger()->tasks = {
+        std::make_shared<DamageTask>(EntityType::HERO, 2),
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2)
+    };
+    cards.emplace("SW_445", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [SW_446] Voidtouched Attendant - COST:1 [ATK:1/HP:3]
@@ -1550,6 +1560,18 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_DRAG_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsHoldingSpell(SpellSchool::SHADOW)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2) }));
+    cards.emplace("DED_513",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_DRAG_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [DED_514] Copycat - COST:3 [ATK:3/HP:4]
@@ -1652,6 +1674,8 @@ void StormwindCardsGen::AddPriestNonCollect(
 
 void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [SW_050] Maestra of the Masquerade - COST:2 [ATK:3/HP:2]
     // - Set: STORMWIND, Rarity: Legendary
@@ -1696,6 +1720,12 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     //       Shuffle 2 Bleeds into your deck that
     //       deal 2 more when drawn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "SW_311t", 2));
+    cards.emplace("SW_311", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [SW_405] Sketchy Information - COST:3
@@ -1729,6 +1759,17 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_UNDAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "SW_412",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_UNDAMAGED_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [SW_413] SI:7 Operative - COST:3 [ATK:2/HP:4]
@@ -1744,6 +1785,15 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsEventTargetIs(CardType::MINION)) };
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::STEALTH, 1) };
+    cards.emplace("SW_413", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [SW_417] SI:7 Assassin - COST:7 [ATK:4/HP:4]
@@ -1767,6 +1817,12 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "GAME_005", 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "GAME_005", 2));
+    cards.emplace("SW_434", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [DED_004] Blackwater Cutlass - COST:1
@@ -1804,6 +1860,8 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - ROGUE
     // [SW_052t] Learn the Truth - COST:1
     // - Set: STORMWIND, Rarity: Legendary
@@ -1921,6 +1979,12 @@ void StormwindCardsGen::AddRogueNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    cards.emplace("SW_311t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [SW_411e] Well Informed - COST:0
@@ -2061,6 +2125,11 @@ void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsOverloadCard()) }));
+    cards.emplace("SW_095", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [SW_114] Overdraft - COST:1
@@ -2128,11 +2197,16 @@ void StormwindCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("DED_522t"));
+    cards.emplace("DED_522", CardDef(power));
 }
 
 void StormwindCardsGen::AddShamanNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [SW_025e] Sold! - COST:0
     // - Set: STORMWIND
@@ -2218,6 +2292,9 @@ void StormwindCardsGen::AddShamanNonCollect(
     // - ELITE = 1
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("DED_522t", CardDef(power));
 }
 
 void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)

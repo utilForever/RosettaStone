@@ -914,7 +914,7 @@ STORMWIND | DED_509 | Brilliant Macaw |
 STORMWIND | DED_510 | Edwin, Defias Kingpin |  
 STORMWIND | DED_511 | Suckerhook |  
 STORMWIND | DED_512 | Amulet of Undying |  
-STORMWIND | DED_513 | Defias Leper |  
+STORMWIND | DED_513 | Defias Leper | O
 STORMWIND | DED_514 | Copycat |  
 STORMWIND | DED_515 | Grey Sage Parrot |  
 STORMWIND | DED_516 | Deepwater Evoker |  
@@ -922,7 +922,7 @@ STORMWIND | DED_517 | Arcane Overflow |
 STORMWIND | DED_518 | Man the Cannons | O
 STORMWIND | DED_519 | Defias Cannoneer |  
 STORMWIND | DED_521 | Maddest Bomber |  
-STORMWIND | DED_522 | Cookie the Cook |  
+STORMWIND | DED_522 | Cookie the Cook | O
 STORMWIND | DED_523 | Golakka Glutton |  
 STORMWIND | DED_524 | Multicaster |  
 STORMWIND | DED_525 | Goliath, Sneed's Masterpiece |  
@@ -998,7 +998,7 @@ STORMWIND | SW_091 | The Demon Seed |
 STORMWIND | SW_092 | Anetheron |  
 STORMWIND | SW_093 | Stormwind Freebooter | O
 STORMWIND | SW_094 | Heavy Plate | O
-STORMWIND | SW_095 | Investment Opportunity |  
+STORMWIND | SW_095 | Investment Opportunity | O
 STORMWIND | SW_097 | Remote-Controlled Golem |  
 STORMWIND | SW_107 | Fire Sale | O
 STORMWIND | SW_108 | First Flame | O
@@ -1013,7 +1013,7 @@ STORMWIND | SW_305 | First Blade of Wrynn |
 STORMWIND | SW_306 | Encumbered Pack Mule |  
 STORMWIND | SW_307 | Traveling Merchant |  
 STORMWIND | SW_310 | Counterfeit Blade |  
-STORMWIND | SW_311 | Garrote |  
+STORMWIND | SW_311 | Garrote | O
 STORMWIND | SW_313 | Rise to the Occasion |  
 STORMWIND | SW_314 | Lightbringer's Hammer |  
 STORMWIND | SW_315 | Alliance Bannerman |  
@@ -1027,8 +1027,8 @@ STORMWIND | SW_323 | The Rat King |
 STORMWIND | SW_400 | Entrapped Sorceress |  
 STORMWIND | SW_405 | Sketchy Information |  
 STORMWIND | SW_411 | SI:7 Informant |  
-STORMWIND | SW_412 | SI:7 Extortion |  
-STORMWIND | SW_413 | SI:7 Operative |  
+STORMWIND | SW_412 | SI:7 Extortion | O
+STORMWIND | SW_413 | SI:7 Operative | O
 STORMWIND | SW_417 | SI:7 Assassin |  
 STORMWIND | SW_418 | SI:7 Skulker |  
 STORMWIND | SW_419 | Oracle of Elune | O
@@ -1038,7 +1038,7 @@ STORMWIND | SW_429 | Best in Shell | O
 STORMWIND | SW_431 | Park Panther | O
 STORMWIND | SW_432 | Kodo Mount | O
 STORMWIND | SW_433 | Seek Guidance |  
-STORMWIND | SW_434 | Loan Shark |  
+STORMWIND | SW_434 | Loan Shark | O
 STORMWIND | SW_436 | Wickerclaw | O
 STORMWIND | SW_437 | Composting | O
 STORMWIND | SW_439 | Vibrant Squirrel | O
@@ -1047,7 +1047,7 @@ STORMWIND | SW_441 | Shard of the Naaru | O
 STORMWIND | SW_442 | Void Shard | O
 STORMWIND | SW_443 | Elekk Mount | O
 STORMWIND | SW_444 | Twilight Deceptor |  
-STORMWIND | SW_445 | Psyfiend |  
+STORMWIND | SW_445 | Psyfiend | O
 STORMWIND | SW_446 | Voidtouched Attendant |  
 STORMWIND | SW_447 | Sheldras Moontree |  
 STORMWIND | SW_448 | Darkbishop Benedictus |  
@@ -1063,7 +1063,7 @@ STORMWIND | SW_460 | Devouring Swarm |
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 18% (32 of 170 Cards)
+- Progress: 23% (40 of 170 Cards)
 
 ## Fractured in Alterac Valley
 
