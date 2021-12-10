@@ -20,6 +20,7 @@ namespace RosettaStone::PlayMode
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -474,7 +475,14 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Gain an empty Mana Crystal.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsManaCrystalFull()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
+                                                      "CS2_013t", 1) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<ManaCrystalTask>(1, false) }));
     cards.emplace("VAN_CS2_013", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
