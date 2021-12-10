@@ -12,6 +12,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
@@ -3040,6 +3041,11 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 3, RelaSign::EQ } }));
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>());
+    cards.emplace("SW_006", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_036] Two-Faced Investor - COST:3 [ATK:2/HP:4]
