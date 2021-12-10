@@ -576,24 +576,6 @@ TEST_CASE("[Neutral : Minion] - SW_439 : Vibrant Squirrel")
     CHECK_EQ(curField[3]->GetHealth(), 1);
 }
 
-// --------------------------------------- MINION - NEUTRAL
-// [SW_055] Impatient Shopkeep - COST:3 [ATK:3/HP:3]
-// - Set: STORMWIND, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Tradeable</b>
-//       <b>Rush</b>
-// --------------------------------------------------------
-// GameTag:
-// - RUSH = 1
-// --------------------------------------------------------
-// RefTag:
-// - TRADEABLE = 1
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - SW_055 : Impatient Shopkeep")
-{
-    // Do nothing
-}
-
 // ----------------------------------------- MINION - DRUID
 // [DED_001] Druid of the Reef - COST:1 [ATK:1/HP:1]
 // - Set: STORMWIND, Rarity: Common
@@ -2195,6 +2177,24 @@ TEST_CASE("[Neutral : Minion] - SW_006 : Stubborn Suspect")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->GetCost(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [SW_055] Impatient Shopkeep - COST:3 [ATK:3/HP:3]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Tradeable</b>
+//       <b>Rush</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+// RefTag:
+// - TRADEABLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_055 : Impatient Shopkeep")
+{
+    // Do nothing
 }
 
 // --------------------------------------- MINION - NEUTRAL
