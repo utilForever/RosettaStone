@@ -849,18 +849,26 @@ TEST_CASE("[Druid : Spell] - CS2_013 : Wild Growth")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curHand = *(curPlayer->GetHandZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wild Growth"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wild Growth"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curPlayer->GetRemainingMana(), 6);
     CHECK_EQ(curPlayer->GetTotalMana(), 10);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Excess Mana");
     CHECK_EQ(curPlayer->GetRemainingMana(), 3);
     CHECK_EQ(curPlayer->GetTotalMana(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[4]));
+    CHECK_EQ(curHand.GetCount(), 5);
 }
 
 // ----------------------------------------- MINION - DRUID
