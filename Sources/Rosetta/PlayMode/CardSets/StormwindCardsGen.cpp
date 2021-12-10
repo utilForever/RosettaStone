@@ -3302,6 +3302,12 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "GAME_005", 1));
+    power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "GAME_005", 1));
+    cards.emplace("SW_070", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_071] Lion's Guard - COST:5 [ATK:4/HP:6]

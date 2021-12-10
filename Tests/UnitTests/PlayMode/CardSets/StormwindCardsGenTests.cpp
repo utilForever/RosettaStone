@@ -2434,6 +2434,58 @@ TEST_CASE("[Neutral : Minion] - SW_068 : Mo'arg Forgefiend")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SW_070] Mailbox Dancer - COST:2 [ATK:3/HP:2]
+// - Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add a Coin to your hand.
+//       <b>Deathrattle:</b> Give your opponent one.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_070 : Mailbox Dancer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mailbox Dancer"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "The Coin");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(opHand.GetCount(), 2);
+    CHECK_EQ(opHand[0]->card->name, "The Coin");
+    CHECK_EQ(opHand[1]->card->name, "The Coin");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SW_072] Rustrot Viper - COST:3 [ATK:3/HP:4]
 // - Race: Beast, Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
