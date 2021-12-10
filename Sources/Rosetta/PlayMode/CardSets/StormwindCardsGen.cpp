@@ -2862,6 +2862,14 @@ void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::CastFelSpellInThisTurn()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "SW_451e", EntityType::SOURCE) }));
+    cards.emplace("SW_451", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SW_452] Chaos Leech - COST:3
@@ -2937,6 +2945,8 @@ void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
 void StormwindCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [SW_037e] Prepped to Strike - COST:0
     // - Set: STORMWIND
@@ -3003,6 +3013,9 @@ void StormwindCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_451e"));
+    cards.emplace("SW_451e", CardDef(power));
 }
 
 void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
