@@ -3322,6 +3322,14 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsHealth(15, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "SW_071e", EntityType::SOURCE) }));
+    cards.emplace("SW_071", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_072] Rustrot Viper - COST:3 [ATK:3/HP:4]
@@ -3726,6 +3734,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+4 and <b>Taunt</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_071e"));
+    cards.emplace("SW_071e", CardDef(power));
 
     // --------------------------------------- WEAPON - NEUTRAL
     // [SW_075t] Sword of a Thousand Truths - COST:10
