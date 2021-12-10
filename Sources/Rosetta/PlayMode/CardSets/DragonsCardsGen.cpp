@@ -2932,12 +2932,13 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsHoldingRace(Race::DRAGON)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<SetGameTagTask>(EntityType::SOURCE,
-                                                         GameTag::LIFESTEAL, 1),
-                        std::make_shared<DamageTask>(EntityType::TARGET, 4) }));
+        true,
+        TaskList{ std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                   GameTag::LIFESTEAL, 1),
+                  std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         false,
-        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2) }));
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
     cards.emplace(
         "DRG_205",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
