@@ -656,6 +656,17 @@ void LegacyCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_011o"));
     cards.emplace("CS2_011o", CardDef(power));
 
+    // ------------------------------------------ SPELL - DRUID
+    // [CS2_013t] Excess Mana (*) - COST:0
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Draw a card.
+    //       <i>(You can only have 10 Mana in your tray.)</i>
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CS2_013t", CardDef(power));
+
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_017o] Claws (*) - COST:0
     // - Set: Legacy
