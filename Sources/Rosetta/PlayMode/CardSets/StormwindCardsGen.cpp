@@ -2560,14 +2560,15 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsHoldingRace(Race::PIRATE)) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 5, true) }));
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 5, true) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
         false,
         TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
     cards.emplace(
         "SW_027",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 }}));
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [SW_028] Raid the Docks - COST:1
@@ -2679,6 +2680,14 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 2) },
+        2, false) };
+    cards.emplace("DED_519", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [DED_527] Blacksmithing Hammer - COST:4
