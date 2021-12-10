@@ -1638,6 +1638,68 @@ TEST_CASE("[Warrior : Minion] - SW_021 : Cowardly Grunt")
     CHECK_EQ(curField[0]->card->name, "Wisp");
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [SW_027] Shiver Their Timbers! - COST:1
+// - Set: STORMWIND, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 2 damage to a minion.
+//       If you control a Pirate, deal 5 instead.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - SW_027 : Shiver Their Timbers!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto opHero = opPlayer->GetHero();
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shiver Their Timbers!"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shiver Their Timbers!"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Harbor Scamp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [SW_029] Harbor Scamp - COST:2 [ATK:2/HP:2]
 // - Race: Pirate, Set: STORMWIND, Rarity: Common

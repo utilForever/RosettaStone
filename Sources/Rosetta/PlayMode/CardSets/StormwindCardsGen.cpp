@@ -2551,6 +2551,23 @@ void StormwindCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a minion.
     //       If you control a Pirate, deal 5 instead.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::PIRATE)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 5, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
+    cards.emplace(
+        "SW_027",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 }}));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [SW_028] Raid the Docks - COST:1
