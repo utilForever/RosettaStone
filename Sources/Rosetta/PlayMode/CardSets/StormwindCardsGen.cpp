@@ -3220,6 +3220,10 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: <b>Tradeable</b>
     //       <b>Battlecry:</b> <b>Silence</b> a minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // - TRADEABLE = 1
@@ -3227,6 +3231,12 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    cards.emplace(
+        "SW_066",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_067] Stockades Guard - COST:1 [ATK:1/HP:3]
