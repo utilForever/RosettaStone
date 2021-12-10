@@ -2837,6 +2837,15 @@ void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFelSpell()) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DrawStackTask>(true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_043e", EntityType::STACK));
+    cards.emplace("SW_043", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [SW_044] Jace Darkweaver - COST:8 [ATK:7/HP:5]
@@ -3620,6 +3629,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(2)));
+    cards.emplace("SW_043e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_047e] Highlord's Blessing - COST:0

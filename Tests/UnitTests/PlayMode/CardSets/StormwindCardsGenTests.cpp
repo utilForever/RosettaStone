@@ -1985,6 +1985,54 @@ TEST_CASE("[Warrior : Minion] - DED_519 : Defias Cannoneer")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
+// [SW_043] Felgorger - COST:4 [ATK:4/HP:3]
+// - Race: Demon, Set: STORMWIND, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a Fel spell.
+//       Reduce its Cost by (2).
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - SW_043 : Felgorger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Feral Spirit");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Chaos Nova");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Fireball");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Felgorger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->GetSpellSchool(), SpellSchool::FEL);
+    CHECK_EQ(curHand[4]->GetCost(), 3);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
 // [SW_451] Metamorfin - COST:1 [ATK:1/HP:2]
 // - Race: Murloc, Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
