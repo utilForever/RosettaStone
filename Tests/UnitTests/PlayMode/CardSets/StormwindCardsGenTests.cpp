@@ -2180,6 +2180,60 @@ TEST_CASE("[Neutral : Minion] - SW_006 : Stubborn Suspect")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SW_054] Stormwind Guard - COST:5 [ATK:4/HP:5]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Give adjacent minions +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_054 : Stormwind Guard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Stormwind Guard"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask(card1, nullptr, 1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->GetAttack(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SW_055] Impatient Shopkeep - COST:3 [ATK:3/HP:3]
 // - Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
