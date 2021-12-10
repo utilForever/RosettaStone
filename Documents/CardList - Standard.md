@@ -920,7 +920,7 @@ STORMWIND | DED_515 | Grey Sage Parrot |
 STORMWIND | DED_516 | Deepwater Evoker |  
 STORMWIND | DED_517 | Arcane Overflow |  
 STORMWIND | DED_518 | Man the Cannons | O
-STORMWIND | DED_519 | Defias Cannoneer |  
+STORMWIND | DED_519 | Defias Cannoneer | O
 STORMWIND | DED_521 | Maddest Bomber |  
 STORMWIND | DED_522 | Cookie the Cook | O
 STORMWIND | DED_523 | Golakka Glutton |  
@@ -929,14 +929,14 @@ STORMWIND | DED_525 | Goliath, Sneed's Masterpiece |
 STORMWIND | DED_527 | Blacksmithing Hammer |  
 STORMWIND | SW_001 | Celestial Ink Set |  
 STORMWIND | SW_003 | Runed Mithril Rod |  
-STORMWIND | SW_006 | Stubborn Suspect |  
+STORMWIND | SW_006 | Stubborn Suspect | O
 STORMWIND | SW_012 | Shadowcloth Needle |  
 STORMWIND | SW_021 | Cowardly Grunt | O
 STORMWIND | SW_023 | Provoke |  
 STORMWIND | SW_024 | Lothar |  
 STORMWIND | SW_025 | Auctionhouse Gavel |  
 STORMWIND | SW_026 | Spirit Alpha |  
-STORMWIND | SW_027 | Shiver Their Timbers! |  
+STORMWIND | SW_027 | Shiver Their Timbers! | O
 STORMWIND | SW_028 | Raid the Docks |  
 STORMWIND | SW_029 | Harbor Scamp | O
 STORMWIND | SW_030 | Cargo Guard | O
@@ -951,7 +951,7 @@ STORMWIND | SW_039 | Final Showdown |
 STORMWIND | SW_040 | Fel Barrage |  
 STORMWIND | SW_041 | Sigil of Alacrity |  
 STORMWIND | SW_042 | Persistent Peddler |  
-STORMWIND | SW_043 | Felgorger |  
+STORMWIND | SW_043 | Felgorger | O
 STORMWIND | SW_044 | Jace Darkweaver |  
 STORMWIND | SW_045 | Auctioneer Jaxon |  
 STORMWIND | SW_046 | City Tax | O
@@ -960,7 +960,7 @@ STORMWIND | SW_048 | Prismatic Jewel Kit |
 STORMWIND | SW_049 | Blessed Goods |  
 STORMWIND | SW_050 | Maestra of the Masquerade |  
 STORMWIND | SW_052 | Find the Imposter |  
-STORMWIND | SW_054 | Stormwind Guard |  
+STORMWIND | SW_054 | Stormwind Guard | O
 STORMWIND | SW_055 | Impatient Shopkeep | O
 STORMWIND | SW_056 | Spice Bread Baker |  
 STORMWIND | SW_057 | Package Runner |  
@@ -971,12 +971,12 @@ STORMWIND | SW_062 | Goldshire Gnoll |
 STORMWIND | SW_063 | Battleground Battlemaster |  
 STORMWIND | SW_064 | Northshire Farmer |  
 STORMWIND | SW_065 | Pandaren Importer |  
-STORMWIND | SW_066 | Royal Librarian |  
+STORMWIND | SW_066 | Royal Librarian | O
 STORMWIND | SW_067 | Stockades Guard | O
 STORMWIND | SW_068 | Mo'arg Forgefiend | O
 STORMWIND | SW_069 | Enthusiastic Banker |  
-STORMWIND | SW_070 | Mailbox Dancer |  
-STORMWIND | SW_071 | Lion's Guard |  
+STORMWIND | SW_070 | Mailbox Dancer | O
+STORMWIND | SW_071 | Lion's Guard | O
 STORMWIND | SW_072 | Rustrot Viper | O
 STORMWIND | SW_073 | Cheesemonger |  
 STORMWIND | SW_074 | Nobleman |  
@@ -1052,8 +1052,8 @@ STORMWIND | SW_446 | Voidtouched Attendant |
 STORMWIND | SW_447 | Sheldras Moontree |  
 STORMWIND | SW_448 | Darkbishop Benedictus |  
 STORMWIND | SW_450 | Sorcerer's Gambit |  
-STORMWIND | SW_451 | Metamorfin |  
-STORMWIND | SW_452 | Chaos Leech |  
+STORMWIND | SW_451 | Metamorfin | O
+STORMWIND | SW_452 | Chaos Leech | O
 STORMWIND | SW_454 | Lion's Frenzy |  
 STORMWIND | SW_455 | Rodent Nest | O
 STORMWIND | SW_457 | Leatherworking Kit |  
@@ -1063,7 +1063,7 @@ STORMWIND | SW_460 | Devouring Swarm |
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 23% (40 of 170 Cards)
+- Progress: 29% (50 of 170 Cards)
 
 ## Fractured in Alterac Valley
 
