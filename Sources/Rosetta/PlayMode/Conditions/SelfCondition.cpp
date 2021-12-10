@@ -1090,6 +1090,22 @@ SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
     });
 }
 
+SelfCondition SelfCondition::CastFelSpellInThisTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& card : playable->player->cardsPlayedThisTurn)
+        {
+            if (card->GetCardType() == CardType::SPELL &&
+                card->GetSpellSchool() == SpellSchool::FEL)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::ControlThisCard(int num)
 {
     return SelfCondition([num](Playable* playable) {
