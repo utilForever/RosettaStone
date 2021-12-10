@@ -468,6 +468,19 @@ SelfCondition SelfCondition::IsShadowSpell()
     });
 }
 
+SelfCondition SelfCondition::IsFelSpell()
+{
+    return SelfCondition([](Playable* playable) {
+        auto spell = dynamic_cast<Spell*>(playable);
+        if (!spell)
+        {
+            return false;
+        }
+
+        return spell->GetSpellSchool() == SpellSchool::FEL;
+    });
+}
+
 SelfCondition SelfCondition::IsWeapon()
 {
     return SelfCondition([](Playable* playable) {
