@@ -233,6 +233,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsShadowSpell();
 
+    //! SelfCondition wrapper for checking the entity is fel spell.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsFelSpell();
+
     //! SelfCondition wrapper for checking the entity is weapon.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsWeapon();
@@ -519,6 +523,11 @@ class SelfCondition
     //! that costs (5) or more this turn.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition Cast5MoreCostSpellInThisTurn();
+
+    //! SelfCondition wrapper for checking the player casts a Fel spell
+    //! this turn.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition CastFelSpellInThisTurn();
 
     //! SelfCondition wrapper for checking the player controls this card.
     //! \param num The number of card to control.

@@ -571,7 +571,14 @@ void LegacyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Gain an empty Mana Crystal.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsManaCrystalFull()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
+                                                      "CS2_013t", 1) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<ManaCrystalTask>(1, false) }));
     cards.emplace("CS2_013", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
@@ -655,6 +662,17 @@ void LegacyCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_011o"));
     cards.emplace("CS2_011o", CardDef(power));
+
+    // ------------------------------------------ SPELL - DRUID
+    // [CS2_013t] Excess Mana (*) - COST:0
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Draw a card.
+    //       <i>(You can only have 10 Mana in your tray.)</i>
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CS2_013t", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [CS2_017o] Claws (*) - COST:0

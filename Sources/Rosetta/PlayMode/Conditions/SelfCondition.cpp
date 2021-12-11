@@ -468,6 +468,19 @@ SelfCondition SelfCondition::IsShadowSpell()
     });
 }
 
+SelfCondition SelfCondition::IsFelSpell()
+{
+    return SelfCondition([](Playable* playable) {
+        auto spell = dynamic_cast<Spell*>(playable);
+        if (!spell)
+        {
+            return false;
+        }
+
+        return spell->GetSpellSchool() == SpellSchool::FEL;
+    });
+}
+
 SelfCondition SelfCondition::IsWeapon()
 {
     return SelfCondition([](Playable* playable) {
@@ -1081,6 +1094,22 @@ SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
         for (auto& card : playable->player->cardsPlayedThisTurn)
         {
             if (card->GetCardType() == CardType::SPELL && card->GetCost() >= 5)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::CastFelSpellInThisTurn()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& card : playable->player->cardsPlayedThisTurn)
+        {
+            if (card->GetCardType() == CardType::SPELL &&
+                card->GetSpellSchool() == SpellSchool::FEL)
             {
                 return true;
             }
