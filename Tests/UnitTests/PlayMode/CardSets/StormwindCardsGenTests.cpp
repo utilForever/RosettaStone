@@ -2189,6 +2189,55 @@ TEST_CASE("[Warrior : Minion] - DED_519 : Defias Cannoneer")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
+// [SW_037] Irebound Brute - COST:8 [ATK:6/HP:7]
+// - Race: Demon, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Costs (1) less for each card drawn this turn.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - SW_037 : Irebound Brute")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Irebound Brute"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chaos Strike"));
+
+    CHECK_EQ(card1->GetCost(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 7);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
 // [SW_043] Felgorger - COST:4 [ATK:4/HP:3]
 // - Race: Demon, Set: STORMWIND, Rarity: Epic
 // --------------------------------------------------------

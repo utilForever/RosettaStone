@@ -2827,6 +2827,11 @@ void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetNumCardsDrawnThisTurn();
+    }));
+    cards.emplace("SW_037", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SW_039] Final Showdown - COST:1
