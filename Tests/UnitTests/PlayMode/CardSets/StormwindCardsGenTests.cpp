@@ -1673,6 +1673,65 @@ TEST_CASE("[Warlock : Spell] - SW_088 : Demonic Assault")
     CHECK_EQ(curField[1]->HasTaunt(), true);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [SW_090] Touch of the Nathrezim - COST:1
+// - Set: STORMWIND, Rarity: Rare
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Deal 2 damage to a minion.
+//       If it dies, restore 4 Health to your hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - SW_090 : Touch of the Nathrezim")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Touch of the Nathrezim"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Touch of the Nathrezim"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [SW_021] Cowardly Grunt - COST:6 [ATK:6/HP:2]
 // - Set: STORMWIND, Rarity: Rare
