@@ -2300,6 +2300,8 @@ void StormwindCardsGen::AddShamanNonCollect(
 
 void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - WARLOCK
     // [SW_003] Runed Mithril Rod - COST:4
     // - Set: STORMWIND, Rarity: Rare
@@ -2341,6 +2343,13 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_086e", EntityType::STACK));
+    cards.emplace("SW_086", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SW_087] Dreaded Mount - COST:3
@@ -3865,6 +3874,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_086e"));
+    cards.emplace("SW_086e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_087e] On a Dreadsteed - COST:0
