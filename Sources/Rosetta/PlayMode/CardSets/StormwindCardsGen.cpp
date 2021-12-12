@@ -2367,9 +2367,20 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage.
     //       Summon two 1/3 Voidwalkers with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_065", 2, SummonSide::SPELL));
+    cards.emplace(
+        "SW_088",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [SW_089] Entitled Customer - COST:6 [ATK:3/HP:2]
