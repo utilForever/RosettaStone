@@ -245,6 +245,16 @@ void Player::SetComboActive(bool isActive)
     SetGameTag(GameTag::COMBO_ACTIVE, isActive ? 1 : 0);
 }
 
+int Player::GetNumCardsDrawnThisTurn() const
+{
+    return GetGameTag(GameTag::NUM_CARDS_DRAWN_THIS_TURN);
+}
+
+void Player::SetNumCardsDrawnThisTurn(int value)
+{
+    SetGameTag(GameTag::NUM_CARDS_DRAWN_THIS_TURN, value);
+}
+
 int Player::GetNumCardsPlayedThisTurn() const
 {
     return GetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_TURN);
