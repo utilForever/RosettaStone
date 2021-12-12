@@ -34,6 +34,10 @@ Playable* Draw(Player* player, Playable* cardToDraw)
         cardToDraw != nullptr ? cardToDraw
                               : player->GetDeckZone()->GetTopCard());
 
+    // Increase the number of cards drawn this turn
+    const int val = player->GetNumCardsDrawnThisTurn();
+    player->SetNumCardsDrawnThisTurn(val + 1);
+
     // Add card to hand
     if (AddCardToHand(player, playable))
     {
