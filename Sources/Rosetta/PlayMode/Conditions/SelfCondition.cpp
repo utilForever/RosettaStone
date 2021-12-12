@@ -49,6 +49,13 @@ SelfCondition SelfCondition::IsHandEmpty()
     });
 }
 
+SelfCondition SelfCondition::IsHandFull()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetHandZone()->IsFull();
+    });
+}
+
 SelfCondition SelfCondition::IsDeckEmpty()
 {
     return SelfCondition([](Playable* playable) {
