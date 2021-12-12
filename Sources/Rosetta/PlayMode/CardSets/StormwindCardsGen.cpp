@@ -2440,6 +2440,11 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>(
+        [](Playable* playable) { return 1; }, EffectOperator::SET,
+        SelfCondition::IsHandFull()));
+    cards.emplace("SW_092", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DED_503] Shadowblade Slinger - COST:1 [ATK:2/HP:1]
