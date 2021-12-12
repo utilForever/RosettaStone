@@ -53,10 +53,12 @@ int AuraEffects::GetGameTag(GameTag tag) const
             return GetHeroPowerDamage();
         case GameTag::HEALTH:
             return GetHealth();
-        case GameTag::CHARGE:
-            return GetCharge();
+        case GameTag::WINDFURY:
+            return GetWindfury();
         case GameTag::TAUNT:
             return GetTaunt();
+        case GameTag::CHARGE:
+            return GetCharge();
         case GameTag::LIFESTEAL:
             return GetLifesteal();
         case GameTag::CANT_ATTACK:
@@ -89,11 +91,14 @@ void AuraEffects::SetGameTag(GameTag tag, int value)
         case GameTag::HEALTH:
             SetHealth(value);
             break;
-        case GameTag::CHARGE:
-            SetCharge(value);
+        case GameTag::WINDFURY:
+            SetWindfury(value);
             break;
         case GameTag::TAUNT:
             SetTaunt(value);
+            break;
+        case GameTag::CHARGE:
+            SetCharge(value);
             break;
         case GameTag::LIFESTEAL:
             SetLifesteal(value);
