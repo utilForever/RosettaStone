@@ -2539,6 +2539,67 @@ TEST_CASE("[Neutral : Minion] - SW_061 : Guild Trader")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [SW_063] Battleground Battlemaster - COST:6 [ATK:5/HP:5]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: Adjacent minions have <b>Windfury</b>.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - SW_063 : Battleground Battlemaster")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Battleground Battlemaster"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+    CHECK_EQ(curField[1]->HasWindfury(), false);
+
+    game.Process(curPlayer, PlayCardTask(card1, nullptr, 1));
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+    CHECK_EQ(curField[1]->HasWindfury(), false);
+    CHECK_EQ(curField[2]->HasWindfury(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+    CHECK_EQ(curField[1]->HasWindfury(), false);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [SW_066] Royal Librarian - COST:4 [ATK:3/HP:4]
 // - Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------

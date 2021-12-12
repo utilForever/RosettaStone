@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
@@ -3235,6 +3236,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdjacentAura>("SW_063e"));
+    cards.emplace("SW_063", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_064] Northshire Farmer - COST:3 [ATK:3/HP:3]
@@ -3759,6 +3763,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Windfury</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_063e"));
+    cards.emplace("SW_063e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_064e] Raised in a Barn - COST:0
