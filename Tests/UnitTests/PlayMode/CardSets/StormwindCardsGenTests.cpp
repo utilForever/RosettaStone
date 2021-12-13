@@ -919,6 +919,55 @@ TEST_CASE("[Paladin : Spell] - SW_046 : City Tax")
     CHECK_EQ(opField[1]->GetHealth(), 4);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:2]
+// - Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a minion.
+//       Give minions in your hand +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - SW_315 : Alliance Bannerman")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("City Tax");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Noble Mount");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Alliance Bannerman"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 5);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 13);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [SW_316] Noble Mount - COST:2
 // - Set: STORMWIND, Rarity: Rare

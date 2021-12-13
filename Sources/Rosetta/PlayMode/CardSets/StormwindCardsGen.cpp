@@ -1221,6 +1221,11 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(1, false));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "SW_315e", EntityType::MINIONS_HAND));
+    cards.emplace("SW_315", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [SW_316] Noble Mount - COST:2
@@ -3981,6 +3986,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_315e"));
+    cards.emplace("SW_315e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_316e] On a Horse - COST:0
