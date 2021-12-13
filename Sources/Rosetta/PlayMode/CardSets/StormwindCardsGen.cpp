@@ -1188,6 +1188,14 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsAttack(4, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::RUSH, 1) }));
+    cards.emplace("SW_305", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [SW_313] Rise to the Occasion - COST:1

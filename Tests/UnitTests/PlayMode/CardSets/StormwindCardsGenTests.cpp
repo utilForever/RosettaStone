@@ -920,6 +920,66 @@ TEST_CASE("[Paladin : Spell] - SW_046 : City Tax")
 }
 
 // --------------------------------------- MINION - PALADIN
+// [SW_305] First Blade of Wrynn - COST:4 [ATK:3/HP:5]
+// - Set: STORMWIND, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+//       <b>Battlecry:</b> Gain <b>Rush</b>
+//       if this has at least 4 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - SW_305 : First Blade of Wrynn")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("First Blade of Wrynn"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("First Blade of Wrynn"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Alliance Bannerman"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasDivineShield(), true);
+    CHECK_EQ(curField[0]->HasRush(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[2]->HasDivineShield(), true);
+    CHECK_EQ(curField[2]->HasRush(), true);
+}
+
+// --------------------------------------- MINION - PALADIN
 // [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:2]
 // - Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
