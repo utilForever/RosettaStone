@@ -829,11 +829,26 @@ SelfCondition SelfCondition::IsOddAttackMinion()
     });
 }
 
+SelfCondition SelfCondition::IsAttack(int value, RelaSign relaSign)
+{
+    return SelfCondition([value, relaSign](Playable* playable) {
+        const auto character = dynamic_cast<Character*>(playable);
+        if (!character)
+        {
+            return false;
+        }
+
+        return (relaSign == RelaSign::EQ && character->GetAttack() == value) ||
+               (relaSign == RelaSign::GEQ && character->GetAttack() >= value) ||
+               (relaSign == RelaSign::LEQ && character->GetAttack() <= value);
+    });
+}
+
 SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 {
     return SelfCondition([value, relaSign](Playable* playable) {
         const auto character = dynamic_cast<Character*>(playable);
-        if (character == nullptr)
+        if (!character)
         {
             return false;
         }
