@@ -2337,6 +2337,12 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(EntityType::HERO,
+                                                               2) };
+    cards.emplace("SW_084", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SW_085] Dark Alley Pact - COST:4

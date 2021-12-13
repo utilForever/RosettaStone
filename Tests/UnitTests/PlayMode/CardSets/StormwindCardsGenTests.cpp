@@ -1676,6 +1676,51 @@ TEST_CASE("[Shaman : Minion] - DED_522 : Cookie the Cook")
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [SW_084] Bloodbound Imp - COST:2 [ATK:2/HP:5]
+// - Race: Demon, Set: STORMWIND, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever this attacks, deal 2 damage to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - SW_084 : Bloodbound Imp")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodbound Imp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [SW_086] Shady Bartender - COST:5 [ATK:4/HP:4]
 // - Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
