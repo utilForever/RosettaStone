@@ -832,30 +832,36 @@ SelfCondition SelfCondition::IsOddAttackMinion()
 SelfCondition SelfCondition::IsAttack(int value, RelaSign relaSign)
 {
     return SelfCondition([value, relaSign](Playable* playable) {
-        const auto character = dynamic_cast<Character*>(playable);
-        if (!character)
+        if (const auto character = dynamic_cast<Character*>(playable);
+            character)
         {
-            return false;
+            return (relaSign == RelaSign::EQ &&
+                    character->GetAttack() == value) ||
+                   (relaSign == RelaSign::GEQ &&
+                    character->GetAttack() >= value) ||
+                   (relaSign == RelaSign::LEQ &&
+                    character->GetAttack() <= value);
         }
 
-        return (relaSign == RelaSign::EQ && character->GetAttack() == value) ||
-               (relaSign == RelaSign::GEQ && character->GetAttack() >= value) ||
-               (relaSign == RelaSign::LEQ && character->GetAttack() <= value);
+        return false;
     });
 }
 
 SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 {
     return SelfCondition([value, relaSign](Playable* playable) {
-        const auto character = dynamic_cast<Character*>(playable);
-        if (!character)
+        if (const auto character = dynamic_cast<Character*>(playable);
+            character)
         {
-            return false;
+            return (relaSign == RelaSign::EQ &&
+                    character->GetHealth() == value) ||
+                   (relaSign == RelaSign::GEQ &&
+                    character->GetHealth() >= value) ||
+                   (relaSign == RelaSign::LEQ &&
+                    character->GetHealth() <= value);
         }
 
-        return (relaSign == RelaSign::EQ && character->GetHealth() == value) ||
-               (relaSign == RelaSign::GEQ && character->GetHealth() >= value) ||
-               (relaSign == RelaSign::LEQ && character->GetHealth() <= value);
+        return false;
     });
 }
 
