@@ -8,6 +8,7 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/MultiTrigger.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -3513,6 +3514,16 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    auto trigger1 = std::make_shared<Trigger>(TriggerType::TURN_START);
+    trigger1->eitherTurn = true;
+    trigger1->tasks = { std::make_shared<DrawTask>(1) };
+    auto trigger2 = std::make_shared<Trigger>(TriggerType::TURN_END);
+    trigger2->eitherTurn = true;
+    trigger2->tasks = { std::make_shared<DrawTask>(1) };
+    power.AddTrigger(std::make_shared<MultiTrigger>(
+        std::vector<std::shared_ptr<Trigger>>{ trigger1, trigger2 }));
+    cards.emplace("SW_080", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_081] Varian, King of Stormwind - COST:8 [ATK:7/HP:7]
