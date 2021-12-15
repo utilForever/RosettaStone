@@ -31,10 +31,11 @@ std::shared_ptr<Trigger> MultiTrigger::Activate(Playable* source,
     triggers.reserve(m_triggers.size());
 
     bool flag = false;
+
     for (auto& trigger : m_triggers)
     {
-        auto trig = trigger->Activate(source, activation, cloning, true);
-        if (trig != nullptr)
+        if (auto trig = trigger->Activate(source, activation, cloning, true);
+            trig)
         {
             triggers.emplace_back(trig);
             flag = true;
