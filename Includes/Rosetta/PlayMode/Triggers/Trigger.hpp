@@ -106,6 +106,7 @@ class Trigger
     TriggerType m_triggerType = TriggerType::NONE;
     SequenceType m_sequenceType = SequenceType::NONE;
 
+    bool m_isRemoved = false;
     bool m_isValidated = false;
 };
 }  // namespace RosettaStone::PlayMode

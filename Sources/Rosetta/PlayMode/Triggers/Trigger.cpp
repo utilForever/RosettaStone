@@ -279,6 +279,11 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
 
 void Trigger::Remove()
 {
+    if (m_isRemoved)
+    {
+        return;
+    }
+
     Game* game = m_owner->game;
 
     switch (m_triggerType)
@@ -462,6 +467,8 @@ void Trigger::Remove()
             return trigger.get() == this;
         });
     }
+
+    m_isRemoved = true;
 }
 
 void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
@@ -491,6 +498,11 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
 
 void Trigger::Process(Entity* source)
 {
+    if (m_isRemoved)
+    {
+        return;
+    }
+
     if (m_sequenceType == SequenceType::NONE)
     {
         Validate(source);
