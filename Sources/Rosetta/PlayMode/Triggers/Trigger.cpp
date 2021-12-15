@@ -57,6 +57,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
       eitherTurn(prototype.eitherTurn),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
+      isMultiTrigger(prototype.isMultiTrigger),
       m_owner(dynamic_cast<Playable*>(&owner)),
       m_triggerType(prototype.m_triggerType),
       m_sequenceType(prototype.m_sequenceType)
@@ -73,7 +74,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
 
 std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
                                            TriggerActivation activation,
-                                           bool cloning)
+                                           bool cloning, bool isMulti)
 {
     if (!cloning && activation != triggerActivation)
     {
@@ -86,7 +87,14 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
     auto instance = std::make_shared<Trigger>(*this, *source);
     Game* game = source->game;
 
-    source->activatedTrigger = instance;
+    if (isMulti)
+    {
+        instance->isMultiTrigger = true;
+    }
+    else if (!isMultiTrigger)
+    {
+        source->activatedTrigger = instance;
+    }
 
     if (m_sequenceType != SequenceType::NONE)
     {
@@ -269,7 +277,7 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
     return instance;
 }
 
-void Trigger::Remove() const
+void Trigger::Remove()
 {
     Game* game = m_owner->game;
 
@@ -441,6 +449,11 @@ void Trigger::Remove() const
             break;
         default:
             break;
+    }
+
+    if (!isMultiTrigger)
+    {
+        m_owner->activatedTrigger = nullptr;
     }
 
     if (m_sequenceType != SequenceType::NONE)
