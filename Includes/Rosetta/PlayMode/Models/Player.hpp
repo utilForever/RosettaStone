@@ -203,6 +203,14 @@ class Player : public Entity
     //! \param isActive Whether combo is active.
     void SetComboActive(bool isActive);
 
+    //! Returns the number of cards that drawn this turn.
+    //! \return The number of cards that drawn this turn.
+    int GetNumCardsDrawnThisTurn() const;
+
+    //! Sets the number of cards that drawn this turn.
+    //! \param value The number of cards that drawn this turn.
+    void SetNumCardsDrawnThisTurn(int value);
+
     //! Returns the number of cards that played this turn.
     //! \return The number of cards that played this turn.
     int GetNumCardsPlayedThisTurn() const;

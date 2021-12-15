@@ -3,10 +3,12 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/MultiTrigger.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1187,6 +1189,14 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsAttack(4, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                         GameTag::RUSH, 1) }));
+    cards.emplace("SW_305", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [SW_313] Rise to the Occasion - COST:1
@@ -1220,6 +1230,11 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(1, false));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "SW_315e", EntityType::MINIONS_HAND));
+    cards.emplace("SW_315", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [SW_316] Noble Mount - COST:2
@@ -2300,6 +2315,8 @@ void StormwindCardsGen::AddShamanNonCollect(
 
 void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - WARLOCK
     // [SW_003] Runed Mithril Rod - COST:4
     // - Set: STORMWIND, Rarity: Rare
@@ -2321,6 +2338,12 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(EntityType::HERO,
+                                                               2) };
+    cards.emplace("SW_084", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SW_085] Dark Alley Pact - COST:4
@@ -2341,6 +2364,13 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("SW_086e", EntityType::STACK));
+    cards.emplace("SW_086", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SW_087] Dreaded Mount - COST:3
@@ -2358,9 +2388,20 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage.
     //       Summon two 1/3 Voidwalkers with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("CS2_065", 2, SummonSide::SPELL));
+    cards.emplace(
+        "SW_088",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [SW_089] Entitled Customer - COST:6 [ATK:3/HP:2]
@@ -2381,6 +2422,22 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a minion.
     //       If it dies, restore 4 Health to your hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<HealTask>(EntityType::HERO, 4) }));
+    cards.emplace(
+        "SW_090",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [SW_091] The Demon Seed - COST:1
@@ -2404,6 +2461,11 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>(
+        [](Playable* playable) { return 1; }, EffectOperator::SET,
+        SelfCondition::IsHandFull()));
+    cards.emplace("SW_092", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [DED_503] Shadowblade Slinger - COST:1 [ATK:2/HP:1]
@@ -2786,6 +2848,11 @@ void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetNumCardsDrawnThisTurn();
+    }));
+    cards.emplace("SW_037", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [SW_039] Final Showdown - COST:1
@@ -3189,6 +3256,9 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdjacentAura>("SW_063e"));
+    cards.emplace("SW_063", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_064] Northshire Farmer - COST:3 [ATK:3/HP:3]
@@ -3444,6 +3514,16 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    auto trigger1 = std::make_shared<Trigger>(TriggerType::TURN_START);
+    trigger1->eitherTurn = true;
+    trigger1->tasks = { std::make_shared<DrawTask>(1) };
+    auto trigger2 = std::make_shared<Trigger>(TriggerType::TURN_END);
+    trigger2->eitherTurn = true;
+    trigger2->tasks = { std::make_shared<DrawTask>(1) };
+    power.AddTrigger(std::make_shared<MultiTrigger>(
+        std::vector<std::shared_ptr<Trigger>>{ trigger1, trigger2 }));
+    cards.emplace("SW_080", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [SW_081] Varian, King of Stormwind - COST:8 [ATK:7/HP:7]
@@ -3713,6 +3793,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Windfury</b>
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_063e"));
+    cards.emplace("SW_063e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_064e] Raised in a Barn - COST:0
@@ -3865,6 +3948,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_086e"));
+    cards.emplace("SW_086e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_087e] On a Dreadsteed - COST:0
@@ -3925,6 +4011,9 @@ void StormwindCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("SW_315e"));
+    cards.emplace("SW_315e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [SW_316e] On a Horse - COST:0

@@ -25,16 +25,17 @@ MultiTrigger::MultiTrigger(std::vector<std::shared_ptr<Trigger>> triggers,
 
 std::shared_ptr<Trigger> MultiTrigger::Activate(Playable* source,
                                                 TriggerActivation activation,
-                                                bool cloning)
+                                                bool cloning, bool isMulti)
 {
     std::vector<std::shared_ptr<Trigger>> triggers;
     triggers.reserve(m_triggers.size());
 
     bool flag = false;
+
     for (auto& trigger : m_triggers)
     {
-        auto trig = trigger->Activate(source, activation, cloning);
-        if (trig != nullptr)
+        if (auto trig = trigger->Activate(source, activation, cloning, true);
+            trig)
         {
             triggers.emplace_back(trig);
             flag = true;
@@ -48,14 +49,24 @@ std::shared_ptr<Trigger> MultiTrigger::Activate(Playable* source,
 
     auto instance = std::make_shared<MultiTrigger>(triggers, *this, *source);
 
+    if (!isMulti)
+    {
+        source->activatedTrigger = instance;
+    }
+
     return instance;
 }
 
-void MultiTrigger::Remove() const
+void MultiTrigger::Remove()
 {
     for (auto& trigger : m_triggers)
     {
         trigger->Remove();
+    }
+
+    if (!isMultiTrigger)
+    {
+        m_owner->activatedTrigger = nullptr;
     }
 }
 }  // namespace RosettaStone::PlayMode

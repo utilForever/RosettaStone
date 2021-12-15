@@ -57,6 +57,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
       eitherTurn(prototype.eitherTurn),
       fastExecution(prototype.fastExecution),
       removeAfterTriggered(prototype.removeAfterTriggered),
+      isMultiTrigger(prototype.isMultiTrigger),
       m_owner(dynamic_cast<Playable*>(&owner)),
       m_triggerType(prototype.m_triggerType),
       m_sequenceType(prototype.m_sequenceType)
@@ -73,7 +74,7 @@ Trigger::Trigger(Trigger& prototype, Entity& owner)
 
 std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
                                            TriggerActivation activation,
-                                           bool cloning)
+                                           bool cloning, bool isMulti)
 {
     if (!cloning && activation != triggerActivation)
     {
@@ -86,7 +87,14 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
     auto instance = std::make_shared<Trigger>(*this, *source);
     Game* game = source->game;
 
-    source->activatedTrigger = instance;
+    if (isMulti)
+    {
+        instance->isMultiTrigger = true;
+    }
+    else if (!isMultiTrigger)
+    {
+        source->activatedTrigger = instance;
+    }
 
     if (m_sequenceType != SequenceType::NONE)
     {
@@ -269,8 +277,13 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
     return instance;
 }
 
-void Trigger::Remove() const
+void Trigger::Remove()
 {
+    if (m_isRemoved)
+    {
+        return;
+    }
+
     Game* game = m_owner->game;
 
     switch (m_triggerType)
@@ -443,12 +456,20 @@ void Trigger::Remove() const
             break;
     }
 
+    // TODO: Is it correct? :thinking:
+    //if (!isMultiTrigger)
+    //{
+    //    m_owner->activatedTrigger = nullptr;
+    //}
+
     if (m_sequenceType != SequenceType::NONE)
     {
         EraseIf(game->triggers, [this](std::shared_ptr<Trigger> trigger) {
             return trigger.get() == this;
         });
     }
+
+    m_isRemoved = true;
 }
 
 void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
@@ -478,6 +499,11 @@ void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
 
 void Trigger::Process(Entity* source)
 {
+    if (m_isRemoved)
+    {
+        return;
+    }
+
     if (m_sequenceType == SequenceType::NONE)
     {
         Validate(source);
@@ -495,6 +521,14 @@ void Trigger::ProcessInternal(Entity* source)
 {
     m_isValidated = false;
 
+    ProcessTasks(source);
+
+    if (const auto spell = dynamic_cast<Spell*>(m_owner);
+        spell && spell->IsSecret() && spell->player->ExtraTriggerSecret())
+    {
+        ProcessTasks(source);
+    }
+
     if (removeAfterTriggered)
     {
         Remove();
@@ -508,14 +542,6 @@ void Trigger::ProcessInternal(Entity* source)
         {
             Remove();
         }
-    }
-
-    ProcessTasks(source);
-
-    if (const auto spell = dynamic_cast<Spell*>(m_owner);
-        spell && spell->IsSecret() && spell->player->ExtraTriggerSecret())
-    {
-        ProcessTasks(source);
     }
 
     m_isValidated = false;

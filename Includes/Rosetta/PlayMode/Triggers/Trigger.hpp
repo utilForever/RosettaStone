@@ -46,14 +46,15 @@ class Trigger
     //! \param source The source of trigger.
     //! \param activation The activation of trigger.
     //! \param cloning The flag to indicate that it is cloned.
+    //! \param isMulti The flag to indicate that it is multi trigger.
     //! \return A new instance of Trigger object.
     virtual std::shared_ptr<Trigger> Activate(
         Playable* source,
         TriggerActivation activation = TriggerActivation::PLAY,
-        bool cloning = false);
+        bool cloning = false, bool isMulti = false);
 
     //! Removes this object from game and unsubscribe from the related event.
-    virtual void Remove() const;
+    virtual void Remove();
 
     //! Checks triggers related to the current Sequence at once before sequence
     //! starts.
@@ -79,6 +80,10 @@ class Trigger
     bool eitherTurn = false;
     bool fastExecution = false;
     bool removeAfterTriggered = false;
+    bool isMultiTrigger = false;
+
+ protected:
+    Playable* m_owner = nullptr;
 
  private:
     //! Processes trigger to apply the effect.
@@ -98,11 +103,10 @@ class Trigger
     //! \param source The source of trigger.
     void Validate(Entity* source);
 
-    Playable* m_owner = nullptr;
-
     TriggerType m_triggerType = TriggerType::NONE;
     SequenceType m_sequenceType = SequenceType::NONE;
 
+    bool m_isRemoved = false;
     bool m_isValidated = false;
 };
 }  // namespace RosettaStone::PlayMode

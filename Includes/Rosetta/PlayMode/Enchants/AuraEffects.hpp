@@ -108,13 +108,13 @@ class AuraEffects
     //! \param value The value of GameTag::HEALTH to set.
     void SetHealth(int value);
 
-    //! Returns the value of GameTag::CHARGE.
-    //! \return The value of GameTag::CHARGE.
-    int GetCharge() const;
+    //! Returns the value of GameTag::WINDFURY.
+    //! \return The value of GameTag::WINDFURY.
+    int GetWindfury() const;
 
-    //! Sets the value of GameTag::CHARGE.
-    //! \param value The value of GameTag::CHARGE to set.
-    void SetCharge(int value);
+    //! Sets the value of GameTag::WINDFURY.
+    //! \param value The value of GameTag::WINDFURY to set.
+    void SetWindfury(int value);
 
     //! Returns the value of GameTag::TAUNT.
     //! \return The value of GameTag::TAUNT.
@@ -123,6 +123,14 @@ class AuraEffects
     //! Sets the value of GameTag::TAUNT.
     //! \param value The value of GameTag::TAUNT to set.
     void SetTaunt(int value);
+
+    //! Returns the value of GameTag::CHARGE.
+    //! \return The value of GameTag::CHARGE.
+    int GetCharge() const;
+
+    //! Sets the value of GameTag::CHARGE.
+    //! \param value The value of GameTag::CHARGE to set.
+    void SetCharge(int value);
 
     //! Returns the value of GameTag::LIFESTEAL.
     //! \return The value of GameTag::LIFESTEAL.
@@ -158,10 +166,11 @@ class AuraEffects
     // 4 : HEROPOWER_DAMAGE
     // Minion
     // 2 : HEALTH
-    // 3 : CHARGE
+    // 3 : WINDFURY
     // 4 : TAUNT
-    // 5 : LIFESTEAL
-    // 6 : CANT_ATTACK
+    // 5 : CHARGE
+    // 6 : LIFESTEAL
+    // 7 : CANT_ATTACK
     int* m_data = nullptr;
 };
 }  // namespace RosettaStone::PlayMode

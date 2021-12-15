@@ -34,14 +34,15 @@ class MultiTrigger : public Trigger
     //! \param source The source of trigger.
     //! \param activation The activation of trigger.
     //! \param cloning The flag to indicate that it is cloned.
+    //! \param isMulti The flag to indicate that it is multi trigger.
     //! \return A new instance of MultiTrigger object.
     std::shared_ptr<Trigger> Activate(
         Playable* source,
         TriggerActivation activation = TriggerActivation::PLAY,
-        bool cloning = false) override;
+        bool cloning = false, [[maybe_unused]] bool isMulti = false) override;
 
     //! Removes this object from game and unsubscribe from the related event.
-    void Remove() const override;
+    void Remove() override;
 
     std::vector<std::shared_ptr<Trigger>> m_triggers;
 };
