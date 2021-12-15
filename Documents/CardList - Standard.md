@@ -946,7 +946,7 @@ STORMWIND | SW_033 | Canal Slogger | O
 STORMWIND | SW_034 | Tiny Toys |  
 STORMWIND | SW_035 | Charged Call |  
 STORMWIND | SW_036 | Two-Faced Investor |  
-STORMWIND | SW_037 | Irebound Brute |  
+STORMWIND | SW_037 | Irebound Brute | O
 STORMWIND | SW_039 | Final Showdown |  
 STORMWIND | SW_040 | Fel Barrage |  
 STORMWIND | SW_041 | Sigil of Alacrity |  
@@ -968,7 +968,7 @@ STORMWIND | SW_059 | Deeprun Engineer |
 STORMWIND | SW_060 | Florist |  
 STORMWIND | SW_061 | Guild Trader | O
 STORMWIND | SW_062 | Goldshire Gnoll |  
-STORMWIND | SW_063 | Battleground Battlemaster |  
+STORMWIND | SW_063 | Battleground Battlemaster | O
 STORMWIND | SW_064 | Northshire Farmer |  
 STORMWIND | SW_065 | Pandaren Importer |  
 STORMWIND | SW_066 | Royal Librarian | O
@@ -985,17 +985,17 @@ STORMWIND | SW_076 | City Architect | O
 STORMWIND | SW_077 | Stockades Prisoner |  
 STORMWIND | SW_078 | Lady Prestor |  
 STORMWIND | SW_079 | Flightmaster Dungar |  
-STORMWIND | SW_080 | Cornelius Roame |  
+STORMWIND | SW_080 | Cornelius Roame | O
 STORMWIND | SW_081 | Varian, King of Stormwind |  
-STORMWIND | SW_084 | Bloodbound Imp |  
+STORMWIND | SW_084 | Bloodbound Imp | O
 STORMWIND | SW_085 | Dark Alley Pact |  
-STORMWIND | SW_086 | Shady Bartender |  
+STORMWIND | SW_086 | Shady Bartender | O
 STORMWIND | SW_087 | Dreaded Mount |  
-STORMWIND | SW_088 | Demonic Assault |  
+STORMWIND | SW_088 | Demonic Assault | O
 STORMWIND | SW_089 | Entitled Customer |  
-STORMWIND | SW_090 | Touch of the Nathrezim |  
+STORMWIND | SW_090 | Touch of the Nathrezim | O
 STORMWIND | SW_091 | The Demon Seed |  
-STORMWIND | SW_092 | Anetheron |  
+STORMWIND | SW_092 | Anetheron | O
 STORMWIND | SW_093 | Stormwind Freebooter | O
 STORMWIND | SW_094 | Heavy Plate | O
 STORMWIND | SW_095 | Investment Opportunity | O
@@ -1009,14 +1009,14 @@ STORMWIND | SW_112 | Prestor's Pyromancer |
 STORMWIND | SW_113 | Grand Magus Antonidas |  
 STORMWIND | SW_114 | Overdraft |  
 STORMWIND | SW_115 | Bolner Hammerbeak |  
-STORMWIND | SW_305 | First Blade of Wrynn |  
+STORMWIND | SW_305 | First Blade of Wrynn | O
 STORMWIND | SW_306 | Encumbered Pack Mule |  
 STORMWIND | SW_307 | Traveling Merchant |  
 STORMWIND | SW_310 | Counterfeit Blade |  
 STORMWIND | SW_311 | Garrote | O
 STORMWIND | SW_313 | Rise to the Occasion |  
 STORMWIND | SW_314 | Lightbringer's Hammer |  
-STORMWIND | SW_315 | Alliance Bannerman |  
+STORMWIND | SW_315 | Alliance Bannerman | O
 STORMWIND | SW_316 | Noble Mount | O
 STORMWIND | SW_317 | Catacomb Guard |  
 STORMWIND | SW_319 | Peasant |  
@@ -1063,7 +1063,7 @@ STORMWIND | SW_460 | Devouring Swarm |
 STORMWIND | SW_462 | Hot Streak |  
 STORMWIND | SW_463 | Imported Tarantula |  
 
-- Progress: 29% (50 of 170 Cards)
+- Progress: 35% (60 of 170 Cards)
 
 ## Fractured in Alterac Valley
 
