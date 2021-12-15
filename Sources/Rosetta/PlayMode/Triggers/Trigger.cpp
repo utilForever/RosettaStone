@@ -520,6 +520,14 @@ void Trigger::ProcessInternal(Entity* source)
 {
     m_isValidated = false;
 
+    ProcessTasks(source);
+
+    if (const auto spell = dynamic_cast<Spell*>(m_owner);
+        spell && spell->IsSecret() && spell->player->ExtraTriggerSecret())
+    {
+        ProcessTasks(source);
+    }
+
     if (removeAfterTriggered)
     {
         Remove();
@@ -533,14 +541,6 @@ void Trigger::ProcessInternal(Entity* source)
         {
             Remove();
         }
-    }
-
-    ProcessTasks(source);
-
-    if (const auto spell = dynamic_cast<Spell*>(m_owner);
-        spell && spell->IsSecret() && spell->player->ExtraTriggerSecret())
-    {
-        ProcessTasks(source);
     }
 
     m_isValidated = false;
