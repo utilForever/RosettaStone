@@ -456,10 +456,11 @@ void Trigger::Remove()
             break;
     }
 
-    if (!isMultiTrigger)
-    {
-        m_owner->activatedTrigger = nullptr;
-    }
+    // TODO: Is it correct? :thinking:
+    //if (!isMultiTrigger)
+    //{
+    //    m_owner->activatedTrigger = nullptr;
+    //}
 
     if (m_sequenceType != SequenceType::NONE)
     {
