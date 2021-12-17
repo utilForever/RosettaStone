@@ -1,7 +1,7 @@
 // This code is based on Sabberstone project.
-// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-// Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2017-2021 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
@@ -915,7 +915,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Replace your hand with
-    //       a copy of your opponent¡¯s until end of turn.
+    //       a copy of your opponentï¿½ï¿½s until end of turn.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
