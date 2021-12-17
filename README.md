@@ -215,30 +215,11 @@ The class is licensed under the [Affero GPLv3 License](https://opensource.org/li
 
 RosettaStone is based on part of Sabberstone's code
 
-Copyright (c) 2017-2021 SabberStone Team, darkfriend77 & rnilva
-
-RosettaStone is based on part of hearthstone-ai's code
-
-Copyright (c) 2017 Peter Shih, peter1591
+Copyright &copy; 2017-2021 SabberStone Team, darkfriend77 & rnilva
 
 RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
-Copyright (c) 2017-2021 RosettaStone Team
-
-  * [Chris Ohk](http://www.github.com/utilForever)
-  * [Youngjoong Kim](https://github.com/revsic)
-  * [Seunghyun Jeon](https://github.com/FuZer)
-  * [Hyeongchan Kim](https://github.com/kozistr)
-  * [Yoohan Park](https://github.com/CreatorSeraph)
-  * [Hyeonsu Kim](https://github.com/git-rla)
-  * [Junyeong Park](https://github.com/JYPark09)
-  * [Sunghwan Kim](https://github.com/FYLSunghwan)
-  * [Kyounguk Chae](https://github.com/ShyRoute)
-  * [Junryung Ju](https://github.com/ArtBlnd)
-  * [Beomgyu Kim](https://github.com/solarmagic)
-  * [Doun Lee](https://github.com/Rayiz3)
-  * [Ingyun Ahn](https://github.com/goltong1)
-  * [Cheolwan Park](https://github.com/Cheolwan-Park)
+Copyright &copy; 2017-2021 [Chris Ohk](https://github.com/utilForever)
 
 RosettaStone is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License. RosettaStone is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 
