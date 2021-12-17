@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2017-2021 Chris Ohk
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -373,7 +373,7 @@ TEST_CASE("[Druid : Spell] - CORE_EX1_160 : Power of the Wild")
 // - Set: CORE, Rarity: Rare
 // - Spell School: Nature
 // --------------------------------------------------------
-// Text: <b>Choose One -</b> Gain 2 Mana Crystals;
+// Text: <b>Choose One -</b> Gain 2 Mana Crystals;
 //       or Draw 3 cards.
 // --------------------------------------------------------
 // GameTag:
@@ -864,7 +864,7 @@ TEST_CASE("[Druid : Spell] - CORE_OG_047 : Feral Rage")
 // [CORE_TRL_243] Pounce - COST:0
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: Give your hero +2 Attack this turn.
+// Text: Give your hero +2 Attack this turn.
 // --------------------------------------------------------
 TEST_CASE("[Druid : Spell] - CORE_TRL_243 : Pounce")
 {
@@ -1863,7 +1863,7 @@ TEST_CASE("[Hunter : Minion] - CS3_015 : Selective Breeder")
 // [CORE_AT_003] Fallen Hero - COST:2 [ATK:3/HP:2]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
-// Text: Your Hero Power deals 1 extra damage.
+// Text: Your Hero Power deals 1 extra damage.
 // --------------------------------------------------------
 // GameTag:
 // - HEROPOWER_DAMAGE = 1
@@ -2999,7 +2999,7 @@ TEST_CASE("[Paladin : Spell] - CORE_CS2_093 : Consecration")
 // [CORE_CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: Whenever your hero attacks, restore 2 Health to it.
+// Text: Whenever your hero attacks, restore 2 Health to it.
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 2
@@ -4028,7 +4028,7 @@ TEST_CASE("[Priest : Minion] - CORE_EX1_335 : Lightspawn")
 // - Set: CORE, Rarity: Common
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: Destroy a minion with 5 or more Attack.
+// Text: Destroy a minion with 5 or more Attack.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -4545,7 +4545,7 @@ TEST_CASE("[Rogue : Spell] - CORE_CS2_073 : Cold Blood")
 // - Set: CORE, Rarity: Common
 // - Spell School: Nature
 // --------------------------------------------------------
-// Text: Give your weapon +2 Attack.
+// Text: Give your weapon +2 Attack.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_WEAPON_EQUIPPED = 0
@@ -7435,7 +7435,7 @@ TEST_CASE("[Warrior : Minion] - CORE_EX1_414 : Grommash Hellscream")
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 1 damage to a minion
-//       and give it +2 Attack.
+//       and give it +2 Attack.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -7713,7 +7713,7 @@ TEST_CASE("[Warrior : Minion] - CS3_030 : Warsong Outrider")
 // - Set: CORE, Rarity: Common
 // - Spell School: Fel
 // --------------------------------------------------------
-// Text: Give your hero +2 Attack this turn. Draw a card.
+// Text: Give your hero +2 Attack this turn. Draw a card.
 // --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Spell] - CORE_BT_035 : Chaos Strike")
 {
@@ -7758,7 +7758,7 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_035 : Chaos Strike")
 // [CORE_BT_036] Coordinated Strike - COST:3
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: Summon three 1/1 Illidari with <b>Rush</b>.
+// Text: Summon three 1/1 Illidari with <b>Rush</b>.
 // --------------------------------------------------------
 // RefTag:
 // - RUSH = 1
@@ -8408,7 +8408,7 @@ TEST_CASE("[Demon Hunter : Weapon] - CORE_BT_921 : Aldrachi Warblades")
 // [CS3_017] Gan'arg Glaivesmith - COST:3 [ATK:3/HP:2]
 // - Race: Demon, Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Outcast:</b> Give your hero +3 Attack this turn.
+// Text: <b>Outcast:</b> Give your hero +3 Attack this turn.
 // --------------------------------------------------------
 // GameTag:
 // - OUTCAST = 1
@@ -8652,7 +8652,7 @@ TEST_CASE("[Neutral : Minion] - CORE_BOT_083 : Toxicologist")
 // [CORE_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Restore 3 Health.
+// Text: <b>Battlecry:</b> Restore 3 Health.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -8850,7 +8850,7 @@ TEST_CASE("[Neutral : Minion] - CORE_CS2_182 : Chillwind Yeti")
 // [CORE_CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
 // - Faction: Alliance, Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+// Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -9321,7 +9321,7 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_010 : Worgen Infiltrator")
 // [CORE_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Restore 2 Health.
+// Text: <b>Battlecry:</b> Restore 2 Health.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -9541,7 +9541,7 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_028 : Stranglethorn Tiger")
 // [CORE_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
 // - Faction: Alliance, Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
+// Text: <b>Battlecry:</b> Give a minion +2 Attack this turn.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -10117,7 +10117,7 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_110 : Cairne Bloodhoof")
 // [CORE_EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
 // - Race: Beast, Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: Adjacent minions have +1 Attack.
+// Text: Adjacent minions have +1 Attack.
 // --------------------------------------------------------
 // GameTag:
 // - ADJACENT_BUFF = 1
@@ -10600,7 +10600,7 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_249 : Baron Geddon")
 // [CORE_EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: Whenever this minion takes damage, gain +3 Attack.
+// Text: Whenever this minion takes damage, gain +3 Attack.
 // --------------------------------------------------------
 // GameTag:
 // - TRIGGER_VISUAL = 1
@@ -10654,7 +10654,7 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_399 : Gurubashi Berserker")
 // [CORE_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
 // - Race: Murloc, Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+// Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -11613,7 +11613,7 @@ TEST_CASE("[Neutral : Minion] - CORE_UNG_844 : Humongous Razorleaf")
 // - Race: Pirate, Set: CORE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If you have a weapon equipped,
-//       deal 2 damage.
+//       deal 2 damage.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -11843,7 +11843,7 @@ TEST_CASE("[Neutral : Minion] - CS3_031 : Alexstrasza the Life-Binder")
 // - Race: Dragon, Set: CORE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: At the end of each turn,
-//       fill your board with 1/1 Whelps.
+//       fill your board with 1/1 Whelps.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1

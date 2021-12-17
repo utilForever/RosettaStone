@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2017-2021 Chris Ohk
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -523,7 +523,7 @@ TEST_CASE("[Demon Hunter : Hero Power] - VAN_HERO_10bp : Demon Claws")
 // [VAN_CS2_005] Claw - COST:1
 // - Set: VANILLA, Rarity: Free
 // --------------------------------------------------------
-// Text: Give your hero +2 Attack this turn. Gain 2 Armor.
+// Text: Give your hero +2 Attack this turn. Gain 2 Armor.
 // --------------------------------------------------------
 TEST_CASE("[Druid : Spell] - VAN_CS2_005 : Claw")
 {

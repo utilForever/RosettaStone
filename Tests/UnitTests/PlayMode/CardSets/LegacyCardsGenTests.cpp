@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2017-2021 Chris Ohk
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -5571,7 +5571,7 @@ TEST_CASE("[Warrior : Minion] - NEW1_011 : Kor'kron Elite")
 // - Set: Legacy, Rarity: Free
 // - Spell School: Fel
 // --------------------------------------------------------
-// Text: Give your hero +2 Attack this turn. Draw a card.
+// Text: Give your hero +2 Attack this turn. Draw a card.
 // --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Spell] - BT_035 : Chaos Strike")
 {
@@ -5615,7 +5615,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_035 : Chaos Strike")
 // [BT_036] Coordinated Strike - COST:3
 // - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
-// Text: Summon three 1/1 Illidari with <b>Rush</b>.
+// Text: Summon three 1/1 Illidari with <b>Rush</b>.
 // --------------------------------------------------------
 // RefTag:
 // - RUSH = 1
@@ -5679,7 +5679,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_036 : Coordinated Strike")
 // [BT_142] Shadowhoof Slayer (*) - COST:1 [ATK:2/HP:1]
 // - Race: Demon, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
+// Text: <b>Battlecry:</b> Give your hero +1 Attack this turn.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -5724,7 +5724,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_142 : Shadowhoof Slayer")
 // - Set: Legacy, Rarity: Free
 // - Spell School: Fel
 // --------------------------------------------------------
-// Text: Deal 4 damage to all minions.
+// Text: Deal 4 damage to all minions.
 // --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Spell] - BT_235 : Chaos Nova")
 {
@@ -5947,7 +5947,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_495 : Glaivebound Adept")
 // [BT_512] Inner Demon - COST:8
 // - Set: Legacy, Rarity: Free
 // --------------------------------------------------------
-// Text: Give your hero +8 Attack this turn.
+// Text: Give your hero +8 Attack this turn.
 // --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Spell] - BT_512 : Inner Demon")
 {

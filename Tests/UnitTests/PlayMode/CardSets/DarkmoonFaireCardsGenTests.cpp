@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2017-2021 Chris Ohk
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -850,7 +850,7 @@ TEST_CASE("[Hunter : Minion] - DMF_122 : Mystery Winner")
 // - Race: Elemental, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Add two 1/2 Sugar Elementals
-//       to your hand.
+//       to your hand.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -1220,7 +1220,7 @@ TEST_CASE("[Mage : Minion] - YOP_020 : Glacier Racer")
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Divine Shield</b>
-//       <b>Corrupt:</b> Gain +3/+3 and <b>Taunt</b>.
+//       <b>Corrupt:</b> Gain +3/+3 and <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - CORRUPT = 1
@@ -2390,7 +2390,7 @@ TEST_CASE("[Shaman : Spell] - DMF_702 : Stormstrike")
 // [DMF_703] Pit Master - COST:3 [ATK:1/HP:2]
 // - Set: DARKMOON_FAIRE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Summon a 3/2 Duelist.
+// Text: <b>Battlecry:</b> Summon a 3/2 Duelist.
 //       <b>Corrupt:</b> Summon two.
 // --------------------------------------------------------
 // GameTag:
@@ -3078,7 +3078,7 @@ TEST_CASE("[Warlock : Spell] - YOP_033 : Backfire")
 // - Race: Pirate, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
-//       <b>Battlecry:</b> Equip a 3/2 Sword.
+//       <b>Battlecry:</b> Equip a 3/2 Sword.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -3174,7 +3174,7 @@ TEST_CASE("[Warrior : Spell] - DMF_522 : Minefield")
 // - Race: Mechanical, Set: DARKMOON_FAIRE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Rush</b> <b>Deathrattle:</b> Add two 1/1 Riders
-//       with <b>Rush</b> to your hand.
+//       with <b>Rush</b> to your hand.
 // --------------------------------------------------------
 // GameTag:
 // - DEATHRATTLE = 1
@@ -3452,7 +3452,7 @@ TEST_CASE("[Demon Hunter : Spell] - DMF_219 : Relentless Pursuit")
 // --------------------------------------------------------
 // Text: <b>Rush</b>
 //       <b>Deathrattle:</b> Summon two 1/1 Assistants
-//       with <b>Taunt</b>.  
+//       with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - DEATHRATTLE = 1
@@ -3571,7 +3571,7 @@ TEST_CASE("[Demon Hunter : Weapon] - DMF_227 : Dreadlord's Bite")
 // - Race: Demon, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
-//       <b>Corrupt:</b> Gain +1/+1 and <b>Lifesteal</b>.
+//       <b>Corrupt:</b> Gain +1/+1 and <b>Lifesteal</b>.
 // --------------------------------------------------------
 // GameTag:
 // - CORRUPT = 1
@@ -4172,7 +4172,7 @@ TEST_CASE("[Neutral : Minion] - DMF_190 : Fantastic Firebird")
 // [DMF_191] Showstopper - COST:2 [ATK:3/HP:2]
 // - Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> <b>Silence</b> all minions.
+// Text: <b>Deathrattle:</b> <b>Silence</b> all minions.
 // --------------------------------------------------------
 // GameTag:
 // - DEATHRATTLE = 1
@@ -4498,7 +4498,7 @@ TEST_CASE("[Neutral : Minion] - YOP_031 : Crabrider")
 // [YOP_032] Armor Vendor - COST:1 [ATK:1/HP:3]
 // - Set: DARKMOON_FAIRE, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give 4 Armor to each hero.
+// Text: <b>Battlecry:</b> Give 4 Armor to each hero.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2017-2021 Chris Ohk
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -23,7 +23,7 @@ using namespace SimpleTasks;
 // [BT_173] Command the Illidari - COST:5
 // - Set: Demon Hunter Initiate, Rarity: Common
 // --------------------------------------------------------
-// Text: Summon six 1/1 Illidari with <b>Rush</b>.
+// Text: Summon six 1/1 Illidari with <b>Rush</b>.
 // --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Spell] - BT_173 : Command the Illidari")
 {
@@ -150,7 +150,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_175 : Twin Slice")
 // [BT_271] Flamereaper - COST:7 [ATK:4/HP:0]
 // - Set: Demon Hunter Initiate, Rarity: Epic
 // --------------------------------------------------------
-// Text: Also damages the minions next to whomever your hero attacks.
+// Text: Also damages the minions next to whomever your hero attacks.
 // --------------------------------------------------------
 // GameTag:
 // - TRIGGER_VISUAL = 1
@@ -340,7 +340,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_354 : Blade Dance")
 // - Set: Demon Hunter Initiate, Rarity: Epic
 // --------------------------------------------------------
 // Text: After a friendly minion dies,
-//       deal 3 damage to a random enemy.
+//       deal 3 damage to a random enemy.
 // --------------------------------------------------------
 // GameTag:
 // - TRIGGER_VISUAL = 1
@@ -618,7 +618,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_481 : Nethrandamus")
 // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Rush</b>. After this attacks and kills a minion,
-//       it may attack again.
+//       it may attack again.
 // --------------------------------------------------------
 // GameTag:
 // - RUSH = 1
@@ -727,7 +727,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_488 : Soul Split")
 // - Set: Demon Hunter Initiate, Rarity: Common
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: <b>Silence</b> an enemy minion.
+// Text: <b>Silence</b> an enemy minion.
 //       <b>Outcast:</b> Draw a card.
 // --------------------------------------------------------
 // PlayReq:
@@ -1034,7 +1034,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_801 : Eye Beam")
 // [BT_814] Illidari Felblade - COST:4 [ATK:5/HP:3]
 // - Race: Demon, Set: Demon Hunter Initiate, Rarity: Epic
 // --------------------------------------------------------
-// Text: <b>Rush</b> <b>Outcast:</b> Gain <b>Immune</b> this turn.
+// Text: <b>Rush</b> <b>Outcast:</b> Gain <b>Immune</b> this turn.
 // --------------------------------------------------------
 // GameTag:
 // - OUTCAST = 1

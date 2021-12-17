@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+﻿// Copyright (c) 2017-2021 Chris Ohk
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -259,8 +259,8 @@ TEST_CASE("[Druid : Spell] - BAR_536 : Living Seed (Rank 1)")
 // [BAR_537] Razormane Battleguard - COST:2 [ATK:2/HP:2]
 // - Set: THE_BARRENS, Rarity: Rare
 // --------------------------------------------------------
-// Text: The first <b>Taunt</b> minion you play each turn
-//       costs (2) less.
+// Text: The first <b>Taunt</b> minion you play each turn
+//       costs (2) less.
 // --------------------------------------------------------
 // GameTag:
 // - AURA = 1
@@ -6907,7 +6907,7 @@ TEST_CASE("[Neutral : Minion] - BAR_063 : Lushwater Scout")
 // - Set: THE_BARRENS, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Your next spell this turn has
-//       <b>Spell Damage +2</b>.
+//       <b>Spell Damage +2</b>.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1

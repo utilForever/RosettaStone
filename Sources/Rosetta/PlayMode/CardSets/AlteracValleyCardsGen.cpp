@@ -1,7 +1,7 @@
 ﻿// This code is based on Sabberstone project.
-// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-// Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2017-2021 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/AlteracValleyCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -850,7 +850,7 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Spell School: Frost
     // --------------------------------------------------------
     // Text: Summon a 3/3 Snowman that <b>Freezes</b>.
-    //       Add "Build a Snowbrute" to your hand. 
+    //       Add "Build a Snowbrute" to your hand.
     // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
@@ -925,7 +925,7 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // - Spell School: Frost
     // --------------------------------------------------------
     // Text: Summon a 6/6 Snowbrute that <b>Freezes</b>.
-    //       Add "Build a Snowgre" to your hand. 
+    //       Add "Build a Snowgre" to your hand.
     // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
@@ -1977,7 +1977,7 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // --------------------------------------------------------
     // Text: At the end of your turn,
-    //       deal 1 damage to all minions. Lasts 3 turns.
+    //       deal 1 damage to all minions. Lasts 3 turns.
     // --------------------------------------------------------
 }
 
@@ -2309,7 +2309,7 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [AV_125] Tower Sergeant - COST:4 [ATK:4/HP:4]
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> If you control at least
+    // Text: <b>Battlecry:</b> If you control at least
     //       2 other minions, gain +2/+2.
     // --------------------------------------------------------
     // GameTag:
@@ -2519,7 +2519,7 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Rush</b>. <b>Honorable Kill</b>:
-    //        Gain <b>Windfury</b>.
+    //        Gain <b>Windfury</b>.
     // --------------------------------------------------------
     // GameTag:
     // - HONORABLEKILL = 1
