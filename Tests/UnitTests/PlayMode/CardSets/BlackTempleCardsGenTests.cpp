@@ -300,7 +300,7 @@ TEST_CASE("[Druid : Minion] - BT_133 : Marsh Hydra")
 // [BT_134] Bogbeam - COST:3
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal 3 damage to a minion.
+// Text: Deal 3 damage to a minion.
 //       Costs (0) if you have at least 7 Mana Crystals.
 // --------------------------------------------------------
 // PlayReq:
@@ -499,7 +499,7 @@ TEST_CASE("[Hunter : Minion] - BT_202 : Helboar")
 // [BT_205] Scrap Shot - COST:4
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: Deal 3 damage. Give a random Beast in your hand +3/+3.
+// Text: Deal 3 damage. Give a random Beast in your hand +3/+3.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -594,7 +594,7 @@ TEST_CASE("[Hunter : Spell] - BT_213 : Scavenger's Ingenuity")
 // - Set: BLACK_TEMPLE, Rarity: Common
 // - Spell School: Arcane
 // --------------------------------------------------------
-// Text: Reduce the Cost of spells in your deck by (1).
+// Text: Reduce the Cost of spells in your deck by (1).
 // --------------------------------------------------------
 TEST_CASE("[Mage : Spell] - BT_002 : Incanter's Flow")
 {
@@ -1151,7 +1151,7 @@ TEST_CASE("[Paladin : Weapon] - BT_018 : Underlight Angling Rod")
 // - Spell School: Holy
 // --------------------------------------------------------
 // Text: Restore 8 Health. Summon an 8/8 Guardian
-//       with <b>Taunt</b> and <b>Divine Shield</b>.
+//       with <b>Taunt</b> and <b>Divine Shield</b>.
 // --------------------------------------------------------
 // RefTag:
 // - DIVINE_SHIELD = 1
@@ -3487,7 +3487,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_496 : Furious Felfin")
 // [BT_509] Fel Summoner - COST:6 [ATK:8/HP:3]
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Summon a random Demon from your hand.
+// Text: <b>Deathrattle:</b> Summon a random Demon from your hand.
 // --------------------------------------------------------
 // GameTag:
 // - DEATHRATTLE = 1
@@ -4027,7 +4027,7 @@ TEST_CASE("[Priest : Minion] - BT_156 : Imprisoned Vilefiend")
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon three 1/1 Huntresses
-//       for your opponent.
+//       for your opponent.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -4136,7 +4136,7 @@ TEST_CASE("[Neutral : Minion] - BT_160 : Rustsworn Cultist")
 // [BT_714] Frozen Shadoweaver - COST:3 [ATK:4/HP:3]
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> <b>Freeze</b> an enemy.
+// Text: <b>Battlecry:</b> <b>Freeze</b> an enemy.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1

@@ -334,7 +334,7 @@ TEST_CASE("[Druid : Spell] - EX1_160 : Power of the Wild")
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // - Spell School: Nature
 // --------------------------------------------------------
-// Text: Destroy a minion. Your opponent draws 2 cards.
+// Text: Destroy a minion. Your opponent draws 2 cards.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -4284,7 +4284,7 @@ TEST_CASE("[Priest : Minion] - EX1_195 : Kul Tiran Chaplain")
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give an enemy minion -2 Attack
-//       until your next turn.
+//       until your next turn.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -8593,7 +8593,7 @@ TEST_CASE("[Warrior : Minion] - EX1_414 : Grommash Hellscream")
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 1 damage to a minion
-//       and give it +2 Attack.
+//       and give it +2 Attack.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1

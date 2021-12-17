@@ -2786,7 +2786,7 @@ TEST_CASE("[Neutral : Minion] - SCH_230 : Onyx Magescribe")
 // [SCH_231] Intrepid Initiate - COST:1 [ATK:1/HP:2]
 // - Set: Scholomance, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Spellburst:</b> Gain +2 Attack.
+// Text: <b>Spellburst:</b> Gain +2 Attack.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
