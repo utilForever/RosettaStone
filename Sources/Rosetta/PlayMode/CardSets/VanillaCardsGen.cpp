@@ -718,9 +718,18 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Summon three 2/2 Treants with <b>Charge</b>
     //       that die at the end of the turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_EX1_tk9b", 3, SummonSide::SPELL));
+    cards.emplace(
+        "VAN_EX1_571",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
@@ -1097,6 +1106,12 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_tk9b", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_007a] Stellar Drift - COST:5
