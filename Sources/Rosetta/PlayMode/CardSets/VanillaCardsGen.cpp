@@ -1266,6 +1266,14 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "DS1_178e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
+    }
+    cards.emplace("VAN_DS1_178", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_DS1_183] Multi-Shot - COST:4

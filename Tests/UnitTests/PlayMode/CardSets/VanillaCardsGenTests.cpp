@@ -2251,6 +2251,68 @@ TEST_CASE("[Hunter : Minion] - VAN_DS1_175 : Timber Wolf")
     CHECK_EQ(curField[2]->GetHealth(), 1);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [VAN_DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5]
+// - Race: Beast, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Your Beasts have <b>Charge</b>.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - VAN_DS1_178 : Tundra Rhino")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Tundra Rhino", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Timber Wolf", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Starving Buzzard", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::CHARGE), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[2]->GetGameTag(GameTag::CHARGE), 1);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
