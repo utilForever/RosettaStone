@@ -1281,6 +1281,17 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage to two random enemy minions.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 3, true));
+    cards.emplace(
+        "VAN_DS1_183",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_DS1_184] Tracking - COST:1
