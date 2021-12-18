@@ -738,7 +738,7 @@ TEST_CASE("[Druid : Spell] - EX1_570 : Bite")
 TEST_CASE("[Druid : Spell] - EX1_571 : Force of Nature")
 {
     GameConfig config;
-    config.player1Class = CardClass::MAGE;
+    config.player1Class = CardClass::DRUID;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
