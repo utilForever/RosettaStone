@@ -1218,9 +1218,22 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DS1_070o", EntityType::TARGET));
+    cards.emplace(
+        "VAN_DS1_070",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
