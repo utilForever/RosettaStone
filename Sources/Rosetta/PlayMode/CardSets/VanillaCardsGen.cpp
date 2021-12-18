@@ -1170,12 +1170,25 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_CS2_084] Hunter's Mark - COST:0
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: Change a minion's Health to 1.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_084e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_084",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_CS2_237] Starving Buzzard - COST:2 [ATK:2/HP:1]
