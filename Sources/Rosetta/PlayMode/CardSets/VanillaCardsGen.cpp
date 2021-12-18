@@ -1244,6 +1244,15 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
+    }
+    cards.emplace("VAN_DS1_175", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5]
