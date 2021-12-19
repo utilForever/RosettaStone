@@ -1351,9 +1351,18 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your hero is <b>Immune</b> while attacking.
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("VAN_DS1_188", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2]
