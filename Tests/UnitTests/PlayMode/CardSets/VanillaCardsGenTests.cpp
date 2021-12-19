@@ -7,9 +7,11 @@
 #include "doctest_proxy.hpp"
 
 #include <Utils/CardSetUtils.hpp>
+#include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -2385,6 +2387,49 @@ TEST_CASE("[Hunter : Spell] - VAN_DS1_183 : Multi-Shot")
     totalHealth += opField[1]->GetHealth();
     totalHealth += opField[2]->GetHealth();
     CHECK_EQ(totalHealth, 6);
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [VAN_DS1_184] Tracking - COST:1
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Look at the top 3 cards of your deck.
+//       Draw one and discard the others.
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - VAN_DS1_184 : Tracking")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Tracking", FormatType::CLASSIC));
+
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 2);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
 // ----------------------------------------- SPELL - HUNTER
