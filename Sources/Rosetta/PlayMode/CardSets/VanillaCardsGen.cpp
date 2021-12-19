@@ -3,11 +3,14 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -718,9 +721,18 @@ void VanillaCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Summon three 2/2 Treants with <b>Charge</b>
     //       that die at the end of the turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_EX1_tk9b", 3, SummonSide::SPELL));
+    cards.emplace(
+        "VAN_EX1_571",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [VAN_EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
@@ -1097,6 +1109,12 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_tk9b", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [VAN_NEW1_007a] Stellar Drift - COST:5
@@ -1155,12 +1173,25 @@ void VanillaCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_CS2_084] Hunter's Mark - COST:0
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: Change a minion's Health to 1.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_084e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_084",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_CS2_237] Starving Buzzard - COST:2 [ATK:2/HP:1]
@@ -1171,6 +1202,14 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("VAN_CS2_237", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_DS1_070] Houndmaster - COST:4 [ATK:4/HP:3]
@@ -1182,9 +1221,22 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_TARGET_WITH_RACE = 20
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("DS1_070o", EntityType::TARGET));
+    cards.emplace(
+        "VAN_DS1_070",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_DS1_175] Timber Wolf - COST:1 [ATK:1/HP:1]
@@ -1195,6 +1247,15 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "DS1_175o"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
+    }
+    cards.emplace("VAN_DS1_175", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_DS1_178] Tundra Rhino - COST:5 [ATK:2/HP:5]
@@ -1208,6 +1269,14 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "DS1_178e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
+    }
+    cards.emplace("VAN_DS1_178", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_DS1_183] Multi-Shot - COST:4
@@ -1215,6 +1284,17 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage to two random enemy minions.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 3, true));
+    cards.emplace(
+        "VAN_DS1_183",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_DS1_184] Tracking - COST:1
@@ -1223,6 +1303,31 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Look at the top 3 cards of your deck.
     //       Draw one and discard the others.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        DeckZone* deck = playable->player->GetDeckZone();
+        if (deck->IsEmpty())
+        {
+            return 0;
+        }
+
+        std::vector<int> ids;
+        ids.reserve(3);
+
+        for (int i = 0; i < 3 && deck->GetCount() != 0; ++i)
+        {
+            Playable* card = deck->GetTopCard();
+            deck->Remove(card);
+            ids.emplace_back(card->GetGameTag(GameTag::ENTITY_ID));
+            playable->player->GetSetasideZone()->Add(card);
+        }
+
+        Generic::CreateChoice(playable->player, playable, ChoiceType::GENERAL,
+                              ChoiceAction::HAND, ids);
+
+        return 0;
+    }));
+    cards.emplace("VAN_DS1_184", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_DS1_185] Arcane Shot - COST:1
@@ -1230,6 +1335,15 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cards.emplace(
+        "VAN_DS1_185",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [VAN_DS1_188] Gladiator's Longbow - COST:7
@@ -1237,9 +1351,18 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your hero is <b>Immune</b> while attacking.
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("VAN_DS1_188", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2]

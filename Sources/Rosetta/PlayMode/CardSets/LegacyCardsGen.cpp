@@ -729,7 +729,8 @@ void LegacyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [DS1_070] Houndmaster - COST:4 [ATK:4/HP:3]
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.
+    // Text: <b>Battlecry:</b> Give a friendly Beast +2/+2
+    //       and <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
