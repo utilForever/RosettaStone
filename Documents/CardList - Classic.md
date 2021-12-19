@@ -54,7 +54,7 @@ VANILLA | VAN_CS2_075 | Sinister Strike |
 VANILLA | VAN_CS2_076 | Assassinate |  
 VANILLA | VAN_CS2_077 | Sprint |  
 VANILLA | VAN_CS2_080 | Assassin's Blade |  
-VANILLA | VAN_CS2_084 | Hunter's Mark |  
+VANILLA | VAN_CS2_084 | Hunter's Mark | O
 VANILLA | VAN_CS2_087 | Blessing of Might |  
 VANILLA | VAN_CS2_088 | Guardian of Kings |  
 VANILLA | VAN_CS2_089 | Holy Light |  
@@ -117,15 +117,15 @@ VANILLA | VAN_CS2_233 | Blade Flurry |
 VANILLA | VAN_CS2_234 | Shadow Word: Pain |  
 VANILLA | VAN_CS2_235 | Northshire Cleric |  
 VANILLA | VAN_CS2_236 | Divine Spirit |  
-VANILLA | VAN_CS2_237 | Starving Buzzard |  
+VANILLA | VAN_CS2_237 | Starving Buzzard | O
 VANILLA | VAN_DS1_055 | Darkscale Healer |  
-VANILLA | VAN_DS1_070 | Houndmaster |  
-VANILLA | VAN_DS1_175 | Timber Wolf |  
-VANILLA | VAN_DS1_178 | Tundra Rhino |  
-VANILLA | VAN_DS1_183 | Multi-Shot |  
-VANILLA | VAN_DS1_184 | Tracking |  
-VANILLA | VAN_DS1_185 | Arcane Shot |  
-VANILLA | VAN_DS1_188 | Gladiator's Longbow |  
+VANILLA | VAN_DS1_070 | Houndmaster | O
+VANILLA | VAN_DS1_175 | Timber Wolf | O
+VANILLA | VAN_DS1_178 | Tundra Rhino | O
+VANILLA | VAN_DS1_183 | Multi-Shot | O
+VANILLA | VAN_DS1_184 | Tracking | O
+VANILLA | VAN_DS1_185 | Arcane Shot | O
+VANILLA | VAN_DS1_188 | Gladiator's Longbow | O
 VANILLA | VAN_DS1_233 | Mind Blast |  
 VANILLA | VAN_EX1_001 | Lightwarden |  
 VANILLA | VAN_EX1_002 | The Black Knight |  
@@ -316,7 +316,7 @@ VANILLA | VAN_EX1_564 | Faceless Manipulator |
 VANILLA | VAN_EX1_565 | Flametongue Totem |  
 VANILLA | VAN_EX1_567 | Doomhammer |  
 VANILLA | VAN_EX1_570 | Bite | O
-VANILLA | VAN_EX1_571 | Force of Nature |  
+VANILLA | VAN_EX1_571 | Force of Nature | O
 VANILLA | VAN_EX1_572 | Ysera |  
 VANILLA | VAN_EX1_573 | Cenarius | O
 VANILLA | VAN_EX1_575 | Mana Tide Totem |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender |  
 
-- Progress: 7% (27 of 382 Cards)
+- Progress: 9% (37 of 382 Cards)
