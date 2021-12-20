@@ -1542,6 +1542,9 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_543", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_544] Flare - COST:1

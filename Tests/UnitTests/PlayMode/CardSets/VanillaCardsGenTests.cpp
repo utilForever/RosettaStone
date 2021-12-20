@@ -3040,6 +3040,21 @@ TEST_CASE("[Hunter : Spell] - VAN_EX1_539 : Kill Command")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [VAN_EX1_543] King Krush - COST:9 [ATK:8/HP:8]
+// - Race: Beast, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - VAN_EX1_543 : King Krush")
+{
+    // Do nothing
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [VAN_EX1_609] Snipe - COST:2
 // - Set: VANILLA, Rarity: Common
