@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -23,6 +24,7 @@ namespace RosettaStone::PlayMode
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
+using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -1393,6 +1395,36 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(
+            EntityType::ALL,
+            EntityTypeList{ EntityType::TARGET, EntityType::HERO }),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+            std::make_shared<SelfCondition>(SelfCondition::IsNotImmune()) }),
+        std::make_shared<ConditionTask>(
+            EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                                   SelfCondition::IsInZone(ZoneType::PLAY)) }),
+        std::make_shared<FlagTask>(
+            true,
+            TaskList{ std::make_shared<ConditionTask>(
+                EntityType::TARGET,
+                SelfCondList{ std::make_shared<SelfCondition>(
+                                  SelfCondition::IsInZone(ZoneType::PLAY)),
+                              std::make_shared<SelfCondition>(
+                                  SelfCondition::IsNotDead()) }) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(TaskList{
+                      std::make_shared<RandomTask>(EntityType::STACK, 1),
+                      std::make_shared<ChangeAttackingTargetTask>(
+                          EntityType::TARGET, EntityType::STACK) }))
+    };
+    cards.emplace("VAN_EX1_533", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
