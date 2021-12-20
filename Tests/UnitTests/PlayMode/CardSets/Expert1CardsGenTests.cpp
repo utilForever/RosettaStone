@@ -1363,7 +1363,8 @@ TEST_CASE("[Hunter : Weapon] - EX1_536 : Eaglehorn Bow")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Fire
 // --------------------------------------------------------
-// Text: Deal 5 damage to a minion and 2 damage to adjacent ones.
+// Text: Deal 5 damage to a minion and 2 damage
+//       to adjacent ones.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0

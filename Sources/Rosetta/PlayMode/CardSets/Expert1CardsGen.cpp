@@ -979,7 +979,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Fire
     // --------------------------------------------------------
-    // Text: Deal 5 damage to a minion and 2 damage to adjacent ones.
+    // Text: Deal 5 damage to a minion and 2 damage
+    //       to adjacent ones.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
