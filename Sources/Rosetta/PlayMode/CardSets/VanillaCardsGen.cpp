@@ -1577,6 +1577,8 @@ void VanillaCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_022] Polymorph - COST:4
     // - Set: VANILLA, Rarity: Free
@@ -1607,6 +1609,10 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    cards.emplace("VAN_CS2_025", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_026] Frost Nova - COST:3
