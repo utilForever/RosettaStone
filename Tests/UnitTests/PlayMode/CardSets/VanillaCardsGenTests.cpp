@@ -2758,6 +2758,70 @@ TEST_CASE("[Hunter : Minion] - VAN_EX1_534 : Savannah Highmane")
     CHECK_EQ(curField[3]->GetHealth(), 1);
 }
 
+// ---------------------------------------- WEAPON - HUNTER
+// [VAN_EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever a <b>Secret</b> is revealed,
+//       gain +1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Weapon] - VAN_EX1_536 : Eaglehorn Bow")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Eaglehorn Bow", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Snipe", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Chillwind Yeti", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [VAN_CS2_025] Arcane Explosion - COST:2
 // - Set: VANILLA, Rarity: Free

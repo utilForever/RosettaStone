@@ -1441,18 +1441,25 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("VAN_EX1_534", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
-    // [VAN_EX1_536] Eaglehorn Bow - COST:3
+    // [VAN_EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0]
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
     // Text: Whenever a <b>Secret</b> is revealed,
     //       gain +1 Durability.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SECRET_REVEALED));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_536e", EntityType::WEAPON) };
+    cards.emplace("VAN_EX1_536", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_537] Explosive Shot - COST:5
