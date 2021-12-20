@@ -1491,9 +1491,21 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: For each enemy minion,
     //       summon a 1/1 Hound with <b>Charge</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<SummonTask>("EX1_538t", SummonSide::SPELL) }));
+    cards.emplace(
+        "VAN_EX1_538",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 },
+                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_539] Kill Command - COST:3

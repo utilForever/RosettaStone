@@ -2897,6 +2897,101 @@ TEST_CASE("[Hunter : Spell] - VAN_EX1_537 : Explosive Shot")
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [VAN_EX1_538] Unleash the Hounds - COST:3
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: For each enemy minion,
+//       summon a 1/1 Hound with <b>Charge</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINIMUM_ENEMY_MINIONS = 1
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - VAN_EX1_538 : Unleash the Hounds")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Unleash the Hounds", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card8 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card9 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Unleash the Hounds", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->HasCharge(), true);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasCharge(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+    game.Process(opPlayer, PlayCardTask::Minion(card8));
+    CHECK_EQ(opField.GetCount(), 7);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card9));
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 2);
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [VAN_EX1_609] Snipe - COST:2
 // - Set: VANILLA, Rarity: Common
 // --------------------------------------------------------
