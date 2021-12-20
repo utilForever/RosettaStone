@@ -1542,6 +1542,19 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsNotDead()) }),
+        std::make_shared<FlagTask>(
+            true,
+            ComplexTask::ActivateSecret(TaskList{
+                std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }))
+    };
+    cards.emplace("VAN_EX1_609", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_610] Explosive Trap - COST:2
