@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -23,6 +24,7 @@ namespace RosettaStone::PlayMode
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
+using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -1373,6 +1375,15 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_531e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_531", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_533] Misdirection - COST:2
@@ -1384,6 +1395,36 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(
+            EntityType::ALL,
+            EntityTypeList{ EntityType::TARGET, EntityType::HERO }),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+            std::make_shared<SelfCondition>(SelfCondition::IsNotImmune()) }),
+        std::make_shared<ConditionTask>(
+            EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                                   SelfCondition::IsInZone(ZoneType::PLAY)) }),
+        std::make_shared<FlagTask>(
+            true,
+            TaskList{ std::make_shared<ConditionTask>(
+                EntityType::TARGET,
+                SelfCondList{ std::make_shared<SelfCondition>(
+                                  SelfCondition::IsInZone(ZoneType::PLAY)),
+                              std::make_shared<SelfCondition>(
+                                  SelfCondition::IsNotDead()) }) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(TaskList{
+                      std::make_shared<RandomTask>(EntityType::STACK, 1),
+                      std::make_shared<ChangeAttackingTargetTask>(
+                          EntityType::TARGET, EntityType::STACK) }))
+    };
+    cards.emplace("VAN_EX1_533", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
@@ -1394,20 +1435,31 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_534t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("VAN_EX1_534", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
-    // [VAN_EX1_536] Eaglehorn Bow - COST:3
+    // [VAN_EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0]
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
     // Text: Whenever a <b>Secret</b> is revealed,
     //       gain +1 Durability.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SECRET_REVEALED));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_536e", EntityType::WEAPON) };
+    cards.emplace("VAN_EX1_536", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_537] Explosive Shot - COST:5
@@ -1416,6 +1468,21 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage to a minion and 2 damage
     //       to adjacent ones.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace(
+        "VAN_EX1_537",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_538] Unleash the Hounds - COST:3
@@ -1424,9 +1491,21 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: For each enemy minion,
     //       summon a 1/1 Hound with <b>Charge</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<SummonTask>("EX1_538t", SummonSide::SPELL) }));
+    cards.emplace(
+        "VAN_EX1_538",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 },
+                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_539] Kill Command - COST:3
@@ -1435,6 +1514,23 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage. If you control a Beast,
     //       deal 5 damage instead.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::BEAST)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 5, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3, true) }));
+    cards.emplace(
+        "VAN_EX1_539",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_EX1_543] King Krush - COST:9 [ATK:8/HP:8]
@@ -1446,6 +1542,9 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_543", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_544] Flare - COST:1
@@ -1490,6 +1589,19 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsNotDead()) }),
+        std::make_shared<FlagTask>(
+            true,
+            ComplexTask::ActivateSecret(TaskList{
+                std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }))
+    };
+    cards.emplace("VAN_EX1_609", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_610] Explosive Trap - COST:2
@@ -1568,6 +1680,8 @@ void VanillaCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_022] Polymorph - COST:4
     // - Set: VANILLA, Rarity: Free
@@ -1598,6 +1712,10 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    cards.emplace("VAN_CS2_025", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_026] Frost Nova - COST:3

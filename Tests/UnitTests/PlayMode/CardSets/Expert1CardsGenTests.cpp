@@ -1304,6 +1304,7 @@ TEST_CASE("[Hunter : Minion] - EX1_534 : Savannah Highmane")
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 2
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 // RefTag:
 // - SECRET = 1
@@ -1362,7 +1363,8 @@ TEST_CASE("[Hunter : Weapon] - EX1_536 : Eaglehorn Bow")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Fire
 // --------------------------------------------------------
-// Text: Deal 5 damage to a minion and 2 damage to adjacent ones.
+// Text: Deal 5 damage to a minion and 2 damage
+//       to adjacent ones.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1432,7 +1434,8 @@ TEST_CASE("[Hunter : Spell] - EX1_537 : Explosive Shot")
 // [EX1_538] Unleash the Hounds - COST:3
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: For each enemy minion, summon a 1/1 Hound with <b>Charge</b>.
+// Text: For each enemy minion,
+//       summon a 1/1 Hound with <b>Charge</b>.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_MINIMUM_ENEMY_MINIONS = 1

@@ -10,7 +10,6 @@
 #include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
@@ -963,6 +962,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 2
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     // RefTag:
     // - SECRET = 1
@@ -979,7 +979,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Fire
     // --------------------------------------------------------
-    // Text: Deal 5 damage to a minion and 2 damage to adjacent ones.
+    // Text: Deal 5 damage to a minion and 2 damage
+    //       to adjacent ones.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -1001,7 +1002,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [EX1_538] Unleash the Hounds - COST:3
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: For each enemy minion, summon a 1/1 Hound with <b>Charge</b>.
+    // Text: For each enemy minion,
+    //       summon a 1/1 Hound with <b>Charge</b>.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
