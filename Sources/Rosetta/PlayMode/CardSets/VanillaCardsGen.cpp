@@ -1435,6 +1435,10 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("EX1_534t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("VAN_EX1_534", CardDef(power));
 
     // ---------------------------------------- WEAPON - HUNTER
     // [VAN_EX1_536] Eaglehorn Bow - COST:3
