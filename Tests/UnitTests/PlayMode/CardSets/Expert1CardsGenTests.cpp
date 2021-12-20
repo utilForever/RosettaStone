@@ -1304,6 +1304,7 @@ TEST_CASE("[Hunter : Minion] - EX1_534 : Savannah Highmane")
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 2
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 // RefTag:
 // - SECRET = 1

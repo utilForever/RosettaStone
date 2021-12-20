@@ -962,6 +962,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 2
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     // RefTag:
     // - SECRET = 1
