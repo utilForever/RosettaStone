@@ -1002,7 +1002,8 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [EX1_538] Unleash the Hounds - COST:3
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    // Text: For each enemy minion, summon a 1/1 Hound with <b>Charge</b>.
+    // Text: For each enemy minion,
+    //       summon a 1/1 Hound with <b>Charge</b>.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
