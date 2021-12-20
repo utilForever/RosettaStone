@@ -24,7 +24,7 @@ VANILLA | VAN_CS2_013 | Wild Growth | O
 VANILLA | VAN_CS2_022 | Polymorph |  
 VANILLA | VAN_CS2_023 | Arcane Intellect |  
 VANILLA | VAN_CS2_024 | Frostbolt |  
-VANILLA | VAN_CS2_025 | Arcane Explosion |  
+VANILLA | VAN_CS2_025 | Arcane Explosion | O
 VANILLA | VAN_CS2_026 | Frost Nova |  
 VANILLA | VAN_CS2_027 | Mirror Image |  
 VANILLA | VAN_CS2_028 | Blizzard |  
@@ -293,14 +293,14 @@ VANILLA | VAN_EX1_507 | Murloc Warleader |
 VANILLA | VAN_EX1_508 | Grimscale Oracle |  
 VANILLA | VAN_EX1_509 | Murloc Tidecaller |  
 VANILLA | VAN_EX1_522 | Patient Assassin |  
-VANILLA | VAN_EX1_531 | Scavenging Hyena |  
-VANILLA | VAN_EX1_533 | Misdirection |  
-VANILLA | VAN_EX1_534 | Savannah Highmane |  
-VANILLA | VAN_EX1_536 | Eaglehorn Bow |  
-VANILLA | VAN_EX1_537 | Explosive Shot |  
-VANILLA | VAN_EX1_538 | Unleash the Hounds |  
-VANILLA | VAN_EX1_539 | Kill Command |  
-VANILLA | VAN_EX1_543 | King Krush |  
+VANILLA | VAN_EX1_531 | Scavenging Hyena | O
+VANILLA | VAN_EX1_533 | Misdirection | O
+VANILLA | VAN_EX1_534 | Savannah Highmane | O
+VANILLA | VAN_EX1_536 | Eaglehorn Bow | O
+VANILLA | VAN_EX1_537 | Explosive Shot | O
+VANILLA | VAN_EX1_538 | Unleash the Hounds | O
+VANILLA | VAN_EX1_539 | Kill Command | O
+VANILLA | VAN_EX1_543 | King Krush | O
 VANILLA | VAN_EX1_544 | Flare |  
 VANILLA | VAN_EX1_549 | Bestial Wrath |  
 VANILLA | VAN_EX1_554 | Snake Trap |  
@@ -340,7 +340,7 @@ VANILLA | VAN_EX1_604 | Frothing Berserker |
 VANILLA | VAN_EX1_606 | Shield Block |  
 VANILLA | VAN_EX1_607 | Inner Rage |  
 VANILLA | VAN_EX1_608 | Sorcerer's Apprentice |  
-VANILLA | VAN_EX1_609 | Snipe |  
+VANILLA | VAN_EX1_609 | Snipe | O
 VANILLA | VAN_EX1_610 | Explosive Trap |  
 VANILLA | VAN_EX1_611 | Freezing Trap |  
 VANILLA | VAN_EX1_612 | Kirin Tor Mage |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender |  
 
-- Progress: 9% (37 of 382 Cards)
+- Progress: 12% (47 of 382 Cards)
