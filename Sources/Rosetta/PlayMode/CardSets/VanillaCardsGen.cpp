@@ -1598,6 +1598,17 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsProposedDefender(CardType::MINION)),
+                      std::make_shared<SelfCondition>(
+                          SelfCondition::IsEventTargetFieldNotFull()) };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
+    cards.emplace("VAN_EX1_554", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_609] Snipe - COST:2

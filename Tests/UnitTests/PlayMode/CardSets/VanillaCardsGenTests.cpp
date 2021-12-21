@@ -3204,6 +3204,112 @@ TEST_CASE("[Hunter : Spell] - VAN_EX1_549 : Bestial Wrath")
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [VAN_EX1_554] Snake Trap - COST:2
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When one of your minions is attacked,
+//       summon three 1/1 Snakes.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - VAN_EX1_554 : Snake Trap")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Snake Trap", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Snake Trap", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Chillwind Yeti", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Chillwind Yeti", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card8 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card9 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, AttackTask(card6, card3));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->card->GetRace(), Race::BEAST);
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->card->GetRace(), Race::BEAST);
+    CHECK_EQ(curField[3]->GetAttack(), 1);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->card->GetRace(), Race::BEAST);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 5);
+
+    game.Process(curPlayer, AttackTask(card4, card5));
+    CHECK_EQ(curSecret->GetCount(), 1);
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+    game.Process(curPlayer, PlayCardTask::Minion(card8));
+    game.Process(curPlayer, PlayCardTask::Minion(card9));
+    CHECK_EQ(curField.GetCount(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, AttackTask(card5, curField[6]));
+    CHECK_EQ(curSecret->GetCount(), 1);
+    CHECK_EQ(curField.GetCount(), 6);
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [VAN_EX1_609] Snipe - COST:2
 // - Set: VANILLA, Rarity: Common
 // --------------------------------------------------------
