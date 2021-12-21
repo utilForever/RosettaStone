@@ -1557,6 +1557,13 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RevealStealthTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(
+        std::make_shared<MoveToGraveyardTask>(EntityType::ENEMY_SECRETS));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_544", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_EX1_549] Bestial Wrath - COST:1
