@@ -3588,6 +3588,110 @@ TEST_CASE("[Hunter : Spell] - VAN_EX1_617 : Deadly Shot")
     CHECK_EQ(curField.GetCount(), 0);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [VAN_NEW1_031] Animal Companion - COST:3
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Summon a random Beast Companion.
+// --------------------------------------------------------
+// Entourage: NEW1_032, NEW1_033, NEW1_034
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - VAN_NEW1_031 : Animal Companion")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Animal Companion", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fireball", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    const bool isMisha = curField[1]->card->id == "VAN_NEW1_032";
+    const bool isLeokk = curField[1]->card->id == "VAN_NEW1_033";
+    const bool isHuffer = curField[1]->card->id == "VAN_NEW1_034";
+    const bool isAnimal = isMisha || isLeokk || isHuffer;
+    CHECK(isAnimal);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    SUBCASE("Misha - VAN_NEW1_032")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("VAN_NEW1_032"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 4);
+        CHECK_EQ(curField[1]->GetHealth(), 4);
+        CHECK_EQ(curField[1]->HasTaunt(), true);
+    }
+
+    SUBCASE("Leokk - VAN_NEW1_033")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("VAN_NEW1_033"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 2);
+        CHECK_EQ(curField[1]->GetHealth(), 4);
+        CHECK_EQ(curField[0]->GetAttack(), 4);
+    }
+
+    SUBCASE("Huffer - VAN_NEW1_034")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("VAN_NEW1_034"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 4);
+        CHECK_EQ(curField[1]->GetHealth(), 2);
+        CHECK_EQ(curField[1]->HasCharge(), true);
+    }
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [VAN_CS2_025] Arcane Explosion - COST:2
 // - Set: VANILLA, Rarity: Free

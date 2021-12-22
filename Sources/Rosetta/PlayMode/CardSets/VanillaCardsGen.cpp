@@ -1700,10 +1700,25 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a random Beast Companion.
     // --------------------------------------------------------
+    // Entourage: VAN_NEW1_032, VAN_NEW1_033, VAN_NEW1_034
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace(
+        "VAN_NEW1_031",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
+                Entourages{ "VAN_NEW1_032", "VAN_NEW1_033", "VAN_NEW1_034" }));
 }
 
 void VanillaCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - HUNTER
     // [VAN_EX1_554t] Snake - COST:0 [ATK:1/HP:1]
     // - Race: Beast, Set: VANILLA
@@ -1718,6 +1733,9 @@ void VanillaCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_032", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_NEW1_033] Leokk - COST:3 [ATK:2/HP:4]
@@ -1728,6 +1746,10 @@ void VanillaCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_033o"));
+    cards.emplace("VAN_NEW1_033", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_NEW1_034] Huffer - COST:3 [ATK:4/HP:2]
@@ -1738,6 +1760,9 @@ void VanillaCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_034", CardDef(power));
 }
 
 void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
