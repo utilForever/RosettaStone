@@ -3758,6 +3758,45 @@ TEST_CASE("[Mage : Spell] - VAN_CS2_022 : Polymorph")
 }
 
 // ------------------------------------------- SPELL - MAGE
+// [VAN_CS2_023] Arcane Intellect - COST:3
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Draw 2 cards.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_CS2_023 : Arcane Intellect")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Arcane Intellect", FormatType::CLASSIC));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+}
+
+// ------------------------------------------- SPELL - MAGE
 // [VAN_CS2_025] Arcane Explosion - COST:2
 // - Set: VANILLA, Rarity: Free
 // --------------------------------------------------------
