@@ -21,14 +21,14 @@ VANILLA | VAN_CS2_009 | Mark of the Wild | O
 VANILLA | VAN_CS2_011 | Savage Roar | O
 VANILLA | VAN_CS2_012 | Swipe | O
 VANILLA | VAN_CS2_013 | Wild Growth | O
-VANILLA | VAN_CS2_022 | Polymorph |  
-VANILLA | VAN_CS2_023 | Arcane Intellect |  
-VANILLA | VAN_CS2_024 | Frostbolt |  
+VANILLA | VAN_CS2_022 | Polymorph | O
+VANILLA | VAN_CS2_023 | Arcane Intellect | O
+VANILLA | VAN_CS2_024 | Frostbolt | O
 VANILLA | VAN_CS2_025 | Arcane Explosion | O
 VANILLA | VAN_CS2_026 | Frost Nova |  
 VANILLA | VAN_CS2_027 | Mirror Image |  
 VANILLA | VAN_CS2_028 | Blizzard |  
-VANILLA | VAN_CS2_029 | Fireball |  
+VANILLA | VAN_CS2_029 | Fireball | O
 VANILLA | VAN_CS2_031 | Ice Lance |  
 VANILLA | VAN_CS2_032 | Flamestrike |  
 VANILLA | VAN_CS2_033 | Water Elemental |  
@@ -301,9 +301,9 @@ VANILLA | VAN_EX1_537 | Explosive Shot | O
 VANILLA | VAN_EX1_538 | Unleash the Hounds | O
 VANILLA | VAN_EX1_539 | Kill Command | O
 VANILLA | VAN_EX1_543 | King Krush | O
-VANILLA | VAN_EX1_544 | Flare |  
-VANILLA | VAN_EX1_549 | Bestial Wrath |  
-VANILLA | VAN_EX1_554 | Snake Trap |  
+VANILLA | VAN_EX1_544 | Flare | O
+VANILLA | VAN_EX1_549 | Bestial Wrath | O
+VANILLA | VAN_EX1_554 | Snake Trap | O
 VANILLA | VAN_EX1_556 | Harvest Golem |  
 VANILLA | VAN_EX1_557 | Nat Pagle |  
 VANILLA | VAN_EX1_558 | Harrison Jones |  
@@ -341,13 +341,13 @@ VANILLA | VAN_EX1_606 | Shield Block |
 VANILLA | VAN_EX1_607 | Inner Rage |  
 VANILLA | VAN_EX1_608 | Sorcerer's Apprentice |  
 VANILLA | VAN_EX1_609 | Snipe | O
-VANILLA | VAN_EX1_610 | Explosive Trap |  
-VANILLA | VAN_EX1_611 | Freezing Trap |  
+VANILLA | VAN_EX1_610 | Explosive Trap | O
+VANILLA | VAN_EX1_611 | Freezing Trap | O
 VANILLA | VAN_EX1_612 | Kirin Tor Mage |  
 VANILLA | VAN_EX1_613 | Edwin VanCleef |  
 VANILLA | VAN_EX1_614 | Illidan Stormrage |  
 VANILLA | VAN_EX1_616 | Mana Wraith |  
-VANILLA | VAN_EX1_617 | Deadly Shot |  
+VANILLA | VAN_EX1_617 | Deadly Shot | O
 VANILLA | VAN_EX1_619 | Equality |  
 VANILLA | VAN_EX1_620 | Molten Giant |  
 VANILLA | VAN_EX1_621 | Circle of Healing |  
@@ -379,7 +379,7 @@ VANILLA | VAN_NEW1_026 | Violet Teacher |
 VANILLA | VAN_NEW1_027 | Southsea Captain |  
 VANILLA | VAN_NEW1_029 | Millhouse Manastorm |  
 VANILLA | VAN_NEW1_030 | Deathwing |  
-VANILLA | VAN_NEW1_031 | Animal Companion |  
+VANILLA | VAN_NEW1_031 | Animal Companion | O
 VANILLA | VAN_NEW1_036 | Commanding Shout |  
 VANILLA | VAN_NEW1_037 | Master Swordsmith |  
 VANILLA | VAN_NEW1_038 | Gruul |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender |  
 
-- Progress: 12% (47 of 382 Cards)
+- Progress: 15% (58 of 382 Cards)
