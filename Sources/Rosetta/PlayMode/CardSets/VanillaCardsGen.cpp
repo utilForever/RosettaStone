@@ -7,11 +7,11 @@
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 
 #include <effolkronium/random.hpp>
 
@@ -1607,7 +1607,7 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                       std::make_shared<SelfCondition>(
                           SelfCondition::IsEventTargetFieldNotFull()) };
     power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
-        TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
+        TaskList{ std::make_shared<SummonTask>("VAN_EX1_554t", 3) });
     cards.emplace("VAN_EX1_554", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
@@ -1723,6 +1723,9 @@ void VanillaCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_554t] Snake - COST:0 [ATK:1/HP:1]
     // - Race: Beast, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_554t", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [VAN_NEW1_032] Misha - COST:3 [ATK:4/HP:4]
