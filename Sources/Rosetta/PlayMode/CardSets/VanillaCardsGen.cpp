@@ -1844,6 +1844,15 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 6 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 6, true));
+    cards.emplace(
+        "VAN_CS2_029",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_031] Ice Lance - COST:1
