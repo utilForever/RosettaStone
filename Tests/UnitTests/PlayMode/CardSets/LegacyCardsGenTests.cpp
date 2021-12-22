@@ -1718,12 +1718,15 @@ TEST_CASE("[Mage : Spell] - CS2_023 : Arcane Intellect")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curHand = *(curPlayer->GetHandZone());
+
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Intellect"));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+
+    CHECK_EQ(curHand.GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curHand.GetCount(), 6);
 }
 
 // ------------------------------------------- SPELL - MAGE
