@@ -1778,6 +1778,17 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform a minion into a 1/1 Sheep.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::TARGET, "VAN_CS2_tk1"));
+    cards.emplace(
+        "VAN_CS2_022",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_023] Arcane Intellect - COST:3
@@ -5283,6 +5294,8 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void VanillaCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_152] Squire - COST:1 [ATK:2/HP:2]
     // - Faction: Alliance, Set: VANILLA
@@ -5304,6 +5317,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_CS2_tk1] Sheep - COST:0 [ATK:1/HP:1]
     // - Race: Beast, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_tk1", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [VAN_DREAM_05e] Nightmare - COST:0
