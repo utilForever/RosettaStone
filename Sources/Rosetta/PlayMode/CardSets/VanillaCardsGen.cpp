@@ -1685,6 +1685,14 @@ void VanillaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy a random enemy minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace(
+        "VAN_EX1_617",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [VAN_NEW1_031] Animal Companion - COST:3
