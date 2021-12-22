@@ -988,8 +988,7 @@ void LegacyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: Transform a minion
-    //       into a 1/1 Sheep.
+    // Text: Transform a minion into a 1/1 Sheep.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
