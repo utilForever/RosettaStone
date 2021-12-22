@@ -1632,8 +1632,7 @@ TEST_CASE("[Hunter : Spell] - NEW1_031 : Animal Companion")
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Arcane
 // --------------------------------------------------------
-// Text: Transform a minion
-//       into a 1/1 Sheep.
+// Text: Transform a minion into a 1/1 Sheep.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
