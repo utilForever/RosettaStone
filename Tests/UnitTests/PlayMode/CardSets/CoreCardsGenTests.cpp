@@ -7590,7 +7590,7 @@ TEST_CASE("[Warrior : Minion] - CORE_GVG_053 : Shieldmaiden")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:2]
+// [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]
 // - Race: Pirate, Set: CORE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> The next weapon you play costs

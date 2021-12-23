@@ -375,7 +375,7 @@ TEST_CASE("[Druid : Minion] - BAR_538 : Druid of the Plains")
 }
 
 // ------------------------------------------ SPELL - DRUID
-// [BAR_539] Celestial Alignment - COST:7
+// [BAR_539] Celestial Alignment - COST:8
 // - Set: THE_BARRENS, Rarity: Epic
 // - Spell School: Arcane
 // --------------------------------------------------------
@@ -3479,7 +3479,7 @@ TEST_CASE("[Rogue : Spell] - BAR_319 : Wicked Stab (Rank 1)")
 }
 
 // ----------------------------------------- MINION - ROGUE
-// [BAR_320] Efficient Octo-bot - COST:2 [ATK:1/HP:4]
+// [BAR_320] Efficient Octo-bot - COST:3 [ATK:1/HP:4]
 // - Race: Mechanical, Set: THE_BARRENS, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Frenzy:</b> Reduce the cost of cards in your hand by (1).

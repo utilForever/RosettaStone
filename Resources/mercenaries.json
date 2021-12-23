@@ -30,31 +30,6 @@
                 ]
             },
             {
-                "id": 5,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 71594,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 71595,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 71596,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 70864,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 6,
                 "tiers": [
                     {
@@ -78,14 +53,39 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 5,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 71594,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 71595,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 71596,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 70864,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 1,
         "name": "Rexxar",
         "skinDbfIds": [
+            63822,
             64515,
-            64516,
-            63822
+            64516
         ],
         "specializations": [
             {
@@ -220,6 +220,16 @@
                 ]
             },
             {
+                "id": 9,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 70273,
+                        "tier": 1
+                    }
+                ]
+            },
+            {
                 "id": 8,
                 "tiers": [
                     {
@@ -238,16 +248,6 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 9,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 70273,
-                        "tier": 1
-                    }
-                ]
             }
         ],
         "id": 2,
@@ -255,39 +255,39 @@
         "shortName": "Jaraxxus",
         "skinDbfIds": [
             63819,
-            64508,
-            64507
+            64507,
+            64508
         ],
         "specializations": [
             {
                 "abilities": [
                     {
-                        "id": 7,
-                        "name": "Fel Infernal",
+                        "id": 264,
+                        "name": "Legion Burst",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 66174,
+                                "dbf_id": 66969,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 66175,
+                                "dbf_id": 66968,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 63983,
+                                "dbf_id": 66676,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76390,
+                                "dbf_id": 76386,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76392,
+                                "dbf_id": 76387,
                                 "tier": 5
                             }
                         ]
@@ -324,32 +324,32 @@
                         ]
                     },
                     {
-                        "id": 264,
-                        "name": "Legion Burst",
+                        "id": 7,
+                        "name": "Fel Infernal",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 66969,
+                                "dbf_id": 66174,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 66968,
+                                "dbf_id": 66175,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 66676,
+                                "dbf_id": 63983,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76386,
+                                "dbf_id": 76390,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76387,
+                                "dbf_id": 76392,
                                 "tier": 5
                             }
                         ]
@@ -365,46 +365,6 @@
         "craftingCost": 100,
         "defaultSkinDbfId": 64510,
         "equipment": [
-            {
-                "id": 10,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 76013,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 76012,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 76011,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 66748,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
-                "id": 11,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 71052,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73832,
-                        "tier": 4
-                    }
-                ]
-            },
             {
                 "id": 12,
                 "tiers": [
@@ -429,19 +389,90 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 11,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 71052,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73832,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 10,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 76013,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 76012,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 76011,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 66748,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 3,
         "name": "Kurtrus Ashfallen",
         "shortName": "Kurtrus",
         "skinDbfIds": [
-            64510,
+            63966,
             64509,
-            63966
+            64510
         ],
         "specializations": [
             {
                 "abilities": [
+                    {
+                        "id": 225,
+                        "name": "Demon Slayer",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 67064,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 67063,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 66746,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76755,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76756,
+                                "tier": 5
+                            }
+                        ]
+                    },
                     {
                         "id": 16,
                         "name": "Aimless Assault",
@@ -503,37 +534,6 @@
                                 "tier": 5
                             }
                         ]
-                    },
-                    {
-                        "id": 225,
-                        "name": "Demon Slayer",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 67064,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 67063,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 66746,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76755,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76756,
-                                "tier": 5
-                            }
-                        ]
                     }
                 ],
                 "id": 5,
@@ -572,31 +572,6 @@
                 ]
             },
             {
-                "id": 14,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 79710,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 79709,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 79708,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 71357,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 127,
                 "tiers": [
                     {
@@ -620,6 +595,31 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 14,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 79710,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 79709,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 79708,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 71357,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 4,
@@ -627,39 +627,39 @@
         "shortName": "Tirion",
         "skinDbfIds": [
             63752,
-            64499,
-            64500
+            64500,
+            64499
         ],
         "specializations": [
             {
                 "abilities": [
                     {
-                        "id": 33,
-                        "name": "Judgment of Humility",
+                        "id": 307,
+                        "name": "Divine Assault",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 65949,
+                                "dbf_id": 70786,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 65950,
+                                "dbf_id": 70785,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 63755,
+                                "dbf_id": 70778,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76796,
+                                "dbf_id": 76792,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76797,
+                                "dbf_id": 76793,
                                 "tier": 5
                             }
                         ]
@@ -696,32 +696,32 @@
                         ]
                     },
                     {
-                        "id": 307,
-                        "name": "Divine Assault",
+                        "id": 33,
+                        "name": "Judgment of Humility",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 70786,
+                                "dbf_id": 65949,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 70785,
+                                "dbf_id": 65950,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 70778,
+                                "dbf_id": 63755,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76792,
+                                "dbf_id": 76796,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76793,
+                                "dbf_id": 76797,
                                 "tier": 5
                             }
                         ]
@@ -737,31 +737,6 @@
         "craftingCost": 300,
         "defaultSkinDbfId": 64514,
         "equipment": [
-            {
-                "id": 197,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73882,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 73883,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 73884,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73885,
-                        "tier": 4
-                    }
-                ]
-            },
             {
                 "id": 198,
                 "tiers": [
@@ -783,6 +758,31 @@
                     {
                         "crafting_cost": 175,
                         "dbf_id": 73886,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 197,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73882,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 73883,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 73884,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73885,
                         "tier": 4
                     }
                 ]
@@ -817,13 +817,44 @@
         "name": "Prophet Velen",
         "shortName": "Velen",
         "skinDbfIds": [
+            63998,
             64513,
-            64514,
-            63998
+            64514
         ],
         "specializations": [
             {
                 "abilities": [
+                    {
+                        "id": 198,
+                        "name": "Holy Blast",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 73826,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 73827,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 73828,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76798,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76799,
+                                "tier": 5
+                            }
+                        ]
+                    },
                     {
                         "id": 26,
                         "name": "Splitting Light",
@@ -885,37 +916,6 @@
                                 "tier": 5
                             }
                         ]
-                    },
-                    {
-                        "id": 198,
-                        "name": "Holy Blast",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 73826,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 73827,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 73828,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76798,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76799,
-                                "tier": 5
-                            }
-                        ]
                     }
                 ],
                 "id": 9,
@@ -928,6 +928,31 @@
         "craftingCost": 500,
         "defaultSkinDbfId": 64529,
         "equipment": [
+            {
+                "id": 228,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73043,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 73044,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 73045,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73046,
+                        "tier": 4
+                    }
+                ]
+            },
             {
                 "id": 132,
                 "tiers": [
@@ -977,31 +1002,6 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 228,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73043,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 73044,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 73045,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73046,
-                        "tier": 4
-                    }
-                ]
             }
         ],
         "id": 6,
@@ -1009,8 +1009,8 @@
         "shortName": "Grommash",
         "skinDbfIds": [
             64528,
-            64529,
-            64527
+            64527,
+            64529
         ],
         "specializations": [
             {
@@ -1047,37 +1047,6 @@
                         ]
                     },
                     {
-                        "id": 530,
-                        "name": "Battlefury",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 72624,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 72625,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 72626,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76666,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76667,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 531,
                         "name": "Staggering Slam",
                         "tiers": [
@@ -1104,6 +1073,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76665,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 530,
+                        "name": "Battlefury",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 72624,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 72625,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 72626,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76666,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76667,
                                 "tier": 5
                             }
                         ]
@@ -1311,31 +1311,6 @@
         "defaultSkinDbfId": 64536,
         "equipment": [
             {
-                "id": 104,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 72769,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 72768,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 72767,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 72766,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 105,
                 "tiers": [
                     {
@@ -1361,6 +1336,31 @@
                 ]
             },
             {
+                "id": 104,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 72769,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 72768,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 72767,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 72766,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
                 "id": 106,
                 "tiers": [
                     {
@@ -1375,44 +1375,13 @@
         "name": "Natalie Seline",
         "shortName": "Natalie",
         "skinDbfIds": [
-            64536,
             64534,
-            64535
+            64535,
+            64536
         ],
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 505,
-                        "name": "Light Beam",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 72776,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 72775,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 72219,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76418,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76419,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 506,
                         "name": "Shadow Beam",
@@ -1440,6 +1409,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76417,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 505,
+                        "name": "Light Beam",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 72776,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 72775,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 72219,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76418,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76419,
                                 "tier": 5
                             }
                         ]
@@ -1574,32 +1574,32 @@
             {
                 "abilities": [
                     {
-                        "id": 58,
-                        "name": "Retaliation",
+                        "id": 200,
+                        "name": "Splitting Strike",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 65856,
+                                "dbf_id": 67150,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 65857,
+                                "dbf_id": 67149,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 64931,
+                                "dbf_id": 66646,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76684,
+                                "dbf_id": 76680,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76685,
+                                "dbf_id": 76681,
                                 "tier": 5
                             }
                         ]
@@ -1636,32 +1636,32 @@
                         ]
                     },
                     {
-                        "id": 200,
-                        "name": "Splitting Strike",
+                        "id": 58,
+                        "name": "Retaliation",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 67150,
+                                "dbf_id": 65856,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 67149,
+                                "dbf_id": 65857,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 66646,
+                                "dbf_id": 64931,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76680,
+                                "dbf_id": 76684,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76681,
+                                "dbf_id": 76685,
                                 "tier": 5
                             }
                         ]
@@ -1756,9 +1756,9 @@
         "id": 11,
         "name": "Rokara",
         "skinDbfIds": [
-            64544,
+            64543,
             64545,
-            64543
+            64544
         ],
         "specializations": [
             {
@@ -1933,12 +1933,43 @@
         "shortName": "Illidan",
         "skinDbfIds": [
             63760,
-            64501,
-            64502
+            64502,
+            64501
         ],
         "specializations": [
             {
                 "abilities": [
+                    {
+                        "id": 216,
+                        "name": "Winged Assault",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 67032,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 67031,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 66721,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76522,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76523,
+                                "tier": 5
+                            }
+                        ]
+                    },
                     {
                         "id": 65,
                         "name": "Outcast Attack",
@@ -2000,37 +2031,6 @@
                                 "tier": 5
                             }
                         ]
-                    },
-                    {
-                        "id": 216,
-                        "name": "Winged Assault",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 67032,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 67031,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 66721,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76522,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76523,
-                                "tier": 5
-                            }
-                        ]
                     }
                 ],
                 "id": 23,
@@ -2043,6 +2043,31 @@
         "craftingCost": 100,
         "defaultSkinDbfId": 64506,
         "equipment": [
+            {
+                "id": 31,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 71576,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 71577,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 71148,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 71578,
+                        "tier": 4
+                    }
+                ]
+            },
             {
                 "id": 29,
                 "tiers": [
@@ -2077,39 +2102,14 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 31,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 71576,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 71577,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 71148,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 71578,
-                        "tier": 4
-                    }
-                ]
             }
         ],
         "id": 14,
         "name": "Millhouse Manastorm",
         "shortName": "Millhouse",
         "skinDbfIds": [
-            64505,
             63994,
+            64505,
             64506
         ],
         "specializations": [
@@ -2147,37 +2147,6 @@
                         ]
                     },
                     {
-                        "id": 174,
-                        "name": "Greater Arcane Missiles",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 65993,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 65994,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 65364,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76765,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76766,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 306,
                         "name": "Arcane Bolt",
                         "tiers": [
@@ -2207,6 +2176,37 @@
                                 "tier": 5
                             }
                         ]
+                    },
+                    {
+                        "id": 174,
+                        "name": "Greater Arcane Missiles",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 65993,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 65994,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 65364,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76765,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76766,
+                                "tier": 5
+                            }
+                        ]
                     }
                 ],
                 "id": 27,
@@ -2220,21 +2220,26 @@
         "defaultSkinDbfId": 64497,
         "equipment": [
             {
-                "id": 32,
+                "id": 34,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 65945,
+                        "dbf_id": 73881,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 73880,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 65946,
+                        "dbf_id": 73879,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 65046,
+                        "dbf_id": 71087,
                         "tier": 4
                     }
                 ]
@@ -2265,26 +2270,21 @@
                 ]
             },
             {
-                "id": 34,
+                "id": 32,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 73881,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 73880,
+                        "dbf_id": 65945,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 73879,
+                        "dbf_id": 65946,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 71087,
+                        "dbf_id": 65046,
                         "tier": 4
                     }
                 ]
@@ -2294,40 +2294,40 @@
         "name": "Sylvanas Windrunner",
         "shortName": "Sylvanas",
         "skinDbfIds": [
-            64497,
+            63748,
             64498,
-            63748
+            64497
         ],
         "specializations": [
             {
                 "abilities": [
                     {
-                        "id": 84,
-                        "name": "For the Queen",
+                        "id": 261,
+                        "name": "Banshee Bolt",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 65939,
+                                "dbf_id": 67104,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 65940,
+                                "dbf_id": 67103,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 63740,
+                                "dbf_id": 66812,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76514,
+                                "dbf_id": 76510,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76515,
+                                "dbf_id": 76511,
                                 "tier": 5
                             }
                         ]
@@ -2364,32 +2364,32 @@
                         ]
                     },
                     {
-                        "id": 261,
-                        "name": "Banshee Bolt",
+                        "id": 84,
+                        "name": "For the Queen",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 67104,
+                                "dbf_id": 65939,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 67103,
+                                "dbf_id": 65940,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 66812,
+                                "dbf_id": 63740,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76510,
+                                "dbf_id": 76514,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76511,
+                                "dbf_id": 76515,
                                 "tier": 5
                             }
                         ]
@@ -2486,12 +2486,43 @@
         "shortName": "Valeera",
         "skinDbfIds": [
             64555,
-            64556,
-            64557
+            64557,
+            64556
         ],
         "specializations": [
             {
                 "abilities": [
+                    {
+                        "id": 93,
+                        "name": "Sinister Strike",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 65963,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 65964,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 65190,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76753,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76754,
+                                "tier": 5
+                            }
+                        ]
+                    },
                     {
                         "id": 47,
                         "name": "Ambush",
@@ -2553,37 +2584,6 @@
                                 "tier": 5
                             }
                         ]
-                    },
-                    {
-                        "id": 93,
-                        "name": "Sinister Strike",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 65963,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 65964,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 65190,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76753,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76754,
-                                "tier": 5
-                            }
-                        ]
                     }
                 ],
                 "id": 33,
@@ -2596,6 +2596,16 @@
         "craftingCost": 100,
         "defaultSkinDbfId": 64560,
         "equipment": [
+            {
+                "id": 140,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73083,
+                        "tier": 1
+                    }
+                ]
+            },
             {
                 "id": 138,
                 "tiers": [
@@ -2645,60 +2655,19 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 140,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73083,
-                        "tier": 1
-                    }
-                ]
             }
         ],
         "id": 18,
         "name": "Cariel Roame",
         "shortName": "Cariel",
         "skinDbfIds": [
-            64560,
             64558,
-            64559
+            64559,
+            64560
         ],
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 101,
-                        "name": "Seal of Light",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 65977,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 65978,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 65209,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76815,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76816,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 522,
                         "name": "Crusader's Blow",
@@ -2757,6 +2726,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76814,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 101,
+                        "name": "Seal of Light",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 65977,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 65978,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 65209,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76815,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76816,
                                 "tier": 5
                             }
                         ]
@@ -2852,8 +2852,8 @@
         "name": "Xyrella",
         "skinDbfIds": [
             64562,
-            64563,
-            64564
+            64564,
+            64563
         ],
         "specializations": [
             {
@@ -2963,21 +2963,26 @@
         "defaultSkinDbfId": 64584,
         "equipment": [
             {
-                "id": 152,
+                "id": 157,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 73636,
+                        "dbf_id": 73643,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 73644,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 73637,
+                        "dbf_id": 73645,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 73638,
+                        "dbf_id": 73646,
                         "tier": 4
                     }
                 ]
@@ -3008,26 +3013,21 @@
                 ]
             },
             {
-                "id": 157,
+                "id": 152,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 73643,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 73644,
+                        "dbf_id": 73636,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 73645,
+                        "dbf_id": 73637,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 73646,
+                        "dbf_id": 73638,
                         "tier": 4
                     }
                 ]
@@ -3036,40 +3036,40 @@
         "id": 20,
         "name": "Ragnaros",
         "skinDbfIds": [
-            64584,
+            64583,
             64585,
-            64583
+            64584
         ],
         "specializations": [
             {
                 "abilities": [
                     {
-                        "id": 111,
-                        "name": "Meteor",
+                        "id": 545,
+                        "name": "Magma Blast",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 66061,
+                                "dbf_id": 73461,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 66062,
+                                "dbf_id": 73469,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 63997,
+                                "dbf_id": 73475,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76702,
+                                "dbf_id": 76698,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76703,
+                                "dbf_id": 76699,
                                 "tier": 5
                             }
                         ]
@@ -3106,32 +3106,32 @@
                         ]
                     },
                     {
-                        "id": 545,
-                        "name": "Magma Blast",
+                        "id": 111,
+                        "name": "Meteor",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 73461,
+                                "dbf_id": 66061,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 73469,
+                                "dbf_id": 66062,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 73475,
+                                "dbf_id": 63997,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76698,
+                                "dbf_id": 76702,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76699,
+                                "dbf_id": 76703,
                                 "tier": 5
                             }
                         ]
@@ -3147,21 +3147,6 @@
         "craftingCost": 100,
         "defaultSkinDbfId": 64588,
         "equipment": [
-            {
-                "id": 184,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 76722,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73790,
-                        "tier": 4
-                    }
-                ]
-            },
             {
                 "id": 185,
                 "tiers": [
@@ -3211,6 +3196,21 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 184,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 76722,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73790,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 21,
@@ -3255,37 +3255,6 @@
                         ]
                     },
                     {
-                        "id": 116,
-                        "name": "Chain Lightning",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 66071,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 66072,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 64840,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76727,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76728,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 223,
                         "name": "Muddy Footing",
                         "tiers": [
@@ -3312,6 +3281,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76726,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 116,
+                        "name": "Chain Lightning",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 66071,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 66072,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 64840,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76727,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76728,
                                 "tier": 5
                             }
                         ]
@@ -3400,6 +3400,37 @@
             {
                 "abilities": [
                     {
+                        "id": 656,
+                        "name": "Heating Up",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 79475,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 79474,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 79473,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 79472,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 79471,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
                         "id": 120,
                         "name": "Inferno",
                         "tiers": [
@@ -3460,37 +3491,6 @@
                                 "tier": 5
                             }
                         ]
-                    },
-                    {
-                        "id": 656,
-                        "name": "Heating Up",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 79475,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 79474,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 79473,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 79472,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 79471,
-                                "tier": 5
-                            }
-                        ]
                     }
                 ],
                 "id": 43,
@@ -3503,16 +3503,6 @@
         "craftingCost": 500,
         "defaultSkinDbfId": 64590,
         "equipment": [
-            {
-                "id": 41,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 70837,
-                        "tier": 1
-                    }
-                ]
-            },
             {
                 "id": 42,
                 "tiers": [
@@ -3535,6 +3525,16 @@
                         "crafting_cost": 175,
                         "dbf_id": 71209,
                         "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 41,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 70837,
+                        "tier": 1
                     }
                 ]
             },
@@ -3568,39 +3568,39 @@
         "name": "Alexstrasza",
         "skinDbfIds": [
             64589,
-            64590,
-            64591
+            64591,
+            64590
         ],
         "specializations": [
             {
                 "abilities": [
                     {
-                        "id": 124,
-                        "name": "Dragonqueen's Gambit",
+                        "id": 331,
+                        "name": "Dragon Breath",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 66090,
+                                "dbf_id": 70836,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 66091,
+                                "dbf_id": 70835,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 65162,
+                                "dbf_id": 70834,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76524,
+                                "dbf_id": 76516,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76525,
+                                "dbf_id": 76517,
                                 "tier": 5
                             }
                         ]
@@ -3637,32 +3637,32 @@
                         ]
                     },
                     {
-                        "id": 331,
-                        "name": "Dragon Breath",
+                        "id": 124,
+                        "name": "Dragonqueen's Gambit",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 70836,
+                                "dbf_id": 66090,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 70835,
+                                "dbf_id": 66091,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 70834,
+                                "dbf_id": 65162,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76516,
+                                "dbf_id": 76524,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76517,
+                                "dbf_id": 76525,
                                 "tier": 5
                             }
                         ]
@@ -3704,31 +3704,6 @@
                 ]
             },
             {
-                "id": 45,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 76580,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 76579,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 76578,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 70848,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 46,
                 "tiers": [
                     {
@@ -3752,6 +3727,31 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 45,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 76580,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 76579,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 76578,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 70848,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 24,
@@ -3765,32 +3765,32 @@
             {
                 "abilities": [
                     {
-                        "id": 132,
-                        "name": "Phase Shift",
+                        "id": 333,
+                        "name": "Faerie Breath",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 66106,
+                                "dbf_id": 70846,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 66107,
+                                "dbf_id": 70845,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 65181,
+                                "dbf_id": 70844,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76576,
+                                "dbf_id": 76529,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76577,
+                                "dbf_id": 76530,
                                 "tier": 5
                             }
                         ]
@@ -3827,32 +3827,32 @@
                         ]
                     },
                     {
-                        "id": 333,
-                        "name": "Faerie Breath",
+                        "id": 132,
+                        "name": "Phase Shift",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 70846,
+                                "dbf_id": 66106,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 70845,
+                                "dbf_id": 66107,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 70844,
+                                "dbf_id": 65181,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76529,
+                                "dbf_id": 76576,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76530,
+                                "dbf_id": 76577,
                                 "tier": 5
                             }
                         ]
@@ -3868,31 +3868,6 @@
         "craftingCost": 300,
         "defaultSkinDbfId": 64597,
         "equipment": [
-            {
-                "id": 206,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 74614,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 74616,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 74617,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 74618,
-                        "tier": 4
-                    }
-                ]
-            },
             {
                 "id": 207,
                 "tiers": [
@@ -3914,6 +3889,31 @@
                     {
                         "crafting_cost": 175,
                         "dbf_id": 74622,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 206,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 74614,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 74616,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 74617,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 74618,
                         "tier": 4
                     }
                 ]
@@ -3950,37 +3950,6 @@
             {
                 "abilities": [
                     {
-                        "id": 135,
-                        "name": "Dragonslayer Shot",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 66110,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 66111,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 65185,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76477,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76478,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 247,
                         "name": "Crazed Flurry",
                         "tiers": [
@@ -4007,6 +3976,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76476,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 135,
+                        "name": "Dragonslayer Shot",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 66110,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 66111,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 65185,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76477,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76478,
                                 "tier": 5
                             }
                         ]
@@ -4054,31 +4054,6 @@
         "defaultSkinDbfId": 64600,
         "equipment": [
             {
-                "id": 48,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 66114,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 66115,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 64619,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 75890,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 192,
                 "tiers": [
                     {
@@ -4122,15 +4097,40 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 48,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 66114,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 66115,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 64619,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 75890,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 26,
         "name": "Cairne Bloodhoof",
         "shortName": "Cairne",
         "skinDbfIds": [
-            64600,
             64598,
-            64599
+            64599,
+            64600
         ],
         "specializations": [
             {
@@ -4240,6 +4240,31 @@
         "defaultSkinDbfId": 64603,
         "equipment": [
             {
+                "id": 234,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 79490,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 79489,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 79488,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73758,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
                 "id": 182,
                 "tiers": [
                     {
@@ -4288,31 +4313,6 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 234,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 79490,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 79489,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 79488,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73758,
-                        "tier": 4
-                    }
-                ]
             }
         ],
         "id": 28,
@@ -4358,37 +4358,6 @@
                         ]
                     },
                     {
-                        "id": 558,
-                        "name": "Ironbark",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 73575,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 73584,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 73585,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76720,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76721,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 564,
                         "name": "Living Brambles",
                         "tiers": [
@@ -4415,6 +4384,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76719,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 558,
+                        "name": "Ironbark",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 73575,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 73584,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 73585,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76720,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76721,
                                 "tier": 5
                             }
                         ]
@@ -4517,6 +4517,27 @@
             {
                 "abilities": [
                     {
+                        "id": 563,
+                        "name": "Guardian Blast",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 73677,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 73678,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 73679,
+                                "tier": 3
+                            }
+                        ]
+                    },
+                    {
                         "id": 171,
                         "name": "Enchanted Raven",
                         "tiers": [
@@ -4554,27 +4575,6 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 70960,
-                                "tier": 3
-                            }
-                        ]
-                    },
-                    {
-                        "id": 563,
-                        "name": "Guardian Blast",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 73677,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 73678,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 73679,
                                 "tier": 3
                             }
                         ]
@@ -4616,6 +4616,26 @@
                 ]
             },
             {
+                "id": 147,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 76121,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 76122,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73619,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
                 "id": 144,
                 "tiers": [
                     {
@@ -4639,26 +4659,6 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 147,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 76121,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 76122,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73619,
-                        "tier": 4
-                    }
-                ]
             }
         ],
         "id": 38,
@@ -4672,37 +4672,6 @@
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 302,
-                        "name": "Ice Lance",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 70602,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 70603,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 70604,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76883,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76884,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 542,
                         "name": "Flurry",
@@ -4761,6 +4730,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76874,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 302,
+                        "name": "Ice Lance",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 70602,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 70603,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 70604,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76883,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76884,
                                 "tier": 5
                             }
                         ]
@@ -4856,44 +4856,13 @@
         "name": "Old Murk-Eye",
         "shortName": "Murk-Eye",
         "skinDbfIds": [
-            64576,
             64574,
-            64575
+            64575,
+            64576
         ],
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 234,
-                        "name": "Felfin Navigator",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 66310,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 66311,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 65458,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76495,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76497,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 317,
                         "name": "Finvasion",
@@ -4921,6 +4890,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76494,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 234,
+                        "name": "Felfin Navigator",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 66310,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 66311,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 65458,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76495,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76497,
                                 "tier": 5
                             }
                         ]
@@ -5033,8 +5033,8 @@
         "shortName": "Morgl",
         "skinDbfIds": [
             64580,
-            64581,
-            64582
+            64582,
+            64581
         ],
         "specializations": [
             {
@@ -5213,8 +5213,8 @@
         "name": "King Mukla",
         "skinDbfIds": [
             64208,
-            64521,
-            64522
+            64522,
+            64521
         ],
         "specializations": [
             {
@@ -5324,26 +5324,26 @@
         "defaultSkinDbfId": 64605,
         "equipment": [
             {
-                "id": 65,
+                "id": 67,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 71603,
+                        "dbf_id": 73783,
                         "tier": 1
                     },
                     {
                         "crafting_cost": 100,
-                        "dbf_id": 71604,
+                        "dbf_id": 73784,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 71605,
+                        "dbf_id": 73785,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 70873,
+                        "dbf_id": 70875,
                         "tier": 4
                     }
                 ]
@@ -5374,26 +5374,26 @@
                 ]
             },
             {
-                "id": 67,
+                "id": 65,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 73783,
+                        "dbf_id": 71603,
                         "tier": 1
                     },
                     {
                         "crafting_cost": 100,
-                        "dbf_id": 73784,
+                        "dbf_id": 71604,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 73785,
+                        "dbf_id": 71605,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 70875,
+                        "dbf_id": 70873,
                         "tier": 4
                     }
                 ]
@@ -5410,32 +5410,32 @@
             {
                 "abilities": [
                     {
-                        "id": 348,
-                        "name": "Devilsaur",
+                        "id": 573,
+                        "name": "Apex Predator",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 66140,
+                                "dbf_id": 74872,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 66141,
+                                "dbf_id": 74871,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 65492,
+                                "dbf_id": 74870,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76861,
+                                "dbf_id": 76857,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76863,
+                                "dbf_id": 76858,
                                 "tier": 5
                             }
                         ]
@@ -5472,32 +5472,32 @@
                         ]
                     },
                     {
-                        "id": 573,
-                        "name": "Apex Predator",
+                        "id": 348,
+                        "name": "Devilsaur",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 74872,
+                                "dbf_id": 66140,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 74871,
+                                "dbf_id": 66141,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 74870,
+                                "dbf_id": 65492,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76857,
+                                "dbf_id": 76861,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76858,
+                                "dbf_id": 76863,
                                 "tier": 5
                             }
                         ]
@@ -5593,9 +5593,9 @@
         "name": "Tavish Stormpike",
         "shortName": "Tavish",
         "skinDbfIds": [
-            64608,
+            64607,
             64609,
-            64607
+            64608
         ],
         "specializations": [
             {
@@ -5705,26 +5705,6 @@
         "defaultSkinDbfId": 64612,
         "equipment": [
             {
-                "id": 68,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 66168,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 66169,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 65403,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 69,
                 "tiers": [
                     {
@@ -5770,6 +5750,26 @@
                     {
                         "crafting_cost": 175,
                         "dbf_id": 71225,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 68,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 66168,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 66169,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 65403,
                         "tier": 4
                     }
                 ]
@@ -6160,44 +6160,13 @@
         "name": "Garrosh Hellscream",
         "shortName": "Garrosh",
         "skinDbfIds": [
+            70422,
             70608,
-            70609,
-            70422
+            70609
         ],
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 286,
-                        "name": "Horde Strength",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 70564,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 70563,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 70425,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76641,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76642,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 293,
                         "name": "Mak'Gora",
@@ -6225,6 +6194,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76628,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 286,
+                        "name": "Horde Strength",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 70564,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 70563,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 70425,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76641,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76642,
                                 "tier": 5
                             }
                         ]
@@ -6272,31 +6272,6 @@
         "defaultSkinDbfId": 70607,
         "equipment": [
             {
-                "id": 78,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73002,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 73001,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 73000,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 71084,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 128,
                 "tiers": [
                     {
@@ -6317,6 +6292,31 @@
                     {
                         "crafting_cost": 175,
                         "dbf_id": 73003,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 78,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73002,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 73001,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 73000,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 71084,
                         "tier": 4
                     }
                 ]
@@ -6359,32 +6359,32 @@
             {
                 "abilities": [
                     {
-                        "id": 37,
-                        "name": "Bladehand Berserker",
+                        "id": 209,
+                        "name": "Mobilizing Strike",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 66188,
+                                "dbf_id": 67158,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 66189,
+                                "dbf_id": 67157,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 64853,
+                                "dbf_id": 66672,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76647,
+                                "dbf_id": 76643,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76649,
+                                "dbf_id": 76644,
                                 "tier": 5
                             }
                         ]
@@ -6421,32 +6421,32 @@
                         ]
                     },
                     {
-                        "id": 209,
-                        "name": "Mobilizing Strike",
+                        "id": 37,
+                        "name": "Bladehand Berserker",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 67158,
+                                "dbf_id": 66188,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 67157,
+                                "dbf_id": 66189,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 66672,
+                                "dbf_id": 64853,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76643,
+                                "dbf_id": 76647,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76644,
+                                "dbf_id": 76649,
                                 "tier": 5
                             }
                         ]
@@ -6462,6 +6462,16 @@
         "craftingCost": 100,
         "defaultSkinDbfId": 70613,
         "equipment": [
+            {
+                "id": 210,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 74663,
+                        "tier": 1
+                    }
+                ]
+            },
             {
                 "id": 79,
                 "tiers": [
@@ -6511,24 +6521,14 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 210,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 74663,
-                        "tier": 1
-                    }
-                ]
             }
         ],
         "id": 53,
         "name": "Blademaster Samuro",
         "shortName": "Samuro",
         "skinDbfIds": [
-            70612,
             70540,
+            70612,
             70613
         ],
         "specializations": [
@@ -6639,31 +6639,6 @@
         "defaultSkinDbfId": 70777,
         "equipment": [
             {
-                "id": 81,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 72711,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 72710,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 72709,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 70783,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 82,
                 "tiers": [
                     {
@@ -6712,14 +6687,39 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 81,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 72711,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 72710,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 72709,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 70783,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 54,
         "name": "Mannoroth",
         "skinDbfIds": [
+            70775,
             70776,
-            70777,
-            70775
+            70777
         ],
         "specializations": [
             {
@@ -6756,37 +6756,6 @@
                         ]
                     },
                     {
-                        "id": 309,
-                        "name": "Howl of Terror",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 71404,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 71403,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 70780,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76406,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76407,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 324,
                         "name": "Fel Lash",
                         "tiers": [
@@ -6816,6 +6785,37 @@
                                 "tier": 5
                             }
                         ]
+                    },
+                    {
+                        "id": 309,
+                        "name": "Howl of Terror",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 71404,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 71403,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 70780,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76406,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76407,
+                                "tier": 5
+                            }
+                        ]
                     }
                 ],
                 "id": 92,
@@ -6828,31 +6828,6 @@
         "craftingCost": 100,
         "defaultSkinDbfId": 70817,
         "equipment": [
-            {
-                "id": 80,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 72708,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 72707,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 72706,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 70782,
-                        "tier": 4
-                    }
-                ]
-            },
             {
                 "id": 83,
                 "tiers": [
@@ -6902,45 +6877,70 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 80,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 72708,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 72707,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 72706,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 70782,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 55,
         "name": "Rathorian",
         "skinDbfIds": [
-            70817,
+            70819,
             70818,
-            70819
+            70817
         ],
         "specializations": [
             {
                 "abilities": [
                     {
-                        "id": 22,
-                        "name": "Fel Command",
+                        "id": 323,
+                        "name": "Blitzing Legion",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 65813,
+                                "dbf_id": 71388,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 65814,
+                                "dbf_id": 71387,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 64873,
+                                "dbf_id": 70821,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76400,
+                                "dbf_id": 76394,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76401,
+                                "dbf_id": 76395,
                                 "tier": 5
                             }
                         ]
@@ -6977,32 +6977,32 @@
                         ]
                     },
                     {
-                        "id": 323,
-                        "name": "Blitzing Legion",
+                        "id": 22,
+                        "name": "Fel Command",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 71388,
+                                "dbf_id": 65813,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 71387,
+                                "dbf_id": 65814,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 70821,
+                                "dbf_id": 64873,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76394,
+                                "dbf_id": 76400,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 76395,
+                                "dbf_id": 76401,
                                 "tier": 5
                             }
                         ]
@@ -7019,26 +7019,21 @@
         "defaultSkinDbfId": 70851,
         "equipment": [
             {
-                "id": 86,
+                "id": 88,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 74840,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 74839,
+                        "dbf_id": 72720,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 74838,
+                        "dbf_id": 71177,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 70831,
+                        "dbf_id": 72721,
                         "tier": 4
                     }
                 ]
@@ -7069,21 +7064,26 @@
                 ]
             },
             {
-                "id": 88,
+                "id": 86,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 72720,
+                        "dbf_id": 74840,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 74839,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 71177,
+                        "dbf_id": 74838,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 72721,
+                        "dbf_id": 70831,
                         "tier": 4
                     }
                 ]
@@ -7093,43 +7093,12 @@
         "name": "Mutanus",
         "skinDbfIds": [
             70850,
-            70851,
-            70852
+            70852,
+            70851
         ],
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 70,
-                        "name": "Scaly Taunt",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 66437,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 66436,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 63807,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76485,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76486,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 328,
                         "name": "Devouring Attack",
@@ -7157,6 +7126,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76483,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 70,
+                        "name": "Scaly Taunt",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 66437,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 66436,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 63807,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76485,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76486,
                                 "tier": 5
                             }
                         ]
@@ -7204,26 +7204,26 @@
         "defaultSkinDbfId": 70855,
         "equipment": [
             {
-                "id": 89,
+                "id": 91,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 76594,
+                        "dbf_id": 71615,
                         "tier": 1
                     },
                     {
                         "crafting_cost": 100,
-                        "dbf_id": 76593,
+                        "dbf_id": 71616,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 76592,
+                        "dbf_id": 71617,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 70857,
+                        "dbf_id": 71212,
                         "tier": 4
                     }
                 ]
@@ -7254,26 +7254,26 @@
                 ]
             },
             {
-                "id": 91,
+                "id": 89,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 71615,
+                        "dbf_id": 76594,
                         "tier": 1
                     },
                     {
                         "crafting_cost": 100,
-                        "dbf_id": 71616,
+                        "dbf_id": 76593,
                         "tier": 2
                     },
                     {
                         "crafting_cost": 150,
-                        "dbf_id": 71617,
+                        "dbf_id": 76592,
                         "tier": 3
                     },
                     {
                         "crafting_cost": 175,
-                        "dbf_id": 71212,
+                        "dbf_id": 70857,
                         "tier": 4
                     }
                 ]
@@ -7322,37 +7322,6 @@
                         ]
                     },
                     {
-                        "id": 338,
-                        "name": "Evasive Wyrm",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 71435,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 71434,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 70860,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76599,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76601,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 339,
                         "name": "Fire Breath",
                         "tiers": [
@@ -7382,6 +7351,37 @@
                                 "tier": 5
                             }
                         ]
+                    },
+                    {
+                        "id": 338,
+                        "name": "Evasive Wyrm",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 71435,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 71434,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 70860,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76599,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76601,
+                                "tier": 5
+                            }
+                        ]
                     }
                 ],
                 "id": 99,
@@ -7394,31 +7394,6 @@
         "craftingCost": 500,
         "defaultSkinDbfId": 70923,
         "equipment": [
-            {
-                "id": 92,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73016,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 73017,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 71134,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73018,
-                        "tier": 4
-                    }
-                ]
-            },
             {
                 "id": 130,
                 "tiers": [
@@ -7440,6 +7415,31 @@
                     {
                         "crafting_cost": 175,
                         "dbf_id": 73022,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 92,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73016,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 73017,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 71134,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73018,
                         "tier": 4
                     }
                 ]
@@ -7473,9 +7473,9 @@
         "id": 60,
         "name": "Gul'dan",
         "skinDbfIds": [
+            70925,
             70922,
-            70923,
-            70925
+            70923
         ],
         "specializations": [
             {
@@ -7610,26 +7610,6 @@
                 ]
             },
             {
-                "id": 108,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73066,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 72740,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 72741,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 109,
                 "tiers": [
                     {
@@ -7653,14 +7633,34 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 108,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73066,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 72740,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 72741,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 62,
         "name": "Vol'jin",
         "skinDbfIds": [
+            70915,
             70913,
-            70914,
-            70915
+            70914
         ],
         "specializations": [
             {
@@ -7697,37 +7697,6 @@
                         ]
                     },
                     {
-                        "id": 532,
-                        "name": "Curse of Weakness",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 72836,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 72835,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 72826,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76447,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76448,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 533,
                         "name": "Shadow Surge",
                         "tiers": [
@@ -7754,6 +7723,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76445,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 532,
+                        "name": "Curse of Weakness",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 72836,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 72835,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 72826,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76447,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76448,
                                 "tier": 5
                             }
                         ]
@@ -7795,6 +7795,16 @@
                 ]
             },
             {
+                "id": 215,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 74848,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
                 "id": 214,
                 "tiers": [
                     {
@@ -7818,24 +7828,14 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 215,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 74848,
-                        "tier": 4
-                    }
-                ]
             }
         ],
         "id": 63,
         "name": "Lady Anacondra",
         "shortName": "Anacondra",
         "skinDbfIds": [
-            70920,
             70921,
+            70920,
             70919
         ],
         "specializations": [
@@ -7946,6 +7946,31 @@
         "defaultSkinDbfId": 70938,
         "equipment": [
             {
+                "id": 189,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73815,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 73816,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 73817,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73818,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
                 "id": 187,
                 "tiers": [
                     {
@@ -7994,40 +8019,15 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 189,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73815,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 73816,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 73817,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73818,
-                        "tier": 4
-                    }
-                ]
             }
         ],
         "id": 64,
         "name": "Malfurion Stormrage",
         "shortName": "Malfurion",
         "skinDbfIds": [
-            70938,
+            70940,
             70939,
-            70940
+            70938
         ],
         "specializations": [
             {
@@ -8201,8 +8201,8 @@
         "name": "Tyrande",
         "shortName": "Tyrande",
         "skinDbfIds": [
-            70936,
             70937,
+            70936,
             70935
         ],
         "specializations": [
@@ -8391,9 +8391,9 @@
         "id": 71,
         "name": "Trigore",
         "skinDbfIds": [
-            70932,
+            70934,
             70933,
-            70934
+            70932
         ],
         "specializations": [
             {
@@ -8503,41 +8503,6 @@
         "defaultSkinDbfId": 72863,
         "equipment": [
             {
-                "id": 114,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 72870,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 72873,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 72874,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 72875,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
-                "id": 115,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 72876,
-                        "tier": 1
-                    }
-                ]
-            },
-            {
                 "id": 116,
                 "tiers": [
                     {
@@ -8561,50 +8526,54 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 115,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 72876,
+                        "tier": 1
+                    }
+                ]
+            },
+            {
+                "id": 114,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 72870,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 72873,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 72874,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 72875,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 93,
         "name": "Anduin Wrynn",
         "shortName": "Anduin",
         "skinDbfIds": [
-            72864,
             72862,
+            72864,
             72863
         ],
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 27,
-                        "name": "Holy Nova",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 65872,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 65873,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 64002,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76688,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76689,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 534,
                         "name": "Penance",
@@ -8632,6 +8601,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76687,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 27,
+                        "name": "Holy Nova",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 65872,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 65873,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 64002,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76688,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76689,
                                 "tier": 5
                             }
                         ]
@@ -8704,21 +8704,6 @@
                 ]
             },
             {
-                "id": 141,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73382,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73381,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 217,
                 "tiers": [
                     {
@@ -8742,6 +8727,21 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 141,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73382,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73381,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 94,
@@ -8754,37 +8754,6 @@
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 536,
-                        "name": "Blessing of Protection",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 72902,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 72901,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 72899,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76805,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76806,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 537,
                         "name": "Hammer of Justice",
@@ -8812,6 +8781,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76808,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 536,
+                        "name": "Blessing of Protection",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 72902,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 72901,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 72899,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76805,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76806,
                                 "tier": 5
                             }
                         ]
@@ -8858,26 +8858,6 @@
         "craftingCost": 100,
         "defaultSkinDbfId": 72859,
         "equipment": [
-            {
-                "id": 118,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 72910,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 72909,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 72908,
-                        "tier": 4
-                    }
-                ]
-            },
             {
                 "id": 120,
                 "tiers": [
@@ -8927,50 +8907,39 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 118,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 72910,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 72909,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 72908,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 95,
         "name": "Cornelius Roame",
         "shortName": "Cornelius",
         "skinDbfIds": [
-            72859,
+            72861,
             72860,
-            72861
+            72859
         ],
         "specializations": [
             {
                 "abilities": [
-                    {
-                        "id": 36,
-                        "name": "Blessing of Sacrifice",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 65951,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 65952,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 63757,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76696,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76697,
-                                "tier": 5
-                            }
-                        ]
-                    },
                     {
                         "id": 538,
                         "name": "Martial Mastery",
@@ -9029,6 +8998,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76695,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 36,
+                        "name": "Blessing of Sacrifice",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 65951,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 65952,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 63757,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76696,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76697,
                                 "tier": 5
                             }
                         ]
@@ -9110,8 +9110,8 @@
         "shortName": "Jaina",
         "skinDbfIds": [
             73480,
-            73478,
-            73479
+            73479,
+            73478
         ],
         "specializations": [
             {
@@ -9148,37 +9148,6 @@
                         ]
                     },
                     {
-                        "id": 544,
-                        "name": "Water Elemental",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 73484,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 73486,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 73488,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76875,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76877,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 657,
                         "name": "Ice Floes",
                         "tiers": [
@@ -9205,6 +9174,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 79592,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 544,
+                        "name": "Water Elemental",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 73484,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 73486,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 73488,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76875,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76877,
                                 "tier": 5
                             }
                         ]
@@ -9246,16 +9246,6 @@
                 ]
             },
             {
-                "id": 176,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 73687,
-                        "tier": 1
-                    }
-                ]
-            },
-            {
                 "id": 177,
                 "tiers": [
                     {
@@ -9279,15 +9269,25 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 176,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 73687,
+                        "tier": 1
+                    }
+                ]
             }
         ],
         "id": 98,
         "name": "Antonidas",
         "shortName": "Antonidas",
         "skinDbfIds": [
-            73505,
+            73507,
             73506,
-            73507
+            73505
         ],
         "specializations": [
             {
@@ -9397,27 +9397,12 @@
         "defaultSkinDbfId": 73494,
         "equipment": [
             {
-                "id": 148,
+                "id": 150,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 78033,
+                        "dbf_id": 73632,
                         "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 78032,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 73625,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 73626,
-                        "tier": 4
                     }
                 ]
             },
@@ -9447,12 +9432,27 @@
                 ]
             },
             {
-                "id": 150,
+                "id": 148,
                 "tiers": [
                     {
                         "crafting_cost": 0,
-                        "dbf_id": 73632,
+                        "dbf_id": 78033,
                         "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 78032,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 73625,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 73626,
+                        "tier": 4
                     }
                 ]
             }
@@ -9630,9 +9630,9 @@
         "id": 100,
         "name": "Blink Fox",
         "skinDbfIds": [
+            73541,
             73539,
-            73540,
-            73541
+            73540
         ],
         "specializations": [
             {
@@ -9742,31 +9742,6 @@
         "defaultSkinDbfId": 74681,
         "equipment": [
             {
-                "id": 211,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 74702,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 74703,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 74737,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 74738,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 212,
                 "tiers": [
                     {
@@ -9810,14 +9785,39 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 211,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 74702,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 74703,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 74737,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 74738,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 102,
         "name": "Diablo",
         "skinDbfIds": [
+            74679,
             74680,
-            74681,
-            74679
+            74681
         ],
         "specializations": [
             {
@@ -10191,6 +10191,31 @@
         "defaultSkinDbfId": 72791,
         "equipment": [
             {
+                "id": 225,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 77400,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 77401,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 77402,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 77403,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
                 "id": 223,
                 "tiers": [
                     {
@@ -10239,44 +10264,50 @@
                         "tier": 4
                     }
                 ]
-            },
-            {
-                "id": 225,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 77400,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 77401,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 77402,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 77403,
-                        "tier": 4
-                    }
-                ]
             }
         ],
         "id": 149,
         "name": "Cookie, the Cook",
         "shortName": "Cookie",
         "skinDbfIds": [
-            77388,
             77389,
+            77388,
             72791
         ],
         "specializations": [
             {
                 "abilities": [
+                    {
+                        "id": 580,
+                        "name": "Fish Feast",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 77382,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 77384,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 77385,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 77386,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 77387,
+                                "tier": 5
+                            }
+                        ]
+                    },
                     {
                         "id": 578,
                         "name": "Cookie's Cooking",
@@ -10335,37 +10366,6 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 77417,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
-                        "id": 580,
-                        "name": "Fish Feast",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 77382,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 77384,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 77385,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 77386,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 77387,
                                 "tier": 5
                             }
                         ]
@@ -10497,37 +10497,6 @@
                         ]
                     },
                     {
-                        "id": 62,
-                        "name": "Fan of Knives",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 66415,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 66414,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 64991,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76788,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76789,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 93,
                         "name": "Sinister Strike",
                         "tiers": [
@@ -10554,6 +10523,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76754,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 62,
+                        "name": "Fan of Knives",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 66415,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 66414,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 64991,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76788,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76789,
                                 "tier": 5
                             }
                         ]
@@ -10648,40 +10648,40 @@
         "id": 156,
         "name": "Sneed",
         "skinDbfIds": [
-            77355,
+            77358,
             77356,
-            77358
+            77355
         ],
         "specializations": [
             {
                 "abilities": [
                     {
-                        "id": 582,
-                        "name": "Disarm",
+                        "id": 584,
+                        "name": "Bzzz!!!",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 77407,
+                                "dbf_id": 77375,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 77408,
+                                "dbf_id": 77449,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 77409,
+                                "dbf_id": 77450,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 77410,
+                                "dbf_id": 77451,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 77359,
+                                "dbf_id": 77452,
                                 "tier": 5
                             }
                         ]
@@ -10718,32 +10718,32 @@
                         ]
                     },
                     {
-                        "id": 584,
-                        "name": "Bzzz!!!",
+                        "id": 582,
+                        "name": "Disarm",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
-                                "dbf_id": 77375,
+                                "dbf_id": 77407,
                                 "tier": 1
                             },
                             {
                                 "crafting_cost": 50,
-                                "dbf_id": 77449,
+                                "dbf_id": 77408,
                                 "tier": 2
                             },
                             {
                                 "crafting_cost": 125,
-                                "dbf_id": 77450,
+                                "dbf_id": 77409,
                                 "tier": 3
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 77451,
+                                "dbf_id": 77410,
                                 "tier": 4
                             },
                             {
                                 "crafting_cost": 150,
-                                "dbf_id": 77452,
+                                "dbf_id": 77359,
                                 "tier": 5
                             }
                         ]
@@ -10785,31 +10785,6 @@
                 ]
             },
             {
-                "id": 231,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 77668,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 77669,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 77670,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 77671,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 232,
                 "tiers": [
                     {
@@ -10833,13 +10808,38 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 231,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 77668,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 77669,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 77670,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 77671,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 159,
         "name": "Edwin, Defias Kingpin",
         "skinDbfIds": [
-            77656,
             77657,
+            77656,
             77645
         ],
         "specializations": [
@@ -10877,37 +10877,6 @@
                         ]
                     },
                     {
-                        "id": 590,
-                        "name": "Kingpin's Bounty",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 77667,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 77675,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 77676,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 77677,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 77678,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 592,
                         "name": "Assisted Strike",
                         "tiers": [
@@ -10934,6 +10903,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 77690,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 590,
+                        "name": "Kingpin's Bounty",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 77667,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 77675,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 77676,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 77677,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 77678,
                                 "tier": 5
                             }
                         ]
@@ -11701,37 +11701,6 @@
                         ]
                     },
                     {
-                        "id": 62,
-                        "name": "Fan of Knives",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 66415,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 66414,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 64991,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76788,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76789,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 93,
                         "name": "Sinister Strike",
                         "tiers": [
@@ -11758,6 +11727,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76754,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 62,
+                        "name": "Fan of Knives",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 66415,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 66414,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 64991,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76788,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76789,
                                 "tier": 5
                             }
                         ]
@@ -11974,31 +11974,6 @@
                 ]
             },
             {
-                "id": 242,
-                "tiers": [
-                    {
-                        "crafting_cost": 0,
-                        "dbf_id": 80801,
-                        "tier": 1
-                    },
-                    {
-                        "crafting_cost": 100,
-                        "dbf_id": 80800,
-                        "tier": 2
-                    },
-                    {
-                        "crafting_cost": 150,
-                        "dbf_id": 80799,
-                        "tier": 3
-                    },
-                    {
-                        "crafting_cost": 175,
-                        "dbf_id": 80325,
-                        "tier": 4
-                    }
-                ]
-            },
-            {
                 "id": 243,
                 "tiers": [
                     {
@@ -12022,14 +11997,39 @@
                         "tier": 4
                     }
                 ]
+            },
+            {
+                "id": 242,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 80801,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 80800,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 80799,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 80325,
+                        "tier": 4
+                    }
+                ]
             }
         ],
         "id": 237,
         "name": "Mr. Smite",
         "skinDbfIds": [
             79824,
-            79822,
-            79823
+            79823,
+            79822
         ],
         "specializations": [
             {
@@ -12217,9 +12217,9 @@
         "id": 238,
         "name": "Vanessa VanCleef",
         "skinDbfIds": [
-            79828,
+            79830,
             79829,
-            79830
+            79828
         ],
         "specializations": [
             {
@@ -12444,37 +12444,6 @@
                         ]
                     },
                     {
-                        "id": 62,
-                        "name": "Fan of Knives",
-                        "tiers": [
-                            {
-                                "crafting_cost": 0,
-                                "dbf_id": 66415,
-                                "tier": 1
-                            },
-                            {
-                                "crafting_cost": 50,
-                                "dbf_id": 66414,
-                                "tier": 2
-                            },
-                            {
-                                "crafting_cost": 125,
-                                "dbf_id": 64991,
-                                "tier": 3
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76788,
-                                "tier": 4
-                            },
-                            {
-                                "crafting_cost": 150,
-                                "dbf_id": 76789,
-                                "tier": 5
-                            }
-                        ]
-                    },
-                    {
                         "id": 93,
                         "name": "Sinister Strike",
                         "tiers": [
@@ -12501,6 +12470,37 @@
                             {
                                 "crafting_cost": 150,
                                 "dbf_id": 76754,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 62,
+                        "name": "Fan of Knives",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 66415,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 66414,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 64991,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76788,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 76789,
                                 "tier": 5
                             }
                         ]
@@ -12595,9 +12595,9 @@
         "id": 242,
         "name": "Sky Admiral Rogers",
         "skinDbfIds": [
-            79825,
+            79827,
             79826,
-            79827
+            79825
         ],
         "specializations": [
             {

@@ -965,7 +965,7 @@ void StormwindCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [DED_515] Grey Sage Parrot - COST:8 [ATK:6/HP:6]
+    // [DED_515] Grey Sage Parrot - COST:6 [ATK:4/HP:5]
     // - Race: Beast, Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Repeat the last spell
@@ -1221,7 +1221,7 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:2]
+    // [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:1]
     // - Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a minion.
@@ -2318,7 +2318,7 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- WEAPON - WARLOCK
-    // [SW_003] Runed Mithril Rod - COST:4
+    // [SW_003] Runed Mithril Rod - COST:5
     // - Set: STORMWIND, Rarity: Rare
     // --------------------------------------------------------
     // Text: After you draw 4 cards,
@@ -2420,7 +2420,7 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Spell School: Shadow
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion.
-    //       If it dies, restore 4 Health to your hero.
+    //       If it dies, restore 3 Health to your hero.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -2433,7 +2433,7 @@ void StormwindCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsDead()) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<HealTask>(EntityType::HERO, 4) }));
+        true, TaskList{ std::make_shared<HealTask>(EntityType::HERO, 3) }));
     cards.emplace(
         "SW_090",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },

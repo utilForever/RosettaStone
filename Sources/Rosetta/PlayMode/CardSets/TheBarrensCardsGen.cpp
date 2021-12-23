@@ -150,7 +150,7 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cards.emplace("BAR_538", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
-    // [BAR_539] Celestial Alignment - COST:7
+    // [BAR_539] Celestial Alignment - COST:8
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Arcane
     // --------------------------------------------------------
@@ -905,7 +905,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Fire
     // --------------------------------------------------------
-    // Text: Increase the damage of your Hero Power by 1.
+    // Text: Increase the damage of your Hero Power by 1 this game.
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
@@ -1934,7 +1934,7 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
-    // [BAR_320] Efficient Octo-bot - COST:2 [ATK:1/HP:4]
+    // [BAR_320] Efficient Octo-bot - COST:3 [ATK:1/HP:4]
     // - Race: Mechanical, Set: THE_BARRENS, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Frenzy:</b> Reduce the cost of cards in your hand by (1).

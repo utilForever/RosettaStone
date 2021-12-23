@@ -3078,7 +3078,7 @@
         "name": "Irondeep Trogg",
         "rarity": "RARE",
         "set": "ALTERAC_VALLEY",
-        "text": "[x]After your opponent\ncasts a spell, summon\na copy of this.",
+        "text": "[x]After your opponent\ncasts a spell, summon\n another Irondeep Trogg.",
         "type": "MINION"
     },
     {
@@ -3178,6 +3178,7 @@
         "dbfId": 70258,
         "elite": true,
         "flavor": "“I live, I love, I slay, and I am undying.”",
+        "hasDiamondSkin": true,
         "health": 5,
         "id": "AV_143",
         "mechanics": [
@@ -3238,7 +3239,7 @@
         "artist": "Arthur Bozonnet",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 8,
+        "cost": 7,
         "dbfId": 66848,
         "elite": true,
         "flavor": "Magister is a humble title for one who united warring armies against the greatest threat to Azeroth.",
@@ -3250,7 +3251,7 @@
         "name": "Magister Dawngrasp",
         "rarity": "LEGENDARY",
         "set": "ALTERAC_VALLEY",
-        "text": "[x]<b>Battlecry:</b> Recast a\nspell from each spell\nschool you've cast\n this game.",
+        "text": "[x]<b>Battlecry:</b> Recast a\nspell from each spell\nschool you've cast\nthis game.",
         "type": "HERO"
     },
     {
@@ -3723,7 +3724,7 @@
         "attack": 3,
         "cardClass": "SHAMAN",
         "collectible": true,
-        "cost": 5,
+        "cost": 6,
         "dbfId": 67769,
         "flavor": "You’re finally awake! That fall looked really bad. Demon Hunters? Mercenaries? What are you talking about? Come on, I just unpacked a Golden Moorabi, let’s go build a Freeze Shaman deck.",
         "health": 3,
@@ -4060,6 +4061,7 @@
         "dbfId": 70015,
         "elite": true,
         "flavor": "Imagine her surprise, ending up in a game called Hearthstone.",
+        "hasDiamondSkin": true,
         "health": 5,
         "id": "AV_284",
         "mechanics": [
@@ -5534,6 +5536,7 @@
         "dbfId": 63074,
         "elite": true,
         "flavor": "Bru'kan, his body weathered and weary, felt his time nearing its end. Teaching brave champions like Rokara gives him hope for a greater future.",
+        "hasDiamondSkin": true,
         "health": 4,
         "id": "BAR_048",
         "name": "Bru'kan",
@@ -5864,6 +5867,7 @@
         "dbfId": 62587,
         "elite": true,
         "flavor": "Artists paint their visions meticulously on canvas. Blademasters paint with, uh, broader strokes.",
+        "hasDiamondSkin": true,
         "health": 6,
         "id": "BAR_078",
         "mechanics": [
@@ -6235,7 +6239,7 @@
         "attack": 1,
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 62891,
         "flavor": "Pull the lever, Octo-bot... Wrong leverrrrr!",
         "health": 4,
@@ -6634,7 +6638,7 @@
         "artist": "Gustav Schmidt",
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 63040,
         "flavor": "\"Is my deck any good?\"\n\"I mean, if the stars align.\"",
         "id": "BAR_539",
@@ -6752,7 +6756,7 @@
         "rarity": "EPIC",
         "set": "THE_BARRENS",
         "spellSchool": "FIRE",
-        "text": "[x]Increase the damage of\nyour Hero Power by 1.",
+        "text": "[x]Your Hero Power\ndeals 1 more damage\nthis game.",
         "type": "SPELL"
     },
     {
@@ -13823,10 +13827,10 @@
         "attack": 2,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 57193,
         "flavor": "Double-damage. You know the drill.",
-        "health": 4,
+        "health": 5,
         "id": "BT_733",
         "name": "Mo'arg Artificer",
         "race": "DEMON",
@@ -22985,7 +22989,7 @@
         "cost": 1,
         "dbfId": 62462,
         "flavor": "Piracy is technically a discount.",
-        "health": 2,
+        "health": 1,
         "howToEarn": "Unlocked at level 1.",
         "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
         "id": "CS3_008",
@@ -26657,13 +26661,13 @@
     },
     {
         "artist": "Todd Harris",
-        "attack": 6,
+        "attack": 4,
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 8,
+        "cost": 6,
         "dbfId": 65682,
         "flavor": "Nothing is more terrifying than a parrot squawking \"Pyroblast!\"",
-        "health": 6,
+        "health": 5,
         "id": "DED_515",
         "isMiniSet": true,
         "mechanics": [
@@ -33258,7 +33262,7 @@
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
@@ -34913,6 +34917,7 @@
         "dbfId": 374,
         "elite": true,
         "flavor": "Ragnaros was summoned by the Dark Iron dwarves, who were eventually enslaved by the Firelord.  Summoning Ragnaros often doesn’t work out the way you want it to.",
+        "hasDiamondSkin": true,
         "health": 8,
         "id": "EX1_298",
         "mechanics": [
@@ -56160,6 +56165,7 @@
         "dbfId": 59609,
         "elite": true,
         "flavor": "Her parents own Scholomance. Of course she's going to play tricks on the students!",
+        "hasDiamondSkin": true,
         "health": 1,
         "id": "SCH_351",
         "mechanics": [
@@ -57592,7 +57598,7 @@
         "attack": 0,
         "cardClass": "WARLOCK",
         "collectible": true,
-        "cost": 4,
+        "cost": 5,
         "dbfId": 63677,
         "durability": 2,
         "flavor": "\"Please, I need these greens to disenchant them.\" —Every Enchanter Ever",
@@ -58734,6 +58740,7 @@
         "dbfId": 64729,
         "elite": true,
         "flavor": "Man, this guy is so cool. Sure hope nothing happens to him.",
+        "hasDiamondSkin": true,
         "health": 7,
         "id": "SW_081",
         "mechanics": [
@@ -58868,7 +58875,7 @@
         "rarity": "RARE",
         "set": "STORMWIND",
         "spellSchool": "SHADOW",
-        "text": "[x]Deal $2 damage to a\nminion. If it dies, restore\n4 Health to your hero.",
+        "text": "[x]Deal $2 damage to a\nminion. If it dies, restore\n3 Health to your hero.",
         "type": "SPELL"
     },
     {
@@ -59297,7 +59304,7 @@
         "cost": 3,
         "dbfId": 64368,
         "flavor": "Back in my day, we had to carry our inspiration uphill both ways to war.",
-        "health": 2,
+        "health": 1,
         "id": "SW_315",
         "mechanics": [
             "BATTLECRY"
@@ -59940,6 +59947,7 @@
         "dbfId": 64443,
         "elite": true,
         "flavor": "Dark Bishop takes Light Pawn, check.",
+        "hasDiamondSkin": true,
         "health": 6,
         "id": "SW_448",
         "name": "Darkbishop Benedictus",
@@ -70967,7 +70975,7 @@
         "rarity": "LEGENDARY",
         "set": "VANILLA",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
@@ -72182,6 +72190,7 @@
         "dbfId": 69912,
         "elite": true,
         "flavor": "Ragnaros was summoned by the Dark Iron dwarves, who were eventually enslaved by the Firelord.  Summoning Ragnaros often doesn’t work out the way you want it to.",
+        "hasDiamondSkin": true,
         "health": 8,
         "id": "VAN_EX1_298",
         "mechanics": [

@@ -980,7 +980,7 @@ TEST_CASE("[Paladin : Minion] - SW_305 : First Blade of Wrynn")
 }
 
 // --------------------------------------- MINION - PALADIN
-// [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:2]
+// [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:1]
 // - Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Draw a minion.
@@ -1833,7 +1833,7 @@ TEST_CASE("[Warlock : Spell] - SW_088 : Demonic Assault")
 // - Spell School: Shadow
 // --------------------------------------------------------
 // Text: Deal 2 damage to a minion.
-//       If it dies, restore 4 Health to your hero.
+//       If it dies, restore 3 Health to your hero.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -1880,10 +1880,10 @@ TEST_CASE("[Warlock : Spell] - SW_090 : Touch of the Nathrezim")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 15);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 18);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 19);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 18);
 }
 
 // --------------------------------------- MINION - WARLOCK
