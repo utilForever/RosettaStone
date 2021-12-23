@@ -30,7 +30,7 @@ void AlteracValleyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // -------------------------------------------- HERO - MAGE
-    // [AV_200] Magister Dawngrasp - COST:8
+    // [AV_200] Magister Dawngrasp - COST:7
     // - Set: ALTERAC_VALLEY, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Recast a spell from
@@ -149,7 +149,7 @@ void AlteracValleyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------ HERO_POWER - HUNTER
-    // [AV_113p] Summon Pet - COST:3
+    // [AV_113p] Summon Pet - COST:2
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: <b>Hero Power</b>
@@ -161,7 +161,7 @@ void AlteracValleyCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: <b>Hero Power</b>
-    //       Deal 1 damage.
+    //       Deal 2 damage.
     //       <b>Honorable Kill:</b> Gain +2 damage.
     // --------------------------------------------------------
     // GameTag:
@@ -1571,7 +1571,7 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [AV_255] Snowfall Guardian - COST:5 [ATK:3/HP:3]
+    // [AV_255] Snowfall Guardian - COST:6 [ATK:3/HP:3]
     // - Race: Elemental, Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Freeze</b> all other minions.
@@ -2439,7 +2439,7 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // --------------------------------------------------------
     // Text: After your opponent casts a spell,
-    //       summon a copy of this.
+    //       summon another Irondeep Trogg.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
