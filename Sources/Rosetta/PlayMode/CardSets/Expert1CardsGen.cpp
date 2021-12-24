@@ -1361,8 +1361,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
     // - Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: If you control a <b>Secret</b> at the end
-    //       of your turn, gain +2/+2.
+    // Text: If you control a <b>Secret</b> at the end of your turn,
+    //       gain +2/+2.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
