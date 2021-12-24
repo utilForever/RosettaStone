@@ -1929,6 +1929,10 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 4 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 4, true));
+    cards.emplace("VAN_CS2_032", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
