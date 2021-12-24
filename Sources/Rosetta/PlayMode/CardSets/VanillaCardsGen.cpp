@@ -1852,9 +1852,17 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 0/2 minions with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("VAN_CS2_mirror", 2));
+    cards.emplace(
+        "VAN_CS2_027",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_028] Blizzard - COST:6
@@ -2076,6 +2084,8 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [VAN_CS2_mirror] Mirror Image - COST:0 [ATK:0/HP:2]
     // - Set: VANILLA, Rarity: Common
@@ -2085,6 +2095,9 @@ void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_mirror", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_tt_010a] Spellbender - COST:0 [ATK:1/HP:3]
