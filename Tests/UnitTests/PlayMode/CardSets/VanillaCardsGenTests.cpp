@@ -4212,6 +4212,81 @@ TEST_CASE("[Mage : Spell] - VAN_CS2_029 : Fireball")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [VAN_CS2_031] Ice Lance - COST:1
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a character.
+//       If it was already <b>Frozen</b>, deal 4 damage instead.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_CS2_031 : Ice Lance")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ice Lance", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ice Lance", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ice Lance", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ice Lance", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ancient Watcher", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ancient Watcher", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card6));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card7));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(curField[1]->IsFrozen(), true);
+    CHECK_EQ(curField[0]->GetDamage(), 0);
+    CHECK_EQ(curField[1]->GetDamage(), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card6));
+    CHECK_EQ(curField[0]->GetDamage(), 4);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card7));
+    CHECK_EQ(card7->isDestroyed, true);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
