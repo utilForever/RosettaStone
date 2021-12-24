@@ -1943,6 +1943,9 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_033", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
