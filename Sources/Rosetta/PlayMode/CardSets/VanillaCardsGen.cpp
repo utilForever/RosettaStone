@@ -2893,6 +2893,8 @@ void VanillaCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_037] Frost Shock - COST:1
     // - Set: VANILLA, Rarity: Free
@@ -2975,7 +2977,17 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "VAN_EX1_238",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_241] Lava Burst - COST:3
