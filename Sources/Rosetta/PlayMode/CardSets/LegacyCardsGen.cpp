@@ -1143,7 +1143,20 @@ void LegacyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void LegacyCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
-    (void)cards;
+    Power power;
+
+    // ------------------------------------------ MINION - MAGE
+    // [CS2_mirror] Mirror Image - COST:0 [ATK:0/HP:2]
+    // - Set: Legacy, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS2_mirror", CardDef(power));
 }
 
 void LegacyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)

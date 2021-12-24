@@ -3944,6 +3944,199 @@ TEST_CASE("[Mage : Spell] - VAN_CS2_025 : Arcane Explosion")
 }
 
 // ------------------------------------------- SPELL - MAGE
+// [VAN_CS2_026] Frost Nova - COST:3
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Freeze</b> all enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_CS2_026 : Frost Nova")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frost Nova", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Acidic Swamp Ooze", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->IsFrozen(), true);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->IsFrozen(), false);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [VAN_CS2_027] Mirror Image - COST:1
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Summon two 0/2 minions with <b>Taunt</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_CS2_027 : Mirror Image")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mirror Image", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mirror Image", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mirror Image", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mirror Image", FormatType::CLASSIC));
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 0);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curField.GetCount(), 7);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [VAN_CS2_028] Blizzard - COST:6
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_CS2_028 : Blizzard")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blizzard", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opField[0]->IsFrozen(), false);
+}
+
+// ------------------------------------------- SPELL - MAGE
 // [VAN_CS2_029] Fireball - COST:4
 // - Set: VANILLA, Rarity: Free
 // --------------------------------------------------------
@@ -4019,6 +4212,421 @@ TEST_CASE("[Mage : Spell] - VAN_CS2_029 : Fireball")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [VAN_CS2_031] Ice Lance - COST:1
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a character.
+//       If it was already <b>Frozen</b>, deal 4 damage instead.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_CS2_031 : Ice Lance")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ice Lance", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ice Lance", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ice Lance", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Ice Lance", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ancient Watcher", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ancient Watcher", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card6));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card7));
+    CHECK_EQ(curField[0]->IsFrozen(), true);
+    CHECK_EQ(curField[1]->IsFrozen(), true);
+    CHECK_EQ(curField[0]->GetDamage(), 0);
+    CHECK_EQ(curField[1]->GetDamage(), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card6));
+    CHECK_EQ(curField[0]->GetDamage(), 4);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card7));
+    CHECK_EQ(card7->isDestroyed, true);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [VAN_CS2_032] Flamestrike - COST:7
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Deal 4 damage to all enemy minions.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_CS2_032 : Flamestrike")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flamestrike", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Acidic Swamp Ooze", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [VAN_CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Freeze</b> any character damaged by this minion.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - VAN_CS2_033 : Water Elemental")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Water Elemental", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Chillwind Yeti", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [VAN_EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: If you control a <b>Secret</b> at the end of your turn,
+//       gain +2/+2.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - VAN_EX1_274 : Ethereal Arcanist")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+    auto& opSecret = *(opPlayer->GetSecretZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ethereal Arcanist", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Counterspell", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Counterspell", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Counterspell", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_FALSE(curSecret.IsEmpty());
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    CHECK(curSecret.IsEmpty());
+    CHECK(opSecret.IsEmpty());
+
+    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    CHECK_FALSE(opSecret.IsEmpty());
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [VAN_EX1_275] Cone of Cold - COST:4
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a minion and the minions next to it,
+//       and deal 1 damage to them.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_EX1_275 : Cone of Cold")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Cone of Cold", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->IsFrozen(), false);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
+    CHECK_EQ(curField[2]->IsFrozen(), false);
+    CHECK_EQ(curField[3]->GetHealth(), 2);
+    CHECK_EQ(curField[3]->IsFrozen(), false);
+    CHECK_EQ(curField[4]->GetHealth(), 2);
+    CHECK_EQ(curField[4]->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card3));
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->IsFrozen(), false);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->IsFrozen(), true);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->IsFrozen(), true);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->IsFrozen(), true);
+    CHECK_EQ(curField[4]->GetHealth(), 2);
+    CHECK_EQ(curField[4]->IsFrozen(), false);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [VAN_EX1_287] Counterspell - COST:3
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When your opponent casts a spell,
+//       <b>Counter</b> it.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+// RefTag:
+// - COUNTER = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_EX1_287 : Counterspell")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Counterspell", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fireball", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Lightning Bolt", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Lightning Bolt", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curSecret->GetCount(), 1);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(opPlayer->GetOverloadOwed(), 0);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
@@ -4082,6 +4690,62 @@ TEST_CASE("[Priest : Spell] - VAN_EX1_332 : Silence")
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
     CHECK_EQ(opField[0]->GetSpellPower(), 0);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [VAN_EX1_238] Lightning Bolt - COST:1
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage. <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 1
+// - OVERLOAD_OWED = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - VAN_EX1_238 : Lightning Bolt")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Lightning Bolt", FormatType::CLASSIC));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
 // ---------------------------------------- SPELL - WARLOCK

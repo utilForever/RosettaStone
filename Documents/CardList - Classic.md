@@ -25,13 +25,13 @@ VANILLA | VAN_CS2_022 | Polymorph | O
 VANILLA | VAN_CS2_023 | Arcane Intellect | O
 VANILLA | VAN_CS2_024 | Frostbolt | O
 VANILLA | VAN_CS2_025 | Arcane Explosion | O
-VANILLA | VAN_CS2_026 | Frost Nova |  
-VANILLA | VAN_CS2_027 | Mirror Image |  
-VANILLA | VAN_CS2_028 | Blizzard |  
+VANILLA | VAN_CS2_026 | Frost Nova | O
+VANILLA | VAN_CS2_027 | Mirror Image | O
+VANILLA | VAN_CS2_028 | Blizzard | O
 VANILLA | VAN_CS2_029 | Fireball | O
-VANILLA | VAN_CS2_031 | Ice Lance |  
-VANILLA | VAN_CS2_032 | Flamestrike |  
-VANILLA | VAN_CS2_033 | Water Elemental |  
+VANILLA | VAN_CS2_031 | Ice Lance | O
+VANILLA | VAN_CS2_032 | Flamestrike | O
+VANILLA | VAN_CS2_033 | Water Elemental | O
 VANILLA | VAN_CS2_037 | Frost Shock |  
 VANILLA | VAN_CS2_038 | Ancestral Spirit |  
 VANILLA | VAN_CS2_039 | Windfury |  
@@ -223,14 +223,14 @@ VANILLA | VAN_EX1_250 | Earth Elemental |
 VANILLA | VAN_EX1_251 | Forked Lightning |  
 VANILLA | VAN_EX1_258 | Unbound Elemental |  
 VANILLA | VAN_EX1_259 | Lightning Storm |  
-VANILLA | VAN_EX1_274 | Ethereal Arcanist |  
-VANILLA | VAN_EX1_275 | Cone of Cold |  
+VANILLA | VAN_EX1_274 | Ethereal Arcanist | O
+VANILLA | VAN_EX1_275 | Cone of Cold | O
 VANILLA | VAN_EX1_277 | Arcane Missiles |  
 VANILLA | VAN_EX1_278 | Shiv |  
 VANILLA | VAN_EX1_279 | Pyroblast |  
-VANILLA | VAN_EX1_283 | Frost Elemental |  
+VANILLA | VAN_EX1_283 | Frost Elemental | O
 VANILLA | VAN_EX1_284 | Azure Drake |  
-VANILLA | VAN_EX1_287 | Counterspell |  
+VANILLA | VAN_EX1_287 | Counterspell | O
 VANILLA | VAN_EX1_289 | Ice Barrier |  
 VANILLA | VAN_EX1_294 | Mirror Entity |  
 VANILLA | VAN_EX1_295 | Ice Block |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender |  
 
-- Progress: 15% (58 of 382 Cards)
+- Progress: 17% (68 of 382 Cards)

@@ -1841,6 +1841,10 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+    cards.emplace("VAN_CS2_026", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_027] Mirror Image - COST:1
@@ -1848,20 +1852,33 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 0/2 minions with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("VAN_CS2_mirror", 2));
+    cards.emplace(
+        "VAN_CS2_027",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_028] Blizzard - COST:6
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 2 damage to all enemy minions
-    //       and <b>Freeze</b> them.
+    // Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+    cards.emplace("VAN_CS2_028", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_029] Fireball - COST:4
@@ -1884,12 +1901,27 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Freeze</b> a character.
-    //       If it was already <b>Frozen</b>,
-    //       deal 4 damage instead.
+    //       If it was already <b>Frozen</b>, deal 4 damage instead.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFrozen()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SetGameTagTask>(
+                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+    cards.emplace(
+        "VAN_CS2_031",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_032] Flamestrike - COST:7
@@ -1897,6 +1929,10 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 4 damage to all enemy minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 4, true));
+    cards.emplace("VAN_CS2_032", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
@@ -1907,6 +1943,9 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_033", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
@@ -1921,6 +1960,14 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsControllingSecret())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_274e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_274", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_275] Cone of Cold - COST:4
@@ -1932,6 +1979,21 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::TARGET, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
+                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 1, true));
+    cards.emplace(
+        "VAN_EX1_275",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_277] Arcane Missiles - COST:1
@@ -1964,6 +2026,14 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - COUNTER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<SetGameTagTask>(
+            EntityType::TARGET, GameTag::CANT_PLAY, 1) });
+    power.GetTrigger()->fastExecution = true;
+    cards.emplace("VAN_EX1_287", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_289] Ice Barrier - COST:3
@@ -2072,6 +2142,8 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [VAN_CS2_mirror] Mirror Image - COST:0 [ATK:0/HP:2]
     // - Set: VANILLA, Rarity: Common
@@ -2081,6 +2153,9 @@ void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_mirror", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_tt_010a] Spellbender - COST:0 [ATK:1/HP:3]
@@ -2833,6 +2908,8 @@ void VanillaCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_037] Frost Shock - COST:1
     // - Set: VANILLA, Rarity: Free
@@ -2915,7 +2992,17 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cards.emplace(
+        "VAN_EX1_238",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_241] Lava Burst - COST:3
