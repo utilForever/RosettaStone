@@ -4067,6 +4067,76 @@ TEST_CASE("[Mage : Spell] - VAN_CS2_027 : Mirror Image")
 }
 
 // ------------------------------------------- SPELL - MAGE
+// [VAN_CS2_028] Blizzard - COST:6
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
+// --------------------------------------------------------
+// GameTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_CS2_028 : Blizzard")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blizzard", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->IsFrozen(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opField[0]->IsFrozen(), false);
+}
+
+// ------------------------------------------- SPELL - MAGE
 // [VAN_CS2_029] Fireball - COST:4
 // - Set: VANILLA, Rarity: Free
 // --------------------------------------------------------

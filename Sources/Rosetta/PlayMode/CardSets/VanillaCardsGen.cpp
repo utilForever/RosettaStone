@@ -1868,12 +1868,17 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_028] Blizzard - COST:6
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 2 damage to all enemy minions
-    //       and <b>Freeze</b> them.
+    // Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+    cards.emplace("VAN_CS2_028", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_029] Fireball - COST:4
