@@ -2011,6 +2011,14 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - COUNTER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<SetGameTagTask>(
+            EntityType::TARGET, GameTag::CANT_PLAY, 1) });
+    power.GetTrigger()->fastExecution = true;
+    cards.emplace("VAN_EX1_287", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_289] Ice Barrier - COST:3
