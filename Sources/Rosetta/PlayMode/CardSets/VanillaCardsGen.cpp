@@ -1841,6 +1841,10 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+    cards.emplace("VAN_CS2_026", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_CS2_027] Mirror Image - COST:1
