@@ -1960,6 +1960,14 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsControllingSecret())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_274e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_274", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_275] Cone of Cold - COST:4
