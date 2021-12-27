@@ -2196,6 +2196,10 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_612o", EntityType::PLAYER));
+    cards.emplace("VAN_EX1_612", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:3]
