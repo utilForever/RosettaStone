@@ -2825,6 +2825,7 @@ TEST_CASE("[Mage : Spell] - EX1_295 : Ice Block")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Mage : Minion] - EX1_559 : Archmage Antonidas")
 {
