@@ -26,6 +26,7 @@ using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -2172,6 +2173,15 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("VAN_EX1_608", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3]
