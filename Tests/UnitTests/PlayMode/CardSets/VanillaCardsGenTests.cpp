@@ -5311,6 +5311,60 @@ TEST_CASE("[Mage : Minion] - VAN_NEW1_012 : Mana Wyrm")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 18);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [VAN_tt_010] Spellbender - COST:3
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When an enemy casts a spell on a minion,
+//       summon a 1/3 as the new target.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_tt_010 : Spellbender")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Spellbender", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Fireball", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 1);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common

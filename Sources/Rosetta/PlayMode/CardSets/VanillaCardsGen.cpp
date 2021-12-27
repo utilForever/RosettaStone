@@ -2227,6 +2227,35 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpellTargetingMinion())
+    };
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::SOURCE,
+            SelfCondList{
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsFieldNotFull()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsTagValue(GameTag::CANT_PLAY, 0)) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(TaskList{
+                      std::make_shared<SummonTask>("VAN_tt_010a", SummonSide::SPELL,
+                                                   true),
+                      std::make_shared<IncludeTask>(
+                          EntityType::SOURCE, std::vector<EntityType>(), true),
+                      std::make_shared<IncludeTask>(
+                          EntityType::TARGET, std::vector<EntityType>(), true),
+                      std::make_shared<FuncPlayableTask>(
+                          [=](const std::vector<Playable*>& playables) {
+                              playables[2]->SetCardTarget(
+                                  playables[0]->GetGameTag(GameTag::ENTITY_ID));
+                              return playables;
+                          }) }))
+    };
+    cards.emplace("VAN_tt_010", CardDef(power));
 }
 
 void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
@@ -2250,6 +2279,9 @@ void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // [VAN_tt_010a] Spellbender - COST:0 [ATK:1/HP:3]
     // - Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_tt_010a", CardDef(power));
 }
 
 void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
