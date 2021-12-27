@@ -3815,6 +3815,8 @@ void VanillaCardsGen::AddDemonHunterNonCollect(
 
 void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
     // - Faction: Alliance, Set: VANILLA, Rarity: Free
@@ -4069,6 +4071,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::SOURCE, 4, false));
+    cards.emplace("VAN_CS2_181", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
