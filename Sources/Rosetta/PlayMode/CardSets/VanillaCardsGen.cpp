@@ -2210,6 +2210,12 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "NEW1_012o", EntityType::SOURCE) };
+    cards.emplace("VAN_NEW1_012", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_tt_010] Spellbender - COST:3
