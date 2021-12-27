@@ -2062,6 +2062,14 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<ArmorTask>(8) });
+    cards.emplace("VAN_EX1_289", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_294] Mirror Entity - COST:3

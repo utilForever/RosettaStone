@@ -4779,6 +4779,58 @@ TEST_CASE("[Mage : Spell] - VAN_EX1_287 : Counterspell")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [VAN_EX1_289] Ice Barrier - COST:3
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> As soon as your hero is attacked,
+//       gain 8 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_EX1_289 : Ice Barrier")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ice Barrier", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Fiery War Axe", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card2));
+    game.Process(opPlayer,
+                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
