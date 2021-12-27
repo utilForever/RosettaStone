@@ -4560,6 +4560,70 @@ TEST_CASE("[Mage : Spell] - VAN_EX1_275 : Cone of Cold")
 }
 
 // ------------------------------------------- SPELL - MAGE
+// [VAN_EX1_277] Arcane Missiles - COST:1
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Deal 3 damage randomly split among all enemy characters.
+// --------------------------------------------------------
+// GameTag:
+// - ImmuneToSpellpower = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - VAN_EX1_277 : Arcane Missiles")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Arcane Missiles", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Arcane Missiles", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    int totalHealth = opPlayer->GetHero()->GetHealth();
+    totalHealth += opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 37);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    totalHealth = opPlayer->GetHero()->GetHealth();
+    totalHealth += opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 34);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    totalHealth = opPlayer->GetHero()->GetHealth();
+    totalHealth += opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 31);
+}
+
+// ------------------------------------------- SPELL - MAGE
 // [VAN_EX1_287] Counterspell - COST:3
 // - Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------

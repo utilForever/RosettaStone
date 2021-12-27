@@ -1999,12 +1999,20 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_277] Arcane Missiles - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 3 damage randomly split
-    //       among all enemy characters.
+    // Text: Deal 3 damage randomly split among all enemy characters.
     // --------------------------------------------------------
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        3, true));
+    cards.emplace("VAN_EX1_277", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_279] Pyroblast - COST:10
