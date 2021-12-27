@@ -95,7 +95,7 @@ VANILLA | VAN_CS2_171 | Stonetusk Boar |
 VANILLA | VAN_CS2_172 | Bloodfen Raptor |  
 VANILLA | VAN_CS2_173 | Bluegill Warrior |  
 VANILLA | VAN_CS2_179 | Sen'jin Shieldmasta |  
-VANILLA | VAN_CS2_181 | Injured Blademaster |  
+VANILLA | VAN_CS2_181 | Injured Blademaster | O
 VANILLA | VAN_CS2_182 | Chillwind Yeti |  
 VANILLA | VAN_CS2_186 | War Golem |  
 VANILLA | VAN_CS2_187 | Booty Bay Bodyguard |  
@@ -210,7 +210,7 @@ VANILLA | VAN_EX1_169 | Innervate | O
 VANILLA | VAN_EX1_170 | Emperor Cobra |  
 VANILLA | VAN_EX1_173 | Starfire | O
 VANILLA | VAN_EX1_178 | Ancient of War | O
-VANILLA | VAN_EX1_238 | Lightning Bolt |  
+VANILLA | VAN_EX1_238 | Lightning Bolt | O
 VANILLA | VAN_EX1_241 | Lava Burst |  
 VANILLA | VAN_EX1_243 | Dust Devil |  
 VANILLA | VAN_EX1_244 | Totemic Might |  
@@ -225,15 +225,15 @@ VANILLA | VAN_EX1_258 | Unbound Elemental |
 VANILLA | VAN_EX1_259 | Lightning Storm |  
 VANILLA | VAN_EX1_274 | Ethereal Arcanist | O
 VANILLA | VAN_EX1_275 | Cone of Cold | O
-VANILLA | VAN_EX1_277 | Arcane Missiles |  
+VANILLA | VAN_EX1_277 | Arcane Missiles | O
 VANILLA | VAN_EX1_278 | Shiv |  
-VANILLA | VAN_EX1_279 | Pyroblast |  
-VANILLA | VAN_EX1_283 | Frost Elemental | O
+VANILLA | VAN_EX1_279 | Pyroblast | O
+VANILLA | VAN_EX1_283 | Frost Elemental |  
 VANILLA | VAN_EX1_284 | Azure Drake |  
 VANILLA | VAN_EX1_287 | Counterspell | O
-VANILLA | VAN_EX1_289 | Ice Barrier |  
-VANILLA | VAN_EX1_294 | Mirror Entity |  
-VANILLA | VAN_EX1_295 | Ice Block |  
+VANILLA | VAN_EX1_289 | Ice Barrier | O
+VANILLA | VAN_EX1_294 | Mirror Entity | O
+VANILLA | VAN_EX1_295 | Ice Block | O
 VANILLA | VAN_EX1_298 | Ragnaros the Firelord |  
 VANILLA | VAN_EX1_301 | Felguard |  
 VANILLA | VAN_EX1_302 | Mortal Coil |  
@@ -307,7 +307,7 @@ VANILLA | VAN_EX1_554 | Snake Trap | O
 VANILLA | VAN_EX1_556 | Harvest Golem |  
 VANILLA | VAN_EX1_557 | Nat Pagle |  
 VANILLA | VAN_EX1_558 | Harrison Jones |  
-VANILLA | VAN_EX1_559 | Archmage Antonidas |  
+VANILLA | VAN_EX1_559 | Archmage Antonidas | O
 VANILLA | VAN_EX1_560 | Nozdormu |  
 VANILLA | VAN_EX1_561 | Alexstrasza |  
 VANILLA | VAN_EX1_562 | Onyxia |  
@@ -331,7 +331,7 @@ VANILLA | VAN_EX1_587 | Windspeaker |
 VANILLA | VAN_EX1_590 | Blood Knight |  
 VANILLA | VAN_EX1_591 | Auchenai Soulpriest |  
 VANILLA | VAN_EX1_593 | Nightblade |  
-VANILLA | VAN_EX1_594 | Vaporize |  
+VANILLA | VAN_EX1_594 | Vaporize | O
 VANILLA | VAN_EX1_595 | Cult Master |  
 VANILLA | VAN_EX1_596 | Demonfire |  
 VANILLA | VAN_EX1_597 | Imp Master |  
@@ -339,11 +339,11 @@ VANILLA | VAN_EX1_603 | Cruel Taskmaster |
 VANILLA | VAN_EX1_604 | Frothing Berserker |  
 VANILLA | VAN_EX1_606 | Shield Block |  
 VANILLA | VAN_EX1_607 | Inner Rage |  
-VANILLA | VAN_EX1_608 | Sorcerer's Apprentice |  
+VANILLA | VAN_EX1_608 | Sorcerer's Apprentice | O
 VANILLA | VAN_EX1_609 | Snipe | O
 VANILLA | VAN_EX1_610 | Explosive Trap | O
 VANILLA | VAN_EX1_611 | Freezing Trap | O
-VANILLA | VAN_EX1_612 | Kirin Tor Mage |  
+VANILLA | VAN_EX1_612 | Kirin Tor Mage | O
 VANILLA | VAN_EX1_613 | Edwin VanCleef |  
 VANILLA | VAN_EX1_614 | Illidan Stormrage |  
 VANILLA | VAN_EX1_616 | Mana Wraith |  
@@ -363,7 +363,7 @@ VANILLA | VAN_NEW1_007 | Starfall | O
 VANILLA | VAN_NEW1_008 | Ancient of Lore | O
 VANILLA | VAN_NEW1_010 | Al'Akir the Windlord |  
 VANILLA | VAN_NEW1_011 | Kor'kron Elite |  
-VANILLA | VAN_NEW1_012 | Mana Wyrm |  
+VANILLA | VAN_NEW1_012 | Mana Wyrm | O
 VANILLA | VAN_NEW1_014 | Master of Disguise |  
 VANILLA | VAN_NEW1_016 | Captain's Parrot |  
 VANILLA | VAN_NEW1_017 | Hungry Crab |  
@@ -387,6 +387,6 @@ VANILLA | VAN_NEW1_040 | Hogger |
 VANILLA | VAN_NEW1_041 | Stampeding Kodo |  
 VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |  
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
-VANILLA | VAN_tt_010 | Spellbender |  
+VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 17% (68 of 382 Cards)
+- Progress: 20% (80 of 382 Cards)
