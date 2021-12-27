@@ -2113,6 +2113,16 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsHeroFatalPreDamaged())
+    };
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<AddEnchantmentTask>("EX1_295o", EntityType::HERO) });
+    cards.emplace("VAN_EX1_295", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
