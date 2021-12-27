@@ -1544,7 +1544,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Fire
     // --------------------------------------------------------
-    // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
+    // Text: <b>Secret:</b> When a minion attacks your hero,
+    //       destroy it.
     // --------------------------------------------------------
     // GameTag:
     // - SECRET = 1
