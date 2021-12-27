@@ -1710,6 +1710,14 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
     cards.emplace("NEW1_012o", CardDef(power));
+
+    // ------------------------------------------ MINION - MAGE
+    // [tt_010a] Spellbender - COST:0 [ATK:1/HP:3]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("tt_010a", CardDef(power));
 }
 
 void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
