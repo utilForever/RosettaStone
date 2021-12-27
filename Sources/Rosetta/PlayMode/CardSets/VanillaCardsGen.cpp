@@ -2135,6 +2135,12 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddCardTask>(
+        EntityType::HAND, "VAN_CS2_029") };
+    cards.emplace("VAN_EX1_559", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_594] Vaporize - COST:3
