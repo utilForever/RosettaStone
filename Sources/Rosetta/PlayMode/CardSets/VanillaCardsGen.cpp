@@ -2152,6 +2152,16 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) });
+    cards.emplace("VAN_EX1_594", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
