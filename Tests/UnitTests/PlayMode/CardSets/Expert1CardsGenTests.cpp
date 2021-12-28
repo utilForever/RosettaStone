@@ -2825,6 +2825,7 @@ TEST_CASE("[Mage : Spell] - EX1_295 : Ice Block")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Mage : Minion] - EX1_559 : Archmage Antonidas")
 {
@@ -2877,7 +2878,8 @@ TEST_CASE("[Mage : Minion] - EX1_559 : Archmage Antonidas")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Fire
 // --------------------------------------------------------
-// Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
+// Text: <b>Secret:</b> When a minion attacks your hero,
+//       destroy it.
 // --------------------------------------------------------
 // GameTag:
 // - SECRET = 1

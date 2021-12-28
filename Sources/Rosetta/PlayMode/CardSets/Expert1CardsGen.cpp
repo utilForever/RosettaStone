@@ -1530,6 +1530,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
@@ -1543,7 +1544,8 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Fire
     // --------------------------------------------------------
-    // Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
+    // Text: <b>Secret:</b> When a minion attacks your hero,
+    //       destroy it.
     // --------------------------------------------------------
     // GameTag:
     // - SECRET = 1
@@ -1708,6 +1710,14 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
     cards.emplace("NEW1_012o", CardDef(power));
+
+    // ------------------------------------------ MINION - MAGE
+    // [tt_010a] Spellbender - COST:0 [ATK:1/HP:3]
+    // - Set: Expert1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("tt_010a", CardDef(power));
 }
 
 void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)

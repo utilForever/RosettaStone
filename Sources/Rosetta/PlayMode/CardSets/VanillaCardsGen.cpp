@@ -26,6 +26,7 @@ using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -1999,12 +2000,20 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_277] Arcane Missiles - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 3 damage randomly split
-    //       among all enemy characters.
+    // Text: Deal 3 damage randomly split among all enemy characters.
     // --------------------------------------------------------
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        3, true));
+    cards.emplace("VAN_EX1_277", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_279] Pyroblast - COST:10
@@ -2012,6 +2021,15 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 10 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 10, true));
+    cards.emplace(
+        "VAN_EX1_279",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_287] Counterspell - COST:3
@@ -2045,6 +2063,14 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
+    power.GetTrigger()->tasks =
+        ComplexTask::ActivateSecret(TaskList{ std::make_shared<ArmorTask>(8) });
+    cards.emplace("VAN_EX1_289", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_294] Mirror Entity - COST:3
@@ -2056,6 +2082,24 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::EVENT_SOURCE,
+            SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsNotUntouchable()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsOpFieldNotFull()) }),
+        std::make_shared<FlagTask>(
+            true,
+            ComplexTask::ActivateSecret(TaskList{
+                std::make_shared<SummonCopyTask>(EntityType::EVENT_SOURCE) }))
+    };
+    cards.emplace("VAN_EX1_294", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_295] Ice Block - COST:3
@@ -2070,6 +2114,16 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsHeroFatalPreDamaged())
+    };
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<AddEnchantmentTask>("EX1_295o", EntityType::HERO) });
+    cards.emplace("VAN_EX1_295", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
@@ -2082,6 +2136,12 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddCardTask>(
+        EntityType::HAND, "VAN_CS2_029") };
+    cards.emplace("VAN_EX1_559", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_EX1_594] Vaporize - COST:3
@@ -2093,6 +2153,16 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::HERO)) };
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) });
+    cards.emplace("VAN_EX1_594", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
@@ -2103,6 +2173,15 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("VAN_EX1_608", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3]
@@ -2117,6 +2196,10 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_612o", EntityType::PLAYER));
+    cards.emplace("VAN_EX1_612", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
     // [VAN_NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:3]
@@ -2127,6 +2210,12 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "NEW1_012o", EntityType::SOURCE) };
+    cards.emplace("VAN_NEW1_012", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [VAN_tt_010] Spellbender - COST:3
@@ -2138,6 +2227,35 @@ void VanillaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSpellTargetingMinion())
+    };
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::SOURCE,
+            SelfCondList{
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsFieldNotFull()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsTagValue(GameTag::CANT_PLAY, 0)) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(TaskList{
+                      std::make_shared<SummonTask>("VAN_tt_010a", SummonSide::SPELL,
+                                                   true),
+                      std::make_shared<IncludeTask>(
+                          EntityType::SOURCE, std::vector<EntityType>(), true),
+                      std::make_shared<IncludeTask>(
+                          EntityType::TARGET, std::vector<EntityType>(), true),
+                      std::make_shared<FuncPlayableTask>(
+                          [=](const std::vector<Playable*>& playables) {
+                              playables[2]->SetCardTarget(
+                                  playables[0]->GetGameTag(GameTag::ENTITY_ID));
+                              return playables;
+                          }) }))
+    };
+    cards.emplace("VAN_tt_010", CardDef(power));
 }
 
 void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
@@ -2161,6 +2279,9 @@ void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // [VAN_tt_010a] Spellbender - COST:0 [ATK:1/HP:3]
     // - Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_tt_010a", CardDef(power));
 }
 
 void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
@@ -3772,6 +3893,8 @@ void VanillaCardsGen::AddDemonHunterNonCollect(
 
 void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS1_042] Goldshire Footman - COST:1 [ATK:1/HP:2]
     // - Faction: Alliance, Set: VANILLA, Rarity: Free
@@ -4026,6 +4149,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::SOURCE, 4, false));
+    cards.emplace("VAN_CS2_181", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
