@@ -5488,6 +5488,18 @@ TEST_CASE("[Paladin : Spell] - VAN_CS2_089 : Holy Light")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 21);
 }
 
+// --------------------------------------- WEAPON - PALADIN
+// [VAN_CS2_091] Light's Justice - COST:1 [ATK:1/HP:0]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 4
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Weapon] - VAN_CS2_091 : Light's Justice")
+{
+    // Do nothing
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common

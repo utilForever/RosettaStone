@@ -2330,9 +2330,15 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("VAN_CS2_089", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [VAN_CS2_091] Light's Justice - COST:1
+    // [VAN_CS2_091] Light's Justice - COST:1 [ATK:1/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 4
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_091", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_CS2_092] Blessing of Kings - COST:4
