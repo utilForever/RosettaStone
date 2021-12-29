@@ -2286,22 +2286,38 @@ void VanillaCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_CS2_087] Blessing of Might - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: Give a minion +3 Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_087e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_087",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [VAN_CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore #6 Health to your hero.
+    // Text: <b>Battlecry:</b> Restore 6 Health to your hero.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
+    cards.emplace("VAN_CS2_088", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_CS2_089] Holy Light - COST:2
@@ -2309,11 +2325,20 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 6 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
+    cards.emplace("VAN_CS2_089", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [VAN_CS2_091] Light's Justice - COST:1
+    // [VAN_CS2_091] Light's Justice - COST:1 [ATK:1/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 4
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_091", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_CS2_092] Blessing of Kings - COST:4
@@ -2321,6 +2346,17 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion +4/+4. <i>(+4 Attack/+4 Health)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_092e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_092",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_CS2_093] Consecration - COST:4
@@ -2328,6 +2364,10 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemies.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
+    cards.emplace("VAN_CS2_093", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_CS2_094] Hammer of Wrath - COST:4
@@ -2335,16 +2375,33 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage. Draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace(
+        "VAN_CS2_094",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [VAN_CS2_097] Truesilver Champion - COST:4
+    // [VAN_CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever your hero attacks, restore 2 Health to it.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(EntityType::HERO,
+                                                             2) };
+    cards.emplace("VAN_CS2_097", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_130] Noble Sacrifice - COST:1
@@ -2356,6 +2413,14 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<SummonTask>("VAN_EX1_130a", SummonSide::SPELL, true),
+        std::make_shared<ChangeAttackingTargetTask>(EntityType::TARGET,
+                                                    EntityType::STACK) });
+    cards.emplace("VAN_EX1_130", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_132] Eye for an Eye - COST:1
@@ -2367,6 +2432,13 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<GetEventNumberTask>(),
+        std::make_shared<DamageNumberTask>(EntityType::ENEMY_HERO, true) });
+    cards.emplace("VAN_EX1_132", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_136] Redemption - COST:1
@@ -2378,6 +2450,24 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
+        std::make_shared<FuncPlayableTask>(
+            [=](const std::vector<Playable*>& playables) {
+                auto target = dynamic_cast<Minion*>(playables[0]);
+                if (target == nullptr)
+                {
+                    return std::vector<Playable*>{};
+                }
+
+                target->SetDamage(target->GetHealth() - 1);
+                return std::vector<Playable*>{ target };
+            }) });
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("VAN_EX1_136", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_349] Divine Favor - COST:3
@@ -2531,6 +2621,9 @@ void VanillaCardsGen::AddPaladinNonCollect(
     // [VAN_EX1_130a] Defender - COST:1 [ATK:2/HP:1]
     // - Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_130a", CardDef(power));
 }
 
 void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
@@ -3629,6 +3722,8 @@ void VanillaCardsGen::AddWarlockNonCollect(
 
 void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_CS2_103] Charge - COST:3
     // - Set: VANILLA, Rarity: Free
@@ -3749,6 +3844,22 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 4 damage.
     //       If you have 12 or less Health, deal 6 instead.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
+    cards.emplace(
+        "VAN_EX1_408",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_409] Upgrade! - COST:1
