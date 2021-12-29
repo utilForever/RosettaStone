@@ -2450,6 +2450,24 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
+        std::make_shared<FuncPlayableTask>(
+            [=](const std::vector<Playable*>& playables) {
+                auto target = dynamic_cast<Minion*>(playables[0]);
+                if (target == nullptr)
+                {
+                    return std::vector<Playable*>{};
+                }
+
+                target->SetDamage(target->GetHealth() - 1);
+                return std::vector<Playable*>{ target };
+            }) });
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("VAN_EX1_136", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_349] Divine Favor - COST:3
