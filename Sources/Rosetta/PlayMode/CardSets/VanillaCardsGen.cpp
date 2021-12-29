@@ -2325,6 +2325,9 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 6 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
+    cards.emplace("VAN_CS2_089", CardDef(power));
 
     // --------------------------------------- WEAPON - PALADIN
     // [VAN_CS2_091] Light's Justice - COST:1
