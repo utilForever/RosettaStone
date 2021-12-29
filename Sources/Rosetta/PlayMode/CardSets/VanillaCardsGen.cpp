@@ -2413,6 +2413,14 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<SummonTask>("VAN_EX1_130a", SummonSide::SPELL, true),
+        std::make_shared<ChangeAttackingTargetTask>(EntityType::TARGET,
+                                                    EntityType::STACK) });
+    cards.emplace("VAN_EX1_130", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_132] Eye for an Eye - COST:1
@@ -2588,6 +2596,9 @@ void VanillaCardsGen::AddPaladinNonCollect(
     // [VAN_EX1_130a] Defender - COST:1 [ATK:2/HP:1]
     // - Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_130a", CardDef(power));
 }
 
 void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
