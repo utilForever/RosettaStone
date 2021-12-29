@@ -2364,6 +2364,10 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemies.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
+    cards.emplace("VAN_CS2_093", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_CS2_094] Hammer of Wrath - COST:4
