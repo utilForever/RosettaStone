@@ -3704,6 +3704,8 @@ void VanillaCardsGen::AddWarlockNonCollect(
 
 void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_CS2_103] Charge - COST:3
     // - Set: VANILLA, Rarity: Free
@@ -3824,6 +3826,22 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 4 damage.
     //       If you have 12 or less Health, deal 6 instead.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6, true) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
+    cards.emplace(
+        "VAN_EX1_408",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_409] Upgrade! - COST:1
