@@ -2310,11 +2310,14 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore #6 Health to your hero.
+    // Text: <b>Battlecry:</b> Restore 6 Health to your hero.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
+    cards.emplace("VAN_CS2_088", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_CS2_089] Holy Light - COST:2
