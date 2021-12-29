@@ -2432,6 +2432,13 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<GetEventNumberTask>(),
+        std::make_shared<DamageNumberTask>(EntityType::ENEMY_HERO, true) });
+    cards.emplace("VAN_EX1_132", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_136] Redemption - COST:1
