@@ -5655,6 +5655,54 @@ TEST_CASE("[Paladin : Spell] - VAN_CS2_094 : Hammer of Wrath")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
 
+// --------------------------------------- WEAPON - PALADIN
+// [VAN_CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Whenever your hero attacks, restore 2 Health to it.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Weapon] - VAN_CS2_097 : Truesilver Champion")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(4);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Truesilver Champion", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 1);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common

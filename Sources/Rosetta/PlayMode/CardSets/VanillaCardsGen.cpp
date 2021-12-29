@@ -2387,14 +2387,21 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [VAN_CS2_097] Truesilver Champion - COST:4
+    // [VAN_CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever your hero attacks, restore 2 Health to it.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<HealTask>(EntityType::HERO,
+                                                             2) };
+    cards.emplace("VAN_CS2_097", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_130] Noble Sacrifice - COST:1
