@@ -55,14 +55,14 @@ VANILLA | VAN_CS2_076 | Assassinate |
 VANILLA | VAN_CS2_077 | Sprint |  
 VANILLA | VAN_CS2_080 | Assassin's Blade |  
 VANILLA | VAN_CS2_084 | Hunter's Mark | O
-VANILLA | VAN_CS2_087 | Blessing of Might |  
-VANILLA | VAN_CS2_088 | Guardian of Kings |  
-VANILLA | VAN_CS2_089 | Holy Light |  
-VANILLA | VAN_CS2_091 | Light's Justice |  
-VANILLA | VAN_CS2_092 | Blessing of Kings |  
-VANILLA | VAN_CS2_093 | Consecration |  
-VANILLA | VAN_CS2_094 | Hammer of Wrath |  
-VANILLA | VAN_CS2_097 | Truesilver Champion |  
+VANILLA | VAN_CS2_087 | Blessing of Might | O
+VANILLA | VAN_CS2_088 | Guardian of Kings | O
+VANILLA | VAN_CS2_089 | Holy Light | O
+VANILLA | VAN_CS2_091 | Light's Justice | O
+VANILLA | VAN_CS2_092 | Blessing of Kings | O
+VANILLA | VAN_CS2_093 | Consecration | O
+VANILLA | VAN_CS2_094 | Hammer of Wrath | O
+VANILLA | VAN_CS2_097 | Truesilver Champion | O
 VANILLA | VAN_CS2_103 | Charge |  
 VANILLA | VAN_CS2_104 | Rampage |  
 VANILLA | VAN_CS2_105 | Heroic Strike |  
@@ -188,12 +188,12 @@ VANILLA | VAN_EX1_124 | Eviscerate |
 VANILLA | VAN_EX1_126 | Betrayal |  
 VANILLA | VAN_EX1_128 | Conceal |  
 VANILLA | VAN_EX1_129 | Fan of Knives |  
-VANILLA | VAN_EX1_130 | Noble Sacrifice |  
+VANILLA | VAN_EX1_130 | Noble Sacrifice | O
 VANILLA | VAN_EX1_131 | Defias Ringleader |  
-VANILLA | VAN_EX1_132 | Eye for an Eye |  
+VANILLA | VAN_EX1_132 | Eye for an Eye | O
 VANILLA | VAN_EX1_133 | Perdition's Blade |  
 VANILLA | VAN_EX1_134 | SI:7 Agent |  
-VANILLA | VAN_EX1_136 | Redemption |  
+VANILLA | VAN_EX1_136 | Redemption | O
 VANILLA | VAN_EX1_137 | Headcrack |  
 VANILLA | VAN_EX1_144 | Shadowstep |  
 VANILLA | VAN_EX1_145 | Preparation |  
@@ -282,7 +282,7 @@ VANILLA | VAN_EX1_400 | Whirlwind |
 VANILLA | VAN_EX1_402 | Armorsmith |  
 VANILLA | VAN_EX1_405 | Shieldbearer |  
 VANILLA | VAN_EX1_407 | Brawl |  
-VANILLA | VAN_EX1_408 | Mortal Strike |  
+VANILLA | VAN_EX1_408 | Mortal Strike | O
 VANILLA | VAN_EX1_409 | Upgrade! |  
 VANILLA | VAN_EX1_410 | Shield Slam |  
 VANILLA | VAN_EX1_411 | Gorehowl |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 20% (80 of 382 Cards)
+- Progress: 24% (92 of 382 Cards)
