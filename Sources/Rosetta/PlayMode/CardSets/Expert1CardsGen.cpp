@@ -3894,7 +3894,8 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [EX1_408] Mortal Strike - COST:4
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 4 damage. If you have 12 or less Health, deal 6 instead.
+    // Text: Deal 4 damage.
+    //       If you have 12 or less Health, deal 6 instead.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
