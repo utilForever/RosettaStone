@@ -1936,11 +1936,12 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
-    // Text: After you summon a minion, give it +1/+1 and
-    //       this loses 1 Durability.
+    // Text: After you summon a minion,
+    //       give it +1/+1 and this loses 1 Durability.
     // --------------------------------------------------------
     // GameTag:
     // - DURABILITY = 5
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));

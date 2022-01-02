@@ -3730,11 +3730,12 @@ TEST_CASE("[Paladin : Spell] - EX1_365 : Holy Wrath")
 // [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: After you summon a minion, give it +1/+1 and
-//       this loses 1 Durability.
+// Text: After you summon a minion,
+//       give it +1/+1 and this loses 1 Durability.
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 5
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Paladin : Weapon] - EX1_366 : Sword of Justice")
 {

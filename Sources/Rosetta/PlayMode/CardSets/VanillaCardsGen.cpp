@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
@@ -2476,13 +2477,31 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Draw cards until you have as many in hand
     //       as your opponent.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        const int diffHands =
+            playable->player->opponent->GetHandZone()->GetCount() -
+            playable->player->GetHandZone()->GetCount();
+        return diffHands > 0 ? diffHands : 0;
+    }));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace("VAN_EX1_349", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_354] Lay on Hands - COST:8
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Restore #8 Health. Draw 3 cards.
+    // Text: Restore 8 Health. Draw 3 cards.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
+    power.AddPowerTask(std::make_shared<DrawTask>(3));
+    cards.emplace(
+        "VAN_EX1_354",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_355] Blessed Champion - COST:5
@@ -2490,6 +2509,17 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Double a minion's Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_355e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_355",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_360] Humility - COST:1
@@ -2497,6 +2527,17 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Change a minion's Attack to 1.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_360e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_360",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [VAN_EX1_362] Argent Protector - COST:2 [ATK:2/HP:2]
@@ -2508,9 +2549,24 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace(
+        "VAN_EX1_362",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_363] Blessing of Wisdom - COST:1
@@ -2518,6 +2574,17 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Choose a minion. Whenever it attacks, draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_363e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_363",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_365] Holy Wrath - COST:5
@@ -2528,17 +2595,37 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::STACK, GameTag::COST));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
+    cards.emplace(
+        "VAN_EX1_365",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [VAN_EX1_366] Sword of Justice - COST:3
+    // [VAN_EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
     // Text: After you summon a minion,
     //       give it +1/+1 and this loses 1 Durability.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 5
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+                                      "EX1_366e", EntityType::TARGET),
+                                  std::make_shared<DamageWeaponTask>(false) };
+    cards.emplace("VAN_EX1_366", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_371] Hand of Protection - COST:1
@@ -2546,9 +2633,20 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion <b>Divine Shield</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace(
+        "VAN_EX1_371",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_379] Repentance - COST:1
@@ -2560,6 +2658,21 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::EVENT_SOURCE,
+            SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsNotUntouchable()) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(
+                      TaskList{ std::make_shared<AddEnchantmentTask>(
+                          "EX1_379e", EntityType::EVENT_SOURCE) }))
+    };
+    cards.emplace("VAN_EX1_379", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [VAN_EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
@@ -2570,6 +2683,19 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_382e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_382",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - PALADIN
     // [VAN_EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
@@ -2584,6 +2710,9 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("EX1_383t"));
+    cards.emplace("VAN_EX1_383", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_384] Avenging Wrath - COST:6
@@ -2595,6 +2724,12 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        8, true));
+    cards.emplace("VAN_EX1_384", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_619] Equality - COST:2
@@ -2602,6 +2737,10 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Change the Health of all minions to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_619e", EntityType::ALL_MINIONS));
+    cards.emplace("VAN_EX1_619", CardDef(power));
 }
 
 void VanillaCardsGen::AddPaladinNonCollect(
