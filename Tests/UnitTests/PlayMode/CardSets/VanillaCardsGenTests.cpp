@@ -6205,6 +6205,54 @@ TEST_CASE("[Paladin : Spell] - VAN_EX1_363 : Blessing of Wisdom")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [VAN_EX1_365] Holy Wrath - COST:5
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw a card and deal damage equal to its Cost.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - VAN_EX1_365 : Holy Wrath")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Holy Wrath", FormatType::CLASSIC));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    Entity* drawnCard = curHand[curHand.GetCount() - 1];
+    const int cardCost = drawnCard->card->gameTags[GameTag::COST];
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30 - cardCost);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
