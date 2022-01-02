@@ -2549,9 +2549,24 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace(
+        "VAN_EX1_362",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_363] Blessing of Wisdom - COST:1
