@@ -2658,6 +2658,21 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::EVENT_SOURCE,
+            SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsNotUntouchable()) }),
+        std::make_shared<FlagTask>(
+            true, ComplexTask::ActivateSecret(
+                      TaskList{ std::make_shared<AddEnchantmentTask>(
+                          "EX1_379e", EntityType::EVENT_SOURCE) }))
+    };
+    cards.emplace("VAN_EX1_379", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [VAN_EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
