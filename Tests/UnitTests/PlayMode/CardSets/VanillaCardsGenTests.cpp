@@ -6653,6 +6653,60 @@ TEST_CASE("[Paladin : Spell] - VAN_EX1_384 : Avenging Wrath")
     CHECK_EQ(totalHealth, 25);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [VAN_EX1_619] Equality - COST:2
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Change the Health of all minions to 1.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - VAN_EX1_619 : Equality")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Tirion Fordring", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Tirion Fordring", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Equality", FormatType::CLASSIC));
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common

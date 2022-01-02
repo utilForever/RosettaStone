@@ -2737,6 +2737,10 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Change the Health of all minions to 1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_619e", EntityType::ALL_MINIONS));
+    cards.emplace("VAN_EX1_619", CardDef(power));
 }
 
 void VanillaCardsGen::AddPaladinNonCollect(
