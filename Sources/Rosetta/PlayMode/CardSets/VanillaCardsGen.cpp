@@ -2710,6 +2710,9 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<WeaponTask>("EX1_383t"));
+    cards.emplace("VAN_EX1_383", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_384] Avenging Wrath - COST:6

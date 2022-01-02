@@ -6496,6 +6496,89 @@ TEST_CASE("[Paladin : Minion] - VAN_EX1_382 : Aldor Peacekeeper")
     CHECK_EQ(curField[0]->GetAttack(), 1);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [VAN_EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b>
+//       <b>Deathrattle:</b> Equip a 5/3 Ashbringer.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// - DIVINE_SHIELD = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - VAN_EX1_383 : Tirion Fordring")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Tirion Fordring", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(opPlayer, AttackTask(card3, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(opPlayer, AttackTask(card4, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 5);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 3);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
