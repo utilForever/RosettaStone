@@ -2609,15 +2609,23 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - PALADIN
-    // [VAN_EX1_366] Sword of Justice - COST:3
+    // [VAN_EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
     // Text: After you summon a minion,
     //       give it +1/+1 and this loses 1 Durability.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 5
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+                                      "EX1_366e", EntityType::TARGET),
+                                  std::make_shared<DamageWeaponTask>(false) };
+    cards.emplace("VAN_EX1_366", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_371] Hand of Protection - COST:1
