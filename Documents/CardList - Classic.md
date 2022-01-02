@@ -257,20 +257,20 @@ VANILLA | VAN_EX1_335 | Lightspawn |
 VANILLA | VAN_EX1_339 | Thoughtsteal |  
 VANILLA | VAN_EX1_341 | Lightwell |  
 VANILLA | VAN_EX1_345 | Mindgames |  
-VANILLA | VAN_EX1_349 | Divine Favor |  
+VANILLA | VAN_EX1_349 | Divine Favor | O
 VANILLA | VAN_EX1_350 | Prophet Velen |  
-VANILLA | VAN_EX1_354 | Lay on Hands |  
-VANILLA | VAN_EX1_355 | Blessed Champion |  
-VANILLA | VAN_EX1_360 | Humility |  
-VANILLA | VAN_EX1_362 | Argent Protector |  
-VANILLA | VAN_EX1_363 | Blessing of Wisdom |  
-VANILLA | VAN_EX1_365 | Holy Wrath |  
-VANILLA | VAN_EX1_366 | Sword of Justice |  
-VANILLA | VAN_EX1_371 | Hand of Protection |  
-VANILLA | VAN_EX1_379 | Repentance |  
-VANILLA | VAN_EX1_382 | Aldor Peacekeeper |  
-VANILLA | VAN_EX1_383 | Tirion Fordring |  
-VANILLA | VAN_EX1_384 | Avenging Wrath |  
+VANILLA | VAN_EX1_354 | Lay on Hands | O
+VANILLA | VAN_EX1_355 | Blessed Champion | O
+VANILLA | VAN_EX1_360 | Humility | O
+VANILLA | VAN_EX1_362 | Argent Protector | O
+VANILLA | VAN_EX1_363 | Blessing of Wisdom | O
+VANILLA | VAN_EX1_365 | Holy Wrath | O
+VANILLA | VAN_EX1_366 | Sword of Justice | O
+VANILLA | VAN_EX1_371 | Hand of Protection | O
+VANILLA | VAN_EX1_379 | Repentance | O
+VANILLA | VAN_EX1_382 | Aldor Peacekeeper | O
+VANILLA | VAN_EX1_383 | Tirion Fordring | O
+VANILLA | VAN_EX1_384 | Avenging Wrath | O
 VANILLA | VAN_EX1_390 | Tauren Warrior |  
 VANILLA | VAN_EX1_391 | Slam |  
 VANILLA | VAN_EX1_392 | Battle Rage |  
@@ -348,7 +348,7 @@ VANILLA | VAN_EX1_613 | Edwin VanCleef |
 VANILLA | VAN_EX1_614 | Illidan Stormrage |  
 VANILLA | VAN_EX1_616 | Mana Wraith |  
 VANILLA | VAN_EX1_617 | Deadly Shot | O
-VANILLA | VAN_EX1_619 | Equality |  
+VANILLA | VAN_EX1_619 | Equality | O
 VANILLA | VAN_EX1_620 | Molten Giant |  
 VANILLA | VAN_EX1_621 | Circle of Healing |  
 VANILLA | VAN_EX1_622 | Shadow Word: Death |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 24% (92 of 382 Cards)
+- Progress: 27% (106 of 382 Cards)
