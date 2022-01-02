@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 #include <effolkronium/random.hpp>
@@ -2476,6 +2477,15 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Draw cards until you have as many in hand
     //       as your opponent.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
+        const int diffHands =
+            playable->player->opponent->GetHandZone()->GetCount() -
+            playable->player->GetHandZone()->GetCount();
+        return diffHands > 0 ? diffHands : 0;
+    }));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace("VAN_EX1_349", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_354] Lay on Hands - COST:8

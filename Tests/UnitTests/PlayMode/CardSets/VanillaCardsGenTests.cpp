@@ -5919,6 +5919,48 @@ TEST_CASE("[Paladin : Spell] - VAN_EX1_136 : Redemption")
     CHECK_EQ(curField[0]->GetHealth(), 1);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [VAN_EX1_349] Divine Favor - COST:3
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw cards until you have as many in hand
+//       as your opponent.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - VAN_EX1_349 : Divine Favor")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Divine Favor", FormatType::CLASSIC));
+
+    Generic::DrawCard(opPlayer, Cards::FindCardByName("Sense Demons"));
+    Generic::DrawCard(opPlayer, Cards::FindCardByName("Sense Demons"));
+    Generic::DrawCard(opPlayer, Cards::FindCardByName("Sense Demons"));
+    Generic::DrawCard(opPlayer, Cards::FindCardByName("Sense Demons"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(),
+             opPlayer->GetHandZone()->GetCount());
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
