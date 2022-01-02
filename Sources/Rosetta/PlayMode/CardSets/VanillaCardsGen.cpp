@@ -2724,6 +2724,12 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        8, true));
+    cards.emplace("VAN_EX1_384", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_619] Equality - COST:2
