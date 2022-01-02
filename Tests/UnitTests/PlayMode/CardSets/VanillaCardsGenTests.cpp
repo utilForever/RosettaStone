@@ -6160,6 +6160,51 @@ TEST_CASE("[Paladin : Minion] - VAN_EX1_362 : Argent Protector")
     CHECK_EQ(curField[0]->HasDivineShield(), true);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [VAN_EX1_363] Blessing of Wisdom - COST:1
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Choose a minion. Whenever it attacks, draw a card.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - VAN_EX1_363 : Blessing of Wisdom")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Blessing of Wisdom", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 4);
+
+    game.Process(curPlayer, AttackTask(card2, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common

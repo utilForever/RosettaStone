@@ -2574,6 +2574,17 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Choose a minion. Whenever it attacks, draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_363e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_363",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_365] Holy Wrath - COST:5
