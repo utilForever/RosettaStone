@@ -2491,8 +2491,17 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_354] Lay on Hands - COST:8
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Restore #8 Health. Draw 3 cards.
+    // Text: Restore 8 Health. Draw 3 cards.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
+    power.AddPowerTask(std::make_shared<DrawTask>(3));
+    cards.emplace(
+        "VAN_EX1_354",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - PALADIN
     // [VAN_EX1_355] Blessed Champion - COST:5

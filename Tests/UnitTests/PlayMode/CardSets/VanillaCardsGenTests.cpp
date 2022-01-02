@@ -5961,6 +5961,50 @@ TEST_CASE("[Paladin : Spell] - VAN_EX1_349 : Divine Favor")
              opPlayer->GetHandZone()->GetCount());
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [VAN_EX1_354] Lay on Hands - COST:8
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Restore 8 Health. Draw 3 cards.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - VAN_EX1_354 : Lay on Hands")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    curPlayer->GetHero()->SetDamage(9);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lay on Hands", FormatType::CLASSIC));
+
+    auto p1HandCount = curPlayer->GetHandZone()->GetCount();
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+
+    CHECK_EQ(p1HandCount + 2, curPlayer->GetHandZone()->GetCount());
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
