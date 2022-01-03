@@ -6995,6 +6995,55 @@ TEST_CASE("[Priest : Spell] - VAN_CS1_130 : Holy Smite")
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [VAN_CS2_003] Mind Vision - COST:1
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Put a copy of a random card in your opponent's
+//       hand into your hand.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_CS2_003 : Mind Vision")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mind Vision", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    const auto gainedCard = curHand[4];
+
+    bool flag = false;
+    for (auto& handCard : opPlayer->GetHandZone()->GetAll())
+    {
+        if (handCard->card->id == gainedCard->card->id)
+        {
+            flag = true;
+            break;
+        }
+    }
+
+    CHECK(flag);
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [VAN_CS2_236] Divine Spirit - COST:2
 // - Set: VANILLA, Rarity: Common
 // --------------------------------------------------------

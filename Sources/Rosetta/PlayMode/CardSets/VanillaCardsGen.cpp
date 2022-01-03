@@ -2850,6 +2850,11 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Put a copy of a random card in your opponent's
     //       hand into your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_HAND, 1));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("VAN_CS2_003", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_CS2_004] Power Word: Shield - COST:1
