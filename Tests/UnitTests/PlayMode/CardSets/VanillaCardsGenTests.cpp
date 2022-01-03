@@ -6858,6 +6858,70 @@ TEST_CASE("[Priest : Spell] - VAN_CS1_113 : Mind Control")
 }
 
 // ----------------------------------------- SPELL - PRIEST
+// [VAN_CS1_129] Inner Fire - COST:1
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Change a minion's Attack to be equal to its Health.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_CS1_129 : Inner Fire")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Inner Fire", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Divine Spirit", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Inner Fire", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Inner Fire", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Northshire Cleric", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curField[0]));
+    CHECK_EQ(curField[0]->GetHealth(), curField[0]->GetAttack());
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField[0]));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[0]));
+    CHECK_EQ(curField[0]->GetHealth(), curField[0]->GetAttack());
+
+    curField[0]->SetDamage(1);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, curField[0]));
+    CHECK_EQ(curField[0]->GetHealth(), curField[0]->GetAttack());
+}
+
+// ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common
 // --------------------------------------------------------
