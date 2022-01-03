@@ -2776,6 +2776,11 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to all enemies.
     //       Restore 2 Health to all friendly characters.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
+    cards.emplace("VAN_CS1_112", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_CS1_113] Mind Control - COST:10
