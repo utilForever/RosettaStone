@@ -8,12 +8,12 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 VANILLA | VAN_CS1_042 | Goldshire Footman |  
 VANILLA | VAN_CS1_069 | Fen Creeper |  
-VANILLA | VAN_CS1_112 | Holy Nova |  
-VANILLA | VAN_CS1_113 | Mind Control |  
-VANILLA | VAN_CS1_129 | Inner Fire |  
-VANILLA | VAN_CS1_130 | Holy Smite |  
-VANILLA | VAN_CS2_003 | Mind Vision |  
-VANILLA | VAN_CS2_004 | Power Word: Shield |  
+VANILLA | VAN_CS1_112 | Holy Nova | O
+VANILLA | VAN_CS1_113 | Mind Control | O
+VANILLA | VAN_CS1_129 | Inner Fire | O
+VANILLA | VAN_CS1_130 | Holy Smite | O
+VANILLA | VAN_CS2_003 | Mind Vision | O
+VANILLA | VAN_CS2_004 | Power Word: Shield | O
 VANILLA | VAN_CS2_005 | Claw | O
 VANILLA | VAN_CS2_007 | Healing Touch | O
 VANILLA | VAN_CS2_008 | Moonfire | O
@@ -114,9 +114,9 @@ VANILLA | VAN_CS2_227 | Venture Co. Mercenary |
 VANILLA | VAN_CS2_231 | Wisp |  
 VANILLA | VAN_CS2_232 | Ironbark Protector | O
 VANILLA | VAN_CS2_233 | Blade Flurry |  
-VANILLA | VAN_CS2_234 | Shadow Word: Pain |  
-VANILLA | VAN_CS2_235 | Northshire Cleric |  
-VANILLA | VAN_CS2_236 | Divine Spirit |  
+VANILLA | VAN_CS2_234 | Shadow Word: Pain | O
+VANILLA | VAN_CS2_235 | Northshire Cleric | O
+VANILLA | VAN_CS2_236 | Divine Spirit | O
 VANILLA | VAN_CS2_237 | Starving Buzzard | O
 VANILLA | VAN_DS1_055 | Darkscale Healer |  
 VANILLA | VAN_DS1_070 | Houndmaster | O
@@ -126,7 +126,7 @@ VANILLA | VAN_DS1_183 | Multi-Shot | O
 VANILLA | VAN_DS1_184 | Tracking | O
 VANILLA | VAN_DS1_185 | Arcane Shot | O
 VANILLA | VAN_DS1_188 | Gladiator's Longbow | O
-VANILLA | VAN_DS1_233 | Mind Blast |  
+VANILLA | VAN_DS1_233 | Mind Blast | O
 VANILLA | VAN_EX1_001 | Lightwarden |  
 VANILLA | VAN_EX1_002 | The Black Knight |  
 VANILLA | VAN_EX1_004 | Young Priestess |  
@@ -136,7 +136,7 @@ VANILLA | VAN_EX1_007 | Acolyte of Pain |
 VANILLA | VAN_EX1_008 | Argent Squire |  
 VANILLA | VAN_EX1_009 | Angry Chicken |  
 VANILLA | VAN_EX1_010 | Worgen Infiltrator |  
-VANILLA | VAN_EX1_011 | Voodoo Doctor |  
+VANILLA | VAN_EX1_011 | Voodoo Doctor | O
 VANILLA | VAN_EX1_012 | Bloodmage Thalnos |  
 VANILLA | VAN_EX1_014 | King Mukla |  
 VANILLA | VAN_EX1_015 | Novice Engineer |  
@@ -172,7 +172,7 @@ VANILLA | VAN_EX1_083 | Tinkmaster Overspark |
 VANILLA | VAN_EX1_084 | Warsong Commander |  
 VANILLA | VAN_EX1_085 | Mind Control Tech |  
 VANILLA | VAN_EX1_089 | Arcane Golem |  
-VANILLA | VAN_EX1_091 | Cabal Shadow Priest |  
+VANILLA | VAN_EX1_091 | Cabal Shadow Priest | O
 VANILLA | VAN_EX1_093 | Defender of Argus |  
 VANILLA | VAN_EX1_095 | Gadgetzan Auctioneer |  
 VANILLA | VAN_EX1_096 | Loot Hoarder |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 27% (106 of 382 Cards)
+- Progress: 30% (118 of 382 Cards)

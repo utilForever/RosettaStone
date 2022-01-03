@@ -1434,7 +1434,8 @@ void LegacyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Put a copy of a random card in your opponent's hand into your hand.
+    // Text: Put a copy of a random card in your opponent's
+    //       hand into your hand.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_HAND, 1));
@@ -1487,6 +1488,9 @@ void LegacyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: Legacy, Rarity: Free
     // --------------------------------------------------------
     // Text: Whenever a minion is healed, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
