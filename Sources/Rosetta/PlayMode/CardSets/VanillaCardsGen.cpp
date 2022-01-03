@@ -2939,6 +2939,10 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage to the enemy hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 5, true));
+    cards.emplace("VAN_DS1_233", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5]
