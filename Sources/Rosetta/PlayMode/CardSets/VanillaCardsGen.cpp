@@ -2903,6 +2903,11 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("VAN_CS2_235", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_CS2_236] Divine Spirit - COST:2
