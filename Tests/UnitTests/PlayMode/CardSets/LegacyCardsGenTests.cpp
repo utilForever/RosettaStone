@@ -2895,7 +2895,8 @@ TEST_CASE("[Priest : Spell] - CS1_130 : Holy Smite")
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: Put a copy of a random card in your opponent's hand into your hand.
+// Text: Put a copy of a random card in your opponent's
+//       hand into your hand.
 // --------------------------------------------------------
 TEST_CASE("[Priest : Spell] - CS2_003 : Mind Vision")
 {
