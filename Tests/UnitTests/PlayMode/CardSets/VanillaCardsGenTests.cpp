@@ -7311,6 +7311,79 @@ TEST_CASE("[Priest : Spell] - VAN_DS1_233 : Mind Blast")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [VAN_EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5]
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Take control of an enemy minion
+//       that has 2 or less Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_TARGET_MAX_ATTACK = 2
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - VAN_EX1_091 : Cabal Shadow Priest")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Cabal Shadow Priest", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Cabal Shadow Priest", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card4));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(opField.GetCount(), 1);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [VAN_EX1_332] Silence - COST:0
 // - Set: VANILLA, Rarity: Common

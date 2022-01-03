@@ -2954,6 +2954,20 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_TARGET_MAX_ATTACK = 2
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_091",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_TARGET_MAX_ATTACK, 2 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_332] Silence - COST:0
