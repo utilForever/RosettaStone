@@ -2788,6 +2788,20 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Take control of an enemy minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS1_113",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_CS1_129] Inner Fire - COST:1
