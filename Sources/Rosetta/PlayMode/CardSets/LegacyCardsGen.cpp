@@ -1489,6 +1489,9 @@ void LegacyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever a minion is healed, draw a card.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
     power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;

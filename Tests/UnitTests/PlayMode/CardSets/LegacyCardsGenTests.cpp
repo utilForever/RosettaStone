@@ -3061,6 +3061,9 @@ TEST_CASE("[Priest : Spell] - CS2_234 : Shadow Word: Pain")
 // --------------------------------------------------------
 // Text: Whenever a minion is healed, draw a card.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - CS2_235 : Northshire Cleric")
 {
     GameConfig config;
