@@ -8167,6 +8167,83 @@ TEST_CASE("[Priest : Spell] - VAN_EX1_624 : Holy Fire")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_625] Shadowform - COST:3
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your Hero Power becomes 'Deal 2 damage.'
+//       If already in Shadowform: 3 damage.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_625 : Shadowform")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    Hero* opHero = opPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowform", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowform", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowform", FormatType::CLASSIC));
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 25);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Shatter");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 22);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 19);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Shatter");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 19);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common

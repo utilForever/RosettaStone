@@ -3199,6 +3199,22 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Your Hero Power becomes 'Deal 2 damage.'
     //       If already in Shadowform: 3 damage.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHeroPowerCard("EX1_625t")) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<ChangeHeroPowerTask>("EX1_625t2") }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<ConditionTask>(
+                      EntityType::SOURCE,
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
+                  std::make_shared<FlagTask>(
+                      false, TaskList{ std::make_shared<ChangeHeroPowerTask>(
+                                 "EX1_625t") }) }));
+    cards.emplace("VAN_EX1_625", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_626] Mass Dispel - COST:4
