@@ -3101,6 +3101,13 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::SPELLPOWER_DOUBLE,
+                                             EffectOperator::ADD, 1) }));
+    cards.emplace("VAN_EX1_350", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
