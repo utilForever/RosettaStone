@@ -3181,6 +3181,16 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage. Restore 5 Health to your hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
+    cards.emplace(
+        "VAN_EX1_624",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_625] Shadowform - COST:3
