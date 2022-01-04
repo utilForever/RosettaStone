@@ -4733,6 +4733,9 @@ TEST_CASE("[Priest : Spell] - EX1_339 : Thoughtsteal")
 // Text: At the start of your turn, restore 3 Health
 //       to a damaged friendly character.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - EX1_341 : Lightwell")
 {
     GameConfig config;
