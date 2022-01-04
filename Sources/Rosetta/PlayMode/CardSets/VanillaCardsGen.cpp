@@ -3116,6 +3116,12 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Your cards and powers that restore Health
     //       now deal damage instead.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::HEALING_DOES_DAMAGE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("VAN_EX1_591", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_621] Circle of Healing - COST:0
