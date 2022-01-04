@@ -3127,8 +3127,11 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_621] Circle of Healing - COST:0
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: Restore #4 Health to all minions.
+    // Text: Restore 4 Health to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL_MINIONS, 4));
+    cards.emplace("VAN_EX1_621", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_622] Shadow Word: Death - COST:3
