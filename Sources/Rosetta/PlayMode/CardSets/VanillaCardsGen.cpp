@@ -3070,6 +3070,27 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Put a copy of a random minion from
     //       your opponent's deck into the battlefield.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
+                        std::make_shared<CopyTask>(EntityType::STACK,
+                                                   ZoneType::PLAY) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SummonTask>("VAN_EX1_345t",
+                                                      SummonSide::SPELL) }));
+    cards.emplace(
+        "VAN_EX1_345",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
@@ -3141,12 +3162,17 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_345t] Shadow of Nothing - COST:0 [ATK:0/HP:1]
     // - Set: VANILLA
     // --------------------------------------------------------
     // Text: Mindgames whiffed! Your opponent had no minions!
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_345t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [VAN_EX1_tk31] Mind Controlling - COST:0
