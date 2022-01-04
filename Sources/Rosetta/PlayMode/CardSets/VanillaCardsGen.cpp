@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -3021,6 +3022,12 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: This minion's Attack is always equal to its Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
+            return dynamic_cast<Minion*>(playable)->GetHealth();
+        }));
+    cards.emplace("VAN_EX1_335", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_339] Thoughtsteal - COST:3
