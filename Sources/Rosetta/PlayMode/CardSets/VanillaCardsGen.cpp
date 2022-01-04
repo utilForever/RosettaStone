@@ -3052,6 +3052,16 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::FRIENDS),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<HealTask>(EntityType::STACK, 3)
+    };
+    cards.emplace("VAN_EX1_341", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_345] Mindgames - COST:4
