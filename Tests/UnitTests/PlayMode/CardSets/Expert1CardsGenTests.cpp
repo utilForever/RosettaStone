@@ -4543,8 +4543,8 @@ TEST_CASE("[Priest : Spell] - EX1_332 : Silence")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: Gain control of an enemy minion with 3 or less Attack
-//       until end of turn.
+// Text: Gain control of an enemy minion with 3 or
+//       less Attack until end of turn.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
