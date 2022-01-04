@@ -3036,6 +3036,11 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Copy 2 cards in your opponent's deck and
     //       add them to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_DECK, 2));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("VAN_EX1_339", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_341] Lightwell - COST:2 [ATK:0/HP:5]

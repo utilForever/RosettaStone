@@ -7569,10 +7569,10 @@ TEST_CASE("[Priest : Minion] - VAN_EX1_335 : Lightspawn")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightspawn", FormatType::CLASSIC));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lightspawn", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 5);
@@ -7585,6 +7585,59 @@ TEST_CASE("[Priest : Minion] - VAN_EX1_335 : Lightspawn")
     game.Process(opPlayer, AttackTask(card2, card1));
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_339] Thoughtsteal - COST:3
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Copy 2 cards in your opponent's deck and
+//       add them to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_339 : Thoughtsteal")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player2Deck[i] =
+            Cards::FindCardByName("Magma Rager", FormatType::CLASSIC);
+    }
+    config.player2Deck[5] =
+        Cards::FindCardByName("Wolfrider", FormatType::CLASSIC);
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Thoughtsteal", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ((curHand[0]->card->name == "Magma Rager" ||
+              curHand[0]->card->name == "Wolfrider"),
+             true);
+    CHECK_EQ((curHand[1]->card->name == "Magma Rager" ||
+              curHand[1]->card->name == "Wolfrider"),
+             true);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
