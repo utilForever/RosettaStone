@@ -4850,7 +4850,8 @@ TEST_CASE("[Priest : Spell] - EX1_345 : Mindgames")
 // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: Double the damage and healing of your spells and Hero Power.
+// Text: Double the damage and healing of
+//       your spells and Hero Power.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
