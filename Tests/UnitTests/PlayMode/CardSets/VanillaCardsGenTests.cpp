@@ -8001,6 +8001,76 @@ TEST_CASE("[Priest : Spell] - VAN_EX1_621 : Circle of Healing")
     CHECK_EQ(opField[0]->GetHealth(), 7);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_622] Shadow Word: Death - COST:3
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Destroy a minion with 5 or more Attack.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_MIN_ATTACK = 5
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_622 : Shadow Word: Death")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Shadow Word: Death", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(opField.GetCount(), 1);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common
