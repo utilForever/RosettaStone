@@ -2996,6 +2996,24 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Gain control of an enemy minion with 3 or
     //       less Attack until end of turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_NUM_MINION_SLOTS = 1
+    // - REQ_TARGET_MAX_ATTACK = 3
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_334e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_334",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                                 { PlayReq::REQ_TARGET_MAX_ATTACK, 3 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
