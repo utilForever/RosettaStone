@@ -4543,8 +4543,8 @@ TEST_CASE("[Priest : Spell] - EX1_332 : Silence")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: Gain control of an enemy minion with 3 or less Attack
-//       until end of turn.
+// Text: Gain control of an enemy minion with 3 or
+//       less Attack until end of turn.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -4733,6 +4733,9 @@ TEST_CASE("[Priest : Spell] - EX1_339 : Thoughtsteal")
 // Text: At the start of your turn, restore 3 Health
 //       to a damaged friendly character.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Priest : Minion] - EX1_341 : Lightwell")
 {
     GameConfig config;
@@ -4847,7 +4850,8 @@ TEST_CASE("[Priest : Spell] - EX1_345 : Mindgames")
 // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: Double the damage and healing of your spells and Hero Power.
+// Text: Double the damage and healing of
+//       your spells and Hero Power.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1

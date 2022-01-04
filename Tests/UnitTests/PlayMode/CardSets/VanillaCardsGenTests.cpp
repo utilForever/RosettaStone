@@ -7449,6 +7449,868 @@ TEST_CASE("[Priest : Spell] - VAN_EX1_332 : Silence")
     CHECK_EQ(opField[0]->GetSpellPower(), 0);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_334] Shadow Madness - COST:4
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Gain control of an enemy minion with 3 or
+//       less Attack until end of turn.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// - REQ_NUM_MINION_SLOTS = 1
+// - REQ_TARGET_MAX_ATTACK = 3
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_334 : Shadow Madness")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Pit Lord", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Felguard", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Shadow Madness", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Shadow Madness", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, AttackTask(card1, card3));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(opField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card2));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card3));
+    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [VAN_EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: This minion's Attack is always equal to its Health.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - VAN_EX1_335 : Lightspawn")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lightspawn", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_339] Thoughtsteal - COST:3
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Copy 2 cards in your opponent's deck and
+//       add them to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_339 : Thoughtsteal")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player2Deck[i] =
+            Cards::FindCardByName("Magma Rager", FormatType::CLASSIC);
+    }
+    config.player2Deck[5] =
+        Cards::FindCardByName("Wolfrider", FormatType::CLASSIC);
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Thoughtsteal", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ((curHand[0]->card->name == "Magma Rager" ||
+              curHand[0]->card->name == "Wolfrider"),
+             true);
+    CHECK_EQ((curHand[1]->card->name == "Magma Rager" ||
+              curHand[1]->card->name == "Wolfrider"),
+             true);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [VAN_EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the start of your turn, restore 3 Health
+//       to a damaged friendly character.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - VAN_EX1_341 : Lightwell")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lightwell", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Northshire Cleric", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    curField[0]->SetDamage(4);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto p1HandCount = curPlayer->GetHandZone()->GetCount();
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), p1HandCount + 2);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_345] Mindgames - COST:4
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Put a copy of a random minion from
+//       your opponent's deck into the battlefield.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_345 : Mindgames")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player2Deck[i] =
+            Cards::FindCardByName("Magma Rager", FormatType::CLASSIC);
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mindgames", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mindgames", FormatType::CLASSIC));
+
+    CHECK_EQ(opDeck.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->card->name, "Magma Rager");
+    CHECK_EQ(opDeck.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Shadow of Nothing");
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [VAN_EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Double the damage and healing of
+//       your spells and Hero Power.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - VAN_EX1_350 : Prophet Velen")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(10);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Prophet Velen", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mind Blast", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mind Blast", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Pyroblast", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Fireball", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Prophet Velen", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Prophet Velen", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card5, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 2);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [VAN_EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Your cards and powers that restore Health
+//       now deal damage instead.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - VAN_EX1_591 : Auchenai Soulpriest")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Auchenai Soulpriest", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Circle of Healing", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(card2));
+    CHECK_EQ(opField.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_621] Circle of Healing - COST:0
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Restore 4 Health to all minions.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_621 : Circle of Healing")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Circle of Healing", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, AttackTask(card5, card3));
+    game.Process(opPlayer, AttackTask(card4, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_622] Shadow Word: Death - COST:3
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Destroy a minion with 5 or more Attack.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_MIN_ATTACK = 5
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_622 : Shadow Word: Death")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Shadow Word: Death", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(opField.GetCount(), 1);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [VAN_EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - VAN_EX1_623 : Temple Enforcer")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Temple Enforcer", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_624] Holy Fire - COST:6
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 5 damage. Restore 5 Health to your hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_624 : Holy Fire")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(8);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Holy Fire", FormatType::CLASSIC));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_625] Shadowform - COST:3
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your Hero Power becomes 'Deal 2 damage.'
+//       If already in Shadowform: 3 damage.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_625 : Shadowform")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    Hero* opHero = opPlayer->GetHero();
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowform", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowform", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowform", FormatType::CLASSIC));
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 27);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 25);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Shatter");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 22);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 19);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Shatter");
+
+    game.Process(curPlayer, HeroPowerTask(opHero));
+    CHECK_EQ(opHero->GetHealth(), 19);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [VAN_EX1_626] Mass Dispel - COST:4
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Silence</b> all enemy minions. Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - VAN_EX1_626 : Mass Dispel")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Mass Dispel", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    auto p1HandCount = curPlayer->GetHandZone()->GetCount();
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    CHECK_EQ(p1HandCount, curPlayer->GetHandZone()->GetCount());
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto p2HandCount = opPlayer->GetHandZone()->GetCount();
+
+    game.Process(opPlayer, PlayerTasks::AttackTask(card3, card2));
+
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), p1HandCount + 1);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), p2HandCount);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common
@@ -7792,4 +8654,81 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_011 : Voodoo Doctor")
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
     CHECK_EQ(opField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+//       <b>Deathrattle:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - SPELLPOWER = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_012 : Bloodmage Thalnos")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blizzard", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, AttackTask(card5, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 0);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }

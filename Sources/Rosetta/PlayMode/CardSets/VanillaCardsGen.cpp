@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -2996,6 +2997,24 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Gain control of an enemy minion with 3 or
     //       less Attack until end of turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_NUM_MINION_SLOTS = 1
+    // - REQ_TARGET_MAX_ATTACK = 3
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_334e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_334",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                                 { PlayReq::REQ_TARGET_MAX_ATTACK, 3 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
@@ -3003,6 +3022,12 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: This minion's Attack is always equal to its Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
+            return dynamic_cast<Minion*>(playable)->GetHealth();
+        }));
+    cards.emplace("VAN_EX1_335", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_339] Thoughtsteal - COST:3
@@ -3011,6 +3036,11 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Copy 2 cards in your opponent's deck and
     //       add them to your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_DECK, 2));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    cards.emplace("VAN_EX1_339", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
@@ -3022,6 +3052,16 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::FRIENDS),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<HealTask>(EntityType::STACK, 3)
+    };
+    cards.emplace("VAN_EX1_341", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_345] Mindgames - COST:4
@@ -3030,6 +3070,27 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Put a copy of a random minion from
     //       your opponent's deck into the battlefield.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
+                        std::make_shared<CopyTask>(EntityType::STACK,
+                                                   ZoneType::PLAY) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<SummonTask>("VAN_EX1_345t",
+                                                      SummonSide::SPELL) }));
+    cards.emplace(
+        "VAN_EX1_345",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
@@ -3040,6 +3101,13 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::SPELLPOWER_DOUBLE,
+                                             EffectOperator::ADD, 1) }));
+    cards.emplace("VAN_EX1_350", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
@@ -3048,13 +3116,22 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Your cards and powers that restore Health
     //       now deal damage instead.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::HEALING_DOES_DAMAGE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("VAN_EX1_591", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_621] Circle of Healing - COST:0
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: Restore #4 Health to all minions.
+    // Text: Restore 4 Health to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL_MINIONS, 4));
+    cards.emplace("VAN_EX1_621", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_622] Shadow Word: Death - COST:3
@@ -3062,6 +3139,18 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy a minion with 5 or more Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_MIN_ATTACK = 5
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_622",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_MIN_ATTACK, 5 } }));
 
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6]
@@ -3072,6 +3161,19 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_623e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_623",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_624] Holy Fire - COST:6
@@ -3079,6 +3181,16 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage. Restore 5 Health to your hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
+    cards.emplace(
+        "VAN_EX1_624",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_625] Shadowform - COST:3
@@ -3087,6 +3199,22 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Your Hero Power becomes 'Deal 2 damage.'
     //       If already in Shadowform: 3 damage.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHeroPowerCard("EX1_625t")) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<ChangeHeroPowerTask>("EX1_625t2") }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<ConditionTask>(
+                      EntityType::SOURCE,
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsHeroPowerCard("EX1_625t2")) }),
+                  std::make_shared<FlagTask>(
+                      false, TaskList{ std::make_shared<ChangeHeroPowerTask>(
+                                 "EX1_625t") }) }));
+    cards.emplace("VAN_EX1_625", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [VAN_EX1_626] Mass Dispel - COST:4
@@ -3097,16 +3225,26 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_626", CardDef(power));
 }
 
 void VanillaCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [VAN_EX1_345t] Shadow of Nothing - COST:0 [ATK:0/HP:1]
     // - Set: VANILLA
     // --------------------------------------------------------
     // Text: Mindgames whiffed! Your opponent had no minions!
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_345t", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [VAN_EX1_tk31] Mind Controlling - COST:0
@@ -4793,9 +4931,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
-    // - DEATHRATTLE = 1
     // - SPELLPOWER = 1
+    // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_012", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_014] King Mukla - COST:3 [ATK:5/HP:5]

@@ -137,7 +137,7 @@ VANILLA | VAN_EX1_008 | Argent Squire |
 VANILLA | VAN_EX1_009 | Angry Chicken |  
 VANILLA | VAN_EX1_010 | Worgen Infiltrator |  
 VANILLA | VAN_EX1_011 | Voodoo Doctor | O
-VANILLA | VAN_EX1_012 | Bloodmage Thalnos |  
+VANILLA | VAN_EX1_012 | Bloodmage Thalnos | O
 VANILLA | VAN_EX1_014 | King Mukla |  
 VANILLA | VAN_EX1_015 | Novice Engineer |  
 VANILLA | VAN_EX1_016 | Sylvanas Windrunner |  
@@ -252,13 +252,13 @@ VANILLA | VAN_EX1_319 | Flame Imp |
 VANILLA | VAN_EX1_320 | Bane of Doom |  
 VANILLA | VAN_EX1_323 | Lord Jaraxxus | O
 VANILLA | VAN_EX1_332 | Silence | O
-VANILLA | VAN_EX1_334 | Shadow Madness |  
-VANILLA | VAN_EX1_335 | Lightspawn |  
-VANILLA | VAN_EX1_339 | Thoughtsteal |  
-VANILLA | VAN_EX1_341 | Lightwell |  
-VANILLA | VAN_EX1_345 | Mindgames |  
+VANILLA | VAN_EX1_334 | Shadow Madness | O
+VANILLA | VAN_EX1_335 | Lightspawn | O
+VANILLA | VAN_EX1_339 | Thoughtsteal | O
+VANILLA | VAN_EX1_341 | Lightwell | O
+VANILLA | VAN_EX1_345 | Mindgames | O
 VANILLA | VAN_EX1_349 | Divine Favor | O
-VANILLA | VAN_EX1_350 | Prophet Velen |  
+VANILLA | VAN_EX1_350 | Prophet Velen | O
 VANILLA | VAN_EX1_354 | Lay on Hands | O
 VANILLA | VAN_EX1_355 | Blessed Champion | O
 VANILLA | VAN_EX1_360 | Humility | O
@@ -329,7 +329,7 @@ VANILLA | VAN_EX1_584 | Ancient Mage |
 VANILLA | VAN_EX1_586 | Sea Giant |  
 VANILLA | VAN_EX1_587 | Windspeaker |  
 VANILLA | VAN_EX1_590 | Blood Knight |  
-VANILLA | VAN_EX1_591 | Auchenai Soulpriest |  
+VANILLA | VAN_EX1_591 | Auchenai Soulpriest | O
 VANILLA | VAN_EX1_593 | Nightblade |  
 VANILLA | VAN_EX1_594 | Vaporize | O
 VANILLA | VAN_EX1_595 | Cult Master |  
@@ -350,12 +350,12 @@ VANILLA | VAN_EX1_616 | Mana Wraith |
 VANILLA | VAN_EX1_617 | Deadly Shot | O
 VANILLA | VAN_EX1_619 | Equality | O
 VANILLA | VAN_EX1_620 | Molten Giant |  
-VANILLA | VAN_EX1_621 | Circle of Healing |  
-VANILLA | VAN_EX1_622 | Shadow Word: Death |  
-VANILLA | VAN_EX1_623 | Temple Enforcer |  
-VANILLA | VAN_EX1_624 | Holy Fire |  
-VANILLA | VAN_EX1_625 | Shadowform |  
-VANILLA | VAN_EX1_626 | Mass Dispel |  
+VANILLA | VAN_EX1_621 | Circle of Healing | O
+VANILLA | VAN_EX1_622 | Shadow Word: Death | O
+VANILLA | VAN_EX1_623 | Temple Enforcer | O
+VANILLA | VAN_EX1_624 | Holy Fire | O
+VANILLA | VAN_EX1_625 | Shadowform | O
+VANILLA | VAN_EX1_626 | Mass Dispel | O
 VANILLA | VAN_NEW1_003 | Sacrificial Pact |  
 VANILLA | VAN_NEW1_004 | Vanish |  
 VANILLA | VAN_NEW1_005 | Kidnapper |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 30% (118 of 382 Cards)
+- Progress: 34% (132 of 382 Cards)

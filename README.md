@@ -78,7 +78,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Classic Format
 
-  * 30% Vanilla Set (118 of 382 Cards)
+  * 34% Vanilla Set (132 of 382 Cards)
 
 ## Implementation List
 

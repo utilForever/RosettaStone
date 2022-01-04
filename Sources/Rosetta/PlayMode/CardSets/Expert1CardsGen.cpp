@@ -2308,8 +2308,8 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Shadow
     // --------------------------------------------------------
-    // Text: Gain control of an enemy minion with 3 or less Attack
-    //       until end of turn.
+    // Text: Gain control of an enemy minion with 3 or
+    //       less Attack until end of turn.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
@@ -2364,6 +2364,9 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: At the start of your turn, restore 3 Health
     //       to a damaged friendly character.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = {
@@ -2409,7 +2412,8 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: Double the damage and healing of your spells and Hero Power.
+    // Text: Double the damage and healing of
+    //       your spells and Hero Power.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
