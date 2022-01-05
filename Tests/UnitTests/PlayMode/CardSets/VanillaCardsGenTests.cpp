@@ -8845,6 +8845,77 @@ TEST_CASE("[Rogue : Spell] - VAN_EX1_126 : Betrayal")
     game.ProcessUntil(Step::MAIN_ACTION);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [VAN_EX1_128] Conceal - COST:1
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Give your minions <b>Stealth</b> until your next turn.
+// --------------------------------------------------------
+// RefTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - VAN_EX1_128 : Conceal")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Conceal", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Patient Assassin", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    CHECK_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card3->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
+
+    game.Process(curPlayer, AttackTask(card3, opPlayer->GetHero()));
+
+    CHECK_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    CHECK_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    CHECK_EQ(card4->GetGameTag(GameTag::STEALTH), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetGameTag(GameTag::STEALTH), 1);
+    CHECK_EQ(card3->GetGameTag(GameTag::STEALTH), 0);
+    CHECK_EQ(card4->GetGameTag(GameTag::STEALTH), 0);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common

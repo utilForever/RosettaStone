@@ -3452,6 +3452,11 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_128e", EntityType::MINIONS, false, false,
+        SelfCondition::HasNotStealth()));
+    cards.emplace("VAN_EX1_128", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_129] Fan of Knives - COST:3
