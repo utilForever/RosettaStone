@@ -3361,6 +3361,9 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 4 cards.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(4));
+    cards.emplace("VAN_CS2_077", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [VAN_CS2_080] Assassin's Blade - COST:5
