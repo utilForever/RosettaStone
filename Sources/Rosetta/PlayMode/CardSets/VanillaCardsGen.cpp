@@ -3464,6 +3464,11 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to all enemy minions. Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_129", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2]
