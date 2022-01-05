@@ -3386,6 +3386,18 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_WEAPON_EQUIPPED = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::WEAPON, GameTag::ATK));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS, true));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::WEAPON));
+    cards.emplace(
+        "VAN_CS2_233",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_124] Eviscerate - COST:2

@@ -8623,6 +8623,87 @@ TEST_CASE("[Rogue : Weapon] - VAN_CS2_080 : Assassin's Blade")
     // Do nothing
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [VAN_CS2_233] Blade Flurry - COST:2
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy your weapon and deal its damage
+//       to all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_WEAPON_EQUIPPED = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - VAN_CS2_233 : Blade Flurry")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Leper Gnome", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Malygos", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Blade Flurry", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Blade Flurry", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Dalaran Mage", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(opPlayer, HeroPowerTask());
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), false);
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, HeroPowerTask());
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), false);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common
