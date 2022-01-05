@@ -3366,9 +3366,15 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("VAN_CS2_077", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
-    // [VAN_CS2_080] Assassin's Blade - COST:5
+    // [VAN_CS2_080] Assassin's Blade - COST:5 [ATK:2/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 5
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_080", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_CS2_233] Blade Flurry - COST:2

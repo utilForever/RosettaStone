@@ -8611,6 +8611,18 @@ TEST_CASE("[Rogue : Spell] - VAN_CS2_077 : Sprint")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 8);
 }
 
+// ----------------------------------------- WEAPON - ROGUE
+// [VAN_CS2_080] Assassin's Blade - COST:5 [ATK:2/HP:0]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 5
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Weapon] - VAN_CS2_080 : Assassin's Blade")
+{
+    // Do nothing
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common
