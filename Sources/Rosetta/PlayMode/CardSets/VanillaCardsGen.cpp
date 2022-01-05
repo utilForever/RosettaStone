@@ -3264,12 +3264,27 @@ void VanillaCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_CS2_072] Backstab - COST:0
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
     // Text: Deal 2 damage to an undamaged minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_UNDAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cards.emplace(
+        "VAN_CS2_072",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_UNDAMAGED_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_CS2_073] Cold Blood - COST:1
