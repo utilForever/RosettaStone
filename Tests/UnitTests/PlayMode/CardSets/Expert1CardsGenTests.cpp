@@ -5352,7 +5352,8 @@ TEST_CASE("[Rogue : Spell] - CS2_073 : Cold Blood")
 // [CS2_233] Blade Flurry - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Destroy your weapon and deal its damage to all enemy minions.
+// Text: Destroy your weapon and deal its damage
+//       to all enemies.
 // --------------------------------------------------------
 // GameTag:
 // - AFFECTED_BY_SPELL_POWER = 1
