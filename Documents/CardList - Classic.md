@@ -47,13 +47,13 @@ VANILLA | VAN_CS2_062 | Hellfire | O
 VANILLA | VAN_CS2_063 | Corruption |  
 VANILLA | VAN_CS2_064 | Dread Infernal |  
 VANILLA | VAN_CS2_065 | Voidwalker |  
-VANILLA | VAN_CS2_072 | Backstab |  
-VANILLA | VAN_CS2_073 | Cold Blood |  
-VANILLA | VAN_CS2_074 | Deadly Poison |  
-VANILLA | VAN_CS2_075 | Sinister Strike |  
-VANILLA | VAN_CS2_076 | Assassinate |  
-VANILLA | VAN_CS2_077 | Sprint |  
-VANILLA | VAN_CS2_080 | Assassin's Blade |  
+VANILLA | VAN_CS2_072 | Backstab | O
+VANILLA | VAN_CS2_073 | Cold Blood | O
+VANILLA | VAN_CS2_074 | Deadly Poison | O
+VANILLA | VAN_CS2_075 | Sinister Strike | O
+VANILLA | VAN_CS2_076 | Assassinate | O
+VANILLA | VAN_CS2_077 | Sprint | O
+VANILLA | VAN_CS2_080 | Assassin's Blade | O
 VANILLA | VAN_CS2_084 | Hunter's Mark | O
 VANILLA | VAN_CS2_087 | Blessing of Might | O
 VANILLA | VAN_CS2_088 | Guardian of Kings | O
@@ -113,7 +113,7 @@ VANILLA | VAN_CS2_226 | Frostwolf Warlord |
 VANILLA | VAN_CS2_227 | Venture Co. Mercenary |  
 VANILLA | VAN_CS2_231 | Wisp |  
 VANILLA | VAN_CS2_232 | Ironbark Protector | O
-VANILLA | VAN_CS2_233 | Blade Flurry |  
+VANILLA | VAN_CS2_233 | Blade Flurry | O
 VANILLA | VAN_CS2_234 | Shadow Word: Pain | O
 VANILLA | VAN_CS2_235 | Northshire Cleric | O
 VANILLA | VAN_CS2_236 | Divine Spirit | O
@@ -184,10 +184,10 @@ VANILLA | VAN_EX1_105 | Mountain Giant |
 VANILLA | VAN_EX1_110 | Cairne Bloodhoof |  
 VANILLA | VAN_EX1_112 | Gelbin Mekkatorque |  
 VANILLA | VAN_EX1_116 | Leeroy Jenkins |  
-VANILLA | VAN_EX1_124 | Eviscerate |  
-VANILLA | VAN_EX1_126 | Betrayal |  
-VANILLA | VAN_EX1_128 | Conceal |  
-VANILLA | VAN_EX1_129 | Fan of Knives |  
+VANILLA | VAN_EX1_124 | Eviscerate | O
+VANILLA | VAN_EX1_126 | Betrayal | O
+VANILLA | VAN_EX1_128 | Conceal | O
+VANILLA | VAN_EX1_129 | Fan of Knives | O
 VANILLA | VAN_EX1_130 | Noble Sacrifice | O
 VANILLA | VAN_EX1_131 | Defias Ringleader |  
 VANILLA | VAN_EX1_132 | Eye for an Eye | O
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 34% (132 of 382 Cards)
+- Progress: 37% (144 of 382 Cards)
