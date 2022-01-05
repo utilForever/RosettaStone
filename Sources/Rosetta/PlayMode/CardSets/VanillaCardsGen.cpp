@@ -3332,6 +3332,10 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 3 damage to the enemy hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3, true));
+    cards.emplace("VAN_CS2_075", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_CS2_076] Assassinate - COST:5

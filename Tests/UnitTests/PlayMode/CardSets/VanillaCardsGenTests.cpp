@@ -8483,6 +8483,41 @@ TEST_CASE("[Rogue : Spell] - VAN_CS2_074 : Deadly Poison")
     CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 2);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [VAN_CS2_075] Sinister Strike - COST:1
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Deal 3 damage to the enemy hero.
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - VAN_CS2_075 : Sinister Strike")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Sinister Strike", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common
