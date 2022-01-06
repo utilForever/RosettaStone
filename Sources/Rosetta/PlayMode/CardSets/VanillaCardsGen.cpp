@@ -3479,18 +3479,32 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<SummonTask>("EX1_131t", SummonSide::RIGHT));
+    cards.emplace("VAN_EX1_131", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
-    // [VAN_EX1_133] Perdition's Blade - COST:3
+    // [VAN_EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0]
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage.
     //       <b>Combo:</b> Deal 2 instead.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - BATTLECRY = 1
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "VAN_EX1_133",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
@@ -3501,6 +3515,14 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "VAN_EX1_134",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_137] Headcrack - COST:3
@@ -3512,6 +3534,34 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddComboTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddComboTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::SOURCE,
+            SelfCondList{ std::make_shared<SelfCondition>(
+                SelfCondition::IsTagValue(GameTag::HEADCRACK_COMBO, 1)) }),
+        std::make_shared<FlagTask>(
+            true,
+            TaskList{ std::make_shared<IncludeTask>(EntityType::SOURCE),
+                      std::make_shared<FuncPlayableTask>(
+                          [=](const std::vector<Playable*>& playables) {
+                              auto source = playables[0];
+                              source->zone->Remove(source);
+                              source->SetGameTag(GameTag::HEADCRACK_COMBO, 0);
+
+                              return std::vector<Playable*>{ source };
+                          }),
+                      std::make_shared<AddStackToTask>(EntityType::HAND) })
+    };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("VAN_EX1_137", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_144] Shadowstep - COST:0
@@ -3520,6 +3570,20 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // Text: Return a friendly minion to your hand.
     //       It costs (2) less.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(
+        Effects::ReduceCost(2), EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_144",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_145] Preparation - COST:0
@@ -3527,6 +3591,10 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: The next spell you cast this turn costs (3) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "VAN_EX1_145o", EntityType::PLAYER));
+    cards.emplace("VAN_EX1_145", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_278] Shiv - COST:2
@@ -3534,6 +3602,16 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage. Draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace(
+        "VAN_EX1_278",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
@@ -3544,7 +3622,11 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - STEALTH = 1
+    // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_522", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_581] Sap - COST:2
@@ -3552,6 +3634,17 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Return an enemy minion to your opponent's hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cards.emplace("VAN_EX1_581",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
@@ -3564,6 +3657,14 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<GetPlayerGameTagTask>(
+        GameTag::NUM_CARDS_PLAYED_THIS_TURN));
+    power.AddComboTask(std::make_shared<MathSubtractTask>(1));
+    power.AddComboTask(std::make_shared<MathMultiplyTask>(2));
+    power.AddComboTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_613e", EntityType::SOURCE, true));
+    cards.emplace("VAN_EX1_613", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_NEW1_004] Vanish - COST:6
@@ -3571,6 +3672,10 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Return all minions to their owner's hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<ReturnHandTask>(EntityType::ALL_MINIONS));
+    cards.emplace("VAN_NEW1_004", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
@@ -3581,6 +3686,16 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_NEW1_005",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4]
@@ -3591,9 +3706,24 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::STEALTH, 1));
+    cards.emplace(
+        "VAN_NEW1_014",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 }
 
 void VanillaCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
@@ -3618,6 +3748,16 @@ void VanillaCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // - CANT_BE_SILENCED = 1
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(3) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
+    }
+    cards.emplace("VAN_EX1_145o", CardDef(power));
 }
 
 void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)

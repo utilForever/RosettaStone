@@ -189,14 +189,14 @@ VANILLA | VAN_EX1_126 | Betrayal | O
 VANILLA | VAN_EX1_128 | Conceal | O
 VANILLA | VAN_EX1_129 | Fan of Knives | O
 VANILLA | VAN_EX1_130 | Noble Sacrifice | O
-VANILLA | VAN_EX1_131 | Defias Ringleader |  
+VANILLA | VAN_EX1_131 | Defias Ringleader | O
 VANILLA | VAN_EX1_132 | Eye for an Eye | O
-VANILLA | VAN_EX1_133 | Perdition's Blade |  
-VANILLA | VAN_EX1_134 | SI:7 Agent |  
+VANILLA | VAN_EX1_133 | Perdition's Blade | O
+VANILLA | VAN_EX1_134 | SI:7 Agent | O
 VANILLA | VAN_EX1_136 | Redemption | O
-VANILLA | VAN_EX1_137 | Headcrack |  
-VANILLA | VAN_EX1_144 | Shadowstep |  
-VANILLA | VAN_EX1_145 | Preparation |  
+VANILLA | VAN_EX1_137 | Headcrack | O
+VANILLA | VAN_EX1_144 | Shadowstep | O
+VANILLA | VAN_EX1_145 | Preparation | O
 VANILLA | VAN_EX1_154 | Wrath | O
 VANILLA | VAN_EX1_155 | Mark of Nature | O
 VANILLA | VAN_EX1_158 | Soul of the Forest | O
@@ -226,7 +226,7 @@ VANILLA | VAN_EX1_259 | Lightning Storm |
 VANILLA | VAN_EX1_274 | Ethereal Arcanist | O
 VANILLA | VAN_EX1_275 | Cone of Cold | O
 VANILLA | VAN_EX1_277 | Arcane Missiles | O
-VANILLA | VAN_EX1_278 | Shiv |  
+VANILLA | VAN_EX1_278 | Shiv | O
 VANILLA | VAN_EX1_279 | Pyroblast | O
 VANILLA | VAN_EX1_283 | Frost Elemental |  
 VANILLA | VAN_EX1_284 | Azure Drake |  
@@ -292,7 +292,7 @@ VANILLA | VAN_EX1_506 | Murloc Tidehunter |
 VANILLA | VAN_EX1_507 | Murloc Warleader |  
 VANILLA | VAN_EX1_508 | Grimscale Oracle |  
 VANILLA | VAN_EX1_509 | Murloc Tidecaller |  
-VANILLA | VAN_EX1_522 | Patient Assassin |  
+VANILLA | VAN_EX1_522 | Patient Assassin | O
 VANILLA | VAN_EX1_531 | Scavenging Hyena | O
 VANILLA | VAN_EX1_533 | Misdirection | O
 VANILLA | VAN_EX1_534 | Savannah Highmane | O
@@ -322,7 +322,7 @@ VANILLA | VAN_EX1_573 | Cenarius | O
 VANILLA | VAN_EX1_575 | Mana Tide Totem |  
 VANILLA | VAN_EX1_577 | The Beast |  
 VANILLA | VAN_EX1_578 | Savagery | O
-VANILLA | VAN_EX1_581 | Sap |  
+VANILLA | VAN_EX1_581 | Sap | O
 VANILLA | VAN_EX1_582 | Dalaran Mage |  
 VANILLA | VAN_EX1_583 | Priestess of Elune |  
 VANILLA | VAN_EX1_584 | Ancient Mage |  
@@ -344,7 +344,7 @@ VANILLA | VAN_EX1_609 | Snipe | O
 VANILLA | VAN_EX1_610 | Explosive Trap | O
 VANILLA | VAN_EX1_611 | Freezing Trap | O
 VANILLA | VAN_EX1_612 | Kirin Tor Mage | O
-VANILLA | VAN_EX1_613 | Edwin VanCleef |  
+VANILLA | VAN_EX1_613 | Edwin VanCleef | O
 VANILLA | VAN_EX1_614 | Illidan Stormrage |  
 VANILLA | VAN_EX1_616 | Mana Wraith |  
 VANILLA | VAN_EX1_617 | Deadly Shot | O
@@ -357,14 +357,14 @@ VANILLA | VAN_EX1_624 | Holy Fire | O
 VANILLA | VAN_EX1_625 | Shadowform | O
 VANILLA | VAN_EX1_626 | Mass Dispel | O
 VANILLA | VAN_NEW1_003 | Sacrificial Pact |  
-VANILLA | VAN_NEW1_004 | Vanish |  
-VANILLA | VAN_NEW1_005 | Kidnapper |  
+VANILLA | VAN_NEW1_004 | Vanish | O
+VANILLA | VAN_NEW1_005 | Kidnapper | O
 VANILLA | VAN_NEW1_007 | Starfall | O
 VANILLA | VAN_NEW1_008 | Ancient of Lore | O
 VANILLA | VAN_NEW1_010 | Al'Akir the Windlord |  
 VANILLA | VAN_NEW1_011 | Kor'kron Elite |  
 VANILLA | VAN_NEW1_012 | Mana Wyrm | O
-VANILLA | VAN_NEW1_014 | Master of Disguise |  
+VANILLA | VAN_NEW1_014 | Master of Disguise | O
 VANILLA | VAN_NEW1_016 | Captain's Parrot |  
 VANILLA | VAN_NEW1_017 | Hungry Crab |  
 VANILLA | VAN_NEW1_018 | Bloodsail Raider |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 37% (144 of 382 Cards)
+- Progress: 40% (157 of 382 Cards)
