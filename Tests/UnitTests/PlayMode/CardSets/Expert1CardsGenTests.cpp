@@ -5687,7 +5687,8 @@ TEST_CASE("[Rogue : Minion] - EX1_131 : Defias Ringleader")
 // [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Deal 1 damage. <b>Combo:</b> Deal 2 instead.
+// Text: <b>Battlecry:</b> Deal 1 damage.
+//       <b>Combo:</b> Deal 2 instead.
 // --------------------------------------------------------
 // GameTag:
 // - DURABILITY = 2
