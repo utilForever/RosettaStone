@@ -3672,6 +3672,10 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Return all minions to their owner's hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<ReturnHandTask>(EntityType::ALL_MINIONS));
+    cards.emplace("VAN_NEW1_004", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
