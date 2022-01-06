@@ -2991,6 +2991,7 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // Text: The next spell you cast this turn costs (2) less.
     // --------------------------------------------------------
     // GameTag:
+    // - CANT_BE_SILENCED = 1
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
     power.ClearData();
