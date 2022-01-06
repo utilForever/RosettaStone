@@ -3479,6 +3479,10 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<SummonTask>("EX1_131t", SummonSide::RIGHT));
+    cards.emplace("VAN_EX1_131", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
     // [VAN_EX1_133] Perdition's Blade - COST:3
