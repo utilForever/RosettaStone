@@ -3622,7 +3622,11 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - STEALTH = 1
+    // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_522", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_581] Sap - COST:2
