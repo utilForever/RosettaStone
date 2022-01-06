@@ -9199,6 +9199,111 @@ TEST_CASE("[Rogue : Spell] - VAN_EX1_137 : Headcrack")
     CHECK_EQ(curHand[4]->card->name, "Headcrack");
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [VAN_EX1_144] Shadowstep - COST:0
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Return a friendly minion to your hand.
+//       It costs (2) less.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - VAN_EX1_144 : Shadowstep")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowstep", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowstep", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowstep", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("SI:7 Agent", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("SI:7 Agent", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 9);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 1);
+    CHECK_EQ(card4->GetCost(), 1);
+
+    game.Process(curPlayer, AttackTask(card4, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 9);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(card4->GetCost(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(dynamic_cast<Minion*>(card4)->CanAttack(), true);
+
+    game.Process(curPlayer, AttackTask(card4, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    CHECK_EQ(curPlayer->IsComboActive(), true);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card5, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card5));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 1);
+    CHECK_EQ(card5->GetCost(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card5, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->IsComboActive(), false);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card6, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card6));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 2);
+    CHECK_EQ(card6->GetCost(), 1);
+
+    CHECK_EQ(curPlayer->IsComboActive(), true);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card6, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common
