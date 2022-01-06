@@ -3657,6 +3657,14 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<GetPlayerGameTagTask>(
+        GameTag::NUM_CARDS_PLAYED_THIS_TURN));
+    power.AddComboTask(std::make_shared<MathSubtractTask>(1));
+    power.AddComboTask(std::make_shared<MathMultiplyTask>(2));
+    power.AddComboTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_613e", EntityType::SOURCE, true));
+    cards.emplace("VAN_EX1_613", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_NEW1_004] Vanish - COST:6
