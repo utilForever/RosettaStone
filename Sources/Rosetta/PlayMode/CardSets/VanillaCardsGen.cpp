@@ -3534,6 +3534,34 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddComboTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
+    power.AddComboTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::SOURCE,
+            SelfCondList{ std::make_shared<SelfCondition>(
+                SelfCondition::IsTagValue(GameTag::HEADCRACK_COMBO, 1)) }),
+        std::make_shared<FlagTask>(
+            true,
+            TaskList{ std::make_shared<IncludeTask>(EntityType::SOURCE),
+                      std::make_shared<FuncPlayableTask>(
+                          [=](const std::vector<Playable*>& playables) {
+                              auto source = playables[0];
+                              source->zone->Remove(source);
+                              source->SetGameTag(GameTag::HEADCRACK_COMBO, 0);
+
+                              return std::vector<Playable*>{ source };
+                          }),
+                      std::make_shared<AddStackToTask>(EntityType::HAND) })
+    };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("VAN_EX1_137", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_144] Shadowstep - COST:0
