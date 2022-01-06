@@ -3686,6 +3686,16 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_FOR_COMBO = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_NEW1_005",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4]

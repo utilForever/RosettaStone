@@ -9678,6 +9678,83 @@ TEST_CASE("[Rogue : Spell] - VAN_NEW1_004 : Vanish")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [VAN_NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Combo:</b> Return a minion to its owner's hand.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_FOR_COMBO = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - VAN_NEW1_005 : Kidnapper")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Acidic Swamp Ooze", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kidnapper", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kidnapper", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card4, card5));
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 7);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common
