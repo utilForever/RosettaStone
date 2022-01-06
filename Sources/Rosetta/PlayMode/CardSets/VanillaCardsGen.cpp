@@ -3485,16 +3485,26 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("VAN_EX1_131", CardDef(power));
 
     // ----------------------------------------- WEAPON - ROGUE
-    // [VAN_EX1_133] Perdition's Blade - COST:3
+    // [VAN_EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0]
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage.
     //       <b>Combo:</b> Deal 2 instead.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - BATTLECRY = 1
     // - COMBO = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "VAN_EX1_133",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- MINION - ROGUE
     // [VAN_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
