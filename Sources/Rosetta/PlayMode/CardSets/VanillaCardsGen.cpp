@@ -3591,6 +3591,10 @@ void VanillaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: The next spell you cast this turn costs (3) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "VAN_EX1_145o", EntityType::PLAYER));
+    cards.emplace("VAN_EX1_145", CardDef(power));
 
     // ------------------------------------------ SPELL - ROGUE
     // [VAN_EX1_278] Shiv - COST:2
@@ -3682,6 +3686,16 @@ void VanillaCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // - CANT_BE_SILENCED = 1
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(3) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
+    }
+    cards.emplace("VAN_EX1_145o", CardDef(power));
 }
 
 void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
