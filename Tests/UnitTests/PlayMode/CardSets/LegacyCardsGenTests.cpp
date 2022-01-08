@@ -3965,7 +3965,8 @@ TEST_CASE("[Rogue : Spell] - NEW1_004 : Vanish")
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Frost
 // --------------------------------------------------------
-// Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
+// Text: Deal 1 damage to an enemy character and
+//       <b>Freeze</b> it.
 // --------------------------------------------------------
 // GameTag:
 // - FREEZE = 1

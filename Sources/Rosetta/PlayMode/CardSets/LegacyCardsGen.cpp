@@ -1851,7 +1851,8 @@ void LegacyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // - Spell School: Frost
     // --------------------------------------------------------
-    // Text: Deal 1 damage to an enemy character and <b>Freeze</b> it.
+    // Text: Deal 1 damage to an enemy character and
+    //       <b>Freeze</b> it.
     // --------------------------------------------------------
     // GameTag:
     // - FREEZE = 1
