@@ -1897,15 +1897,14 @@ void LegacyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Restore a minion
-    //       to full Health and
+    // Text: Restore a minion to full Health and
     //       give it <b>Taunt</b>.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    // Tag:
+    // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
     power.ClearData();
