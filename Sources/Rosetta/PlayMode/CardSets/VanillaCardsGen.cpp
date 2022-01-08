@@ -3794,9 +3794,20 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Choose a minion. When that minion is destroyed,
     //       return it to the battlefield.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_038e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_038",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_039] Windfury - COST:2
