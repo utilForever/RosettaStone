@@ -3837,9 +3837,21 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Restore a minion to full Health and
     //       give it <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_041e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_041",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
