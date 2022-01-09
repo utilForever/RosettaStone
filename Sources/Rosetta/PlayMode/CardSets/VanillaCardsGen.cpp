@@ -3973,6 +3973,13 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your Totems +2 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_244e", EntityType::STACK));
+    cards.emplace("VAN_EX1_244", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_245] Earth Shock - COST:1
