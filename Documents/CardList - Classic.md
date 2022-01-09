@@ -32,14 +32,14 @@ VANILLA | VAN_CS2_029 | Fireball | O
 VANILLA | VAN_CS2_031 | Ice Lance | O
 VANILLA | VAN_CS2_032 | Flamestrike | O
 VANILLA | VAN_CS2_033 | Water Elemental | O
-VANILLA | VAN_CS2_037 | Frost Shock |  
-VANILLA | VAN_CS2_038 | Ancestral Spirit |  
-VANILLA | VAN_CS2_039 | Windfury |  
-VANILLA | VAN_CS2_041 | Ancestral Healing |  
-VANILLA | VAN_CS2_042 | Fire Elemental |  
-VANILLA | VAN_CS2_045 | Rockbiter Weapon |  
-VANILLA | VAN_CS2_046 | Bloodlust |  
-VANILLA | VAN_CS2_053 | Far Sight |  
+VANILLA | VAN_CS2_037 | Frost Shock | O
+VANILLA | VAN_CS2_038 | Ancestral Spirit | O
+VANILLA | VAN_CS2_039 | Windfury | O
+VANILLA | VAN_CS2_041 | Ancestral Healing | O
+VANILLA | VAN_CS2_042 | Fire Elemental | O
+VANILLA | VAN_CS2_045 | Rockbiter Weapon | O
+VANILLA | VAN_CS2_046 | Bloodlust | O
+VANILLA | VAN_CS2_053 | Far Sight | O
 VANILLA | VAN_CS2_057 | Shadow Bolt |  
 VANILLA | VAN_CS2_059 | Blood Imp |  
 VANILLA | VAN_CS2_061 | Drain Life |  
@@ -211,10 +211,10 @@ VANILLA | VAN_EX1_170 | Emperor Cobra |
 VANILLA | VAN_EX1_173 | Starfire | O
 VANILLA | VAN_EX1_178 | Ancient of War | O
 VANILLA | VAN_EX1_238 | Lightning Bolt | O
-VANILLA | VAN_EX1_241 | Lava Burst |  
-VANILLA | VAN_EX1_243 | Dust Devil |  
-VANILLA | VAN_EX1_244 | Totemic Might |  
-VANILLA | VAN_EX1_245 | Earth Shock |  
+VANILLA | VAN_EX1_241 | Lava Burst | O
+VANILLA | VAN_EX1_243 | Dust Devil | O
+VANILLA | VAN_EX1_244 | Totemic Might | O
+VANILLA | VAN_EX1_245 | Earth Shock | O
 VANILLA | VAN_EX1_246 | Hex |  
 VANILLA | VAN_EX1_247 | Stormforged Axe |  
 VANILLA | VAN_EX1_248 | Feral Spirit |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 40% (157 of 382 Cards)
+- Progress: 44% (169 of 382 Cards)
