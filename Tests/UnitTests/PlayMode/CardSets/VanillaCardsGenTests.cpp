@@ -10366,6 +10366,61 @@ TEST_CASE("[Shaman : Spell] - VAN_EX1_238 : Lightning Bolt")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [VAN_EX1_241] Lava Burst - COST:3
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 5 damage. <b>Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - VAN_EX1_241 : Lava Burst")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lava Burst", FormatType::CLASSIC));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [VAN_CS2_062] Hellfire - COST:4
 // - Set: VANILLA, Rarity: Free

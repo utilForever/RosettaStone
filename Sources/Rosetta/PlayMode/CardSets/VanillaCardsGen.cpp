@@ -3939,8 +3939,18 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage. <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    cards.emplace(
+        "VAN_EX1_241",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
