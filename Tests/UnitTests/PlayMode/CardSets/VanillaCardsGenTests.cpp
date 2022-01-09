@@ -10421,6 +10421,22 @@ TEST_CASE("[Shaman : Spell] - VAN_EX1_241 : Lava Burst")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [VAN_EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>. <b>Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - VAN_EX1_243 : Dust Devil")
+{
+    // Do nothing
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [VAN_CS2_062] Hellfire - COST:4
 // - Set: VANILLA, Rarity: Free

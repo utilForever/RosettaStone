@@ -3959,9 +3959,13 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: <b>Windfury</b>. <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_243", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_244] Totemic Might - COST:0
