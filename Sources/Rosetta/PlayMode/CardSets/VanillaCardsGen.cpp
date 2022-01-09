@@ -3877,6 +3877,17 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a friendly character +3 Attack this turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_045e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_045",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_046] Bloodlust - COST:5

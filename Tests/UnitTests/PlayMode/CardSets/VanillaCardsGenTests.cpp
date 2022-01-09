@@ -10151,6 +10151,66 @@ TEST_CASE("[Shaman : Minion] - VAN_CS2_042 : Fire Elemental")
 }
 
 // ----------------------------------------- SPELL - SHAMAN
+// [VAN_CS2_045] Rockbiter Weapon - COST:1
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Give a friendly character +3 Attack this turn.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - VAN_CS2_045 : Rockbiter Weapon")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Rockbiter Weapon", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Rockbiter Weapon", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
 // [VAN_EX1_238] Lightning Bolt - COST:1
 // - Set: VANILLA, Rarity: Common
 // --------------------------------------------------------
