@@ -3774,6 +3774,18 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::FROZEN, 1));
+    cards.emplace("VAN_CS2_037",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_038] Ancestral Spirit - COST:2
@@ -3782,9 +3794,20 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Choose a minion. When that minion is destroyed,
     //       return it to the battlefield.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_038e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_038",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_039] Windfury - COST:2
@@ -3792,9 +3815,20 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion <b>Windfury</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::WINDFURY, 1));
+    cards.emplace(
+        "VAN_CS2_039",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_041] Ancestral Healing - COST:0
@@ -3803,9 +3837,21 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Restore a minion to full Health and
     //       give it <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_041e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_041",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
@@ -3816,6 +3862,14 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    cards.emplace(
+        "VAN_CS2_042",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_045] Rockbiter Weapon - COST:1
@@ -3823,6 +3877,17 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a friendly character +3 Attack this turn.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_045e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_045",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_046] Bloodlust - COST:5
@@ -3830,6 +3895,10 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your minions +3 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_046e", EntityType::MINIONS));
+    cards.emplace("VAN_CS2_046", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_053] Far Sight - COST:3
@@ -3837,6 +3906,11 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a card. That card costs (3) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_053e", EntityType::STACK));
+    cards.emplace("VAN_CS2_053", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_238] Lightning Bolt - COST:1
@@ -3865,8 +3939,18 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage. <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    cards.emplace(
+        "VAN_EX1_241",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
@@ -3875,9 +3959,13 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: <b>Windfury</b>. <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_243", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_244] Totemic Might - COST:0
@@ -3885,6 +3973,13 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your Totems +2 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_244e", EntityType::STACK));
+    cards.emplace("VAN_EX1_244", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_245] Earth Shock - COST:1
@@ -3895,6 +3990,18 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    cards.emplace(
+        "VAN_EX1_245",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_246] Hex - COST:3
