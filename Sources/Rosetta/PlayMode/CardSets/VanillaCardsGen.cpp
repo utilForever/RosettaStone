@@ -3895,6 +3895,10 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your minions +3 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_046e", EntityType::MINIONS));
+    cards.emplace("VAN_CS2_046", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_CS2_053] Far Sight - COST:3
