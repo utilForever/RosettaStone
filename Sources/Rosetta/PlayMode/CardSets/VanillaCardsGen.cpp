@@ -4063,12 +4063,17 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>. <b><b>Overload</b>:</b> (3)
+    // Text: <b>Taunt</b>.
+    //       <b><b>Overload</b>:</b> (3)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 3
+    // - OVERLOAD_OWED = 3
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_250", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_251] Forked Lightning - COST:1
