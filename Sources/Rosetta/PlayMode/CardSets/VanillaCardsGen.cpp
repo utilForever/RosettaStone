@@ -4218,6 +4218,9 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_010", CardDef(power));
 }
 
 void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)

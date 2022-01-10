@@ -11270,6 +11270,24 @@ TEST_CASE("[Shaman : Minion] - VAN_EX1_587 : Windspeaker")
     CHECK_EQ(curField[0]->HasWindfury(), true);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [VAN_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Charge, Divine Shield, Taunt, Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - CHARGE = 1
+// - DIVINE_SHIELD = 1
+// - TAUNT = 1
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - VAN_NEW1_010 : Al'Akir the Windlord")
+{
+    // Do nothing
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [VAN_CS2_062] Hellfire - COST:4
 // - Set: VANILLA, Rarity: Free
