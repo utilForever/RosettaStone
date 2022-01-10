@@ -4083,8 +4083,20 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace(
+        "VAN_EX1_251",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
