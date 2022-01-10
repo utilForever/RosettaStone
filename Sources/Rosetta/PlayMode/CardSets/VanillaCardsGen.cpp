@@ -4009,19 +4009,35 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform a minion into a 0/1 Frog with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::TARGET, "hexfrog"));
+    cards.emplace(
+        "VAN_EX1_246",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- WEAPON - SHAMAN
-    // [VAN_EX1_247] Stormforged Axe - COST:2
+    // [VAN_EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 3
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_247", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_248] Feral Spirit - COST:3
@@ -4031,22 +4047,33 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("VAN_EX1_tk11", 2));
+    cards.emplace(
+        "VAN_EX1_248",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>. <b><b>Overload</b>:</b> (3)
+    // Text: <b>Taunt</b>.
+    //       <b><b>Overload</b>:</b> (3)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 3
+    // - OVERLOAD_OWED = 3
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_250", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_251] Forked Lightning - COST:1
@@ -4056,14 +4083,27 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace(
+        "VAN_EX1_251",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [VAN_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
+    // [VAN_EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: After you play a card with <b>Overload</b>, gain +1/+1.
+    // Text: After you play a card with <b>Overload</b>,
+    //       gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -4071,6 +4111,14 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_258e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_258", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_259] Lightning Storm - COST:3
@@ -4082,6 +4130,10 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, 1, true));
+    cards.emplace("VAN_EX1_259", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
@@ -4093,17 +4145,25 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdjacentAura>("EX1_565o"));
+    cards.emplace("VAN_EX1_565", CardDef(power));
 
     // ---------------------------------------- WEAPON - SHAMAN
-    // [VAN_EX1_567] Doomhammer - COST:5
+    // [VAN_EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Windfury, Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - DURABILITY = 8
     // - WINDFURY = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_567", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
@@ -4114,6 +4174,10 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("VAN_EX1_575", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_587] Windspeaker - COST:4 [ATK:3/HP:3]
@@ -4124,9 +4188,22 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
+                                                        GameTag::WINDFURY, 1));
+    cards.emplace(
+        "VAN_EX1_587",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
@@ -4141,6 +4218,9 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_010", CardDef(power));
 }
 
 void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
@@ -4190,6 +4270,9 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_tk11", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [VAN_HERO_02e2] Strength of Earth - COST:0

@@ -215,14 +215,14 @@ VANILLA | VAN_EX1_241 | Lava Burst | O
 VANILLA | VAN_EX1_243 | Dust Devil | O
 VANILLA | VAN_EX1_244 | Totemic Might | O
 VANILLA | VAN_EX1_245 | Earth Shock | O
-VANILLA | VAN_EX1_246 | Hex |  
-VANILLA | VAN_EX1_247 | Stormforged Axe |  
-VANILLA | VAN_EX1_248 | Feral Spirit |  
+VANILLA | VAN_EX1_246 | Hex | O
+VANILLA | VAN_EX1_247 | Stormforged Axe | O
+VANILLA | VAN_EX1_248 | Feral Spirit | O
 VANILLA | VAN_EX1_249 | Baron Geddon |  
-VANILLA | VAN_EX1_250 | Earth Elemental |  
-VANILLA | VAN_EX1_251 | Forked Lightning |  
-VANILLA | VAN_EX1_258 | Unbound Elemental |  
-VANILLA | VAN_EX1_259 | Lightning Storm |  
+VANILLA | VAN_EX1_250 | Earth Elemental | O
+VANILLA | VAN_EX1_251 | Forked Lightning | O
+VANILLA | VAN_EX1_258 | Unbound Elemental | O
+VANILLA | VAN_EX1_259 | Lightning Storm | O
 VANILLA | VAN_EX1_274 | Ethereal Arcanist | O
 VANILLA | VAN_EX1_275 | Cone of Cold | O
 VANILLA | VAN_EX1_277 | Arcane Missiles | O
@@ -313,13 +313,13 @@ VANILLA | VAN_EX1_561 | Alexstrasza |
 VANILLA | VAN_EX1_562 | Onyxia |  
 VANILLA | VAN_EX1_563 | Malygos |  
 VANILLA | VAN_EX1_564 | Faceless Manipulator |  
-VANILLA | VAN_EX1_565 | Flametongue Totem |  
-VANILLA | VAN_EX1_567 | Doomhammer |  
+VANILLA | VAN_EX1_565 | Flametongue Totem | O
+VANILLA | VAN_EX1_567 | Doomhammer | O
 VANILLA | VAN_EX1_570 | Bite | O
 VANILLA | VAN_EX1_571 | Force of Nature | O
 VANILLA | VAN_EX1_572 | Ysera |  
 VANILLA | VAN_EX1_573 | Cenarius | O
-VANILLA | VAN_EX1_575 | Mana Tide Totem |  
+VANILLA | VAN_EX1_575 | Mana Tide Totem | O
 VANILLA | VAN_EX1_577 | The Beast |  
 VANILLA | VAN_EX1_578 | Savagery | O
 VANILLA | VAN_EX1_581 | Sap | O
@@ -327,7 +327,7 @@ VANILLA | VAN_EX1_582 | Dalaran Mage |
 VANILLA | VAN_EX1_583 | Priestess of Elune |  
 VANILLA | VAN_EX1_584 | Ancient Mage |  
 VANILLA | VAN_EX1_586 | Sea Giant |  
-VANILLA | VAN_EX1_587 | Windspeaker |  
+VANILLA | VAN_EX1_587 | Windspeaker | O
 VANILLA | VAN_EX1_590 | Blood Knight |  
 VANILLA | VAN_EX1_591 | Auchenai Soulpriest | O
 VANILLA | VAN_EX1_593 | Nightblade |  
@@ -361,7 +361,7 @@ VANILLA | VAN_NEW1_004 | Vanish | O
 VANILLA | VAN_NEW1_005 | Kidnapper | O
 VANILLA | VAN_NEW1_007 | Starfall | O
 VANILLA | VAN_NEW1_008 | Ancient of Lore | O
-VANILLA | VAN_NEW1_010 | Al'Akir the Windlord |  
+VANILLA | VAN_NEW1_010 | Al'Akir the Windlord | O
 VANILLA | VAN_NEW1_011 | Kor'kron Elite |  
 VANILLA | VAN_NEW1_012 | Mana Wyrm | O
 VANILLA | VAN_NEW1_014 | Master of Disguise | O
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 44% (169 of 382 Cards)
+- Progress: 47% (181 of 383 Cards)

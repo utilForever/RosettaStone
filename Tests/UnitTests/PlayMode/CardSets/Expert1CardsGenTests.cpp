@@ -6728,7 +6728,8 @@ TEST_CASE("[Shaman : Minion] - EX1_250 : Earth Elemental")
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // - Spell School: Nature
 // --------------------------------------------------------
-// Text: Deal 2 damage to 2 random enemy minions. <b>Overload:</b> (2)
+// Text: Deal 2 damage to 2 random enemy minions.
+//       <b>Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
 // - OVERLOAD = 2
@@ -6807,7 +6808,11 @@ TEST_CASE("[Shaman : Spell] - EX1_251 : Forked Lightning")
 // [EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
 // - Race: Elemental, Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: After you play a card with <b>Overload</b>, gain +1/+1.
+// Text: After you play a card with <b>Overload</b>,
+//       gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 // RefTag:
 // - OVERLOAD = 1
