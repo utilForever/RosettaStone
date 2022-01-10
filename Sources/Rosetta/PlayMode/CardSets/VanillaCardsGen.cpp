@@ -4099,10 +4099,11 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ---------------------------------------- MINION - SHAMAN
-    // [VAN_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
+    // [VAN_EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: After you play a card with <b>Overload</b>, gain +1/+1.
+    // Text: After you play a card with <b>Overload</b>,
+    //       gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -4110,6 +4111,14 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_258e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_258", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_259] Lightning Storm - COST:3
