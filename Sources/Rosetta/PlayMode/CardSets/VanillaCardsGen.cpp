@@ -4145,6 +4145,9 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdjacentAura>("EX1_565o"));
+    cards.emplace("VAN_EX1_565", CardDef(power));
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [VAN_EX1_567] Doomhammer - COST:5
