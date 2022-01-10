@@ -4047,11 +4047,17 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
-    // - OVERLOAD = 1
+    // - OVERLOAD = 2
+    // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("VAN_EX1_tk11", 2));
+    cards.emplace(
+        "VAN_EX1_248",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
@@ -4206,6 +4212,9 @@ void VanillaCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_tk11", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [VAN_HERO_02e2] Strength of Earth - COST:0

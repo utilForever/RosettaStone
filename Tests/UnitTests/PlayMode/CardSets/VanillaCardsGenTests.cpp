@@ -10634,6 +10634,70 @@ TEST_CASE("[Shaman : Weapon] - VAN_EX1_247 : Stormforged Axe")
     // Do nothing
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [VAN_EX1_248] Feral Spirit - COST:3
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>.
+//       <b>Overload:</b> (2)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 2
+// - OVERLOAD_OWED = 2
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - VAN_EX1_248 : Feral Spirit")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Feral Spirit", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [VAN_CS2_062] Hellfire - COST:4
 // - Set: VANILLA, Rarity: Free
