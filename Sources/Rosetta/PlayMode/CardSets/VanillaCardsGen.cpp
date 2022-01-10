@@ -4130,6 +4130,10 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, 1, true));
+    cards.emplace("VAN_EX1_259", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3]
