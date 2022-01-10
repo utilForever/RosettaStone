@@ -10618,6 +10618,22 @@ TEST_CASE("[Shaman : Spell] - VAN_EX1_246 : Hex")
     CHECK_EQ(opField[0]->GetGameTag(GameTag::TAUNT), 1);
 }
 
+// ---------------------------------------- WEAPON - SHAMAN
+// [VAN_EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// - OVERLOAD = 1
+// - OVERLOAD_OWED = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Weapon] - VAN_EX1_247 : Stormforged Axe")
+{
+    // Do nothing
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [VAN_CS2_062] Hellfire - COST:4
 // - Set: VANILLA, Rarity: Free

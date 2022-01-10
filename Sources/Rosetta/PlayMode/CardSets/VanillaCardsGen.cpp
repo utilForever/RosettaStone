@@ -4025,14 +4025,19 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- WEAPON - SHAMAN
-    // [VAN_EX1_247] Stormforged Axe - COST:2
+    // [VAN_EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Overload:</b> (1)
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 3
     // - OVERLOAD = 1
+    // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_247", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [VAN_EX1_248] Feral Spirit - COST:3
