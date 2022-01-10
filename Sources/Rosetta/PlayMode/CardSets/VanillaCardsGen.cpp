@@ -4174,6 +4174,10 @@ void VanillaCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("VAN_EX1_575", CardDef(power));
 
     // ---------------------------------------- MINION - SHAMAN
     // [VAN_EX1_587] Windspeaker - COST:4 [ATK:3/HP:3]
