@@ -483,6 +483,51 @@ TEST_CASE("[Neutral : Minion] - AV_101 : Herald of Lokholar")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [AV_112] Snowblind Harpy - COST:3 [ATK:3/HP:4]
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Frost spell,
+//       gain 5 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_112 : Snowblind Harpy")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snowblind Harpy"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snowblind Harpy"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Barrier"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [AV_121] Gnome Private - COST:1 [ATK:1/HP:3]
 // - Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------

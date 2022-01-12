@@ -2311,6 +2311,14 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsHoldingSpell(SpellSchool::FROST)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<ArmorTask>(5) }));
+    cards.emplace("AV_112", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_121] Gnome Private - COST:1 [ATK:1/HP:3]
