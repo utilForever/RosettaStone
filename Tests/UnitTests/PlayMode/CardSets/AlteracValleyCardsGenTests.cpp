@@ -162,7 +162,7 @@ TEST_CASE("[Rogue : Minion] - AV_201 : Coldtooth Yeti")
 TEST_CASE("[Shaman : Minion] - AV_260 : Sleetbreaker")
 {
     GameConfig config;
-    config.player1Class = CardClass::ROGUE;
+    config.player1Class = CardClass::SHAMAN;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
@@ -187,6 +187,64 @@ TEST_CASE("[Shaman : Minion] - AV_260 : Sleetbreaker")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 1);
     CHECK_EQ(curHand[0]->card->name, "Windchill");
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [AV_266] Windchill - COST:1
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: <b>Freeze</b> a minion. Draw a card.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - AV_266 : Windchill")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Windchill"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->IsFrozen(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+    CHECK_EQ(curHand.GetCount(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL
