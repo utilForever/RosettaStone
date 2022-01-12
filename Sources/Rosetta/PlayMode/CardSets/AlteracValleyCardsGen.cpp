@@ -1677,11 +1677,19 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "AV_257t", SummonSide::SPELL) };
+    power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_268", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddShamanNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [AV_255e] Chilled - COST:0
     // - Set: ALTERAC_VALLEY
@@ -1698,6 +1706,9 @@ void AlteracValleyCardsGen::AddShamanNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_257t", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [AV_258t] Earth Invocation - COST:0
