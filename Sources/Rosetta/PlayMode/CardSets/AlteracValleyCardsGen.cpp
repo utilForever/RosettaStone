@@ -1354,6 +1354,8 @@ void AlteracValleyCardsGen::AddPriestNonCollect(
 
 void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [AV_201] Coldtooth Yeti - COST:3 [ATK:1/HP:5]
     // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -1363,6 +1365,10 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddComboTask(
+        std::make_shared<AddEnchantmentTask>("AV_201e", EntityType::SOURCE));
+    cards.emplace("AV_201", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
     // [AV_298] Wildpaw Gnoll - COST:5 [ATK:4/HP:5]
@@ -1465,12 +1471,17 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [AV_201e] Yeti Rage - COST:0
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: +3 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_201e"));
+    cards.emplace("AV_201e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [AV_203pe] Sleight of Hand - COST:0
