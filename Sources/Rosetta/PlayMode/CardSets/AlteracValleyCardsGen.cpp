@@ -2283,6 +2283,9 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(SpellSchool::FROST, 1));
+    cards.emplace("AV_101", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_102] Popsicooler - COST:3 [ATK:3/HP:3]
