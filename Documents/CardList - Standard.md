@@ -1070,12 +1070,12 @@ STORMWIND | SW_463 | Imported Tarantula |
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 ALTERAC_VALLEY | AV_100 | Drek'Thar |  
-ALTERAC_VALLEY | AV_101 | Herald of Lokholar |  
+ALTERAC_VALLEY | AV_101 | Herald of Lokholar | O
 ALTERAC_VALLEY | AV_102 | Popsicooler |  
 ALTERAC_VALLEY | AV_107 | Glaciate |  
 ALTERAC_VALLEY | AV_108 | Shield Shatter |  
-ALTERAC_VALLEY | AV_109 | Frozen Buckler |  
-ALTERAC_VALLEY | AV_112 | Snowblind Harpy |  
+ALTERAC_VALLEY | AV_109 | Frozen Buckler | O
+ALTERAC_VALLEY | AV_112 | Snowblind Harpy | O
 ALTERAC_VALLEY | AV_113 | Beaststalker Tavish |  
 ALTERAC_VALLEY | AV_114 | Shivering Sorceress |  
 ALTERAC_VALLEY | AV_115 | Amplified Snowflurry |  
@@ -1083,9 +1083,9 @@ ALTERAC_VALLEY | AV_116 | Arcane Brilliance |
 ALTERAC_VALLEY | AV_118 | Battleworn Vanguard |  
 ALTERAC_VALLEY | AV_119 | To the Front! |  
 ALTERAC_VALLEY | AV_121 | Gnome Private | O
-ALTERAC_VALLEY | AV_122 | Corporal |  
+ALTERAC_VALLEY | AV_122 | Corporal | O
 ALTERAC_VALLEY | AV_123 | Sneaky Scout |  
-ALTERAC_VALLEY | AV_124 | Direwolf Commander |  
+ALTERAC_VALLEY | AV_124 | Direwolf Commander | O
 ALTERAC_VALLEY | AV_125 | Tower Sergeant |  
 ALTERAC_VALLEY | AV_126 | Bunker Sergeant |  
 ALTERAC_VALLEY | AV_127 | Ice Revenant |  
@@ -1107,7 +1107,7 @@ ALTERAC_VALLEY | AV_143 | Korrak the Bloodrager |
 ALTERAC_VALLEY | AV_145 | Captain Galvangar |  
 ALTERAC_VALLEY | AV_147 | Dun Baldar Bunker |  
 ALTERAC_VALLEY | AV_200 | Magister Dawngrasp |  
-ALTERAC_VALLEY | AV_201 | Coldtooth Yeti |  
+ALTERAC_VALLEY | AV_201 | Coldtooth Yeti | O
 ALTERAC_VALLEY | AV_202 | Rokara, the Valorous |  
 ALTERAC_VALLEY | AV_203 | Shadowcrafter Scabbs |  
 ALTERAC_VALLEY | AV_204 | Kurtrus, Demon-Render |  
@@ -1135,14 +1135,14 @@ ALTERAC_VALLEY | AV_256 | Reflecto Engineer |
 ALTERAC_VALLEY | AV_257 | Bearon Gla'shear |  
 ALTERAC_VALLEY | AV_258 | Bru'kan of the Elements |  
 ALTERAC_VALLEY | AV_259 | Frostbite |  
-ALTERAC_VALLEY | AV_260 | Sleetbreaker |  
+ALTERAC_VALLEY | AV_260 | Sleetbreaker | O
 ALTERAC_VALLEY | AV_261 | Flag Runner |  
 ALTERAC_VALLEY | AV_262 | Warden of Chains |  
 ALTERAC_VALLEY | AV_264 | Sigil of Reckoning |  
 ALTERAC_VALLEY | AV_265 | Ur'zul Giant |  
-ALTERAC_VALLEY | AV_266 | Windchill |  
+ALTERAC_VALLEY | AV_266 | Windchill | O
 ALTERAC_VALLEY | AV_267 | Caria Felsoul |  
-ALTERAC_VALLEY | AV_268 | Wildpaw Cavern |  
+ALTERAC_VALLEY | AV_268 | Wildpaw Cavern | O
 ALTERAC_VALLEY | AV_269 | Flanking Maneuver |  
 ALTERAC_VALLEY | AV_277 | Seeds of Destruction |  
 ALTERAC_VALLEY | AV_281 | Felfire in the Hole! |  
@@ -1166,7 +1166,7 @@ ALTERAC_VALLEY | AV_313 | Hollow Abomination |
 ALTERAC_VALLEY | AV_315 | Deliverance |  
 ALTERAC_VALLEY | AV_316 | Dreadlich Tamsin |  
 ALTERAC_VALLEY | AV_317 | Tamsin's Phylactery |  
-ALTERAC_VALLEY | AV_321 | Glory Chaser |  
+ALTERAC_VALLEY | AV_321 | Glory Chaser | O
 ALTERAC_VALLEY | AV_322 | Snowed In |  
 ALTERAC_VALLEY | AV_323 | Scrapsmith |  
 ALTERAC_VALLEY | AV_324 | Shadow Word: Devour |  
@@ -1205,4 +1205,4 @@ ALTERAC_VALLEY | AV_704 | Humongous Owl |
 ALTERAC_VALLEY | AV_710 | Reconnaissance |  
 ALTERAC_VALLEY | AV_711 | Double Agent |  
 
-- Progress: 1% (2 of 135 Cards)
+- Progress: 8% (12 of 135 Cards)
