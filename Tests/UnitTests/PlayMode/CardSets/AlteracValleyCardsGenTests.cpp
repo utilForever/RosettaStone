@@ -333,6 +333,58 @@ TEST_CASE("[Shaman : Spell] - AV_268 : Wildpaw Cavern")
     CHECK_EQ(curField.GetCount(), 3);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [AV_109] Frozen Buckler - COST:2
+// - Set: ALTERAC_VALLEY, Rarity: Epic
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: Gain 10 Armor.
+//       At the start of your next turn, lose 5 Armor.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - AV_109 : Frozen Buckler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frozen Buckler"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card2, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [AV_121] Gnome Private - COST:1 [ATK:1/HP:3]
 // - Set: ALTERAC_VALLEY, Rarity: Common

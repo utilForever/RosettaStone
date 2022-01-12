@@ -1921,6 +1921,8 @@ void AlteracValleyCardsGen::AddWarlockNonCollect(
 
 void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_108] Shield Shatter - COST:10
     // - Set: ALTERAC_VALLEY, Rarity: Rare
@@ -1938,6 +1940,12 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Gain 10 Armor.
     //       At the start of your next turn, lose 5 Armor.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(10));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(-5) };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("AV_109", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_119] To the Front! - COST:2
