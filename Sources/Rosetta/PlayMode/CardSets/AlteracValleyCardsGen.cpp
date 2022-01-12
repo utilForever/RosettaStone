@@ -1541,6 +1541,8 @@ void AlteracValleyCardsGen::AddRogueNonCollect(
 
 void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [AV_107] Glaciate - COST:6
     // - Set: ALTERAC_VALLEY, Rarity: Rare
@@ -1635,6 +1637,10 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "AV_266"));
+    cards.emplace("AV_260", CardDef(power));
 
     // ----------------------------------------- SPELL - SHAMAN
     // [AV_266] Windchill - COST:1
