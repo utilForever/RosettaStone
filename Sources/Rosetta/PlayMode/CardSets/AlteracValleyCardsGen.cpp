@@ -2377,6 +2377,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(
+        std::make_shared<SummonTask>("AV_211t", SummonSide::RIGHT));
+    cards.emplace("AV_124", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_125] Tower Sergeant - COST:4 [ATK:4/HP:4]
