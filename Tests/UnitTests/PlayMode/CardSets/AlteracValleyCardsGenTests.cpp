@@ -279,8 +279,8 @@ TEST_CASE("[Shaman : Spell] - AV_268 : Wildpaw Cavern")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Wildpaw Cavern"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wildpaw Cavern"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curField.GetCount(), 0);
@@ -610,4 +610,77 @@ TEST_CASE("[Neutral : Minion] - AV_121 : Gnome Private")
     game.Process(curPlayer, AttackTask(card1, card4));
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_122] Corporal - COST:2 [ATK:2/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Honorable Kill:</b> Give your other minions
+//       <b>Divine Shield</b>.
+// --------------------------------------------------------
+// GameTag:
+// - HONORABLEKILL = 1
+// --------------------------------------------------------
+// RefTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_122 : Corporal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Corporal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Intrepid Initiate"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[1]->HasDivineShield(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card4));
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[1]->HasDivineShield(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card3));
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[1]->HasDivineShield(), true);
 }

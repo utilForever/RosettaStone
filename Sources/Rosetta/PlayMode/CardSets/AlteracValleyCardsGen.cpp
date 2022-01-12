@@ -2347,6 +2347,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(std::make_shared<SetGameTagTask>(
+        EntityType::MINIONS_NOSOURCE, GameTag::DIVINE_SHIELD, 1));
+    cards.emplace("AV_122", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_123] Sneaky Scout - COST:2 [ATK:3/HP:2]
