@@ -4408,6 +4408,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_065", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_301] Felguard - COST:3 [ATK:3/HP:5]

@@ -11636,6 +11636,20 @@ TEST_CASE("[Warlock : Minion] - VAN_CS2_064 : Dread Infernal")
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [VAN_CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
+// - Race: Demon, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - VAN_CS2_065 : Voidwalker")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
 // - Race: Demon, Set: VANILLA, Rarity: Legendary
 // --------------------------------------------------------
