@@ -4801,7 +4801,8 @@ TEST_CASE("[Warlock : Spell] - CS2_062 : Hellfire")
 // [CS2_063] Corruption - COST:1
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
-// Text: Choose an enemy minion. At the start of your turn, destroy it.
+// Text: Choose an enemy minion.
+//       At the start of your turn, destroy it.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
