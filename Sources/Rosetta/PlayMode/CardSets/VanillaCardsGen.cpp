@@ -4331,6 +4331,13 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("CS2_059o", EntityType::STACK)
+    };
+    cards.emplace("VAN_CS2_059", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_CS2_061] Drain Life - COST:3

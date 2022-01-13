@@ -11345,6 +11345,64 @@ TEST_CASE("[Warlock : Spell] - VAN_CS2_057 : Shadow Bolt")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [VAN_CS2_059] Blood Imp - COST:1 [ATK:0/HP:1]
+// - Race: Demon, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>. At the end of your turn,
+//       give another random friendly minion +1 Health.
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - VAN_CS2_059 : Blood Imp")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blood Imp", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Acidic Swamp Ooze", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    int totalHealth = curField[1]->GetHealth();
+    totalHealth += curField[2]->GetHealth();
+    CHECK_EQ(totalHealth, 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    totalHealth = curField[1]->GetHealth();
+    totalHealth += curField[2]->GetHealth();
+    CHECK_EQ(totalHealth, 4);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [VAN_CS2_062] Hellfire - COST:4
 // - Set: VANILLA, Rarity: Free
