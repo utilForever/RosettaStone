@@ -4308,6 +4308,17 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cards.emplace(
+        "VAN_CS2_057",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_CS2_059] Blood Imp - COST:1 [ATK:0/HP:1]
