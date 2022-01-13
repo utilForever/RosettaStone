@@ -4527,6 +4527,15 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 4 damage. Discard a random card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
+    power.AddPowerTask(std::make_shared<DiscardTask>(1));
+    cards.emplace(
+        "VAN_EX1_308",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_309] Siphon Soul - COST:6
