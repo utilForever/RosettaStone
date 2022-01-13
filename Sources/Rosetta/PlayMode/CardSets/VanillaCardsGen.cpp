@@ -4431,9 +4431,25 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_302] Mortal Coil - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 1 damage to a minion. If that kills it,
-    //       draw a card.
+    // Text: Deal 1 damage to a minion.
+    //       If that kills it, draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace(
+        "VAN_EX1_302",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_303] Shadowflame - COST:4
