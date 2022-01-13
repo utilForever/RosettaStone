@@ -4423,6 +4423,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(-1, false));
+    cards.emplace("VAN_EX1_301", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_302] Mortal Coil - COST:1
