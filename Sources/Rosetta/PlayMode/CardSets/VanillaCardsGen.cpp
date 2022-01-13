@@ -4308,6 +4308,17 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 4 damage to a minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cards.emplace(
+        "VAN_CS2_057",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_CS2_059] Blood Imp - COST:1 [ATK:0/HP:1]
@@ -4320,6 +4331,13 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("CS2_059o", EntityType::STACK)
+    };
+    cards.emplace("VAN_CS2_059", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_CS2_061] Drain Life - COST:3
@@ -4327,6 +4345,16 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage. Restore 2 Health to your hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 2));
+    cards.emplace(
+        "VAN_CS2_061",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_CS2_062] Hellfire - COST:4
@@ -4345,6 +4373,18 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Choose an enemy minion.
     //       At the start of your turn, destroy it.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_063e", EntityType::TARGET));
+    cards.emplace("VAN_CS2_063",
+                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                           { PlayReq::REQ_MINION_TARGET, 0 },
+                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
@@ -4355,6 +4395,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 1));
+    cards.emplace("VAN_CS2_064", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
@@ -4365,6 +4408,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_065", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_301] Felguard - COST:3 [ATK:3/HP:5]
@@ -4377,14 +4423,33 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(-1, false));
+    cards.emplace("VAN_EX1_301", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_302] Mortal Coil - COST:1
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Deal 1 damage to a minion. If that kills it,
-    //       draw a card.
+    // Text: Deal 1 damage to a minion.
+    //       If that kills it, draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace(
+        "VAN_EX1_302",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_303] Shadowflame - COST:4
@@ -4396,6 +4461,22 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS, true));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_303",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_304] Void Terror - COST:3 [ATK:3/HP:3]
@@ -4407,6 +4488,25 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ATK, 0, 1));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::ATK, 1, 2));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(1, 2, MathOperation::ADD));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::HEALTH, 0, 3));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
+                                                        GameTag::HEALTH, 1, 4));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(3, 4, MathOperation::ADD, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_304e", EntityType::SOURCE, true));
+    cards.emplace("VAN_EX1_304", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_306] Felstalker - COST:2 [ATK:4/HP:3]
@@ -4417,6 +4517,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscardTask>(1));
+    cards.emplace("VAN_EX1_306", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_308] Soulfire - COST:0
@@ -4424,6 +4527,15 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 4 damage. Discard a random card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 4));
+    power.AddPowerTask(std::make_shared<DiscardTask>(1));
+    cards.emplace(
+        "VAN_EX1_308",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_309] Siphon Soul - COST:6

@@ -63,7 +63,8 @@ Cards::Cards()
                 m_allWildCards.emplace_back(card);
             }
 
-            if (card->IsClassicSet())
+            // NOTE: Duplicated name 'Shadow Bolt' (Story_09_Shadowbolt) exists!
+            if (card->IsClassicSet() && card->dbfID != 75913)
             {
                 m_allClassicCards.emplace_back(card);
             }

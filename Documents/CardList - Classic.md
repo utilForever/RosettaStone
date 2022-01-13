@@ -40,13 +40,13 @@ VANILLA | VAN_CS2_042 | Fire Elemental | O
 VANILLA | VAN_CS2_045 | Rockbiter Weapon | O
 VANILLA | VAN_CS2_046 | Bloodlust | O
 VANILLA | VAN_CS2_053 | Far Sight | O
-VANILLA | VAN_CS2_057 | Shadow Bolt |  
-VANILLA | VAN_CS2_059 | Blood Imp |  
-VANILLA | VAN_CS2_061 | Drain Life |  
+VANILLA | VAN_CS2_057 | Shadow Bolt | O
+VANILLA | VAN_CS2_059 | Blood Imp | O
+VANILLA | VAN_CS2_061 | Drain Life | O
 VANILLA | VAN_CS2_062 | Hellfire | O
-VANILLA | VAN_CS2_063 | Corruption |  
-VANILLA | VAN_CS2_064 | Dread Infernal |  
-VANILLA | VAN_CS2_065 | Voidwalker |  
+VANILLA | VAN_CS2_063 | Corruption | O
+VANILLA | VAN_CS2_064 | Dread Infernal | O
+VANILLA | VAN_CS2_065 | Voidwalker | O
 VANILLA | VAN_CS2_072 | Backstab | O
 VANILLA | VAN_CS2_073 | Cold Blood | O
 VANILLA | VAN_CS2_074 | Deadly Poison | O
@@ -235,12 +235,12 @@ VANILLA | VAN_EX1_289 | Ice Barrier | O
 VANILLA | VAN_EX1_294 | Mirror Entity | O
 VANILLA | VAN_EX1_295 | Ice Block | O
 VANILLA | VAN_EX1_298 | Ragnaros the Firelord |  
-VANILLA | VAN_EX1_301 | Felguard |  
-VANILLA | VAN_EX1_302 | Mortal Coil |  
-VANILLA | VAN_EX1_303 | Shadowflame |  
-VANILLA | VAN_EX1_304 | Void Terror |  
-VANILLA | VAN_EX1_306 | Felstalker |  
-VANILLA | VAN_EX1_308 | Soulfire |  
+VANILLA | VAN_EX1_301 | Felguard | O
+VANILLA | VAN_EX1_302 | Mortal Coil | O
+VANILLA | VAN_EX1_303 | Shadowflame | O
+VANILLA | VAN_EX1_304 | Void Terror | O
+VANILLA | VAN_EX1_306 | Felstalker | O
+VANILLA | VAN_EX1_308 | Soulfire | O
 VANILLA | VAN_EX1_309 | Siphon Soul |  
 VANILLA | VAN_EX1_310 | Doomguard |  
 VANILLA | VAN_EX1_312 | Twisting Nether |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 47% (181 of 383 Cards)
+- Progress: 50% (193 of 382 Cards)

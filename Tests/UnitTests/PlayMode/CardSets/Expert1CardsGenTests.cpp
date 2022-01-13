@@ -7061,6 +7061,7 @@ TEST_CASE("[Shaman : Minion] - NEW1_010 : Al'Akir the Windlord")
 // --------------------------------------------------------
 // GameTag:
 // - STEALTH = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Warlock : Minion] - CS2_059 : Blood Imp")
 {
