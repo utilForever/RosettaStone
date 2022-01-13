@@ -4395,6 +4395,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 1));
+    cards.emplace("VAN_CS2_064", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
