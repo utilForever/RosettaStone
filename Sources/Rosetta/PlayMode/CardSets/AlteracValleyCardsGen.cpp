@@ -804,6 +804,8 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
 
 void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ MINION - MAGE
     // [AV_114] Shivering Sorceress - COST:1 [ATK:2/HP:2]
     // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -857,6 +859,10 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform all minions into 1/1 Sheep.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::ALL_MINIONS, "CS2_tk1"));
+    cards.emplace("AV_218", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_282] Build a Snowman - COST:3
