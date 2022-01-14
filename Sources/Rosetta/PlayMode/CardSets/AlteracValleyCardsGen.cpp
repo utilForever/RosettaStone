@@ -1959,9 +1959,8 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ArmorTask>(10));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(-5) };
-    power.GetTrigger()->removeAfterTriggered = true;
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("AV_109e", EntityType::SOURCE));
     cards.emplace("AV_109", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
@@ -2084,6 +2083,11 @@ void AlteracValleyCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Lose 5 Armor next turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(-5) };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("AV_109e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [AV_119e] Frontlined - COST:0
