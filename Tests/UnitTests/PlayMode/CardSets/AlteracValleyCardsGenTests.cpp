@@ -675,6 +675,69 @@ TEST_CASE("[Warrior : Minion] - AV_323 : Scrapsmith")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->HasTaunt(), true);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [AV_565] Axe Berserker - COST:4 [ATK:3/HP:5]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>. <b>Honorable Kill:</b> Draw a weapon.
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+// RefTag:
+// - HONORABLEKILL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - AV_565 : Axe Berserker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fiery War Axe");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Axe Berserker"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("River Crocolisk"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->name, "Fiery War Axe");
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [AV_101] Herald of Lokholar - COST:4 [ATK:3/HP:5]
 // - Set: ALTERAC_VALLEY, Rarity: Common

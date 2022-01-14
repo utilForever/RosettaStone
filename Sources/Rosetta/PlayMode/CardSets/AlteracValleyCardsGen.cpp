@@ -2062,6 +2062,9 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - HONORABLEKILL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(std::make_shared<DrawWeaponTask>(1));
+    cards.emplace("AV_565", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_660] Iceblood Garrison - COST:2
