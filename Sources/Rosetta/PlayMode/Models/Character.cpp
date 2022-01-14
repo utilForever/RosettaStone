@@ -109,6 +109,11 @@ bool Character::IsImmune() const
     return static_cast<bool>(GetGameTag(GameTag::IMMUNE));
 }
 
+void Character::Freeze()
+{
+    SetGameTag(GameTag::FROZEN, 1);
+}
+
 bool Character::IsFrozen() const
 {
     return static_cast<bool>(GetGameTag(GameTag::FROZEN));

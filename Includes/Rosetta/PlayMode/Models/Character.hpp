@@ -105,6 +105,9 @@ class Character : public Playable
     //! \return The flag that indicates whether it is immune.
     bool IsImmune() const;
 
+    //! Freezes a character.
+    void Freeze();
+
     //! Returns the flag that indicates whether it is frozen.
     //! \return The flag that indicates whether it is frozen.
     bool IsFrozen() const;
