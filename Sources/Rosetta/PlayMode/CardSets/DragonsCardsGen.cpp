@@ -1394,8 +1394,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::ENEMY_MINIONS));
     cards.emplace("DRG_270t5", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
@@ -1462,8 +1461,7 @@ void DragonsCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
     cards.emplace(
         "DRG_270t8",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
@@ -2695,8 +2693,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
     power.AddPowerTask(std::make_shared<InvokeTask>());
     cards.emplace("DRG_248",
                   CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },

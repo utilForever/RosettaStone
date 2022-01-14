@@ -848,8 +848,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         true,
         TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false, TaskList{ std::make_shared<SetGameTagTask>(
-                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+        false, TaskList{ std::make_shared<FreezeTask>(EntityType::TARGET) }));
     cards.emplace(
         "DAL_577",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -1009,8 +1008,7 @@ void DalaranCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
         true,
         TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false, TaskList{ std::make_shared<SetGameTagTask>(
-                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+        false, TaskList{ std::make_shared<FreezeTask>(EntityType::TARGET) }));
     cards.emplace(
         "DAL_577ts",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },

@@ -643,8 +643,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
     power.AddPowerTask(std::make_shared<SummonTask>("CS2_033", 2));
     cards.emplace("BT_072",
                   CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -2567,8 +2566,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
     cards.emplace(
         "BT_714",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },

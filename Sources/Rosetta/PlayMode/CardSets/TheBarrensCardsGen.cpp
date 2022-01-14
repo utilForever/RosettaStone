@@ -842,8 +842,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::STACK));
     power.AddTrigger(
         std::make_shared<Trigger>(Triggers::RankSpellTrigger(5, "BAR_305t")));
     cards.emplace(
@@ -949,7 +948,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                 }
                 else
                 {
-                    minion->SetGameTag(GameTag::FROZEN, 1);
+                    minion->Freeze();
                 }
             }
         }));
@@ -1120,8 +1119,7 @@ void TheBarrensCardsGen::AddMageNonCollect(
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::STACK));
     power.AddTrigger(
         std::make_shared<Trigger>(Triggers::RankSpellTrigger(10, "BAR_305t2")));
     cards.emplace(
@@ -1144,8 +1142,7 @@ void TheBarrensCardsGen::AddMageNonCollect(
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 3));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::STACK));
     cards.emplace(
         "BAR_305t2",
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
@@ -2692,9 +2689,8 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                 const int remainDamage = realDamage - targetHealth;
                 if (remainDamage > 0)
                 {
-                    Generic::TakeDamageToCharacter(realSource,
-                                                   player->GetHero(),
-                                                   remainDamage, false);
+                    Generic::TakeDamageToCharacter(
+                        realSource, player->GetHero(), remainDamage, false);
                 }
             }
         }));

@@ -1677,8 +1677,7 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
     power.AddPowerTask(std::make_shared<DrawTask>(1));
     cards.emplace(
         "AV_266",
