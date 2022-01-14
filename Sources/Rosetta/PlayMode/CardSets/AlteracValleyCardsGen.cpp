@@ -2046,6 +2046,10 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "AV_323t", 2));
+    cards.emplace("AV_323", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [AV_565] Axe Berserker - COST:4 [ATK:3/HP:5]
@@ -2072,6 +2076,8 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [AV_109e] Chilly - COST:0
     // - Set: ALTERAC_VALLEY
@@ -2117,6 +2123,9 @@ void AlteracValleyCardsGen::AddWarriorNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_323t", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddDemonHunter(
