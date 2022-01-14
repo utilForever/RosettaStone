@@ -513,6 +513,8 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
 
 void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [AV_147] Dun Baldar Bunker - COST:2
     // - Set: ALTERAC_VALLEY, Rarity: Rare
@@ -625,11 +627,17 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("AV_337t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("AV_337", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [AV_113t1] Improved Explosive Trap - COST:2
     // - Set: ALTERAC_VALLEY
@@ -789,6 +797,9 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_337t", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
