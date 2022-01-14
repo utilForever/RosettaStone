@@ -2019,6 +2019,20 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_DAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(
+        std::make_shared<FreezeTask>(EntityType::ALL_MINIONS_NOTARGET));
+    cards.emplace(
+        "AV_322",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [AV_323] Scrapsmith - COST:3 [ATK:2/HP:4]
