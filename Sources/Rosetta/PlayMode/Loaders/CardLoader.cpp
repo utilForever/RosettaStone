@@ -133,6 +133,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
         //       (AT_132_SHAMANd), Strength Totem (AT_132_SHAMANe)
         //       doesn't have Race::TOTEM
         // NOTE: Wailing Demon (WC_003t) doesn't have GameTag::TAUNT
+        // NOTE: Axe Berserker (AV_565) doesn't have GameTag::HONORABLEKILL
         if (dbfID == 56091 || dbfID == 64196)
         {
             gameTags.emplace(GameTag::DEATHRATTLE, 1);
@@ -153,6 +154,10 @@ void CardLoader::Load(std::vector<Card*>& cards)
         else if (dbfID == 63500)
         {
             gameTags.emplace(GameTag::TAUNT, 1);
+        }
+        else if (dbfID == 73459)
+        {
+            gameTags.emplace(GameTag::HONORABLEKILL, 1);
         }
 
         Card* card = new Card();
