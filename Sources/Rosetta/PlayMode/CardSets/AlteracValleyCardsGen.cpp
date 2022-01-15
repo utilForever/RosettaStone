@@ -326,6 +326,10 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("AV_211t", SummonSide::DEATHRATTLE));
+    cards.emplace("AV_211", CardDef(power));
 
     // ----------------------------------------- MINION - DRUID
     // [AV_291] Frostsaber Matriarch - COST:7 [ATK:4/HP:5]
