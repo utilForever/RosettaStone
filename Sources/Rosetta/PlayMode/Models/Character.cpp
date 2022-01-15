@@ -327,10 +327,17 @@ int Character::TakeDamage(Playable* source, int damage)
     if (source->HasHonorableKill() &&
         source->player == game->GetCurrentPlayer() && GetHealth() == 0)
     {
-        const TaskList tasks =
-            (hero && hero->HasWeapon())
-                ? hero->weapon->card->power.GetHonorableKillTask()
-                : source->card->power.GetHonorableKillTask();
+        TaskList tasks;
+
+        if (auto sourceHero = dynamic_cast<Hero*>(source);
+            sourceHero && sourceHero->HasWeapon())
+        {
+            tasks = sourceHero->weapon->card->power.GetHonorableKillTask();
+        }
+        else
+        {
+            tasks = source->card->power.GetHonorableKillTask();
+        }
 
         for (auto& task : tasks)
         {
