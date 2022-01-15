@@ -79,6 +79,10 @@ class Hero : public Character
     //! \return The flag that indicates whether it has lifesteal.
     bool HasLifesteal() const override;
 
+    //! Returns the flag that indicates whether it has honorable kill.
+    //! \return The flag that indicates whether it has honorable kill.
+    bool HasHonorableKill() const override;
+
     HeroPower* heroPower = nullptr;
     Weapon* weapon = nullptr;
 
