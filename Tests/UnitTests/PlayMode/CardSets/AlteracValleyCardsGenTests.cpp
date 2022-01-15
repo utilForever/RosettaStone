@@ -156,6 +156,72 @@ TEST_CASE("[Druid : Spell] - AV_360 : Frostwolf Kennels")
     CHECK_EQ(curField.GetCount(), 3);
 }
 
+// ---------------------------------------- WEAPON - HUNTER
+// [AV_244] Bloodseeker - COST:2
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Honorable Kill:</b> Gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - HONORABLEKILL = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Weapon] - AV_244 : Bloodseeker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodseeker"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Intrepid Initiate"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card3));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [AV_337] Mountain Bear - COST:7 [ATK:5/HP:6]
 // - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Common

@@ -564,6 +564,10 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - HONORABLEKILL = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(
+        std::make_shared<AddEnchantmentTask>("AV_244e", EntityType::SOURCE));
+    cards.emplace("AV_244", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [AV_333] Revive Pet - COST:3
@@ -756,6 +760,9 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_244e"));
+    cards.emplace("AV_244e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AV_334e] Ready for Battle - COST:0
