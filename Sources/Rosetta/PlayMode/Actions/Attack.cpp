@@ -123,6 +123,8 @@ void Attack(const Player* player, Character* source, Character* target,
         }
     }
 
+    player->game->taskQueue.StartEvent();
+
     // Check if the source has Honorable Kill
     if (source->HasHonorableKill() && target->GetHealth() == 0)
     {
@@ -155,6 +157,9 @@ void Attack(const Player* player, Character* source, Character* target,
             player->game->taskQueue.Enqueue(std::move(clonedTask));
         }
     }
+
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
 
     // Remove stealth ability if attacker has it
     if (source->GetGameTag(GameTag::STEALTH) == 1)
