@@ -128,7 +128,7 @@ void Attack(const Player* player, Character* source, Character* target,
     {
         TaskList tasks;
 
-        if (hero->HasWeapon())
+        if (hero && hero->HasWeapon())
         {
             tasks = hero->weapon->card->power.GetHonorableKillTask();
         }
@@ -142,7 +142,14 @@ void Attack(const Player* player, Character* source, Character* target,
             std::unique_ptr<ITask> clonedTask = task->Clone();
 
             clonedTask->SetPlayer(source->player);
-            clonedTask->SetSource(source);
+            if (hero && hero->HasWeapon())
+            {
+                clonedTask->SetSource(hero->weapon);
+            }
+            else
+            {
+                clonedTask->SetSource(source);
+            }
             clonedTask->SetTarget(target);
 
             player->game->taskQueue.Enqueue(std::move(clonedTask));
