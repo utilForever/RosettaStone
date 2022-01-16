@@ -64,6 +64,13 @@ void Attack(const Player* player, Character* source, Character* target,
     const int targetAttack = realTarget->GetAttack();
     const int sourceAttack = source->GetAttack();
 
+    // Remove durability from weapon if hero attack
+    if (hero && hero->HasWeapon() &&
+        hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
+    {
+        hero->weapon->RemoveDurability(1);
+    }
+
     // Take damage to target
     const int targetDamage = realTarget->TakeDamage(source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
@@ -120,13 +127,6 @@ void Attack(const Player* player, Character* source, Character* target,
     if (source->GetGameTag(GameTag::STEALTH) == 1)
     {
         source->SetGameTag(GameTag::STEALTH, 0);
-    }
-
-    // Remove durability from weapon if hero attack
-    if (hero && hero->HasWeapon() &&
-        hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
-    {
-        hero->weapon->RemoveDurability(1);
     }
 
     // Increase the number of attacked
