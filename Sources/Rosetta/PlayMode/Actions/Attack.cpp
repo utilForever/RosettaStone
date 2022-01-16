@@ -123,6 +123,32 @@ void Attack(const Player* player, Character* source, Character* target,
         }
     }
 
+    // Check if the source has Honorable Kill
+    if (source->HasHonorableKill() && target->GetHealth() == 0)
+    {
+        TaskList tasks;
+
+        if (hero->HasWeapon())
+        {
+            tasks = hero->weapon->card->power.GetHonorableKillTask();
+        }
+        else
+        {
+            tasks = source->card->power.GetHonorableKillTask();
+        }
+
+        for (auto& task : tasks)
+        {
+            std::unique_ptr<ITask> clonedTask = task->Clone();
+
+            clonedTask->SetPlayer(source->player);
+            clonedTask->SetSource(source);
+            clonedTask->SetTarget(target);
+
+            player->game->taskQueue.Enqueue(std::move(clonedTask));
+        }
+    }
+
     // Remove stealth ability if attacker has it
     if (source->GetGameTag(GameTag::STEALTH) == 1)
     {

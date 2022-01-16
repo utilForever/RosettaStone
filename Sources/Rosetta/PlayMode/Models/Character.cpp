@@ -323,34 +323,6 @@ int Character::TakeDamage(Playable* source, int damage)
     game->triggerManager.OnTakeDamageTrigger(this);
     game->triggerManager.OnDealDamageTrigger(source);
 
-    // Check if the source has Honorable Kill
-    if (source->HasHonorableKill() &&
-        source->player == game->GetCurrentPlayer() && GetHealth() == 0)
-    {
-        TaskList tasks;
-
-        if (auto sourceHero = dynamic_cast<Hero*>(source);
-            sourceHero && sourceHero->HasWeapon())
-        {
-            tasks = sourceHero->weapon->card->power.GetHonorableKillTask();
-        }
-        else
-        {
-            tasks = source->card->power.GetHonorableKillTask();
-        }
-
-        for (auto& task : tasks)
-        {
-            std::unique_ptr<ITask> clonedTask = task->Clone();
-
-            clonedTask->SetPlayer(source->player);
-            clonedTask->SetSource(source);
-            clonedTask->SetTarget(nullptr);
-
-            player->game->taskQueue.Enqueue(std::move(clonedTask));
-        }
-    }
-
     game->ProcessTasks();
     game->taskQueue.EndEvent();
     game->currentEventData.reset();
