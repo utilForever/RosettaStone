@@ -566,7 +566,7 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddHonorableKillTask(
-        std::make_shared<AddEnchantmentTask>("AV_244e", EntityType::SOURCE));
+        std::make_shared<AddEnchantmentTask>("AV_244e", EntityType::WEAPON));
     cards.emplace("AV_244", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
@@ -761,7 +761,9 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // Text: +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_244e"));
+    power.AddEnchant(
+        std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>(
+            { Effects::AttackN(1), Effects::DurabilityN(1) })));
     cards.emplace("AV_244e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
