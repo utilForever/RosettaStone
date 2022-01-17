@@ -223,6 +223,74 @@ TEST_CASE("[Hunter : Weapon] - AV_244 : Bloodseeker")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [AV_334] Stormpike Battle Ram - COST:4 [ATK:4/HP:3]
+// - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Deathrattle:</b> Your next Beast costs (2) less.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - AV_334 : Stormpike Battle Ram")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stormpike Battle Ram"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Unbound Elemental"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stranglethorn Tiger"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stranglethorn Tiger"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 5);
+    CHECK_EQ(card4->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 5);
+    CHECK_EQ(card4->GetCost(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card4->GetCost(), 5);
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [AV_337] Mountain Bear - COST:7 [ATK:5/HP:6]
 // - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------

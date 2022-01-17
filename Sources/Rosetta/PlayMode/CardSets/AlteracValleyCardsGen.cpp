@@ -13,6 +13,7 @@ namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void AlteracValleyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -592,6 +593,10 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("AV_334e2", EntityType::SOURCE));
+    cards.emplace("AV_334", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [AV_335] Ram Tamer - COST:3 [ATK:4/HP:3]
@@ -782,6 +787,18 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsRace(Race::BEAST)) };
+    }
+    cards.emplace("AV_334e2", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AV_335e] Sneaking Up - COST:0
