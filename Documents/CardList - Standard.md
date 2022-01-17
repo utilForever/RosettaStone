@@ -1116,18 +1116,18 @@ ALTERAC_VALLEY | AV_206 | Lightforged Cariel |
 ALTERAC_VALLEY | AV_207 | Xyrella, the Devout |  
 ALTERAC_VALLEY | AV_209 | Dreadprison Glaive |  
 ALTERAC_VALLEY | AV_210 | Pathmaker |  
-ALTERAC_VALLEY | AV_211 | Dire Frostwolf |  
+ALTERAC_VALLEY | AV_211 | Dire Frostwolf | O
 ALTERAC_VALLEY | AV_212 | Siphon Mana |  
 ALTERAC_VALLEY | AV_213 | Vitality Surge |  
 ALTERAC_VALLEY | AV_215 | Frantic Hippogryph |  
-ALTERAC_VALLEY | AV_218 | Mass Polymorph |  
+ALTERAC_VALLEY | AV_218 | Mass Polymorph | O
 ALTERAC_VALLEY | AV_219 | Ram Commander |  
 ALTERAC_VALLEY | AV_222 | Spammy Arcanist |  
 ALTERAC_VALLEY | AV_223 | Vanndar Stormpike |  
 ALTERAC_VALLEY | AV_224 | Spring the Trap |  
 ALTERAC_VALLEY | AV_226 | Ice Trap |  
 ALTERAC_VALLEY | AV_238 | Gankster |  
-ALTERAC_VALLEY | AV_244 | Bloodseeker |  
+ALTERAC_VALLEY | AV_244 | Bloodseeker | O
 ALTERAC_VALLEY | AV_250 | Snowball Fight! |  
 ALTERAC_VALLEY | AV_251 | Cheaty Snobold |  
 ALTERAC_VALLEY | AV_255 | Snowfall Guardian |  
@@ -1167,8 +1167,8 @@ ALTERAC_VALLEY | AV_315 | Deliverance |
 ALTERAC_VALLEY | AV_316 | Dreadlich Tamsin |  
 ALTERAC_VALLEY | AV_317 | Tamsin's Phylactery |  
 ALTERAC_VALLEY | AV_321 | Glory Chaser | O
-ALTERAC_VALLEY | AV_322 | Snowed In |  
-ALTERAC_VALLEY | AV_323 | Scrapsmith |  
+ALTERAC_VALLEY | AV_322 | Snowed In | O
+ALTERAC_VALLEY | AV_323 | Scrapsmith | O
 ALTERAC_VALLEY | AV_324 | Shadow Word: Devour |  
 ALTERAC_VALLEY | AV_325 | Undying Disciple |  
 ALTERAC_VALLEY | AV_326 | Luminous Geode |  
@@ -1177,10 +1177,10 @@ ALTERAC_VALLEY | AV_329 | Bless |
 ALTERAC_VALLEY | AV_330 | Gift of the Naaru |  
 ALTERAC_VALLEY | AV_331 | Najak Hexxen |  
 ALTERAC_VALLEY | AV_333 | Revive Pet |  
-ALTERAC_VALLEY | AV_334 | Stormpike Battle Ram |  
-ALTERAC_VALLEY | AV_335 | Ram Tamer |  
+ALTERAC_VALLEY | AV_334 | Stormpike Battle Ram | O
+ALTERAC_VALLEY | AV_335 | Ram Tamer | O
 ALTERAC_VALLEY | AV_336 | Wing Commander Ichman |  
-ALTERAC_VALLEY | AV_337 | Mountain Bear |  
+ALTERAC_VALLEY | AV_337 | Mountain Bear | O
 ALTERAC_VALLEY | AV_338 | Hold the Bridge |  
 ALTERAC_VALLEY | AV_339 | Templar Captain |  
 ALTERAC_VALLEY | AV_340 | Brasswing |  
@@ -1195,7 +1195,7 @@ ALTERAC_VALLEY | AV_401 | Stormpike Quartermaster |
 ALTERAC_VALLEY | AV_402 | The Lobotomizer |  
 ALTERAC_VALLEY | AV_403 | Cera'thine Fleetrunner |  
 ALTERAC_VALLEY | AV_405 | Contraband Stash |  
-ALTERAC_VALLEY | AV_565 | Axe Berserker |  
+ALTERAC_VALLEY | AV_565 | Axe Berserker | O
 ALTERAC_VALLEY | AV_601 | Forsaken Lieutenant |  
 ALTERAC_VALLEY | AV_657 | Desecrated Graveyard |  
 ALTERAC_VALLEY | AV_660 | Iceblood Garrison |  
@@ -1205,4 +1205,4 @@ ALTERAC_VALLEY | AV_704 | Humongous Owl |
 ALTERAC_VALLEY | AV_710 | Reconnaissance |  
 ALTERAC_VALLEY | AV_711 | Double Agent |  
 
-- Progress: 8% (12 of 135 Cards)
+- Progress: 15% (21 of 135 Cards)
