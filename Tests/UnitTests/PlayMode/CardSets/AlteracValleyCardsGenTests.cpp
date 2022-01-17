@@ -291,6 +291,62 @@ TEST_CASE("[Hunter : Minion] - AV_334 : Stormpike Battle Ram")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [AV_335] Ram Tamer - COST:3 [ATK:4/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+//       gain +1/+1 and <b>Stealth</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - AV_335 : Ram Tamer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ram Tamer"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ram Tamer"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snake Trap"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->HasStealth(), false);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 5);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->HasStealth(), true);
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [AV_337] Mountain Bear - COST:7 [ATK:5/HP:6]
 // - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------

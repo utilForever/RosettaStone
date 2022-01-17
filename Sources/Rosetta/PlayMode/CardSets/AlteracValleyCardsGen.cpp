@@ -612,6 +612,16 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                            "AV_335e", EntityType::SOURCE),
+                        std::make_shared<SetGameTagTask>(
+                            EntityType::SOURCE, GameTag::STEALTH, 1) }));
+    cards.emplace("AV_335", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [AV_336] Wing Commander Ichman - COST:9 [ATK:5/HP:4]
@@ -806,6 +816,9 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_335e"));
+    cards.emplace("AV_335e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AV_336e] Frightful Pack - COST:0
