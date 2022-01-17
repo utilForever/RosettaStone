@@ -31,7 +31,9 @@ jobs:
         unzip -q build-wrapper-linux-x86.zip
         echo "${PWD}/build-wrapper-linux-x86" >> $GITHUB_PATH
     - name: Install packages
-      run: sudo apt-get install -yq gcovr ggcov lcov curl
+      run: |
+        sudo apt-get update
+        sudo apt-get install -yq gcovr ggcov lcov curl
     - name: Configure Compiler
       run: |
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
