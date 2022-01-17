@@ -31,6 +31,15 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
     {
         case EffectOperator::ADD:
             entity->SetNativeGameTag(m_gameTag, prevValue + m_value);
+
+            if (auto weapon = dynamic_cast<Weapon*>(entity); weapon)
+            {
+                if (m_gameTag == GameTag::DURABILITY && prevValue + m_value > 0)
+                {
+                    weapon->isDestroyed = false;
+                }
+            }
+
             break;
         case EffectOperator::SUB:
             entity->SetNativeGameTag(m_gameTag, prevValue - m_value);

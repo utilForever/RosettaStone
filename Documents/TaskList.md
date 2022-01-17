@@ -58,6 +58,7 @@
 * EnqueueTask
 * FilterStackTask
 * FlagTask
+* FreezeTask
 * FuncNumberTask
 * FuncPlayableTask
 * GetEventNumberTask

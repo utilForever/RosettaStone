@@ -131,7 +131,7 @@ class Playable : public Entity
 
     //! Returns the flag that indicates whether it has honorable kill.
     //! \return The flag that indicates whether it has honorable kill.
-    bool HasHonorableKill() const;
+    virtual bool HasHonorableKill() const;
 
     //! Returns the flag that indicates it can activate 'Spellbrust'.
     //! \return The flag that indicates it can activate 'Spellbrust'.

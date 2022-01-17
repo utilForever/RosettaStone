@@ -1284,8 +1284,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
-        EntityType::ENEMY_MINIONS, GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::ENEMY_MINIONS));
     cards.emplace("CS2_028", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
@@ -1310,8 +1309,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
         true,
         TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false, TaskList{ std::make_shared<SetGameTagTask>(
-                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+        false, TaskList{ std::make_shared<FreezeTask>(EntityType::TARGET) }));
     cards.emplace(
         "CS2_031",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
@@ -1397,8 +1395,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::TARGET, true));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::STACK,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::STACK));
     power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::STACK, 1, true));
     cards.emplace(
@@ -5451,8 +5448,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
     cards.emplace(
         "EX1_283",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));

@@ -52,6 +52,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FilterStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FlagTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/FreezeTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FuncNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/FuncPlayableTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetEventNumberTask.hpp>

@@ -41,11 +41,16 @@ void Weapon::SetDurability(int durability)
 {
     SetGameTag(GameTag::DURABILITY, durability);
 
-    // Destroy weapon if durability is 0
-    if (GetDurability() <= 0)
+    if (durability <= 0)
     {
         Destroy();
-        player->GetHero()->RemoveWeapon();
+    }
+    else
+    {
+        if (isDestroyed)
+        {
+            isDestroyed = false;
+        }
     }
 }
 

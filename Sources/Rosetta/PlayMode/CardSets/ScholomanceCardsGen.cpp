@@ -2689,10 +2689,8 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
-    power.AddComboTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::FROZEN, 1));
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
+    power.AddComboTask(std::make_shared<FreezeTask>(EntityType::TARGET));
     power.AddComboTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cards.emplace(

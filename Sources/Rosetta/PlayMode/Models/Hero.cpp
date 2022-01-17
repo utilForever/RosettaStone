@@ -112,4 +112,14 @@ bool Hero::HasLifesteal() const
 
     return false;
 }
+
+bool Hero::HasHonorableKill() const
+{
+    if (HasWeapon())
+    {
+        return weapon->HasHonorableKill();
+    }
+
+    return false;
+}
 }  // namespace RosettaStone::PlayMode

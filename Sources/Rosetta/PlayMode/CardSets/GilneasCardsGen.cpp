@@ -493,8 +493,7 @@ void GilneasCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
     power.AddPowerTask(std::make_shared<FlagTask>(
-        false, TaskList{ std::make_shared<SetGameTagTask>(
-                   EntityType::TARGET, GameTag::FROZEN, 1) }));
+        false, TaskList{ std::make_shared<FreezeTask>(EntityType::TARGET) }));
     cards.emplace(
         "GIL_801",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },

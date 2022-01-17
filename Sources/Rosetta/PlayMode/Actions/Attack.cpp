@@ -64,6 +64,13 @@ void Attack(const Player* player, Character* source, Character* target,
     const int targetAttack = realTarget->GetAttack();
     const int sourceAttack = source->GetAttack();
 
+    // Remove durability from weapon if hero attack
+    if (hero && hero->HasWeapon() &&
+        hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
+    {
+        hero->weapon->RemoveDurability(1);
+    }
+
     // Take damage to target
     const int targetDamage = realTarget->TakeDamage(source, sourceAttack);
     const bool isTargetDamaged = targetDamage > 0;
@@ -116,17 +123,48 @@ void Attack(const Player* player, Character* source, Character* target,
         }
     }
 
+    player->game->taskQueue.StartEvent();
+
+    // Check if the source has Honorable Kill
+    if (source->HasHonorableKill() && target->GetHealth() == 0)
+    {
+        TaskList tasks;
+
+        if (hero && hero->HasWeapon())
+        {
+            tasks = hero->weapon->card->power.GetHonorableKillTask();
+        }
+        else
+        {
+            tasks = source->card->power.GetHonorableKillTask();
+        }
+
+        for (auto& task : tasks)
+        {
+            std::unique_ptr<ITask> clonedTask = task->Clone();
+
+            clonedTask->SetPlayer(source->player);
+            if (hero && hero->HasWeapon())
+            {
+                clonedTask->SetSource(hero->weapon);
+            }
+            else
+            {
+                clonedTask->SetSource(source);
+            }
+            clonedTask->SetTarget(target);
+
+            player->game->taskQueue.Enqueue(std::move(clonedTask));
+        }
+    }
+
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+
     // Remove stealth ability if attacker has it
     if (source->GetGameTag(GameTag::STEALTH) == 1)
     {
         source->SetGameTag(GameTag::STEALTH, 0);
-    }
-
-    // Remove durability from weapon if hero attack
-    if (hero && hero->HasWeapon() &&
-        hero->weapon->GetGameTag(GameTag::IMMUNE) == 0)
-    {
-        hero->weapon->RemoveDurability(1);
     }
 
     // Increase the number of attacked
