@@ -11,6 +11,7 @@
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -154,6 +155,102 @@ TEST_CASE("[Druid : Spell] - AV_360 : Frostwolf Kennels")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 3);
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [AV_147] Dun Baldar Bunker - COST:2
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn, draw a <b>Secret</b>
+//       and set its Cost to (1). Lasts 3 turns.
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - AV_147 : Dun Baldar Bunker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Snake Trap");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Holy Light");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dun Baldar Bunker"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curDeck.GetCount(), 26);
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 25);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->IsSecret(), true);
+    CHECK_EQ(curHand[4]->GetCost(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 24);
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 23);
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[6]->card->IsSecret(), true);
+    CHECK_EQ(curHand[6]->GetCost(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 22);
+    CHECK_EQ(curHand.GetCount(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 21);
+    CHECK_EQ(curHand.GetCount(), 9);
+    CHECK_EQ(curHand[8]->card->IsSecret(), true);
+    CHECK_EQ(curHand[8]->GetCost(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 20);
+    CHECK_EQ(curHand.GetCount(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 20);
+    CHECK_EQ(curHand.GetCount(), 10);
 }
 
 // ---------------------------------------- WEAPON - HUNTER

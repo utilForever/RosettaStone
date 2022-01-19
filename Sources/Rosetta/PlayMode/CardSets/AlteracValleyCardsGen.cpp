@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/AlteracValleyCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -530,6 +531,17 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { ComplexTask::DrawCardFromDeck(
+        1,
+        SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsSecret()) },
+        true) };
+    power.GetTrigger()->tasks.emplace_back(
+        std::make_shared<AddEnchantmentTask>("AV_147e", EntityType::STACK));
+    power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_147", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [AV_224] Spring the Trap - COST:4
@@ -761,6 +773,9 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    cards.emplace("AV_147e", CardDef(power));
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AV_226e] Frosty - COST:0
