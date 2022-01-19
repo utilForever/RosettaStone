@@ -24,6 +24,8 @@ class ComplexTask
 {
  public:
     //! Returns a list of task for drawing card(s) from your deck.
+    //! \param amount The amount to draw card.
+    //! \param list A list of self conditions to filter card(s).
     static TaskList DrawCardFromDeck(int amount, const SelfCondList& list)
     {
         return TaskList{ std::make_shared<SimpleTasks::IncludeTask>(
