@@ -26,14 +26,17 @@ class ComplexTask
     //! Returns a list of task for drawing card(s) from your deck.
     //! \param amount The amount to draw card.
     //! \param list A list of self conditions to filter card(s).
-    static TaskList DrawCardFromDeck(int amount, const SelfCondList& list)
+    //! \param addToStack A flag to store card to stack.
+    static TaskList DrawCardFromDeck(int amount, const SelfCondList& list,
+                                     bool addToStack = false)
     {
-        return TaskList{ std::make_shared<SimpleTasks::IncludeTask>(
-                             EntityType::DECK),
-                         std::make_shared<SimpleTasks::FilterStackTask>(list),
-                         std::make_shared<SimpleTasks::RandomTask>(
-                             EntityType::STACK, amount),
-                         std::make_shared<SimpleTasks::DrawStackTask>() };
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::DECK),
+            std::make_shared<SimpleTasks::FilterStackTask>(list),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK,
+                                                      amount),
+            std::make_shared<SimpleTasks::DrawStackTask>(addToStack)
+        };
     }
 
     //! Returns a list of task for summoning a minion from your deck.
