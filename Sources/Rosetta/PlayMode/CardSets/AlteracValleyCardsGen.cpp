@@ -2480,6 +2480,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - HONORABLEKILL = 1
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(
+        std::make_shared<AddEnchantmentTask>("AV_123e", EntityType::PLAYER));
+    cards.emplace("AV_123", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_124] Direwolf Commander - COST:3 [ATK:2/HP:5]
@@ -2836,6 +2840,14 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Your Hero Power costs (0).
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HERO_POWER,
+                                         EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->removeTrigger = { TriggerType::INSPIRE, nullptr };
+    }
+    cards.emplace("AV_123e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_125e] Shielded - COST:0
