@@ -550,10 +550,23 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to a minion and cast a <b>Secret</b>
     //       from your deck. <b>Honorable Kill:</b> Cast 2.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - HONORABLEKILL = 1
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddPowerTask(ComplexTask::CastSecretFromDeck());
+    power.AddHonorableKillTask(ComplexTask::CastSecretFromDeck());
+    cards.emplace(
+        "AV_224",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- SPELL - HUNTER
     // [AV_226] Ice Trap - COST:2

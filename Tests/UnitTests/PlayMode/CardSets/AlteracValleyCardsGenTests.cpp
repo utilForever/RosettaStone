@@ -14,6 +14,7 @@
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -251,6 +252,78 @@ TEST_CASE("[Hunter : Spell] - AV_147 : Dun Baldar Bunker")
 
     CHECK_EQ(curDeck.GetCount(), 20);
     CHECK_EQ(curHand.GetCount(), 10);
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [AV_224] Spring the Trap - COST:4
+// - Set: ALTERAC_VALLEY, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 3 damage to a minion and cast a <b>Secret</b>
+//       from your deck. <b>Honorable Kill:</b> Cast 2.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - HONORABLEKILL = 1
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - AV_224 : Spring the Trap")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Snake Trap");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Explosive Trap");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Freezing Trap");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spring the Trap"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spring the Trap"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Strongman"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curDeck.GetCount(), 25);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curDeck.GetCount(), 24);
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(curDeck.GetCount(), 22);
+    CHECK_EQ(curSecret.GetCount(), 3);
 }
 
 // ---------------------------------------- WEAPON - HUNTER
