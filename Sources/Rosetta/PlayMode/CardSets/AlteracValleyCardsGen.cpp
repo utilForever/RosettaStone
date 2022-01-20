@@ -2513,6 +2513,15 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(3, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "AV_125e", EntityType::SOURCE) }));
+    cards.emplace("AV_125", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_126] Bunker Sergeant - COST:3 [ATK:2/HP:4]
@@ -2855,6 +2864,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_125e"));
+    cards.emplace("AV_125e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_127e] Frosty Spirit - COST:0
