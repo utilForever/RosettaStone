@@ -2533,6 +2533,15 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsOpFieldCount(2, RelaSign::GEQ)) }));
+    power.AddPowerTask(
+        std::make_shared<FlagTask>(true, TaskList{ std::make_shared<DamageTask>(
+                                             EntityType::ENEMY_MINIONS, 1) }));
+    cards.emplace("AV_126", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_127] Ice Revenant - COST:4 [ATK:4/HP:5]
