@@ -1897,6 +1897,16 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        5, true));
+    power.AddPowerTask(ComplexTask::RepeatableThisTurn());
+    cards.emplace("AV_285", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [AV_286] Felwalker - COST:6 [ATK:3/HP:7]

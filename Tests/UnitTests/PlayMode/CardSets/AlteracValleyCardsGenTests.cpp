@@ -975,6 +975,78 @@ TEST_CASE("[Warlock : Spell] - AV_281 : Felfire in the Hole!")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [AV_285] Full-Blown Evil - COST:3
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Deal 5 damage randomly split among all enemy minions.
+//       Repeatable this turn.
+// --------------------------------------------------------
+// GameTag:
+// - ImmuneToSpellpower = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - AV_285 : Full-Blown Evil")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Full-Blown Evil"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Full-Blown Evil");
+    CHECK_EQ(curHand[0]->GetGameTag(GameTag::GHOSTLY), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Full-Blown Evil");
+    CHECK_EQ(curHand[0]->GetGameTag(GameTag::GHOSTLY), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Full-Blown Evil");
+    CHECK_EQ(curHand[0]->GetGameTag(GameTag::GHOSTLY), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 0);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [AV_109] Frozen Buckler - COST:2
 // - Set: ALTERAC_VALLEY, Rarity: Epic
