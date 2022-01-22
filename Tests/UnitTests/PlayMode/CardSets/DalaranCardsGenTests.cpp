@@ -4119,7 +4119,7 @@ TEST_CASE("[Shaman : Minion] - DAL_431t : Drustvar Horror")
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
 // --------------------------------------------------------
-TEST_CASE("[Shaman : Minion] - DAL_432 : Witch's Brew")
+TEST_CASE("[Shaman : Spell] - DAL_432 : Witch's Brew")
 {
     GameConfig config;
     config.player1Class = CardClass::SHAMAN;
