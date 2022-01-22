@@ -1851,6 +1851,8 @@ void AlteracValleyCardsGen::AddShamanNonCollect(
 
 void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [AV_277] Seeds of Destruction - COST:2
     // - Set: ALTERAC_VALLEY, Rarity: Rare
@@ -1868,6 +1870,17 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Draw a spell and deal 2 damage to all enemies.
     //       If it's a Fel spell, deal 1 more.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsFelSpell()) }));
+    power.AddPowerTask(
+        std::make_shared<FlagTask>(true, TaskList{ std::make_shared<DamageTask>(
+                                             EntityType::ENEMIES, 1, true) }));
+    cards.emplace("AV_281", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AV_285] Full-Blown Evil - COST:3

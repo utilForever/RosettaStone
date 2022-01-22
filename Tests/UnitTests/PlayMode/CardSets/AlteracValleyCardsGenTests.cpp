@@ -863,6 +863,59 @@ TEST_CASE("[Shaman : Spell] - AV_268 : Wildpaw Cavern")
     CHECK_EQ(curField.GetCount(), 3);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [AV_281] Felfire in the Hole! - COST:5
+// - Set: ALTERAC_VALLEY, Rarity: Epic
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Draw a spell and deal 2 damage to all enemies.
+//       If it's a Fel spell, deal 1 more.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - AV_281 : Felfire in the Hole!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Felfire in the Hole!");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Felfire in the Hole!"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Felfire in the Hole!"));
+
+    opPlayer->GetHero()->SetDamage(0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[5]->card->GetSpellSchool(), SpellSchool::FEL);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [AV_109] Frozen Buckler - COST:2
 // - Set: ALTERAC_VALLEY, Rarity: Epic
