@@ -1861,6 +1861,10 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Shuffle four Rifts into your deck.
     //       They summon a 3/3 Dread Imp when drawn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "AV_316t4", 4));
+    cards.emplace("AV_277", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AV_281] Felfire in the Hole! - COST:5
@@ -1969,6 +1973,8 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [AV_286e2] Felgorged - COST:0
     // - Set: ALTERAC_VALLEY
@@ -1987,6 +1993,9 @@ void AlteracValleyCardsGen::AddWarlockNonCollect(
     // [AV_316t] Dread Imp - COST:3 [ATK:3/HP:3]
     // - Race: Demon, Set: ALTERAC_VALLEY
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_316t", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AV_316t4] Fel Rift - COST:3
@@ -1999,6 +2008,10 @@ void AlteracValleyCardsGen::AddWarlockNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTopdeckTask(std::make_shared<SummonTask>("AV_316t"));
+    power.AddPowerTask(std::make_shared<SummonTask>("AV_316t"));
+    cards.emplace("AV_316t4", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [AV_317e] Lich Perfume - COST:0

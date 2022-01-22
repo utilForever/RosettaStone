@@ -864,6 +864,65 @@ TEST_CASE("[Shaman : Spell] - AV_268 : Wildpaw Cavern")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [AV_277] Seeds of Destruction - COST:2
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Shuffle four Rifts into your deck.
+//       They summon a 3/3 Dread Imp when drawn.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - AV_277 : Seeds of Destruction")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Seeds of Destruction"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[0]->card->name, "Dread Imp");
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->card->name, "Dread Imp");
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+    CHECK_EQ(curField[2]->card->name, "Dread Imp");
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 3);
+    CHECK_EQ(curField[3]->card->name, "Dread Imp");
+    CHECK_EQ(curField[3]->GetAttack(), 3);
+    CHECK_EQ(curField[3]->GetHealth(), 3);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [AV_281] Felfire in the Hole! - COST:5
 // - Set: ALTERAC_VALLEY, Rarity: Epic
 // - Spell School: Fel
