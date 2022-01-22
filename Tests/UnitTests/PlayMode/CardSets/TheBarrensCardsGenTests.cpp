@@ -3734,16 +3734,21 @@ TEST_CASE("[Shaman : Minion] - BAR_040 : South Coast Chieftain")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
+    auto& curHand = *(curPlayer->GetHandZone());
+
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("South Coast Chieftain"));
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("South Coast Chieftain"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
 
     game.Process(curPlayer,
                  PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 4);
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
