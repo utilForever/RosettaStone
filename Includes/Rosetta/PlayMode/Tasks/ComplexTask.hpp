@@ -6,7 +6,10 @@
 #ifndef ROSETTASTONE_PLAYMODE_COMPLEX_TASK_HPP
 #define ROSETTASTONE_PLAYMODE_COMPLEX_TASK_HPP
 
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 #include <utility>
 
@@ -87,7 +90,8 @@ class ComplexTask
             std::make_shared<SimpleTasks::IncludeTask>(EntityType::DECK),
             std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
                 std::make_shared<SelfCondition>(SelfCondition::IsSecret()),
-                std::make_shared<SelfCondition>(SelfCondition::NotExistInSecretZone()) }),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::NotExistInSecretZone()) }),
             std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
             std::make_shared<SimpleTasks::CastSpellStackTask>(true)
         };
@@ -189,6 +193,29 @@ class ComplexTask
                                     SelfCondition::IsAwaken()) }));
         ret.emplace_back(std::make_shared<SimpleTasks::FlagTask>(
             true, std::move(awakenTasks)));
+
+        return ret;
+    }
+
+    //! Returns a list of task for processing the text "Repeatable this turn".
+    static TaskList RepeatableThisTurn()
+    {
+        TaskList ret;
+
+        ret.emplace_back(std::make_shared<SimpleTasks::CustomTask>(
+            [](Player* player, Entity* source,
+               [[maybe_unused]] Playable* target) {
+                std::map<GameTag, int> tags;
+                tags.emplace(GameTag::GHOSTLY, 1);
+
+                Playable* playable = Entity::GetFromCard(
+                    player, source->card, tags, player->GetHandZone());
+                Generic::AddCardToHand(player, playable);
+
+                player->game->UpdateAura();
+                player->game->ghostlyCards.emplace_back(
+                    playable->GetGameTag(GameTag::ENTITY_ID));
+            }));
 
         return ret;
     }
