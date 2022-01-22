@@ -44,6 +44,7 @@ TaskStatus ConditionTask::Impl(Player* player)
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
     if (playables.empty())
     {
+        player->game->taskStack.flag = false;
         return TaskStatus::STOP;
     }
 
