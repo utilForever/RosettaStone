@@ -44,6 +44,28 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
     }
 
     target->TakeDamage(source, amount);
+
+    source->player->game->taskQueue.StartEvent();
+
+    // Check if the source has Honorable Kill
+    if (source->HasHonorableKill() && target->GetHealth() == 0)
+    {
+        TaskList tasks = source->card->power.GetHonorableKillTask();
+
+        for (auto& task : tasks)
+        {
+            std::unique_ptr<ITask> clonedTask = task->Clone();
+
+            clonedTask->SetPlayer(source->player);
+            clonedTask->SetSource(source);
+            clonedTask->SetTarget(target);
+
+            source->game->taskQueue.Enqueue(std::move(clonedTask));
+        }
+    }
+
+    source->player->game->ProcessTasks();
+    source->player->game->taskQueue.EndEvent();
 }
 
 bool AddCardToHand(const Player* player, Playable* entity)

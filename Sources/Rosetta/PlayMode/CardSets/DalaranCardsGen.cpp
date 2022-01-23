@@ -2076,19 +2076,7 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 4));
-    power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
-            std::map<GameTag, int> tags;
-            tags.emplace(GameTag::GHOSTLY, 1);
-
-            Playable* playable = Entity::GetFromCard(player, source->card, tags,
-                                                     player->GetHandZone());
-            Generic::AddCardToHand(player, playable);
-
-            player->game->UpdateAura();
-            player->game->ghostlyCards.emplace_back(
-                playable->GetGameTag(GameTag::ENTITY_ID));
-        }));
+    power.AddPowerTask(ComplexTask::RepeatableThisTurn());
     cards.emplace(
         "DAL_432",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));

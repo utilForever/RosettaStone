@@ -144,6 +144,10 @@ class Power
     //! \param task A pointer to honorable kill task.
     void AddHonorableKillTask(std::shared_ptr<ITask> task);
 
+    //! Adds a list of honorable kill task.
+    //! \param tasks A list of honorable kill task.
+    void AddHonorableKillTask(TaskList tasks);
+
  private:
     std::shared_ptr<IAura> m_aura;
     std::shared_ptr<Enchant> m_enchant;

@@ -152,6 +152,18 @@ SelfCondition SelfCondition::IsFieldCount(int value, RelaSign relaSign)
     });
 }
 
+SelfCondition SelfCondition::IsOpFieldCount(int value, RelaSign relaSign)
+{
+    return SelfCondition([value, relaSign](Playable* playable) {
+        const int val = playable->player->opponent->GetFieldZone()
+                            ->GetCountExceptUntouchables();
+
+        return (relaSign == RelaSign::EQ && val == value) ||
+               (relaSign == RelaSign::GEQ && val >= value) ||
+               (relaSign == RelaSign::LEQ && val <= value);
+    });
+}
+
 SelfCondition SelfCondition::IsFieldFull()
 {
     return SelfCondition([](Playable* playable) {

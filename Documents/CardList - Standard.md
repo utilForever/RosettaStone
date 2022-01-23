@@ -1084,10 +1084,10 @@ ALTERAC_VALLEY | AV_118 | Battleworn Vanguard |
 ALTERAC_VALLEY | AV_119 | To the Front! |  
 ALTERAC_VALLEY | AV_121 | Gnome Private | O
 ALTERAC_VALLEY | AV_122 | Corporal | O
-ALTERAC_VALLEY | AV_123 | Sneaky Scout |  
+ALTERAC_VALLEY | AV_123 | Sneaky Scout | O
 ALTERAC_VALLEY | AV_124 | Direwolf Commander | O
-ALTERAC_VALLEY | AV_125 | Tower Sergeant |  
-ALTERAC_VALLEY | AV_126 | Bunker Sergeant |  
+ALTERAC_VALLEY | AV_125 | Tower Sergeant | O
+ALTERAC_VALLEY | AV_126 | Bunker Sergeant | O
 ALTERAC_VALLEY | AV_127 | Ice Revenant |  
 ALTERAC_VALLEY | AV_128 | Frozen Mammoth |  
 ALTERAC_VALLEY | AV_129 | Blood Guard |  
@@ -1105,7 +1105,7 @@ ALTERAC_VALLEY | AV_141t | Lokholar the Ice Lord |
 ALTERAC_VALLEY | AV_142t | Ivus, the Forest Lord |  
 ALTERAC_VALLEY | AV_143 | Korrak the Bloodrager |  
 ALTERAC_VALLEY | AV_145 | Captain Galvangar |  
-ALTERAC_VALLEY | AV_147 | Dun Baldar Bunker |  
+ALTERAC_VALLEY | AV_147 | Dun Baldar Bunker | O
 ALTERAC_VALLEY | AV_200 | Magister Dawngrasp |  
 ALTERAC_VALLEY | AV_201 | Coldtooth Yeti | O
 ALTERAC_VALLEY | AV_202 | Rokara, the Valorous |  
@@ -1124,7 +1124,7 @@ ALTERAC_VALLEY | AV_218 | Mass Polymorph | O
 ALTERAC_VALLEY | AV_219 | Ram Commander |  
 ALTERAC_VALLEY | AV_222 | Spammy Arcanist |  
 ALTERAC_VALLEY | AV_223 | Vanndar Stormpike |  
-ALTERAC_VALLEY | AV_224 | Spring the Trap |  
+ALTERAC_VALLEY | AV_224 | Spring the Trap | O
 ALTERAC_VALLEY | AV_226 | Ice Trap |  
 ALTERAC_VALLEY | AV_238 | Gankster |  
 ALTERAC_VALLEY | AV_244 | Bloodseeker | O
@@ -1144,12 +1144,12 @@ ALTERAC_VALLEY | AV_266 | Windchill | O
 ALTERAC_VALLEY | AV_267 | Caria Felsoul |  
 ALTERAC_VALLEY | AV_268 | Wildpaw Cavern | O
 ALTERAC_VALLEY | AV_269 | Flanking Maneuver |  
-ALTERAC_VALLEY | AV_277 | Seeds of Destruction |  
-ALTERAC_VALLEY | AV_281 | Felfire in the Hole! |  
+ALTERAC_VALLEY | AV_277 | Seeds of Destruction | O
+ALTERAC_VALLEY | AV_281 | Felfire in the Hole! | O
 ALTERAC_VALLEY | AV_282 | Build a Snowman |  
 ALTERAC_VALLEY | AV_283 | Rune of the Archmage |  
 ALTERAC_VALLEY | AV_284 | Balinda Stonehearth |  
-ALTERAC_VALLEY | AV_285 | Full-Blown Evil |  
+ALTERAC_VALLEY | AV_285 | Full-Blown Evil | O
 ALTERAC_VALLEY | AV_286 | Felwalker |  
 ALTERAC_VALLEY | AV_290 | Iceblood Tower |  
 ALTERAC_VALLEY | AV_291 | Frostsaber Matriarch |  
@@ -1159,7 +1159,7 @@ ALTERAC_VALLEY | AV_294 | Clawfury Adept |
 ALTERAC_VALLEY | AV_295 | Capture Coldtooth Mine |  
 ALTERAC_VALLEY | AV_296 | Pride Seeker |  
 ALTERAC_VALLEY | AV_298 | Wildpaw Gnoll |  
-ALTERAC_VALLEY | AV_308 | Grave Defiler |  
+ALTERAC_VALLEY | AV_308 | Grave Defiler | O
 ALTERAC_VALLEY | AV_309 | Piggyback Imp |  
 ALTERAC_VALLEY | AV_312 | Sacrificial Summoner |  
 ALTERAC_VALLEY | AV_313 | Hollow Abomination |  
@@ -1198,11 +1198,11 @@ ALTERAC_VALLEY | AV_405 | Contraband Stash |
 ALTERAC_VALLEY | AV_565 | Axe Berserker | O
 ALTERAC_VALLEY | AV_601 | Forsaken Lieutenant |  
 ALTERAC_VALLEY | AV_657 | Desecrated Graveyard |  
-ALTERAC_VALLEY | AV_660 | Iceblood Garrison |  
+ALTERAC_VALLEY | AV_660 | Iceblood Garrison | O
 ALTERAC_VALLEY | AV_661 | Field of Strife |  
 ALTERAC_VALLEY | AV_664 | Stormpike Aid Station |  
 ALTERAC_VALLEY | AV_704 | Humongous Owl |  
 ALTERAC_VALLEY | AV_710 | Reconnaissance |  
 ALTERAC_VALLEY | AV_711 | Double Agent |  
 
-- Progress: 15% (21 of 135 Cards)
+- Progress: 22% (31 of 135 Cards)

@@ -517,12 +517,9 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(
-        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    power.AddPowerTask(ComplexTask::CopyCardInHand(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::BEAST)) }));
     cards.emplace("ULD_151", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
@@ -950,13 +947,13 @@ void UldumCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsSecret()) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1,
+        SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsSecret()) },
+        true));
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("ULD_726e", EntityType::STACK));
-    power.AddPowerTask(std::make_shared<DrawStackTask>());
     cards.emplace("ULD_726", CardDef(power));
 }
 

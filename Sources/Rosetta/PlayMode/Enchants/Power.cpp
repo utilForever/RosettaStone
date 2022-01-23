@@ -167,4 +167,10 @@ void Power::AddHonorableKillTask(std::shared_ptr<ITask> task)
 {
     m_honorableKillTask.emplace_back(task);
 }
+
+void Power::AddHonorableKillTask(TaskList tasks)
+{
+    m_honorableKillTask.insert(m_honorableKillTask.end(), tasks.begin(),
+                               tasks.end());
+}
 }  // namespace RosettaStone::PlayMode
