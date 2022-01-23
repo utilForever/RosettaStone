@@ -1930,6 +1930,11 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::CopyCardInHand(
+        1, SelfCondList{
+               std::make_shared<SelfCondition>(SelfCondition::IsFelSpell()) }));
+    cards.emplace("AV_308", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [AV_312] Sacrificial Summoner - COST:3 [ATK:3/HP:3]

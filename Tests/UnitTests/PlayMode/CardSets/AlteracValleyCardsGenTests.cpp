@@ -1047,6 +1047,55 @@ TEST_CASE("[Warlock : Spell] - AV_285 : Full-Blown Evil")
     CHECK_EQ(curHand.GetCount(), 0);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [AV_308] Grave Defiler - COST:1 [ATK:2/HP:1]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Copy a Fel spell in your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - AV_308 : Grave Defiler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Grave Defiler"));
+    [[maybe_unused]] const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Felosophy"));
+    [[maybe_unused]] const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unstable Felbolt"));
+
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+    const bool check = curHand[3]->card->name == "River Felosophy" ||
+                       curHand[3]->card->name == "Unstable Felbolt";
+    CHECK_EQ(check, true);
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [AV_109] Frozen Buckler - COST:2
 // - Set: ALTERAC_VALLEY, Rarity: Epic
