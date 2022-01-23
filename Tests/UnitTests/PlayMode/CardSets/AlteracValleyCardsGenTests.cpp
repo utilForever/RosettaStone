@@ -1091,7 +1091,7 @@ TEST_CASE("[Warlock : Minion] - AV_308 : Grave Defiler")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 4);
-    const bool check = curHand[3]->card->name == "River Felosophy" ||
+    const bool check = curHand[3]->card->name == "Felosophy" ||
                        curHand[3]->card->name == "Unstable Felbolt";
     CHECK_EQ(check, true);
 }
