@@ -2185,6 +2185,12 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn,
     //       deal 1 damage to all minions. Lasts 3 turns.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS, 1, true) };
+    power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_660", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddWarriorNonCollect(
