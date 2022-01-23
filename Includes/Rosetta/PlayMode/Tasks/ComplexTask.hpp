@@ -219,6 +219,20 @@ class ComplexTask
 
         return ret;
     }
+
+    //! Returns a list of task for copying a random card(s) in your hand.
+    //! \param amount The amount to copy card(s).
+    //! \param list A list of self conditions to filter card(s).
+    static TaskList CopyCardInHand(int amount, const SelfCondList& list)
+    {
+        return TaskList{ std::make_shared<SimpleTasks::IncludeTask>(
+                             EntityType::HAND),
+                         std::make_shared<SimpleTasks::FilterStackTask>(list),
+                         std::make_shared<SimpleTasks::RandomTask>(
+                             EntityType::STACK, amount),
+                         std::make_shared<SimpleTasks::CopyTask>(
+                             EntityType::STACK, ZoneType::HAND) };
+    }
 };
 }  // namespace RosettaStone::PlayMode
 
