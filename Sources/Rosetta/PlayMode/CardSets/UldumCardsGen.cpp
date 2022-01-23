@@ -517,12 +517,9 @@ void UldumCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(
-        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
+    power.AddPowerTask(ComplexTask::CopyCardInHand(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::BEAST)) }));
     cards.emplace("ULD_151", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
