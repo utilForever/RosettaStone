@@ -2293,6 +2293,12 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AV_261e", EntityType::SOURCE) };
+    cards.emplace("AV_261", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [AV_262] Warden of Chains - COST:4 [ATK:2/HP:6]
@@ -2358,6 +2364,8 @@ void AlteracValleyCardsGen::AddDemonHunter(
 void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_204e] Ashfallen's Power - COST:0
     // - Set: ALTERAC_VALLEY
@@ -2384,6 +2392,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_261e"));
+    cards.emplace("AV_261e", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_262e2] Terrifying - COST:0
