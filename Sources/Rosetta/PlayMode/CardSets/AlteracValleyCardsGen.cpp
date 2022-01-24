@@ -2256,6 +2256,8 @@ void AlteracValleyCardsGen::AddWarriorNonCollect(
 void AlteracValleyCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- MINION - DEMONHUNTER
     // [AV_118] Battleworn Vanguard - COST:2 [ATK:2/HP:2]
     // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -2265,6 +2267,11 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>("BT_922t", 2) };
+    cards.emplace("AV_118", CardDef(power));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [AV_209] Dreadprison Glaive - COST:1
