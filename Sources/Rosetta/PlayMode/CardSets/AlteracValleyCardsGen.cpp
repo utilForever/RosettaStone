@@ -2312,6 +2312,14 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::Has5MoreCostDemonInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "AV_262e2", EntityType::SOURCE) }));
+    cards.emplace("AV_262", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [AV_264] Sigil of Reckoning - COST:5
@@ -2402,6 +2410,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_262e2"));
+    cards.emplace("AV_262e2", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_267e2] Demonic - COST:0

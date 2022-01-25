@@ -1589,6 +1589,64 @@ TEST_CASE("[Demon Hunter : Minion] - AV_261 : Flag Runner")
     game.ProcessUntil(Step::MAIN_ACTION);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [AV_262] Warden of Chains - COST:4 [ATK:2/HP:6]
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> If you're holding a Demon that
+//       costs (5) or more, gain +1/+2.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - AV_262 : Warden of Chains")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Warden of Chains"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Warden of Chains"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dread Infernal"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 6);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [AV_101] Herald of Lokholar - COST:4 [ATK:3/HP:5]
 // - Set: ALTERAC_VALLEY, Rarity: Common
