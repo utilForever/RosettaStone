@@ -2867,6 +2867,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "AV_219t", 2));
+    cards.emplace("AV_219", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_222] Spammy Arcanist - COST:5 [ATK:3/HP:4]
@@ -3110,6 +3114,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_219t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_223e] Occupy the Keep - COST:0

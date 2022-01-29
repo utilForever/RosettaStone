@@ -2421,3 +2421,53 @@ TEST_CASE("[Neutral : Minion] - AV_133 : Icehoof Protector")
     CHECK_EQ(opField[0]->GetHealth(), 6);
     CHECK_EQ(opField[0]->IsFrozen(), true);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_219] Ram Commander - COST:2 [ATK:2/HP:2]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add two 1/1 Rams with <b>Rush</b>
+//       to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_219 : Ram Commander")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ram Commander"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "Battle Ram");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->HasRush(), true);
+    CHECK_EQ(curHand[1]->card->name, "Battle Ram");
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->GetHealth(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[1])->HasRush(), true);
+}
