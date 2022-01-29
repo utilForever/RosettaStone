@@ -2706,6 +2706,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - HONORABLEKILL = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 8));
+    cards.emplace("AV_132", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_133] Icehoof Protector - COST:6 [ATK:2/HP:10]

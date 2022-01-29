@@ -2320,3 +2320,52 @@ TEST_CASE("[Neutral : Minion] - AV_131 : Knight-Captain")
     CHECK_EQ(curField[0]->GetAttack(), 9);
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_132] Troll Centurion - COST:8 [ATK:8/HP:8]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>. <b>Honorable Kill:</b>
+//       Deal 8 damage to the enemy hero.
+// --------------------------------------------------------
+// GameTag:
+// - HONORABLEKILL = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_132 : Troll Centurion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Troll Centurion"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Gurubashi Berserker"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
+}
