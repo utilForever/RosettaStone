@@ -2628,6 +2628,15 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFrostSpell())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AV_127e", EntityType::SOURCE) };
+    cards.emplace("AV_127", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_128] Frozen Mammoth - COST:4 [ATK:6/HP:7]
@@ -2966,6 +2975,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_127e"));
+    cards.emplace("AV_127e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_128e] Unthawed - COST:0
