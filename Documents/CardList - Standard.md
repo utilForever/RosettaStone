@@ -1080,7 +1080,7 @@ ALTERAC_VALLEY | AV_113 | Beaststalker Tavish |
 ALTERAC_VALLEY | AV_114 | Shivering Sorceress |  
 ALTERAC_VALLEY | AV_115 | Amplified Snowflurry |  
 ALTERAC_VALLEY | AV_116 | Arcane Brilliance |  
-ALTERAC_VALLEY | AV_118 | Battleworn Vanguard |  
+ALTERAC_VALLEY | AV_118 | Battleworn Vanguard | O
 ALTERAC_VALLEY | AV_119 | To the Front! |  
 ALTERAC_VALLEY | AV_121 | Gnome Private | O
 ALTERAC_VALLEY | AV_122 | Corporal | O
@@ -1088,13 +1088,13 @@ ALTERAC_VALLEY | AV_123 | Sneaky Scout | O
 ALTERAC_VALLEY | AV_124 | Direwolf Commander | O
 ALTERAC_VALLEY | AV_125 | Tower Sergeant | O
 ALTERAC_VALLEY | AV_126 | Bunker Sergeant | O
-ALTERAC_VALLEY | AV_127 | Ice Revenant |  
+ALTERAC_VALLEY | AV_127 | Ice Revenant | O
 ALTERAC_VALLEY | AV_128 | Frozen Mammoth |  
 ALTERAC_VALLEY | AV_129 | Blood Guard |  
-ALTERAC_VALLEY | AV_130 | Legionnaire |  
-ALTERAC_VALLEY | AV_131 | Knight-Captain |  
-ALTERAC_VALLEY | AV_132 | Troll Centurion |  
-ALTERAC_VALLEY | AV_133 | Icehoof Protector |  
+ALTERAC_VALLEY | AV_130 | Legionnaire | O
+ALTERAC_VALLEY | AV_131 | Knight-Captain | O
+ALTERAC_VALLEY | AV_132 | Troll Centurion | O
+ALTERAC_VALLEY | AV_133 | Icehoof Protector | O
 ALTERAC_VALLEY | AV_134 | Frostwolf Warmaster |  
 ALTERAC_VALLEY | AV_135 | Stormpike Marshal |  
 ALTERAC_VALLEY | AV_136 | Kobold Taskmaster |  
@@ -1121,7 +1121,7 @@ ALTERAC_VALLEY | AV_212 | Siphon Mana |
 ALTERAC_VALLEY | AV_213 | Vitality Surge |  
 ALTERAC_VALLEY | AV_215 | Frantic Hippogryph |  
 ALTERAC_VALLEY | AV_218 | Mass Polymorph | O
-ALTERAC_VALLEY | AV_219 | Ram Commander |  
+ALTERAC_VALLEY | AV_219 | Ram Commander | O
 ALTERAC_VALLEY | AV_222 | Spammy Arcanist |  
 ALTERAC_VALLEY | AV_223 | Vanndar Stormpike |  
 ALTERAC_VALLEY | AV_224 | Spring the Trap | O
@@ -1136,8 +1136,8 @@ ALTERAC_VALLEY | AV_257 | Bearon Gla'shear |
 ALTERAC_VALLEY | AV_258 | Bru'kan of the Elements |  
 ALTERAC_VALLEY | AV_259 | Frostbite |  
 ALTERAC_VALLEY | AV_260 | Sleetbreaker | O
-ALTERAC_VALLEY | AV_261 | Flag Runner |  
-ALTERAC_VALLEY | AV_262 | Warden of Chains |  
+ALTERAC_VALLEY | AV_261 | Flag Runner | O
+ALTERAC_VALLEY | AV_262 | Warden of Chains | O
 ALTERAC_VALLEY | AV_264 | Sigil of Reckoning |  
 ALTERAC_VALLEY | AV_265 | Ur'zul Giant |  
 ALTERAC_VALLEY | AV_266 | Windchill | O
@@ -1160,7 +1160,7 @@ ALTERAC_VALLEY | AV_295 | Capture Coldtooth Mine |
 ALTERAC_VALLEY | AV_296 | Pride Seeker |  
 ALTERAC_VALLEY | AV_298 | Wildpaw Gnoll |  
 ALTERAC_VALLEY | AV_308 | Grave Defiler | O
-ALTERAC_VALLEY | AV_309 | Piggyback Imp |  
+ALTERAC_VALLEY | AV_309 | Piggyback Imp | O
 ALTERAC_VALLEY | AV_312 | Sacrificial Summoner |  
 ALTERAC_VALLEY | AV_313 | Hollow Abomination |  
 ALTERAC_VALLEY | AV_315 | Deliverance |  
@@ -1205,4 +1205,4 @@ ALTERAC_VALLEY | AV_704 | Humongous Owl |
 ALTERAC_VALLEY | AV_710 | Reconnaissance |  
 ALTERAC_VALLEY | AV_711 | Double Agent |  
 
-- Progress: 22% (31 of 135 Cards)
+- Progress: 30% (41 of 135 Cards)
