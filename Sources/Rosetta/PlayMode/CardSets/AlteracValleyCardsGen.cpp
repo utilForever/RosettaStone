@@ -2927,6 +2927,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("AV_309t", SummonSide::DEATHRATTLE));
+    cards.emplace("AV_309", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_401] Stormpike Quartermaster - COST:2 [ATK:2/HP:2]
@@ -3157,6 +3161,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // [AV_309t] Backpiggy Imp - COST:3 [ATK:4/HP:1]
     // - Race: Demon, Set: ALTERAC_VALLEY
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_309t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_401e] Quartered - COST:0
