@@ -2725,6 +2725,9 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_133", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_134] Frostwolf Warmaster - COST:4 [ATK:3/HP:3]

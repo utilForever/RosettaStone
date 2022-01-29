@@ -2369,3 +2369,55 @@ TEST_CASE("[Neutral : Minion] - AV_132 : Troll Centurion")
     game.Process(curPlayer, AttackTask(card1, card2));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_133] Icehoof Protector - COST:6 [ATK:2/HP:10]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Freeze</b> any character damaged by this minion.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_133 : Icehoof Protector")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Icehoof Protector"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Troll Centurion"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+    CHECK_EQ(opField[0]->IsFrozen(), true);
+}
