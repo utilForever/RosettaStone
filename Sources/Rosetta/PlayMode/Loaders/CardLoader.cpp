@@ -126,6 +126,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
         // NOTE: Skyvateer (YOD_016), Cowardly Grunt (SW_021)
         //       doesn't have GameTag::DEATHRATTLE
+        // NOTE: Icehoof Protector (AV_133) doesn't have GameTag::FREEZE
         // NOTE: Patient Assassin (VAN_EX1_522) doesn't have GameTag::POISONOUS
         // NOTE: Carousel Gryphon (DMF_064) doesn't have GameTag::DIVINE_SHIELD
         // NOTE: Healing Totem (AT_132_SHAMANa), Searing Totem (AT_132_SHAMANb),
@@ -138,6 +139,10 @@ void CardLoader::Load(std::vector<Card*>& cards)
         if (dbfID == 56091 || dbfID == 64196)
         {
             gameTags.emplace(GameTag::DEATHRATTLE, 1);
+        }
+        else if (dbfID == 70236)
+        {
+            gameTags.emplace(GameTag::FREEZE, 1);
         }
         else if (dbfID == 69961)
         {

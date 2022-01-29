@@ -1128,6 +1128,25 @@ SelfCondition SelfCondition::Has5MoreCostSpellInHand()
     });
 }
 
+SelfCondition SelfCondition::Has5MoreCostDemonInHand()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+        {
+            if (auto minion = dynamic_cast<Minion*>(handCard); minion)
+            {
+                if (minion->card->GetRace() == Race::DEMON &&
+                    minion->GetCost() >= 5)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
 {
     return SelfCondition([](Playable* playable) {

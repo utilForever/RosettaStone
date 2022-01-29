@@ -2256,6 +2256,8 @@ void AlteracValleyCardsGen::AddWarriorNonCollect(
 void AlteracValleyCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- MINION - DEMONHUNTER
     // [AV_118] Battleworn Vanguard - COST:2 [ATK:2/HP:2]
     // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -2265,6 +2267,11 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>("BT_922t", 2) };
+    cards.emplace("AV_118", CardDef(power));
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [AV_209] Dreadprison Glaive - COST:1
@@ -2286,6 +2293,12 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AV_261e", EntityType::SOURCE) };
+    cards.emplace("AV_261", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [AV_262] Warden of Chains - COST:4 [ATK:2/HP:6]
@@ -2299,6 +2312,14 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::Has5MoreCostDemonInHand()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "AV_262e2", EntityType::SOURCE) }));
+    cards.emplace("AV_262", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [AV_264] Sigil of Reckoning - COST:5
@@ -2351,6 +2372,8 @@ void AlteracValleyCardsGen::AddDemonHunter(
 void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_204e] Ashfallen's Power - COST:0
     // - Set: ALTERAC_VALLEY
@@ -2377,6 +2400,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_261e"));
+    cards.emplace("AV_261e", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_262e2] Terrifying - COST:0
@@ -2384,6 +2410,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_262e2"));
+    cards.emplace("AV_262e2", CardDef(power));
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_267e2] Demonic - COST:0
@@ -2599,6 +2628,15 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsFrostSpell())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AV_127e", EntityType::SOURCE) };
+    cards.emplace("AV_127", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_128] Frozen Mammoth - COST:4 [ATK:6/HP:7]
@@ -2627,6 +2665,13 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("AV_130e", EntityType::STACK));
+    cards.emplace("AV_130", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_131] Knight-Captain - COST:5 [ATK:3/HP:3]
@@ -2639,6 +2684,16 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - HONORABLEKILL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    power.AddHonorableKillTask(
+        std::make_shared<AddEnchantmentTask>("AV_131e", EntityType::SOURCE));
+    cards.emplace(
+        "AV_131",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_132] Troll Centurion - COST:8 [ATK:8/HP:8]
@@ -2651,6 +2706,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - HONORABLEKILL = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 8));
+    cards.emplace("AV_132", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_133] Icehoof Protector - COST:6 [ATK:2/HP:10]
@@ -2666,6 +2725,9 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_133", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_134] Frostwolf Warmaster - COST:4 [ATK:3/HP:3]
@@ -2805,6 +2867,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "AV_219t", 2));
+    cards.emplace("AV_219", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_222] Spammy Arcanist - COST:5 [ATK:3/HP:4]
@@ -2861,6 +2927,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("AV_309t", SummonSide::DEATHRATTLE));
+    cards.emplace("AV_309", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_401] Stormpike Quartermaster - COST:2 [ATK:2/HP:2]
@@ -2930,6 +3000,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_127e"));
+    cards.emplace("AV_127e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_128e] Unthawed - COST:0
@@ -2954,6 +3027,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_130e"));
+    cards.emplace("AV_130e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_131e] Armed to the Teeth - COST:0
@@ -2961,6 +3037,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_131e"));
+    cards.emplace("AV_131e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_136e] Rusted Armor - COST:0
@@ -3039,6 +3118,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_219t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_223e] Occupy the Keep - COST:0
@@ -3079,6 +3161,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // [AV_309t] Backpiggy Imp - COST:3 [ATK:4/HP:1]
     // - Race: Demon, Set: ALTERAC_VALLEY
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_309t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_401e] Quartered - COST:0

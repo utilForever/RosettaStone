@@ -538,6 +538,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition Has5MoreCostSpellInHand();
 
+    //! SelfCondition wrapper for checking the player has demon
+    //! that costs 5 or more in hand.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition Has5MoreCostDemonInHand();
+
     //! SelfCondition wrapper for checking the player casts a spell
     //! that costs (5) or more this turn.
     //! \return Generated SelfCondition for intended purpose.
