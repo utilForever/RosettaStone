@@ -2656,6 +2656,13 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("AV_130e", EntityType::STACK));
+    cards.emplace("AV_130", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_131] Knight-Captain - COST:5 [ATK:3/HP:3]
@@ -2983,6 +2990,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_130e"));
+    cards.emplace("AV_130e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_131e] Armed to the Teeth - COST:0
