@@ -2253,3 +2253,70 @@ TEST_CASE("[Neutral : Minion] - AV_130 : Legionnaire")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 5);
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_131] Knight-Captain - COST:5 [ATK:3/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 3 damage.
+//       <b>Honorable Kill:</b> Gain +3/+3.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - HONORABLEKILL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_131 : Knight-Captain")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Knight-Captain"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("River Crocolisk"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lake Thresher"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card3));
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}

@@ -2684,6 +2684,16 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - HONORABLEKILL = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    power.AddHonorableKillTask(
+        std::make_shared<AddEnchantmentTask>("AV_131e", EntityType::SOURCE));
+    cards.emplace(
+        "AV_131",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_132] Troll Centurion - COST:8 [ATK:8/HP:8]
@@ -3012,6 +3022,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_131e"));
+    cards.emplace("AV_131e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_136e] Rusted Armor - COST:0
