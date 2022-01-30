@@ -38,35 +38,38 @@ Cards::Cards()
             ++heroIdx;
         }
 
-        if (card.GetTier() == 1)
+        if (card.isBattlegroundsPoolMinion)
         {
-            m_tier1Minions.at(tier1Idx) = card;
-            ++tier1Idx;
-        }
-        else if (card.GetTier() == 2)
-        {
-            m_tier2Minions.at(tier2Idx) = card;
-            ++tier2Idx;
-        }
-        else if (card.GetTier() == 3)
-        {
-            m_tier3Minions.at(tier3Idx) = card;
-            ++tier3Idx;
-        }
-        else if (card.GetTier() == 4)
-        {
-            m_tier4Minions.at(tier4Idx) = card;
-            ++tier4Idx;
-        }
-        else if (card.GetTier() == 5)
-        {
-            m_tier5Minions.at(tier5Idx) = card;
-            ++tier5Idx;
-        }
-        else if (card.GetTier() == 6)
-        {
-            m_tier6Minions.at(tier6Idx) = card;
-            ++tier6Idx;
+            if (card.GetTier() == 1)
+            {
+                m_tier1Minions.at(tier1Idx) = card;
+                ++tier1Idx;
+            }
+            else if (card.GetTier() == 2)
+            {
+                m_tier2Minions.at(tier2Idx) = card;
+                ++tier2Idx;
+            }
+            else if (card.GetTier() == 3)
+            {
+                m_tier3Minions.at(tier3Idx) = card;
+                ++tier3Idx;
+            }
+            else if (card.GetTier() == 4)
+            {
+                m_tier4Minions.at(tier4Idx) = card;
+                ++tier4Idx;
+            }
+            else if (card.GetTier() == 5)
+            {
+                m_tier5Minions.at(tier5Idx) = card;
+                ++tier5Idx;
+            }
+            else if (card.GetTier() == 6)
+            {
+                m_tier6Minions.at(tier6Idx) = card;
+                ++tier6Idx;
+            }
         }
     }
 }
