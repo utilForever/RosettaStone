@@ -58,7 +58,7 @@ void AlteracValleyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------- HERO - ROGUE
-    // [AV_203] Shadowcrafter Scabbs - COST:7
+    // [AV_203] Shadowcrafter Scabbs - COST:8
     // - Set: ALTERAC_VALLEY, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Return all minions to
@@ -1462,7 +1462,7 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("AV_201", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
-    // [AV_298] Wildpaw Gnoll - COST:5 [ATK:4/HP:5]
+    // [AV_298] Wildpaw Gnoll - COST:6 [ATK:3/HP:5]
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>

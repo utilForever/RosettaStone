@@ -449,10 +449,10 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("DAL_372", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
-    // [DAL_373] Rapid Fire - COST:1
+    // [DAL_373] Rapid Fire - COST:2
     // - Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Twinspell</b> Deal 1 damage.
+    // Text: <b>Twinspell</b> Deal 2 damage.
     // --------------------------------------------------------
     // GameTag:
     // - TWINSPELL_COPY = 54143
@@ -463,7 +463,7 @@ void DalaranCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
     cards.emplace(
         "DAL_373",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
@@ -603,17 +603,17 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ----------------------------------------- SPELL - HUNTER
-    // [DAL_373ts] Rapid Fire (*) - COST:1
+    // [DAL_373ts] Rapid Fire (*) - COST:2
     // - Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 1 damage.
+    // Text: Deal 2 damage.
     // --------------------------------------------------------
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
     cards.emplace(
         "DAL_373ts",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));

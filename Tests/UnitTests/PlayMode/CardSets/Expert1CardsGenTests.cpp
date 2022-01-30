@@ -2925,7 +2925,7 @@ TEST_CASE("[Mage : Spell] - EX1_594 : Vaporize")
 }
 
 // ------------------------------------------ MINION - MAGE
-// [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
+// [EX1_608] Sorcerer's Apprentice - COST:4 [ATK:3/HP:2]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Your spells cost (1) less.

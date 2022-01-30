@@ -2269,6 +2269,7 @@
             "BATTLECRY"
         ],
         "set": "TGT",
+        "techLevel": 3,
         "text": "Whenever you play a card with <b>Battlecry</b>, gain +1/+1.",
         "type": "MINION"
     },
@@ -2845,7 +2846,7 @@
         "name": "Tower Sergeant",
         "rarity": "COMMON",
         "set": "ALTERAC_VALLEY",
-        "text": "<b>Battlecry:</b>  If you control at least 2 other minions, gain +2/+2.",
+        "text": "<b>Battlecry:</b> If you control at least 2 other minions, gain +2/+2.",
         "type": "MINION"
     },
     {
@@ -3224,6 +3225,7 @@
         "cost": 2,
         "dbfId": 71321,
         "flavor": "Brutalist architecture for brutal times.",
+        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
         "id": "AV_147",
         "name": "Dun Baldar Bunker",
         "rarity": "RARE",
@@ -3251,7 +3253,7 @@
         "name": "Magister Dawngrasp",
         "rarity": "LEGENDARY",
         "set": "ALTERAC_VALLEY",
-        "text": "[x]<b>Battlecry:</b> Recast a\nspell from each spell\nschool you've cast\nthis game.",
+        "text": "[x]<b>Battlecry:</b> Recast a\nspell from each spell\nschool you've cast\n this game.",
         "type": "HERO"
     },
     {
@@ -3274,7 +3276,7 @@
         "type": "MINION"
     },
     {
-        "armor": 5,
+        "armor": 10,
         "artist": "Rafael Zanchetin",
         "cardClass": "WARRIOR",
         "collectible": true,
@@ -3298,7 +3300,7 @@
         "artist": "Ivan Fomin",
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 66939,
         "elite": true,
         "flavor": "Sneaking behind enemy lines isn't so different from being a line cook. People are hostile, something's on fire, and your only hope is to get out of there with all your fingers.",
@@ -3819,9 +3821,6 @@
         ],
         "name": "Frostbite",
         "rarity": "COMMON",
-        "referencedTags": [
-            "FREEZE"
-        ],
         "set": "ALTERAC_VALLEY",
         "spellSchool": "FROST",
         "text": "Deal $3 damage.\n<b>Honorable Kill:</b> Your opponent's next spell costs (2) more.",
@@ -4119,6 +4118,7 @@
         "cost": 10,
         "dbfId": 70204,
         "flavor": "“Why is it called Iceblood Tower?”\n“Not really sure. Anyways, try not to lose your footing on any of the frozen bodies as you make your way in.”",
+        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
         "id": "AV_290",
         "name": "Iceblood Tower",
         "rarity": "RARE",
@@ -4242,10 +4242,10 @@
     },
     {
         "artist": "Konstantin Turovec",
-        "attack": 4,
+        "attack": 3,
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 5,
+        "cost": 6,
         "dbfId": 70395,
         "flavor": "A big fan of four-claw discounts.",
         "health": 5,
@@ -4445,7 +4445,7 @@
         "collectible": true,
         "cost": 3,
         "dbfId": 68255,
-        "flavor": "Takes the ugly scraps of armor from dead players and combine them into ridiculous looking PVP armor sets.",
+        "flavor": "Takes the ugly scraps of armor from dead players and combines them into ridiculous looking PVP armor sets.",
         "health": 4,
         "id": "AV_323",
         "mechanics": [
@@ -4762,7 +4762,7 @@
         "cost": 5,
         "dbfId": 70264,
         "durability": 2,
-        "flavor": "The clarion call of the Alliance skipping every objective and going straight to Drek’thar.",
+        "flavor": "The clarion call of the Alliance skipping every objective and going straight to Drek’Thar.",
         "id": "AV_341",
         "mechanics": [
             "DEATHRATTLE"
@@ -4816,6 +4816,7 @@
         "cost": 4,
         "dbfId": 72807,
         "flavor": "At least there's no fall damage in Hearthstone.",
+        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
         "id": "AV_344",
         "name": "Dun Baldar Bridge",
         "rarity": "RARE",
@@ -4851,6 +4852,7 @@
         "cost": 3,
         "dbfId": 73528,
         "flavor": "The #1 reason Alliance members defect to the Horde is to adopt a cute frostwolf puppy.",
+        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
         "id": "AV_360",
         "name": "Frostwolf Kennels",
         "rarity": "RARE",
@@ -5018,6 +5020,7 @@
         "cost": 2,
         "dbfId": 72460,
         "flavor": "On weekends, it hosts the local community theater rehearsals.",
+        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
         "id": "AV_660",
         "name": "Iceblood Garrison",
         "rarity": "RARE",
@@ -5046,6 +5049,7 @@
         "cost": 3,
         "dbfId": 72563,
         "flavor": "Known by some as the “Stormpike Naptime Lounge.”",
+        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
         "id": "AV_664",
         "name": "Stormpike Aid Station",
         "rarity": "RARE",
@@ -5774,6 +5778,7 @@
         "name": "Barrens Blacksmith",
         "rarity": "EPIC",
         "set": "THE_BARRENS",
+        "techLevel": 3,
         "text": "<b>Frenzy:</b> Give your other minions +2/+2.",
         "type": "MINION"
     },
@@ -5911,6 +5916,7 @@
         "flavor": "You wouldn’t see this swap-meet on the Zandalari Roadshow.",
         "health": 6,
         "howToEarn": "Unlocked when opening a Forged in the Barrens pack.",
+        "howToEarnGolden": "Unlocked with \"Equivalent Exchange\" Achievement.",
         "id": "BAR_080",
         "mechanics": [
             "BATTLECRY"
@@ -6741,7 +6747,7 @@
         "race": "ELEMENTAL",
         "rarity": "EPIC",
         "set": "THE_BARRENS",
-        "text": "Cards that didn't start in your deck cost (2) less, but not less than (1).",
+        "text": "[x]Cards that didn't start in\nyour deck cost (2) less\n<i>(but not less than 1)</i>.",
         "type": "MINION"
     },
     {
@@ -8290,6 +8296,7 @@
             "TAUNT"
         ],
         "set": "BOOMSDAY",
+        "techLevel": 4,
         "text": "[x]Whenever this minion\ntakes damage, summon a\n2/3 Mech with <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -8850,6 +8857,7 @@
         "flavor": "It's a car!\n*Whomp whomp whomp*\nIt's a robot!\n*Whomp whom-CRUNCH*\nIt's… three.. smaller robots!",
         "health": 1,
         "id": "BOT_312",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE",
             "MODULAR"
@@ -9306,6 +9314,7 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
+        "techLevel": 1,
         "text": "<b>Deathrattle:</b> Summon a 1/1 Jo-E Bot.",
         "type": "MINION"
     },
@@ -9660,6 +9669,7 @@
         "flavor": "When you need more iron in your diet.",
         "health": 5,
         "id": "BOT_537",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -10149,6 +10159,7 @@
         "flavor": "More Boom for your buck.",
         "health": 2,
         "id": "BOT_606",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -10287,6 +10298,7 @@
         "flavor": "Every ten seconds it asks if you want to update.",
         "health": 4,
         "id": "BOT_911",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DIVINE_SHIELD",
             "MODULAR",
@@ -10466,6 +10478,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "BRM",
+        "techLevel": 3,
         "text": "Whenever this minion takes damage, summon a 1/1 Imp.",
         "type": "MINION"
     },
@@ -10996,7 +11009,7 @@
         "artist": "David Kegg",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 56385,
         "flavor": "\"Gettin' them discounts in bulk amounts, spells can come, and spells can go, castin' costs drop with my sweet, sweet flow.\"",
         "id": "BT_002",
@@ -11108,6 +11121,7 @@
         "flavor": "Return my fishes to me, and I myself shall carry you to the gates of Mrrhalla!",
         "health": 4,
         "id": "BT_010",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -13152,6 +13166,7 @@
             "SILENCE"
         ],
         "set": "DEMON_HUNTER_INITIATE",
+        "spellSchool": "SHADOW",
         "text": "<b>Silence</b> an enemy minion.\n<b>Outcast:</b> Draw a card.",
         "type": "SPELL"
     },
@@ -14557,6 +14572,7 @@
         "flavor": "To be a cool cat in Gadgetzan, you gotta have bling.",
         "health": 1,
         "id": "CFM_315",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -14579,6 +14595,7 @@
         "flavor": "He's gonna do it his way.",
         "health": 2,
         "id": "CFM_316",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -15017,6 +15034,7 @@
         "name": "Crystalweaver",
         "rarity": "COMMON",
         "set": "GANGS",
+        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your Demons +1/+1.",
         "type": "MINION"
     },
@@ -16542,6 +16560,7 @@
         "rarity": "RARE",
         "set": "GANGS",
         "targetingArrowText": "Give +2/+2.",
+        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a friendly Beast +2/+2.",
         "type": "MINION"
     },
@@ -18628,6 +18647,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "CORE",
+        "techLevel": 1,
         "text": "Adjacent minions have +1 Attack.",
         "type": "MINION"
     },
@@ -19697,6 +19717,7 @@
         "rarity": "EPIC",
         "set": "CORE",
         "targetingArrowText": "Become a copy of a minion.",
+        "techLevel": 6,
         "text": "<b>Battlecry:</b> Choose a minion and become a copy of it.",
         "type": "MINION"
     },
@@ -20199,6 +20220,7 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "CORE",
+        "techLevel": 2,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -20285,6 +20307,7 @@
         "name": "Righteous Protector",
         "rarity": "COMMON",
         "set": "CORE",
+        "techLevel": 1,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -21599,6 +21622,7 @@
         "race": "DEMON",
         "rarity": "FREE",
         "set": "LEGACY",
+        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -23932,6 +23956,7 @@
         ],
         "set": "DALARAN",
         "targetingArrowText": "Give a friendly Murloc Poisonous.",
+        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.",
         "type": "MINION"
     },
@@ -24493,7 +24518,7 @@
         "artist": "L. Lullabi & K. Turovec",
         "cardClass": "HUNTER",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 52076,
         "flavor": "Pew! Pew!",
         "id": "DAL_373",
@@ -24503,7 +24528,7 @@
         "name": "Rapid Fire",
         "rarity": "COMMON",
         "set": "DALARAN",
-        "text": "<b>Twinspell</b>\nDeal $1 damage.",
+        "text": "<b>Twinspell</b>\nDeal $2 damage.",
         "type": "SPELL"
     },
     {
@@ -25176,6 +25201,7 @@
         "flavor": "\"What do you call two minions summoned at once? Twinions, haha! Wait... where are you going?\"",
         "health": 2,
         "id": "DAL_575",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -25825,6 +25851,7 @@
             "WINDFURY"
         ],
         "set": "DALARAN",
+        "techLevel": 4,
         "text": "Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.",
         "type": "MINION"
     },
@@ -28849,7 +28876,7 @@
         "artist": "Cheng Hao",
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 61154,
         "flavor": "Only worthy emperors can see the cloak.",
         "id": "DMF_512",
@@ -29251,6 +29278,7 @@
         "flavor": "But where does she keep them?",
         "health": 4,
         "id": "DMF_533",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE",
             "TAUNT"
@@ -32260,6 +32288,7 @@
         "flavor": "\"Who let the dogs out?\" he asks.  It's rhetorical.",
         "health": 3,
         "id": "DS1_070",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -33129,6 +33158,7 @@
         "health": 4,
         "howToEarn": "Unlocked when you have all the Murlocs from the Legacy Set.",
         "id": "EX1_062",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "CHARGE"
         ],
@@ -33262,7 +33292,7 @@
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
@@ -33359,6 +33389,7 @@
         "flavor": "You wouldn’t think that Argus would need this much defending.  But it does.",
         "health": 3,
         "id": "EX1_093",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -33481,6 +33512,7 @@
         "flavor": "The Coldlight murlocs reside in the darkest pits of the Abyssal Depths.  So no, there's no getting away from murlocs.",
         "health": 3,
         "id": "EX1_103",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -33904,6 +33936,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "EXPERT1",
+        "techLevel": 1,
         "text": "Adjacent minions have +1 Attack.",
         "type": "MINION"
     },
@@ -34002,6 +34035,7 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "EXPERT1",
+        "techLevel": 1,
         "text": "<b>Poisonous</b>",
         "type": "MINION"
     },
@@ -34173,6 +34207,7 @@
         "race": "DEMON",
         "rarity": "RARE",
         "set": "LEGACY",
+        "techLevel": 4,
         "text": "<b>Taunt</b>\nYour other Demons have +1 Attack.",
         "type": "MINION"
     },
@@ -35866,6 +35901,7 @@
         "flavor": "\"Death will rise, from the tides!\"",
         "health": 1,
         "id": "EX1_506",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -35888,6 +35924,7 @@
         "flavor": "Do Murlocs ever get tired of making the same old sound?  Nope!  Mrglglrglglglglglglgl!",
         "health": 3,
         "id": "EX1_507",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -35937,6 +35974,7 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "EXPERT1",
+        "techLevel": 1,
         "text": "Whenever you summon a Murloc, gain +1 Attack.",
         "type": "MINION"
     },
@@ -35971,6 +36009,7 @@
         "flavor": "Hyenas prefer the bones of kodos or windserpents, but they'll eat pretty much anything.  Even Brussels sprouts.",
         "health": 2,
         "id": "EX1_531",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -36010,6 +36049,7 @@
         "flavor": "In the jungle, the mighty jungle, the lion gets slowly consumed by hyenas.",
         "health": 5,
         "id": "EX1_534",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -36173,6 +36213,7 @@
         "flavor": "\"Overheat threshold exceeded. System failure. Wheat clog in port two. Shutting down.\"",
         "health": 3,
         "id": "EX1_556",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -36344,6 +36385,7 @@
         "rarity": "EPIC",
         "set": "EXPERT1",
         "targetingArrowText": "Become a copy of a minion.",
+        "techLevel": 6,
         "text": "<b>Battlecry:</b> Choose a minion and become a copy of it.",
         "type": "MINION"
     },
@@ -36501,6 +36543,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
+        "techLevel": 3,
         "text": "[x]<b>Deathrattle:</b> Summon a\n3/3 Pip Quickwit for\nyour opponent.",
         "type": "MINION"
     },
@@ -36835,7 +36878,7 @@
         "attack": 3,
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 2,
+        "cost": 4,
         "dbfId": 614,
         "flavor": "Apprentices are great for bossing around.  \"Conjure me some mana buns! And a coffee!  Make that a mana coffee!\"",
         "health": 2,
@@ -37317,6 +37360,7 @@
         "howToEarn": "Unlocked in The Arachnid Quarter, in the Naxxramas adventure.",
         "howToEarnGolden": "Crafting unlocked in The Arachnid Quarter, in the Naxxramas adventure.",
         "id": "FP1_010",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "POISONOUS"
         ],
@@ -37620,6 +37664,7 @@
         "howToEarn": "Unlocked in The Plague Quarter, in the Naxxramas adventure.",
         "howToEarnGolden": "Crafting unlocked in The Plague Quarter, in the Naxxramas adventure.",
         "id": "FP1_024",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE",
             "TAUNT"
@@ -37771,6 +37816,7 @@
         "howToEarn": "Unlocked in The Military Quarter, in the Naxxramas adventure.",
         "howToEarnGolden": "Crafting unlocked in The Military Quarter, in the Naxxramas adventure.",
         "id": "FP1_031",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -39549,6 +39595,7 @@
         "name": "Festeroot Hulk",
         "rarity": "RARE",
         "set": "GILNEAS",
+        "techLevel": 4,
         "text": "After a friendly minion attacks, gain +1 Attack.",
         "type": "MINION"
     },
@@ -39754,6 +39801,7 @@
         "race": "ALL",
         "rarity": "EPIC",
         "set": "GILNEAS",
+        "techLevel": 2,
         "text": "<i>This has all minion types.</i>",
         "type": "MINION"
     },
@@ -40798,6 +40846,7 @@
             "IMMUNE"
         ],
         "set": "GVG",
+        "techLevel": 5,
         "text": "Your other Demons have +2/+2.\nYour hero is <b>Immune</b>.",
         "type": "MINION"
     },
@@ -40912,6 +40961,7 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "GVG",
+        "techLevel": 3,
         "text": "At the end of your turn, give another friendly Mech +2/+2.",
         "type": "MINION"
     },
@@ -41306,6 +41356,7 @@
         "flavor": "Don't leave them out in the rain. In Un'Goro Crater there is a whole colony of rust-tooth leapers.",
         "health": 3,
         "id": "GVG_048",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -41435,6 +41486,7 @@
         "flavor": "If it breaks, just kick it a couple of times while yelling \"Durn thing!\"",
         "health": 5,
         "id": "GVG_055",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -41579,6 +41631,7 @@
             "DIVINE_SHIELD"
         ],
         "set": "GVG",
+        "techLevel": 3,
         "text": "Whenever you summon a Mech, gain <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -42027,6 +42080,7 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "GVG",
+        "techLevel": 2,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -42325,6 +42379,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "GVG",
+        "techLevel": 4,
         "text": "Whenever your hero takes damage on your turn, gain +2/+2.",
         "type": "MINION"
     },
@@ -42449,6 +42504,7 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "GVG",
+        "techLevel": 4,
         "text": "Whenever a friendly Mech dies, gain +2/+2.",
         "type": "MINION"
     },
@@ -42591,6 +42647,7 @@
         "flavor": "Foe reaping is really not so different from harvest reaping, at the end of the day.",
         "health": 9,
         "id": "GVG_113",
+        "isBattlegroundsPoolMinion": true,
         "name": "Foe Reaper 4000",
         "race": "MECHANICAL",
         "rarity": "LEGENDARY",
@@ -43203,6 +43260,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 80098,
+        "health": 30,
+        "id": "HERO_02u",
+        "name": "Jade Serpent Thrall",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 930,
@@ -43700,6 +43768,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 80100,
+        "health": 30,
+        "id": "HERO_05r",
+        "name": "Black Ox Rexxar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 274,
@@ -43888,6 +43967,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 80095,
+        "health": 30,
+        "id": "HERO_06r",
+        "name": "Xuen",
+        "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -44048,6 +44138,17 @@
         "health": 30,
         "id": "HERO_07o",
         "name": "Winter's Little Helper Nemsy",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 80102,
+        "health": 30,
+        "id": "HERO_07p",
+        "name": "Mogu'shan Gul'dan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -44272,6 +44373,17 @@
         "health": 30,
         "id": "HERO_08t",
         "name": "Frost Fairy Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 80099,
+        "health": 30,
+        "id": "HERO_08u",
+        "name": "Red Crane Jaina",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -44564,6 +44676,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 80101,
+        "health": 30,
+        "id": "HERO_10n",
+        "name": "Sha Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "James Ryman",
         "attack": 3,
         "cardClass": "NEUTRAL",
@@ -44727,6 +44850,7 @@
         "flavor": "You get a sword! And you get a sword! Everybody gets a sword!",
         "health": 5,
         "id": "ICC_029",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -44813,6 +44937,7 @@
         "name": "Righteous Protector",
         "rarity": "COMMON",
         "set": "ICECROWN",
+        "techLevel": 1,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -46377,6 +46502,7 @@
         "flavor": "It isn't \"grave robbing\" when there's no grave. It's just scavenging…",
         "health": 3,
         "id": "ICC_807",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -47003,6 +47129,7 @@
         "name": "Bolvar, Fireblood",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
+        "techLevel": 4,
         "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +2 Attack.",
         "type": "MINION"
     },
@@ -47246,6 +47373,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "KARA",
+        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Summon a 3/2 Big Bad Wolf.",
         "type": "MINION"
     },
@@ -47934,6 +48062,7 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "KARA",
+        "techLevel": 2,
         "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +1/+1.",
         "type": "MINION"
     },
@@ -48083,6 +48212,7 @@
         "name": "Menagerie Magician",
         "rarity": "COMMON",
         "set": "KARA",
+        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a random friendly Beast, Dragon, and Murloc +2/+2.",
         "type": "MINION"
     },
@@ -48800,6 +48930,7 @@
         "howToEarn": "Unlocked in Uldaman, in the League of Explorers adventure.",
         "howToEarnGolden": "Crafting unlocked in Uldaman, in the League of Explorers adventure.",
         "id": "LOE_077",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -49139,6 +49270,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
+        "techLevel": 1,
         "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage to your hero.",
         "type": "MINION"
     },
@@ -49472,6 +49604,7 @@
         "flavor": "Can be upgraded into a Cave Lurker.",
         "health": 4,
         "id": "LOOT_078",
+        "isBattlegroundsPoolMinion": true,
         "name": "Cave Hydra",
         "race": "BEAST",
         "rarity": "COMMON",
@@ -50816,6 +50949,7 @@
         "flavor": "Never let it hold your checkbook.",
         "health": 9,
         "id": "LOOT_368",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE",
             "TAUNT"
@@ -52054,6 +52188,7 @@
         "flavor": "When he saves enough plunder, he's going to commission an enormous captain's hat.  He has hat envy.",
         "health": 3,
         "id": "NEW1_027",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -53104,6 +53239,7 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "OG",
+        "techLevel": 3,
         "text": "<b>Taunt</b>\n<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -53563,6 +53699,7 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "OG",
+        "techLevel": 3,
         "text": "<b>Deathrattle:</b> Summon two 1/1 Spiders.",
         "type": "MINION"
     },
@@ -53617,6 +53754,7 @@
         "flavor": "\"Don't worry about me… I'll just be here... under these tentacles.\"",
         "health": 1,
         "id": "OG_221",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -53849,6 +53987,7 @@
         "flavor": "Who's a cute widdle N'Zoth? You are! Yes you are! Yes you're the cutest widdle N'Zoth in the whole world!!!",
         "health": 2,
         "id": "OG_256",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -54192,6 +54331,7 @@
         "name": "The Boogeymonster",
         "rarity": "LEGENDARY",
         "set": "OG",
+        "techLevel": 4,
         "text": "Whenever this attacks and kills a minion, gain +2/+2.",
         "type": "MINION"
     },
@@ -55103,6 +55243,7 @@
         "name": "Argent Braggart",
         "rarity": "EPIC",
         "set": "SCHOLOMANCE",
+        "techLevel": 6,
         "text": "<b>Battlecry:</b> Gain Attack and Health to match the highest in the battlefield.",
         "type": "MINION"
     },
@@ -59191,7 +59332,7 @@
         "dbfId": 64008,
         "flavor": "\"Now I can pick up EVERY knick-knack.\"",
         "health": 3,
-        "howToEarnGolden": "Unlocked on the United in Stormwind Reward Track.",
+        "howToEarnGolden": "Unlocked with \"They Carry My Potions\" Achievement.",
         "id": "SW_306",
         "mechanics": [
             "TOPDECK"
@@ -60699,6 +60840,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "TROLL",
+        "techLevel": 5,
         "text": "<b>Overkill:</b> Summon a 5/5 Ironhide Runt.",
         "type": "MINION"
     },
@@ -63457,6 +63599,7 @@
             "TAUNT"
         ],
         "set": "ULDUM",
+        "techLevel": 3,
         "text": "Your <b>Taunt</b> minions\nhave +2 Attack.",
         "type": "MINION"
     },
@@ -63986,6 +64129,7 @@
         "flavor": "The dramatically detailed terrifically trimmed replica of the real thing!",
         "health": 2,
         "id": "ULD_217",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "REBORN",
             "TRIGGER_VISUAL"
@@ -65499,6 +65643,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "UNGORO",
+        "techLevel": 5,
         "text": "<b>Deathrattle:</b> Summon three 1/1 Murlocs.",
         "type": "MINION"
     },
@@ -65835,6 +65980,7 @@
         "name": "Tortollan Shellraiser",
         "rarity": "COMMON",
         "set": "UNGORO",
+        "techLevel": 3,
         "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Give a random\n friendly minion +1/+1.",
         "type": "MINION"
     },
@@ -66100,6 +66246,7 @@
         "flavor": "Loves crab meat. Fears crabs.",
         "health": 3,
         "id": "UNG_073",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -68698,6 +68845,7 @@
         "race": "DEMON",
         "rarity": "FREE",
         "set": "VANILLA",
+        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -70975,7 +71123,7 @@
         "rarity": "LEGENDARY",
         "set": "VANILLA",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
@@ -71603,6 +71751,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "VANILLA",
+        "techLevel": 1,
         "text": "Adjacent minions have +1 Attack.",
         "type": "MINION"
     },
@@ -73585,6 +73734,7 @@
         "rarity": "EPIC",
         "set": "VANILLA",
         "targetingArrowText": "Become a copy of a minion.",
+        "techLevel": 6,
         "text": "<b>Battlecry:</b> Choose a minion and become a copy of it.",
         "type": "MINION"
     },
@@ -73744,6 +73894,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "VANILLA",
+        "techLevel": 3,
         "text": "[x]<b>Deathrattle:</b> Summon a\n3/3 Pip Quickwit for\nyour opponent.",
         "type": "MINION"
     },
@@ -76105,6 +76256,7 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "YEAR_OF_THE_DRAGON",
+        "techLevel": 1,
         "text": "[x]<b>Deathrattle:</b> Give this\nminion's Attack to a random\nfriendly minion.",
         "type": "MINION"
     },

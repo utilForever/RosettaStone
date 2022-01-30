@@ -81,6 +81,7 @@ class Card
     Power power;
 
     bool isCurHero = false;
+    bool isBattlegroundsPoolMinion = false;
     bool mustHaveToTargetToPlay = false;
 };
 }  // namespace RosettaStone::Battlegrounds

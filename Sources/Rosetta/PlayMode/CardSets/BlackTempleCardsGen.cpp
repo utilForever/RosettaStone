@@ -514,7 +514,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ------------------------------------------- SPELL - MAGE
-    // [BT_002] Incanter's Flow - COST:3
+    // [BT_002] Incanter's Flow - COST:4
     // - Set: BLACK_TEMPLE, Rarity: Common
     // - Spell School: Arcane
     // --------------------------------------------------------
