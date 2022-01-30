@@ -50,6 +50,8 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
                 : cardData["battlegroundsPremiumDbfId"].get<int>();
         const bool isBattlegroundsHero =
             !cardData["battlegroundsHero"].is_null();
+        const bool isBattlegroundsPoolMinion =
+            !cardData["isBattlegroundsPoolMinion"].is_null();
 
         const std::string name = cardData["name"].is_null()
                                      ? ""
@@ -90,6 +92,7 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
         card.name = name;
         card.text = text;
         card.isCurHero = isBattlegroundsHero;
+        card.isBattlegroundsPoolMinion = isBattlegroundsPoolMinion;
 
         card.gameTags = gameTags;
         card.gameTags[GameTag::CARD_SET] = static_cast<int>(cardSet);
