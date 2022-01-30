@@ -230,6 +230,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
             case CardType::GAME_MODE_BUTTON:
             case CardType::MOVE_MINION_HOVER_TARGET:
             case CardType::LETTUCE_ABILITY:
+            case CardType::BATTLEGROUND_HERO_BUDDY:
                 throw std::invalid_argument(
                     "Generic::ChangeEntity() - Invalid card type");
         }
