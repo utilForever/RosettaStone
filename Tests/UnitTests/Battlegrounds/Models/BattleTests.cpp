@@ -68,7 +68,7 @@ TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
     CHECK_EQ(p2Field[0].GetHealth(), 1);
 
     CHECK_EQ(battle.GetResult(), BattleResult::PLAYER2_WIN);
-    CHECK_EQ(player1.hero.health, 52);
+    CHECK_EQ(player1.hero.health, 51);
     CHECK_EQ(player2.hero.health, 55);
 }
 
