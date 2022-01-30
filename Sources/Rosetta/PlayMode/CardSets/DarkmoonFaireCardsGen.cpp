@@ -1443,7 +1443,7 @@ void DarkmoonFaireCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - ROGUE
-    // [DMF_512] Cloak of Shadows - COST:3
+    // [DMF_512] Cloak of Shadows - COST:4
     // - Set: DARKMOON_FAIRE, Rarity: Epic
     // - Spell School: Shadow
     // --------------------------------------------------------

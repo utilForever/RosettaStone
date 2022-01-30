@@ -1559,7 +1559,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_594", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
-    // [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
+    // [EX1_608] Sorcerer's Apprentice - COST:4 [ATK:3/HP:2]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Your spells cost (1) less.

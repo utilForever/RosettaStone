@@ -2771,7 +2771,7 @@ void StormwindCardsGen::AddWarriorNonCollect(
     // [SW_028t] Create a Distraction - COST:1
     // - Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Questline:</b> Play 2 Pirates.
+    // Text: <b>Questline:</b> Play 3 Pirates.
     //       <b>Reward:</b> Deal 2 damage
     //       to a random enemy twice.
     // --------------------------------------------------------
