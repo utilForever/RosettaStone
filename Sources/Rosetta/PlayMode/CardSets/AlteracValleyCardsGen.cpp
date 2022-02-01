@@ -2060,6 +2060,13 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage to all minions.
     //       Costs (1) less for each Armor you have.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 5, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetHero()->GetArmor();
+    }));
+    cards.emplace("AV_108", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_109] Frozen Buckler - COST:2
