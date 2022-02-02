@@ -1071,9 +1071,9 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 ALTERAC_VALLEY | AV_100 | Drek'Thar |  
 ALTERAC_VALLEY | AV_101 | Herald of Lokholar | O
-ALTERAC_VALLEY | AV_102 | Popsicooler |  
+ALTERAC_VALLEY | AV_102 | Popsicooler | O
 ALTERAC_VALLEY | AV_107 | Glaciate |  
-ALTERAC_VALLEY | AV_108 | Shield Shatter |  
+ALTERAC_VALLEY | AV_108 | Shield Shatter | O
 ALTERAC_VALLEY | AV_109 | Frozen Buckler | O
 ALTERAC_VALLEY | AV_112 | Snowblind Harpy | O
 ALTERAC_VALLEY | AV_113 | Beaststalker Tavish |  
@@ -1095,11 +1095,11 @@ ALTERAC_VALLEY | AV_130 | Legionnaire | O
 ALTERAC_VALLEY | AV_131 | Knight-Captain | O
 ALTERAC_VALLEY | AV_132 | Troll Centurion | O
 ALTERAC_VALLEY | AV_133 | Icehoof Protector | O
-ALTERAC_VALLEY | AV_134 | Frostwolf Warmaster |  
+ALTERAC_VALLEY | AV_134 | Frostwolf Warmaster | O
 ALTERAC_VALLEY | AV_135 | Stormpike Marshal |  
 ALTERAC_VALLEY | AV_136 | Kobold Taskmaster |  
 ALTERAC_VALLEY | AV_137 | Irondeep Trogg |  
-ALTERAC_VALLEY | AV_138 | Grimtotem Bounty Hunter |  
+ALTERAC_VALLEY | AV_138 | Grimtotem Bounty Hunter | O
 ALTERAC_VALLEY | AV_139 | Abominable Lieutenant |  
 ALTERAC_VALLEY | AV_141t | Lokholar the Ice Lord |  
 ALTERAC_VALLEY | AV_142t | Ivus, the Forest Lord |  
@@ -1119,7 +1119,7 @@ ALTERAC_VALLEY | AV_210 | Pathmaker |
 ALTERAC_VALLEY | AV_211 | Dire Frostwolf | O
 ALTERAC_VALLEY | AV_212 | Siphon Mana |  
 ALTERAC_VALLEY | AV_213 | Vitality Surge |  
-ALTERAC_VALLEY | AV_215 | Frantic Hippogryph |  
+ALTERAC_VALLEY | AV_215 | Frantic Hippogryph | O
 ALTERAC_VALLEY | AV_218 | Mass Polymorph | O
 ALTERAC_VALLEY | AV_219 | Ram Commander | O
 ALTERAC_VALLEY | AV_222 | Spammy Arcanist |  
@@ -1146,14 +1146,14 @@ ALTERAC_VALLEY | AV_268 | Wildpaw Cavern | O
 ALTERAC_VALLEY | AV_269 | Flanking Maneuver |  
 ALTERAC_VALLEY | AV_277 | Seeds of Destruction | O
 ALTERAC_VALLEY | AV_281 | Felfire in the Hole! | O
-ALTERAC_VALLEY | AV_282 | Build a Snowman |  
+ALTERAC_VALLEY | AV_282 | Build a Snowman | O
 ALTERAC_VALLEY | AV_283 | Rune of the Archmage |  
 ALTERAC_VALLEY | AV_284 | Balinda Stonehearth |  
 ALTERAC_VALLEY | AV_285 | Full-Blown Evil | O
 ALTERAC_VALLEY | AV_286 | Felwalker |  
 ALTERAC_VALLEY | AV_290 | Iceblood Tower |  
 ALTERAC_VALLEY | AV_291 | Frostsaber Matriarch |  
-ALTERAC_VALLEY | AV_292 | Heart of the Wild |  
+ALTERAC_VALLEY | AV_292 | Heart of the Wild | O
 ALTERAC_VALLEY | AV_293 | Wing Commander Mulverick |  
 ALTERAC_VALLEY | AV_294 | Clawfury Adept |  
 ALTERAC_VALLEY | AV_295 | Capture Coldtooth Mine |  
@@ -1191,7 +1191,7 @@ ALTERAC_VALLEY | AV_344 | Dun Baldar Bridge |
 ALTERAC_VALLEY | AV_345 | Saidan the Scarlet |  
 ALTERAC_VALLEY | AV_360 | Frostwolf Kennels | O
 ALTERAC_VALLEY | AV_400 | Snowfall Graveyard |  
-ALTERAC_VALLEY | AV_401 | Stormpike Quartermaster |  
+ALTERAC_VALLEY | AV_401 | Stormpike Quartermaster | O
 ALTERAC_VALLEY | AV_402 | The Lobotomizer |  
 ALTERAC_VALLEY | AV_403 | Cera'thine Fleetrunner |  
 ALTERAC_VALLEY | AV_405 | Contraband Stash |  
@@ -1199,10 +1199,10 @@ ALTERAC_VALLEY | AV_565 | Axe Berserker | O
 ALTERAC_VALLEY | AV_601 | Forsaken Lieutenant |  
 ALTERAC_VALLEY | AV_657 | Desecrated Graveyard |  
 ALTERAC_VALLEY | AV_660 | Iceblood Garrison | O
-ALTERAC_VALLEY | AV_661 | Field of Strife |  
+ALTERAC_VALLEY | AV_661 | Field of Strife | O
 ALTERAC_VALLEY | AV_664 | Stormpike Aid Station |  
-ALTERAC_VALLEY | AV_704 | Humongous Owl |  
+ALTERAC_VALLEY | AV_704 | Humongous Owl | O
 ALTERAC_VALLEY | AV_710 | Reconnaissance |  
 ALTERAC_VALLEY | AV_711 | Double Agent |  
 
-- Progress: 30% (41 of 135 Cards)
+- Progress: 37% (51 of 135 Cards)
