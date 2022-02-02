@@ -1458,7 +1458,7 @@ TEST_CASE("[Warrior : Minion] - AV_565 : Axe Berserker")
 TEST_CASE("[Warrior : Spell] - AV_660 : Iceblood Garrison")
 {
     GameConfig config;
-    config.player1Class = CardClass::DRUID;
+    config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
@@ -1711,6 +1711,91 @@ TEST_CASE("[Demon Hunter : Minion] - AV_262 : Warden of Chains")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[2]->GetAttack(), 2);
     CHECK_EQ(curField[2]->GetHealth(), 6);
+}
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [AV_661] Field of Strife - COST:2
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: Your minions have +1 Attack. Lasts 3 turns.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - AV_661 : Field of Strife")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Field of Strife"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Strongman"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
 }
 
 // --------------------------------------- MINION - NEUTRAL

@@ -2374,6 +2374,12 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // --------------------------------------------------------
     // Text: Your minions have +1 Attack. Lasts 3 turns.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AV_661e2", EntityType::MINIONS) };
+    power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_661", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddDemonHunterNonCollect(
@@ -2456,6 +2462,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack from {0}.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_661e2"));
+    cards.emplace("AV_661e2", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
