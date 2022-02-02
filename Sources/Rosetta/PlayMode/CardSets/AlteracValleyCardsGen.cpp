@@ -2756,6 +2756,12 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each card you've played this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetGameTag(
+            GameTag::NUM_CARDS_PLAYED_THIS_TURN);
+    }));
+    cards.emplace("AV_134", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_135] Stormpike Marshal - COST:4 [ATK:2/HP:6]

@@ -2650,6 +2650,56 @@ TEST_CASE("[Neutral : Minion] - AV_133 : Icehoof Protector")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [AV_134] Frostwolf Warmaster - COST:4 [ATK:3/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: Costs (1) less for each card you've played this turn.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_134 : Frostwolf Warmaster")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frostwolf Warmaster"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(card1->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card1->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(card1->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [AV_219] Ram Commander - COST:2 [ATK:2/HP:2]
 // - Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------
