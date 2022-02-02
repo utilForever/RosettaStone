@@ -2894,6 +2894,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::WINDFURY, 1));
+    cards.emplace("AV_215", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_219] Ram Commander - COST:2 [ATK:2/HP:2]

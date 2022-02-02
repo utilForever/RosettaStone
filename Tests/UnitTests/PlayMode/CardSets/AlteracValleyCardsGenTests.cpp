@@ -2762,6 +2762,62 @@ TEST_CASE("[Neutral : Minion] - AV_138 : Grimtotem Bounty Hunter")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [AV_215] Frantic Hippogryph - COST:5 [ATK:3/HP:7]
+// - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>. <b>Honorable Kill</b>:
+//        Gain <b>Windfury</b>.
+// --------------------------------------------------------
+// GameTag:
+// - HONORABLEKILL = 1
+// - RUSH = 1
+// --------------------------------------------------------
+// RefTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_215 : Frantic Hippogryph")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frantic Hippogryph"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("River Crocolisk"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [AV_219] Ram Commander - COST:2 [ATK:2/HP:2]
 // - Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------
