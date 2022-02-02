@@ -2987,6 +2987,12 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { ComplexTask::GiveBuffToRandomMinionInHand(
+        "AV_401e") };
+    cards.emplace("AV_401", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_704] Humongous Owl - COST:7 [ATK:8/HP:4]
@@ -3222,6 +3228,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_401e"));
+    cards.emplace("AV_401e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [AV_COIN1] The Coin - COST:0

@@ -2914,6 +2914,54 @@ TEST_CASE("[Neutral : Minion] - AV_309 : Piggyback Imp")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [AV_401] Stormpike Quartermaster - COST:2 [ATK:2/HP:2]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: After you cast a spell,
+//       give a random minion in your hand +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Netural : Minion] - AV_401 : Stormpike Quartermaster")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stormpike Quartermaster"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [AV_704] Humongous Owl - COST:7 [ATK:8/HP:4]
 // - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------
