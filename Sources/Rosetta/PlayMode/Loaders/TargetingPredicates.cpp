@@ -99,6 +99,13 @@ TargetingPredicate TargetingPredicates::ReqTargetWithDeathrattle()
     return [](Character* character) { return character->HasDeathrattle(); };
 }
 
+TargetingPredicate TargetingPredicates::ReqLegendaryTarget()
+{
+    return [](Character* character) {
+        return character->card->GetRarity() == Rarity::LEGENDARY;
+    };
+}
+
 TargetingPredicate TargetingPredicates::ReqDamagedTarget()
 {
     return [](Character* character) { return character->GetDamage() > 0; };

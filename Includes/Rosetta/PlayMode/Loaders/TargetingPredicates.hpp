@@ -83,6 +83,11 @@ class TargetingPredicates
     static TargetingPredicate ReqTargetWithDeathrattle();
 
     //! Predicate wrapper for checking the target requires that
+    //! it is Legendary.
+    //! \return Generated TargetingPredicate for intended purpose.
+    static TargetingPredicate ReqLegendaryTarget();
+
+    //! Predicate wrapper for checking the target requires that
     //! it is damaged.
     //! \return Generated TargetingPredicate for intended purpose.
     static TargetingPredicate ReqDamagedTarget();

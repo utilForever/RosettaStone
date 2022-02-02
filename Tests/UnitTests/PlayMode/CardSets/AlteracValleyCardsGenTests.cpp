@@ -73,6 +73,59 @@ TEST_CASE("[Druid : Minion] - AV_211 : Dire Frostwolf")
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [AV_292] Heart of the Wild - COST:3
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion +2/+2, then give your Beasts +1/+1.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - AV_292 : Heart of the Wild")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Heart of the Wild"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Enchanted Raven"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [AV_360] Frostwolf Kennels - COST:3
 // - Set: ALTERAC_VALLEY, Rarity: Rare
 // --------------------------------------------------------
@@ -635,6 +688,79 @@ TEST_CASE("[Mage : Spell] - AV_218 : Mass Polymorph")
     CHECK_EQ(opField[1]->GetHealth(), 1);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [AV_282] Build a Snowman - COST:3
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: Summon a 3/3 Snowman that <b>Freezes</b>.
+//       Add "Build a Snowbrute" to your hand.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - AV_282 : Build a Snowman")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Build a Snowman"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Snowman");
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->HasFreeze(), true);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Build a Snowbrute");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Snowbrute");
+    CHECK_EQ(curField[1]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+    CHECK_EQ(curField[1]->HasFreeze(), true);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Build a Snowgre");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->card->name, "Snowgre");
+    CHECK_EQ(curField[2]->GetAttack(), 9);
+    CHECK_EQ(curField[2]->GetHealth(), 9);
+    CHECK_EQ(curField[2]->HasFreeze(), true);
+    CHECK_EQ(curHand.GetCount(), 0);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [AV_201] Coldtooth Yeti - COST:3 [ATK:1/HP:5]
 // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -1097,6 +1223,72 @@ TEST_CASE("[Warlock : Minion] - AV_308 : Grave Defiler")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
+// [AV_108] Shield Shatter - COST:10
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// - Spell School: Frost
+// --------------------------------------------------------
+// Text: Deal 5 damage to all minions.
+//       Costs (1) less for each Armor you have.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - AV_108 : Shield Shatter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shield Shatter"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frozen Buckler"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Overconfident Orc"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    CHECK_EQ(card1->GetCost(), 10);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 10);
+    CHECK_EQ(card1->GetCost(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(card1->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
 // [AV_109] Frozen Buckler - COST:2
 // - Set: ALTERAC_VALLEY, Rarity: Epic
 // - Spell School: Frost
@@ -1392,7 +1584,7 @@ TEST_CASE("[Warrior : Minion] - AV_565 : Axe Berserker")
 TEST_CASE("[Warrior : Spell] - AV_660 : Iceblood Garrison")
 {
     GameConfig config;
-    config.player1Class = CardClass::DRUID;
+    config.player1Class = CardClass::WARRIOR;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
@@ -1647,6 +1839,91 @@ TEST_CASE("[Demon Hunter : Minion] - AV_262 : Warden of Chains")
     CHECK_EQ(curField[2]->GetHealth(), 6);
 }
 
+// ------------------------------------ SPELL - DEMONHUNTER
+// [AV_661] Field of Strife - COST:2
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: Your minions have +1 Attack. Lasts 3 turns.
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - AV_661 : Field of Strife")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Field of Strife"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Strongman"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [AV_101] Herald of Lokholar - COST:4 [ATK:3/HP:5]
 // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -1691,6 +1968,82 @@ TEST_CASE("[Neutral : Minion] - AV_101 : Herald of Lokholar")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Ice Barrier");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_102] Popsicooler - COST:3 [ATK:3/HP:3]
+// - Race: Mechanical, Set: ALTERAC_VALLEY, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> <b>Freeze</b> two random
+//       enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_102 : Popsicooler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Popsicooler"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    int numFrozenMinions = 0;
+
+    opField.ForEach([&](Playable* minion) {
+        if (dynamic_cast<Minion*>(minion)->IsFrozen())
+        {
+            ++numFrozenMinions;
+        }
+    });
+    CHECK_EQ(numFrozenMinions, 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+
+    opField.ForEach([&](Playable* minion) {
+        if (dynamic_cast<Minion*>(minion)->IsFrozen())
+        {
+            ++numFrozenMinions;
+        }
+    });
+    CHECK_EQ(numFrozenMinions, 2);
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -2423,6 +2776,174 @@ TEST_CASE("[Neutral : Minion] - AV_133 : Icehoof Protector")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [AV_134] Frostwolf Warmaster - COST:4 [ATK:3/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: Costs (1) less for each card you've played this turn.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_134 : Frostwolf Warmaster")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frostwolf Warmaster"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    CHECK_EQ(card1->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card1->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(card1->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card1->GetCost(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_138] Grimtotem Bounty Hunter - COST:3 [ATK:4/HP:2]
+// - Set: ALTERAC_VALLEY, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy an enemy
+//       <b>Legendary</b> minion.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_LEGENDARY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_138 : Grimtotem Bounty Hunter")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Grimtotem Bounty Hunter"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Wisp");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_215] Frantic Hippogryph - COST:5 [ATK:3/HP:7]
+// - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>. <b>Honorable Kill</b>:
+//        Gain <b>Windfury</b>.
+// --------------------------------------------------------
+// GameTag:
+// - HONORABLEKILL = 1
+// - RUSH = 1
+// --------------------------------------------------------
+// RefTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_215 : Frantic Hippogryph")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Frantic Hippogryph"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("River Crocolisk"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [AV_219] Ram Commander - COST:2 [ATK:2/HP:2]
 // - Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------
@@ -2516,4 +3037,95 @@ TEST_CASE("[Neutral : Minion] - AV_309 : Piggyback Imp")
     CHECK_EQ(curField[0]->card->name, "Backpiggy Imp");
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_401] Stormpike Quartermaster - COST:2 [ATK:2/HP:2]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: After you cast a spell,
+//       give a random minion in your hand +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Netural : Minion] - AV_401 : Stormpike Quartermaster")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stormpike Quartermaster"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [AV_704] Humongous Owl - COST:7 [ATK:8/HP:4]
+// - Race: Beast, Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Deal 8 damage to a random enemy.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_704 : Humongous Owl")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Humongous Owl"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
 }

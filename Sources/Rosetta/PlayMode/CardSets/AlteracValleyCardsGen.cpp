@@ -350,6 +350,22 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion +2/+2, then give your Beasts +1/+1.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("AV_292e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("AV_292e2", EntityType::STACK));
+    cards.emplace(
+        "AV_292",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [AV_293] Wing Commander Mulverick - COST:4 [ATK:2/HP:5]
@@ -422,6 +438,8 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [AV_205a] Ice Blossom - COST:2
     // - Set: ALTERAC_VALLEY
@@ -449,6 +467,9 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_292e"));
+    cards.emplace("AV_292e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [AV_292e2] Pack Member - COST:0
@@ -456,6 +477,9 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_292e2"));
+    cards.emplace("AV_292e2", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [AV_293e] Air Strike - COST:0
@@ -943,9 +967,19 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Summon a 3/3 Snowman that <b>Freezes</b>.
     //       Add "Build a Snowbrute" to your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "AV_282t2"));
+    cards.emplace(
+        "AV_282",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_283] Rune of the Archmage - COST:9
@@ -978,6 +1012,8 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------- ENCHANTMENT - MAGE
     // [AV_114e] Shocking - COST:0
     // - Set: ALTERAC_VALLEY
@@ -1009,6 +1045,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_282t2] Build a Snowbrute - COST:6
@@ -1018,9 +1057,19 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // Text: Summon a 6/6 Snowbrute that <b>Freezes</b>.
     //       Add "Build a Snowgre" to your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t3"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "AV_282t4"));
+    cards.emplace(
+        "AV_282t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [AV_282t3] Snowbrute - COST:6 [ATK:6/HP:6]
@@ -1031,6 +1080,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t3", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_282t4] Build a Snowgre - COST:9
@@ -1039,9 +1091,17 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: Summon a 9/9 Snowgre that <b>Freezes</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t5"));
+    cards.emplace(
+        "AV_282t4",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [AV_282t5] Snowgre - COST:9 [ATK:9/HP:9]
@@ -1052,6 +1112,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t5", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [AV_284e] Arcane Swap - COST:0
@@ -2060,6 +2123,13 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage to all minions.
     //       Costs (1) less for each Armor you have.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 5, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetHero()->GetArmor();
+    }));
+    cards.emplace("AV_108", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_109] Frozen Buckler - COST:2
@@ -2367,6 +2437,12 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // --------------------------------------------------------
     // Text: Your minions have +1 Attack. Lasts 3 turns.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AV_661e2", EntityType::MINIONS) };
+    power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_661", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddDemonHunterNonCollect(
@@ -2449,6 +2525,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack from {0}.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_661e2"));
+    cards.emplace("AV_661e2", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
@@ -2493,6 +2572,11 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddDeathrattleTask(std::make_shared<FreezeTask>(EntityType::STACK));
+    cards.emplace("AV_102", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_112] Snowblind Harpy - COST:3 [ATK:3/HP:4]
@@ -2735,6 +2819,12 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each card you've played this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetGameTag(
+            GameTag::NUM_CARDS_PLAYED_THIS_TURN);
+    }));
+    cards.emplace("AV_134", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_135] Stormpike Marshal - COST:4 [ATK:2/HP:6]
@@ -2780,6 +2870,20 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_LEGENDARY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "AV_138",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_LEGENDARY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_139] Abominable Lieutenant - COST:8 [ATK:3/HP:5]
@@ -2853,6 +2957,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddHonorableKillTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::WINDFURY, 1));
+    cards.emplace("AV_215", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_219] Ram Commander - COST:2 [ATK:2/HP:2]
@@ -2942,6 +3050,12 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { ComplexTask::GiveBuffToRandomMinionInHand(
+        "AV_401e") };
+    cards.emplace("AV_401", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_704] Humongous Owl - COST:7 [ATK:8/HP:4]
@@ -2952,6 +3066,12 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 8));
+    cards.emplace("AV_704", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddNeutralNonCollect(
@@ -3171,6 +3291,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_401e"));
+    cards.emplace("AV_401e", CardDef(power));
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [AV_COIN1] The Coin - COST:0
