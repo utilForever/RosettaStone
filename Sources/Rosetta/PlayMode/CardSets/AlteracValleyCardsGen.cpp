@@ -2997,6 +2997,12 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 8));
+    cards.emplace("AV_704", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddNeutralNonCollect(
