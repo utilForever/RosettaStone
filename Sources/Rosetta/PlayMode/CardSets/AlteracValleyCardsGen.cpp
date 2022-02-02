@@ -2509,6 +2509,11 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddDeathrattleTask(std::make_shared<FreezeTask>(EntityType::STACK));
+    cards.emplace("AV_102", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_112] Snowblind Harpy - COST:3 [ATK:3/HP:4]

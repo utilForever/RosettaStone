@@ -1845,6 +1845,82 @@ TEST_CASE("[Neutral : Minion] - AV_101 : Herald of Lokholar")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [AV_102] Popsicooler - COST:3 [ATK:3/HP:3]
+// - Race: Mechanical, Set: ALTERAC_VALLEY, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> <b>Freeze</b> two random
+//       enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+// RefTag:
+// - FREEZE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - AV_102 : Popsicooler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Popsicooler"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    int numFrozenMinions = 0;
+
+    opField.ForEach([&](Playable* minion) {
+        if (dynamic_cast<Minion*>(minion)->IsFrozen())
+        {
+            ++numFrozenMinions;
+        }
+    });
+    CHECK_EQ(numFrozenMinions, 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+
+    opField.ForEach([&](Playable* minion) {
+        if (dynamic_cast<Minion*>(minion)->IsFrozen())
+        {
+            ++numFrozenMinions;
+        }
+    });
+    CHECK_EQ(numFrozenMinions, 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [AV_112] Snowblind Harpy - COST:3 [ATK:3/HP:4]
 // - Set: ALTERAC_VALLEY, Rarity: Rare
 // --------------------------------------------------------
