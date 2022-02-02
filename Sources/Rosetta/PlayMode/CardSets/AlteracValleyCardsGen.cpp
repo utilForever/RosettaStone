@@ -943,9 +943,19 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Summon a 3/3 Snowman that <b>Freezes</b>.
     //       Add "Build a Snowbrute" to your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "AV_282t2"));
+    cards.emplace(
+        "AV_282",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_283] Rune of the Archmage - COST:9
@@ -978,6 +988,8 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------- ENCHANTMENT - MAGE
     // [AV_114e] Shocking - COST:0
     // - Set: ALTERAC_VALLEY
@@ -1009,6 +1021,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_282t2] Build a Snowbrute - COST:6
@@ -1018,9 +1033,19 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // Text: Summon a 6/6 Snowbrute that <b>Freezes</b>.
     //       Add "Build a Snowgre" to your hand.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t3"));
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "AV_282t4"));
+    cards.emplace(
+        "AV_282t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [AV_282t3] Snowbrute - COST:6 [ATK:6/HP:6]
@@ -1031,6 +1056,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t3", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_282t4] Build a Snowgre - COST:9
@@ -1039,9 +1067,17 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: Summon a 9/9 Snowgre that <b>Freezes</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t5"));
+    cards.emplace(
+        "AV_282t4",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ------------------------------------------ MINION - MAGE
     // [AV_282t5] Snowgre - COST:9 [ATK:9/HP:9]
@@ -1052,6 +1088,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t5", CardDef(power));
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [AV_284e] Arcane Swap - COST:0
