@@ -350,6 +350,22 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a minion +2/+2, then give your Beasts +1/+1.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("AV_292e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("AV_292e2", EntityType::STACK));
+    cards.emplace(
+        "AV_292",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ----------------------------------------- MINION - DRUID
     // [AV_293] Wing Commander Mulverick - COST:4 [ATK:2/HP:5]
@@ -422,6 +438,8 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [AV_205a] Ice Blossom - COST:2
     // - Set: ALTERAC_VALLEY
@@ -449,6 +467,9 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_292e"));
+    cards.emplace("AV_292e", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [AV_292e2] Pack Member - COST:0
@@ -456,6 +477,9 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("AV_292e2"));
+    cards.emplace("AV_292e2", CardDef(power));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [AV_293e] Air Strike - COST:0
