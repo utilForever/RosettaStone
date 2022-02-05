@@ -3914,6 +3914,12 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - FRENZY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddFrenzyTask(
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE, GameTag::ATK));
+    power.AddFrenzyTask(
+        std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS));
+    cards.emplace("BAR_078", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [BAR_079] Kazakus, Golem Shaper - COST:4 [ATK:3/HP:3]
