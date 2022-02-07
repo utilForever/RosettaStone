@@ -315,8 +315,16 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
         }
     }
 
-    // Process power or combo tasks
     player->game->taskQueue.StartEvent();
+
+    // Process outcast tasks
+    if (minion->HasOutcast() &&
+        (handPos == 0 || handPos == player->GetHandZone()->GetCount()))
+    {
+        minion->ActivateTask(PowerType::OUTCAST, target);
+    }
+
+    // Process power or combo tasks
     if (minion->HasCombo() && player->IsComboActive())
     {
         minion->ActivateTask(PowerType::COMBO, target);
@@ -330,13 +338,6 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     if (player->ExtraBattlecry() && minion->HasBattlecry())
     {
         minion->ActivateTask(PowerType::POWER, target, chooseOne);
-    }
-
-    // Process outcast tasks
-    if (minion->HasOutcast() &&
-        (handPos == 0 || handPos == player->GetHandZone()->GetCount()))
-    {
-        minion->ActivateTask(PowerType::OUTCAST, target);
     }
 
     // Check card has dormant
