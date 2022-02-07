@@ -6017,6 +6017,91 @@ TEST_CASE("[Demon Hunter : Weapon] - BAR_330 : Tuskpiercer")
     CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->HasDeathrattle(), true);
 }
 
+// ----------------------------------- MINION - DEMONHUNTER
+// [BAR_333] Kurtrus Ashfallen - COST:4 [ATK:3/HP:4]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Attack the left and right-most
+//       enemy minions.
+//       <b>Outcast:</b> <b>Immune</b> this turn.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - OUTCAST = 1
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - BAR_333 : Kurtrus Ashfallen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kurtrus Ashfallen"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kurtrus Ashfallen"));
+    [[maybe_unused]] const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->IsImmune(), true);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+    CHECK_EQ(opField[1]->GetHealth(), 9);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->IsImmune(), false);
+}
+
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BAR_705] Sigil of Silence - COST:0
 // - Set: THE_BARRENS, Rarity: Rare

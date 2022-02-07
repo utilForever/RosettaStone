@@ -3317,6 +3317,16 @@ void TheBarrensCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS_LEFTMOST));
+    power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::ENEMY_MINIONS_RIGHTMOST, std::vector<EntityType>(), true));
+    power.AddPowerTask(std::make_shared<AttackTask>(EntityType::SOURCE,
+                                                    EntityType::STACK, true));
+    power.AddOutcastTask(
+        std::make_shared<AddEnchantmentTask>("BAR_333e", EntityType::SOURCE));
+    cards.emplace("BAR_333", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [BAR_705] Sigil of Silence - COST:0
@@ -4655,6 +4665,9 @@ void TheBarrensCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("BAR_333e"));
+    cards.emplace("BAR_333e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BAR_552e] Cookin! - COST:0
