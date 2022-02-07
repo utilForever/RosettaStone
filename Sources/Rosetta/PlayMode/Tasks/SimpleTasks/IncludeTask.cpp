@@ -306,6 +306,15 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             break;
+        case EntityType::ENEMY_MINIONS_LEFTMOST:
+        {
+            FieldZone& opField = *(player->opponent->GetFieldZone());
+            if (!opField.IsEmpty())
+            {
+                entities.emplace_back(opField[0]);
+            }
+            break;
+        }
         case EntityType::ENEMY_SECRETS:
             for (auto& secret : player->opponent->GetSecretZone()->GetAll())
             {
