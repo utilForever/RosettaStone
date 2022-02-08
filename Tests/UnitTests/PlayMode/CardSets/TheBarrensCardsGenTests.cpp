@@ -3916,6 +3916,80 @@ TEST_CASE("[Shaman : Minion] - BAR_045 : Arid Stormer")
 }
 
 // ---------------------------------------- MINION - SHAMAN
+// [BAR_048] Bru'kan - COST:4 [ATK:5/HP:4]
+// - Set: THE_BARRENS, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Nature Spell Damage +3</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - BAR_048 : Bru'kan")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(20);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bru'kan"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodmage Thalnos"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightning Bolt"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightning Bolt"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Silence"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 1);
+    CHECK_EQ(curField[0]->GetSpellPowerNature(), 3);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 23);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card5, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 16);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 1);
+    CHECK_EQ(curField[0]->GetSpellPowerNature(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 12);
+}
+
+// ---------------------------------------- MINION - SHAMAN
 // [BAR_750] Earth Revenant - COST:4 [ATK:2/HP:6]
 // - Race: Elemental, Set: THE_BARRENS, Rarity: Rare
 // --------------------------------------------------------
