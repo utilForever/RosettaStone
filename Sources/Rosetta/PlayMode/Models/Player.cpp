@@ -109,6 +109,37 @@ int Player::GetCurrentSpellPower() const
     return value;
 }
 
+int Player::GetExtraSpellPower(SpellSchool spellSchool) const
+{
+    int value = 0;
+
+    for (const auto& minion : GetFieldZone()->GetAll())
+    {
+        if (minion->IsUntouchable())
+        {
+            continue;
+        }
+
+        switch (spellSchool)
+        {
+            case SpellSchool::NATURE:
+                value += minion->GetSpellPowerNature();
+                break;
+            case SpellSchool::NONE:
+            case SpellSchool::ARCANE:
+            case SpellSchool::FIRE:
+            case SpellSchool::FROST:
+            case SpellSchool::HOLY:
+            case SpellSchool::SHADOW:
+            case SpellSchool::FEL:
+            case SpellSchool::PHYSICAL_COMBAT:
+                break;
+        }
+    }
+
+    return value;
+}
+
 int Player::GetGameTag(GameTag tag) const
 {
     if (m_gameTags.find(tag) == m_gameTags.end())
