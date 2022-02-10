@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Spell.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 
@@ -18,12 +19,17 @@ DamageNumberTask::DamageNumberTask(EntityType entityType, bool isSpellDamage)
 
 TaskStatus DamageNumberTask::Impl(Player* player)
 {
-    const int spellPower = m_source->player->GetCurrentSpellPower();
-
     int damage = m_source->game->taskStack.num[0];
+
     if (m_isSpellDamage)
     {
-        damage += spellPower;
+        damage += m_source->player->GetCurrentSpellPower();
+
+        if (const auto spell = dynamic_cast<Spell*>(m_source); spell)
+        {
+            const SpellSchool spellSchool = spell->GetSpellSchool();
+            damage += m_source->player->GetExtraSpellPower(spellSchool);
+        }
     }
 
     auto playables =
