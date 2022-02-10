@@ -165,6 +165,13 @@ void Minion::Silence()
     SetGameTag(GameTag::RUSH, 0);
     SetGameTag(GameTag::REBORN, 0);
     SetGameTag(GameTag::SPELLPOWER, 0);
+    SetGameTag(GameTag::SPELLPOWER_ARCANE, 0);
+    SetGameTag(GameTag::SPELLPOWER_FIRE, 0);
+    SetGameTag(GameTag::SPELLPOWER_FROST, 0);
+    SetGameTag(GameTag::SPELLPOWER_NATURE, 0);
+    SetGameTag(GameTag::SPELLPOWER_HOLY, 0);
+    SetGameTag(GameTag::SPELLPOWER_SHADOW, 0);
+    SetGameTag(GameTag::SPELLPOWER_FEL, 0);
 
     if (ongoingEffect != nullptr)
     {

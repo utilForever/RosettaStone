@@ -18,7 +18,7 @@ AttackTask::AttackTask(EntityType attacker, EntityType defender, bool force)
 
 TaskStatus AttackTask::Impl(Player* player)
 {
-    auto playables =
+    auto attackers =
         IncludeTask::GetEntities(m_attackerType, player, m_source, m_target);
     auto defenders =
         IncludeTask::GetEntities(m_defenderType, player, m_source, m_target);
@@ -28,34 +28,32 @@ TaskStatus AttackTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    const auto defender = dynamic_cast<Character*>(defenders[0]);
-    if (defender == nullptr)
+    for (auto& attacker : attackers)
     {
-        return TaskStatus::STOP;
-    }
-
-    for (auto& playable : playables)
-    {
-        const auto attacker = dynamic_cast<Character*>(playable);
-        if (attacker == nullptr)
+        for (auto defender : defenders)
         {
-            continue;
-        }
+            const auto realAttacker = dynamic_cast<Character*>(attacker);
+            const auto realDefender = dynamic_cast<Character*>(defender);
+            if (!realAttacker || !realDefender)
+            {
+                continue;
+            }
 
-        if (!m_force && attacker->CantAttack())
-        {
-            continue;
-        }
+            if (!m_force && realAttacker->CantAttack())
+            {
+                continue;
+            }
 
-        if (defender->card->IsUntouchable())
-        {
-            continue;
-        }
+            if (realDefender->card->IsUntouchable())
+            {
+                continue;
+            }
 
-        std::unique_ptr<EventMetaData> temp =
-            std::move(player->game->currentEventData);
-        Generic::Attack(attacker->player, attacker, defender, true);
-        player->game->currentEventData = std::move(temp);
+            std::unique_ptr<EventMetaData> temp =
+                std::move(player->game->currentEventData);
+            Generic::Attack(attacker->player, realAttacker, realDefender, true);
+            player->game->currentEventData = std::move(temp);
+        }
     }
 
     return TaskStatus::COMPLETE;

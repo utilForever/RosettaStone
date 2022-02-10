@@ -5,8 +5,8 @@
 
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Spell.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ConsecutiveDamageTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
 
 #include <effolkronium/random.hpp>
@@ -31,7 +31,6 @@ TaskStatus ConsecutiveDamageTask::Impl(Player* player)
 {
     for (auto& damage : m_damages)
     {
-        const int spellPower = m_source->player->GetCurrentSpellPower();
         auto playables =
             IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
@@ -42,7 +41,13 @@ TaskStatus ConsecutiveDamageTask::Impl(Player* player)
 
             if (m_isSpellDamage)
             {
-                damage += spellPower;
+                damage += m_source->player->GetCurrentSpellPower();
+
+                if (const auto spell = dynamic_cast<Spell*>(m_source); spell)
+                {
+                    const SpellSchool spellSchool = spell->GetSpellSchool();
+                    damage += m_source->player->GetExtraSpellPower(spellSchool);
+                }
             }
 
             Generic::TakeDamageToCharacter(source, character, damage,

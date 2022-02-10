@@ -100,6 +100,11 @@ class Player : public Entity
     //! \return The value of current spell power.
     int GetCurrentSpellPower() const;
 
+    //! Returns the value of extra spell power according to spell school.
+    //! \param spellSchool The spell school of the spell.
+    //! \return the value of extra spell power according to spell school.
+    int GetExtraSpellPower(SpellSchool spellSchool) const;
+
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.

@@ -88,6 +88,10 @@ class Character : public Playable
     //! \param spellPower The value of spell power.
     void SetSpellPower(int spellPower);
 
+    //! Returns the value of Nature spell power.
+    //! \return The value of Nature spell power.
+    int GetSpellPowerNature() const;
+
     //! Returns the number of attacks at this turn.
     //! \return The number of attacks at this turn.
     int GetNumAttacksThisTurn() const;

@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Spell.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 
 #include <utility>
@@ -19,8 +20,18 @@ EnqueueTask::EnqueueTask(std::vector<std::shared_ptr<ITask>> tasks, int num,
 
 TaskStatus EnqueueTask::Impl(Player* player)
 {
-    const int times =
-        m_isSpellDamage ? m_num + player->GetCurrentSpellPower() : m_num;
+    int times = m_num;
+
+    if (m_isSpellDamage)
+    {
+        times += m_source->player->GetCurrentSpellPower();
+
+        if (const auto spell = dynamic_cast<Spell*>(m_source); spell)
+        {
+            const SpellSchool spellSchool = spell->GetSpellSchool();
+            times += m_source->player->GetExtraSpellPower(spellSchool);
+        }
+    }
 
     for (int i = 0; i < times; ++i)
     {

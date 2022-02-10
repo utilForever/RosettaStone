@@ -736,7 +736,7 @@ THE_BARRENS | BAR_042 | Primordial Protector | O
 THE_BARRENS | BAR_043 | Tinyfin's Caravan | O
 THE_BARRENS | BAR_044 | Chain Lightning (Rank 1) |  
 THE_BARRENS | BAR_045 | Arid Stormer | O
-THE_BARRENS | BAR_048 | Bru'kan |  
+THE_BARRENS | BAR_048 | Bru'kan | O
 THE_BARRENS | BAR_060 | Hog Rancher | O
 THE_BARRENS | BAR_061 | Ratchet Privateer | O
 THE_BARRENS | BAR_062 | Lushwater Murcenary | O
@@ -752,7 +752,7 @@ THE_BARRENS | BAR_074 | Far Watch Post | O
 THE_BARRENS | BAR_075 | Crossroads Watch Post | O
 THE_BARRENS | BAR_076 | Mor'shan Watch Post | O
 THE_BARRENS | BAR_077 | Kargal Battlescar | O
-THE_BARRENS | BAR_078 | Blademaster Samuro |  
+THE_BARRENS | BAR_078 | Blademaster Samuro | O
 THE_BARRENS | BAR_079 | Kazakus, Golem Shaper |  
 THE_BARRENS | BAR_080 | Shadow Hunter Vol'jin |  
 THE_BARRENS | BAR_081 | Southsea Scoundrel |  
@@ -783,7 +783,7 @@ THE_BARRENS | BAR_327 | Vile Call | O
 THE_BARRENS | BAR_328 | Vengeful Spirit | O
 THE_BARRENS | BAR_329 | Death Speaker Blackthorn | O
 THE_BARRENS | BAR_330 | Tuskpiercer | O
-THE_BARRENS | BAR_333 | Kurtrus Ashfallen |  
+THE_BARRENS | BAR_333 | Kurtrus Ashfallen | O
 THE_BARRENS | BAR_334 | Overlord Saurfang | O
 THE_BARRENS | BAR_430 | Horde Operative |  
 THE_BARRENS | BAR_533 | Thorngrowth Sentries | O
@@ -886,7 +886,7 @@ THE_BARRENS | WC_803 | Cleric of An'she | O
 THE_BARRENS | WC_805 | Frostweave Dungeoneer | O
 THE_BARRENS | WC_806 | Floecaster | O
 
-- Progress: 80% (136 of 170 Cards)
+- Progress: 81% (139 of 170 Cards)
 
 ## United in Stormwind
 

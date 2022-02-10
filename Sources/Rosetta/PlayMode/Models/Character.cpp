@@ -89,6 +89,11 @@ void Character::SetSpellPower(int spellPower)
     SetGameTag(GameTag::SPELLPOWER, spellPower);
 }
 
+int Character::GetSpellPowerNature() const
+{
+    return GetGameTag(GameTag::SPELLPOWER_NATURE);
+}
+
 int Character::GetNumAttacksThisTurn() const
 {
     return GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN);
@@ -267,8 +272,9 @@ int Character::TakeDamage(Playable* source, int damage)
     }
 
     const int armor = (hero != nullptr) ? hero->GetArmor() : 0;
-    int amount =
-        (hero == nullptr) ? damage : armor < damage ? damage - armor : 0;
+    int amount = (hero == nullptr) ? damage
+                 : armor < damage  ? damage - armor
+                                   : 0;
 
     game->taskQueue.StartEvent();
     auto tempEventData = std::move(game->currentEventData);
