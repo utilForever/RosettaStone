@@ -51,15 +51,17 @@ TaskStatus DamageTask::Impl(Player* player)
 
     for (auto& playable : playables)
     {
+        int realDamage = damage;
+
         const auto source = dynamic_cast<Playable*>(m_source);
         const auto character = dynamic_cast<Character*>(playable);
 
         if (m_randomDamage > 0)
         {
-            damage += Random::get<int>(0, m_randomDamage);
+            realDamage += Random::get<int>(0, m_randomDamage);
         }
 
-        Generic::TakeDamageToCharacter(source, character, damage,
+        Generic::TakeDamageToCharacter(source, character, realDamage,
                                        m_isSpellDamage);
     }
 
