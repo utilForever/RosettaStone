@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Models/Spell.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DamageTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DestroyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
@@ -32,7 +33,19 @@ DamageTask::DamageTask(EntityType entityType, int damage, int randomDamage,
 
 TaskStatus DamageTask::Impl(Player* player)
 {
-    const int spellPower = m_source->player->GetCurrentSpellPower();
+    int damage = m_damage;
+
+    if (m_isSpellDamage)
+    {
+        damage += m_source->player->GetCurrentSpellPower();
+
+        if (const auto spell = dynamic_cast<Spell*>(m_source); spell)
+        {
+            const SpellSchool spellSchool = spell->GetSpellSchool();
+            damage += m_source->player->GetExtraSpellPower(spellSchool);
+        }
+    }
+
     auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
@@ -41,16 +54,9 @@ TaskStatus DamageTask::Impl(Player* player)
         const auto source = dynamic_cast<Playable*>(m_source);
         const auto character = dynamic_cast<Character*>(playable);
 
-        int randomDamage = 0;
         if (m_randomDamage > 0)
         {
-            randomDamage = Random::get<int>(0, m_randomDamage);
-        }
-
-        int damage = m_damage + randomDamage;
-        if (m_isSpellDamage)
-        {
-            damage += spellPower;
+            damage += Random::get<int>(0, m_randomDamage);
         }
 
         Generic::TakeDamageToCharacter(source, character, damage,
