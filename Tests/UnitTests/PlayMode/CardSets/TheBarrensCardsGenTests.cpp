@@ -3977,7 +3977,7 @@ TEST_CASE("[Shaman : Minion] - BAR_048 : Bru'kan")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card1));
     CHECK_EQ(curPlayer->GetCurrentSpellPower(), 1);
     CHECK_EQ(curField[0]->GetSpellPowerNature(), 0);
 
