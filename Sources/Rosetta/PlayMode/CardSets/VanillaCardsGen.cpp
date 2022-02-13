@@ -4628,6 +4628,26 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 2 Demons from your deck.
     // --------------------------------------------------------
+    power.ClearData();
+    for (size_t i = 0; i < 2; ++i)
+    {
+        power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+        power.AddPowerTask(std::make_shared<FilterStackTask>(
+            SelfCondList{ std::make_shared<SelfCondition>(
+                SelfCondition::IsRace(Race::DEMON)) }));
+        power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+        power.AddPowerTask(std::make_shared<ConditionTask>(
+            EntityType::HERO,
+            SelfCondList{ std::make_shared<SelfCondition>(
+                SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
+        power.AddPowerTask(std::make_shared<FlagTask>(
+            true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
+                            std::make_shared<DrawStackTask>() }));
+        power.AddPowerTask(std::make_shared<FlagTask>(
+            false, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
+                                                           "EX1_317t") }));
+    }
+    cards.emplace("VAN_EX1_317", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_319] Flame Imp - COST:1 [ATK:3/HP:2]

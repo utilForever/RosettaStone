@@ -12352,6 +12352,60 @@ TEST_CASE("[Warlock : Spell] - VAN_EX1_316 : Power Overwhelming")
     CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_EX1_317] Sense Demons - COST:3
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 2 Demons from your deck.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_EX1_317 : Sense Demons")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 7; ++i)
+    {
+        config.player1Deck[i] =
+            Cards::FindCardByName("Blood Imp", FormatType::CLASSIC);
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sense Demons", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sense Demons", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curHand[5]->card->name, "Blood Imp");
+    CHECK_EQ(curHand[6]->card->name, "Blood Imp");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(curHand[6]->card->name, "Blood Imp");
+    CHECK_EQ(curHand[7]->card->name, "Worthless Imp");
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
 // - Race: Demon, Set: VANILLA, Rarity: Legendary
