@@ -241,15 +241,15 @@ VANILLA | VAN_EX1_303 | Shadowflame | O
 VANILLA | VAN_EX1_304 | Void Terror | O
 VANILLA | VAN_EX1_306 | Felstalker | O
 VANILLA | VAN_EX1_308 | Soulfire | O
-VANILLA | VAN_EX1_309 | Siphon Soul |  
-VANILLA | VAN_EX1_310 | Doomguard |  
-VANILLA | VAN_EX1_312 | Twisting Nether |  
-VANILLA | VAN_EX1_313 | Pit Lord |  
-VANILLA | VAN_EX1_315 | Summoning Portal |  
-VANILLA | VAN_EX1_316 | Power Overwhelming |  
-VANILLA | VAN_EX1_317 | Sense Demons |  
-VANILLA | VAN_EX1_319 | Flame Imp |  
-VANILLA | VAN_EX1_320 | Bane of Doom |  
+VANILLA | VAN_EX1_309 | Siphon Soul | O
+VANILLA | VAN_EX1_310 | Doomguard | O
+VANILLA | VAN_EX1_312 | Twisting Nether | O
+VANILLA | VAN_EX1_313 | Pit Lord | O
+VANILLA | VAN_EX1_315 | Summoning Portal | O
+VANILLA | VAN_EX1_316 | Power Overwhelming | O
+VANILLA | VAN_EX1_317 | Sense Demons | O
+VANILLA | VAN_EX1_319 | Flame Imp | O
+VANILLA | VAN_EX1_320 | Bane of Doom | O
 VANILLA | VAN_EX1_323 | Lord Jaraxxus | O
 VANILLA | VAN_EX1_332 | Silence | O
 VANILLA | VAN_EX1_334 | Shadow Madness | O
@@ -333,7 +333,7 @@ VANILLA | VAN_EX1_591 | Auchenai Soulpriest | O
 VANILLA | VAN_EX1_593 | Nightblade |  
 VANILLA | VAN_EX1_594 | Vaporize | O
 VANILLA | VAN_EX1_595 | Cult Master |  
-VANILLA | VAN_EX1_596 | Demonfire |  
+VANILLA | VAN_EX1_596 | Demonfire | O
 VANILLA | VAN_EX1_597 | Imp Master |  
 VANILLA | VAN_EX1_603 | Cruel Taskmaster |  
 VANILLA | VAN_EX1_604 | Frothing Berserker |  
@@ -356,7 +356,7 @@ VANILLA | VAN_EX1_623 | Temple Enforcer | O
 VANILLA | VAN_EX1_624 | Holy Fire | O
 VANILLA | VAN_EX1_625 | Shadowform | O
 VANILLA | VAN_EX1_626 | Mass Dispel | O
-VANILLA | VAN_NEW1_003 | Sacrificial Pact |  
+VANILLA | VAN_NEW1_003 | Sacrificial Pact | O
 VANILLA | VAN_NEW1_004 | Vanish | O
 VANILLA | VAN_NEW1_005 | Kidnapper | O
 VANILLA | VAN_NEW1_007 | Starfall | O
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 50% (193 of 382 Cards)
+- Progress: 53% (204 of 382 Cards)
