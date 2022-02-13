@@ -4570,6 +4570,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
+    cards.emplace("VAN_EX1_312", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
