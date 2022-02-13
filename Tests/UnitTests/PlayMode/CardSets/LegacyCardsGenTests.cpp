@@ -5088,7 +5088,8 @@ TEST_CASE("[Warlock : Spell] - EX1_308 : Soulfire")
 // - Set: Legacy, Rarity: Free
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: Destroy a friendly Demon. Restore 5 Health to your hero.
+// Text: Destroy a friendly Demon.
+//       Restore 5 Health to your hero.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
