@@ -7822,8 +7822,8 @@ TEST_CASE("[Warlock : Minion] - EX1_319 : Flame Imp")
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: Deal 2 damage to a character. If that kills it,
-//       summon a random Demon.
+// Text: Deal 2 damage to a character.
+//       If that kills it, summon a random Demon.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
