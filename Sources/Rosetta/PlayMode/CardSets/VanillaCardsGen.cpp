@@ -4583,6 +4583,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
+    cards.emplace("VAN_EX1_313", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4]

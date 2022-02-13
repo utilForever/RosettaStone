@@ -12163,6 +12163,46 @@ TEST_CASE("[Warlock : Spell] - VAN_EX1_312 : Twisting Nether")
 }
 
 // --------------------------------------- MINION - WARLOCK
+// [VAN_EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
+// - Race: Demon, Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 5 damage to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - VAN_EX1_313 : Pit Lord")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Pit Lord", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+}
+
+// --------------------------------------- MINION - WARLOCK
 // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
 // - Race: Demon, Set: VANILLA, Rarity: Legendary
 // --------------------------------------------------------
