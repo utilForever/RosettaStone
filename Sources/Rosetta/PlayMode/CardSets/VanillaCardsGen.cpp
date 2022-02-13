@@ -29,6 +29,7 @@ using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -4709,6 +4710,27 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a minion.
     //       If it's a friendly Demon, give it +2/+2 instead.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DEMON)) },
+        RelaCondList{
+            std::make_shared<RelaCondition>(RelaCondition::IsFriendly()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "EX1_596e", EntityType::TARGET) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
+    cards.emplace(
+        "VAN_EX1_596",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_NEW1_003] Sacrificial Pact - COST:0
