@@ -4560,6 +4560,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscardTask>(2));
+    cards.emplace("VAN_EX1_310", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_312] Twisting Nether - COST:8
