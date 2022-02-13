@@ -3516,7 +3516,8 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
     // - Race: Demon, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
+    // Text: <b>Charge</b>.
+    //       <b>Battlecry:</b> Discard two random cards.
     // --------------------------------------------------------
     // GameTag:
     // - CHARGE = 1
