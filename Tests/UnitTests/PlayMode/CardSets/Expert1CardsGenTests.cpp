@@ -7883,8 +7883,8 @@ TEST_CASE("[Warlock : Spell] - EX1_320 : Bane of Doom")
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // - Spell School: Fel
 // --------------------------------------------------------
-// Text: Deal 2 damage to a minion. If it’s a friendly Demon,
-//       give it +2/+2 instead.
+// Text: Deal 2 damage to a minion.
+//       If it's a friendly Demon, give it +2/+2 instead.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_MINION_TARGET = 0
