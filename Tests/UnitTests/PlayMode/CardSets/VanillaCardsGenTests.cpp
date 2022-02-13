@@ -11991,6 +11991,54 @@ TEST_CASE("[Warlock : Spell] - VAN_EX1_308 : Soulfire")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_EX1_309] Siphon Soul - COST:6
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy a minion. Restore 3 Health to your hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_EX1_309 : Siphon Soul")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(8);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Siphon Soul", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Voidwalker", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curField.GetCount(), 0);
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
 // - Race: Demon, Set: VANILLA, Rarity: Legendary
