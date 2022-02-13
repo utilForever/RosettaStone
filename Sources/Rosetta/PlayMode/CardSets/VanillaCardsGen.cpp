@@ -4669,6 +4669,22 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a character.
     //       If that kills it, summon a random Demon.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomCardTask>(
+                            CardType::MINION, CardClass::INVALID, Race::DEMON),
+                        std::make_shared<SummonTask>(SummonSide::SPELL) }));
+    cards.emplace(
+        "VAN_EX1_320",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
