@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -28,6 +29,7 @@ using ChooseCardIDs = std::vector<std::string>;
 using Entourages = std::vector<std::string>;
 using EntityTypeList = std::vector<EntityType>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -4537,6 +4539,17 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy a minion. Restore 3 Health to your hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 3));
+    cards.emplace(
+        "VAN_EX1_309",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
@@ -4549,6 +4562,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DiscardTask>(2));
+    cards.emplace("VAN_EX1_310", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_312] Twisting Nether - COST:8
@@ -4556,6 +4572,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
+    cards.emplace("VAN_EX1_312", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
@@ -4566,6 +4585,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
+    cards.emplace("VAN_EX1_313", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4]
@@ -4576,6 +4598,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<SummoningPortalAura>());
+    cards.emplace("VAN_EX1_315", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_316] Power Overwhelming - COST:1
@@ -4584,6 +4609,19 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Give a friendly minion +4/+4 until end of turn.
     //       Then, it dies. Horribly.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_316e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_316",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_317] Sense Demons - COST:3
@@ -4591,6 +4629,26 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 2 Demons from your deck.
     // --------------------------------------------------------
+    power.ClearData();
+    for (size_t i = 0; i < 2; ++i)
+    {
+        power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
+        power.AddPowerTask(std::make_shared<FilterStackTask>(
+            SelfCondList{ std::make_shared<SelfCondition>(
+                SelfCondition::IsRace(Race::DEMON)) }));
+        power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+        power.AddPowerTask(std::make_shared<ConditionTask>(
+            EntityType::HERO,
+            SelfCondList{ std::make_shared<SelfCondition>(
+                SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
+        power.AddPowerTask(std::make_shared<FlagTask>(
+            true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
+                            std::make_shared<DrawStackTask>() }));
+        power.AddPowerTask(std::make_shared<FlagTask>(
+            false, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
+                                                           "EX1_317t") }));
+    }
+    cards.emplace("VAN_EX1_317", CardDef(power));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_319] Flame Imp - COST:1 [ATK:3/HP:2]
@@ -4601,6 +4659,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 3));
+    cards.emplace("VAN_EX1_319", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_320] Bane of Doom - COST:5
@@ -4609,6 +4670,22 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a character.
     //       If that kills it, summon a random Demon.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<RandomCardTask>(
+                            CardType::MINION, CardClass::INVALID, Race::DEMON),
+                        std::make_shared<SummonTask>(SummonSide::SPELL) }));
+    cards.emplace(
+        "VAN_EX1_320",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
     // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
@@ -4633,13 +4710,46 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a minion.
     //       If it's a friendly Demon, give it +2/+2 instead.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DEMON)) },
+        RelaCondList{
+            std::make_shared<RelaCondition>(RelaCondition::IsFriendly()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "EX1_596e", EntityType::TARGET) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false,
+        TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
+    cards.emplace(
+        "VAN_EX1_596",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_NEW1_003] Sacrificial Pact - COST:0
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Destroy a Demon. Restore 5 Health to your hero.
+    // Text: Destroy a Demon.
+    //       Restore 5 Health to your hero.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_WITH_RACE = 15
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
+    cards.emplace(
+        "VAN_NEW1_003",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_TARGET_WITH_RACE, 15 } }));
 }
 
 void VanillaCardsGen::AddWarlockNonCollect(

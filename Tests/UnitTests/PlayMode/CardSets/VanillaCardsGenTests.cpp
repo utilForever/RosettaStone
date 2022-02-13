@@ -11991,6 +11991,520 @@ TEST_CASE("[Warlock : Spell] - VAN_EX1_308 : Soulfire")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_EX1_309] Siphon Soul - COST:6
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy a minion. Restore 3 Health to your hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_EX1_309 : Siphon Soul")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(8);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Siphon Soul", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Voidwalker", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curField.GetCount(), 0);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [VAN_EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
+// - Race: Demon, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Charge</b>.
+//       <b>Battlecry:</b> Discard two random cards.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - VAN_EX1_310 : Doomguard")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Doomguard", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Acidic Swamp Ooze", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 2);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 6);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_EX1_312] Twisting Nether - COST:8
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Destroy all minions.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_EX1_312 : Twisting Nether")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Twisting Nether", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Voidwalker", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Acidic Swamp Ooze", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 7);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 6);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [VAN_EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
+// - Race: Demon, Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 5 damage to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - VAN_EX1_313 : Pit Lord")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Pit Lord", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [VAN_EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Your minions cost (2) less, but not less than (1).
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - VAN_EX1_315 : Summoning Portal")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] =
+            Cards::FindCardByName("Pit Lord", FormatType::CLASSIC);
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Summoning Portal", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Summoning Portal", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Pit Lord", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Fireball", FormatType::CLASSIC));
+
+    CHECK_EQ(card1->GetCost(), 4);
+    CHECK_EQ(card2->GetCost(), 4);
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 2);
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[6]->GetCost(), 2);
+
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowstep", FormatType::CLASSIC));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card6, card4));
+    CHECK_EQ(card4->GetCost(), 0);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_EX1_316] Power Overwhelming - COST:1
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a friendly minion +4/+4 until end of turn.
+//       Then, it dies. Horribly.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_EX1_316 : Power Overwhelming")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Power Overwhelming", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Goldshire Footman", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("King Mukla", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    game.Process(curPlayer, AttackTask(card2, card3));
+
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(opPlayer->GetFieldZone()->GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 0);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_EX1_317] Sense Demons - COST:3
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 2 Demons from your deck.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_EX1_317 : Sense Demons")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.skipMulligan = true;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 7; ++i)
+    {
+        config.player1Deck[i] =
+            Cards::FindCardByName("Blood Imp", FormatType::CLASSIC);
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sense Demons", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sense Demons", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curHand[5]->card->name, "Blood Imp");
+    CHECK_EQ(curHand[6]->card->name, "Blood Imp");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curDeck.GetCount(), 0);
+    CHECK_EQ(curHand[6]->card->name, "Blood Imp");
+    CHECK_EQ(curHand[7]->card->name, "Worthless Imp");
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [VAN_EX1_319] Flame Imp - COST:1 [ATK:3/HP:2]
+// - Race: Demon, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 3 damage to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - VAN_EX1_319 : Flame Imp")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_EX1_320] Bane of Doom - COST:5
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 2 damage to a character.
+//       If that kills it, summon a random Demon.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_EX1_320 : Bane of Doom")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Magma Rager", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Chillwind Yeti", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Bane of Doom", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Bane of Doom", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(opField.GetCount(), 0);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->GetRace(), Race::DEMON);
+}
+
 // --------------------------------------- MINION - WARLOCK
 // [VAN_EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
 // - Race: Demon, Set: VANILLA, Rarity: Legendary
@@ -12043,6 +12557,138 @@ TEST_CASE("[Warlock : Minion] - VAN_EX1_323 : Lord Jaraxxus")
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetAttack(), 6);
     CHECK_EQ(curField[0]->GetHealth(), 6);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_EX1_596] Demonfire - COST:2
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 2 damage to a minion.
+//       If it's a friendly Demon, give it +2/+2 instead.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_EX1_596 : Demonfire")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Demonfire", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Demonfire", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Demonfire", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Felguard", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Felguard", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(opField[0]->GetAttack(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card5));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card6));
+    CHECK_EQ(opField[0]->GetAttack(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card6));
+    CHECK(opField.IsEmpty());
+}
+
+// ---------------------------------------- SPELL - WARLOCK
+// [VAN_NEW1_003] Sacrificial Pact - COST:0
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Destroy a Demon.
+//       Restore 5 Health to your hero.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_TARGET_WITH_RACE = 15
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - VAN_NEW1_003 : Sacrificial Pact")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(8);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Sacrificial Pact", FormatType::CLASSIC));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voidwalker"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curField.GetCount(), 1);
 }
 
 // ---------------------------------------- SPELL - WARRIOR

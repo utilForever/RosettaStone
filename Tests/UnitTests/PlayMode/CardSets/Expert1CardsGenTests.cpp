@@ -7430,7 +7430,8 @@ TEST_CASE("[Warlock : Spell] - EX1_309 : Siphon Soul")
 // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
 // - Race: Demon, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
+// Text: <b>Charge</b>.
+//       <b>Battlecry:</b> Discard two random cards.
 // --------------------------------------------------------
 // GameTag:
 // - CHARGE = 1
@@ -7821,8 +7822,8 @@ TEST_CASE("[Warlock : Minion] - EX1_319 : Flame Imp")
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // - Spell School: Shadow
 // --------------------------------------------------------
-// Text: Deal 2 damage to a character. If that kills it,
-//       summon a random Demon.
+// Text: Deal 2 damage to a character.
+//       If that kills it, summon a random Demon.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0
@@ -7882,8 +7883,8 @@ TEST_CASE("[Warlock : Spell] - EX1_320 : Bane of Doom")
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // - Spell School: Fel
 // --------------------------------------------------------
-// Text: Deal 2 damage to a minion. If it’s a friendly Demon,
-//       give it +2/+2 instead.
+// Text: Deal 2 damage to a minion.
+//       If it's a friendly Demon, give it +2/+2 instead.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_MINION_TARGET = 0
