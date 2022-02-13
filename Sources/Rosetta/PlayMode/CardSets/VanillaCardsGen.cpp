@@ -4608,6 +4608,19 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Give a friendly minion +4/+4 until end of turn.
     //       Then, it dies. Horribly.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_316e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_316",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_317] Sense Demons - COST:3
