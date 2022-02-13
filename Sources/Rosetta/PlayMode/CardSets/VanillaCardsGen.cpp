@@ -4658,6 +4658,9 @@ void VanillaCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 3));
+    cards.emplace("VAN_EX1_319", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
     // [VAN_EX1_320] Bane of Doom - COST:5
