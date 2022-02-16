@@ -3253,7 +3253,7 @@
         "name": "Magister Dawngrasp",
         "rarity": "LEGENDARY",
         "set": "ALTERAC_VALLEY",
-        "text": "[x]<b>Battlecry:</b> Recast a\nspell from each spell\nschool you've cast\n this game.",
+        "text": "[x]<b>Battlecry:</b> Recast a\nspell from each spell\nschool you've cast\nthis game.",
         "type": "HERO"
     },
     {
@@ -3593,6 +3593,7 @@
         "dbfId": 67239,
         "elite": true,
         "flavor": "His favorite modes of transportation? Van, car, board, bike.",
+        "hasDiamondSkin": true,
         "health": 4,
         "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
         "id": "AV_223",
@@ -3785,7 +3786,7 @@
             "FREEZE"
         ],
         "set": "ALTERAC_VALLEY",
-        "text": "[x]<b>Battlecry:</b> For each Frost\nspell you've cast this game,\nsummon a 3/4 Elemental\nthat <b>Freezes</b>.@<i>(@)</i>",
+        "text": "[x]<b>Battlecry:</b> For each Frost\nspell you've cast this game,\nsummon a 3/4 Elemental\nthat <b>Freezes</b>.@ <i>(@)</i>",
         "type": "MINION"
     },
     {
@@ -33292,7 +33293,7 @@
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
@@ -43040,6 +43041,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 80190,
+        "health": 30,
+        "id": "HERO_01s",
+        "name": "Garrosh the Wild",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 1066,
@@ -43425,6 +43437,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 80183,
+        "health": 30,
+        "id": "HERO_03q",
+        "name": "Garden Party Valeera",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 671,
@@ -43779,6 +43802,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 80191,
+        "health": 30,
+        "id": "HERO_05t",
+        "name": "Denwatcher Rexxar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 274,
@@ -43978,6 +44012,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 80187,
+        "health": 30,
+        "id": "HERO_06t",
+        "name": "Cherry Blossom Lunara",
+        "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -44149,6 +44194,17 @@
         "health": 30,
         "id": "HERO_07p",
         "name": "Mogu'shan Gul'dan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 80189,
+        "health": 30,
+        "id": "HERO_07r",
+        "name": "Hatcher Gul'dan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -44389,6 +44445,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 80188,
+        "health": 30,
+        "id": "HERO_08w",
+        "name": "Festival Jaina",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -44543,6 +44610,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 80182,
+        "health": 30,
+        "id": "HERO_09q",
+        "name": "Little Lion Anduin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
@@ -44682,6 +44760,17 @@
         "health": 30,
         "id": "HERO_10n",
         "name": "Sha Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 80185,
+        "health": 30,
+        "id": "HERO_10p",
+        "name": "Sabertender Illidan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -54908,6 +54997,686 @@
         "type": "MINION"
     },
     {
+        "artist": "Mauricio Herrera",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 71226,
+        "flavor": "Throwing more whelps at the problem might not help, but they certainly will hurt.",
+        "health": 6,
+        "id": "ONY_001",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Onyxian Warder",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Battlecry:</b> If you're holding\na Dragon, summon two\n2/1 Whelps with <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 71227,
+        "flavor": "Yeah, “for off-spec,” suuuuure.",
+        "health": 5,
+        "id": "ONY_002",
+        "isMiniSet": true,
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Gear Grubber",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Taunt</b>. If you end your turn with any unspent mana, reduce this card's Cost by (1).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 71228,
+        "flavor": "Bonk!",
+        "health": 5,
+        "id": "ONY_003",
+        "isMiniSet": true,
+        "mechanics": [
+            "FRENZY",
+            "HONORABLEKILL"
+        ],
+        "name": "Whelp Bonker",
+        "rarity": "EPIC",
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Frenzy and Honorable Kill:</b> Draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Stone",
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 71333,
+        "elite": true,
+        "flavor": "Onyxia chose her guises to manipulate mortals, but her true form? That was reserved for ending them.",
+        "health": 8,
+        "id": "ONY_004",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH"
+        ],
+        "name": "Raid Boss Onyxia",
+        "race": "DRAGON",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Rush</b>. <b>Immune</b> while\nyou control a Whelp.\n<b>Battlecry:</b> Summon six\n 2/1 Whelps with <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 71684,
+        "elite": true,
+        "flavor": "Kazakus had always seemed too clever a sort to bottle a brew that could do him any harm. Perhaps it should come as no surprise, then, that the originator of the Dragonfire Potion was a dragon himself.",
+        "health": 8,
+        "id": "ONY_005",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Kazakusan",
+        "race": "DRAGON",
+        "rarity": "LEGENDARY",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Battlecry:</b> If all minions\nin your deck are Dragons,\ncraft a custom deck\nof Treasures.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 71229,
+        "flavor": "I SAID \"RELAX!\"",
+        "id": "ONY_006",
+        "isMiniSet": true,
+        "name": "Deep Breath",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "spellSchool": "FIRE",
+        "text": "[x]Deal $1 damage to a\nminion and its neighbors.\n<i>(Improved by number of \nother spells in your hand.)</i>",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mark Zug",
+        "attack": 4,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 71230,
+        "elite": true,
+        "flavor": "Oh, how do you solve a problem like Onyxia?",
+        "health": 12,
+        "id": "ONY_007",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Haleh, Matron Protectorate",
+        "race": "DRAGON",
+        "rarity": "LEGENDARY",
+        "set": "ALTERAC_VALLEY",
+        "text": "After you cast a spell, deal 4 damage randomly split among all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & A. Zemskov",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71231,
+        "flavor": "Hunters make the worst neighbors.",
+        "id": "ONY_008",
+        "isMiniSet": true,
+        "name": "Furious Howl",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "Draw a card.\nRepeat until you have at least 3 cards.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anzka Nguyen",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 71232,
+        "flavor": "\"And I'll call you Mrs. Snugglepants, and you Bubblecuddle, and you Cutie Cakes, and you ...\"",
+        "health": 3,
+        "id": "ONY_009",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Pet Collector",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Battlecry:</b> Summon a Beast from your deck that costs (5) or less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Melvin Chan",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71233,
+        "flavor": "<i>*Only effective against small dragons.</i>",
+        "id": "ONY_010",
+        "isMiniSet": true,
+        "mechanics": [
+            "HONORABLEKILL"
+        ],
+        "name": "Dragonbane Shot",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]Deal $2 damage.\n<b>Honorable Kill:</b> Add a \nDragonbane Shot\nto your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & A. Zemskov",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 71234,
+        "flavor": "Apparently the “Caution: Hot Surface” sign had burned up.",
+        "id": "ONY_011",
+        "isMiniSet": true,
+        "mechanics": [
+            "OVERLOAD",
+            "ImmuneToSpellpower"
+        ],
+        "name": "Don't Stand in the Fire!",
+        "overload": 1,
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "spellSchool": "FIRE",
+        "text": "Deal $10 damage randomly split among all enemy minions. <b>Overload:</b> (1)",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71235,
+        "flavor": "Bru'kan said his spirit would always be with us. He failed to mention that his raptor’s would be too.",
+        "id": "ONY_012",
+        "isMiniSet": true,
+        "name": "Spirit Mount",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]Give a minion +1/+2\nand <b>Spell Damage +1</b>.\nWhen it dies, summon\na Spirit Raptor.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71236,
+        "flavor": "Worst. Hug. Ever.",
+        "id": "ONY_013",
+        "isMiniSet": true,
+        "name": "Bracing Cold",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "spellSchool": "FROST",
+        "text": "[x]Restore #5 Health to\nyour hero. Reduce the\nCost of a random spell\nin your hand by (2).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71237,
+        "flavor": "All of Onyxia's whelps were no match for Kurtrus' backflip.",
+        "id": "ONY_014",
+        "isMiniSet": true,
+        "mechanics": [
+            "HONORABLEKILL"
+        ],
+        "name": "Keen Reflex",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]Deal $1 damage to all\nminions. <b>Honorable Kill:</b>\nGain +1 Attack this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71239,
+        "flavor": "For one day each February, they become the Wings of Love.",
+        "id": "ONY_016",
+        "isMiniSet": true,
+        "name": "Wings of Hate (Rank 1)",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "text": "Summon two 1/1\nFelwings. <i>(Upgrades\nwhen you have 5 Mana.)</i>",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Samche Chen",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 71240,
+        "flavor": "You can count the rings and find out Wrathion's true age.",
+        "id": "ONY_017",
+        "isMiniSet": true,
+        "name": "Horn of Wrathion",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "ALTERAC_VALLEY",
+        "text": "Draw a minion. If it's\na Dragon, summon two 2/1 Whelps with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "BOSi Studio",
+        "attack": 4,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 71241,
+        "flavor": "Some Druids consider balance to be a state of harmony between the Natural and the Arcane. Others are more focused on the balance of the opponent’s life total versus their own.",
+        "health": 5,
+        "id": "ONY_018",
+        "isMiniSet": true,
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Boomkin",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Choose One - </b>Restore\n8 Health to your hero; or Deal 4 damage.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Moon Colony",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 71242,
+        "flavor": "\"What do you mean by aggressive negotiation tactics?\"\n\"Negotiations in bear form.\"",
+        "health": 4,
+        "id": "ONY_019",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Raid Negotiator",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Battlecry:</b> <b>Discover</b> a\n<b>Choose One</b> card. It has\nboth effects combined.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 1,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 71244,
+        "flavor": "\"I swear if you heal me I will DPS.\"",
+        "health": 5,
+        "id": "ONY_020",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Stormwind Avenger",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "After you cast a spell on this minion, it gains +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 71247,
+        "flavor": "Whelp for scale.",
+        "id": "ONY_021",
+        "isMiniSet": true,
+        "name": "Scale of Onyxia",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "ALTERAC_VALLEY",
+        "text": "Fill your board with 2/1 Whelps with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 1,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71248,
+        "flavor": "She's the most down-to-earth paladin you'll ever meet... until she stands up.",
+        "health": 3,
+        "id": "ONY_022",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Battle Vicar",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a\nHoly spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & A. Zemskov",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71249,
+        "flavor": "\"...and very fast.\"",
+        "id": "ONY_023",
+        "isMiniSet": true,
+        "name": "Hit It Very Hard",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "Gain +10 Attack and \"Can't attack heroes\" this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 71250,
+        "flavor": "The best offense is a great defense.",
+        "health": 5,
+        "id": "ONY_024",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Onyxian Drake",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Taunt</b>\n <b>Battlecry:</b> Deal damage\nequal to your Armor to\nan enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71251,
+        "flavor": "One... two... yeah, all present and correct.",
+        "id": "ONY_025",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRADEABLE"
+        ],
+        "name": "Shoulder Check",
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Tradeable</b>\nGive a minion +2/+1 and <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 71252,
+        "flavor": "Do you think it's a glass half full kind of Netherdrake, or a glass half empty, inescapable void kind of Netherdrake?",
+        "health": 4,
+        "id": "ONY_026",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lightmaw Netherdrake",
+        "race": "DRAGON",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Battlecry:</b> If you're holding\na Holy and a Shadow spell, deal 3 damage to all other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71253,
+        "flavor": "Now to find the Ring of Wisdom and Ring of Power.",
+        "id": "ONY_027",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRADEABLE"
+        ],
+        "name": "Ring of Courage",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Tradeable</b>\nGive a minion +1/+1. Repeat for each enemy minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Wayne Wu",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 71254,
+        "elite": true,
+        "flavor": "Unfortunately, Mi’da’s touch will not turn things to gold.",
+        "health": 6,
+        "id": "ONY_028",
+        "isMiniSet": true,
+        "mechanics": [
+            "DEATHRATTLE",
+            "DIVINE_SHIELD",
+            "LIFESTEAL"
+        ],
+        "name": "Mi'da, Pure Light",
+        "rarity": "LEGENDARY",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Divine Shield</b>, <b>Lifesteal</b>\n<b>Deathrattle:</b> Shuffle a Fragment\ninto your deck that resummons\nMi'da when drawn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mark Zug",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 71290,
+        "flavor": "\"...and I only had to climb up the mountains in Winterspring 50 times!\"",
+        "id": "ONY_029",
+        "isMiniSet": true,
+        "mechanics": [
+            "DISCOVER",
+            "TRADEABLE"
+        ],
+        "name": "Drakefire Amulet",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "spellSchool": "FIRE",
+        "text": "<b>Tradeable</b>\n<b>Discover</b> 2 Dragons. Summon them.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anzka Nguyen",
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 71294,
+        "flavor": "After a while, Onyxia's regurgitated rats start to taste pretty good.",
+        "health": 3,
+        "id": "ONY_030",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "SI:7 Smuggler",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]<b>Battlecry:</b> Summon a random\nminion with Cost equal to the\namount of SI:7 cards you've\nplayed this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 71293,
+        "flavor": "Pocket smoke!",
+        "id": "ONY_031",
+        "isMiniSet": true,
+        "name": "Smokescreen",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]Draw 5 cards. Trigger\nany <b>Deathrattles</b> drawn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ware Lee",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 71289,
+        "flavor": "Nefarian: Lord of Blackrock, creator of the chromatic dragonflight, victim of several root canals.",
+        "id": "ONY_032",
+        "isMiniSet": true,
+        "mechanics": [
+            "DISCOVER",
+            "HONORABLEKILL"
+        ],
+        "name": "Tooth of Nefarian",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "[x]Deal $3 damage.\n<b>Honorable Kill:</b> <b>Discover</b> a\nspell from another class.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & A. Zemskov",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 67758,
+        "flavor": "Call the imp-sterminator!",
+        "id": "ONY_033",
+        "isMiniSet": true,
+        "name": "Impfestation",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "spellSchool": "FEL",
+        "text": "Summon a 3/3\nDread Imp to attack each enemy minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71292,
+        "flavor": "Now, fools, you shall all understand my back pain!",
+        "id": "ONY_034",
+        "isMiniSet": true,
+        "name": "Curse of Agony",
+        "rarity": "RARE",
+        "set": "ALTERAC_VALLEY",
+        "spellSchool": "SHADOW",
+        "text": "[x]Shuffle three Agonies\ninto the opponent's deck.\nThey deal Fatigue damage\nwhen drawn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 6,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 71295,
+        "flavor": "Aww, who’s the most dangerous threat to the world? You are!",
+        "health": 6,
+        "id": "ONY_035",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Spawn of Deathwing",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "<b>Battlecry:</b> Destroy a random enemy minion. Discard a random card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 68262,
+        "flavor": "For the worgen that has everything: more claws.",
+        "health": 4,
+        "id": "ONY_036",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Razorglaive Sentinel",
+        "rarity": "COMMON",
+        "set": "ALTERAC_VALLEY",
+        "text": "After you play the left or right-most card in your hand, draw a card.",
+        "type": "MINION"
+    },
+    {
         "artist": "Samwise",
         "attack": 5,
         "cardClass": "NEUTRAL",
@@ -57700,20 +58469,6 @@
         "set": "SCHOLOMANCE",
         "text": "[x]Whenever your opponent\n draws a card, add a copy to \n your hand that costs (1).",
         "type": "MINION"
-    },
-    {
-        "artist": "Dave Allsop",
-        "cardClass": "WARLOCK",
-        "collectible": true,
-        "cost": 3,
-        "dbfId": 75913,
-        "flavor": "It’s a Bolt.   It's made out of Shadow.   What more do you need to know!",
-        "id": "Story_09_Shadowbolt",
-        "name": "Shadow Bolt",
-        "rarity": "FREE",
-        "set": "VANILLA",
-        "text": "Deal $4 damage\nto a minion.",
-        "type": "SPELL"
     },
     {
         "artist": "Jason Kang",
@@ -71123,7 +71878,7 @@
         "rarity": "LEGENDARY",
         "set": "VANILLA",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
