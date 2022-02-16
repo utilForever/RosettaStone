@@ -433,6 +433,40 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
         "AV_211t", SummonSide::SPELL) };
     power.GetTrigger()->lastTurn = 3;
     cards.emplace("AV_360", CardDef(power));
+
+    // ----------------------------------------- MINION - DRUID
+    // [ONY_018] Boomkin - COST:5 [ATK:4/HP:5]
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Choose One - </b>Restore
+    //       8 Health to your hero; or Deal 4 damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [ONY_019] Raid Negotiator - COST:4 [ATK:3/HP:4]
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       <b>Discover</b> a <b>Choose One</b> card.
+    //       It has both effects combined.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [ONY_021] Scale of Onyxia - COST:7
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Fill your board with 2/1 Whelps with <b>Rush</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddDruidNonCollect(
@@ -538,6 +572,27 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: Costs (2) less.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [ONY_018t] Eyes of the Moon - COST:5
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Restore 8 Health to your hero.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [ONY_018t2] Heart of the Sun - COST:5
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Deal 4 damage.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [ONY_019e] Decisive - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Your next <b>Choose One</b> card is combined.
     // --------------------------------------------------------
 }
 
@@ -703,6 +758,37 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.AddDeathrattleTask(
         std::make_shared<SummonTask>("AV_337t", 2, SummonSide::DEATHRATTLE));
     cards.emplace("AV_337", CardDef(power));
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [ONY_008] Furious Howl - COST:2
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Draw a card.
+    //       Repeat until you have at least 3 cards.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [ONY_009] Pet Collector - COST:5 [ATK:3/HP:3]
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a Beast from your deck
+    //       that costs (5) or less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [ONY_010] Dragonbane Shot - COST:2
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Deal 2 damage.
+    //       <b>Honorable Kill:</b> Add a Dragonbane Shot
+    //       to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - HONORABLEKILL = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddHunterNonCollect(
@@ -895,6 +981,13 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("AV_337t", CardDef(power));
+
+    // ----------------------------------- ENCHANTMENT - HUNTER
+    // [ONY_010e] Drakeshot - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
@@ -1006,6 +1099,40 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: At the end of your turn, cast another spell
     //       from your deck. Lasts 3 turns.
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [ONY_006] Deep Breath - COST:5
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to a minion and its neighbors.
+    //       (Improved by number of  other spells in your hand.)
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [ONY_007] Haleh, Matron Protectorate - COST:8 [ATK:4/HP:12]
+    // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: After you cast a spell,
+    //       deal 4 damage randomly split among all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [ONY_029] Drakefire Amulet - COST:10
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       <b>Discover</b> 2 Dragons. Summon them.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // - TRADEABLE = 1
     // --------------------------------------------------------
 }
 
@@ -1228,6 +1355,39 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [ONY_020] Stormwind Avenger - COST:3 [ATK:1/HP:5]
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After you cast a spell on this minion,
+    //       it gains +2 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [ONY_022] Battle Vicar - COST:2 [ATK:1/HP:3]
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Discover</b> a Holy spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [ONY_027] Ring of Courage - COST:2
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       Give a minion +1/+1. Repeat for each enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddPaladinNonCollect(
@@ -1313,6 +1473,20 @@ void AlteracValleyCardsGen::AddPaladinNonCollect(
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: +2/+2.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [ONY_020e] En Garde! - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: +2 Attack.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - PALADIN
+    // [ONY_027e] Heroic - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: +1/+1.
     // --------------------------------------------------------
 }
 
@@ -1413,6 +1587,43 @@ void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn,
     //       give your minions +2 Health. Lasts 3 turns.
     // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [ONY_017] Horn of Wrathion - COST:3
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Draw a minion. If it's
+    //       a Dragon, summon two 2/1 Whelps with <b>Rush</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [ONY_026] Lightmaw Netherdrake - COST:4 [ATK:4/HP:4]
+    // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you're holding a Holy and
+    //       a Shadow spell, deal 3 damage to all other minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [ONY_028] Mi'da, Pure Light - COST:6 [ATK:4/HP:6]
+    // - Set: ALTERAC_VALLEY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Divine Shield</b>, <b>Lifesteal</b>
+    //       <b>Deathrattle:</b> Shuffle a Fragment into
+    //       your deck that resummons Mi'da when drawn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - DEATHRATTLE = 1
+    // - DIVINE_SHIELD = 1
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddPriestNonCollect(
@@ -1503,6 +1714,18 @@ void AlteracValleyCardsGen::AddPriestNonCollect(
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: +2 Health.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [ONY_028t] Fragment of Mi'da - COST:6
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: <b>Casts When Drawn</b>
+    //       Summon Mi'da, Pure Light.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TOPDECK = 1
     // --------------------------------------------------------
 }
 
@@ -1619,6 +1842,40 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [ONY_030] SI:7 Smuggler - COST:3 [ATK:1/HP:3]
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Summon a random minion
+    //       with Cost equal to the amount of SI:7 cards
+    //       you've played this game.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [ONY_031] Smokescreen - COST:8
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Draw 5 cards. Trigger any <b>Deathrattles</b> drawn.
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [ONY_032] Tooth of Nefarian - COST:3
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal 3 damage. <b>Honorable Kill:</b>
+    //       <b>Discover</b> a spell from another class.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // - HONORABLEKILL = 1
     // --------------------------------------------------------
 }
 
@@ -1834,6 +2091,39 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
         "AV_257t", SummonSide::SPELL) };
     power.GetTrigger()->lastTurn = 3;
     cards.emplace("AV_268", CardDef(power));
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [ONY_011] Don't Stand in the Fire! - COST:5
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Deal 10 damage randomly split among all enemy minions.
+    //       <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 1
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [ONY_012] Spirit Mount - COST:2
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give a minion +1/+2 and <b>Spell Damage +1</b>.
+    //       When it dies, summon a Spirit Raptor.
+    // --------------------------------------------------------
+    // RefTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [ONY_013] Bracing Cold - COST:2
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // - Spell School: Frost
+    // --------------------------------------------------------
+    // Text: Restore 5 Health to your hero.
+    //       Reduce the Cost of a random spell in your hand by (2).
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddShamanNonCollect(
@@ -1909,6 +2199,31 @@ void AlteracValleyCardsGen::AddShamanNonCollect(
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [ONY_012e] With Da Spirits - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: +1/+2 and <b>Spell Damage +1</b>.
+    //       <b>Deathrattle:</b> Summon a Spirit Raptor.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [ONY_012t] Bru'kan's Raptor - COST:2 [ATK:1/HP:2]
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [ONY_013e] Shivers - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
     // --------------------------------------------------------
 }
 
@@ -2046,6 +2361,34 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn, destroy your lowest
     //       Attack minion to summon a 4/4 Shade. Lasts 3 turns.
     // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [ONY_033] Impfestation - COST:6
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: Summon a 3/3 Dread Imp to attack each enemy minion.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [ONY_034] Curse of Agony - COST:1
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Shuffle three Agonies into the opponent's deck.
+    //       They deal Fatigue damage when drawn.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [ONY_035] Spawn of Deathwing - COST:5 [ATK:6/HP:6]
+    // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a random enemy minion.
+    //       Discard a random card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddWarlockNonCollect(
@@ -2108,6 +2451,19 @@ void AlteracValleyCardsGen::AddWarlockNonCollect(
     // --------------------------------------- MINION - WARLOCK
     // [AV_657t] Desecrated Shade - COST:4 [ATK:4/HP:4]
     // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [ONY_034t] Agony - COST:1
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: <b>Casts When Drawn</b>
+    //       Take 1 Fatigue damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TOPDECK = 1
+    // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
 }
 
@@ -2261,6 +2617,40 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
         EntityType::ALL_MINIONS, 1, true) };
     power.GetTrigger()->lastTurn = 3;
     cards.emplace("AV_660", CardDef(power));
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [ONY_023] Hit It Very Hard - COST:1
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Gain +10 Attack and "Can't attack heroes" this turn.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [ONY_024] Onyxian Drake - COST:4 [ATK:4/HP:5]
+    // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Deal damage equal to your Armor
+    //       to an enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [ONY_025] Shoulder Check - COST:1
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Tradeable</b>
+    //       Give a minion +2/+1 and <b>Rush</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRADEABLE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddWarriorNonCollect(
@@ -2321,6 +2711,16 @@ void AlteracValleyCardsGen::AddWarriorNonCollect(
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("AV_323t", CardDef(power));
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [ONY_023e] HIT IT HARD - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: +10 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddDemonHunter(
@@ -2443,6 +2843,36 @@ void AlteracValleyCardsGen::AddDemonHunter(
         "AV_661e2", EntityType::MINIONS) };
     power.GetTrigger()->lastTurn = 3;
     cards.emplace("AV_661", CardDef(power));
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [ONY_014] Keen Reflex - COST:2
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to all minions.
+    //       <b>Honorable Kill:</b> Gain +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - HONORABLEKILL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [ONY_016] Wings of Hate (Rank 1) - COST:1
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Summon two 1/1 Felwings.
+    //       <i>(Upgrades when you have 5 Mana.)</i>
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [ONY_036] Razorglaive Sentinel - COST:4 [ATK:5/HP:4]
+    // - Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After you play the left or right-most card
+    //       in your hand, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddDemonHunterNonCollect(
@@ -2528,6 +2958,31 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("AV_661e2"));
     cards.emplace("AV_661e2", CardDef(power));
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [ONY_014e] Keen Reflex - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: +1 Attack this turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [ONY_016t] Wings of Hate (Rank 2) - COST:1
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Summon three 1/1 Felwings.
+    //       <i>(Upgrades when you have 10 Mana.)</i>
+    // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [ONY_016t2] Wings of Hate (Rank 3) - COST:1
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Summon four 1/1 Felwings.
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
@@ -3072,6 +3527,73 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     power.AddDeathrattleTask(
         std::make_shared<DamageTask>(EntityType::STACK, 8));
     cards.emplace("AV_704", CardDef(power));
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_001] Onyxian Warder - COST:5 [ATK:3/HP:6]
+    // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you're holding a Dragon,
+    //       summon two 2/1 Whelps with <b>Rush</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_002] Gear Grubber - COST:4 [ATK:4/HP:5]
+    // - Set: ALTERAC_VALLEY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>.
+    //       If you end your turn with any unspent mana,
+    //       reduce this card's Cost by (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_003] Whelp Bonker - COST:3 [ATK:1/HP:5]
+    // - Set: ALTERAC_VALLEY, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Frenzy and Honorable Kill:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FRENZY = 1
+    // - HONORABLEKILL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_004] Raid Boss Onyxia - COST:10 [ATK:8/HP:8]
+    // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>.
+    //       <b>Immune</b> while you control a Whelp.
+    //       <b>Battlecry:</b> Summon six 2/1 Whelps with <b>Rush</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005] Kazakusan - COST:8 [ATK:8/HP:8]
+    // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       If all minions in your deck are Dragons,
+    //       craft a custom deck of Treasures.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void AlteracValleyCardsGen::AddNeutralNonCollect(
@@ -3307,6 +3829,479 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_001t] Onyxian Whelp - COST:1 [ATK:2/HP:1]
+    // - Race: Dragon, Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_002e] More Loot! - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Reduced Cost.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005ta1] Necrotic Poison - COST:2
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy a minion.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005ta10] Spyglass - COST:1
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Put a copy of a random card in your opponent's hand
+    //       into yours. It costs (3) less.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005ta11] Clockwork Assistant - COST:3 [ATK:1/HP:1]
+    // - Race: Mechanical, Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Has +1/+1 for each spell you've cast this game.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005ta12] Grimmer Patron - COST:3 [ATK:3/HP:3]
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: At the end of your turn, summon a copy of this minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005ta13] Puzzle Box - COST:3
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Arcane
+    // --------------------------------------------------------
+    // Text: Transform all minions into random ones
+    //       that cost (3) more.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005ta2] Mutating Injection - COST:2
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Give a minion +4/+4 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_005ta2e] Mutating Injection - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: +4/+4 and <b>Taunt</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - NEUTRAL
+    // [ONY_005ta3] The Exorcisor - COST:1
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> any minion attacked by this weapon.
+    // --------------------------------------------------------
+    // RefTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005ta4] Pure Cold - COST:5
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Frost
+    // --------------------------------------------------------
+    // Text: Deal 8 damage to the enemy hero, and <b>Freeze</b> it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005ta5] Bubba - COST:5 [ATK:8/HP:8]
+    // - Race: Beast, Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Battlecry</b>: Summon six 1/1 Bloodhounds
+    //       with <b>Rush</b> to attack an enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005ta5t] Bloodhound - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005ta6] Holy Book - COST:8
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> and destroy a minion.
+    //       Summon a 10/10 copy of it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005ta7] Crusty the Crustacean - COST:3 [ATK:3/HP:3]
+    // - Race: Beast, Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy a minion.
+    //       Gain its Attack and Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_005ta7e] Om Nom Nom - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005ta8] Looming Presence - COST:3
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Draw 2 cards. Gain 4 Armor.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005ta9] Beastly Beauty - COST:3 [ATK:2/HP:6]
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    //       After this attacks a minion and survives,
+    //       transform this into an 8/8.
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005ta9t] Beautiful Beast - COST:5 [ATK:8/HP:8]
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - NEUTRAL
+    // [ONY_005tb1] Hyperblaster - COST:3
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Poisonous</b>.
+    //       Your hero is <b>Immune</b> while attacking.
+    // --------------------------------------------------------
+    // GameTag:
+    // - POISONOUS = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb12] Dr. Boom's Boombox - COST:4
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Summon 7 'Boom Bots'.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005tb13] Wax Rager - COST:3 [ATK:5/HP:1]
+    // - Race: Elemental, Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Resummon this minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb14] Vampiric Fangs - COST:3
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy a minion. Restore its Health to your hero.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_005tb1e] Hyperblaster Enchantment - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Immune</b> while attacking.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb2] Gnomish Army Knife - COST:5
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Give a minion <b>Rush</b>,
+    //       <b>Windfury</b>, <b>Divine Shield</b>,
+    //       <b>Lifesteal</b>, <b>Poisonous</b>,
+    //       <b>Taunt</b>, and <b>Stealth</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - DIVINE_SHIELD = 1
+    // - LIFESTEAL = 1
+    // - POISONOUS = 1
+    // - RUSH = 1
+    // - STEALTH = 1
+    // - TAUNT = 1
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_005tb2e] Tooled Up! - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Granted <b>Rush</b>,
+    //       <b>Windfury</b>, <b>Divine Shield</b>,
+    //       <b>Lifesteal</b>, <b>Poisonous</b>,
+    //       <b>Taunt</b>, and <b>Stealth</b>.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb3] LOCUUUUSTS!!! - COST:8
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: <b>Twinspell</b>
+    //       Choose an enemy.
+    //       Fill your board with 2/2 Locusts that attack it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TWINSPELL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb3t] LOCUUUUSTS!!! - COST:8
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Choose an enemy.
+    //       Fill your board with 2/2 Locusts that attack it.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005tb3t2] Giant Locust - COST:2 [ATK:2/HP:2]
+    // - Race: Beast, Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb4] Wand of Disintegration - COST:5
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Arcane
+    // --------------------------------------------------------
+    // Text: <b>Silence</b> and destroy all enemy minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SILENCE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb5] Staff of Scales - COST:5
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Summon three 1/1 Snakes with <b>Rush</b>,
+    //       <b>Poisonous</b> and <b>Reborn</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - POISONOUS = 1
+    // - REBORN = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [ONY_005tb5t] Ancient Snake - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    //       <b>Poisonous</b>
+    //       <b>Reborn</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - POISONOUS = 1
+    // - REBORN = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - NEUTRAL
+    // [ONY_005tb6] Phaoris' Blade - COST:2
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Windfury</b>.
+    //       After your hero attacks and kills a minion,
+    //       this gains +2/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb610] Zephrys's Lamp - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Wish for the perfect card.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_005tb6e] Phaoris' Fury - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Increased stats.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb7] Canopic Jars - COST:3
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Give your minions "<b>Deathrattle:</b>
+    //       Summon a random <b>Legendary</b> minion."
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_005tb7e] Canopic Jars - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a random
+    //       <b>Legendary</b> minion.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb8] Ancient Reflections - COST:4
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Arcane
+    // --------------------------------------------------------
+    // Text: Choose a minion.
+    //       Fill your board with 1/1 copies of it.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_005tb8e] Titan Hologram - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: 1/1.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tb9] Banana Split - COST:5
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Give a friendly minion +2/+2.
+    //       Summon two copies of it.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_005tb9e] Glowing Green - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: +2/+2.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tc1] Embers of Ragnaros - COST:10
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Shoot three fireballs at random enemies
+    //       that deal 8 damage each.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tc2] Book of the Dead - COST:14
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Deal 7 damage to all enemies.
+    //       Costs (1) less for each minion that's died this game.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tc3] Annoy-o Horn - COST:8
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Fill your board with annoying minions.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tc4] Flex-plosion - COST:8
+    // - Set: ALTERAC_VALLEY
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Blow up half your opponent's stuff.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - NEUTRAL
+    // [ONY_005tc5] Blade of Quel'Delar - COST:1
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tc6] Hilt of Quel'Delar - COST:1
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: Give a minion +3/+3.
+    // --------------------------------------------------------
+
+    // --------------------------------------- WEAPON - NEUTRAL
+    // [ONY_005tc7] Quel'Delar - COST:6
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: After your hero attacks,
+    //       deal 4 damage to all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [ONY_005tc7t] Forging Quel'Delar - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [ONY_025e] Incensed - COST:0
+    // - Set: ALTERAC_VALLEY
+    // --------------------------------------------------------
+    // Text: +2/+1 and <b>Rush</b>.
     // --------------------------------------------------------
 }
 

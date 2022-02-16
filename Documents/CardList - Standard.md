@@ -1204,5 +1204,40 @@ ALTERAC_VALLEY | AV_664 | Stormpike Aid Station |
 ALTERAC_VALLEY | AV_704 | Humongous Owl | O
 ALTERAC_VALLEY | AV_710 | Reconnaissance |  
 ALTERAC_VALLEY | AV_711 | Double Agent |  
+ALTERAC_VALLEY | ONY_001 | Onyxian Warder |  
+ALTERAC_VALLEY | ONY_002 | Gear Grubber |  
+ALTERAC_VALLEY | ONY_003 | Whelp Bonker |  
+ALTERAC_VALLEY | ONY_004 | Raid Boss Onyxia |  
+ALTERAC_VALLEY | ONY_005 | Kazakusan |  
+ALTERAC_VALLEY | ONY_006 | Deep Breath |  
+ALTERAC_VALLEY | ONY_007 | Haleh, Matron Protectorate |  
+ALTERAC_VALLEY | ONY_008 | Furious Howl |  
+ALTERAC_VALLEY | ONY_009 | Pet Collector |  
+ALTERAC_VALLEY | ONY_010 | Dragonbane Shot |  
+ALTERAC_VALLEY | ONY_011 | Don't Stand in the Fire! |  
+ALTERAC_VALLEY | ONY_012 | Spirit Mount |  
+ALTERAC_VALLEY | ONY_013 | Bracing Cold |  
+ALTERAC_VALLEY | ONY_014 | Keen Reflex |  
+ALTERAC_VALLEY | ONY_016 | Wings of Hate (Rank 1) |  
+ALTERAC_VALLEY | ONY_017 | Horn of Wrathion |  
+ALTERAC_VALLEY | ONY_018 | Boomkin |  
+ALTERAC_VALLEY | ONY_019 | Raid Negotiator |  
+ALTERAC_VALLEY | ONY_020 | Stormwind Avenger |  
+ALTERAC_VALLEY | ONY_021 | Scale of Onyxia |  
+ALTERAC_VALLEY | ONY_022 | Battle Vicar |  
+ALTERAC_VALLEY | ONY_023 | Hit It Very Hard |  
+ALTERAC_VALLEY | ONY_024 | Onyxian Drake |  
+ALTERAC_VALLEY | ONY_025 | Shoulder Check |  
+ALTERAC_VALLEY | ONY_026 | Lightmaw Netherdrake |  
+ALTERAC_VALLEY | ONY_027 | Ring of Courage |  
+ALTERAC_VALLEY | ONY_028 | Mi'da, Pure Light |  
+ALTERAC_VALLEY | ONY_029 | Drakefire Amulet |  
+ALTERAC_VALLEY | ONY_030 | SI:7 Smuggler |  
+ALTERAC_VALLEY | ONY_031 | Smokescreen |  
+ALTERAC_VALLEY | ONY_032 | Tooth of Nefarian |  
+ALTERAC_VALLEY | ONY_033 | Impfestation |  
+ALTERAC_VALLEY | ONY_034 | Curse of Agony |  
+ALTERAC_VALLEY | ONY_035 | Spawn of Deathwing |  
+ALTERAC_VALLEY | ONY_036 | Razorglaive Sentinel |  
 
-- Progress: 37% (51 of 135 Cards)
+- Progress: 30% (51 of 170 Cards)
