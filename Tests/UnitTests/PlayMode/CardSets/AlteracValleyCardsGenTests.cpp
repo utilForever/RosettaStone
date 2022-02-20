@@ -260,6 +260,77 @@ TEST_CASE("[Druid : Minion] - ONY_018 : Boomkin")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 16);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [ONY_021] Scale of Onyxia - COST:7
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: Fill your board with 2/1 Whelps with <b>Rush</b>.
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - ONY_021 : Scale of Onyxia")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scale of Onyxia"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scale of Onyxia"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[0]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->HasRush(), true);
+    CHECK_EQ(curField[1]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasRush(), true);
+    CHECK_EQ(curField[2]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->HasRush(), true);
+    CHECK_EQ(curField[3]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[3]->GetAttack(), 2);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->HasRush(), true);
+    CHECK_EQ(curField[4]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[4]->GetAttack(), 2);
+    CHECK_EQ(curField[4]->GetHealth(), 1);
+    CHECK_EQ(curField[4]->HasRush(), true);
+    CHECK_EQ(curField[5]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[5]->GetAttack(), 2);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[5]->HasRush(), true);
+    CHECK_EQ(curField[6]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[6]->GetAttack(), 2);
+    CHECK_EQ(curField[6]->GetHealth(), 1);
+    CHECK_EQ(curField[6]->HasRush(), true);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [AV_147] Dun Baldar Bunker - COST:2
 // - Set: ALTERAC_VALLEY, Rarity: Rare

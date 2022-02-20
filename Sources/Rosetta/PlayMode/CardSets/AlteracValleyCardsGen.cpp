@@ -477,6 +477,15 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("ONY_001t", 7, SummonSide::SPELL));
+    cards.emplace(
+        "ONY_021",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 }
 
 void AlteracValleyCardsGen::AddDruidNonCollect(
@@ -3862,6 +3871,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("ONY_001t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ONY_002e] More Loot! - COST:0
