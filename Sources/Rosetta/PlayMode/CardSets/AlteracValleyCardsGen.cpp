@@ -13,6 +13,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
@@ -438,12 +439,21 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [ONY_018] Boomkin - COST:5 [ATK:4/HP:5]
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Choose One - </b>Restore
-    //       8 Health to your hero; or Deal 4 damage.
+    // Text: <b>Choose One - </b>Restore 8 Health to your hero;
+    //       or Deal 4 damage.
     // --------------------------------------------------------
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace(
+        "ONY_018",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
+                ChooseCardIDs{ "ONY_018t", "ONY_018t2" }));
 
     // ----------------------------------------- MINION - DRUID
     // [ONY_019] Raid Negotiator - COST:4 [ATK:3/HP:4]
@@ -580,6 +590,9 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Restore 8 Health to your hero.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 8));
+    cards.emplace("ONY_018t", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [ONY_018t2] Heart of the Sun - COST:5
@@ -587,6 +600,15 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Deal 4 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cards.emplace(
+        "ONY_018t2",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [ONY_019e] Decisive - COST:0

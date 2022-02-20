@@ -211,6 +211,55 @@ TEST_CASE("[Druid : Spell] - AV_360 : Frostwolf Kennels")
     CHECK_EQ(curField.GetCount(), 3);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [ONY_018] Boomkin - COST:5 [ATK:4/HP:5]
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One - </b>Restore 8 Health to your hero;
+//       or Deal 4 damage.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - ONY_018 : Boomkin")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boomkin"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boomkin"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero(), 2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 16);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [AV_147] Dun Baldar Bunker - COST:2
 // - Set: ALTERAC_VALLEY, Rarity: Rare
