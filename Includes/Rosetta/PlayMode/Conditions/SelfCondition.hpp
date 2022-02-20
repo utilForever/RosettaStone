@@ -91,7 +91,7 @@ class SelfCondition
     //! SelfCondition wrapper for checking the count of field is satisfied
     //! according to \p value and \p relaSign.
     //! \param value The value to check condition.
-    //! \param relaSign The comparer to check condition..
+    //! \param relaSign The comparer to check condition.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFieldCount(int value,
                                       RelaSign relaSign = RelaSign::EQ);
@@ -99,7 +99,7 @@ class SelfCondition
     //! SelfCondition wrapper for checking the count of opponent field
     //! is satisfied according to \p value and \p relaSign.
     //! \param value The value to check condition.
-    //! \param relaSign The comparer to check condition..
+    //! \param relaSign The comparer to check condition.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsOpFieldCount(int value,
                                         RelaSign relaSign = RelaSign::EQ);
