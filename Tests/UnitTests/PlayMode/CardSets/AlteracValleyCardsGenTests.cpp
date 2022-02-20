@@ -989,6 +989,64 @@ TEST_CASE("[Mage : Spell] - AV_282 : Build a Snowman")
     CHECK_EQ(curHand.GetCount(), 0);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [ONY_007] Haleh, Matron Protectorate - COST:8 [ATK:4/HP:12]
+// - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After you cast a spell,
+//       deal 4 damage randomly split among all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - ONY_007 : Haleh, Matron Protectorate")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Haleh, Matron Protectorate"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+
+    const int totalHealth =
+        opPlayer->GetHero()->GetHealth() + opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 32);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [AV_201] Coldtooth Yeti - COST:3 [ATK:1/HP:5]
 // - Set: ALTERAC_VALLEY, Rarity: Common

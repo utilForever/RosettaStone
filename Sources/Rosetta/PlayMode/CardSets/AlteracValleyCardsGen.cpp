@@ -1167,6 +1167,17 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        4, false) };
+    cards.emplace("ONY_007", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
     // [ONY_029] Drakefire Amulet - COST:10
