@@ -211,6 +211,126 @@ TEST_CASE("[Druid : Spell] - AV_360 : Frostwolf Kennels")
     CHECK_EQ(curField.GetCount(), 3);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [ONY_018] Boomkin - COST:5 [ATK:4/HP:5]
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Choose One - </b>Restore 8 Health to your hero;
+//       or Deal 4 damage.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - ONY_018 : Boomkin")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boomkin"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boomkin"));
+
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero(), 2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 16);
+}
+
+// ------------------------------------------ SPELL - DRUID
+// [ONY_021] Scale of Onyxia - COST:7
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: Fill your board with 2/1 Whelps with <b>Rush</b>.
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - ONY_021 : Scale of Onyxia")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scale of Onyxia"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scale of Onyxia"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[0]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->HasRush(), true);
+    CHECK_EQ(curField[1]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasRush(), true);
+    CHECK_EQ(curField[2]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[2]->GetAttack(), 2);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->HasRush(), true);
+    CHECK_EQ(curField[3]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[3]->GetAttack(), 2);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->HasRush(), true);
+    CHECK_EQ(curField[4]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[4]->GetAttack(), 2);
+    CHECK_EQ(curField[4]->GetHealth(), 1);
+    CHECK_EQ(curField[4]->HasRush(), true);
+    CHECK_EQ(curField[5]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[5]->GetAttack(), 2);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[5]->HasRush(), true);
+    CHECK_EQ(curField[6]->card->name, "Onyxian Whelp");
+    CHECK_EQ(curField[6]->GetAttack(), 2);
+    CHECK_EQ(curField[6]->GetHealth(), 1);
+    CHECK_EQ(curField[6]->HasRush(), true);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [AV_147] Dun Baldar Bunker - COST:2
 // - Set: ALTERAC_VALLEY, Rarity: Rare
@@ -624,6 +744,114 @@ TEST_CASE("[Hunter : Minion] - AV_337 : Mountain Bear")
     CHECK_EQ(curField[1]->HasTaunt(), true);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [ONY_009] Pet Collector - COST:5 [ATK:3/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a Beast from your deck
+//       that costs (5) or less.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - ONY_009 : Pet Collector")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Razorboar");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Humongous Owl");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pet Collector"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->GetRace(), Race::BEAST);
+    CHECK(curField[1]->GetCost() <= 5);
+    CHECK_EQ(curDeck.GetCount(), 25);
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [ONY_010] Dragonbane Shot - COST:2
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 2 damage.
+//       <b>Honorable Kill:</b> Add a Dragonbane Shot
+//       to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - HONORABLEKILL = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - ONY_010 : Dragonbane Shot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dragonbane Shot"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Intrepid Initiate"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Dragonbane Shot");
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(curHand[0], opPlayer->GetHero()));
+    CHECK_EQ(curHand.GetCount(), 0);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [AV_218] Mass Polymorph - COST:7
 // - Set: ALTERAC_VALLEY, Rarity: Epic
@@ -759,6 +987,64 @@ TEST_CASE("[Mage : Spell] - AV_282 : Build a Snowman")
     CHECK_EQ(curField[2]->GetHealth(), 9);
     CHECK_EQ(curField[2]->HasFreeze(), true);
     CHECK_EQ(curHand.GetCount(), 0);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [ONY_007] Haleh, Matron Protectorate - COST:8 [ATK:4/HP:12]
+// - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Legendary
+// --------------------------------------------------------
+// Text: After you cast a spell,
+//       deal 4 damage randomly split among all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - ONY_007 : Haleh, Matron Protectorate")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Haleh, Matron Protectorate"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+
+    const int totalHealth =
+        opPlayer->GetHero()->GetHealth() + opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 32);
 }
 
 // ----------------------------------------- MINION - ROGUE

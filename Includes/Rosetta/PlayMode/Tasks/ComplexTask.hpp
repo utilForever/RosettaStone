@@ -83,6 +83,26 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for summoning a \p race and \p cost minion
+    //! from your deck according to \p relaSign.
+    //! \param race The race of minion(s) to summon.
+    //! \param cost The cost of minion(s) to summon.
+    //! \param relaSign The comparer to check condition.
+    static TaskList SummonRaceCostMinionFromDeck(Race race, int cost,
+                                                 RelaSign relaSign)
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::DECK),
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+                std::make_shared<SelfCondition>(SelfCondition::IsRace(race)),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsCost(cost, relaSign)) }),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::SummonStackTask>(true)
+        };
+    }
+
     //! Returns a list of task for casting a secret from your deck.
     static TaskList CastSecretFromDeck()
     {
