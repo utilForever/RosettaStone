@@ -744,6 +744,56 @@ TEST_CASE("[Hunter : Minion] - AV_337 : Mountain Bear")
     CHECK_EQ(curField[1]->HasTaunt(), true);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [ONY_009] Pet Collector - COST:5 [ATK:3/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a Beast from your deck
+//       that costs (5) or less.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - ONY_009 : Pet Collector")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Razorboar");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Humongous Owl");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pet Collector"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->GetRace(), Race::BEAST);
+    CHECK(curField[1]->GetCost() <= 5);
+    CHECK_EQ(curDeck.GetCount(), 25);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [AV_218] Mass Polymorph - COST:7
 // - Set: ALTERAC_VALLEY, Rarity: Epic

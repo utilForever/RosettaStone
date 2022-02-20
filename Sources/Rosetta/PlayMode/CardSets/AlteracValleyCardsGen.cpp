@@ -808,6 +808,10 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(ComplexTask::SummonRaceCostMinionFromDeck(
+        Race::BEAST, 5, RelaSign::LEQ));
+    cards.emplace("ONY_009", CardDef(power));
 
     // ----------------------------------------- SPELL - HUNTER
     // [ONY_010] Dragonbane Shot - COST:2
