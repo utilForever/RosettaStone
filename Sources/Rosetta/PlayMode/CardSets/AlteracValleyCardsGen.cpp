@@ -1425,6 +1425,12 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::SPELLS_CASTED_ON_THIS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "ONY_020e", EntityType::SOURCE) };
+    cards.emplace("ONY_020", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [ONY_022] Battle Vicar - COST:2 [ATK:1/HP:3]
@@ -1456,6 +1462,8 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - PALADIN
     // [AV_146] The Immovable Object - COST:7
     // - Set: ALTERAC_VALLEY
@@ -1544,6 +1552,9 @@ void AlteracValleyCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ONY_020e"));
+    cards.emplace("ONY_020e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ONY_027e] Heroic - COST:0
