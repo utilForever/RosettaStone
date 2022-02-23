@@ -1457,6 +1457,21 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ONY_027e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        TaskList{ std::make_shared<AddEnchantmentTask>("ONY_027e",
+                                                       EntityType::TARGET) }));
+    cards.emplace(
+        "ONY_027",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void AlteracValleyCardsGen::AddPaladinNonCollect(
@@ -1562,6 +1577,9 @@ void AlteracValleyCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ONY_027e"));
+    cards.emplace("ONY_027e", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
