@@ -1219,17 +1219,17 @@ ALTERAC_VALLEY | ONY_012 | Spirit Mount |
 ALTERAC_VALLEY | ONY_013 | Bracing Cold |  
 ALTERAC_VALLEY | ONY_014 | Keen Reflex |  
 ALTERAC_VALLEY | ONY_016 | Wings of Hate (Rank 1) |  
-ALTERAC_VALLEY | ONY_017 | Horn of Wrathion |  
+ALTERAC_VALLEY | ONY_017 | Horn of Wrathion | O
 ALTERAC_VALLEY | ONY_018 | Boomkin | O
 ALTERAC_VALLEY | ONY_019 | Raid Negotiator |  
-ALTERAC_VALLEY | ONY_020 | Stormwind Avenger |  
+ALTERAC_VALLEY | ONY_020 | Stormwind Avenger | O
 ALTERAC_VALLEY | ONY_021 | Scale of Onyxia | O
-ALTERAC_VALLEY | ONY_022 | Battle Vicar |  
+ALTERAC_VALLEY | ONY_022 | Battle Vicar | O
 ALTERAC_VALLEY | ONY_023 | Hit It Very Hard |  
 ALTERAC_VALLEY | ONY_024 | Onyxian Drake |  
 ALTERAC_VALLEY | ONY_025 | Shoulder Check |  
-ALTERAC_VALLEY | ONY_026 | Lightmaw Netherdrake |  
-ALTERAC_VALLEY | ONY_027 | Ring of Courage |  
+ALTERAC_VALLEY | ONY_026 | Lightmaw Netherdrake | O
+ALTERAC_VALLEY | ONY_027 | Ring of Courage | O
 ALTERAC_VALLEY | ONY_028 | Mi'da, Pure Light |  
 ALTERAC_VALLEY | ONY_029 | Drakefire Amulet |  
 ALTERAC_VALLEY | ONY_030 | SI:7 Smuggler |  
@@ -1240,4 +1240,4 @@ ALTERAC_VALLEY | ONY_034 | Curse of Agony |
 ALTERAC_VALLEY | ONY_035 | Spawn of Deathwing |  
 ALTERAC_VALLEY | ONY_036 | Razorglaive Sentinel |  
 
-- Progress: 32% (56 of 170 Cards)
+- Progress: 35% (61 of 170 Cards)
