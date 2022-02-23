@@ -390,6 +390,17 @@ auto DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::HOLY_SPELL:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL &&
+                    card->GetSpellSchool() == SpellSchool::HOLY)
+                {
+                    cardsForGeneration.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::SPELL_THREE_COST_OR_LESS:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
