@@ -1047,6 +1047,51 @@ TEST_CASE("[Mage : Minion] - ONY_007 : Haleh, Matron Protectorate")
     CHECK_EQ(totalHealth, 32);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [ONY_022] Battle Vicar - COST:2 [ATK:1/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a Holy spell.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - ONY_022 : Battle Vicar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Battle Vicar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetSpellSchool(), SpellSchool::HOLY);
+    }
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [AV_201] Coldtooth Yeti - COST:3 [ATK:1/HP:5]
 // - Set: ALTERAC_VALLEY, Rarity: Common

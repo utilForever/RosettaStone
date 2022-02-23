@@ -1310,6 +1310,8 @@ void AlteracValleyCardsGen::AddMageNonCollect(
 
 void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [AV_213] Vitality Surge - COST:2
     // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -1434,6 +1436,10 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::HOLY_SPELL));
+    cards.emplace("ONY_022", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [ONY_027] Ring of Courage - COST:2
