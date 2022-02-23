@@ -1223,6 +1223,73 @@ TEST_CASE("[Paladin : Spell] - ONY_027 : Ring of Courage")
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [ONY_017] Horn of Wrathion - COST:3
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw a minion. If it's a Dragon,
+//       summon two 2/1 Whelps with <b>Rush</b>.
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - ONY_017 : Horn of Wrathion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Acidic Swamp Ooze");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Horn of Wrathion"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Horn of Wrathion"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Acidic Swamp Ooze");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->card->name, "Onyxian Whelp");
+    CHECK_EQ(opField[0]->GetAttack(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->HasRush(), true);
+    CHECK_EQ(opField[1]->card->name, "Onyxian Whelp");
+    CHECK_EQ(opField[1]->GetAttack(), 2);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->HasRush(), true);
+    CHECK_EQ(opHand.GetCount(), 7);
+}
+
 // ---------------------------------------- MINION - PRIEST
 // [ONY_026] Lightmaw Netherdrake - COST:4 [ATK:4/HP:4]
 // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Rare

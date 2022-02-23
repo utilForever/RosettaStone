@@ -1692,6 +1692,15 @@ void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("ONY_001t", 2,
+                                                     SummonSide::SPELL) }));
+    cards.emplace("ONY_017", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ONY_026] Lightmaw Netherdrake - COST:4 [ATK:4/HP:4]
