@@ -1047,6 +1047,317 @@ TEST_CASE("[Mage : Minion] - ONY_007 : Haleh, Matron Protectorate")
     CHECK_EQ(totalHealth, 32);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [ONY_020] Stormwind Avenger - COST:3 [ATK:1/HP:5]
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: After you cast a spell on this minion,
+//       it gains +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - ONY_020 : Stormwind Avenger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stormwind Avenger"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blessing of Kings"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blessing of Kings"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+}
+
+// --------------------------------------- MINION - PALADIN
+// [ONY_022] Battle Vicar - COST:2 [ATK:1/HP:3]
+// - Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a Holy spell.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - ONY_022 : Battle Vicar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Battle Vicar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->GetSpellSchool(), SpellSchool::HOLY);
+    }
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [ONY_027] Ring of Courage - COST:2
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Tradeable</b>
+//       Give a minion +1/+1. Repeat for each enemy minion.
+// --------------------------------------------------------
+// GameTag:
+// - TRADEABLE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - ONY_027 : Ring of Courage")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ring of Courage"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ring of Courage"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [ONY_017] Horn of Wrathion - COST:3
+// - Set: ALTERAC_VALLEY, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw a minion. If it's a Dragon,
+//       summon two 2/1 Whelps with <b>Rush</b>.
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - ONY_017 : Horn of Wrathion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Acidic Swamp Ooze");
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Horn of Wrathion"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Horn of Wrathion"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Acidic Swamp Ooze");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->card->name, "Onyxian Whelp");
+    CHECK_EQ(opField[0]->GetAttack(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[0]->HasRush(), true);
+    CHECK_EQ(opField[1]->card->name, "Onyxian Whelp");
+    CHECK_EQ(opField[1]->GetAttack(), 2);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->HasRush(), true);
+    CHECK_EQ(opHand.GetCount(), 7);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [ONY_026] Lightmaw Netherdrake - COST:4 [ATK:4/HP:4]
+// - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Holy and
+//       a Shadow spell, deal 3 damage to all other minions.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - ONY_026 : Lightmaw Netherdrake")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lightmaw Netherdrake"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lightmaw Netherdrake"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desperate Prayer"));
+    [[maybe_unused]] const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [AV_201] Coldtooth Yeti - COST:3 [ATK:1/HP:5]
 // - Set: ALTERAC_VALLEY, Rarity: Common

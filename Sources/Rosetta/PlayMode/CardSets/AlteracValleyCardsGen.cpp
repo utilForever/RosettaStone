@@ -1310,6 +1310,8 @@ void AlteracValleyCardsGen::AddMageNonCollect(
 
 void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- SPELL - PALADIN
     // [AV_213] Vitality Surge - COST:2
     // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -1423,6 +1425,12 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    power.GetTrigger()->triggerSource = TriggerSource::SPELLS_CASTED_ON_THIS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "ONY_020e", EntityType::SOURCE) };
+    cards.emplace("ONY_020", CardDef(power));
 
     // --------------------------------------- MINION - PALADIN
     // [ONY_022] Battle Vicar - COST:2 [ATK:1/HP:3]
@@ -1434,6 +1442,10 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::HOLY_SPELL));
+    cards.emplace("ONY_022", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
     // [ONY_027] Ring of Courage - COST:2
@@ -1445,11 +1457,28 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRADEABLE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ONY_027e", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        TaskList{ std::make_shared<AddEnchantmentTask>("ONY_027e",
+                                                       EntityType::TARGET) }));
+    cards.emplace(
+        "ONY_027",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void AlteracValleyCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - PALADIN
     // [AV_146] The Immovable Object - COST:7
     // - Set: ALTERAC_VALLEY
@@ -1538,6 +1567,9 @@ void AlteracValleyCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ONY_020e"));
+    cards.emplace("ONY_020e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ONY_027e] Heroic - COST:0
@@ -1545,10 +1577,15 @@ void AlteracValleyCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("ONY_027e"));
+    cards.emplace("ONY_027e", CardDef(power));
 }
 
 void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [AV_315] Deliverance - COST:3
     // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -1649,12 +1686,21 @@ void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [ONY_017] Horn of Wrathion - COST:3
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
-    // Text: Draw a minion. If it's
-    //       a Dragon, summon two 2/1 Whelps with <b>Rush</b>.
+    // Text: Draw a minion. If it's a Dragon,
+    //       summon two 2/1 Whelps with <b>Rush</b>.
     // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawMinionTask>(1, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
+                               SelfCondition::IsRace(Race::DRAGON)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<SummonTask>("ONY_001t", 2,
+                                                     SummonSide::SPELL) }));
+    cards.emplace("ONY_017", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ONY_026] Lightmaw Netherdrake - COST:4 [ATK:4/HP:4]
@@ -1666,6 +1712,18 @@ void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{
+            std::make_shared<SelfCondition>(
+                SelfCondition::IsHoldingSpell(SpellSchool::HOLY)),
+            std::make_shared<SelfCondition>(
+                SelfCondition::IsHoldingSpell(SpellSchool::SHADOW)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(
+                  EntityType::ALL_MINIONS_NOSOURCE, 3) }));
+    cards.emplace("ONY_026", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ONY_028] Mi'da, Pure Light - COST:6 [ATK:4/HP:6]

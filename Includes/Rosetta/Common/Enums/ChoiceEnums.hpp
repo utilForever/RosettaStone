@@ -27,6 +27,7 @@ enum class DiscoverType
     SPELLPOWER_MINION,
     DEATHRATTLE_MINION_DIED,
     SPELL,
+    HOLY_SPELL,
     SPELL_THREE_COST_OR_LESS,
     SECRET,
     DEMON,
