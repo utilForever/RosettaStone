@@ -1584,6 +1584,8 @@ void AlteracValleyCardsGen::AddPaladinNonCollect(
 
 void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - PRIEST
     // [AV_315] Deliverance - COST:3
     // - Set: ALTERAC_VALLEY, Rarity: Common
@@ -1684,8 +1686,8 @@ void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [ONY_017] Horn of Wrathion - COST:3
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
-    // Text: Draw a minion. If it's
-    //       a Dragon, summon two 2/1 Whelps with <b>Rush</b>.
+    // Text: Draw a minion. If it's a Dragon,
+    //       summon two 2/1 Whelps with <b>Rush</b>.
     // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
@@ -1701,6 +1703,18 @@ void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{
+            std::make_shared<SelfCondition>(
+                SelfCondition::IsHoldingSpell(SpellSchool::HOLY)),
+            std::make_shared<SelfCondition>(
+                SelfCondition::IsHoldingSpell(SpellSchool::SHADOW)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(
+                  EntityType::ALL_MINIONS_NOSOURCE, 3) }));
+    cards.emplace("ONY_026", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
     // [ONY_028] Mi'da, Pure Light - COST:6 [ATK:4/HP:6]
