@@ -4898,6 +4898,15 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsAttack(3, RelaSign::LEQ)) };
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::EVENT_SOURCE, GameTag::CHARGE, 1) };
+    cards.emplace("VAN_EX1_084", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_391] Slam - COST:2
