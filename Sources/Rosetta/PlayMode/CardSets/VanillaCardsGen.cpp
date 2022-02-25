@@ -4857,9 +4857,15 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
 
     // --------------------------------------- WEAPON - WARRIOR
-    // [VAN_CS2_112] Arcanite Reaper - COST:5
+    // [VAN_CS2_112] Arcanite Reaper - COST:5 [ATK:5/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_112", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_CS2_114] Cleave - COST:2
