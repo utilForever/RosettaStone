@@ -4873,6 +4873,17 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to two random enemy minions.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace(
+        "VAN_CS2_114",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
