@@ -4819,6 +4819,10 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_105e", EntityType::HERO));
+    cards.emplace("VAN_CS2_105", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
     // [VAN_CS2_106] Fiery War Axe - COST:2

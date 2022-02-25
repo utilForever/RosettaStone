@@ -12813,6 +12813,71 @@ TEST_CASE("[Warrior : Spell] - VAN_CS2_104 : Rampage")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
+// [VAN_CS2_105] Heroic Strike - COST:2
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Give your hero +4 Attack this turn.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_CS2_105 : Heroic Strike")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Heroic Strike", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Heroic Strike", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fiery War Axe", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card3));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 7);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 19);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
 // [VAN_EX1_408] Mortal Strike - COST:4
 // - Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
