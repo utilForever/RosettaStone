@@ -12877,6 +12877,18 @@ TEST_CASE("[Warrior : Spell] - VAN_CS2_105 : Heroic Strike")
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 3);
 }
 
+// --------------------------------------- WEAPON - WARRIOR
+// [VAN_CS2_106] Fiery War Axe - COST:2 [ATK:3/HP:0]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - VAN_CS2_106 : Fiery War Axe")
+{
+    // Do nothing
+}
+
 // ---------------------------------------- SPELL - WARRIOR
 // [VAN_EX1_408] Mortal Strike - COST:4
 // - Set: VANILLA, Rarity: Rare

@@ -4825,9 +4825,15 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("VAN_CS2_105", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
-    // [VAN_CS2_106] Fiery War Axe - COST:2
+    // [VAN_CS2_106] Fiery War Axe - COST:2 [ATK:3/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_106", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_CS2_108] Execute - COST:1
