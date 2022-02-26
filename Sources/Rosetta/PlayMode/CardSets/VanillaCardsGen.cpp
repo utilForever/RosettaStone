@@ -4938,6 +4938,17 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a card for each damaged friendly character.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(
+        EntityType::FRIENDS, 0,
+        std::vector<SelfCondition>{ SelfCondition::IsDamaged() }));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace(
+        "VAN_EX1_392",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3]
