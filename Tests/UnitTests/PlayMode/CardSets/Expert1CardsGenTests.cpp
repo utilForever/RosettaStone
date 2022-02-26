@@ -8018,7 +8018,8 @@ TEST_CASE("[Warrior : Spell] - CS2_104 : Rampage")
 // [EX1_391] Slam - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
-// Text: Deal 2 damage to a minion. If it survives, draw a card.
+// Text: Deal 2 damage to a minion.
+//       If it survives, draw a card.
 // --------------------------------------------------------
 // PlayReq:
 // - REQ_TARGET_TO_PLAY = 0

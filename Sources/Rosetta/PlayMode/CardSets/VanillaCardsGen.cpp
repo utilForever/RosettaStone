@@ -4776,9 +4776,22 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a friendly minion +2 Attack and <b>Charge</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_103e2", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_103",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_CS2_104] Rampage - COST:2
@@ -4786,6 +4799,19 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give a damaged minion +3/+3.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_DAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_104e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_104",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_CS2_105] Heroic Strike - COST:2
@@ -4793,11 +4819,21 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_105e", EntityType::HERO));
+    cards.emplace("VAN_CS2_105", CardDef(power));
 
     // --------------------------------------- WEAPON - WARRIOR
-    // [VAN_CS2_106] Fiery War Axe - COST:2
+    // [VAN_CS2_106] Fiery War Axe - COST:2 [ATK:3/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_106", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_CS2_108] Execute - COST:1
@@ -4805,11 +4841,31 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy a damaged enemy minion.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_DAMAGED_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_108",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
 
     // --------------------------------------- WEAPON - WARRIOR
-    // [VAN_CS2_112] Arcanite Reaper - COST:5
+    // [VAN_CS2_112] Arcanite Reaper - COST:5 [ATK:5/HP:0]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_112", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_CS2_114] Cleave - COST:2
@@ -4817,6 +4873,17 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to two random enemy minions.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_ENEMY_MINIONS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace(
+        "VAN_CS2_114",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
@@ -4831,6 +4898,15 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsAttack(3, RelaSign::LEQ)) };
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::EVENT_SOURCE, GameTag::CHARGE, 1) };
+    cards.emplace("VAN_EX1_084", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_391] Slam - COST:2
@@ -4839,6 +4915,22 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 2 damage to a minion.
     //       If it survives, draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNotDead()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DrawTask>(1) }));
+    cards.emplace(
+        "VAN_EX1_391",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_392] Battle Rage - COST:2
@@ -4846,6 +4938,17 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a card for each damaged friendly character.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(
+        EntityType::FRIENDS, 0,
+        std::vector<SelfCondition>{ SelfCondition::IsDamaged() }));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace(
+        "VAN_EX1_392",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3]
@@ -4856,6 +4959,9 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("EX1_398t"));
+    cards.emplace("VAN_EX1_398", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_400] Whirlwind - COST:1
@@ -4914,6 +5020,16 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: If you have a weapon, give it +1/+1.
     //       Otherwise equip a 1/3 weapon.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsWeaponEquipped()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "EX1_409e", EntityType::WEAPON) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<WeaponTask>("EX1_409t") }));
+    cards.emplace("VAN_EX1_409", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_410] Shield Slam - COST:1
