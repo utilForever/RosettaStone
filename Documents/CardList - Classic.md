@@ -63,13 +63,13 @@ VANILLA | VAN_CS2_092 | Blessing of Kings | O
 VANILLA | VAN_CS2_093 | Consecration | O
 VANILLA | VAN_CS2_094 | Hammer of Wrath | O
 VANILLA | VAN_CS2_097 | Truesilver Champion | O
-VANILLA | VAN_CS2_103 | Charge |  
-VANILLA | VAN_CS2_104 | Rampage |  
-VANILLA | VAN_CS2_105 | Heroic Strike |  
-VANILLA | VAN_CS2_106 | Fiery War Axe |  
-VANILLA | VAN_CS2_108 | Execute |  
-VANILLA | VAN_CS2_112 | Arcanite Reaper |  
-VANILLA | VAN_CS2_114 | Cleave |  
+VANILLA | VAN_CS2_103 | Charge | O
+VANILLA | VAN_CS2_104 | Rampage | O
+VANILLA | VAN_CS2_105 | Heroic Strike | O
+VANILLA | VAN_CS2_106 | Fiery War Axe | O
+VANILLA | VAN_CS2_108 | Execute | O
+VANILLA | VAN_CS2_112 | Arcanite Reaper | O
+VANILLA | VAN_CS2_114 | Cleave | O
 VANILLA | VAN_CS2_117 | Earthen Ring Farseer |  
 VANILLA | VAN_CS2_118 | Magma Rager |  
 VANILLA | VAN_CS2_119 | Oasis Snapjaw |  
@@ -169,7 +169,7 @@ VANILLA | VAN_EX1_076 | Pint-Sized Summoner |
 VANILLA | VAN_EX1_080 | Secretkeeper |  
 VANILLA | VAN_EX1_082 | Mad Bomber |  
 VANILLA | VAN_EX1_083 | Tinkmaster Overspark |  
-VANILLA | VAN_EX1_084 | Warsong Commander |  
+VANILLA | VAN_EX1_084 | Warsong Commander | O
 VANILLA | VAN_EX1_085 | Mind Control Tech |  
 VANILLA | VAN_EX1_089 | Arcane Golem |  
 VANILLA | VAN_EX1_091 | Cabal Shadow Priest | O
@@ -272,18 +272,18 @@ VANILLA | VAN_EX1_382 | Aldor Peacekeeper | O
 VANILLA | VAN_EX1_383 | Tirion Fordring | O
 VANILLA | VAN_EX1_384 | Avenging Wrath | O
 VANILLA | VAN_EX1_390 | Tauren Warrior |  
-VANILLA | VAN_EX1_391 | Slam |  
-VANILLA | VAN_EX1_392 | Battle Rage |  
+VANILLA | VAN_EX1_391 | Slam | O
+VANILLA | VAN_EX1_392 | Battle Rage | O
 VANILLA | VAN_EX1_393 | Amani Berserker |  
 VANILLA | VAN_EX1_396 | Mogu'shan Warden |  
-VANILLA | VAN_EX1_398 | Arathi Weaponsmith |  
+VANILLA | VAN_EX1_398 | Arathi Weaponsmith | O
 VANILLA | VAN_EX1_399 | Gurubashi Berserker |  
 VANILLA | VAN_EX1_400 | Whirlwind |  
 VANILLA | VAN_EX1_402 | Armorsmith |  
 VANILLA | VAN_EX1_405 | Shieldbearer |  
 VANILLA | VAN_EX1_407 | Brawl |  
 VANILLA | VAN_EX1_408 | Mortal Strike | O
-VANILLA | VAN_EX1_409 | Upgrade! |  
+VANILLA | VAN_EX1_409 | Upgrade! | O
 VANILLA | VAN_EX1_410 | Shield Slam |  
 VANILLA | VAN_EX1_411 | Gorehowl |  
 VANILLA | VAN_EX1_412 | Raging Worgen |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 53% (204 of 382 Cards)
+- Progress: 56% (216 of 382 Cards)
