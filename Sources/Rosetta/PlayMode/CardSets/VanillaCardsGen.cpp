@@ -4959,6 +4959,9 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<WeaponTask>("EX1_398t"));
+    cards.emplace("VAN_EX1_398", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_400] Whirlwind - COST:1
