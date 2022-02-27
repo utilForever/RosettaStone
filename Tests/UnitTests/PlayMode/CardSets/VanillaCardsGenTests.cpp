@@ -13851,6 +13851,43 @@ TEST_CASE("[Warrior : Minion] - VAN_EX1_604 : Frothing Berserker")
     CHECK_EQ(curField[0]->GetAttack(), 7);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [VAN_EX1_606] Shield Block - COST:3
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Gain 5 Armor.
+//       Draw a card.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_EX1_606 : Shield Block")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetArmor(3);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shield Block", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare

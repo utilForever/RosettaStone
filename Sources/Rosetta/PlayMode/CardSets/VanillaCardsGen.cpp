@@ -5158,8 +5158,13 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_606] Shield Block - COST:3
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Gain 5 Armor. Draw a card.
+    // Text: Gain 5 Armor.
+    //       Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(5));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_606", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_607] Inner Rage - COST:0
