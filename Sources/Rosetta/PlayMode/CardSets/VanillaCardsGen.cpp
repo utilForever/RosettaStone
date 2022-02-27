@@ -5195,6 +5195,9 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_011", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_NEW1_036] Commanding Shout - COST:2

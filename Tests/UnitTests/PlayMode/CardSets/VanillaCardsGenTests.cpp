@@ -13936,6 +13936,20 @@ TEST_CASE("[Warrior : Spell] - VAN_EX1_607 : Inner Rage")
     CHECK_EQ(curField[0]->GetHealth(), 6);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [VAN_NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - VAN_NEW1_011 : Kor'kron Elite")
+{
+    // Do nothing
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
