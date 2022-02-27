@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
@@ -5108,6 +5109,9 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_414e"));
+    cards.emplace("VAN_EX1_414", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
