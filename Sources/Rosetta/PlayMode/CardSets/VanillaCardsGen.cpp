@@ -5076,11 +5076,24 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - WARRIOR
-    // [VAN_EX1_411] Gorehowl - COST:7
+    // [VAN_EX1_411] Gorehowl - COST:7 [ATK:7/HP:0]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
     // Text: Attacking a minion costs 1 Attack instead of 1 Durability.
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::MINION)) };
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_411e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_411", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
