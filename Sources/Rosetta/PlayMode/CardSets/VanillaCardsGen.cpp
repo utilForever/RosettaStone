@@ -5147,6 +5147,12 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_604o", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_604", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_606] Shield Block - COST:3
