@@ -278,16 +278,16 @@ VANILLA | VAN_EX1_393 | Amani Berserker |
 VANILLA | VAN_EX1_396 | Mogu'shan Warden |  
 VANILLA | VAN_EX1_398 | Arathi Weaponsmith | O
 VANILLA | VAN_EX1_399 | Gurubashi Berserker |  
-VANILLA | VAN_EX1_400 | Whirlwind |  
-VANILLA | VAN_EX1_402 | Armorsmith |  
+VANILLA | VAN_EX1_400 | Whirlwind | O
+VANILLA | VAN_EX1_402 | Armorsmith | O
 VANILLA | VAN_EX1_405 | Shieldbearer |  
-VANILLA | VAN_EX1_407 | Brawl |  
+VANILLA | VAN_EX1_407 | Brawl | O
 VANILLA | VAN_EX1_408 | Mortal Strike | O
 VANILLA | VAN_EX1_409 | Upgrade! | O
-VANILLA | VAN_EX1_410 | Shield Slam |  
-VANILLA | VAN_EX1_411 | Gorehowl |  
+VANILLA | VAN_EX1_410 | Shield Slam | O
+VANILLA | VAN_EX1_411 | Gorehowl | O
 VANILLA | VAN_EX1_412 | Raging Worgen |  
-VANILLA | VAN_EX1_414 | Grommash Hellscream |  
+VANILLA | VAN_EX1_414 | Grommash Hellscream | O
 VANILLA | VAN_EX1_506 | Murloc Tidehunter |  
 VANILLA | VAN_EX1_507 | Murloc Warleader |  
 VANILLA | VAN_EX1_508 | Grimscale Oracle |  
@@ -335,10 +335,10 @@ VANILLA | VAN_EX1_594 | Vaporize | O
 VANILLA | VAN_EX1_595 | Cult Master |  
 VANILLA | VAN_EX1_596 | Demonfire | O
 VANILLA | VAN_EX1_597 | Imp Master |  
-VANILLA | VAN_EX1_603 | Cruel Taskmaster |  
-VANILLA | VAN_EX1_604 | Frothing Berserker |  
-VANILLA | VAN_EX1_606 | Shield Block |  
-VANILLA | VAN_EX1_607 | Inner Rage |  
+VANILLA | VAN_EX1_603 | Cruel Taskmaster | O
+VANILLA | VAN_EX1_604 | Frothing Berserker | O
+VANILLA | VAN_EX1_606 | Shield Block | O
+VANILLA | VAN_EX1_607 | Inner Rage | O
 VANILLA | VAN_EX1_608 | Sorcerer's Apprentice | O
 VANILLA | VAN_EX1_609 | Snipe | O
 VANILLA | VAN_EX1_610 | Explosive Trap | O
@@ -362,7 +362,7 @@ VANILLA | VAN_NEW1_005 | Kidnapper | O
 VANILLA | VAN_NEW1_007 | Starfall | O
 VANILLA | VAN_NEW1_008 | Ancient of Lore | O
 VANILLA | VAN_NEW1_010 | Al'Akir the Windlord | O
-VANILLA | VAN_NEW1_011 | Kor'kron Elite |  
+VANILLA | VAN_NEW1_011 | Kor'kron Elite | O
 VANILLA | VAN_NEW1_012 | Mana Wyrm | O
 VANILLA | VAN_NEW1_014 | Master of Disguise | O
 VANILLA | VAN_NEW1_016 | Captain's Parrot |  
@@ -380,7 +380,7 @@ VANILLA | VAN_NEW1_027 | Southsea Captain |
 VANILLA | VAN_NEW1_029 | Millhouse Manastorm |  
 VANILLA | VAN_NEW1_030 | Deathwing |  
 VANILLA | VAN_NEW1_031 | Animal Companion | O
-VANILLA | VAN_NEW1_036 | Commanding Shout |  
+VANILLA | VAN_NEW1_036 | Commanding Shout | O
 VANILLA | VAN_NEW1_037 | Master Swordsmith |  
 VANILLA | VAN_NEW1_038 | Gruul |  
 VANILLA | VAN_NEW1_040 | Hogger |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 56% (216 of 382 Cards)
+- Progress: 59% (228 of 382 Cards)
