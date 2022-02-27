@@ -13547,6 +13547,71 @@ TEST_CASE("[Warrior : Spell] - VAN_EX1_409 : Upgrade!")
     CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [VAN_EX1_410] Shield Slam - COST:1
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 1 damage to a minion for each Armor you have.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_EX1_410 : Shield Slam")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetArmor(3);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shield Slam", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shield Slam", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Ironbark Protector", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetHealth(), 8);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
