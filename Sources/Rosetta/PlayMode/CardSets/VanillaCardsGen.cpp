@@ -5206,6 +5206,11 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Your minions can't be reduced below 1 Health this turn.
     //       Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("NEW1_036e2", EntityType::PLAYER));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_NEW1_036", CardDef(power));
 }
 
 void VanillaCardsGen::AddWarriorNonCollect(
