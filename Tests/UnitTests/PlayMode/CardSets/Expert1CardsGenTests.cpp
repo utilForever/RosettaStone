@@ -8807,9 +8807,9 @@ TEST_CASE("[Warrior : Spell] - NEW1_036 : Commanding Shout")
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Gurubashi Berserker"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_036"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Commanding Shout"));
     const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_036"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Commanding Shout"));
     const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
