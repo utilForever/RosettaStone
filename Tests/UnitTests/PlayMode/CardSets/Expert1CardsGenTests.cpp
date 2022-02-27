@@ -8216,7 +8216,8 @@ TEST_CASE("[Warrior : Minion] - EX1_398 : Arathi Weaponsmith")
 // [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Whenever a friendly minion takes damage, gain 1 Armor.
+// Text: Whenever a friendly minion takes damage,
+//       gain 1 Armor.
 // --------------------------------------------------------
 // GameTag:
 // - TRIGGER_VISUAL = 1

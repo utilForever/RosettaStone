@@ -3872,7 +3872,8 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Whenever a friendly minion takes damage, gain 1 Armor.
+    // Text: Whenever a friendly minion takes damage,
+    //       gain 1 Armor.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
