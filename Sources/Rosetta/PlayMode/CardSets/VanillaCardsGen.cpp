@@ -4785,8 +4785,8 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_103e2", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "VAN_CS2_103e2", EntityType::TARGET));
     cards.emplace(
         "VAN_CS2_103",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -5119,12 +5119,17 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void VanillaCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [VAN_CS2_103e2] Charge - COST:0
     // - Set: VANILLA
     // --------------------------------------------------------
     // Text: +2 Attack and <b>Charge</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_CS2_103e2"));
+    cards.emplace("VAN_CS2_103e2", CardDef(power));
 }
 
 void VanillaCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
