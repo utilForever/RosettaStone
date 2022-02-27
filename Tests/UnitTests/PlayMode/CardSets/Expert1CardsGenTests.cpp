@@ -8669,6 +8669,9 @@ TEST_CASE("[Warrior : Minion] - EX1_603 : Cruel Taskmaster")
 // --------------------------------------------------------
 // Text: Whenever a minion takes damage, gain +1 Attack.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Warrior : Minion] - EX1_604 : Frothing Berserker")
 {
     GameConfig config;
