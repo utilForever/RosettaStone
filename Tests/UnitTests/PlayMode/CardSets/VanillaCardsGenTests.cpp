@@ -13728,6 +13728,62 @@ TEST_CASE("[Warrior : Minion] - VAN_EX1_414 : Grommash Hellscream")
     CHECK_EQ(curField[0]->GetHealth(), 9);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [VAN_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage to a minion
+//       and give it +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - VAN_EX1_603 : Cruel Taskmaster")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Cruel Taskmaster", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Cruel Taskmaster", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare

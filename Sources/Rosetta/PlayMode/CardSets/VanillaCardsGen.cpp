@@ -5117,12 +5117,26 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage to a minion and
-    //       give it +2 Attack.
+    // Text: <b>Battlecry:</b> Deal 1 damage to a minion
+    //       and give it +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_603e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_603",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
