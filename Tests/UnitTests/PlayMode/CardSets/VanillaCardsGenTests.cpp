@@ -13248,6 +13248,197 @@ TEST_CASE("[Warrior : Minion] - VAN_EX1_398 : Arathi Weaponsmith")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
+// [VAN_EX1_400] Whirlwind - COST:1
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Deal 1 damage to all minions.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_EX1_400 : Whirlwind")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Whirlwind", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [VAN_EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever a friendly minion takes damage,
+//       gain 1 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - VAN_EX1_402 : Armorsmith")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Armorsmith", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Amani Berserker", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Frostbolt", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 1);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 2);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [VAN_EX1_407] Brawl - COST:5
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Destroy all minions except one.
+//       <i>(chosen randomly)</i>
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINIMUM_TOTAL_MINIONS = 2
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_EX1_407 : Brawl")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Brawl", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 0);
+    CHECK_EQ(curField.GetCount() + opField.GetCount(), 1);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
 // [VAN_EX1_408] Mortal Strike - COST:4
 // - Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
@@ -13354,6 +13545,490 @@ TEST_CASE("[Warrior : Spell] - VAN_EX1_409 : Upgrade!")
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
     CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [VAN_EX1_410] Shield Slam - COST:1
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Deal 1 damage to a minion for each Armor you have.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_EX1_410 : Shield Slam")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetArmor(3);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shield Slam", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shield Slam", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Bloodmage Thalnos", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Ironbark Protector", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField[0]->GetHealth(), 8);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- WEAPON - WARRIOR
+// [VAN_EX1_411] Gorehowl - COST:7 [ATK:7/HP:0]
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Attacking a minion costs 1 Attack instead of 1 Durability.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - VAN_EX1_411 : Gorehowl")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Gorehowl", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Weapon(card2));
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetAttack(), 7);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(opPlayer, AttackTask(opPlayer->GetHero(), card1));
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetAttack(), 6);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 AttackTask(opPlayer->GetHero(), curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), false);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [VAN_EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Charge</b> <b>Enrage:</b> +6 Attack
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - CHARGE = 1
+// --------------------------------------------------------
+// RefTag:
+// - ENRAGED = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - VAN_EX1_414 : Grommash Hellscream")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Grommash Hellscream", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Circle of Healing", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 10);
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [VAN_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage to a minion
+//       and give it +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - VAN_EX1_603 : Cruel Taskmaster")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Cruel Taskmaster", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Cruel Taskmaster", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [VAN_EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever a minion takes damage, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - VAN_EX1_604 : Frothing Berserker")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Frothing Berserker", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, AttackTask(card4, card2));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+
+    game.Process(opPlayer, AttackTask(card5, card3));
+    CHECK_EQ(curField[0]->GetAttack(), 7);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [VAN_EX1_606] Shield Block - COST:3
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: Gain 5 Armor.
+//       Draw a card.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_EX1_606 : Shield Block")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetArmor(3);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shield Block", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [VAN_EX1_607] Inner Rage - COST:0
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 1 damage to a minion and give it +2 Attack.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_EX1_607 : Inner Rage")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Inner Rage", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [VAN_NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - VAN_NEW1_011 : Kor'kron Elite")
+{
+    // Do nothing
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [VAN_NEW1_036] Commanding Shout - COST:2
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Your minions can't be reduced below 1 Health this turn.
+//       Draw a card.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - VAN_NEW1_036 : Commanding Shout")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Gurubashi Berserker"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Commanding Shout", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Commanding Shout", FormatType::CLASSIC));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 8);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->GetAttack(), 8);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 11);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 11);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK(curField.IsEmpty());
 }
 
 // --------------------------------------- MINION - NEUTRAL

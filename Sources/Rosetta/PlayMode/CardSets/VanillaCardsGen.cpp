@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
+#include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
@@ -4785,8 +4786,8 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("CS2_103e2", EntityType::TARGET));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "VAN_CS2_103e2", EntityType::TARGET));
     cards.emplace(
         "VAN_CS2_103",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
@@ -4969,6 +4970,10 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to all minions.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1, true));
+    cards.emplace("VAN_EX1_400", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
@@ -4980,6 +4985,11 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(1) };
+    cards.emplace("VAN_EX1_402", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_407] Brawl - COST:5
@@ -4988,6 +4998,18 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Destroy all minions except one.
     //       <i>(chosen randomly)</i>
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINIMUM_TOTAL_MINIONS = 2
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ALL_MINIONS, 1));
+    power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::ALL_MINIONS, std::vector<EntityType>{ EntityType::STACK }));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace(
+        "VAN_EX1_407",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_TOTAL_MINIONS, 2 } }));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_408] Mortal Strike - COST:4
@@ -5040,13 +5062,39 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::HERO, GameTag::ARMOR));
+    power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
+    cards.emplace(
+        "VAN_EX1_410",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // --------------------------------------- WEAPON - WARRIOR
-    // [VAN_EX1_411] Gorehowl - COST:7
+    // [VAN_EX1_411] Gorehowl - COST:7 [ATK:7/HP:0]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
     // Text: Attacking a minion costs 1 Attack instead of 1 Durability.
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsProposedDefender(CardType::MINION)) };
+    power.GetTrigger()->fastExecution = true;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_411e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_411", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
@@ -5061,17 +5109,34 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_414e"));
+    cards.emplace("VAN_EX1_414", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage to a minion and
-    //       give it +2 Attack.
+    // Text: <b>Battlecry:</b> Deal 1 damage to a minion
+    //       and give it +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_603e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_603",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
@@ -5082,13 +5147,24 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_604o", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_604", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_606] Shield Block - COST:3
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: Gain 5 Armor. Draw a card.
+    // Text: Gain 5 Armor.
+    //       Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ArmorTask>(5));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_606", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_EX1_607] Inner Rage - COST:0
@@ -5096,6 +5172,19 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion and give it +2 Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_607e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_607",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARRIOR
     // [VAN_NEW1_011] Kor'kron Elite - COST:4 [ATK:4/HP:3]
@@ -5106,6 +5195,9 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_011", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
     // [VAN_NEW1_036] Commanding Shout - COST:2
@@ -5114,17 +5206,27 @@ void VanillaCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Your minions can't be reduced below 1 Health this turn.
     //       Draw a card.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("NEW1_036e2", EntityType::PLAYER));
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_NEW1_036", CardDef(power));
 }
 
 void VanillaCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [VAN_CS2_103e2] Charge - COST:0
     // - Set: VANILLA
     // --------------------------------------------------------
     // Text: +2 Attack and <b>Charge</b>.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_CS2_103e2"));
+    cards.emplace("VAN_CS2_103e2", CardDef(power));
 }
 
 void VanillaCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)

@@ -8216,7 +8216,8 @@ TEST_CASE("[Warrior : Minion] - EX1_398 : Arathi Weaponsmith")
 // [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: Whenever a friendly minion takes damage, gain 1 Armor.
+// Text: Whenever a friendly minion takes damage,
+//       gain 1 Armor.
 // --------------------------------------------------------
 // GameTag:
 // - TRIGGER_VISUAL = 1
@@ -8668,6 +8669,9 @@ TEST_CASE("[Warrior : Minion] - EX1_603 : Cruel Taskmaster")
 // --------------------------------------------------------
 // Text: Whenever a minion takes damage, gain +1 Attack.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Warrior : Minion] - EX1_604 : Frothing Berserker")
 {
     GameConfig config;
@@ -8803,9 +8807,9 @@ TEST_CASE("[Warrior : Spell] - NEW1_036 : Commanding Shout")
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Gurubashi Berserker"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_036"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Commanding Shout"));
     const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_036"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Commanding Shout"));
     const auto card4 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
