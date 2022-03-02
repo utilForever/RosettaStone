@@ -6,8 +6,8 @@
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-VANILLA | VAN_CS1_042 | Goldshire Footman |  
-VANILLA | VAN_CS1_069 | Fen Creeper |  
+VANILLA | VAN_CS1_042 | Goldshire Footman | O
+VANILLA | VAN_CS1_069 | Fen Creeper | O
 VANILLA | VAN_CS1_112 | Holy Nova | O
 VANILLA | VAN_CS1_113 | Mind Control | O
 VANILLA | VAN_CS1_129 | Inner Fire | O
@@ -70,16 +70,16 @@ VANILLA | VAN_CS2_106 | Fiery War Axe | O
 VANILLA | VAN_CS2_108 | Execute | O
 VANILLA | VAN_CS2_112 | Arcanite Reaper | O
 VANILLA | VAN_CS2_114 | Cleave | O
-VANILLA | VAN_CS2_117 | Earthen Ring Farseer |  
-VANILLA | VAN_CS2_118 | Magma Rager |  
-VANILLA | VAN_CS2_119 | Oasis Snapjaw |  
-VANILLA | VAN_CS2_120 | River Crocolisk |  
-VANILLA | VAN_CS2_121 | Frostwolf Grunt |  
-VANILLA | VAN_CS2_122 | Raid Leader |  
-VANILLA | VAN_CS2_124 | Wolfrider |  
-VANILLA | VAN_CS2_125 | Ironfur Grizzly |  
-VANILLA | VAN_CS2_127 | Silverback Patriarch |  
-VANILLA | VAN_CS2_131 | Stormwind Knight |  
+VANILLA | VAN_CS2_117 | Earthen Ring Farseer | O
+VANILLA | VAN_CS2_118 | Magma Rager | O
+VANILLA | VAN_CS2_119 | Oasis Snapjaw | O
+VANILLA | VAN_CS2_120 | River Crocolisk | O
+VANILLA | VAN_CS2_121 | Frostwolf Grunt | O
+VANILLA | VAN_CS2_122 | Raid Leader | O
+VANILLA | VAN_CS2_124 | Wolfrider | O
+VANILLA | VAN_CS2_125 | Ironfur Grizzly | O
+VANILLA | VAN_CS2_127 | Silverback Patriarch | O
+VANILLA | VAN_CS2_131 | Stormwind Knight | O
 VANILLA | VAN_CS2_141 | Ironforge Rifleman |  
 VANILLA | VAN_CS2_142 | Kobold Geomancer |  
 VANILLA | VAN_CS2_146 | Southsea Deckhand |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 59% (228 of 382 Cards)
+- Progress: 62% (240 of 382 Cards)

@@ -5279,6 +5279,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS1_042", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS1_069] Fen Creeper - COST:5 [ATK:3/HP:6]
@@ -5289,6 +5292,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS1_069", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
@@ -5299,21 +5305,38 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
+    cards.emplace(
+        "VAN_CS2_117",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_118", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_119] Oasis Snapjaw - COST:4 [ATK:2/HP:7]
     // - Race: Beast, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_119", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
     // - Race: Beast, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_120", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_121] Frostwolf Grunt - COST:2 [ATK:2/HP:2]
@@ -5324,6 +5347,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_121", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_122] Raid Leader - COST:3 [ATK:2/HP:2]
@@ -5334,6 +5360,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
+    cards.emplace("VAN_CS2_122", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
@@ -5344,6 +5374,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_124", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_125] Ironfur Grizzly - COST:3 [ATK:3/HP:3]
@@ -5354,6 +5387,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_125", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_127] Silverback Patriarch - COST:3 [ATK:1/HP:4]
@@ -5364,6 +5400,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_127", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_131] Stormwind Knight - COST:4 [ATK:2/HP:5]
@@ -5374,6 +5413,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_131", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2]
