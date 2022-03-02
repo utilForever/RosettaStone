@@ -5279,6 +5279,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS1_042", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS1_069] Fen Creeper - COST:5 [ATK:3/HP:6]
