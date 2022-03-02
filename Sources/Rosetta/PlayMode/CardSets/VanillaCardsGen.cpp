@@ -5400,6 +5400,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_127", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_131] Stormwind Knight - COST:4 [ATK:2/HP:5]

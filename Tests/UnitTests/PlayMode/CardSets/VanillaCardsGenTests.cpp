@@ -14246,6 +14246,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_125 : Ironfur Grizzly")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_127] Silverback Patriarch - COST:3 [ATK:1/HP:4]
+// - Race: Beast, Faction: Horde, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_127 : Silverback Patriarch")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
