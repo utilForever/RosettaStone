@@ -5387,6 +5387,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_125", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_127] Silverback Patriarch - COST:3 [ATK:1/HP:4]
