@@ -5318,6 +5318,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_118", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_119] Oasis Snapjaw - COST:4 [ATK:2/HP:7]

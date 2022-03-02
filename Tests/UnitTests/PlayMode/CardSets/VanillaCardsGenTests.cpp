@@ -14123,6 +14123,15 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_117 : Earthen Ring Farseer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_118] Magma Rager - COST:3 [ATK:5/HP:1]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_118 : Magma Rager")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
