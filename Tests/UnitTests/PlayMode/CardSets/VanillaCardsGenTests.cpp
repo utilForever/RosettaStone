@@ -14150,6 +14150,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_120 : River Crocolisk")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_121] Frostwolf Grunt - COST:2 [ATK:2/HP:2]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_121 : Frostwolf Grunt")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------

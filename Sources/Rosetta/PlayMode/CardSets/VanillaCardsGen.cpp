@@ -5347,6 +5347,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_121", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_122] Raid Leader - COST:3 [ATK:2/HP:2]
