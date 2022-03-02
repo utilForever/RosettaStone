@@ -14132,6 +14132,15 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_118 : Magma Rager")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_119] Oasis Snapjaw - COST:4 [ATK:2/HP:7]
+// - Race: Beast, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_119 : Oasis Snapjaw")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------

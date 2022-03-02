@@ -5326,6 +5326,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_119] Oasis Snapjaw - COST:4 [ATK:2/HP:7]
     // - Race: Beast, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_119", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
