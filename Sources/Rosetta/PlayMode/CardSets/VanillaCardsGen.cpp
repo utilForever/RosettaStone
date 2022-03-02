@@ -5360,6 +5360,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "CS2_122e"));
+    cards.emplace("VAN_CS2_122", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
