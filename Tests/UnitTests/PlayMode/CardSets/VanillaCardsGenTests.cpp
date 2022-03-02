@@ -14218,6 +14218,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_122 : Raid Leader")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
+// - Faction: Horde, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_124 : Wolfrider")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
