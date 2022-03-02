@@ -5413,6 +5413,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_131", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2]
