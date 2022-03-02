@@ -14046,6 +14046,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS1_042 : Goldshire Footman")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS1_069] Fen Creeper - COST:5 [ATK:3/HP:6]
+// - Faction: Alliance, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS1_069 : Fen Creeper")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------

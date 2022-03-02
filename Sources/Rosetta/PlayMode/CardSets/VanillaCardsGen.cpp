@@ -5292,6 +5292,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS1_069", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
