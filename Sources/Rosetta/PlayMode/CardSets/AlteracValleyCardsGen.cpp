@@ -1963,9 +1963,8 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [ONY_030] SI:7 Smuggler - COST:3 [ATK:1/HP:3]
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a random minion
-    //       with Cost equal to the amount of SI:7 cards
-    //       you've played this game.
+    // Text: <b>Battlecry:</b> Summon a random 0-cost minion
+    //       (Upgraded for each SI:7 card you have played this game).
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1

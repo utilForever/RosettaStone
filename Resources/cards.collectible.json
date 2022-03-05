@@ -3253,7 +3253,7 @@
         "name": "Magister Dawngrasp",
         "rarity": "LEGENDARY",
         "set": "ALTERAC_VALLEY",
-        "text": "[x]<b>Battlecry:</b> Recast a\nspell from each spell\nschool you've cast\nthis game.",
+        "text": "[x]<b>Battlecry:</b> Recast a\nspell from each spell\nschool you've cast\n this game.",
         "type": "HERO"
     },
     {
@@ -33293,7 +33293,7 @@
         "rarity": "LEGENDARY",
         "set": "EXPERT1",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
         "type": "MINION"
     },
     {
@@ -55563,7 +55563,7 @@
         "name": "SI:7 Smuggler",
         "rarity": "COMMON",
         "set": "ALTERAC_VALLEY",
-        "text": "[x]<b>Battlecry:</b> Summon a random\nminion with Cost equal to the\namount of SI:7 cards you've\nplayed this game.",
+        "text": "[x]<b>Battlecry:</b> Summon a random\n0-Cost minion. <i>(Upgraded\nfor each other SI:7 card you\n have played this game.)</i>",
         "type": "MINION"
     },
     {
@@ -60390,7 +60390,7 @@
         "name": "SI:7 Informant",
         "rarity": "COMMON",
         "set": "STORMWIND",
-        "text": "<b>Battlecry:</b> Gain +1/+1 for each SI:7 card you've played this game.",
+        "text": "<b>Battlecry:</b> Gain +1/+1 for each other SI:7 card you've played this game.",
         "type": "MINION"
     },
     {
@@ -71878,7 +71878,7 @@
         "rarity": "LEGENDARY",
         "set": "VANILLA",
         "targetingArrowText": "Transform a minion into a 5/5 or a 1/1 at random.",
-        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\nor a 1/1 Squirrel.",
+        "text": "[x]<b>Battlecry:</b> Transform\nanother random minion\ninto a 5/5 Devilsaur\n or a 1/1 Squirrel.",
         "type": "MINION"
     },
     {

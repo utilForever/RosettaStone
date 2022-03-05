@@ -1758,8 +1758,8 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [SW_411] SI:7 Informant - COST:4 [ATK:3/HP:3]
     // - Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1/+1 for each SI:7 card
-    //       you've played this game.
+    // Text: <b>Battlecry:</b> Gain +1/+1 for each other
+    //       SI:7 card you've played this game.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
