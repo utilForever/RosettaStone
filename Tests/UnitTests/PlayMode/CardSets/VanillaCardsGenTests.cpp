@@ -14274,6 +14274,62 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_131 : Stormwind Knight")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2]
+// - Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_141 : Ironforge Rifleman")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ironforge Rifleman", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Acidic Swamp Ooze", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
