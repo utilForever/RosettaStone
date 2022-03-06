@@ -5521,6 +5521,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_155", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_161] Ravenholdt Assassin - COST:7 [ATK:7/HP:5]

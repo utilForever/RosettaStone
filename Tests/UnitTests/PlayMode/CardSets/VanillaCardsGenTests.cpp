@@ -14545,6 +14545,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_151 : Silver Hand Knight")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_155] Archmage - COST:6 [ATK:4/HP:7]
+// - Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_155 : Archmage")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
