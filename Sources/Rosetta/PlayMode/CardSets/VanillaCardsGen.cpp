@@ -5568,6 +5568,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_169", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_171] Stonetusk Boar - COST:1 [ATK:1/HP:1]

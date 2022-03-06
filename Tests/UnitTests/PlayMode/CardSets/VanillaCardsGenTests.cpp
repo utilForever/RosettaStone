@@ -14596,6 +14596,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_168 : Murloc Raider")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_169] Young Dragonhawk - COST:1 [ATK:1/HP:1]
+// - Race: Beast, Faction: Horde, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_169 : Young Dragonhawk")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
