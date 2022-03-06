@@ -80,18 +80,18 @@ VANILLA | VAN_CS2_124 | Wolfrider | O
 VANILLA | VAN_CS2_125 | Ironfur Grizzly | O
 VANILLA | VAN_CS2_127 | Silverback Patriarch | O
 VANILLA | VAN_CS2_131 | Stormwind Knight | O
-VANILLA | VAN_CS2_141 | Ironforge Rifleman |  
-VANILLA | VAN_CS2_142 | Kobold Geomancer |  
-VANILLA | VAN_CS2_146 | Southsea Deckhand |  
-VANILLA | VAN_CS2_147 | Gnomish Inventor |  
-VANILLA | VAN_CS2_150 | Stormpike Commando |  
-VANILLA | VAN_CS2_151 | Silver Hand Knight |  
-VANILLA | VAN_CS2_155 | Archmage |  
-VANILLA | VAN_CS2_161 | Ravenholdt Assassin |  
-VANILLA | VAN_CS2_162 | Lord of the Arena |  
-VANILLA | VAN_CS2_168 | Murloc Raider |  
-VANILLA | VAN_CS2_169 | Young Dragonhawk |  
-VANILLA | VAN_CS2_171 | Stonetusk Boar |  
+VANILLA | VAN_CS2_141 | Ironforge Rifleman | O
+VANILLA | VAN_CS2_142 | Kobold Geomancer | O
+VANILLA | VAN_CS2_146 | Southsea Deckhand | O
+VANILLA | VAN_CS2_147 | Gnomish Inventor | O
+VANILLA | VAN_CS2_150 | Stormpike Commando | O
+VANILLA | VAN_CS2_151 | Silver Hand Knight | O
+VANILLA | VAN_CS2_155 | Archmage | O
+VANILLA | VAN_CS2_161 | Ravenholdt Assassin | O
+VANILLA | VAN_CS2_162 | Lord of the Arena | O
+VANILLA | VAN_CS2_168 | Murloc Raider | O
+VANILLA | VAN_CS2_169 | Young Dragonhawk | O
+VANILLA | VAN_CS2_171 | Stonetusk Boar | O
 VANILLA | VAN_CS2_172 | Bloodfen Raptor |  
 VANILLA | VAN_CS2_173 | Bluegill Warrior |  
 VANILLA | VAN_CS2_179 | Sen'jin Shieldmasta |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 62% (240 of 382 Cards)
+- Progress: 65% (252 of 382 Cards)

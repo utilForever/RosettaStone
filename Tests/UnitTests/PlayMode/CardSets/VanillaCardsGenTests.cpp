@@ -14274,6 +14274,356 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_131 : Stormwind Knight")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_141] Ironforge Rifleman - COST:3 [ATK:2/HP:2]
+// - Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_141 : Ironforge Rifleman")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Ironforge Rifleman", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Acidic Swamp Ooze", FormatType::CLASSIC));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
+// - Faction: Horde, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_142 : Kobold Geomancer")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
+// - Race: Pirate, Faction: Alliance, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: Has <b>Charge</b> while you have a weapon equipped.
+// --------------------------------------------------------
+// RefTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_146 : Southsea Deckhand")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Southsea Deckhand", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Shadowstep", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 0);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 1);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(card1->GetZoneType(), ZoneType::HAND);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::CHARGE), 1);
+    CHECK_EQ(curField[0]->IsExhausted(), false);
+    CHECK_EQ(curField[0]->GetNumAttacksThisTurn(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_147] Gnomish Inventor - COST:4 [ATK:2/HP:4]
+// - Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_147 : Gnomish Inventor")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Gnomish Inventor", FormatType::CLASSIC));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_150] Stormpike Commando - COST:5 [ATK:4/HP:2]
+// - Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 2 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_150 : Stormpike Commando")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Stormpike Commando", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Stormpike Commando", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Boulderfist Ogre", FormatType::CLASSIC));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
+// - Faction: Alliance, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 2/2 Squire.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_151 : Silver Hand Knight")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Silver Hand Knight", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_155] Archmage - COST:6 [ATK:4/HP:7]
+// - Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_155 : Archmage")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_161] Ravenholdt Assassin - COST:7 [ATK:7/HP:5]
+// - Faction: Alliance, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_161 : Ravenholdt Assassin")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_162] Lord of the Arena - COST:6 [ATK:6/HP:5]
+// - Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_162 : Lord of the Arena")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
+// - Race: Murloc, Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_168 : Murloc Raider")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_169] Young Dragonhawk - COST:1 [ATK:1/HP:1]
+// - Race: Beast, Faction: Horde, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_169 : Young Dragonhawk")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_171] Stonetusk Boar - COST:1 [ATK:1/HP:1]
+// - Race: Beast, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_171 : Stonetusk Boar")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------

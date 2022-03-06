@@ -5426,6 +5426,16 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    cards.emplace(
+        "VAN_CS2_141",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
@@ -5436,6 +5446,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_142", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
@@ -5446,6 +5459,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        std::make_shared<SelfCondition>(SelfCondition::IsWeaponEquipped()),
+        GameTag::CHARGE));
+    cards.emplace("VAN_CS2_146", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_147] Gnomish Inventor - COST:4 [ATK:2/HP:4]
@@ -5456,6 +5474,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_CS2_147", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_150] Stormpike Commando - COST:5 [ATK:4/HP:2]
@@ -5466,6 +5487,16 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cards.emplace(
+        "VAN_CS2_150",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
@@ -5476,6 +5507,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_CS2_152", SummonSide::RIGHT));
+    cards.emplace("VAN_CS2_151", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_155] Archmage - COST:6 [ATK:4/HP:7]
@@ -5486,6 +5521,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_155", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_161] Ravenholdt Assassin - COST:7 [ATK:7/HP:5]
@@ -5496,6 +5534,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_161", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_162] Lord of the Arena - COST:6 [ATK:6/HP:5]
@@ -5506,11 +5547,17 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
     // - Race: Murloc, Faction: Alliance, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_168", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_169] Young Dragonhawk - COST:1 [ATK:1/HP:1]
@@ -5521,6 +5568,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_169", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_171] Stonetusk Boar - COST:1 [ATK:1/HP:1]
@@ -5531,6 +5581,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_171", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
@@ -6956,6 +7009,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_CS2_152] Squire - COST:1 [ATK:2/HP:2]
     // - Faction: Alliance, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_152", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [VAN_CS2_222o] Might of Stormwind - COST:0
