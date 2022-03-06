@@ -5507,6 +5507,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_CS2_152", SummonSide::RIGHT));
+    cards.emplace("VAN_CS2_151", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_155] Archmage - COST:6 [ATK:4/HP:7]
@@ -6987,6 +6991,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_CS2_152] Squire - COST:1 [ATK:2/HP:2]
     // - Faction: Alliance, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_152", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [VAN_CS2_222o] Might of Stormwind - COST:0
