@@ -5555,6 +5555,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
     // - Race: Murloc, Faction: Alliance, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_168", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_169] Young Dragonhawk - COST:1 [ATK:1/HP:1]

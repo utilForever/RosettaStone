@@ -14587,6 +14587,15 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_162 : Lord of the Arena")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
+// - Race: Murloc, Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_168 : Murloc Raider")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
