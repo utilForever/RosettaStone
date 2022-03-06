@@ -5534,6 +5534,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_161", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_162] Lord of the Arena - COST:6 [ATK:6/HP:5]

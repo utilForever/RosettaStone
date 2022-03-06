@@ -14559,6 +14559,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_155 : Archmage")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_161] Ravenholdt Assassin - COST:7 [ATK:7/HP:5]
+// - Faction: Alliance, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_161 : Ravenholdt Assassin")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
