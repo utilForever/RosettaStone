@@ -14330,6 +14330,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_141 : Ironforge Rifleman")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_142] Kobold Geomancer - COST:2 [ATK:2/HP:2]
+// - Faction: Horde, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_142 : Kobold Geomancer")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
