@@ -5474,6 +5474,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_CS2_147", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_150] Stormpike Commando - COST:5 [ATK:4/HP:2]
