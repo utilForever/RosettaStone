@@ -5459,6 +5459,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        std::make_shared<SelfCondition>(SelfCondition::IsWeaponEquipped()),
+        GameTag::CHARGE));
+    cards.emplace("VAN_CS2_146", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_147] Gnomish Inventor - COST:4 [ATK:2/HP:4]
