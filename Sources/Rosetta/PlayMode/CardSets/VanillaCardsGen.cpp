@@ -5547,6 +5547,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_168] Murloc Raider - COST:1 [ATK:2/HP:1]
