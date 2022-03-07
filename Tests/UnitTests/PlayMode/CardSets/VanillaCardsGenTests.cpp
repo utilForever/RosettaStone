@@ -14624,6 +14624,15 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_171 : Stonetusk Boar")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
+// - Race: Beast, Faction: Horde, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_172 : Bloodfen Raptor")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------

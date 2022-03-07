@@ -5589,6 +5589,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
     // - Race: Beast, Faction: Horde, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_172", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1]
