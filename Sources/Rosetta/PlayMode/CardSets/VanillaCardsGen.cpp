@@ -5742,6 +5742,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
     // - Race: Beast, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_201", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_203] Ironbeak Owl - COST:2 [ATK:2/HP:1]

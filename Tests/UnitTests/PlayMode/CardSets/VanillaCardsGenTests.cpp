@@ -14926,6 +14926,15 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_200 : Boulderfist Ogre")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
+// - Race: Beast, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_201 : Core Hound")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------
