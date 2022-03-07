@@ -5734,6 +5734,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_200", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_201] Core Hound - COST:7 [ATK:9/HP:5]

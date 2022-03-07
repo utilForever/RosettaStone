@@ -14917,6 +14917,15 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_197 : Ogre Magi")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_200 : Boulderfist Ogre")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------
