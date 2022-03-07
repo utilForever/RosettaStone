@@ -14903,6 +14903,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_196 : Razorfen Hunter")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_197 : Ogre Magi")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------

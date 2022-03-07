@@ -5726,6 +5726,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_197", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
