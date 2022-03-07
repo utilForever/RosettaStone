@@ -5645,6 +5645,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_186] War Golem - COST:7 [ATK:7/HP:7]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_186", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4]
