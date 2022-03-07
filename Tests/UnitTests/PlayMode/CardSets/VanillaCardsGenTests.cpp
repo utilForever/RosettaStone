@@ -14633,6 +14633,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_172 : Bloodfen Raptor")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1]
+// - Race: Murloc, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_173 : Bluegill Warrior")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------
