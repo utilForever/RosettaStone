@@ -14647,6 +14647,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_173 : Bluegill Warrior")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
+// - Faction: Horde, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_179 : Sen'jin Shieldmasta")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 // - Faction: Horde, Set: VANILLA, Rarity: Rare
 // --------------------------------------------------------

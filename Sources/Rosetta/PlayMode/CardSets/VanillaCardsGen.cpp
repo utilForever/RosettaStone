@@ -5615,6 +5615,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_179", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
