@@ -14719,6 +14719,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_186 : War Golem")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4]
+// - Faction: Horde, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_187 : Booty Bay Bodyguard")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------

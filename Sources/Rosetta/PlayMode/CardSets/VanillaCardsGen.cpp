@@ -5658,6 +5658,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_187", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_188] Abusive Sergeant - COST:1 [ATK:2/HP:1]
