@@ -5589,6 +5589,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_172] Bloodfen Raptor - COST:2 [ATK:3/HP:2]
     // - Race: Beast, Faction: Horde, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_172", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_173] Bluegill Warrior - COST:2 [ATK:2/HP:1]
@@ -5599,6 +5602,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_173", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_179] Sen'jin Shieldmasta - COST:4 [ATK:3/HP:5]
@@ -5609,6 +5615,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_179", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
@@ -5628,11 +5637,17 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_182", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_186] War Golem - COST:7 [ATK:7/HP:7]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_186", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_187] Booty Bay Bodyguard - COST:5 [ATK:5/HP:4]
@@ -5643,6 +5658,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_187", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_188] Abusive Sergeant - COST:1 [ATK:2/HP:1]
@@ -5653,6 +5671,17 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_188o", EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_188",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_189] Elven Archer - COST:1 [ATK:1/HP:1]
@@ -5663,6 +5692,16 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    cards.emplace(
+        "VAN_CS2_189",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_196] Razorfen Hunter - COST:3 [ATK:2/HP:3]
@@ -5673,6 +5712,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_CS2_boar", SummonSide::RIGHT));
+    cards.emplace("VAN_CS2_196", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
@@ -5683,16 +5726,25 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_197", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_200] Boulderfist Ogre - COST:6 [ATK:6/HP:7]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_200", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_201] Core Hound - COST:7 [ATK:9/HP:5]
     // - Race: Beast, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_201", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_203] Ironbeak Owl - COST:2 [ATK:2/HP:1]
@@ -7024,6 +7076,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_CS2_boar] Boar - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_boar", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_tk1] Sheep - COST:0 [ATK:1/HP:1]

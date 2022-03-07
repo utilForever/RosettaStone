@@ -92,19 +92,19 @@ VANILLA | VAN_CS2_162 | Lord of the Arena | O
 VANILLA | VAN_CS2_168 | Murloc Raider | O
 VANILLA | VAN_CS2_169 | Young Dragonhawk | O
 VANILLA | VAN_CS2_171 | Stonetusk Boar | O
-VANILLA | VAN_CS2_172 | Bloodfen Raptor |  
-VANILLA | VAN_CS2_173 | Bluegill Warrior |  
-VANILLA | VAN_CS2_179 | Sen'jin Shieldmasta |  
+VANILLA | VAN_CS2_172 | Bloodfen Raptor | O
+VANILLA | VAN_CS2_173 | Bluegill Warrior | O
+VANILLA | VAN_CS2_179 | Sen'jin Shieldmasta | O
 VANILLA | VAN_CS2_181 | Injured Blademaster | O
-VANILLA | VAN_CS2_182 | Chillwind Yeti |  
-VANILLA | VAN_CS2_186 | War Golem |  
-VANILLA | VAN_CS2_187 | Booty Bay Bodyguard |  
-VANILLA | VAN_CS2_188 | Abusive Sergeant |  
-VANILLA | VAN_CS2_189 | Elven Archer |  
-VANILLA | VAN_CS2_196 | Razorfen Hunter |  
-VANILLA | VAN_CS2_197 | Ogre Magi |  
-VANILLA | VAN_CS2_200 | Boulderfist Ogre |  
-VANILLA | VAN_CS2_201 | Core Hound |  
+VANILLA | VAN_CS2_182 | Chillwind Yeti | O
+VANILLA | VAN_CS2_186 | War Golem | O
+VANILLA | VAN_CS2_187 | Booty Bay Bodyguard | O
+VANILLA | VAN_CS2_188 | Abusive Sergeant | O
+VANILLA | VAN_CS2_189 | Elven Archer | O
+VANILLA | VAN_CS2_196 | Razorfen Hunter | O
+VANILLA | VAN_CS2_197 | Ogre Magi | O
+VANILLA | VAN_CS2_200 | Boulderfist Ogre | O
+VANILLA | VAN_CS2_201 | Core Hound | O
 VANILLA | VAN_CS2_203 | Ironbeak Owl |  
 VANILLA | VAN_CS2_213 | Reckless Rocketeer |  
 VANILLA | VAN_CS2_221 | Spiteful Smith |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 65% (252 of 382 Cards)
+- Progress: 69% (264 of 382 Cards)
