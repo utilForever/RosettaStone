@@ -5712,6 +5712,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_CS2_boar", SummonSide::RIGHT));
+    cards.emplace("VAN_CS2_196", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_197] Ogre Magi - COST:4 [ATK:4/HP:4]
@@ -7063,6 +7067,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_CS2_boar] Boar - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_boar", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_tk1] Sheep - COST:0 [ATK:1/HP:1]
