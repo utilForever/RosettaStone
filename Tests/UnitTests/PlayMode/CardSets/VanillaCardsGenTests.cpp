@@ -14701,6 +14701,15 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_181 : Injured Blademaster")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_182 : Chillwind Yeti")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------

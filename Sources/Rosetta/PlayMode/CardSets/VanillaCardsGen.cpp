@@ -5637,6 +5637,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
     // - Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_182", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_186] War Golem - COST:7 [ATK:7/HP:7]
