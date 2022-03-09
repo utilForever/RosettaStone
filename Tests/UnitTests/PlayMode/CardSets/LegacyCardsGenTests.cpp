@@ -6782,8 +6782,8 @@ TEST_CASE("[Neutral : Minion] - CS2_222 : Stormwind Champion")
 // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
 // - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the
-// battlefield.
+// Text: <b>Battlecry:</b> Gain +1/+1 for each
+//       other friendly minion on the battlefield.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
