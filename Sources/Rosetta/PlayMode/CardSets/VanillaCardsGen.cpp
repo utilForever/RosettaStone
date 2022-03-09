@@ -5933,12 +5933,24 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_005] Big Game Hunter - COST:3 [ATK:4/HP:2]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy a minion with 7
-    //       or more Attack.
+    // Text: <b>Battlecry:</b> Destroy a minion
+    //       with 7 or more Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_MIN_ATTACK = 7
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_005",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_MIN_ATTACK, 7 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_006] Alarm-o-Bot - COST:3 [ATK:0/HP:3]
