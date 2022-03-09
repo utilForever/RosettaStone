@@ -5804,6 +5804,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "VAN_CS2_222o"));
+    cards.emplace("VAN_CS2_222", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
@@ -7087,6 +7091,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_CS2_222o"));
+    cards.emplace("VAN_CS2_222o", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_boar] Boar - COST:1 [ATK:1/HP:1]
