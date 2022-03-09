@@ -5755,9 +5755,19 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_CS2_203",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_213] Reckless Rocketeer - COST:6 [ATK:5/HP:2]
@@ -5768,6 +5778,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_213", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_221] Spiteful Smith - COST:5 [ATK:4/HP:6]
@@ -5778,6 +5791,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::WEAPON, "CS2_221e"));
+    cards.emplace("VAN_CS2_221", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_222] Stormwind Champion - COST:7 [ATK:6/HP:6]
@@ -5788,17 +5804,27 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "VAN_CS2_222o"));
+    cards.emplace("VAN_CS2_222", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
     // - Faction: Horde, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly
-    //       minion on the battlefield.
+    // Text: <b>Battlecry:</b> Gain +1/+1 for each
+    //       other friendly minion on the battlefield.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "CS2_226e", EntityType::SOURCE, true));
+    cards.emplace("VAN_CS2_226", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6]
@@ -5809,11 +5835,23 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::AddCost(3) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion());
+    }
+    cards.emplace("VAN_CS2_227", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_231] Wisp - COST:0 [ATK:1/HP:1]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_231", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
@@ -5825,6 +5863,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
+    cards.emplace("VAN_DS1_055", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_001] Lightwarden - COST:1 [ATK:1/HP:2]
@@ -5835,6 +5876,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_001e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_001", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_002] The Black Knight - COST:6 [ATK:4/HP:5]
@@ -5847,31 +5893,64 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_MUST_TARGET_TAUNTER = 0
+    // - REQ_ENEMY_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_002",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_MUST_TARGET_TAUNTER, 0 },
+                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
     // - Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: At the end of your turn, give another random
-    //       friendly minion +1 Health.
+    // Text: At the end of your turn,
+    //       give another random friendly minion +1 Health.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("EX1_004e", EntityType::STACK)
+    };
+    cards.emplace("VAN_EX1_004", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_005] Big Game Hunter - COST:3 [ATK:4/HP:2]
     // - Set: VANILLA, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy a minion with 7
-    //       or more Attack.
+    // Text: <b>Battlecry:</b> Destroy a minion
+    //       with 7 or more Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_TARGET_MIN_ATTACK = 7
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_005",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_TARGET_MIN_ATTACK, 7 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_006] Alarm-o-Bot - COST:3 [ATK:0/HP:3]
@@ -7071,6 +7150,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_CS2_222o"));
+    cards.emplace("VAN_CS2_222o", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_boar] Boar - COST:1 [ATK:1/HP:1]

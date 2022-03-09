@@ -3209,8 +3209,8 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
     // - Faction: Horde, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the
-    // battlefield.
+    // Text: <b>Battlecry:</b> Gain +1/+1 for each
+    //       other friendly minion on the battlefield.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3226,7 +3226,8 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+    // Text: <b>Battlecry:</b> Restore 2 Health to
+    //       all friendly characters.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1

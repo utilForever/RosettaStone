@@ -6782,8 +6782,8 @@ TEST_CASE("[Neutral : Minion] - CS2_222 : Stormwind Champion")
 // [CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
 // - Faction: Horde, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly minion on the
-// battlefield.
+// Text: <b>Battlecry:</b> Gain +1/+1 for each
+//       other friendly minion on the battlefield.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -6840,7 +6840,8 @@ TEST_CASE("[Neutral : Minion] - CS2_226 : Frostwolf Warlord")
 // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+// Text: <b>Battlecry:</b> Restore 2 Health to
+//       all friendly characters.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1

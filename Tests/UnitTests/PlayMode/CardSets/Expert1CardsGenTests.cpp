@@ -9369,7 +9369,8 @@ TEST_CASE("[Neutral : Minion] - EX1_001 : Lightwarden")
 // [EX1_002] The Black Knight - COST:6 [ATK:4/HP:5]
 // - Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Destroy an enemy minion with <b>Taunt</b>.
+// Text: <b>Battlecry:</b> Destroy an enemy minion
+//       with <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
