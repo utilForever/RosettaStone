@@ -105,20 +105,20 @@ VANILLA | VAN_CS2_196 | Razorfen Hunter | O
 VANILLA | VAN_CS2_197 | Ogre Magi | O
 VANILLA | VAN_CS2_200 | Boulderfist Ogre | O
 VANILLA | VAN_CS2_201 | Core Hound | O
-VANILLA | VAN_CS2_203 | Ironbeak Owl |  
-VANILLA | VAN_CS2_213 | Reckless Rocketeer |  
-VANILLA | VAN_CS2_221 | Spiteful Smith |  
-VANILLA | VAN_CS2_222 | Stormwind Champion |  
-VANILLA | VAN_CS2_226 | Frostwolf Warlord |  
-VANILLA | VAN_CS2_227 | Venture Co. Mercenary |  
-VANILLA | VAN_CS2_231 | Wisp |  
+VANILLA | VAN_CS2_203 | Ironbeak Owl | O
+VANILLA | VAN_CS2_213 | Reckless Rocketeer | O
+VANILLA | VAN_CS2_221 | Spiteful Smith | O
+VANILLA | VAN_CS2_222 | Stormwind Champion | O
+VANILLA | VAN_CS2_226 | Frostwolf Warlord | O
+VANILLA | VAN_CS2_227 | Venture Co. Mercenary | O
+VANILLA | VAN_CS2_231 | Wisp | O
 VANILLA | VAN_CS2_232 | Ironbark Protector | O
 VANILLA | VAN_CS2_233 | Blade Flurry | O
 VANILLA | VAN_CS2_234 | Shadow Word: Pain | O
 VANILLA | VAN_CS2_235 | Northshire Cleric | O
 VANILLA | VAN_CS2_236 | Divine Spirit | O
 VANILLA | VAN_CS2_237 | Starving Buzzard | O
-VANILLA | VAN_DS1_055 | Darkscale Healer |  
+VANILLA | VAN_DS1_055 | Darkscale Healer | O
 VANILLA | VAN_DS1_070 | Houndmaster | O
 VANILLA | VAN_DS1_175 | Timber Wolf | O
 VANILLA | VAN_DS1_178 | Tundra Rhino | O
@@ -127,10 +127,10 @@ VANILLA | VAN_DS1_184 | Tracking | O
 VANILLA | VAN_DS1_185 | Arcane Shot | O
 VANILLA | VAN_DS1_188 | Gladiator's Longbow | O
 VANILLA | VAN_DS1_233 | Mind Blast | O
-VANILLA | VAN_EX1_001 | Lightwarden |  
-VANILLA | VAN_EX1_002 | The Black Knight |  
-VANILLA | VAN_EX1_004 | Young Priestess |  
-VANILLA | VAN_EX1_005 | Big Game Hunter |  
+VANILLA | VAN_EX1_001 | Lightwarden | O
+VANILLA | VAN_EX1_002 | The Black Knight | O
+VANILLA | VAN_EX1_004 | Young Priestess | O
+VANILLA | VAN_EX1_005 | Big Game Hunter | O
 VANILLA | VAN_EX1_006 | Alarm-o-Bot |  
 VANILLA | VAN_EX1_007 | Acolyte of Pain |  
 VANILLA | VAN_EX1_008 | Argent Squire |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 69% (264 of 382 Cards)
+- Progress: 72% (276 of 382 Cards)
