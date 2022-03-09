@@ -5849,6 +5849,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_231] Wisp - COST:0 [ATK:1/HP:1]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_231", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]

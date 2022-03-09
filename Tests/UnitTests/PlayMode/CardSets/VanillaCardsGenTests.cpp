@@ -15249,6 +15249,15 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_227 : Venture Co. Mercenary")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_231] Wisp - COST:0 [ATK:1/HP:1]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_231 : Wisp")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------
