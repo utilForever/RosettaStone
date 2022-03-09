@@ -5863,6 +5863,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::FRIENDS, 2));
+    cards.emplace("VAN_DS1_055", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_001] Lightwarden - COST:1 [ATK:1/HP:2]
