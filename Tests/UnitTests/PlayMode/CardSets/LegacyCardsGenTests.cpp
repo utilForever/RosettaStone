@@ -6840,7 +6840,8 @@ TEST_CASE("[Neutral : Minion] - CS2_226 : Frostwolf Warlord")
 // [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5]
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+// Text: <b>Battlecry:</b> Restore 2 Health to
+//       all friendly characters.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
