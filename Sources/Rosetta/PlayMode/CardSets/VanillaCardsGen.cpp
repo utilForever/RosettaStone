@@ -5876,6 +5876,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_001e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_001", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_002] The Black Knight - COST:6 [ATK:4/HP:5]
