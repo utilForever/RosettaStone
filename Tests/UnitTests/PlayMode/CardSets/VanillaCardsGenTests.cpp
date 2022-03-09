@@ -15003,6 +15003,20 @@ TEST_CASE("[Neutral : Minion] - VAN_CS2_203 : Ironbeak Owl")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_CS2_213] Reckless Rocketeer - COST:6 [ATK:5/HP:2]
+// - Faction: Horde, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_CS2_213 : Reckless Rocketeer")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------

@@ -5778,6 +5778,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_CS2_213", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_221] Spiteful Smith - COST:5 [ATK:4/HP:6]
