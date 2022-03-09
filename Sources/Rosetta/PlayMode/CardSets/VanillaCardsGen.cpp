@@ -5835,6 +5835,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::AddCost(3) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion());
+    }
+    cards.emplace("VAN_CS2_227", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_231] Wisp - COST:0 [ATK:1/HP:1]
