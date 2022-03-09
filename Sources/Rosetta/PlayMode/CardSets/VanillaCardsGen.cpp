@@ -5813,12 +5813,18 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_CS2_226] Frostwolf Warlord - COST:5 [ATK:4/HP:4]
     // - Faction: Horde, Set: VANILLA, Rarity: Free
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1/+1 for each other friendly
-    //       minion on the battlefield.
+    // Text: <b>Battlecry:</b> Gain +1/+1 for each
+    //       other friendly minion on the battlefield.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "CS2_226e", EntityType::SOURCE, true));
+    cards.emplace("VAN_CS2_226", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6]
