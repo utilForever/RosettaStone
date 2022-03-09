@@ -5791,6 +5791,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::WEAPON, "CS2_221e"));
+    cards.emplace("VAN_CS2_221", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_CS2_222] Stormwind Champion - COST:7 [ATK:6/HP:6]
