@@ -6174,6 +6174,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_021", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_023] Silvermoon Guardian - COST:4 [ATK:3/HP:3]

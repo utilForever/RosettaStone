@@ -16126,3 +16126,17 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_020 : Scarlet Crusader")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_021] Thrallmar Farseer - COST:3 [ATK:2/HP:3]
+// - Faction: Horde, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_021 : Thrallmar Farseer")
+{
+    // Do nothing
+}
