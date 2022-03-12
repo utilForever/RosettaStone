@@ -15740,6 +15740,20 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_009 : Angry Chicken")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
+// - Faction: Alliance, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_010 : Worgen Infiltrator")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------
