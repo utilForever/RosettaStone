@@ -4540,8 +4540,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Mechanical, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: At the start of your turn,
-    //       swap this minion with a
-    //       random one in your hand.
+    //       swap this minion with a random one in your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
@@ -4567,6 +4569,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Whenever this minion takes damage, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
@@ -4649,7 +4654,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
     // - Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Take control of a random enemy minion.
+    // Text: <b>Deathrattle:</b>
+    //       Take control of a random enemy minion.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

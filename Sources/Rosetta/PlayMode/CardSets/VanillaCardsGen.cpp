@@ -12,6 +12,7 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -5962,6 +5963,24 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasMinionInHand())
+    };
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::ZONE_POSITION),
+        std::make_shared<MoveToSetasideTask>(EntityType::SOURCE),
+        std::make_shared<IncludeTask>(EntityType::HAND),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<RemoveHandTask>(EntityType::STACK),
+        std::make_shared<SummonTask>(SummonSide::NUMBER),
+        std::make_shared<ReturnHandTask>(EntityType::SOURCE)
+    };
+    cards.emplace("VAN_EX1_006", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
@@ -5972,6 +5991,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("VAN_EX1_007", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
@@ -5982,6 +6006,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_008", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_009] Angry Chicken - COST:1 [ATK:1/HP:1]
@@ -5992,6 +6019,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_009e")));
+    cards.emplace("VAN_EX1_009", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
@@ -6002,6 +6033,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_010", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
@@ -6047,6 +6081,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "EX1_014t", 2));
+    cards.emplace("VAN_EX1_014", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_015] Novice Engineer - COST:2 [ATK:1/HP:1]
@@ -6057,18 +6095,26 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_015", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
     // - Set: VANILLA, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Take control of a random
-    //       enemy minion.
+    // Text: <b>Deathrattle:</b>
+    //       Take control of a random enemy minion.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddDeathrattleTask(std::make_shared<ControlTask>(EntityType::STACK));
+    cards.emplace("VAN_EX1_016", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
@@ -6079,6 +6125,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_017", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]
@@ -6089,6 +6138,19 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_019e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_019",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_020] Scarlet Crusader - COST:3 [ATK:3/HP:1]
@@ -6099,6 +6161,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_020", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_021] Thrallmar Farseer - COST:3 [ATK:2/HP:3]
@@ -6109,6 +6174,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_021", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_023] Silvermoon Guardian - COST:4 [ATK:3/HP:3]

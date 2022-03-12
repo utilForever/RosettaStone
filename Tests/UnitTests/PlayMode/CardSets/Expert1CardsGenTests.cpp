@@ -9562,8 +9562,10 @@ TEST_CASE("[Neutral : Minion] - EX1_005 : Big Game Hunter")
 // - Race: Mechanical, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: At the start of your turn,
-//       swap this minion with a
-//       random one in your hand.
+//       swap this minion with a random one in your hand.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_006 : Alarm-o-Bot")
 {
@@ -9618,6 +9620,9 @@ TEST_CASE("[Neutral : Minion] - EX1_006 : Alarm-o-Bot")
 // - Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Whenever this minion takes damage, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_007 : Acolyte of Pain")
 {
@@ -9867,7 +9872,8 @@ TEST_CASE("[Neutral : Minion] - EX1_014 : King Mukla")
 // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
 // - Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Take control of a random enemy minion.
+// Text: <b>Deathrattle:</b>
+//       Take control of a random enemy minion.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1

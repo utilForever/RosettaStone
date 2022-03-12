@@ -131,20 +131,20 @@ VANILLA | VAN_EX1_001 | Lightwarden | O
 VANILLA | VAN_EX1_002 | The Black Knight | O
 VANILLA | VAN_EX1_004 | Young Priestess | O
 VANILLA | VAN_EX1_005 | Big Game Hunter | O
-VANILLA | VAN_EX1_006 | Alarm-o-Bot |  
-VANILLA | VAN_EX1_007 | Acolyte of Pain |  
-VANILLA | VAN_EX1_008 | Argent Squire |  
-VANILLA | VAN_EX1_009 | Angry Chicken |  
-VANILLA | VAN_EX1_010 | Worgen Infiltrator |  
+VANILLA | VAN_EX1_006 | Alarm-o-Bot | O
+VANILLA | VAN_EX1_007 | Acolyte of Pain | O
+VANILLA | VAN_EX1_008 | Argent Squire | O
+VANILLA | VAN_EX1_009 | Angry Chicken | O
+VANILLA | VAN_EX1_010 | Worgen Infiltrator | O
 VANILLA | VAN_EX1_011 | Voodoo Doctor | O
 VANILLA | VAN_EX1_012 | Bloodmage Thalnos | O
-VANILLA | VAN_EX1_014 | King Mukla |  
-VANILLA | VAN_EX1_015 | Novice Engineer |  
-VANILLA | VAN_EX1_016 | Sylvanas Windrunner |  
-VANILLA | VAN_EX1_017 | Jungle Panther |  
-VANILLA | VAN_EX1_019 | Shattered Sun Cleric |  
-VANILLA | VAN_EX1_020 | Scarlet Crusader |  
-VANILLA | VAN_EX1_021 | Thrallmar Farseer |  
+VANILLA | VAN_EX1_014 | King Mukla | O
+VANILLA | VAN_EX1_015 | Novice Engineer | O
+VANILLA | VAN_EX1_016 | Sylvanas Windrunner | O
+VANILLA | VAN_EX1_017 | Jungle Panther | O
+VANILLA | VAN_EX1_019 | Shattered Sun Cleric | O
+VANILLA | VAN_EX1_020 | Scarlet Crusader | O
+VANILLA | VAN_EX1_021 | Thrallmar Farseer | O
 VANILLA | VAN_EX1_023 | Silvermoon Guardian |  
 VANILLA | VAN_EX1_025 | Dragonling Mechanic |  
 VANILLA | VAN_EX1_028 | Stranglethorn Tiger |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 72% (276 of 382 Cards)
+- Progress: 75% (288 of 382 Cards)
