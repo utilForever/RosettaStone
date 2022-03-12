@@ -6095,6 +6095,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_015", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
