@@ -12,6 +12,7 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
@@ -6018,6 +6019,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_009e")));
+    cards.emplace("VAN_EX1_009", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
