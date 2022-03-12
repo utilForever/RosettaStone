@@ -9621,6 +9621,9 @@ TEST_CASE("[Neutral : Minion] - EX1_006 : Alarm-o-Bot")
 // --------------------------------------------------------
 // Text: Whenever this minion takes damage, draw a card.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_007 : Acolyte of Pain")
 {
     GameConfig config;
