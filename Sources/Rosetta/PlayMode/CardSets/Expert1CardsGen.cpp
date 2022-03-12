@@ -4654,7 +4654,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
     // - Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Take control of a random enemy minion.
+    // Text: <b>Deathrattle:</b>
+    //       Take control of a random enemy minion.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
