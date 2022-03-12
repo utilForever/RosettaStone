@@ -4540,8 +4540,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Mechanical, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: At the start of your turn,
-    //       swap this minion with a
-    //       random one in your hand.
+    //       swap this minion with a random one in your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));

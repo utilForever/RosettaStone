@@ -9562,8 +9562,10 @@ TEST_CASE("[Neutral : Minion] - EX1_005 : Big Game Hunter")
 // - Race: Mechanical, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: At the start of your turn,
-//       swap this minion with a
-//       random one in your hand.
+//       swap this minion with a random one in your hand.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_006 : Alarm-o-Bot")
 {
