@@ -6103,13 +6103,18 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
     // - Set: VANILLA, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Take control of a random
-    //       enemy minion.
+    // Text: <b>Deathrattle:</b>
+    //       Take control of a random enemy minion.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddDeathrattleTask(std::make_shared<ControlTask>(EntityType::STACK));
+    cards.emplace("VAN_EX1_016", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
