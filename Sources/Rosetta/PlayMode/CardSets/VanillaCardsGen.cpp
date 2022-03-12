@@ -6161,6 +6161,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_020", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_021] Thrallmar Farseer - COST:3 [ATK:2/HP:3]

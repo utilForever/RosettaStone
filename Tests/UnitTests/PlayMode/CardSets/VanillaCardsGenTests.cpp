@@ -16112,3 +16112,17 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_019 : Shattered Sun Cleric")
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_020] Scarlet Crusader - COST:3 [ATK:3/HP:1]
+// - Faction: Alliance, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_020 : Scarlet Crusader")
+{
+    // Do nothing
+}
