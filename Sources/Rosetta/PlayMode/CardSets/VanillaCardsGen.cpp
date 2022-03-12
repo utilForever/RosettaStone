@@ -5962,6 +5962,24 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::HasMinionInHand())
+    };
+    power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::ZONE_POSITION),
+        std::make_shared<MoveToSetasideTask>(EntityType::SOURCE),
+        std::make_shared<IncludeTask>(EntityType::HAND),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<RemoveHandTask>(EntityType::STACK),
+        std::make_shared<SummonTask>(SummonSide::NUMBER),
+        std::make_shared<ReturnHandTask>(EntityType::SOURCE)
+    };
+    cards.emplace("VAN_EX1_006", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
