@@ -6125,6 +6125,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_017", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]

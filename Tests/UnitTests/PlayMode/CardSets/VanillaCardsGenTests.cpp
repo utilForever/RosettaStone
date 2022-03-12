@@ -16047,6 +16047,20 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_016 : Sylvanas Windrunner")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
+// - Race: Beast, Faction: Horde, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_017 : Jungle Panther")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]
 // - Set: VANILLA, Rarity: Free
 // --------------------------------------------------------
