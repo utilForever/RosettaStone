@@ -15675,6 +15675,20 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_007 : Acolyte of Pain")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
+// - Faction: Alliance, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_008 : Argent Squire")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1]
 // - Faction: Horde, Set: VANILLA, Rarity: Free
 // --------------------------------------------------------

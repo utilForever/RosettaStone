@@ -6005,6 +6005,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_008", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_009] Angry Chicken - COST:1 [ATK:1/HP:1]
