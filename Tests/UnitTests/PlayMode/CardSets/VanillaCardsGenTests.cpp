@@ -15878,6 +15878,63 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_012 : Bloodmage Thalnos")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_014] King Mukla - COST:3 [ATK:5/HP:5]
+// - Race: Beast, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give your opponent 2 Bananas.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_014 : King Mukla")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("King Mukla", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opHand.GetCount(), 4);
+    CHECK_EQ(opHand[2]->card->name, "Bananas");
+    CHECK_EQ(opHand[3]->card->name, "Bananas");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetAttack(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card2));
+    game.Process(opPlayer, PlayCardTask::SpellTarget(opHand[1], card2));
+    CHECK_EQ(opField[0]->GetAttack(), 5);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [VAN_EX1_019] Shattered Sun Cleric - COST:3 [ATK:3/HP:2]
 // - Set: VANILLA, Rarity: Free
 // --------------------------------------------------------

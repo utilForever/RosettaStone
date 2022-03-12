@@ -6078,6 +6078,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "EX1_014t", 2));
+    cards.emplace("VAN_EX1_014", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_015] Novice Engineer - COST:2 [ATK:1/HP:1]
