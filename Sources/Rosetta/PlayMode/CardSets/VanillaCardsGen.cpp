@@ -6243,6 +6243,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_032", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_033] Windfury Harpy - COST:6 [ATK:4/HP:5]

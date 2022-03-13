@@ -16255,3 +16255,19 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_029 : Leper Gnome")
     game.Process(opPlayer, AttackTask(card2, card1));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_032] Sunwalker - COST:6 [ATK:4/HP:5]
+// - Faction: Alliance, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_032 : Sunwalker")
+{
+    // Do nothing
+}
