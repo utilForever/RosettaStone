@@ -16383,3 +16383,17 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_044 : Questing Adventurer")
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 4);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5]
+// - Faction: Alliance, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Can't attack.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_045 : Ancient Watcher")
+{
+    // Do nothing
+}

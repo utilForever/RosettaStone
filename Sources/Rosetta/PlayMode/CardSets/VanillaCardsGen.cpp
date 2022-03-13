@@ -6301,6 +6301,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_045", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
