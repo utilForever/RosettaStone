@@ -6187,6 +6187,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_023", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]

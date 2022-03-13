@@ -16140,3 +16140,17 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_021 : Thrallmar Farseer")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_023] Silvermoon Guardian - COST:4 [ATK:3/HP:3]
+// - Faction: Horde, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_023 : Silvermoon Guardian")
+{
+    // Do nothing
+}
