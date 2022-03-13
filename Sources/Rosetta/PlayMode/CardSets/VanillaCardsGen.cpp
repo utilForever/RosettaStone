@@ -6227,6 +6227,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, false));
+    cards.emplace("VAN_EX1_029", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_032] Sunwalker - COST:6 [ATK:4/HP:5]
