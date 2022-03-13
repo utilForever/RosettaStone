@@ -16271,3 +16271,17 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_032 : Sunwalker")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_033] Windfury Harpy - COST:6 [ATK:4/HP:5]
+// - Faction: Alliance, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Windfury</b>
+// --------------------------------------------------------
+// GameTag:
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_033 : Windfury Harpy")
+{
+    // Do nothing
+}
