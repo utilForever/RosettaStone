@@ -16328,3 +16328,58 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_043 : Twilight Drake")
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_044] Questing Adventurer - COST:3 [ATK:2/HP:2]
+// - Faction: Alliance, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you play a card, gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_044 : Questing Adventurer")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Questing Adventurer", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+}

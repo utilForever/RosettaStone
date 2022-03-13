@@ -6285,6 +6285,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_044e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_044", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5]
