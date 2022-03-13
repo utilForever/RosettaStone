@@ -6200,6 +6200,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("EX1_025t", SummonSide::RIGHT));
+    cards.emplace("VAN_EX1_025", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]

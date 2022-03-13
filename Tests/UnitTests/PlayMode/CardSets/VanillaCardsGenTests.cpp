@@ -16154,3 +16154,45 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_023 : Silvermoon Guardian")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]
+// - Faction: Alliance, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 2/1 Mechanical Dragonling.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_025 : Dragonling Mechanic")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Dragonling Mechanic", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+}
