@@ -6214,6 +6214,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_028", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_029] Leper Gnome - COST:1 [ATK:2/HP:1]

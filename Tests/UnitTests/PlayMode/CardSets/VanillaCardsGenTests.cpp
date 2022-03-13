@@ -16196,3 +16196,17 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_025 : Dragonling Mechanic")
     CHECK_EQ(curField[1]->GetAttack(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
+// - Race: Beast, Faction: Alliance, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_028 : Stranglethorn Tiger")
+{
+    // Do nothing
+}
