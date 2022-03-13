@@ -6264,12 +6264,17 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
     // - Race: Dragon, Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1 Health for each card
-    //       in your hand.
+    // Text: <b>Battlecry:</b> Gain +1 Health
+    //       for each card in your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_043e", EntityType::SOURCE, true));
+    cards.emplace("VAN_EX1_043", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_044] Questing Adventurer - COST:3 [ATK:2/HP:2]
