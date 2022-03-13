@@ -10073,7 +10073,8 @@ TEST_CASE("[Neutral : Minion] - EX1_033 : Windfury Harpy")
 // [EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
 // - Faction: Alliance, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Gain +1 Health for each card in your hand.
+// Text: <b>Battlecry:</b> Gain +1 Health
+//       for each card in your hand.
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_043 : Twilight Drake")
 {

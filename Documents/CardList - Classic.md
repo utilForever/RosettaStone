@@ -145,18 +145,18 @@ VANILLA | VAN_EX1_017 | Jungle Panther | O
 VANILLA | VAN_EX1_019 | Shattered Sun Cleric | O
 VANILLA | VAN_EX1_020 | Scarlet Crusader | O
 VANILLA | VAN_EX1_021 | Thrallmar Farseer | O
-VANILLA | VAN_EX1_023 | Silvermoon Guardian |  
-VANILLA | VAN_EX1_025 | Dragonling Mechanic |  
-VANILLA | VAN_EX1_028 | Stranglethorn Tiger |  
-VANILLA | VAN_EX1_029 | Leper Gnome |  
-VANILLA | VAN_EX1_032 | Sunwalker |  
-VANILLA | VAN_EX1_033 | Windfury Harpy |  
-VANILLA | VAN_EX1_043 | Twilight Drake |  
-VANILLA | VAN_EX1_044 | Questing Adventurer |  
-VANILLA | VAN_EX1_045 | Ancient Watcher |  
-VANILLA | VAN_EX1_046 | Dark Iron Dwarf |  
-VANILLA | VAN_EX1_048 | Spellbreaker |  
-VANILLA | VAN_EX1_049 | Youthful Brewmaster |  
+VANILLA | VAN_EX1_023 | Silvermoon Guardian | O
+VANILLA | VAN_EX1_025 | Dragonling Mechanic | O
+VANILLA | VAN_EX1_028 | Stranglethorn Tiger | O
+VANILLA | VAN_EX1_029 | Leper Gnome | O
+VANILLA | VAN_EX1_032 | Sunwalker | O
+VANILLA | VAN_EX1_033 | Windfury Harpy | O
+VANILLA | VAN_EX1_043 | Twilight Drake | O
+VANILLA | VAN_EX1_044 | Questing Adventurer | O
+VANILLA | VAN_EX1_045 | Ancient Watcher | O
+VANILLA | VAN_EX1_046 | Dark Iron Dwarf | O
+VANILLA | VAN_EX1_048 | Spellbreaker | O
+VANILLA | VAN_EX1_049 | Youthful Brewmaster | O
 VANILLA | VAN_EX1_050 | Coldlight Oracle |  
 VANILLA | VAN_EX1_055 | Mana Addict |  
 VANILLA | VAN_EX1_057 | Ancient Brewmaster |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 75% (288 of 382 Cards)
+- Progress: 78% (300 of 382 Cards)

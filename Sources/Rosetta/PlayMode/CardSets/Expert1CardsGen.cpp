@@ -4778,7 +4778,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
     // - Faction: Alliance, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1 Health for each card in your hand.
+    // Text: <b>Battlecry:</b> Gain +1 Health
+    //       for each card in your hand.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND));

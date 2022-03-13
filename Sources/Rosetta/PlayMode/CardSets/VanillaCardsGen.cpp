@@ -6187,6 +6187,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_023", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_025] Dragonling Mechanic - COST:4 [ATK:2/HP:4]
@@ -6197,6 +6200,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("EX1_025t", SummonSide::RIGHT));
+    cards.emplace("VAN_EX1_025", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
@@ -6207,6 +6214,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_028", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_029] Leper Gnome - COST:1 [ATK:2/HP:1]
@@ -6217,6 +6227,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, false));
+    cards.emplace("VAN_EX1_029", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_032] Sunwalker - COST:6 [ATK:4/HP:5]
@@ -6229,6 +6243,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_032", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_033] Windfury Harpy - COST:6 [ATK:4/HP:5]
@@ -6239,17 +6256,25 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_033", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
     // - Race: Dragon, Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1 Health for each card
-    //       in your hand.
+    // Text: <b>Battlecry:</b> Gain +1 Health
+    //       for each card in your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_043e", EntityType::SOURCE, true));
+    cards.emplace("VAN_EX1_043", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_044] Questing Adventurer - COST:3 [ATK:2/HP:2]
@@ -6260,6 +6285,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_044e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_044", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5]
@@ -6270,6 +6301,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_045", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
@@ -6280,6 +6314,17 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_046e", EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_046",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
@@ -6290,9 +6335,21 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_048",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
@@ -6304,6 +6361,20 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_049",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
