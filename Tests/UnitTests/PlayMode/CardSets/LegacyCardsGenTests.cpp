@@ -7085,7 +7085,8 @@ TEST_CASE("[Neutral : Minion] - EX1_025 : Dragonling Mechanic")
 // [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4]
 // - Race: Murloc, Faction: Neutral. Set: Legacy, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Charge</b>. Has +1 Attack for each other Murloc on the battlefield.
+// Text: <b>Charge</b>. Has +1 Attack for each other Murloc
+//       on the battlefield.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1

@@ -10403,6 +10403,9 @@ TEST_CASE("[Neutral : Minion] - EX1_050 : Coldlight Oracle")
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, gain +2 Attack this turn.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_055 : Mana Addict")
 {
     GameConfig config;
@@ -10691,6 +10694,9 @@ TEST_CASE("[Neutral : Minion] - EX1_076 : Pint-Sized Summoner")
 // --------------------------------------------------------
 // Text: Whenever a <b>Secret</b> is played, gain +1/+1.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 // RefTag:
 // - SECRET = 1
 // --------------------------------------------------------
@@ -10793,7 +10799,7 @@ TEST_CASE("[Neutral : Minion] - EX1_082 : Mad Bomber")
 // [EX1_083] Tinkmaster Overspark - COST:3 [ATK:3/HP:3]
 // - Faction: Alliance, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: [x]<b>Battlecry:</b> Transform another random minion
+// Text: <b>Battlecry:</b> Transform another random minion
 //       into a 5/5 Devilsaur or a 1/1 Squirrel.
 // --------------------------------------------------------
 // GameTag:

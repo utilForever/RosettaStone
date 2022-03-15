@@ -4904,6 +4904,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you cast a spell, gain +2 Attack this turn.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
@@ -5019,6 +5022,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever a <b>Secret</b> is played, gain +1/+1.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
@@ -5052,7 +5058,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_083] Tinkmaster Overspark - COST:3 [ATK:3/HP:3]
     // - Faction: Alliance, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: [x]<b>Battlecry:</b> Transform another random minion
+    // Text: <b>Battlecry:</b> Transform another random minion
     //       into a 5/5 Devilsaur or a 1/1 Squirrel.
     // --------------------------------------------------------
     // GameTag:
