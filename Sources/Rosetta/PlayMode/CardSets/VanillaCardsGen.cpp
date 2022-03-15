@@ -7,6 +7,7 @@
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
 #include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
+#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
@@ -6554,6 +6555,16 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<SwitchingAura>(
+        AuraType::HAND, SelfCondition::MinionsPlayedThisTurn(0),
+        TriggerType::PLAY_MINION, EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion());
+    }
+    cards.emplace("VAN_EX1_076", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_080] Secretkeeper - COST:1 [ATK:1/HP:2]
