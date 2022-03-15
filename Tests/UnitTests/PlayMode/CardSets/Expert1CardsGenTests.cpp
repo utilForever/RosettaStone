@@ -10403,6 +10403,9 @@ TEST_CASE("[Neutral : Minion] - EX1_050 : Coldlight Oracle")
 // --------------------------------------------------------
 // Text: Whenever you cast a spell, gain +2 Attack this turn.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_055 : Mana Addict")
 {
     GameConfig config;
