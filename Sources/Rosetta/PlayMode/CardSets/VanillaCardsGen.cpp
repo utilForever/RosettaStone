@@ -6615,6 +6615,17 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
+    power.AddPowerTask(std::make_shared<ChanceTask>(true));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<TransformTask>(EntityType::STACK,
+                                                        "VAN_EX1_tk28") }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<TransformTask>(EntityType::STACK,
+                                                         "VAN_EX1_tk29") }));
+    cards.emplace("VAN_EX1_083", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3]
@@ -7469,11 +7480,17 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_EX1_tk28] Squirrel - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_tk28", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_tk29] Devilsaur - COST:5 [ATK:5/HP:5]
     // - Race: Beast, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_tk29", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_026t] Violet Apprentice - COST:0 [ATK:1/HP:1]
