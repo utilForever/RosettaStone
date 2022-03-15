@@ -6578,6 +6578,14 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsSecret())
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_080o", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_080", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2]

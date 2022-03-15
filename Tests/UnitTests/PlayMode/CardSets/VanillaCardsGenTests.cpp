@@ -17046,3 +17046,52 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_076 : Pint-Sized Summoner")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(card3->GetCost(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_080] Secretkeeper - COST:1 [ATK:1/HP:2]
+// - Faction: Alliance, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever a <b>Secret</b> is played, gain +1/+1.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_080 : Secretkeeper")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Secretkeeper", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Counterspell", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
