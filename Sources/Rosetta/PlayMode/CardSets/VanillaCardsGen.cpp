@@ -6399,6 +6399,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_055o", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_055", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_057] Ancient Brewmaster - COST:4 [ATK:5/HP:4]
