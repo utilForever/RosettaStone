@@ -16748,3 +16748,73 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_057 : Ancient Brewmaster")
                  PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_058] Sunfury Protector - COST:2 [ATK:2/HP:3]
+// - Faction: Alliance, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give adjacent minions <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_058 : Sunfury Protector")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Sunfury Protector", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Sunfury Protector", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[1]->GetGameTag(GameTag::TAUNT), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[2]->GetGameTag(GameTag::TAUNT), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField[3]->GetGameTag(GameTag::TAUNT), 0);
+
+    game.Process(curPlayer, PlayCardTask(card2, nullptr, 3));
+    CHECK_EQ(curField[2]->GetGameTag(GameTag::TAUNT), 1);
+    CHECK_EQ(curField[3]->GetGameTag(GameTag::TAUNT), 0);
+    CHECK_EQ(curField[4]->GetGameTag(GameTag::TAUNT), 1);
+}

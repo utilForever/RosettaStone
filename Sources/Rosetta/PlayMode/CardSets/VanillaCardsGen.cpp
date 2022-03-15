@@ -6443,6 +6443,14 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
+                                RelaCondition::IsSideBySide()) }));
+    power.AddPowerTask(
+        std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 1));
+    cards.emplace("VAN_EX1_058", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2]
