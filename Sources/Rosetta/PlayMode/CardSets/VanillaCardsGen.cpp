@@ -6484,6 +6484,38 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [](Playable* playable) {
+            int addAttackAmount = 0;
+            const auto& myMinions = playable->player->GetFieldZone()->GetAll();
+            const auto& opMinions =
+                playable->player->opponent->GetFieldZone()->GetAll();
+
+            for (const auto& minion : myMinions)
+            {
+                if (playable->GetZonePosition() == minion->GetZonePosition())
+                {
+                    continue;
+                }
+
+                if (minion->IsRace(Race::MURLOC))
+                {
+                    ++addAttackAmount;
+                }
+            }
+
+            for (const auto& minion : opMinions)
+            {
+                if (minion->IsRace(Race::MURLOC))
+                {
+                    ++addAttackAmount;
+                }
+            }
+
+            return addAttackAmount;
+        }));
+    cards.emplace("VAN_EX1_062", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_066] Acidic Swamp Ooze - COST:2 [ATK:3/HP:2]
