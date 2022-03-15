@@ -6526,6 +6526,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    cards.emplace("VAN_EX1_066", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
