@@ -6597,6 +6597,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomTask>(EntityType::ALL_NOSOURCE, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        3, false));
+    cards.emplace("VAN_EX1_082", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_083] Tinkmaster Overspark - COST:3 [ATK:3/HP:3]
