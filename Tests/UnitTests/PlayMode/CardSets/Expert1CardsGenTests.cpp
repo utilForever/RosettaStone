@@ -10799,7 +10799,7 @@ TEST_CASE("[Neutral : Minion] - EX1_082 : Mad Bomber")
 // [EX1_083] Tinkmaster Overspark - COST:3 [ATK:3/HP:3]
 // - Faction: Alliance, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: [x]<b>Battlecry:</b> Transform another random minion
+// Text: <b>Battlecry:</b> Transform another random minion
 //       into a 5/5 Devilsaur or a 1/1 Squirrel.
 // --------------------------------------------------------
 // GameTag:
