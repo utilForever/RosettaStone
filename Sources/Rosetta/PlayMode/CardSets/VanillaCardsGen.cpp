@@ -6385,6 +6385,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(2));
+    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
+    cards.emplace("VAN_EX1_050", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
