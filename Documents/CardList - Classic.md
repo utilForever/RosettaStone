@@ -157,18 +157,18 @@ VANILLA | VAN_EX1_045 | Ancient Watcher | O
 VANILLA | VAN_EX1_046 | Dark Iron Dwarf | O
 VANILLA | VAN_EX1_048 | Spellbreaker | O
 VANILLA | VAN_EX1_049 | Youthful Brewmaster | O
-VANILLA | VAN_EX1_050 | Coldlight Oracle |  
-VANILLA | VAN_EX1_055 | Mana Addict |  
-VANILLA | VAN_EX1_057 | Ancient Brewmaster |  
-VANILLA | VAN_EX1_058 | Sunfury Protector |  
-VANILLA | VAN_EX1_059 | Crazed Alchemist |  
-VANILLA | VAN_EX1_062 | Old Murk-Eye |  
-VANILLA | VAN_EX1_066 | Acidic Swamp Ooze |  
-VANILLA | VAN_EX1_067 | Argent Commander |  
-VANILLA | VAN_EX1_076 | Pint-Sized Summoner |  
-VANILLA | VAN_EX1_080 | Secretkeeper |  
-VANILLA | VAN_EX1_082 | Mad Bomber |  
-VANILLA | VAN_EX1_083 | Tinkmaster Overspark |  
+VANILLA | VAN_EX1_050 | Coldlight Oracle | O
+VANILLA | VAN_EX1_055 | Mana Addict | O
+VANILLA | VAN_EX1_057 | Ancient Brewmaster | O
+VANILLA | VAN_EX1_058 | Sunfury Protector | O
+VANILLA | VAN_EX1_059 | Crazed Alchemist | O
+VANILLA | VAN_EX1_062 | Old Murk-Eye | O
+VANILLA | VAN_EX1_066 | Acidic Swamp Ooze | O
+VANILLA | VAN_EX1_067 | Argent Commander | O
+VANILLA | VAN_EX1_076 | Pint-Sized Summoner | O
+VANILLA | VAN_EX1_080 | Secretkeeper | O
+VANILLA | VAN_EX1_082 | Mad Bomber | O
+VANILLA | VAN_EX1_083 | Tinkmaster Overspark | O
 VANILLA | VAN_EX1_084 | Warsong Commander | O
 VANILLA | VAN_EX1_085 | Mind Control Tech |  
 VANILLA | VAN_EX1_089 | Arcane Golem |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 78% (300 of 382 Cards)
+- Progress: 81% (312 of 382 Cards)
