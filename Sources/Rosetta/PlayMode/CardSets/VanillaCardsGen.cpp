@@ -6541,6 +6541,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_067", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_076] Pint-Sized Summoner - COST:2 [ATK:2/HP:2]

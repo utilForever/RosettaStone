@@ -16975,3 +16975,19 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_066 : Acidic Swamp Ooze")
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Charge</b>
+//       <b>Divine Shield</b>
+// --------------------------------------------------------
+// GameTag:
+// - CHARGE = 1
+// - DIVINE_SHIELD = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_067 : Argent Commander")
+{
+    // Do nothing
+}
