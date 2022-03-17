@@ -6803,6 +6803,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each other card in your hand.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetHandZone()->GetCount() - 1;
+    }));
+    cards.emplace("VAN_EX1_105", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]

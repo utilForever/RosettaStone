@@ -17813,3 +17813,74 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_103 : Coldlight Seer")
     CHECK_EQ(curField[3]->GetHealth(), 3);
     CHECK_EQ(opField[0]->GetHealth(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Costs (1) less for each other card in your hand.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_105 : Mountain Giant")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Mountain Giant", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Mountain Giant", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Mountain Giant", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Mountain Giant", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Sap", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Assassinate", FormatType::CLASSIC));
+
+    CHECK_EQ(card1->GetCost(), 9);
+    CHECK_EQ(card2->GetCost(), 9);
+    CHECK_EQ(card3->GetCost(), 9);
+    CHECK_EQ(card4->GetCost(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 10);
+    CHECK_EQ(card3->GetCost(), 10);
+    CHECK_EQ(card4->GetCost(), 10);
+
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card3->GetCost(), 11);
+    CHECK_EQ(card4->GetCost(), 11);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    CHECK_EQ(card1->GetCost(), 10);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card6, card2));
+    CHECK_EQ(card2->GetCost(), 12);
+}
