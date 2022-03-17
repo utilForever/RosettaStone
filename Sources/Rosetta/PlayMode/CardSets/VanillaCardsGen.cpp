@@ -6631,12 +6631,28 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3]
     // - Faction: Alliance, Set: VANILLA, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> If your opponent has 4 or more
-    //       minions, take control of one at random.
+    // Text: <b>Battlecry:</b> If your opponent has 4 or
+    //       more minions, take control of one at random.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            return playables.size() > 3 ? playables : std::vector<Playable*>{};
+        }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldFull()) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::STACK) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<ControlTask>(EntityType::STACK) }));
+    cards.emplace("VAN_EX1_085", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_089] Arcane Golem - COST:3 [ATK:4/HP:2]
