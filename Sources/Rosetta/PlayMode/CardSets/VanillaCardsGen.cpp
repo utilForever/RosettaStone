@@ -6730,6 +6730,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DamageTask>(EntityType::ALL, 2));
+    cards.emplace("VAN_EX1_097", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_100] Lorewalker Cho - COST:2 [ATK:0/HP:4]
