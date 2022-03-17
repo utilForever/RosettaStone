@@ -6745,6 +6745,20 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::TARGET, RelaCondList{ std::make_shared<RelaCondition>(
+                                    RelaCondition::IsFriendly()) }),
+        std::make_shared<FlagTask>(
+            true, TaskList{ std::make_shared<CopyTask>(
+                      EntityType::TARGET, ZoneType::HAND, 1, false, true) }),
+        std::make_shared<FlagTask>(
+            false, TaskList{ std::make_shared<CopyTask>(EntityType::TARGET,
+                                                        ZoneType::HAND) })
+    };
+    cards.emplace("VAN_EX1_100", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
