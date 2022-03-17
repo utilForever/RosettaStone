@@ -11240,8 +11240,8 @@ TEST_CASE("[Neutral : Minion] - EX1_097 : Abomination")
 // [EX1_100] Lorewalker Cho - COST:2 [ATK:0/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: Whenever a player casts a spell, put a copy
-//       into the other player's hand.
+// Text: Whenever a player casts a spell,
+//       put a copy into the other player's hand.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
