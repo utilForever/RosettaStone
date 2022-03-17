@@ -11157,8 +11157,8 @@ TEST_CASE("[Neutral : Minion] - EX1_096 : Loot Hoarder")
 // [EX1_097] Abomination - COST:5 [ATK:4/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 2
-//       damage to all characters.
+// Text: <b>Taunt</b>.
+//       <b>Deathrattle:</b> Deal 2 damage to all characters.
 // --------------------------------------------------------
 // GameTag:
 // - TAUNT = 1
@@ -11240,8 +11240,8 @@ TEST_CASE("[Neutral : Minion] - EX1_097 : Abomination")
 // [EX1_100] Lorewalker Cho - COST:2 [ATK:0/HP:4]
 // - Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: Whenever a player casts a spell, put a copy
-//       into the other player's hand.
+// Text: Whenever a player casts a spell,
+//       put a copy into the other player's hand.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -11298,7 +11298,11 @@ TEST_CASE("[Neutral : Minion] - EX1_100 : Lorewalker Cho")
 // [EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
 // - Race: Mechanical, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: At the start of your turn, deal 2 damage to a random enemy.
+// Text: At the start of your turn,
+//       deal 2 damage to a random enemy.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_102 : Demolisher")
 {
