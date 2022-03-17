@@ -5173,8 +5173,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_097] Abomination - COST:5 [ATK:4/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 2
-    //       damage to all characters.
+    // Text: <b>Taunt</b>.
+    //       <b>Deathrattle:</b> Deal 2 damage to all characters.
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
