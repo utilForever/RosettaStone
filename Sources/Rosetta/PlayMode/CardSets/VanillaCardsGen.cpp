@@ -6715,6 +6715,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_096", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_097] Abomination - COST:5 [ATK:4/HP:4]
