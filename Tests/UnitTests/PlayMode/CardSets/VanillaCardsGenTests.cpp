@@ -17684,3 +17684,65 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_100 : Lorewalker Cho")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
     CHECK_EQ(curHand[1]->card->name, "Inner Rage");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
+// - Race: Mechanical, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       deal 2 damage to a random enemy.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_102 : Demolisher")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Demolisher", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Dalaran Mage", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Dalaran Mage", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+    int totalHealth = opField[0]->GetHealth();
+    totalHealth += opField[1]->GetHealth();
+    totalHealth += opPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 38);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    totalHealth = opField[0]->GetHealth();
+    totalHealth += opField[1]->GetHealth();
+    totalHealth += opPlayer->GetHero()->GetHealth();
+    CHECK_EQ(totalHealth, 36);
+}
