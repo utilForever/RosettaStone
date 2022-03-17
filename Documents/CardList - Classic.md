@@ -170,19 +170,19 @@ VANILLA | VAN_EX1_080 | Secretkeeper | O
 VANILLA | VAN_EX1_082 | Mad Bomber | O
 VANILLA | VAN_EX1_083 | Tinkmaster Overspark | O
 VANILLA | VAN_EX1_084 | Warsong Commander | O
-VANILLA | VAN_EX1_085 | Mind Control Tech |  
-VANILLA | VAN_EX1_089 | Arcane Golem |  
+VANILLA | VAN_EX1_085 | Mind Control Tech | O
+VANILLA | VAN_EX1_089 | Arcane Golem | O
 VANILLA | VAN_EX1_091 | Cabal Shadow Priest | O
-VANILLA | VAN_EX1_093 | Defender of Argus |  
-VANILLA | VAN_EX1_095 | Gadgetzan Auctioneer |  
-VANILLA | VAN_EX1_096 | Loot Hoarder |  
-VANILLA | VAN_EX1_097 | Abomination |  
-VANILLA | VAN_EX1_100 | Lorewalker Cho |  
-VANILLA | VAN_EX1_102 | Demolisher |  
-VANILLA | VAN_EX1_103 | Coldlight Seer |  
-VANILLA | VAN_EX1_105 | Mountain Giant |  
-VANILLA | VAN_EX1_110 | Cairne Bloodhoof |  
-VANILLA | VAN_EX1_112 | Gelbin Mekkatorque |  
+VANILLA | VAN_EX1_093 | Defender of Argus | O
+VANILLA | VAN_EX1_095 | Gadgetzan Auctioneer | O
+VANILLA | VAN_EX1_096 | Loot Hoarder | O
+VANILLA | VAN_EX1_097 | Abomination | O
+VANILLA | VAN_EX1_100 | Lorewalker Cho | O
+VANILLA | VAN_EX1_102 | Demolisher | O
+VANILLA | VAN_EX1_103 | Coldlight Seer | O
+VANILLA | VAN_EX1_105 | Mountain Giant | O
+VANILLA | VAN_EX1_110 | Cairne Bloodhoof | O
+VANILLA | VAN_EX1_112 | Gelbin Mekkatorque | O
 VANILLA | VAN_EX1_116 | Leeroy Jenkins |  
 VANILLA | VAN_EX1_124 | Eviscerate | O
 VANILLA | VAN_EX1_126 | Betrayal | O
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 81% (312 of 382 Cards)
+- Progress: 84% (324 of 382 Cards)
