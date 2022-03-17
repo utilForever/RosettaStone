@@ -11298,7 +11298,11 @@ TEST_CASE("[Neutral : Minion] - EX1_100 : Lorewalker Cho")
 // [EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
 // - Race: Mechanical, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: At the start of your turn, deal 2 damage to a random enemy.
+// Text: At the start of your turn,
+//       deal 2 damage to a random enemy.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_102 : Demolisher")
 {
