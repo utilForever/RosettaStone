@@ -6830,10 +6830,23 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon an AWESOME invention.
     // --------------------------------------------------------
+    // Entourage: Mekka1, Mekka2, Mekka3, Mekka4
+    // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace(
+        "VAN_EX1_112",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } },
+                ChooseCardIDs{},
+                Entourages{ "Mekka1", "Mekka2", "Mekka3", "Mekka4" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_116] Leeroy Jenkins - COST:4 [ATK:6/HP:2]

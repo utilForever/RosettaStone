@@ -17937,3 +17937,55 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_110 : Cairne Bloodhoof")
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_112] Gelbin Mekkatorque - COST:6 [ATK:6/HP:6]
+// - Faction: Alliance, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon an AWESOME invention.
+// --------------------------------------------------------
+// Entourage: Mekka1, Mekka2, Mekka3, Mekka4
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_112 : Gelbin Mekkatorque")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Gelbin Mekkatorque", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    const bool isMekka = curField[1]->card->name == "Homing Chicken" ||
+                         curField[1]->card->name == "Repair Bot" ||
+                         curField[1]->card->name == "Emboldener 3000" ||
+                         curField[1]->card->name == "Poultryizer";
+    CHECK(isMekka);
+}
