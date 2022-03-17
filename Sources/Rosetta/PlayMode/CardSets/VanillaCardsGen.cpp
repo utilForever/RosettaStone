@@ -6787,6 +6787,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_103e", EntityType::STACK));
+    cards.emplace("VAN_EX1_103", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
