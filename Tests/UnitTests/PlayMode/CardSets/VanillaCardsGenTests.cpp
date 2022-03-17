@@ -17309,3 +17309,47 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_085 : Mind Control Tech")
     CHECK_EQ(curField.GetCount(), 7);
     CHECK_EQ(opField.GetCount(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_089] Arcane Golem - COST:3 [ATK:4/HP:2]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Charge</b>.
+//       <b>Battlecry:</b> Give your opponent a Mana Crystal.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - CHARGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_089 : Arcane Golem")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(3);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(3);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Arcane Golem", FormatType::CLASSIC));
+
+    CHECK_EQ(opPlayer->GetTotalMana(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opPlayer->GetTotalMana(), 4);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+}

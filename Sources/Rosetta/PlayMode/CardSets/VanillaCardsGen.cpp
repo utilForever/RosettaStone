@@ -6665,6 +6665,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false, true));
+    cards.emplace("VAN_EX1_089", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_093] Defender of Argus - COST:4 [ATK:2/HP:3]
