@@ -7,6 +7,7 @@
 * [Forged in the Barrens](#forged-in-the-barrens)
 * [United in Stormwind](#united-in-stormwind)
 * [Fractured in Alterac Valley](#fractured-in-alterac-valley)
+* [Voyage to the Sunken City](#voyage-to-the-sunken-city)
 
 ## Core
 
@@ -1241,3 +1242,11 @@ ALTERAC_VALLEY | ONY_035 | Spawn of Deathwing |
 ALTERAC_VALLEY | ONY_036 | Razorglaive Sentinel |  
 
 - Progress: 35% (61 of 170 Cards)
+
+## Voyage to the Sunken City
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+THE_SUNKEN_CITY | TSC_032 | Blademaster Okani |  
+
+- Progress: 0% (0 of 1 Cards)
