@@ -108,11 +108,39 @@ void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
 
 void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- MINION - NEUTRAL
+    // [TSC_032] Blademaster Okani - COST:4 [ATK:2/HP:6]
+    // - Set: THE_SUNKEN_CITY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       <b>Secretly</b> choose to <b>Counter</b> the next minion
+    //       or spell your opponent plays while this is alive.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - COUNTER = 1
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [TSC_032t] Minion Counter - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: <b>Counter</b> the next minion your opponent plays.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [TSC_032t2] Spell Counter - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: <b>Counter</b> the next spell your opponent plays.
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddAll(std::map<std::string, CardDef>& cards)
