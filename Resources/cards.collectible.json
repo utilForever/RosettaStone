@@ -11572,14 +11572,12 @@
         "health": 4,
         "id": "BT_115",
         "mechanics": [
-            "BATTLECRY"
+            "BATTLECRY",
+            "DISCOVER"
         ],
         "name": "Marshspawn",
         "race": "ELEMENTAL",
         "rarity": "COMMON",
-        "referencedTags": [
-            "DISCOVER"
-        ],
         "set": "BLACK_TEMPLE",
         "text": "<b>Battlecry:</b> If you cast\na spell last turn,\n<b>Discover</b> a spell.",
         "type": "MINION"
@@ -33159,7 +33157,6 @@
         "health": 4,
         "howToEarn": "Unlocked when you have all the Murlocs from the Legacy Set.",
         "id": "EX1_062",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "CHARGE"
         ],
@@ -35902,7 +35899,6 @@
         "flavor": "\"Death will rise, from the tides!\"",
         "health": 1,
         "id": "EX1_506",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -37361,7 +37357,6 @@
         "howToEarn": "Unlocked in The Arachnid Quarter, in the Naxxramas adventure.",
         "howToEarnGolden": "Crafting unlocked in The Arachnid Quarter, in the Naxxramas adventure.",
         "id": "FP1_010",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "POISONOUS"
         ],
@@ -42999,6 +42994,17 @@
     {
         "cardClass": "WARRIOR",
         "collectible": true,
+        "dbfId": 73740,
+        "health": 30,
+        "id": "HERO_01m",
+        "name": "Defiant Rokara",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "WARRIOR",
+        "collectible": true,
         "dbfId": 77250,
         "health": 30,
         "id": "HERO_01n",
@@ -43760,6 +43766,50 @@
     {
         "cardClass": "HUNTER",
         "collectible": true,
+        "dbfId": 73772,
+        "health": 30,
+        "id": "HERO_05k",
+        "name": "Tavish Stormpike",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 73773,
+        "health": 30,
+        "id": "HERO_05l",
+        "name": "Tavish for Hire",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 77030,
+        "health": 30,
+        "id": "HERO_05m",
+        "name": "Lootmaster Tavish",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 79930,
+        "health": 30,
+        "id": "HERO_05n",
+        "name": "Sniper Tavish",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
         "dbfId": 77247,
         "health": 30,
         "id": "HERO_05o",
@@ -44456,6 +44506,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 82519,
+        "health": 30,
+        "id": "HERO_08x",
+        "name": "Queen Azshara",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -44572,6 +44633,17 @@
         "health": 30,
         "id": "HERO_09j",
         "name": "Lightweaver Xyrella",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 73741,
+        "health": 30,
+        "id": "HERO_09l",
+        "name": "Shadow-touched Xyrella",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -44716,6 +44788,17 @@
         "health": 30,
         "id": "HERO_10h",
         "name": "Skullbearer Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 73711,
+        "health": 30,
+        "id": "HERO_10j",
+        "name": "Vengeant Kurtrus",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -46601,7 +46684,7 @@
             "TAUNT"
         ],
         "set": "ICECROWN",
-        "techLevel": 5,
+        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give your <b>Taunt</b> minions +2/+2.",
         "type": "MINION"
     },
@@ -55037,7 +55120,7 @@
         "name": "Gear Grubber",
         "rarity": "RARE",
         "set": "ALTERAC_VALLEY",
-        "text": "<b>Taunt</b>. If you end your turn with any unspent mana, reduce this card's Cost by (1).",
+        "text": "<b>Taunt</b>. If you end your turn with any unspent Mana, reduce this card's Cost by (1).",
         "type": "MINION"
     },
     {
@@ -63633,6 +63716,30 @@
         "rarity": "RARE",
         "set": "TROLL",
         "text": "[x]<b>Stealth</b> for 1 turn.\nWhenever you summon a \nBeast, give it +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 72007,
+        "elite": true,
+        "flavor": "Yet ANOTHER sword fighter that spams counters.",
+        "health": 6,
+        "howToEarnGolden": "Unlockable after purchasing the Voyage to the Sunken City Tavern Pass.",
+        "id": "TSC_032",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Blademaster Okani",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "COUNTER"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> <b>Secretly</b> choose to\n<b>Counter</b> the next minion or\nspell your opponent plays\nwhile this is alive.",
         "type": "MINION"
     },
     {

@@ -4,7 +4,6 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/AlteracValleyCardsGen.hpp>
-#include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
@@ -18,6 +17,7 @@
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LoECardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
@@ -26,6 +26,7 @@
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/TheSunkenCityCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TrollCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/UngoroCardsGen.hpp>
@@ -67,6 +68,7 @@ CardDefs::CardDefs()
     DarkmoonFaireCardsGen::AddAll(m_data);
     TheBarrensCardsGen::AddAll(m_data);
     StormwindCardsGen::AddAll(m_data);
+    TheSunkenCityCardsGen::AddAll(m_data);
 }
 
 CardDefs::~CardDefs()
