@@ -7018,6 +7018,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_399e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_399", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_405] Shieldbearer - COST:1 [ATK:0/HP:4]
