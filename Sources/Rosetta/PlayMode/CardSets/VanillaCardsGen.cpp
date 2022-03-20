@@ -6860,6 +6860,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonOpTask>("EX1_116t") }, 2));
+    cards.emplace("VAN_EX1_116", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
