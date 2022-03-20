@@ -6937,6 +6937,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_284", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
