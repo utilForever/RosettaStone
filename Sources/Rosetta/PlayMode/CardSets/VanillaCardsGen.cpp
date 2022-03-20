@@ -6991,6 +6991,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_393e")));
+    cards.emplace("VAN_EX1_393", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
