@@ -6953,6 +6953,16 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_ATTACK = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ENEMIES),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 8)
+    };
+    cards.emplace("VAN_EX1_298", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
