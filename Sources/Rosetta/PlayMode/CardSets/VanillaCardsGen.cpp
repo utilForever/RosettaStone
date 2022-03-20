@@ -6885,6 +6885,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy any minion damaged by this minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                        GameTag::POISONOUS, 1));
+    cards.emplace("VAN_EX1_170", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]

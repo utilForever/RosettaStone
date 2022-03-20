@@ -18122,3 +18122,50 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_162 : Dire Wolf Alpha")
     CHECK_EQ(curField[3]->GetAttack(), 1);
     CHECK_EQ(curField[4]->GetAttack(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
+// - Race: Beast, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Destroy any minion damaged by this minion.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_170 : Emperor Cobra")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Emperor Cobra", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Chillwind Yeti", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+
+    CHECK(card2->isDestroyed);
+}
