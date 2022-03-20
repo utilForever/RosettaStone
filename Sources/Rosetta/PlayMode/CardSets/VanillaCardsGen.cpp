@@ -6875,6 +6875,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdjacentAura>("EX1_162o"));
+    cards.emplace("VAN_EX1_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
