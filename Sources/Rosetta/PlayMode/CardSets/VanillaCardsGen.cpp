@@ -6917,6 +6917,14 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - FREEZE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_283",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
