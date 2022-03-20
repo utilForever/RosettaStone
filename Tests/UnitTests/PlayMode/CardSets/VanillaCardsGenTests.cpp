@@ -18591,3 +18591,17 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_399 : Gurubashi Berserker")
     game.Process(opPlayer, HeroPowerTask(card1));
     CHECK_EQ(curField[0]->GetAttack(), 8);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_405] Shieldbearer - COST:1 [ATK:0/HP:4]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_405 : Shieldbearer")
+{
+    // Do nothing
+}

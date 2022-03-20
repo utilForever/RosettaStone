@@ -7034,6 +7034,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_405", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
