@@ -18522,3 +18522,17 @@ TEST_CASE("[Warrior : Minion] - VAN_EX1_393 : Amani Berserker")
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_396 : Mogu'shan Warden")
+{
+    // Do nothing
+}
