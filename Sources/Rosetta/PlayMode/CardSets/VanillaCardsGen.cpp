@@ -6968,7 +6968,8 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>. <b>Enrage:</b> +3 Attack
+    // Text: <b>Taunt</b>.
+    //       <b>Enrage:</b> +3 Attack
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
@@ -6976,6 +6977,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_390e")));
+    cards.emplace("VAN_EX1_390", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
