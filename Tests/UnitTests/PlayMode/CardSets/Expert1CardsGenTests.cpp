@@ -11541,8 +11541,8 @@ TEST_CASE("[Neutral : Minion] - EX1_110 : Cairne Bloodhoof")
 // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
 // - Faction: Alliance, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps
-//       for your opponent.
+// Text: <b>Charge</b>.
+//       <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1

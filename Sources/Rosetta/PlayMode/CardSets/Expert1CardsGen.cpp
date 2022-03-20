@@ -5277,8 +5277,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
     // - Faction: Alliance, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps
-    //       for your opponent.
+    // Text: <b>Charge</b>.
+    //       <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
