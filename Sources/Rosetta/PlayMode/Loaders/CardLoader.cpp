@@ -116,7 +116,8 @@ void CardLoader::Load(std::vector<Card*>& cards)
             GameTag gameTag = StrToEnum<GameTag>(mechanic.get<std::string>());
 
             // NOTE: Erase mechanics 'FREEZE' of Frost Elemental (EX1_283)
-            if (dbfID == 512 && gameTag == GameTag::FREEZE)
+            // NOTE: Erase mechanics 'FREEZE' of Frost Elemental (VAN_EX1_283)
+            if ((dbfID == 512 || dbfID == 69906) && gameTag == GameTag::FREEZE)
             {
                 continue;
             }

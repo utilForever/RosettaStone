@@ -183,7 +183,7 @@ VANILLA | VAN_EX1_103 | Coldlight Seer | O
 VANILLA | VAN_EX1_105 | Mountain Giant | O
 VANILLA | VAN_EX1_110 | Cairne Bloodhoof | O
 VANILLA | VAN_EX1_112 | Gelbin Mekkatorque | O
-VANILLA | VAN_EX1_116 | Leeroy Jenkins |  
+VANILLA | VAN_EX1_116 | Leeroy Jenkins | O
 VANILLA | VAN_EX1_124 | Eviscerate | O
 VANILLA | VAN_EX1_126 | Betrayal | O
 VANILLA | VAN_EX1_128 | Conceal | O
@@ -202,12 +202,12 @@ VANILLA | VAN_EX1_155 | Mark of Nature | O
 VANILLA | VAN_EX1_158 | Soul of the Forest | O
 VANILLA | VAN_EX1_160 | Power of the Wild | O
 VANILLA | VAN_EX1_161 | Naturalize | O
-VANILLA | VAN_EX1_162 | Dire Wolf Alpha |  
+VANILLA | VAN_EX1_162 | Dire Wolf Alpha | O
 VANILLA | VAN_EX1_164 | Nourish | O
 VANILLA | VAN_EX1_165 | Druid of the Claw | O
 VANILLA | VAN_EX1_166 | Keeper of the Grove | O
 VANILLA | VAN_EX1_169 | Innervate | O
-VANILLA | VAN_EX1_170 | Emperor Cobra |  
+VANILLA | VAN_EX1_170 | Emperor Cobra | O
 VANILLA | VAN_EX1_173 | Starfire | O
 VANILLA | VAN_EX1_178 | Ancient of War | O
 VANILLA | VAN_EX1_238 | Lightning Bolt | O
@@ -218,7 +218,7 @@ VANILLA | VAN_EX1_245 | Earth Shock | O
 VANILLA | VAN_EX1_246 | Hex | O
 VANILLA | VAN_EX1_247 | Stormforged Axe | O
 VANILLA | VAN_EX1_248 | Feral Spirit | O
-VANILLA | VAN_EX1_249 | Baron Geddon |  
+VANILLA | VAN_EX1_249 | Baron Geddon | O
 VANILLA | VAN_EX1_250 | Earth Elemental | O
 VANILLA | VAN_EX1_251 | Forked Lightning | O
 VANILLA | VAN_EX1_258 | Unbound Elemental | O
@@ -228,13 +228,13 @@ VANILLA | VAN_EX1_275 | Cone of Cold | O
 VANILLA | VAN_EX1_277 | Arcane Missiles | O
 VANILLA | VAN_EX1_278 | Shiv | O
 VANILLA | VAN_EX1_279 | Pyroblast | O
-VANILLA | VAN_EX1_283 | Frost Elemental |  
-VANILLA | VAN_EX1_284 | Azure Drake |  
+VANILLA | VAN_EX1_283 | Frost Elemental | O
+VANILLA | VAN_EX1_284 | Azure Drake | O
 VANILLA | VAN_EX1_287 | Counterspell | O
 VANILLA | VAN_EX1_289 | Ice Barrier | O
 VANILLA | VAN_EX1_294 | Mirror Entity | O
 VANILLA | VAN_EX1_295 | Ice Block | O
-VANILLA | VAN_EX1_298 | Ragnaros the Firelord |  
+VANILLA | VAN_EX1_298 | Ragnaros the Firelord | O
 VANILLA | VAN_EX1_301 | Felguard | O
 VANILLA | VAN_EX1_302 | Mortal Coil | O
 VANILLA | VAN_EX1_303 | Shadowflame | O
@@ -271,16 +271,16 @@ VANILLA | VAN_EX1_379 | Repentance | O
 VANILLA | VAN_EX1_382 | Aldor Peacekeeper | O
 VANILLA | VAN_EX1_383 | Tirion Fordring | O
 VANILLA | VAN_EX1_384 | Avenging Wrath | O
-VANILLA | VAN_EX1_390 | Tauren Warrior |  
+VANILLA | VAN_EX1_390 | Tauren Warrior | O
 VANILLA | VAN_EX1_391 | Slam | O
 VANILLA | VAN_EX1_392 | Battle Rage | O
-VANILLA | VAN_EX1_393 | Amani Berserker |  
-VANILLA | VAN_EX1_396 | Mogu'shan Warden |  
+VANILLA | VAN_EX1_393 | Amani Berserker | O
+VANILLA | VAN_EX1_396 | Mogu'shan Warden | O
 VANILLA | VAN_EX1_398 | Arathi Weaponsmith | O
-VANILLA | VAN_EX1_399 | Gurubashi Berserker |  
+VANILLA | VAN_EX1_399 | Gurubashi Berserker | O
 VANILLA | VAN_EX1_400 | Whirlwind | O
 VANILLA | VAN_EX1_402 | Armorsmith | O
-VANILLA | VAN_EX1_405 | Shieldbearer |  
+VANILLA | VAN_EX1_405 | Shieldbearer | O
 VANILLA | VAN_EX1_407 | Brawl | O
 VANILLA | VAN_EX1_408 | Mortal Strike | O
 VANILLA | VAN_EX1_409 | Upgrade! | O
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 84% (324 of 382 Cards)
+- Progress: 87% (336 of 382 Cards)

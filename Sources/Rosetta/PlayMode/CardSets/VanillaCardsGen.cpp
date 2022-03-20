@@ -6860,6 +6860,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CHARGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonOpTask>("EX1_116t") }, 2));
+    cards.emplace("VAN_EX1_116", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
@@ -6871,6 +6875,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdjacentAura>("EX1_162o"));
+    cards.emplace("VAN_EX1_162", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
@@ -6878,6 +6885,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy any minion damaged by this minion.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                                        GameTag::POISONOUS, 1));
+    cards.emplace("VAN_EX1_170", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
@@ -6890,6 +6901,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_NOSOURCE, 2) };
+    cards.emplace("VAN_EX1_249", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
@@ -6901,6 +6917,14 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - FREEZE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
+    cards.emplace(
+        "VAN_EX1_283",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
@@ -6913,6 +6937,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("VAN_EX1_284", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
@@ -6926,12 +6953,23 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_ATTACK = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::ENEMIES),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 8)
+    };
+    cards.emplace("VAN_EX1_298", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
     // - Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>. <b>Enrage:</b> +3 Attack
+    // Text: <b>Taunt</b>.
+    //       <b>Enrage:</b> +3 Attack
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
@@ -6939,6 +6977,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_390e")));
+    cards.emplace("VAN_EX1_390", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
@@ -6949,6 +6991,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_393e")));
+    cards.emplace("VAN_EX1_393", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
@@ -6959,6 +7005,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_396", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:7]
@@ -6969,6 +7018,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_399e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_399", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_405] Shieldbearer - COST:1 [ATK:0/HP:4]
@@ -6979,6 +7034,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_405", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
