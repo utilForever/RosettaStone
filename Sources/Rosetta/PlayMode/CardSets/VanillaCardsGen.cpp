@@ -6901,6 +6901,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_NOSOURCE, 2) };
+    cards.emplace("VAN_EX1_249", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
