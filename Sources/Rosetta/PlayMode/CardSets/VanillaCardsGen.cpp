@@ -7184,6 +7184,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYERS, EffectList{ std::make_shared<Effect>(
+                               GameTag::TIMEOUT, EffectOperator::SET, -60) }));
+    cards.emplace("VAN_EX1_560", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8]

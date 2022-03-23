@@ -19092,3 +19092,50 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_558 : Harrison Jones")
     CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
     CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 7);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Players only have 15 seconds to take their turns.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_560 : Nozdormu")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nozdormu", FormatType::CLASSIC));
+
+    CHECK_EQ(curPlayer->GetTimeOut(), 75);
+    CHECK_EQ(opPlayer->GetTimeOut(), 75);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetTimeOut(), 15);
+    CHECK_EQ(opPlayer->GetTimeOut(), 15);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTimeOut(), 15);
+    CHECK_EQ(opPlayer->GetTimeOut(), 15);
+}
