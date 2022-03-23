@@ -7061,6 +7061,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_EX1_506a", SummonSide::RIGHT));
+    cards.emplace("VAN_EX1_506", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
@@ -7609,6 +7613,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_EX1_506a] Murloc Scout - COST:0 [ATK:1/HP:1]
     // - Race: Murloc, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_506a", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [VAN_EX1_507e] Mrgglaargl! - COST:0
