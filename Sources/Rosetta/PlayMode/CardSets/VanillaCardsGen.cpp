@@ -7141,13 +7141,18 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [VAN_EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
     // - Set: VANILLA, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: At the start of your turn, you have a 50% chance
-    //       to draw an extra card.
+    // Text: At the start of your turn,
+    //       you have a 50% chance to draw an extra card.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->percentage = 0.5f;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("VAN_EX1_557", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4]

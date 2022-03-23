@@ -18992,3 +18992,51 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_556 : Harvest Golem")
     CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curField[1]->card->name, "Damaged Golem");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       you have a 50% chance to draw an extra card.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_557 : Nat Pagle")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nat Pagle", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ((curHand.GetCount() == 5 || curHand.GetCount() == 6), true);
+}
