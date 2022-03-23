@@ -7165,6 +7165,16 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::ENEMY_WEAPON, GameTag::DURABILITY));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::ENEMY_WEAPON, GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace("VAN_EX1_558", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
