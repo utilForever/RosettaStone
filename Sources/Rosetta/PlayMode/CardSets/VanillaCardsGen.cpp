@@ -7075,6 +7075,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "VAN_EX1_507e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC));
+    }
+    cards.emplace("VAN_EX1_507", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1]
@@ -7623,6 +7632,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+1 from Murloc Warleader.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_EX1_507e"));
+    cards.emplace("VAN_EX1_507e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_598] Imp - COST:1 [ATK:1/HP:1]
