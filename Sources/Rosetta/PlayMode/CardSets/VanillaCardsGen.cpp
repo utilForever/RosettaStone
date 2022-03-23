@@ -7228,6 +7228,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT) },
+        3));
+    cards.emplace("VAN_EX1_562", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_563] Malygos - COST:9 [ATK:4/HP:12]
