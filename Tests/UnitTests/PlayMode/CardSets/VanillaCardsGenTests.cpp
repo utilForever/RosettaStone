@@ -18605,3 +18605,72 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_405 : Shieldbearer")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Enrage:</b> <b>Windfury</b> and +1 Attack
+// --------------------------------------------------------
+// RefTag:
+// - ENRAGED = 1
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_412 : Raging Worgen")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Raging Worgen", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Circle of Healing", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_FALSE(curField[0]->CanAttack());
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK(curField[0]->CanAttack());
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_FALSE(curField[0]->CanAttack());
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}

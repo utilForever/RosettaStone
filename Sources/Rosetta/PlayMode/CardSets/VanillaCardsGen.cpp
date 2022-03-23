@@ -7048,6 +7048,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ENRAGED = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_412e"));
+    cards.emplace("VAN_EX1_412", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
