@@ -7245,6 +7245,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_563", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]

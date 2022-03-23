@@ -19262,3 +19262,18 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_562 : Onyxia")
     CHECK_EQ(curField[6]->GetAttack(), 1);
     CHECK_EQ(curField[6]->GetHealth(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_563] Malygos - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Spell Damage +5</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_563 : Malygos")
+{
+    // Do nothing
+}
