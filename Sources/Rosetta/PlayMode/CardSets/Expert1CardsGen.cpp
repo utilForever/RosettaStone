@@ -5623,8 +5623,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
     // - Faction: Neutral, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: At the start of your turn, you have a 50% chance to
-    //       draw an extra card.
+    // Text: At the start of your turn,
+    //       you have a 50% chance to draw an extra card.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

@@ -286,12 +286,12 @@ VANILLA | VAN_EX1_408 | Mortal Strike | O
 VANILLA | VAN_EX1_409 | Upgrade! | O
 VANILLA | VAN_EX1_410 | Shield Slam | O
 VANILLA | VAN_EX1_411 | Gorehowl | O
-VANILLA | VAN_EX1_412 | Raging Worgen |  
+VANILLA | VAN_EX1_412 | Raging Worgen | O
 VANILLA | VAN_EX1_414 | Grommash Hellscream | O
-VANILLA | VAN_EX1_506 | Murloc Tidehunter |  
-VANILLA | VAN_EX1_507 | Murloc Warleader |  
-VANILLA | VAN_EX1_508 | Grimscale Oracle |  
-VANILLA | VAN_EX1_509 | Murloc Tidecaller |  
+VANILLA | VAN_EX1_506 | Murloc Tidehunter | O
+VANILLA | VAN_EX1_507 | Murloc Warleader | O
+VANILLA | VAN_EX1_508 | Grimscale Oracle | O
+VANILLA | VAN_EX1_509 | Murloc Tidecaller | O
 VANILLA | VAN_EX1_522 | Patient Assassin | O
 VANILLA | VAN_EX1_531 | Scavenging Hyena | O
 VANILLA | VAN_EX1_533 | Misdirection | O
@@ -304,14 +304,14 @@ VANILLA | VAN_EX1_543 | King Krush | O
 VANILLA | VAN_EX1_544 | Flare | O
 VANILLA | VAN_EX1_549 | Bestial Wrath | O
 VANILLA | VAN_EX1_554 | Snake Trap | O
-VANILLA | VAN_EX1_556 | Harvest Golem |  
-VANILLA | VAN_EX1_557 | Nat Pagle |  
-VANILLA | VAN_EX1_558 | Harrison Jones |  
+VANILLA | VAN_EX1_556 | Harvest Golem | O
+VANILLA | VAN_EX1_557 | Nat Pagle | O
+VANILLA | VAN_EX1_558 | Harrison Jones | O
 VANILLA | VAN_EX1_559 | Archmage Antonidas | O
-VANILLA | VAN_EX1_560 | Nozdormu |  
-VANILLA | VAN_EX1_561 | Alexstrasza |  
-VANILLA | VAN_EX1_562 | Onyxia |  
-VANILLA | VAN_EX1_563 | Malygos |  
+VANILLA | VAN_EX1_560 | Nozdormu | O
+VANILLA | VAN_EX1_561 | Alexstrasza | O
+VANILLA | VAN_EX1_562 | Onyxia | O
+VANILLA | VAN_EX1_563 | Malygos | O
 VANILLA | VAN_EX1_564 | Faceless Manipulator |  
 VANILLA | VAN_EX1_565 | Flametongue Totem | O
 VANILLA | VAN_EX1_567 | Doomhammer | O
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 87% (336 of 382 Cards)
+- Progress: 91% (348 of 382 Cards)

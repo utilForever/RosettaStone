@@ -7048,6 +7048,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ENRAGED = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_412e"));
+    cards.emplace("VAN_EX1_412", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
@@ -7058,6 +7061,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("VAN_EX1_506a", SummonSide::RIGHT));
+    cards.emplace("VAN_EX1_506", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
@@ -7068,6 +7075,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "VAN_EX1_507e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC));
+    }
+    cards.emplace("VAN_EX1_507", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1]
@@ -7078,6 +7094,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_508o"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC));
+    }
+    cards.emplace("VAN_EX1_508", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
@@ -7088,6 +7113,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "EX1_509e", EntityType::SOURCE) };
+    cards.emplace("VAN_EX1_509", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
@@ -7098,18 +7132,27 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("VAN_skele21", SummonSide::DEATHRATTLE));
+    cards.emplace("VAN_EX1_556", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
     // - Set: VANILLA, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: At the start of your turn, you have a 50% chance
-    //       to draw an extra card.
+    // Text: At the start of your turn,
+    //       you have a 50% chance to draw an extra card.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->percentage = 0.5f;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("VAN_EX1_557", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4]
@@ -7122,6 +7165,16 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::ENEMY_WEAPON, GameTag::DURABILITY));
+    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::ENEMY_WEAPON, GameTag::DAMAGE, 0, 1));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace("VAN_EX1_558", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
@@ -7131,6 +7184,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYERS, EffectList{ std::make_shared<Effect>(
+                               GameTag::TIMEOUT, EffectOperator::SET, -60) }));
+    cards.emplace("VAN_EX1_560", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8]
@@ -7142,6 +7201,21 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_HERO_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            Hero* hero = dynamic_cast<Hero*>(target);
+            hero->SetDamage(hero->GetBaseHealth() - 15);
+        }));
+    cards.emplace(
+        "VAN_EX1_561",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_HERO_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_562] Onyxia - COST:9 [ATK:8/HP:8]
@@ -7154,6 +7228,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT),
+                  std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT) },
+        3));
+    cards.emplace("VAN_EX1_562", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_563] Malygos - COST:9 [ATK:4/HP:12]
@@ -7165,6 +7245,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_563", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
@@ -7606,6 +7689,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_EX1_506a] Murloc Scout - COST:0 [ATK:1/HP:1]
     // - Race: Murloc, Set: VANILLA, Rarity: Common
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_506a", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [VAN_EX1_507e] Mrgglaargl! - COST:0
@@ -7613,6 +7699,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+1 from Murloc Warleader.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_EX1_507e"));
+    cards.emplace("VAN_EX1_507e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_598] Imp - COST:1 [ATK:1/HP:1]
@@ -7666,6 +7755,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_skele21] Damaged Golem - COST:1 [ATK:2/HP:1]
     // - Race: Mechanical, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_skele21", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_TU4e_002t] Flame of Azzinoth - COST:1 [ATK:2/HP:1]

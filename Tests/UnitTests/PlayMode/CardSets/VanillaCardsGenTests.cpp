@@ -18605,3 +18605,675 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_405 : Shieldbearer")
 {
     // Do nothing
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Enrage:</b> <b>Windfury</b> and +1 Attack
+// --------------------------------------------------------
+// RefTag:
+// - ENRAGED = 1
+// - WINDFURY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_412 : Raging Worgen")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Raging Worgen", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Circle of Healing", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_FALSE(curField[0]->CanAttack());
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, HeroPowerTask(card1));
+    CHECK(curField[0]->CanAttack());
+    CHECK_EQ(curField[0]->HasWindfury(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_FALSE(curField[0]->CanAttack());
+    CHECK_EQ(curField[0]->HasWindfury(), false);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
+// - Race: Murloc, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 1/1 Murloc Scout.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_506 : Murloc Tidehunter")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Murloc Tidehunter", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
+// - Race: Murloc, Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: ALL other murlocs have +2/+1.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_507 : Murloc Warleader")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Murloc Raider", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fireball", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Murloc Raider", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Murloc Warleader", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 4);
+    CHECK_EQ(opField[1]->GetAttack(), 1);
+    CHECK_EQ(opField[2]->GetAttack(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card6));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(opField[0]->GetAttack(), 2);
+    CHECK_EQ(opField[1]->GetAttack(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_508] Grimscale Oracle - COST:1 [ATK:1/HP:1]
+// - Race: Murloc, Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: ALL other Murlocs have +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_508 : Grimscale Oracle")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Grimscale Oracle", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Grimscale Oracle", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Murloc Raider", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->GetAttack(), 2);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, AttackTask(card5, card2));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 3);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
+// - Race: Murloc, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever a Murloc is summoned, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_509 : Murloc Tidecaller")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Murloc Tidecaller", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Murloc Tidehunter", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Magma Rager", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Magma Rager", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Murloc Tidehunter", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
+// - Race: Mechanical, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 2/1 Damaged Golem.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_556 : Harvest Golem")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Magma Rager", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Harvest Golem", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Magma Rager", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fireball", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->card->name, "Magma Rager");
+    CHECK_EQ(curField[1]->card->name, "Harvest Golem");
+    CHECK_EQ(curField[2]->card->name, "Magma Rager");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card4, card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->name, "Damaged Golem");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       you have a 50% chance to draw an extra card.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_557 : Nat Pagle")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nat Pagle", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ((curHand.GetCount() == 5 || curHand.GetCount() == 6), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy your opponent's weapon
+//       and draw cards equal to its Durability.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_558 : Harrison Jones")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fiery War Axe", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Harrison Jones", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
+    CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 7);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Players only have 15 seconds to take their turns.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_560 : Nozdormu")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nozdormu", FormatType::CLASSIC));
+
+    CHECK_EQ(curPlayer->GetTimeOut(), 75);
+    CHECK_EQ(opPlayer->GetTimeOut(), 75);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetTimeOut(), 15);
+    CHECK_EQ(opPlayer->GetTimeOut(), 15);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTimeOut(), 15);
+    CHECK_EQ(opPlayer->GetTimeOut(), 15);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Set a hero's remaining Health to 15.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_HERO_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_561 : Alexstrasza")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Alexstrasza", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Alexstrasza", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Lord Jaraxxus", FormatType::CLASSIC));
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 14);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_562] Onyxia - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon 1/1 Whelps until your side
+//       of the battlefield is full.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_562 : Onyxia")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Onyxia", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->GetAttack(), 8);
+    CHECK_EQ(curField[3]->GetHealth(), 8);
+    CHECK_EQ(curField[4]->GetAttack(), 1);
+    CHECK_EQ(curField[4]->GetHealth(), 1);
+    CHECK_EQ(curField[5]->GetAttack(), 1);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[6]->GetAttack(), 1);
+    CHECK_EQ(curField[6]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_563] Malygos - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Spell Damage +5</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_563 : Malygos")
+{
+    // Do nothing
+}
