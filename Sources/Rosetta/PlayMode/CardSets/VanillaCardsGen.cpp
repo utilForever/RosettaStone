@@ -7201,6 +7201,21 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_HERO_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CustomTask>(
+        []([[maybe_unused]] Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            Hero* hero = dynamic_cast<Hero*>(target);
+            hero->SetDamage(hero->GetBaseHealth() - 15);
+        }));
+    cards.emplace(
+        "VAN_EX1_561",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_HERO_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_562] Onyxia - COST:9 [ATK:8/HP:8]
