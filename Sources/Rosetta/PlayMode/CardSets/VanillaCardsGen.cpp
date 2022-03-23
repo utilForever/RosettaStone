@@ -7132,6 +7132,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("VAN_skele21", SummonSide::DEATHRATTLE));
+    cards.emplace("VAN_EX1_556", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
@@ -7706,6 +7710,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_skele21] Damaged Golem - COST:1 [ATK:2/HP:1]
     // - Race: Mechanical, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_skele21", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_TU4e_002t] Flame of Azzinoth - COST:1 [ATK:2/HP:1]
