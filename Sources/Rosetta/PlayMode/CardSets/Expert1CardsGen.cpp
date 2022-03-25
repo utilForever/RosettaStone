@@ -5882,6 +5882,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn,
     //       deal 1 damage to this minion and summon a 1/1 Imp.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     power.GetTrigger()->tasks = {

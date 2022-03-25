@@ -13403,6 +13403,9 @@ TEST_CASE("[Neutral : Minion] - EX1_595 : Cult Master")
 // Text: At the end of your turn,
 //       deal 1 damage to this minion and summon a 1/1 Imp.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_597 : Imp Master")
 {
     GameConfig config;
