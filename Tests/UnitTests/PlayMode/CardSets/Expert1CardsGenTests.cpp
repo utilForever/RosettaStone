@@ -12976,6 +12976,7 @@ TEST_CASE("[Neutral : Minion] - EX1_564 : Faceless Manipulator")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_572 : Ysera")
 {
@@ -13021,7 +13022,8 @@ TEST_CASE("[Neutral : Minion] - EX1_572 : Ysera")
 // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.
+// Text: <b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn
+//       for your opponent.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -13121,7 +13123,8 @@ TEST_CASE("[Neutral : Minion] - EX1_583 : Priestess of Elune")
 // [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give adjacent minions <b>Spell Damage +1</b>.
+// Text: <b>Battlecry:</b> Give adjacent minions
+//       <b>Spell Damage +1</b>.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -13304,6 +13307,9 @@ TEST_CASE("[Neutral : Minion] - EX1_590 : Blood Knight")
 // --------------------------------------------------------
 // Text: Whenever one of your other minions dies, draw a card.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_595 : Cult Master")
 {
     GameConfig config;
@@ -13394,8 +13400,11 @@ TEST_CASE("[Neutral : Minion] - EX1_595 : Cult Master")
 // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: At the end of your turn, deal 1 damage to this minion
-//       and summon a 1/1 Imp.
+// Text: At the end of your turn,
+//       deal 1 damage to this minion and summon a 1/1 Imp.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_597 : Imp Master")
 {
@@ -13463,6 +13472,7 @@ TEST_CASE("[Neutral : Minion] - EX1_597 : Imp Master")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_614 : Xavius")
 {

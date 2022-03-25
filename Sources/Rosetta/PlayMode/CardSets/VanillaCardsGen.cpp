@@ -7258,6 +7258,18 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<TransformCopyTask>());
+    cards.emplace(
+        "VAN_EX1_564",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 },
+                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_572] Ysera - COST:9 [ATK:4/HP:12]
@@ -7265,10 +7277,21 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: At the end of your turn, add a Dream Card to your hand.
     // --------------------------------------------------------
+    // Entourage: DREAM_01, DREAM_02, DREAM_03, DREAM_04, DREAM_05
+    // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<RandomEntourageTask>(1),
+                                  std::make_shared<AddStackToTask>(
+                                      EntityType::HAND) };
+    cards.emplace("VAN_EX1_572",
+                  CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                          Entourages{ "DREAM_01", "DREAM_02", "DREAM_03",
+                                      "DREAM_04", "DREAM_05" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_577] The Beast - COST:6 [ATK:9/HP:7]
@@ -7281,6 +7304,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<SummonOpTask>("VAN_EX1_finkle"));
+    cards.emplace("VAN_EX1_577", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
@@ -7291,6 +7317,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_582", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4]
@@ -7301,6 +7330,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 4));
+    cards.emplace("VAN_EX1_583", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
@@ -7315,6 +7347,14 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
+                                RelaCondition::IsSideBySide()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_584e", EntityType::STACK));
+    cards.emplace("VAN_EX1_584", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_586] Sea Giant - COST:10 [ATK:8/HP:8]
@@ -7322,6 +7362,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each other minion on the battlefield.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+        return playable->player->GetFieldZone()->GetCount() +
+               playable->player->opponent->GetFieldZone()->GetCount();
+    }));
+    cards.emplace("VAN_EX1_586", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_590] Blood Knight - COST:3 [ATK:3/HP:3]
@@ -7336,6 +7382,18 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::DIVINE_SHIELD, 1)) }));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::DIVINE_SHIELD, 0));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<MathMultiplyTask>(3));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_590e", EntityType::SOURCE, true));
+    cards.emplace("VAN_EX1_590", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_593] Nightblade - COST:5 [ATK:4/HP:4]
@@ -7346,6 +7404,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cards.emplace("VAN_EX1_593", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_595] Cult Master - COST:4 [ATK:4/HP:2]
@@ -7356,6 +7417,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
+    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("VAN_EX1_595", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
@@ -7367,6 +7433,13 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<DamageTask>(EntityType::SOURCE, 1),
+        std::make_shared<SummonTask>("VAN_EX1_598", SummonSide::RIGHT)
+    };
+    cards.emplace("VAN_EX1_597", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
@@ -7379,6 +7452,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "VAN_TU4e_002t", SummonSide::RIGHT) };
+    cards.emplace("VAN_EX1_614", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_616] Mana Wraith - COST:2 [ATK:2/HP:2]
@@ -7707,6 +7785,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_EX1_598] Imp - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_598", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_finkle] Finkle Einhorn - COST:3 [ATK:3/HP:3]
@@ -7715,6 +7796,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_finkle", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_tk28] Squirrel - COST:1 [ATK:1/HP:1]
@@ -7763,6 +7847,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_TU4e_002t] Flame of Azzinoth - COST:1 [ATK:2/HP:1]
     // - Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_TU4e_002t", CardDef(power));
 }
 
 void VanillaCardsGen::AddAll(std::map<std::string, CardDef>& cards)
