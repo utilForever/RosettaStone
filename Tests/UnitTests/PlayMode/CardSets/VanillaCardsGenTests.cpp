@@ -19915,3 +19915,59 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_597 : Imp Master")
     // "Imp Master kills" self, and full field make it cannot summon "Imp".
     CHECK_EQ(curField.GetCount(), 6);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
+// - Race: Demon, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever you play a card,
+//       summon a 2/1 Flame of Azzinoth.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_614 : Illidan Stormrage")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Illidan Stormrage", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Moonfire", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[1]->card->name, "Flame of Azzinoth");
+    CHECK_EQ(curField[2]->card->name, "Wisp");
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(curField[1]->card->name, "Flame of Azzinoth");
+    CHECK_EQ(curField[2]->card->name, "Flame of Azzinoth");
+    CHECK_EQ(curField[3]->card->name, "Wisp");
+}

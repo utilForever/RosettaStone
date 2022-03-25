@@ -7452,6 +7452,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "VAN_TU4e_002t", SummonSide::RIGHT) };
+    cards.emplace("VAN_EX1_614", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_616] Mana Wraith - COST:2 [ATK:2/HP:2]
@@ -7842,6 +7847,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_TU4e_002t] Flame of Azzinoth - COST:1 [ATK:2/HP:1]
     // - Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_TU4e_002t", CardDef(power));
 }
 
 void VanillaCardsGen::AddAll(std::map<std::string, CardDef>& cards)
