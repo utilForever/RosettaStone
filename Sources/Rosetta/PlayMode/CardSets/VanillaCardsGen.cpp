@@ -7404,6 +7404,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cards.emplace("VAN_EX1_593", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_595] Cult Master - COST:4 [ATK:4/HP:2]
