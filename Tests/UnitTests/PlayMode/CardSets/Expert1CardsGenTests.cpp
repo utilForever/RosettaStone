@@ -13307,6 +13307,9 @@ TEST_CASE("[Neutral : Minion] - EX1_590 : Blood Knight")
 // --------------------------------------------------------
 // Text: Whenever one of your other minions dies, draw a card.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_595 : Cult Master")
 {
     GameConfig config;
