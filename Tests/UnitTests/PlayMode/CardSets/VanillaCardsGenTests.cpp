@@ -19356,3 +19356,56 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_564 : Faceless Manipulator")
     game.Process(curPlayer, HeroPowerTask(curField[1]));
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_572] Ysera - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the end of your turn, add a Dream Card to your hand.
+// --------------------------------------------------------
+// Entourage: DREAM_01, DREAM_02, DREAM_03, DREAM_04, DREAM_05
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_572 : Ysera")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ysera", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    const Card* dreamCard = curHand[4]->card;
+    const Card* yseraCard = Cards::FindCardByName("Ysera");
+    auto& entourages = yseraCard->entourages;
+    CHECK(std::find(entourages.begin(), entourages.end(), dreamCard->id) !=
+          entourages.end());
+}
