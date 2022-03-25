@@ -7304,6 +7304,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<SummonOpTask>("VAN_EX1_finkle"));
+    cards.emplace("VAN_EX1_577", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
@@ -7738,6 +7741,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_finkle", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_tk28] Squirrel - COST:1 [ATK:1/HP:1]

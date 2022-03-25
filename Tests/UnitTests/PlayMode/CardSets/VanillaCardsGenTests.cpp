@@ -19409,3 +19409,59 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_572 : Ysera")
     CHECK(std::find(entourages.begin(), entourages.end(), dreamCard->id) !=
           entourages.end());
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_577] The Beast - COST:6 [ATK:9/HP:7]
+// - Race: Beast, Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn
+//       for your opponent.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_577 : The Beast")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("The Beast", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    curField[0]->SetBaseHealth(1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    opField[0]->SetBaseHealth(99);
+
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK(card1->isDestroyed);
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[1]->GetHealth(), 3);
+    CHECK_EQ(opField[1]->GetAttack(), 3);
+}
