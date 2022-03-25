@@ -312,29 +312,29 @@ VANILLA | VAN_EX1_560 | Nozdormu | O
 VANILLA | VAN_EX1_561 | Alexstrasza | O
 VANILLA | VAN_EX1_562 | Onyxia | O
 VANILLA | VAN_EX1_563 | Malygos | O
-VANILLA | VAN_EX1_564 | Faceless Manipulator |  
+VANILLA | VAN_EX1_564 | Faceless Manipulator | O
 VANILLA | VAN_EX1_565 | Flametongue Totem | O
 VANILLA | VAN_EX1_567 | Doomhammer | O
 VANILLA | VAN_EX1_570 | Bite | O
 VANILLA | VAN_EX1_571 | Force of Nature | O
-VANILLA | VAN_EX1_572 | Ysera |  
+VANILLA | VAN_EX1_572 | Ysera | O
 VANILLA | VAN_EX1_573 | Cenarius | O
 VANILLA | VAN_EX1_575 | Mana Tide Totem | O
-VANILLA | VAN_EX1_577 | The Beast |  
+VANILLA | VAN_EX1_577 | The Beast | O
 VANILLA | VAN_EX1_578 | Savagery | O
 VANILLA | VAN_EX1_581 | Sap | O
-VANILLA | VAN_EX1_582 | Dalaran Mage |  
-VANILLA | VAN_EX1_583 | Priestess of Elune |  
-VANILLA | VAN_EX1_584 | Ancient Mage |  
-VANILLA | VAN_EX1_586 | Sea Giant |  
+VANILLA | VAN_EX1_582 | Dalaran Mage | O
+VANILLA | VAN_EX1_583 | Priestess of Elune | O
+VANILLA | VAN_EX1_584 | Ancient Mage | O
+VANILLA | VAN_EX1_586 | Sea Giant | O
 VANILLA | VAN_EX1_587 | Windspeaker | O
-VANILLA | VAN_EX1_590 | Blood Knight |  
+VANILLA | VAN_EX1_590 | Blood Knight | O
 VANILLA | VAN_EX1_591 | Auchenai Soulpriest | O
-VANILLA | VAN_EX1_593 | Nightblade |  
+VANILLA | VAN_EX1_593 | Nightblade | O
 VANILLA | VAN_EX1_594 | Vaporize | O
-VANILLA | VAN_EX1_595 | Cult Master |  
+VANILLA | VAN_EX1_595 | Cult Master | O
 VANILLA | VAN_EX1_596 | Demonfire | O
-VANILLA | VAN_EX1_597 | Imp Master |  
+VANILLA | VAN_EX1_597 | Imp Master | O
 VANILLA | VAN_EX1_603 | Cruel Taskmaster | O
 VANILLA | VAN_EX1_604 | Frothing Berserker | O
 VANILLA | VAN_EX1_606 | Shield Block | O
@@ -345,7 +345,7 @@ VANILLA | VAN_EX1_610 | Explosive Trap | O
 VANILLA | VAN_EX1_611 | Freezing Trap | O
 VANILLA | VAN_EX1_612 | Kirin Tor Mage | O
 VANILLA | VAN_EX1_613 | Edwin VanCleef | O
-VANILLA | VAN_EX1_614 | Illidan Stormrage |  
+VANILLA | VAN_EX1_614 | Illidan Stormrage | O
 VANILLA | VAN_EX1_616 | Mana Wraith |  
 VANILLA | VAN_EX1_617 | Deadly Shot | O
 VANILLA | VAN_EX1_619 | Equality | O
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 91% (348 of 382 Cards)
+- Progress: 94% (360 of 382 Cards)
