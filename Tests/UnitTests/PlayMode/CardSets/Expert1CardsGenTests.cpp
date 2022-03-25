@@ -13400,8 +13400,8 @@ TEST_CASE("[Neutral : Minion] - EX1_595 : Cult Master")
 // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: At the end of your turn, deal 1 damage to this minion
-//       and summon a 1/1 Imp.
+// Text: At the end of your turn,
+//       deal 1 damage to this minion and summon a 1/1 Imp.
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_597 : Imp Master")
 {

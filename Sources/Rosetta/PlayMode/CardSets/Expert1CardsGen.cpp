@@ -5879,8 +5879,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: At the end of your turn, deal 1 damage to this minion
-    //       and summon a 1/1 Imp.
+    // Text: At the end of your turn,
+    //       deal 1 damage to this minion and summon a 1/1 Imp.
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
