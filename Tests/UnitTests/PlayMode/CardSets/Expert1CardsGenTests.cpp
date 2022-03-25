@@ -12976,6 +12976,7 @@ TEST_CASE("[Neutral : Minion] - EX1_564 : Faceless Manipulator")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_572 : Ysera")
 {
