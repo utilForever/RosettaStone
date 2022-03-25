@@ -7433,6 +7433,13 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<DamageTask>(EntityType::SOURCE, 1),
+        std::make_shared<SummonTask>("VAN_EX1_598", SummonSide::RIGHT)
+    };
+    cards.emplace("VAN_EX1_597", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
@@ -7773,6 +7780,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_EX1_598] Imp - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_598", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_finkle] Finkle Einhorn - COST:3 [ATK:3/HP:3]

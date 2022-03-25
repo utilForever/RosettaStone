@@ -19846,3 +19846,72 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_595 : Cult Master")
     game.Process(opPlayer, PlayCardTask::Spell(card11));
     CHECK_EQ(curHand.GetCount(), 7);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: At the end of your turn,
+//       deal 1 damage to this minion and summon a 1/1 Imp.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_597 : Imp Master")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    // Summon 5 Wisps
+    for (int i = 0; i < 5; i++)
+    {
+        const auto card = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+    }
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Imp Master", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Frostbolt", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 6);
+    CHECK_EQ(curField[5]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[5]->GetHealth(), 4);
+
+    // Deal 3 damage to "Imp Master"
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, curField[5]));
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    // "Imp Master kills" self, and full field make it cannot summon "Imp".
+    CHECK_EQ(curField.GetCount(), 6);
+}
