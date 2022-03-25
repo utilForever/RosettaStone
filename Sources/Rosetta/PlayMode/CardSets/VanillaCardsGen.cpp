@@ -7382,6 +7382,18 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::DIVINE_SHIELD, 1)) }));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::DIVINE_SHIELD, 0));
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    power.AddPowerTask(std::make_shared<MathMultiplyTask>(3));
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_590e", EntityType::SOURCE, true));
+    cards.emplace("VAN_EX1_590", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_593] Nightblade - COST:5 [ATK:4/HP:4]
