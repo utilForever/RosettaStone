@@ -13472,6 +13472,7 @@ TEST_CASE("[Neutral : Minion] - EX1_597 : Imp Master")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_614 : Xavius")
 {
