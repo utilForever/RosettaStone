@@ -7330,6 +7330,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 4));
+    cards.emplace("VAN_EX1_583", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
