@@ -7317,6 +7317,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_EX1_582", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4]

@@ -19465,3 +19465,17 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_577 : The Beast")
     CHECK_EQ(opField[1]->GetHealth(), 3);
     CHECK_EQ(opField[1]->GetAttack(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_582] Dalaran Mage - COST:3 [ATK:1/HP:4]
+// - Set: VANILLA, Rarity: Free
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_582 : Dalaran Mage")
+{
+    // Do nothing
+}
