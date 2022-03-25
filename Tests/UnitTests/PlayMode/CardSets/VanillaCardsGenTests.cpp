@@ -19750,3 +19750,99 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_593 : Nightblade")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_595] Cult Master - COST:4 [ATK:4/HP:2]
+// - Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: After a friendly minion dies, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_595 : Cult Master")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Cult Master", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Argent Squire", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Stonetusk Boar", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+
+    game.Process(opPlayer, AttackTask(card4, card2));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(opPlayer, AttackTask(card5, card2));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(opPlayer, AttackTask(card7, card3));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(opPlayer, AttackTask(card6, card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cult Master"));
+    const auto card9 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card10 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card11 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Hellfire"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card8));
+    game.Process(curPlayer, PlayCardTask::Minion(card9));
+    game.Process(curPlayer, PlayCardTask::Minion(card10));
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card11));
+    CHECK_EQ(curHand.GetCount(), 7);
+}
