@@ -13123,7 +13123,8 @@ TEST_CASE("[Neutral : Minion] - EX1_583 : Priestess of Elune")
 // [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give adjacent minions <b>Spell Damage +1</b>.
+// Text: <b>Battlecry:</b> Give adjacent minions
+//       <b>Spell Damage +1</b>.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1

@@ -5803,7 +5803,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give adjacent minions <b>Spell Damage +1</b>.
+    // Text: <b>Battlecry:</b> Give adjacent minions
+    //       <b>Spell Damage +1</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
