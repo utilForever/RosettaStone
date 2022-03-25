@@ -7362,6 +7362,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each other minion on the battlefield.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+        return playable->player->GetFieldZone()->GetCount() +
+               playable->player->opponent->GetFieldZone()->GetCount();
+    }));
+    cards.emplace("VAN_EX1_586", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_590] Blood Knight - COST:3 [ATK:3/HP:3]
