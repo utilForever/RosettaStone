@@ -13022,7 +13022,8 @@ TEST_CASE("[Neutral : Minion] - EX1_572 : Ysera")
 // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
 // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.
+// Text: <b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn
+//       for your opponent.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
