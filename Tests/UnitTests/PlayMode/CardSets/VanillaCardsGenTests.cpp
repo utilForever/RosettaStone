@@ -19528,3 +19528,59 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_583 : Priestess of Elune")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
+// - Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give adjacent minions
+//       <b>Spell Damage +1</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_584 : Ancient Mage")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ancient Mage", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wisp", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask(card1, nullptr, 1, 0));
+
+    CHECK_EQ(curField[1]->card->name, "Ancient Mage");
+    CHECK_EQ(curField[0]->GetSpellPower(), 1);
+    CHECK_EQ(curField[2]->GetSpellPower(), 1);
+    CHECK_EQ(curField[3]->GetSpellPower(), 0);
+}

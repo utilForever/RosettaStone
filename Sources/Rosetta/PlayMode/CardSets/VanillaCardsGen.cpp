@@ -7347,6 +7347,14 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
+                                RelaCondition::IsSideBySide()) }));
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("EX1_584e", EntityType::STACK));
+    cards.emplace("VAN_EX1_584", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_586] Sea Giant - COST:10 [ATK:8/HP:8]
