@@ -20033,3 +20033,67 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_616 : Mana Wraith")
     CHECK_EQ(card3->GetCost(), 4);
     CHECK_EQ(card4->GetCost(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
+// - Set: VANILLA, Rarity: Epic
+// --------------------------------------------------------
+// Text: Costs (1) less for each damage your hero has taken.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_EX1_620 : Molten Giant")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Molten Giant", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+
+    CHECK_EQ(card1->GetCost(), 20);
+
+    game.Process(curPlayer, PlayCardTask(card2));
+    game.Process(curPlayer, PlayCardTask(card3));
+    game.Process(curPlayer, PlayCardTask(card4));
+    game.Process(curPlayer, PlayCardTask(card5));
+
+    CHECK_EQ(card1->GetCost(), 8);
+
+    const auto card6 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card7 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card8 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+    const auto card9 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flame Imp", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask(card6));
+    game.Process(curPlayer, PlayCardTask(card7));
+    game.Process(curPlayer, PlayCardTask(card8));
+    game.Process(curPlayer, PlayCardTask(card9));
+
+    CHECK_EQ(card1->GetCost(), 0);
+}

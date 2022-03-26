@@ -7483,6 +7483,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each damage your hero has taken.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        return playable->player->GetHero()->GetDamage();
+    }));
+    cards.emplace("VAN_EX1_620", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_016] Captain's Parrot - COST:2 [ATK:1/HP:1]
