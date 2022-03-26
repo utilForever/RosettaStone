@@ -6089,8 +6089,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [NEW1_025] Bloodsail Corsair - COST:2 [ATK:1/HP:2]
     // - Race: Pirate, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Remove 1 Durability from your
-    //       opponent's weapon.
+    // Text: <b>Battlecry:</b> Remove 1 Durability from
+    //       your opponent's weapon.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
