@@ -7658,6 +7658,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RemoveDurabilityTask>(1, true));
+    cards.emplace("VAN_NEW1_025", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]

@@ -20619,3 +20619,66 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_024 : Captain Greenskin")
     CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 2);
     CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_NEW1_025] Bloodsail Corsair - COST:1 [ATK:1/HP:2]
+// - Race: Pirate, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Remove 1 Durability from
+//       your opponent's weapon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_NEW1_025 : Bloodsail Corsair")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Bloodsail Corsair", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Bloodsail Corsair", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Bloodsail Corsair", FormatType::CLASSIC));
+
+    game.Process(curPlayer, HeroPowerTask(nullptr));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(nullptr));
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->weapon, nullptr);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetHero()->weapon, nullptr);
+    CHECK_EQ(opPlayer->GetHero()->weapon->GetDurability(), 2);
+}
