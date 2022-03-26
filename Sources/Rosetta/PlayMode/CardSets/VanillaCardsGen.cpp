@@ -7629,6 +7629,9 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_023", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
