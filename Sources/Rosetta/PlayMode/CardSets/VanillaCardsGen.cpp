@@ -7498,6 +7498,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DrawRaceMinionTask>(Race::PIRATE, 1, false));
+    cards.emplace("VAN_NEW1_016", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
