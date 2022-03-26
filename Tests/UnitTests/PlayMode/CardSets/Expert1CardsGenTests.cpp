@@ -13898,6 +13898,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_020 : Wild Pyromancer")
 // --------------------------------------------------------
 // Text: At the start of your turn, destroy all minions.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_021 : Doomsayer")
 {
     GameConfig config;

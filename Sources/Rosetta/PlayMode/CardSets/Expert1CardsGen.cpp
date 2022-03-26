@@ -6026,6 +6026,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: At the start of your turn, destroy all minions.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
     power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
