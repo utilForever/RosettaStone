@@ -13823,6 +13823,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_019 : Knife Juggler")
 // --------------------------------------------------------
 // Text: After you cast a spell, deal 1 damage to all minions.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_020 : Wild Pyromancer")
 {
     GameConfig config;
