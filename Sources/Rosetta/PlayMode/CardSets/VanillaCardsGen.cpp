@@ -7467,6 +7467,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HANDS,
+                                         EffectList{ Effects::AddCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion());
+    }
+    cards.emplace("VAN_EX1_616", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
