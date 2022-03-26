@@ -13823,6 +13823,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_019 : Knife Juggler")
 // --------------------------------------------------------
 // Text: After you cast a spell, deal 1 damage to all minions.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_020 : Wild Pyromancer")
 {
     GameConfig config;
@@ -13894,6 +13897,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_020 : Wild Pyromancer")
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
 // Text: At the start of your turn, destroy all minions.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_021 : Doomsayer")
 {
@@ -14051,6 +14057,10 @@ TEST_CASE("[Neutral : Minion] - NEW1_023 : Faerie Dragon")
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give your weapon +1/+1.
 // --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_024 : Captain Greenskin")
 {
     GameConfig config;
@@ -14093,8 +14103,8 @@ TEST_CASE("[Neutral : Minion] - NEW1_024 : Captain Greenskin")
 // [NEW1_025] Bloodsail Corsair - COST:2 [ATK:1/HP:2]
 // - Race: Pirate, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Remove 1 Durability from your
-//       opponent's weapon.
+// Text: <b>Battlecry:</b> Remove 1 Durability from
+//       your opponent's weapon.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1

@@ -346,10 +346,10 @@ VANILLA | VAN_EX1_611 | Freezing Trap | O
 VANILLA | VAN_EX1_612 | Kirin Tor Mage | O
 VANILLA | VAN_EX1_613 | Edwin VanCleef | O
 VANILLA | VAN_EX1_614 | Illidan Stormrage | O
-VANILLA | VAN_EX1_616 | Mana Wraith |  
+VANILLA | VAN_EX1_616 | Mana Wraith | O
 VANILLA | VAN_EX1_617 | Deadly Shot | O
 VANILLA | VAN_EX1_619 | Equality | O
-VANILLA | VAN_EX1_620 | Molten Giant |  
+VANILLA | VAN_EX1_620 | Molten Giant | O
 VANILLA | VAN_EX1_621 | Circle of Healing | O
 VANILLA | VAN_EX1_622 | Shadow Word: Death | O
 VANILLA | VAN_EX1_623 | Temple Enforcer | O
@@ -365,16 +365,16 @@ VANILLA | VAN_NEW1_010 | Al'Akir the Windlord | O
 VANILLA | VAN_NEW1_011 | Kor'kron Elite | O
 VANILLA | VAN_NEW1_012 | Mana Wyrm | O
 VANILLA | VAN_NEW1_014 | Master of Disguise | O
-VANILLA | VAN_NEW1_016 | Captain's Parrot |  
-VANILLA | VAN_NEW1_017 | Hungry Crab |  
-VANILLA | VAN_NEW1_018 | Bloodsail Raider |  
-VANILLA | VAN_NEW1_019 | Knife Juggler |  
-VANILLA | VAN_NEW1_020 | Wild Pyromancer |  
-VANILLA | VAN_NEW1_021 | Doomsayer |  
-VANILLA | VAN_NEW1_022 | Dread Corsair |  
-VANILLA | VAN_NEW1_023 | Faerie Dragon |  
-VANILLA | VAN_NEW1_024 | Captain Greenskin |  
-VANILLA | VAN_NEW1_025 | Bloodsail Corsair |  
+VANILLA | VAN_NEW1_016 | Captain's Parrot | O
+VANILLA | VAN_NEW1_017 | Hungry Crab | O
+VANILLA | VAN_NEW1_018 | Bloodsail Raider | O
+VANILLA | VAN_NEW1_019 | Knife Juggler | O
+VANILLA | VAN_NEW1_020 | Wild Pyromancer | O
+VANILLA | VAN_NEW1_021 | Doomsayer | O
+VANILLA | VAN_NEW1_022 | Dread Corsair | O
+VANILLA | VAN_NEW1_023 | Faerie Dragon | O
+VANILLA | VAN_NEW1_024 | Captain Greenskin | O
+VANILLA | VAN_NEW1_025 | Bloodsail Corsair | O
 VANILLA | VAN_NEW1_026 | Violet Teacher |  
 VANILLA | VAN_NEW1_027 | Southsea Captain |  
 VANILLA | VAN_NEW1_029 | Millhouse Manastorm |  
@@ -389,4 +389,4 @@ VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |
 VANILLA | VAN_tt_004 | Flesheating Ghoul |  
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 94% (360 of 382 Cards)
+- Progress: 97% (372 of 382 Cards)

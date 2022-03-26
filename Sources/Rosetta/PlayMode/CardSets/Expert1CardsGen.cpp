@@ -6011,6 +6011,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: After you cast a spell, deal 1 damage to all minions.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
     power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
     power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
@@ -6022,6 +6025,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Faction: Neutral, Set: Expert1, Rarity: Epic
     // --------------------------------------------------------
     // Text: At the start of your turn, destroy all minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
@@ -6070,6 +6076,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give your weapon +1/+1.
     // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("NEW1_024o", EntityType::WEAPON));
@@ -6079,8 +6089,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [NEW1_025] Bloodsail Corsair - COST:2 [ATK:1/HP:2]
     // - Race: Pirate, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Remove 1 Durability from your
-    //       opponent's weapon.
+    // Text: <b>Battlecry:</b> Remove 1 Durability from
+    //       your opponent's weapon.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
