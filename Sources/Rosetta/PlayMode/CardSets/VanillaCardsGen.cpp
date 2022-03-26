@@ -7608,6 +7608,16 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (!playable->player->GetHero()->HasWeapon())
+        {
+            return 0;
+        }
+
+        return playable->player->GetHero()->weapon->GetAttack();
+    }));
+    cards.emplace("VAN_NEW1_022", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]

@@ -20473,3 +20473,48 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_021 : Doomsayer")
     CHECK_EQ(opPlayer->GetHandZone()->GetCount(), 6);
     CHECK_EQ(opField.GetCount(), 0);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_NEW1_022] Dread Corsair - COST:4 [ATK:3/HP:3]
+// - Race: Pirate, Set: VANILLA, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Costs (1) less per Attack of your weapon.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_NEW1_022 : Dread Corsair")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dread Corsair", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Deadly Poison", FormatType::CLASSIC));
+
+    CHECK_EQ(card1->GetCost(), 4);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(card1->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(card1->GetCost(), 1);
+}
