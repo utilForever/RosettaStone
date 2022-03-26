@@ -7643,6 +7643,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("NEW1_024o", EntityType::WEAPON));
+    cards.emplace("VAN_NEW1_024", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_025] Bloodsail Corsair - COST:1 [ATK:1/HP:2]
