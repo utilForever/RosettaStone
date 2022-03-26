@@ -6076,6 +6076,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give your weapon +1/+1.
     // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("NEW1_024o", EntityType::WEAPON));

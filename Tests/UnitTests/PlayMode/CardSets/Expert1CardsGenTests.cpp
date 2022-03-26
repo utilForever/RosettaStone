@@ -14057,6 +14057,10 @@ TEST_CASE("[Neutral : Minion] - NEW1_023 : Faerie Dragon")
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Give your weapon +1/+1.
 // --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_024 : Captain Greenskin")
 {
     GameConfig config;
