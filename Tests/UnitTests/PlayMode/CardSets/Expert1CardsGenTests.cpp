@@ -14478,6 +14478,7 @@ TEST_CASE("[Neutral : Minion] - NEW1_037 : Master Swordsmith")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_038 : Gruul")
 {

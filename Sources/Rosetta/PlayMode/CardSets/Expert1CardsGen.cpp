@@ -6193,6 +6193,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
