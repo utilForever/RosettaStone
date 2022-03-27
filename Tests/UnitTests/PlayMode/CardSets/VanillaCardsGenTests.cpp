@@ -21191,3 +21191,50 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_041 : Stampeding Kodo")
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(curField.GetCount(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_PRO_001] Elite Tauren Chieftain - COST:5 [ATK:5/HP:5]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give both players the power to ROCK!
+//       (with a Power Chord card)
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_PRO_001 : Elite Tauren Chieftain")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Elite Tauren Chieftain", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    const bool isChieftainCard = curHand[0]->card->name == "I Am Murloc" ||
+                                 curHand[0]->card->name == "Rogues Do It..." ||
+                                 curHand[0]->card->name == "Power of the Horde";
+    CHECK(isChieftainCard);
+}

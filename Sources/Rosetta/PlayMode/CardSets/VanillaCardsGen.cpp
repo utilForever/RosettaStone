@@ -7816,6 +7816,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("VAN_PRO_001",
+                  CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                          Entourages{ "PRO_001a", "PRO_001b", "PRO_001c" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3]
