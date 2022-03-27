@@ -7740,6 +7740,13 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("NEW1_037e", EntityType::STACK)
+    };
+    cards.emplace("VAN_NEW1_037", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_038] Gruul - COST:8 [ATK:7/HP:7]
