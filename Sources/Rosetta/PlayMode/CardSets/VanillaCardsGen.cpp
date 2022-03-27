@@ -7690,7 +7690,7 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddAura(
-        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_027e"));
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "VAN_NEW1_027e"));
     {
         const auto aura = dynamic_cast<Aura*>(power.GetAura());
         aura->condition = std::make_shared<SelfCondition>(
@@ -7974,6 +7974,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_NEW1_027e"));
+    cards.emplace("VAN_NEW1_027e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_skele11] Skeleton - COST:1 [ATK:1/HP:1]
