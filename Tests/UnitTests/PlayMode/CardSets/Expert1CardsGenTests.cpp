@@ -14422,6 +14422,9 @@ TEST_CASE("[Neutral : Minion] - NEW1_030 : Deathwing")
 // Text: At the end of your turn,
 //       give another random friendly minion +1 Attack.
 // --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_037 : Master Swordsmith")
 {
     GameConfig config;
