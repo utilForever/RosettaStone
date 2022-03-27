@@ -7795,6 +7795,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("VAN_NEW1_041", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_PRO_001] Elite Tauren Chieftain - COST:5 [ATK:5/HP:5]

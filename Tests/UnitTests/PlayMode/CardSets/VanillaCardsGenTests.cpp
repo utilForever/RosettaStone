@@ -21115,3 +21115,79 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_040 : Hogger")
 
     CHECK_EQ(curField.GetCount(), 2);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5]
+// - Race: Beast, Set: VANILLA, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a random enemy minion
+//       with 2 or less Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_NEW1_041 : Stampeding Kodo")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Stampeding Kodo", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Stampeding Kodo", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer,
+        Cards::FindCardByName("Stampeding Kodo", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Voidwalker", FormatType::CLASSIC));
+    const auto card5 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("River Crocolisk", FormatType::CLASSIC));
+    const auto card6 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Bloodfen Raptor", FormatType::CLASSIC));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField.GetAll()[0]->card->name, "Bloodfen Raptor");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 1);
+}
