@@ -20821,3 +20821,67 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_027 : Southsea Captain")
     CHECK_EQ(curField[3]->GetAttack(), 5);
     CHECK_EQ(curField[3]->GetHealth(), 5);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [VAN_NEW1_029] Millhouse Manastorm - COST:2 [ATK:4/HP:4]
+// - Set: VANILLA, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Enemy spells cost (0) next turn.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - VAN_NEW1_029 : Millhouse Manastorm")
+{
+    GameConfig config;
+    config.formatType = FormatType::CLASSIC;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer,
+        Cards::FindCardByName("Millhouse Manastorm", FormatType::CLASSIC));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Fireball", FormatType::CLASSIC));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Frostbolt", FormatType::CLASSIC));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+
+    CHECK_EQ(card2->GetCost(), 4);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    CHECK_EQ(card2->GetCost(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetCost(), 4);
+    CHECK_EQ(card4->GetCost(), 3);
+}

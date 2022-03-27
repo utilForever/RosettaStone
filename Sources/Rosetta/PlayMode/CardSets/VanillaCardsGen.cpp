@@ -7708,6 +7708,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("NEW1_029t", EntityType::PLAYER));
+    cards.emplace("VAN_NEW1_029", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
