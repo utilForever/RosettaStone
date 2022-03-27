@@ -7724,6 +7724,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<RemoveHandTask>(EntityType::HAND));
+    cards.emplace("VAN_NEW1_030", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
