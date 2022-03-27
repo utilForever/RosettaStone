@@ -7672,6 +7672,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "VAN_NEW1_026t", SummonSide::RIGHT) };
+    cards.emplace("VAN_NEW1_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
@@ -7682,6 +7688,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "VAN_NEW1_027e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::PIRATE));
+    }
+    cards.emplace("VAN_NEW1_027", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_029] Millhouse Manastorm - COST:2 [ATK:4/HP:4]
@@ -7693,6 +7708,10 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("NEW1_029t", EntityType::PLAYER));
+    cards.emplace("VAN_NEW1_029", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
@@ -7705,6 +7724,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    power.AddPowerTask(std::make_shared<RemoveHandTask>(EntityType::HAND));
+    cards.emplace("VAN_NEW1_030", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
@@ -7716,6 +7740,13 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
+        std::make_shared<AddEnchantmentTask>("NEW1_037e", EntityType::STACK)
+    };
+    cards.emplace("VAN_NEW1_037", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_038] Gruul - COST:8 [ATK:7/HP:7]
@@ -7727,6 +7758,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->eitherTurn = true;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "NEW1_038o", EntityType::SOURCE) };
+    cards.emplace("VAN_NEW1_038", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
@@ -7742,6 +7779,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "NEW1_040t", SummonSide::RIGHT) };
+    cards.emplace("VAN_NEW1_040", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5]
@@ -7753,6 +7795,15 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
+    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("VAN_NEW1_041", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_PRO_001] Elite Tauren Chieftain - COST:5 [ATK:5/HP:5]
@@ -7765,6 +7816,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("VAN_PRO_001",
+                  CardDef(power, PlayReqs{}, ChooseCardIDs{},
+                          Entourages{ "PRO_001a", "PRO_001b", "PRO_001c" }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3]
@@ -7775,6 +7832,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "tt_004o", EntityType::SOURCE) };
+    cards.emplace("VAN_tt_004", CardDef(power));
 }
 
 void VanillaCardsGen::AddNeutralNonCollect(
@@ -7901,6 +7964,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_NEW1_026t] Violet Apprentice - COST:0 [ATK:1/HP:1]
     // - Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_026t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [VAN_NEW1_027e] Yarrr! - COST:0
@@ -7908,6 +7974,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("VAN_NEW1_027e"));
+    cards.emplace("VAN_NEW1_027e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_skele11] Skeleton - COST:1 [ATK:1/HP:1]

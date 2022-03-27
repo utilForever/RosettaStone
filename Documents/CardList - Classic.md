@@ -375,18 +375,18 @@ VANILLA | VAN_NEW1_022 | Dread Corsair | O
 VANILLA | VAN_NEW1_023 | Faerie Dragon | O
 VANILLA | VAN_NEW1_024 | Captain Greenskin | O
 VANILLA | VAN_NEW1_025 | Bloodsail Corsair | O
-VANILLA | VAN_NEW1_026 | Violet Teacher |  
-VANILLA | VAN_NEW1_027 | Southsea Captain |  
-VANILLA | VAN_NEW1_029 | Millhouse Manastorm |  
-VANILLA | VAN_NEW1_030 | Deathwing |  
+VANILLA | VAN_NEW1_026 | Violet Teacher | O
+VANILLA | VAN_NEW1_027 | Southsea Captain | O
+VANILLA | VAN_NEW1_029 | Millhouse Manastorm | O
+VANILLA | VAN_NEW1_030 | Deathwing | O
 VANILLA | VAN_NEW1_031 | Animal Companion | O
 VANILLA | VAN_NEW1_036 | Commanding Shout | O
-VANILLA | VAN_NEW1_037 | Master Swordsmith |  
-VANILLA | VAN_NEW1_038 | Gruul |  
-VANILLA | VAN_NEW1_040 | Hogger |  
-VANILLA | VAN_NEW1_041 | Stampeding Kodo |  
-VANILLA | VAN_PRO_001 | Elite Tauren Chieftain |  
-VANILLA | VAN_tt_004 | Flesheating Ghoul |  
+VANILLA | VAN_NEW1_037 | Master Swordsmith | O
+VANILLA | VAN_NEW1_038 | Gruul | O
+VANILLA | VAN_NEW1_040 | Hogger | O
+VANILLA | VAN_NEW1_041 | Stampeding Kodo | O
+VANILLA | VAN_PRO_001 | Elite Tauren Chieftain | O
+VANILLA | VAN_tt_004 | Flesheating Ghoul | O
 VANILLA | VAN_tt_010 | Spellbender | O
 
-- Progress: 97% (372 of 382 Cards)
+- Progress: 100% (382 of 382 Cards)

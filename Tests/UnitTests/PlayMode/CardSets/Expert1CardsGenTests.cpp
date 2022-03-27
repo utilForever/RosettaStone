@@ -14356,7 +14356,8 @@ TEST_CASE("[Neutral : Minion] - NEW1_029 : Millhouse Manastorm")
 // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
 // - Race: Dragon, Set: Expert1, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Destroy all other minions and discard your hand.
+// Text: <b>Battlecry:</b> Destroy all other minions
+//       and discard your hand.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
@@ -14418,7 +14419,11 @@ TEST_CASE("[Neutral : Minion] - NEW1_030 : Deathwing")
 // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: At the end of your turn, give another random friendly minion +1 Attack.
+// Text: At the end of your turn,
+//       give another random friendly minion +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_037 : Master Swordsmith")
 {
@@ -14473,6 +14478,7 @@ TEST_CASE("[Neutral : Minion] - NEW1_037 : Master Swordsmith")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_038 : Gruul")
 {
@@ -14525,6 +14531,7 @@ TEST_CASE("[Neutral : Minion] - NEW1_038 : Gruul")
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1
+// - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 // RefTag:
 // - TAUNT = 1
