@@ -7832,6 +7832,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "tt_004o", EntityType::SOURCE) };
+    cards.emplace("VAN_tt_004", CardDef(power));
 }
 
 void VanillaCardsGen::AddNeutralNonCollect(
