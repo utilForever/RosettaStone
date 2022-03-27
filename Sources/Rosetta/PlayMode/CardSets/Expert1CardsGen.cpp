@@ -6154,7 +6154,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
     // - Race: Dragon, Set: Expert1, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy all other minions and discard your hand.
+    // Text: <b>Battlecry:</b> Destroy all other minions
+    //       and discard your hand.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
