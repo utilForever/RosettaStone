@@ -14419,7 +14419,8 @@ TEST_CASE("[Neutral : Minion] - NEW1_030 : Deathwing")
 // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
 // - Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
-// Text: At the end of your turn, give another random friendly minion +1 Attack.
+// Text: At the end of your turn,
+//       give another random friendly minion +1 Attack.
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - NEW1_037 : Master Swordsmith")
 {
