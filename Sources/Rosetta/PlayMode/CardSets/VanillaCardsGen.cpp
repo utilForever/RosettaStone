@@ -7779,6 +7779,11 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "NEW1_040t", SummonSide::RIGHT) };
+    cards.emplace("VAN_NEW1_040", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5]
