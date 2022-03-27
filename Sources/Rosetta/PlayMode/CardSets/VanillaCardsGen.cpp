@@ -7672,6 +7672,12 @@ void VanillaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "VAN_NEW1_026t", SummonSide::RIGHT) };
+    cards.emplace("VAN_NEW1_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [VAN_NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
@@ -7901,6 +7907,9 @@ void VanillaCardsGen::AddNeutralNonCollect(
     // [VAN_NEW1_026t] Violet Apprentice - COST:0 [ATK:1/HP:1]
     // - Set: VANILLA
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("VAN_NEW1_026t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [VAN_NEW1_027e] Yarrr! - COST:0
