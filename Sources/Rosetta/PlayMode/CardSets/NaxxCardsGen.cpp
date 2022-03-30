@@ -13,6 +13,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using TagValues = std::vector<TagValue>;
+using PlayReqs = std::map<PlayReq, int>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
@@ -28,6 +29,8 @@ void NaxxCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [FP1_019] Poison Seeds - COST:4
     // - Set: Naxx, Rarity: Common
@@ -35,14 +38,33 @@ void NaxxCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Destroy all minions and summon 2/2 Treants
     //       to replace them.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::MINIONS));
+    power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ALL_MINIONS, true));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        TaskList{ std::make_shared<SummonTask>("FP1_019t") }));
+    power.AddPowerTask(std::make_shared<MathMultiplyTask>(0));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::ADD));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        TaskList{ std::make_shared<SummonOpTask>("FP1_019t") }));
+    cards.emplace("FP1_019", CardDef(power));
 }
 
 void NaxxCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [FP1_019t] Treant (*) - COST:1 [ATK:2/HP:2]
     // - Set: Naxx
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_019t", CardDef(power));
 }
 
 void NaxxCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
