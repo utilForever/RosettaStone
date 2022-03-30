@@ -167,6 +167,8 @@ void NaxxCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [FP1_023] Dark Cultist - COST:3 [ATK:3/HP:4]
     // - Set: Naxx, Rarity: Common
@@ -177,16 +179,25 @@ void NaxxCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        ComplexTask::GiveBuffToRandomMinionInField("FP1_023e"));
+    cards.emplace("FP1_023", CardDef(power));
 }
 
 void NaxxCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [FP1_023e] Power of the Ziggurat (*) - COST:0
     // - Set: Naxx
     // --------------------------------------------------------
     // Text: +3 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("FP1_023e"));
+    cards.emplace("FP1_023e", CardDef(power));
 }
 
 void NaxxCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
