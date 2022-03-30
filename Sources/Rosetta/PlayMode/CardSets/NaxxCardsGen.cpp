@@ -96,6 +96,8 @@ void NaxxCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [FP1_018] Duplicate - COST:3
     // - Set: Naxx, Rarity: Common
@@ -106,6 +108,15 @@ void NaxxCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsHandNotFull())
+    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::HAND, 2) });
+    cards.emplace("FP1_018", CardDef(power));
 }
 
 void NaxxCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)

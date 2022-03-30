@@ -146,6 +146,96 @@ TEST_CASE("[Hunter : Minion] - FP1_011 : Webspinner")
     CHECK_EQ(curHand[0]->card->GetRace(), Race::BEAST);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [FP1_018] Duplicate - COST:3
+// - Set: Naxx, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> When a friendly minion dies,
+//       put 2 copies of it into your hand.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - FP1_018 : Duplicate")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Duplicate"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Intellect"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Intellect"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Bolt"));
+    const auto card8 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Lightning Bolt"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 8);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curHand.GetCount(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card7, card4));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curSecret.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curHand.GetCount(), 8);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card8, card5));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curHand.GetCount(), 10);
+    CHECK_EQ(curHand[8]->card->name, "Wisp");
+    CHECK_EQ(curHand[9]->card->name, "Wisp");
+    CHECK_EQ(curSecret.GetCount(), 0);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [FP1_020] Avenge - COST:1
 // - Set: Naxx, Rarity: Common
