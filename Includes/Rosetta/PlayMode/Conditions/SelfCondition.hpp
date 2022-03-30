@@ -43,6 +43,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHandFull();
 
+    //! SelfCondition wrapper for checking the hand zone is not full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHandNotFull();
+
     //! SelfCondition wrapper for checking the deck zone is empty.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDeckEmpty();

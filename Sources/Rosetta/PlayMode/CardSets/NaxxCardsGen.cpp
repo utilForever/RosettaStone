@@ -13,6 +13,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using TagValues = std::vector<TagValue>;
+using PlayReqs = std::map<PlayReq, int>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
@@ -28,6 +29,8 @@ void NaxxCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------ SPELL - DRUID
     // [FP1_019] Poison Seeds - COST:4
     // - Set: Naxx, Rarity: Common
@@ -35,14 +38,33 @@ void NaxxCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Destroy all minions and summon 2/2 Treants
     //       to replace them.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<CountTask>(EntityType::MINIONS));
+    power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::ENEMY_MINIONS, 1));
+    power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ALL_MINIONS, true));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        TaskList{ std::make_shared<SummonTask>("FP1_019t") }));
+    power.AddPowerTask(std::make_shared<MathMultiplyTask>(0));
+    power.AddPowerTask(
+        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::ADD));
+    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        TaskList{ std::make_shared<SummonOpTask>("FP1_019t") }));
+    cards.emplace("FP1_019", CardDef(power));
 }
 
 void NaxxCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - DRUID
     // [FP1_019t] Treant (*) - COST:1 [ATK:2/HP:2]
     // - Set: Naxx
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_019t", CardDef(power));
 }
 
 void NaxxCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -74,6 +96,8 @@ void NaxxCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------------- SPELL - MAGE
     // [FP1_018] Duplicate - COST:3
     // - Set: Naxx, Rarity: Common
@@ -84,6 +108,15 @@ void NaxxCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsHandNotFull())
+    };
+    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::HAND, 2) });
+    cards.emplace("FP1_018", CardDef(power));
 }
 
 void NaxxCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
@@ -134,6 +167,8 @@ void NaxxCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ---------------------------------------- MINION - PRIEST
     // [FP1_023] Dark Cultist - COST:3 [ATK:3/HP:4]
     // - Set: Naxx, Rarity: Common
@@ -144,20 +179,31 @@ void NaxxCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        ComplexTask::GiveBuffToRandomMinionInField("FP1_023e"));
+    cards.emplace("FP1_023", CardDef(power));
 }
 
 void NaxxCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [FP1_023e] Power of the Ziggurat (*) - COST:0
     // - Set: Naxx
     // --------------------------------------------------------
     // Text: +3 Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("FP1_023e"));
+    cards.emplace("FP1_023e", CardDef(power));
 }
 
 void NaxxCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [FP1_026] Anub'ar Ambusher - COST:4 [ATK:5/HP:5]
     // - Set: Naxx, Rarity: Common
@@ -168,6 +214,12 @@ void NaxxCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::MINIONS, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<ReturnHandTask>(EntityType::STACK));
+    cards.emplace("FP1_026", CardDef(power));
 }
 
 void NaxxCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
@@ -177,6 +229,8 @@ void NaxxCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [FP1_025] Reincarnate - COST:2
     // - Set: Naxx, Rarity: Common
@@ -188,6 +242,14 @@ void NaxxCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY));
+    cards.emplace(
+        "FP1_025",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void NaxxCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)

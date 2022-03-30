@@ -496,22 +496,22 @@ NAXX | FP1_014 | Stalagg |
 NAXX | FP1_015 | Feugen |  
 NAXX | FP1_016 | Wailing Soul |  
 NAXX | FP1_017 | Nerub'ar Weblord |  
-NAXX | FP1_018 | Duplicate |  
-NAXX | FP1_019 | Poison Seeds |  
+NAXX | FP1_018 | Duplicate | O
+NAXX | FP1_019 | Poison Seeds | O
 NAXX | FP1_020 | Avenge | O
 NAXX | FP1_021 | Death's Bite |  
 NAXX | FP1_022 | Voidcaller |  
-NAXX | FP1_023 | Dark Cultist |  
+NAXX | FP1_023 | Dark Cultist | O
 NAXX | FP1_024 | Unstable Ghoul |  
-NAXX | FP1_025 | Reincarnate |  
-NAXX | FP1_026 | Anub'ar Ambusher |  
+NAXX | FP1_025 | Reincarnate | O
+NAXX | FP1_026 | Anub'ar Ambusher | O
 NAXX | FP1_027 | Stoneskin Gargoyle |  
 NAXX | FP1_028 | Undertaker |  
 NAXX | FP1_029 | Dancing Swords |  
 NAXX | FP1_030 | Loatheb |  
 NAXX | FP1_031 | Baron Rivendare | O
 
-- Progress: 13% (4 of 30 Cards)
+- Progress: 30% (9 of 30 Cards)
 
 ## Goblins vs Gnomes
 
