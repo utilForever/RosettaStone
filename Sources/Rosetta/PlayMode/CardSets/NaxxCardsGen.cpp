@@ -229,6 +229,8 @@ void NaxxCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [FP1_025] Reincarnate - COST:2
     // - Set: Naxx, Rarity: Common
@@ -240,6 +242,14 @@ void NaxxCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET, true));
+    power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY));
+    cards.emplace(
+        "FP1_025",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
 }
 
 void NaxxCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
