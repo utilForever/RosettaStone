@@ -202,6 +202,8 @@ void NaxxCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- MINION - ROGUE
     // [FP1_026] Anub'ar Ambusher - COST:4 [ATK:5/HP:5]
     // - Set: Naxx, Rarity: Common
@@ -212,6 +214,12 @@ void NaxxCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::MINIONS, 1));
+    power.AddDeathrattleTask(
+        std::make_shared<ReturnHandTask>(EntityType::STACK));
+    cards.emplace("FP1_026", CardDef(power));
 }
 
 void NaxxCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
