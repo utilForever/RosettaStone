@@ -338,6 +338,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("FP1_002t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("FP1_002", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_003] Echoing Ooze - COST:2 [ATK:1/HP:2]
@@ -577,6 +581,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [FP1_002t] Spectral Spider (*) - COST:1 [ATK:1/HP:1]
     // - Set: Naxx
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_002t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [FP1_005e] Consume (*) - COST:0
