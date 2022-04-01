@@ -324,6 +324,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::ENEMY_HERO, 5));
+    cards.emplace("FP1_001", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_002] Haunted Creeper - COST:2 [ATK:1/HP:2]
