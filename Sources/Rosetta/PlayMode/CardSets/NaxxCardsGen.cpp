@@ -288,6 +288,8 @@ void NaxxCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - WARRIOR
     // [FP1_021] Death's Bite - COST:4 [ATK:4/HP:0]
     // - Set: Naxx, Rarity: Common
@@ -298,6 +300,10 @@ void NaxxCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1));
+    cards.emplace("FP1_021", CardDef(power));
 }
 
 void NaxxCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)

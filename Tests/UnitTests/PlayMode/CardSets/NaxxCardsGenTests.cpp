@@ -506,9 +506,9 @@ TEST_CASE("[Warlock : Minion] - FP1_022 : Voidcaller")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Voidcaller"));
-    const auto card2 =
+    [[maybe_unused]] const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
-    const auto card3 =
+    [[maybe_unused]] const auto card3 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Flame Imp"));
     const auto card4 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
@@ -523,6 +523,73 @@ TEST_CASE("[Warlock : Minion] - FP1_022 : Voidcaller")
     CHECK_EQ(curHand.GetCount(), 1);
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->name, "Flame Imp");
+}
+
+// --------------------------------------- WEAPON - WARRIOR
+// [FP1_021] Death's Bite - COST:4 [ATK:4/HP:0]
+// - Set: Naxx, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Deal 1 damage to all minions.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 2
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - FP1_021 : Death's Bite")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Death's Bite"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(curField[0]->GetHealth(), 11);
+    CHECK_EQ(opField[0]->GetHealth(), 11);
 }
 
 // --------------------------------------- MINION - NEUTRAL
