@@ -259,6 +259,8 @@ void NaxxCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [FP1_022] Voidcaller - COST:4 [ATK:3/HP:4]
     // - Race: Demon, Set: Naxx, Rarity: Common
@@ -269,6 +271,14 @@ void NaxxCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("FP1_022", CardDef(power));
 }
 
 void NaxxCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
