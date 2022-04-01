@@ -353,6 +353,25 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::CUSTOM_KEYWORD_EFFECT, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::MULTIPLY_BUFF_VALUE, 1));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::CUSTOM_KEYWORD_EFFECT, 1)) };
+    power.GetTrigger()->tasks = {
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::CUSTOM_KEYWORD_EFFECT, 0),
+        std::make_shared<SummonCopyTask>(EntityType::SOURCE, false, false,
+                                         SummonSide::RIGHT)
+    };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("FP1_003", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_004] Mad Scientist - COST:2 [ATK:2/HP:2]

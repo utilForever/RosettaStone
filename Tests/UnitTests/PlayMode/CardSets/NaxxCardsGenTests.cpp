@@ -694,6 +694,59 @@ TEST_CASE("[Neutral : Minion] - FP1_002 : Haunted Creeper")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_003] Echoing Ooze - COST:2 [ATK:1/HP:2]
+// - Set: Naxx, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon an exact copy
+//       of this minion at the end of the turn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_003 : Echoing Ooze")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Echoing Ooze"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Echoing Ooze");
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
 // - Set: Naxx, Rarity: Rare
 // --------------------------------------------------------
