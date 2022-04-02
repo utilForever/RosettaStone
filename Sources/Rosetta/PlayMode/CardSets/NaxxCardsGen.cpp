@@ -400,6 +400,11 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "FP1_005e", EntityType::SOURCE) };
+    cards.emplace("FP1_005", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
@@ -613,6 +618,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("FP1_005e"));
+    cards.emplace("FP1_005e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_006] Deathcharger (*) - COST:1 [ATK:2/HP:3]
