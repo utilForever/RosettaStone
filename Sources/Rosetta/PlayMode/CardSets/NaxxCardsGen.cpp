@@ -387,7 +387,7 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddDeathrattleTask(ComplexTask::PutSecretFromDeck());
+    power.AddDeathrattleTask(ComplexTask::CastSecretFromDeck());
     cards.emplace("FP1_004", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
