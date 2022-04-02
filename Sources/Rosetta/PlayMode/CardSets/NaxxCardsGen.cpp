@@ -459,6 +459,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_010", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_012] Sludge Belcher - COST:5 [ATK:3/HP:5]

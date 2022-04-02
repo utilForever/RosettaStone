@@ -981,6 +981,21 @@ TEST_CASE("[Neutral : Minion] - FP1_009 : Deathlord")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_010] Maexxna - COST:6 [ATK:2/HP:8]
+// - Race: Beast, Set: Naxx, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Poisonous</b>
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_010 : Maexxna")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
 // - Set: Naxx, Rarity: Legendary
 // --------------------------------------------------------
