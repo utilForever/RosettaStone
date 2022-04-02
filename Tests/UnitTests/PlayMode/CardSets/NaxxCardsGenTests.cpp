@@ -913,6 +913,21 @@ TEST_CASE("[Neutral : Minion] - FP1_007 : Nerubian Egg")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_008] Spectral Knight - COST:5 [ATK:4/HP:6]
+// - Set: Naxx, Rarity: Common
+// --------------------------------------------------------
+// Text: Can't be targeted by spells or Hero Powers.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_BE_TARGETED_BY_SPELLS = 1
+// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_008 : Spectral Knight")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
 // - Set: Naxx, Rarity: Legendary
 // --------------------------------------------------------

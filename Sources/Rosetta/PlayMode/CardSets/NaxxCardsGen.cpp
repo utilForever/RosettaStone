@@ -430,6 +430,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_008", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_009] Deathlord - COST:3 [ATK:2/HP:8]
