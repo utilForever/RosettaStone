@@ -386,6 +386,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(ComplexTask::PutSecretFromDeck());
+    cards.emplace("FP1_004", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_005] Shade of Naxxramas - COST:3 [ATK:2/HP:2]

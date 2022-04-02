@@ -747,6 +747,72 @@ TEST_CASE("[Neutral : Minion] - FP1_003 : Echoing Ooze")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_004] Mad Scientist - COST:2 [ATK:2/HP:2]
+// - Set: Naxx, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Put a <b>Secret</b>
+//       from your deck into the battlefield.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_004 : Mad Scientist")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Counterspell");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Ice Barrier");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Mirror Entity");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curSecret = *(curPlayer->GetSecretZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mad Scientist"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ice Barrier"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mirror Entity"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curSecret.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curSecret.GetCount(), 3);
+    CHECK_EQ(curSecret[2]->card->name, "Counterspell");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
 // - Set: Naxx, Rarity: Rare
 // --------------------------------------------------------
