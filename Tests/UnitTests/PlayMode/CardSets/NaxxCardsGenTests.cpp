@@ -928,6 +928,59 @@ TEST_CASE("[Neutral : Minion] - FP1_008 : Spectral Knight")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_009] Deathlord - COST:3 [ATK:2/HP:8]
+// - Set: Naxx, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt. Deathrattle:</b> Your opponent
+//       puts a minion from their deck into the battlefield.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_009 : Deathlord")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player2Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Deathlord"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Malygos");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
 // - Set: Naxx, Rarity: Legendary
 // --------------------------------------------------------

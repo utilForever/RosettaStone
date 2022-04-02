@@ -445,6 +445,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(ComplexTask::SummonOpMinionFromDeck());
+    cards.emplace("FP1_009", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_010] Maexxna - COST:6 [ATK:2/HP:8]
