@@ -59,6 +59,18 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for summoning a opponent minion from your deck.
+    static TaskList SummonOpMinionFromDeck()
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::ENEMY_DECK),
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::SummonStackTask>(true)
+        };
+    }
+
     //! Returns a list of task for summoning a \p race minion from your deck.
     //! \param race The race of minion(s) to summon.
     static TaskList SummonRaceMinionFromDeck(Race race)
