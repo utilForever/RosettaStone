@@ -9,9 +9,15 @@
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
+
+#include <effolkronium/random.hpp>
 
 #include <utility>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode
 {
@@ -39,6 +45,64 @@ class ComplexTask
             std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK,
                                                       amount),
             std::make_shared<SimpleTasks::DrawStackTask>(addToStack)
+        };
+    }
+
+    //! Returns a list of task for putting a secret from your deck.
+    static TaskList PutSecretFromDeck()
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::ConditionTask>(
+                EntityType::SOURCE,
+                SelfCondList{ std::make_shared<SelfCondition>(
+                    SelfCondition::IsSecretFull()) }),
+            std::make_shared<SimpleTasks::FlagTask>(
+                false,
+                TaskList{
+                    std::make_shared<SimpleTasks::IncludeTask>(
+                        EntityType::DECK),
+                    std::make_shared<SimpleTasks::FilterStackTask>(
+                        SelfCondList{ std::make_shared<SelfCondition>(
+                            SelfCondition::IsSecret()) }),
+                    std::make_shared<SimpleTasks::FuncPlayableTask>(
+                        [=](const std::vector<Playable*>& playables) {
+                            if (playables.empty())
+                            {
+                                return std::vector<Playable*>{};
+                            }
+
+                            auto secrets = playables;
+                            Random::shuffle(secrets);
+
+                            const Player* player = playables[0]->player;
+                            const auto activeSecrets =
+                                player->GetSecretZone()->GetAll();
+
+                            for (const auto& secret : secrets)
+                            {
+                                bool isExist = false;
+                                for (auto& activeSecret : activeSecrets)
+                                {
+                                    if (secret->card->id ==
+                                        activeSecret->card->id)
+                                    {
+                                        isExist = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!isExist)
+                                {
+                                    Playable* playable =
+                                        player->GetDeckZone()->Remove(secret);
+                                    player->GetSecretZone()->Add(playable);
+
+                                    break;
+                                }
+                            }
+
+                            return std::vector<Playable*>{};
+                        }) })
         };
     }
 
