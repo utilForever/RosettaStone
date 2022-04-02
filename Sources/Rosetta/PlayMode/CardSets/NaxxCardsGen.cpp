@@ -622,7 +622,7 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // Text: Increased stats.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("FP1_005e"));
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackHealthN(1)));
     cards.emplace("FP1_005e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
