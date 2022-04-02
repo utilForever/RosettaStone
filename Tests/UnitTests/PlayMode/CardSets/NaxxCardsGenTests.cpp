@@ -996,6 +996,58 @@ TEST_CASE("[Neutral : Minion] - FP1_010 : Maexxna")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_012] Sludge Belcher - COST:5 [ATK:3/HP:5]
+// - Set: Naxx, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Taunt Deathrattle:</b> Summon a 1/2 Slime
+//       with <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_012 : Sludge Belcher")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sludge Belcher"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Putrid Slime");
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
 // - Set: Naxx, Rarity: Legendary
 // --------------------------------------------------------

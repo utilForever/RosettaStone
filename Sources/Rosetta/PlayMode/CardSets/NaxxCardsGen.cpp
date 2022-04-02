@@ -474,6 +474,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("FP1_012t", SummonSide::DEATHRATTLE));
+    cards.emplace("FP1_012", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_013] Kel'Thuzad - COST:8 [ATK:6/HP:8]
@@ -651,7 +655,7 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("FP1_007t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [FP1_012t] Slime (*) - COST:1 [ATK:1/HP:2]
+    // [FP1_012t] Putrid Slime (*) - COST:1 [ATK:1/HP:2]
     // - Set: Naxx
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -659,6 +663,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_012t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_014t] Thaddius (*) - COST:10 [ATK:11/HP:11]
