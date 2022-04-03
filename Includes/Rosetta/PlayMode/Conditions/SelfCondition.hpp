@@ -51,6 +51,10 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsDeckEmpty();
 
+    //! SelfCondition wrapper for checking the secret zone is full.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsSecretFull();
+
     //! SelfCondition wrapper for checking the hero is Galakrond.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsGalakrondHero();

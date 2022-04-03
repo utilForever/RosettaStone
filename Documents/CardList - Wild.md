@@ -480,17 +480,17 @@ DEMON_HUNTER_INITIATE | BT_937 | Altruis the Outcast | O
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-NAXX | FP1_001 | Zombie Chow |  
-NAXX | FP1_002 | Haunted Creeper |  
-NAXX | FP1_003 | Echoing Ooze |  
-NAXX | FP1_004 | Mad Scientist |  
-NAXX | FP1_005 | Shade of Naxxramas |  
+NAXX | FP1_001 | Zombie Chow | O
+NAXX | FP1_002 | Haunted Creeper | O
+NAXX | FP1_003 | Echoing Ooze | O
+NAXX | FP1_004 | Mad Scientist | O
+NAXX | FP1_005 | Shade of Naxxramas | O
 NAXX | FP1_007 | Nerubian Egg | O
-NAXX | FP1_008 | Spectral Knight |  
-NAXX | FP1_009 | Deathlord |  
-NAXX | FP1_010 | Maexxna |  
+NAXX | FP1_008 | Spectral Knight | O
+NAXX | FP1_009 | Deathlord | O
+NAXX | FP1_010 | Maexxna | O
 NAXX | FP1_011 | Webspinner | O
-NAXX | FP1_012 | Sludge Belcher |  
+NAXX | FP1_012 | Sludge Belcher | O
 NAXX | FP1_013 | Kel'Thuzad |  
 NAXX | FP1_014 | Stalagg |  
 NAXX | FP1_015 | Feugen |  
@@ -499,8 +499,8 @@ NAXX | FP1_017 | Nerub'ar Weblord |
 NAXX | FP1_018 | Duplicate | O
 NAXX | FP1_019 | Poison Seeds | O
 NAXX | FP1_020 | Avenge | O
-NAXX | FP1_021 | Death's Bite |  
-NAXX | FP1_022 | Voidcaller |  
+NAXX | FP1_021 | Death's Bite | O
+NAXX | FP1_022 | Voidcaller | O
 NAXX | FP1_023 | Dark Cultist | O
 NAXX | FP1_024 | Unstable Ghoul |  
 NAXX | FP1_025 | Reincarnate | O
@@ -511,7 +511,7 @@ NAXX | FP1_029 | Dancing Swords |
 NAXX | FP1_030 | Loatheb |  
 NAXX | FP1_031 | Baron Rivendare | O
 
-- Progress: 30% (9 of 30 Cards)
+- Progress: 66% (20 of 30 Cards)
 
 ## Goblins vs Gnomes
 

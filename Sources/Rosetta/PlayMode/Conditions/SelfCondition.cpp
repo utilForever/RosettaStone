@@ -70,6 +70,13 @@ SelfCondition SelfCondition::IsDeckEmpty()
     });
 }
 
+SelfCondition SelfCondition::IsSecretFull()
+{
+    return SelfCondition([](Playable* playable) {
+        return playable->player->GetSecretZone()->IsFull();
+    });
+}
+
 SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
 {
     return SelfCondition([cardID](Playable* playable) {

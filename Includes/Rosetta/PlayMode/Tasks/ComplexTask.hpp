@@ -9,9 +9,14 @@
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
+#include <effolkronium/random.hpp>
+
 #include <utility>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode
 {
@@ -47,6 +52,18 @@ class ComplexTask
     {
         return TaskList{
             std::make_shared<SimpleTasks::IncludeTask>(EntityType::DECK),
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::SummonStackTask>(true)
+        };
+    }
+
+    //! Returns a list of task for summoning a opponent minion from your deck.
+    static TaskList SummonOpMinionFromDeck()
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::ENEMY_DECK),
             std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
                 std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }),
             std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),

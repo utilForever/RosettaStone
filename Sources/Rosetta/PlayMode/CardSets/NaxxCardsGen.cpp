@@ -259,6 +259,8 @@ void NaxxCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- MINION - WARLOCK
     // [FP1_022] Voidcaller - COST:4 [ATK:3/HP:4]
     // - Race: Demon, Set: Naxx, Rarity: Common
@@ -269,6 +271,14 @@ void NaxxCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON)) }));
+    power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    power.AddDeathrattleTask(std::make_shared<SummonStackTask>(true));
+    cards.emplace("FP1_022", CardDef(power));
 }
 
 void NaxxCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
@@ -278,6 +288,8 @@ void NaxxCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void NaxxCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // --------------------------------------- WEAPON - WARRIOR
     // [FP1_021] Death's Bite - COST:4 [ATK:4/HP:0]
     // - Set: Naxx, Rarity: Common
@@ -288,6 +300,10 @@ void NaxxCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1));
+    cards.emplace("FP1_021", CardDef(power));
 }
 
 void NaxxCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
@@ -308,6 +324,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::ENEMY_HERO, 5));
+    cards.emplace("FP1_001", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_002] Haunted Creeper - COST:2 [ATK:1/HP:2]
@@ -318,6 +338,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("FP1_002t", 2, SummonSide::DEATHRATTLE));
+    cards.emplace("FP1_002", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_003] Echoing Ooze - COST:2 [ATK:1/HP:2]
@@ -329,6 +353,25 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::CUSTOM_KEYWORD_EFFECT, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 1));
+    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::MULTIPLY_BUFF_VALUE, 1));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::CUSTOM_KEYWORD_EFFECT, 1)) };
+    power.GetTrigger()->tasks = {
+        std::make_shared<SetGameTagTask>(EntityType::SOURCE,
+                                         GameTag::CUSTOM_KEYWORD_EFFECT, 0),
+        std::make_shared<SummonCopyTask>(EntityType::SOURCE, false, false,
+                                         SummonSide::RIGHT)
+    };
+    power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("FP1_003", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_004] Mad Scientist - COST:2 [ATK:2/HP:2]
@@ -343,6 +386,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(ComplexTask::CastSecretFromDeck());
+    cards.emplace("FP1_004", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_005] Shade of Naxxramas - COST:3 [ATK:2/HP:2]
@@ -354,6 +400,11 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "FP1_005e", EntityType::SOURCE) };
+    cards.emplace("FP1_005", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
@@ -379,6 +430,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_008", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_009] Deathlord - COST:3 [ATK:2/HP:8]
@@ -391,6 +445,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(ComplexTask::SummonOpMinionFromDeck());
+    cards.emplace("FP1_009", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_010] Maexxna - COST:6 [ATK:2/HP:8]
@@ -402,6 +459,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_010", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_012] Sludge Belcher - COST:5 [ATK:3/HP:5]
@@ -414,6 +474,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("FP1_012t", SummonSide::DEATHRATTLE));
+    cards.emplace("FP1_012", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_013] Kel'Thuzad - COST:8 [ATK:6/HP:8]
@@ -557,6 +621,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [FP1_002t] Spectral Spider (*) - COST:1 [ATK:1/HP:1]
     // - Set: Naxx
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_002t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [FP1_005e] Consume (*) - COST:0
@@ -564,6 +631,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackHealthN(1)));
+    cards.emplace("FP1_005e", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_006] Deathcharger (*) - COST:1 [ATK:2/HP:3]
@@ -585,7 +655,7 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("FP1_007t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [FP1_012t] Slime (*) - COST:1 [ATK:1/HP:2]
+    // [FP1_012t] Putrid Slime (*) - COST:1 [ATK:1/HP:2]
     // - Set: Naxx
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
@@ -593,6 +663,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_012t", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_014t] Thaddius (*) - COST:10 [ATK:11/HP:11]
