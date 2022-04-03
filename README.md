@@ -57,7 +57,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * **100% Legacy (167 of 167 Cards)**
   * **100% Expert1 (245 of 245 Cards)**
   * **100% Demon Hunter Initiate (20 of 20 Cards)**
-  * 30% Curse of Naxxramas (9 of 30 Cards)
+  * 66% Curse of Naxxramas (20 of 30 Cards)
   * 5% Goblins vs Gnomes (7 of 123 Cards)
   * 3% Blackrock Mountain (1 of 31 Cards)
   * 6% The Grand Tournament (8 of 132 Cards)
