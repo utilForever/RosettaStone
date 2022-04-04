@@ -559,6 +559,43 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+            bool isFeugenDead = false;
+
+            const auto curGraveyard = player->GetGraveyardZone();
+            const auto opGraveyard = player->opponent->GetGraveyardZone();
+
+            for (const auto& minion : curGraveyard->GetAll())
+            {
+                if (minion->card->id == "FP1_014" && minion->isDestroyed)
+                {
+                    isFeugenDead = true;
+                    break;
+                }
+            }
+
+            for (const auto& minion : opGraveyard->GetAll())
+            {
+                if (minion->card->id == "FP1_014" && minion->isDestroyed)
+                {
+                    isFeugenDead = true;
+                    break;
+                }
+            }
+
+            if (isFeugenDead && !player->GetFieldZone()->IsFull())
+            {
+                const auto thaddius = Entity::GetFromCard(
+                    player, Cards::FindCardByID("FP1_014t"));
+                Generic::Summon(dynamic_cast<Minion*>(thaddius), -1, playable);
+            }
+
+            return 0;
+        }));
+    cards.emplace("FP1_015", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_016] Wailing Soul - COST:4 [ATK:3/HP:5]
