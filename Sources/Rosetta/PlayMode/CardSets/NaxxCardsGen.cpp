@@ -609,6 +609,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::MINIONS_NOSOURCE));
+    cards.emplace("FP1_016", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_017] Nerub'ar Weblord - COST:2 [ATK:1/HP:4]
