@@ -626,6 +626,15 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HANDS,
+                                         EffectList{ Effects::AddCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard());
+    }
+    cards.emplace("FP1_017", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_024] Unstable Ghoul - COST:2 [ATK:1/HP:3]

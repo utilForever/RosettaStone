@@ -1353,6 +1353,77 @@ TEST_CASE("[Neutral : Minion] - FP1_016 : Wailing Soul")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_017] Nerub'ar Weblord - COST:2 [ATK:1/HP:4]
+// - Set: Naxx, Rarity: Common
+// --------------------------------------------------------
+// Text: Minions with <b>Battlecry</b> cost (2) more.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_017 : Nerub'ar Weblord")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nerub'ar Weblord"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nerubian Egg"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Echoing Ooze"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Kel'Thuzad"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("SI:7 Infiltrator"));
+
+    CHECK_EQ(card2->GetCost(), 2);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card4->GetCost(), 4);
+    CHECK_EQ(card5->GetCost(), 8);
+    CHECK_EQ(card6->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 2);
+    CHECK_EQ(card3->GetCost(), 4);
+    CHECK_EQ(card4->GetCost(), 4);
+    CHECK_EQ(card5->GetCost(), 8);
+    CHECK_EQ(card6->GetCost(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(card2->GetCost(), 2);
+    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card5->GetCost(), 8);
+    CHECK_EQ(card6->GetCost(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
 // - Set: Naxx, Rarity: Legendary
 // --------------------------------------------------------
