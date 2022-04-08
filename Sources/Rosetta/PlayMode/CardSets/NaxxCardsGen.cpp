@@ -675,6 +675,14 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = { std::make_shared<SelfCondition>(
+        SelfCondition::IsDeathrattleCard()) };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "FP1_028e", EntityType::SOURCE) };
+    cards.emplace("FP1_028", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_029] Dancing Swords - COST:3 [ATK:4/HP:4]
@@ -789,6 +797,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    cards.emplace("FP1_028e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [FP1_030e] Necrotic Aura (*) - COST:0

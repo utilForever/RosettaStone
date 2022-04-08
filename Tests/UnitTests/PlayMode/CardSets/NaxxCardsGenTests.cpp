@@ -1531,6 +1531,58 @@ TEST_CASE("[Neutral : Minion] - FP1_027 : Stoneskin Gargoyle")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_028] Undertaker - COST:1 [ATK:1/HP:2]
+// - Set: Naxx, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you summon a minion with <b>Deathrattle</b>,
+//       gain +1 Attack.
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_028 : Undertaker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Undertaker"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nerubian Egg"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Nerubian Egg"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
 // - Set: Naxx, Rarity: Legendary
 // --------------------------------------------------------
