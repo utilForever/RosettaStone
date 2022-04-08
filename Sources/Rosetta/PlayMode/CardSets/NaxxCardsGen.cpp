@@ -640,13 +640,17 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [FP1_024] Unstable Ghoul - COST:2 [ATK:1/HP:3]
     // - Set: Naxx, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage
-    //       to all minions.
+    // Text: <b>Taunt</b>.
+    //       <b>Deathrattle:</b> Deal 1 damage to all minions.
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1));
+    cards.emplace("FP1_024", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_027] Stoneskin Gargoyle - COST:3 [ATK:1/HP:4]

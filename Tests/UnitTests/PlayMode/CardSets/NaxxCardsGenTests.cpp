@@ -1384,9 +1384,6 @@ TEST_CASE("[Neutral : Minion] - FP1_017 : Nerub'ar Weblord")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
-    auto& opHand = *(opPlayer->GetHandZone());
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Nerub'ar Weblord"));
     const auto card2 =
@@ -1421,6 +1418,64 @@ TEST_CASE("[Neutral : Minion] - FP1_017 : Nerub'ar Weblord")
     CHECK_EQ(card3->GetCost(), 2);
     CHECK_EQ(card5->GetCost(), 8);
     CHECK_EQ(card6->GetCost(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [FP1_024] Unstable Ghoul - COST:2 [ATK:1/HP:3]
+// - Set: Naxx, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>.
+//       <b>Deathrattle:</b> Deal 1 damage to all minions.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_024 : Unstable Ghoul")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unstable Ghoul"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
 }
 
 // --------------------------------------- MINION - NEUTRAL
