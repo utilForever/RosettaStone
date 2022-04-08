@@ -659,6 +659,11 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: At the start of your turn,
     //       restore this minion to full Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<HealFullTask>(
+        EntityType::SOURCE) };
+    cards.emplace("FP1_027", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_028] Undertaker - COST:1 [ATK:1/HP:2]

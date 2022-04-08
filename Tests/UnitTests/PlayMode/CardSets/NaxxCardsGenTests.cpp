@@ -1479,6 +1479,58 @@ TEST_CASE("[Neutral : Minion] - FP1_024 : Unstable Ghoul")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [FP1_027] Stoneskin Gargoyle - COST:3 [ATK:1/HP:4]
+// - Set: Naxx, Rarity: Common
+// --------------------------------------------------------
+// Text: At the start of your turn,
+//       restore this minion to full Health.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - FP1_027 : Stoneskin Gargoyle")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stoneskin Gargoyle"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Power Word: Shield"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
 // - Set: Naxx, Rarity: Legendary
 // --------------------------------------------------------
