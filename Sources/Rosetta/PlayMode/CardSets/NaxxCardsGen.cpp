@@ -693,6 +693,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawOpTask>(1));
+    cards.emplace("FP1_029", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_030] Loatheb - COST:5 [ATK:5/HP:5]
