@@ -707,6 +707,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "FP1_030e", EntityType::ENEMY_PLAYER));
+    cards.emplace("FP1_030", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
@@ -810,6 +814,18 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your spells cost (5) more this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HAND,
+                                         EffectList{ Effects::AddCost(5) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::TURN_END,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsEnemyTurn()) };
+    }
+    cards.emplace("FP1_030e", CardDef(power));
 }
 
 void NaxxCardsGen::AddAll(std::map<std::string, CardDef>& cards)
