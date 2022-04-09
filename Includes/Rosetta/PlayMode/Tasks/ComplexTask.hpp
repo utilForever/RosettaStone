@@ -10,6 +10,8 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 #include <effolkronium/random.hpp>
@@ -118,6 +120,55 @@ class ComplexTask
             std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
             std::make_shared<SimpleTasks::SummonStackTask>(true)
         };
+    }
+
+    //! Returns a list of task for summoning friendly minions
+    //! that died this turn.
+    static TaskList SummonAllFriendlyDiedThisTurn()
+    {
+        return TaskList{ std::make_shared<SimpleTasks::CustomTask>(
+            [](Player* player, [[maybe_unused]] Entity* source,
+               [[maybe_unused]] Playable* target) {
+                const auto field = player->GetFieldZone();
+                if (field->IsFull())
+                {
+                    return;
+                }
+
+                const int num = player->GetNumFriendlyMinionsDiedThisTurn();
+                auto& graveyard = *(player->GetGraveyardZone());
+
+                std::vector<int> minions;
+                minions.reserve(num);
+
+                for (int i = graveyard.GetCount() - 1, idx = 0; idx < num; --i)
+                {
+                    if (!graveyard[i]->isDestroyed)
+                    {
+                        continue;
+                    }
+
+                    if (graveyard[i]->card->GetCardType() != CardType::MINION)
+                    {
+                        continue;
+                    }
+
+                    ++idx;
+                    minions.emplace_back(i);
+                }
+
+                for (int i = static_cast<int>(minions.size()) - 1; i >= 0; --i)
+                {
+                    const auto revivedMinion =
+                        Entity::GetFromCard(player, graveyard[minions[i]]->card,
+                                            std::nullopt, field);
+                    field->Add(dynamic_cast<Minion*>(revivedMinion));
+                    if (field->IsFull())
+                    {
+                        return;
+                    }
+                }
+            }) };
     }
 
     //! Returns a list of task for casting a secret from your deck.

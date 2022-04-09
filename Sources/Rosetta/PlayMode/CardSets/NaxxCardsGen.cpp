@@ -3,7 +3,9 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
+#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
@@ -489,6 +491,13 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    power.GetTrigger()->tasks = {
+        ComplexTask::SummonAllFriendlyDiedThisTurn()
+    };
+    power.GetTrigger()->eitherTurn = true;
+    cards.emplace("FP1_013", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_014] Stalagg - COST:5 [ATK:7/HP:4]
@@ -501,6 +510,43 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+            bool isFeugenDead = false;
+
+            const auto curGraveyard = player->GetGraveyardZone();
+            const auto opGraveyard = player->opponent->GetGraveyardZone();
+
+            for (const auto& minion : curGraveyard->GetAll())
+            {
+                if (minion->card->id == "FP1_015" && minion->isDestroyed)
+                {
+                    isFeugenDead = true;
+                    break;
+                }
+            }
+
+            for (const auto& minion : opGraveyard->GetAll())
+            {
+                if (minion->card->id == "FP1_015" && minion->isDestroyed)
+                {
+                    isFeugenDead = true;
+                    break;
+                }
+            }
+
+            if (isFeugenDead && !player->GetFieldZone()->IsFull())
+            {
+                const auto thaddius = Entity::GetFromCard(
+                    player, Cards::FindCardByID("FP1_014t"));
+                Generic::Summon(dynamic_cast<Minion*>(thaddius), -1, playable);
+            }
+
+            return 0;
+        }));
+    cards.emplace("FP1_014", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_015] Feugen - COST:5 [ATK:4/HP:7]
@@ -513,6 +559,43 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+            bool isFeugenDead = false;
+
+            const auto curGraveyard = player->GetGraveyardZone();
+            const auto opGraveyard = player->opponent->GetGraveyardZone();
+
+            for (const auto& minion : curGraveyard->GetAll())
+            {
+                if (minion->card->id == "FP1_014" && minion->isDestroyed)
+                {
+                    isFeugenDead = true;
+                    break;
+                }
+            }
+
+            for (const auto& minion : opGraveyard->GetAll())
+            {
+                if (minion->card->id == "FP1_014" && minion->isDestroyed)
+                {
+                    isFeugenDead = true;
+                    break;
+                }
+            }
+
+            if (isFeugenDead && !player->GetFieldZone()->IsFull())
+            {
+                const auto thaddius = Entity::GetFromCard(
+                    player, Cards::FindCardByID("FP1_014t"));
+                Generic::Summon(dynamic_cast<Minion*>(thaddius), -1, playable);
+            }
+
+            return 0;
+        }));
+    cards.emplace("FP1_015", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_016] Wailing Soul - COST:4 [ATK:3/HP:5]
@@ -526,6 +609,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::MINIONS_NOSOURCE));
+    cards.emplace("FP1_016", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_017] Nerub'ar Weblord - COST:2 [ATK:1/HP:4]
@@ -539,18 +626,31 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HANDS,
+                                         EffectList{ Effects::AddCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard());
+    }
+    cards.emplace("FP1_017", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_024] Unstable Ghoul - COST:2 [ATK:1/HP:3]
     // - Set: Naxx, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 1 damage
-    //       to all minions.
+    // Text: <b>Taunt</b>.
+    //       <b>Deathrattle:</b> Deal 1 damage to all minions.
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 1));
+    cards.emplace("FP1_024", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_027] Stoneskin Gargoyle - COST:3 [ATK:1/HP:4]
@@ -559,6 +659,11 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: At the start of your turn,
     //       restore this minion to full Health.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
+    power.GetTrigger()->tasks = { std::make_shared<HealFullTask>(
+        EntityType::SOURCE) };
+    cards.emplace("FP1_027", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_028] Undertaker - COST:1 [ATK:1/HP:2]
@@ -570,6 +675,14 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = { std::make_shared<SelfCondition>(
+        SelfCondition::IsDeathrattleCard()) };
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "FP1_028e", EntityType::SOURCE) };
+    cards.emplace("FP1_028", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_029] Dancing Swords - COST:3 [ATK:4/HP:4]
@@ -580,6 +693,9 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddDeathrattleTask(std::make_shared<DrawOpTask>(1));
+    cards.emplace("FP1_029", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_030] Loatheb - COST:5 [ATK:5/HP:5]
@@ -591,6 +707,10 @@ void NaxxCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "FP1_030e", EntityType::ENEMY_PLAYER));
+    cards.emplace("FP1_030", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
@@ -674,6 +794,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("FP1_014t", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [FP1_028e] Darkness Calls (*) - COST:0
@@ -681,6 +804,9 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    cards.emplace("FP1_028e", CardDef(power));
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [FP1_030e] Necrotic Aura (*) - COST:0
@@ -688,6 +814,18 @@ void NaxxCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your spells cost (5) more this turn.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HAND,
+                                         EffectList{ Effects::AddCost(5) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::TURN_END,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsEnemyTurn()) };
+    }
+    cards.emplace("FP1_030e", CardDef(power));
 }
 
 void NaxxCardsGen::AddAll(std::map<std::string, CardDef>& cards)

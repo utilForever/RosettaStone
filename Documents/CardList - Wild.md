@@ -491,27 +491,27 @@ NAXX | FP1_009 | Deathlord | O
 NAXX | FP1_010 | Maexxna | O
 NAXX | FP1_011 | Webspinner | O
 NAXX | FP1_012 | Sludge Belcher | O
-NAXX | FP1_013 | Kel'Thuzad |  
-NAXX | FP1_014 | Stalagg |  
-NAXX | FP1_015 | Feugen |  
-NAXX | FP1_016 | Wailing Soul |  
-NAXX | FP1_017 | Nerub'ar Weblord |  
+NAXX | FP1_013 | Kel'Thuzad | O
+NAXX | FP1_014 | Stalagg | O
+NAXX | FP1_015 | Feugen | O
+NAXX | FP1_016 | Wailing Soul | O
+NAXX | FP1_017 | Nerub'ar Weblord | O
 NAXX | FP1_018 | Duplicate | O
 NAXX | FP1_019 | Poison Seeds | O
 NAXX | FP1_020 | Avenge | O
 NAXX | FP1_021 | Death's Bite | O
 NAXX | FP1_022 | Voidcaller | O
 NAXX | FP1_023 | Dark Cultist | O
-NAXX | FP1_024 | Unstable Ghoul |  
+NAXX | FP1_024 | Unstable Ghoul | O
 NAXX | FP1_025 | Reincarnate | O
 NAXX | FP1_026 | Anub'ar Ambusher | O
-NAXX | FP1_027 | Stoneskin Gargoyle |  
-NAXX | FP1_028 | Undertaker |  
-NAXX | FP1_029 | Dancing Swords |  
-NAXX | FP1_030 | Loatheb |  
+NAXX | FP1_027 | Stoneskin Gargoyle | O
+NAXX | FP1_028 | Undertaker | O
+NAXX | FP1_029 | Dancing Swords | O
+NAXX | FP1_030 | Loatheb | O
 NAXX | FP1_031 | Baron Rivendare | O
 
-- Progress: 66% (20 of 30 Cards)
+- Progress: 100% (30 of 30 Cards)
 
 ## Goblins vs Gnomes
 
