@@ -73,7 +73,7 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 };
 
 //! The number of Play mode cards.
-constexpr int NUM_PLAY_MODE_CARDS = 13969;
+constexpr int NUM_PLAY_MODE_CARDS = 14391;
 
 //! The number of Battlegrounds cards.
 constexpr int NUM_BATTLEGROUNDS_CARDS = 15742;
