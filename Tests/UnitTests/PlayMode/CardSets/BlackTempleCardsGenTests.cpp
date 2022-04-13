@@ -1933,7 +1933,7 @@ TEST_CASE("[Rogue : Minion] - BT_710 : Greyheart Sage")
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
-//       return a minion to its owner's hand. It costs (1) more.
+//       return a minion to its owner's hand. It costs (2) more.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -1992,7 +1992,7 @@ TEST_CASE("[Rogue : Minion] - BT_711 : Blackjack Stunner")
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
     CHECK_EQ(curHand.GetCount(), 0);
     CHECK_EQ(opField.GetCount(), 0);
-    CHECK_EQ(opHand[1]->GetCost(), 4);
+    CHECK_EQ(opHand[1]->GetCost(), 5);
 }
 
 // ----------------------------------------- SPELL - SHAMAN

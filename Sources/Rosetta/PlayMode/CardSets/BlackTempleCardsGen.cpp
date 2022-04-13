@@ -1321,7 +1321,7 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
-    //       return a minion to its owner's hand. It costs (1) more.
+    //       return a minion to its owner's hand. It costs (2) more.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1334,7 +1334,7 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(Effects::AddCost(1),
+    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(Effects::AddCost(2),
                                                            EntityType::TARGET));
     cards.emplace(
         "BT_711",
