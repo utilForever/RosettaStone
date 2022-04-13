@@ -2961,7 +2961,7 @@ TEST_CASE("[Warrior : Minion] - BT_123 : Kargath Bladefist")
 // [BT_124] Corsair Cache - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: Draw a weapon. Give it +1 Durability.
+// Text: Draw a weapon. Give it +1/+1.
 // --------------------------------------------------------
 TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 {
@@ -2997,7 +2997,9 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
     game.Process(curPlayer, PlayCardTask::Spell(card));
     CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(dynamic_cast<Weapon*>(curHand[3])->GetAttack(), 3);
     CHECK_EQ(dynamic_cast<Weapon*>(curHand[3])->GetDurability(), 2);
+    CHECK_EQ(dynamic_cast<Weapon*>(curHand[4])->GetAttack(), 4);
     CHECK_EQ(dynamic_cast<Weapon*>(curHand[4])->GetDurability(), 3);
 }
 

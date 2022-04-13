@@ -1990,7 +1990,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [BT_124] Corsair Cache - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Draw a weapon. Give it +1 Durability.
+    // Text: Draw a weapon. Give it +1/+1.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<DrawWeaponTask>(1, true));
@@ -2127,10 +2127,12 @@ void BlackTempleCardsGen::AddWarriorNonCollect(
     // [BT_124e] Void Sharpened
     // - Set: BLACK_TEMPLE
     // --------------------------------------------------------
-    // Text: +1 Durability.
+    // Text: +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::DurabilityN(1)));
+    power.AddEnchant(
+        std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>(
+            { Effects::AttackN(1), Effects::DurabilityN(1) })));
     cards.emplace("BT_124e", CardDef(power));
 }
 
