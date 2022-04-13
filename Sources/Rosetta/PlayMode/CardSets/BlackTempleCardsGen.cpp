@@ -1769,7 +1769,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Dormant</b> for 2 turns. When this awakens,
-    //       give all minions in your hand +2/+1.
+    //       give all minions in your hand +2/+2.
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
@@ -1833,7 +1833,7 @@ void BlackTempleCardsGen::AddWarlockNonCollect(
     // [BT_305e] Scrap Weapons - COST:0
     // - Set: BLACK_TEMPLE
     // --------------------------------------------------------
-    // Text: +2/+1.
+    // Text: +2/+2.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_305e"));

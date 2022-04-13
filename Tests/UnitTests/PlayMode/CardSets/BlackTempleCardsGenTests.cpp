@@ -2638,7 +2638,7 @@ TEST_CASE("[Warlock : Minion] - BT_304 : Enhanced Dreadlord")
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Dormant</b> for 2 turns. When this awakens,
-//       give all minions in your hand +2/+1.
+//       give all minions in your hand +2/+2.
 // --------------------------------------------------------
 TEST_CASE("[Warlock : Minion] - BT_305 : Imprisoned Scrap Imp")
 {
@@ -2695,9 +2695,9 @@ TEST_CASE("[Warlock : Minion] - BT_305 : Imprisoned Scrap Imp")
     CHECK_EQ(curField[0]->IsUntouchable(), false);
     CHECK_EQ(curField[0]->CanAttack(), false);
     CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 5);
-    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 3);
     CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 6);
-    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 13);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 14);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
