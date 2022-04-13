@@ -548,7 +548,7 @@ TEST_CASE("[Hunter : Spell] - BT_205 : Scrap Shot")
 // [BT_213] Scavenger's Ingenuity - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: Draw a Beast. Give it +2/+2.
+// Text: Draw a Beast. Give it +3/+3.
 // --------------------------------------------------------
 TEST_CASE("[Hunter : Spell] - BT_213 : Scavenger's Ingenuity")
 {
@@ -585,8 +585,8 @@ TEST_CASE("[Hunter : Spell] - BT_213 : Scavenger's Ingenuity")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->GetRace(), Race::BEAST);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 5);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 5);
 }
 
 // ------------------------------------------- SPELL - MAGE

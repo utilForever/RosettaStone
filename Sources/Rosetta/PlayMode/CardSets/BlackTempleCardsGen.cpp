@@ -450,7 +450,7 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [BT_213] Scavenger's Ingenuity - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Draw a Beast. Give it +2/+2.
+    // Text: Draw a Beast. Give it +3/+3.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -3030,7 +3030,7 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // [BT_213e] Pack Tactics - COST:0
     // - Set: BLACK_TEMPLE
     // --------------------------------------------------------
-    // Text: +2/+2.
+    // Text: +3/+3.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_213e"));
