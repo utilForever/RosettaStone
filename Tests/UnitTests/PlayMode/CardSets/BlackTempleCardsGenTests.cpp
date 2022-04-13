@@ -1359,7 +1359,7 @@ TEST_CASE("[Preist : Minion] - BT_256 : Dragonmaw Overseer")
 // - Set: BLACK_TEMPLE, Rarity: Common
 // - Spell School: Holy
 // --------------------------------------------------------
-// Text: Give a minion +1/+2 and <b>Lifesteal</b>.
+// Text: Give a minion +2/+3 and <b>Lifesteal</b>.
 // --------------------------------------------------------
 // RefTag:
 // - LIFESTEAL = 1
@@ -1396,14 +1396,14 @@ TEST_CASE("[Preist : Spell] - BT_257 : Apotheosis")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Loot Hoarder"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::LIFESTEAL), 0);
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::LIFESTEAL), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->HasLifesteal(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 }
 
 // ---------------------------------------- MINION - PRIEST
