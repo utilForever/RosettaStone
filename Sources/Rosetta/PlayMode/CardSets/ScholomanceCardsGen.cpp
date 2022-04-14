@@ -1769,7 +1769,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [SCH_355] Shardshatter Mystic - COST:4 [ATK:3/HP:2]
+    // [SCH_355] Shardshatter Mystic - COST:3 [ATK:3/HP:2]
     // - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy a Soul Fragment
