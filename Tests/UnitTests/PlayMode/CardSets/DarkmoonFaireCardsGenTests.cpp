@@ -3503,12 +3503,13 @@ TEST_CASE("[Demon Hunter : Minion] - DMF_223 : Renowned Performer")
 }
 
 // ----------------------------------- WEAPON - DEMONHUNTER
-// [DMF_227] Dreadlord's Bite - COST:3
+// [DMF_227] Dreadlord's Bite - COST:3 [ATK:3/HP:0]
 // - Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Outcast:</b> Deal 1 damage to all enemies.
 // --------------------------------------------------------
 // GameTag:
+// - DURABILITY = 2
 // - OUTCAST = 1
 // --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Weapon] - DMF_227 : Dreadlord's Bite")

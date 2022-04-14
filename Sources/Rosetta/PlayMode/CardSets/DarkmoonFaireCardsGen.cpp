@@ -2554,12 +2554,13 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- WEAPON - DEMONHUNTER
-    // [DMF_227] Dreadlord's Bite - COST:3
+    // [DMF_227] Dreadlord's Bite - COST:3 [ATK:3/HP:0]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Outcast:</b> Deal 1 damage to all enemies.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - OUTCAST = 1
     // --------------------------------------------------------
     power.ClearData();
