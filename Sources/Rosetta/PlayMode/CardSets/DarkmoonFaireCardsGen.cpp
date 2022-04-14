@@ -766,7 +766,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------- SPELL - MAGE
-    // [DMF_108] Deck of Lunacy - COST:4
+    // [DMF_108] Deck of Lunacy - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Transform spells in your deck into ones that cost (3) more.
