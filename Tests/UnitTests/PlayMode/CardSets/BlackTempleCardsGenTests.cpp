@@ -2055,13 +2055,14 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
 }
 
 // ---------------------------------------- WEAPON - SHAMAN
-// [BT_102] Boggspine Knuckles - COST:5
+// [BT_102] Boggspine Knuckles - COST:5 [ATK:4/HP:0]
 // - Set: BLACK_TEMPLE, Rarity: Epic
 // --------------------------------------------------------
 // Text: After your hero attacks, transform your minions
 //       into random ones that cost (1) more.
 // --------------------------------------------------------
 // GameTag:
+// - DURABILITY = 2
 // - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Shaman : Weapon] - BT_102 : Boggspine Knuckles")

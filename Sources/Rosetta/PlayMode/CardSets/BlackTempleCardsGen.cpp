@@ -1456,13 +1456,14 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- WEAPON - SHAMAN
-    // [BT_102] Boggspine Knuckles - COST:5
+    // [BT_102] Boggspine Knuckles - COST:5 [ATK:4/HP:0]
     // - Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
     // Text: After your hero attacks, transform your minions
     //       into random ones that cost (1) more.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
