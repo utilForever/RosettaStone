@@ -2809,7 +2809,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [BT_733] Mo'arg Artificer - COST:3 [ATK:2/HP:5]
+    // [BT_733] Mo'arg Artificer - COST:2 [ATK:2/HP:5]
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
     // Text: All minions take double damage from spells.
