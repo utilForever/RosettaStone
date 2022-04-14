@@ -408,7 +408,7 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - HUNTER
-    // [SCH_610] Guardian Animals - COST:8
+    // [SCH_610] Guardian Animals - COST:7
     // - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
     // Text: Summon two Beasts that cost (5) or less from your deck.
