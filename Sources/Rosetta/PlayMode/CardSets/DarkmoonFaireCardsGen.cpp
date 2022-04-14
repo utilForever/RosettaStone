@@ -2579,7 +2579,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_230] Il'gynoth - COST:6 [ATK:4/HP:8]
+    // [DMF_230] Il'gynoth - COST:4 [ATK:2/HP:6]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
