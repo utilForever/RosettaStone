@@ -3294,15 +3294,14 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Rush</b>
-    //       <b>Battlecry:</b> Gain <b>Windfury</b> this turn only.
+    //       <b>Windfury</b>
     // --------------------------------------------------------
     // GameTag:
     // - RUSH = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("YOP_031e", EntityType::SOURCE));
+    power.AddPowerTask(nullptr);
     cards.emplace("YOP_031", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
