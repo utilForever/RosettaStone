@@ -649,7 +649,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [SCH_141] High Abbess Alura - COST:5 [ATK:3/HP:6]
+    // [SCH_141] High Abbess Alura - COST:4 [ATK:3/HP:6]
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Cast a spell from your deck
