@@ -2369,7 +2369,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_761", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_934] Imprisoned Antaen - COST:6 [ATK:10/HP:6]
+    // [BT_934] Imprisoned Antaen - COST:5 [ATK:10/HP:6]
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Dormant</b> for 2 turns. When this awakens,

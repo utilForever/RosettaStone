@@ -3705,7 +3705,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_761 : Coilfang Warlord")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_934] Imprisoned Antaen - COST:6 [ATK:10/HP:6]
+// [BT_934] Imprisoned Antaen - COST:5 [ATK:10/HP:6]
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Dormant</b> for 2 turns. When this awakens,
