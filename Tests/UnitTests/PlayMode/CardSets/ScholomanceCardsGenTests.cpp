@@ -3505,7 +3505,7 @@ TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_351] Jandice Barov - COST:6 [ATK:2/HP:1]
+// [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
 // - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon two random 5-Cost minions.
