@@ -565,7 +565,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_004", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
-    // [BT_006] Evocation - COST:2
+    // [BT_006] Evocation - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Legendary
     // - Spell School: Arcane
     // --------------------------------------------------------
