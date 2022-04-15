@@ -2000,7 +2000,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_124", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
-    // [BT_138] Bloodboil Brute - COST:7 [ATK:5/HP:8]
+    // [BT_138] Bloodboil Brute - COST:7 [ATK:6/HP:8]
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b> Costs (1) less for each damaged minion.
