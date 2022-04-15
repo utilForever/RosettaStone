@@ -3781,7 +3781,7 @@ TEST_CASE("[Neutral : Minion] - SCH_425 : Doctor Krastinov")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_428] Lorekeeper Polkelt - COST:5 [ATK:4/HP:5]
+// [SCH_428] Lorekeeper Polkelt - COST:4 [ATK:4/HP:5]
 // - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Reorder your deck from the highest
