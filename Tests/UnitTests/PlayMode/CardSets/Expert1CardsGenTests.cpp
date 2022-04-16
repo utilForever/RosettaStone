@@ -12169,7 +12169,7 @@ TEST_CASE("[Neutral : Minion] - EX1_283 : Frost Elemental")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
+// [EX1_284] Azure Drake - COST:5 [ATK:4/HP:5]
 // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>
