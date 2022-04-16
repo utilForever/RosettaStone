@@ -2033,7 +2033,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_384", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
-    // [EX1_619] Equality - COST:3
+    // [EX1_619] Equality - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Holy
     // --------------------------------------------------------

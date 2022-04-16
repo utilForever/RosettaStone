@@ -4051,7 +4051,7 @@ TEST_CASE("[Paladin : Spell] - EX1_384 : Avenging Wrath")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [EX1_619] Equality - COST:3
+// [EX1_619] Equality - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Holy
 // --------------------------------------------------------

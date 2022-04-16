@@ -1134,7 +1134,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_383", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
-    // [CORE_EX1_619] Equality - COST:3
+    // [CORE_EX1_619] Equality - COST:2
     // - Set: CORE, Rarity: Rare
     // - Spell School: Holy
     // --------------------------------------------------------
