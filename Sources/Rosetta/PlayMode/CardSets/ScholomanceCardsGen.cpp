@@ -864,7 +864,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ---------------------------------------- MINION - PRIEST
-    // [SCH_120] Cabal Acolyte - COST:4 [ATK:2/HP:4]
+    // [SCH_120] Cabal Acolyte - COST:4 [ATK:2/HP:6]
     // - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Taunt</b> <b>Spellburst:</b> Gain control
