@@ -1210,7 +1210,7 @@ void GilneasCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
-    // [GIL_547] Darius Crowley - COST:5 [ATK:4/HP:4]
+    // [GIL_547] Darius Crowley - COST:5 [ATK:4/HP:5]
     // - Set: Gilneas, Rarity: Legendary
     // --------------------------------------------------------
     // Text: [x]<b>Rush</b>
