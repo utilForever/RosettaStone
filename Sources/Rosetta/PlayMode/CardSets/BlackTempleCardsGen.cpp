@@ -2262,7 +2262,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_491", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:5]
+    // [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:7]
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: At the end of your turn,

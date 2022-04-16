@@ -3378,7 +3378,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_491 : Spectral Sight")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:5]
+// [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:7]
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: At the end of your turn,
