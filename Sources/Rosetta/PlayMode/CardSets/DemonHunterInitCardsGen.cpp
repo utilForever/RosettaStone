@@ -123,7 +123,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_355] Wrathscale Naga - COST:3 [ATK:3/HP:1]
+    // [BT_355] Wrathscale Naga - COST:3 [ATK:3/HP:2]
     // - Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
     // Text: After a friendly minion dies,
