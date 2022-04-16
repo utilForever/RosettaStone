@@ -504,7 +504,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_416 : Raging Felscreamer")
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
-// [BT_427] Feast of Souls - COST:2
+// [BT_427] Feast of Souls - COST:1
 // - Set: Demon Hunter Initiate, Rarity: Rare
 // - Spell School: Shadow
 // --------------------------------------------------------

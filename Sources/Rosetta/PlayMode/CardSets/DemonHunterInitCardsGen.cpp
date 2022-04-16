@@ -170,7 +170,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_416", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_427] Feast of Souls - COST:2
+    // [BT_427] Feast of Souls - COST:1
     // - Set: Demon Hunter Initiate, Rarity: Rare
     // - Spell School: Shadow
     // --------------------------------------------------------

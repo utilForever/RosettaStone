@@ -8077,7 +8077,7 @@ TEST_CASE("[Demon Hunter : Minion] - CORE_BT_423 : Ashtongue Battlelord")
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
-// [CORE_BT_427] Feast of Souls - COST:2
+// [CORE_BT_427] Feast of Souls - COST:1
 // - Set: CORE, Rarity: Rare
 // - Spell School: Shadow
 // --------------------------------------------------------
