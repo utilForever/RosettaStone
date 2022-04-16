@@ -2465,7 +2465,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_106", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [CORE_CS2_108] Execute - COST:2
+    // [CORE_CS2_108] Execute - COST:1
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Destroy a damaged enemy minion.

@@ -5272,7 +5272,7 @@ TEST_CASE("[Warrior : Weapon] - CS2_106 : Fiery War Axe")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [CS2_108] Execute - COST:2
+// [CS2_108] Execute - COST:1
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Destroy a damaged enemy minion.

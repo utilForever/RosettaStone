@@ -2416,7 +2416,7 @@ void LegacyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_106", CardDef(power));
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [CS2_108] Execute - COST:2
+    // [CS2_108] Execute - COST:1
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
     // Text: Destroy a damaged enemy minion.

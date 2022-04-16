@@ -6898,7 +6898,7 @@ TEST_CASE("[Warrior : Weapon] - CORE_CS2_106 : Fiery War Axe")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [CORE_CS2_108] Execute - COST:2
+// [CORE_CS2_108] Execute - COST:1
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
 // Text: Destroy a damaged enemy minion.
