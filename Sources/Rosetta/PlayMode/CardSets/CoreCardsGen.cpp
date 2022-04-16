@@ -138,7 +138,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
                   CardDef(power, ChooseCardIDs{ "EX1_160a", "EX1_160b" }));
 
     // ------------------------------------------ SPELL - DRUID
-    // [CORE_EX1_164] Nourish - COST:6
+    // [CORE_EX1_164] Nourish - COST:5
     // - Set: CORE, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------

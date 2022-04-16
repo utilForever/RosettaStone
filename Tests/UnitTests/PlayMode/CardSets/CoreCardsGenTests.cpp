@@ -369,7 +369,7 @@ TEST_CASE("[Druid : Spell] - CORE_EX1_160 : Power of the Wild")
 }
 
 // ------------------------------------------ SPELL - DRUID
-// [CORE_EX1_164] Nourish - COST:6
+// [CORE_EX1_164] Nourish - COST:5
 // - Set: CORE, Rarity: Rare
 // - Spell School: Nature
 // --------------------------------------------------------
@@ -411,14 +411,14 @@ TEST_CASE("[Druid : Spell] - CORE_EX1_164 : Nourish")
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
     CHECK_EQ(curPlayer->GetTotalMana(), 8);
-    CHECK_EQ(curPlayer->GetRemainingMana(), 2);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Spell(card3, 1));
     CHECK_EQ(opPlayer->GetTotalMana(), 10);
-    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

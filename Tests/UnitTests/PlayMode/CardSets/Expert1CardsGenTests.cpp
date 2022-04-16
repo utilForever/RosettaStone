@@ -378,7 +378,7 @@ TEST_CASE("[Druid : Spell] - EX1_161 : Naturalize")
 }
 
 // ------------------------------------------ SPELL - DRUID
-// [EX1_164] Nourish - COST:6
+// [EX1_164] Nourish - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Nature
 // --------------------------------------------------------
@@ -419,14 +419,14 @@ TEST_CASE("[Druid : Spell] - EX1_164 : Nourish")
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
     CHECK_EQ(curPlayer->GetTotalMana(), 8);
-    CHECK_EQ(curPlayer->GetRemainingMana(), 2);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Spell(card3, 1));
     CHECK_EQ(opPlayer->GetTotalMana(), 10);
-    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
