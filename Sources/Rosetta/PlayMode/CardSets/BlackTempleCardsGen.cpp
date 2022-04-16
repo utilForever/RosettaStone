@@ -2142,7 +2142,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_187] Kayn Sunfury - COST:4 [ATK:3/HP:4]
+    // [BT_187] Kayn Sunfury - COST:4 [ATK:3/HP:5]
     // - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge</b> All friendly attacks ignore <b>Taunt</b>.
