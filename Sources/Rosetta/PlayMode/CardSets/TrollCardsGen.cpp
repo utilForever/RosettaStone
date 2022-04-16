@@ -1235,7 +1235,7 @@ void TrollCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [TRL_252] High Priestess Jeklik - COST:4 [ATK:3/HP:4]
+    // [TRL_252] High Priestess Jeklik - COST:4 [ATK:3/HP:5]
     // - Set: Troll, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Taunt</b>, <b>Lifesteal</b>
