@@ -921,7 +921,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("DAL_608", CardDef(power));
 
     // ------------------------------------------ MINION - MAGE
-    // [DAL_609] Kalecgos - COST:10 [ATK:4/HP:12]
+    // [DAL_609] Kalecgos - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Set: Dalaran, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Your first spell each turn costs (0).

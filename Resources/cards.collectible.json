@@ -2506,8 +2506,9 @@
         "dbfId": 66875,
         "elite": true,
         "flavor": "Inside your deck there are two wolves.\nOne is a frostwolf. The other is a frostwolf.\nYou are a Frostwolf.",
+        "hasDiamondSkin": true,
         "health": 4,
-        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
+        "howToEarnGolden": "Unlocked with \"For the Stormpike!\" Achievement.",
         "id": "AV_100",
         "mechanics": [
             "BATTLECRY"
@@ -2527,8 +2528,7 @@
         "dbfId": 66880,
         "flavor": "“I don’t care how hot it is. I am not going over there to be your air conditioning.\"",
         "health": 5,
-        "howToEarn": "Earnable on the Fractured in Alterac Valley Reward Track.",
-        "howToEarnGolden": "Earnable on the Fractured in Alterac Valley Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Look! Holar!\" Achievement.",
         "id": "AV_101",
         "mechanics": [
             "BATTLECRY"
@@ -2622,7 +2622,7 @@
         "dbfId": 67352,
         "flavor": "Not snowblind; she can spot a level 51 noob over 40 yards away.",
         "health": 4,
-        "howToEarnGolden": "Earnable on the Fractured in Alterac Valley Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Snowblind? Sno Problem!\" Achievement.",
         "id": "AV_112",
         "mechanics": [
             "BATTLECRY"
@@ -3016,7 +3016,7 @@
         "dbfId": 70238,
         "flavor": "“The spoils of war ain’t free… Unless you’re me!”",
         "health": 3,
-        "howToEarnGolden": "Earnable on the Fractured in Alterac Valley Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Harder, Better, Warmaster, Stronger\" Achievement.",
         "id": "AV_134",
         "name": "Frostwolf Warmaster",
         "rarity": "RARE",
@@ -3033,7 +3033,7 @@
         "dbfId": 70239,
         "flavor": "The Stormpike have a very direct take on life insurance.",
         "health": 6,
-        "howToEarnGolden": "Earnable on the Fractured in Alterac Valley Reward Track.",
+        "howToEarnGolden": "Unlocked with \"One For All, Marshall For 1!\" Achievement.",
         "id": "AV_135",
         "mechanics": [
             "TAUNT"
@@ -3091,7 +3091,7 @@
         "dbfId": 70243,
         "flavor": "He’ll take a big weight off your shoulders.",
         "health": 2,
-        "howToEarnGolden": "Earnable on the Fractured in Alterac Valley Reward Track.",
+        "howToEarnGolden": "Unlocked with \"1600 Dust Bounty\" Achievement.",
         "id": "AV_138",
         "mechanics": [
             "BATTLECRY"
@@ -3132,6 +3132,7 @@
         "elite": true,
         "flavor": "Suddenly the names of Iceblood Tower and Iceblood Garrison make a lot more sense.",
         "health": 8,
+        "howToEarn": "Unlocked with \"Congealing Essence\" Achievement.",
         "howToEarnGolden": "Earnable on the Fractured in Alterac Valley Reward Track.",
         "id": "AV_141t",
         "mechanics": [
@@ -3509,8 +3510,7 @@
         "dbfId": 67217,
         "flavor": "It's killed and it'll kill again!",
         "health": 7,
-        "howToEarn": "Earnable on the Fractured in Alterac Valley Reward Track.",
-        "howToEarnGolden": "Earnable on the Fractured in Alterac Valley Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Flappy Bird\" Achievement.",
         "id": "AV_215",
         "mechanics": [
             "HONORABLEKILL",
@@ -3550,8 +3550,7 @@
         "dbfId": 67233,
         "flavor": "Get your RAM in pairs for better performance.",
         "health": 2,
-        "howToEarn": "Earnable on the Fractured in Alterac Valley Reward Track.",
-        "howToEarnGolden": "Earnable on the Fractured in Alterac Valley Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Mary Had a Little Ram\" Achievement.",
         "id": "AV_219",
         "mechanics": [
             "BATTLECRY"
@@ -3595,7 +3594,7 @@
         "flavor": "His favorite modes of transportation? Van, car, board, bike.",
         "hasDiamondSkin": true,
         "health": 4,
-        "howToEarnGolden": "Obtained by gaining Honor in Fractured in Alterac Valley.",
+        "howToEarnGolden": "Unlocked with \"For the Frostwolves!\" Achievement.",
         "id": "AV_223",
         "mechanics": [
             "BATTLECRY"
@@ -11060,7 +11059,7 @@
         "artist": "Gonzalo Ordonez",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 56389,
         "elite": true,
         "flavor": "You too could be the winner of the national spelling spree!",
@@ -11454,7 +11453,7 @@
     },
     {
         "artist": "Grace Liu",
-        "attack": 3,
+        "attack": 4,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 5,
@@ -11506,6 +11505,7 @@
             "SPELLPOWER"
         ],
         "name": "Lady Vashj",
+        "race": "NAGA",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
         "spellDamage": 1,
@@ -11665,7 +11665,7 @@
         "name": "Corsair Cache",
         "rarity": "RARE",
         "set": "BLACK_TEMPLE",
-        "text": "Draw a weapon.\nGive it +1 Durability.",
+        "text": "Draw a weapon.\nGive it +1/+1.",
         "type": "SPELL"
     },
     {
@@ -11864,7 +11864,7 @@
     },
     {
         "artist": "Ivan Fomin",
-        "attack": 5,
+        "attack": 6,
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 7,
@@ -12060,7 +12060,7 @@
         "dbfId": 58202,
         "elite": true,
         "flavor": "\"Armor and heals may slow my zeal, but fel and glaives excite me!\"",
-        "health": 4,
+        "health": 5,
         "id": "BT_187",
         "mechanics": [
             "AURA",
@@ -12338,7 +12338,7 @@
         "name": "Scavenger's Ingenuity",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "text": "Draw a Beast.\nGive it +2/+2.",
+        "text": "Draw a Beast.\nGive it +3/+3.",
         "type": "SPELL"
     },
     {
@@ -12490,7 +12490,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 7,
+        "cost": 6,
         "dbfId": 56622,
         "elite": true,
         "flavor": "“Descent of Dragons was merely a set back!”",
@@ -12503,7 +12503,7 @@
         "name": "Kael'thas Sunstrider",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "Every third spell you cast each turn costs (1).",
+        "text": "Every third spell you cast each turn costs (0).",
         "type": "MINION"
     },
     {
@@ -12540,7 +12540,7 @@
         ],
         "set": "BLACK_TEMPLE",
         "spellSchool": "HOLY",
-        "text": "Give a minion +1/+2 and <b>Lifesteal</b>.",
+        "text": "Give a minion +2/+3 and <b>Lifesteal</b>.",
         "type": "SPELL"
     },
     {
@@ -12725,7 +12725,7 @@
         "race": "DEMON",
         "rarity": "RARE",
         "set": "BLACK_TEMPLE",
-        "text": "<b>Dormant</b> for 2 turns.\nWhen this awakens,\ngive all minions in your hand +2/+1.",
+        "text": "<b>Dormant</b> for 2 turns.\nWhen this awakens,\ngive all minions in your hand +2/+2.",
         "type": "MINION"
     },
     {
@@ -12931,12 +12931,13 @@
         "cost": 3,
         "dbfId": 59710,
         "flavor": "If throwing glaives is what you crave; \nsummon tokens and make 'em broken.",
-        "health": 1,
+        "health": 2,
         "id": "BT_355",
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
         "name": "Wrathscale Naga",
+        "race": "NAGA",
         "rarity": "EPIC",
         "set": "DEMON_HUNTER_INITIATE",
         "text": "After a friendly minion dies, deal 3 damage to a random enemy.",
@@ -13005,7 +13006,7 @@
         "artist": "Anton Zemskov",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 56873,
         "flavor": "Nothing fills you up like soul food!",
         "id": "BT_427",
@@ -13194,7 +13195,7 @@
         "cost": 7,
         "dbfId": 58455,
         "flavor": "Furious that she only has six warglaives. The Sightless Watcher has eight! The fel is always greener on the other side.",
-        "health": 5,
+        "health": 7,
         "id": "BT_493",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -13479,7 +13480,7 @@
         ],
         "set": "BLACK_TEMPLE",
         "targetingArrowText": "Return a minion to hand.",
-        "text": "[x]<b>Battlecry:</b> If you control a\n<b>Secret</b>, return a minion\nto its owner's hand.\nIt costs (1) more.",
+        "text": "[x]<b>Battlecry:</b> If you control a\n<b>Secret</b>, return a minion\nto its owner's hand.\nIt costs (2) more.",
         "type": "MINION"
     },
     {
@@ -13841,10 +13842,10 @@
         "attack": 2,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 57193,
         "flavor": "Double-damage. You know the drill.",
-        "health": 5,
+        "health": 4,
         "id": "BT_733",
         "name": "Mo'arg Artificer",
         "race": "DEMON",
@@ -13974,6 +13975,7 @@
             "RUSH"
         ],
         "name": "Coilfang Warlord",
+        "race": "NAGA",
         "rarity": "RARE",
         "referencedTags": [
             "TAUNT"
@@ -14108,7 +14110,7 @@
         "attack": 10,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 56649,
         "flavor": "Can I get a pair of size XXXXXL manacles?",
         "health": 6,
@@ -15699,7 +15701,7 @@
         "cost": 4,
         "dbfId": 40950,
         "flavor": "Hair products are 79% of his monthly budget.",
-        "health": 3,
+        "health": 4,
         "id": "CFM_665",
         "name": "Worgen Greaser",
         "rarity": "COMMON",
@@ -16825,6 +16827,48 @@
         "type": "MINION"
     },
     {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76285,
+        "flavor": "The best part of buccaneering is the pants.",
+        "health": 1,
+        "howToEarn": "Unlocked at level 5.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Rogue.",
+        "id": "CORE_AT_029",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Buccaneer",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Whenever you equip a weapon, give it +1 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dan Brereton",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76289,
+        "flavor": "2 out of 2 saplings recommend that you summon the saplings.",
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Druid.",
+        "id": "CORE_AT_037",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Living Roots",
+        "rarity": "COMMON",
+        "set": 1810,
+        "spellSchool": "NATURE",
+        "text": "<b>Choose One -</b> Deal $2 damage; or Summon two 1/1 Saplings.",
+        "type": "SPELL"
+    },
+    {
         "artist": "RK Post",
         "attack": 4,
         "cardClass": "SHAMAN",
@@ -16852,7 +16896,7 @@
         "cost": 1,
         "dbfId": 69707,
         "flavor": "Flash!  Ahhhhhhh~",
-        "howToEarn": "Unlocked at level 1.",
+        "howToEarn": "Unlocked at level 3.",
         "howToEarnGolden": "Unlocked after winning 50 games as Priest.",
         "id": "CORE_AT_055",
         "name": "Flash Heal",
@@ -16879,6 +16923,22 @@
         "type": "SPELL"
     },
     {
+        "artist": "Dany Orizio",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76304,
+        "flavor": "You might think bashing doesn't take a lot of practice.  It doesn't.",
+        "howToEarn": "Unlocked at level 7.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
+        "id": "CORE_AT_064",
+        "name": "Bash",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Deal $3 damage.\nGain 3 Armor.",
+        "type": "SPELL"
+    },
+    {
         "artist": "Zoltan & Gabor",
         "attack": 3,
         "cardClass": "PALADIN",
@@ -16887,7 +16947,7 @@
         "dbfId": 69703,
         "flavor": "He doesn't even get Sundays off.  Every day he's hostling.",
         "health": 4,
-        "howToEarn": "Unlocked at level 2.",
+        "howToEarn": "Unlocked at level 6.",
         "howToEarnGolden": "Unlocked after winning 50 games as Paladin.",
         "id": "CORE_AT_075",
         "mechanics": [
@@ -16995,6 +17055,29 @@
         "type": "MINION"
     },
     {
+        "artist": "Steve Prescott",
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 58372,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76282,
+        "flavor": "His imp gang likes to sneak into Stormwind to spraypaint \"Ragnaros Rulez\" on the Mage Tower.",
+        "health": 4,
+        "howToEarn": "Unlocked at level 7.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Warlock.",
+        "id": "CORE_BRM_006",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Imp Gang Boss",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Whenever this minion takes damage, summon a 1/1 Imp.",
+        "type": "MINION"
+    },
+    {
         "artist": "Jonboy Meyers",
         "cardClass": "HUNTER",
         "collectible": true,
@@ -17067,6 +17150,27 @@
         "type": "SPELL"
     },
     {
+        "artist": "Akkapoj T.",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 89699,
+        "durability": 3,
+        "flavor": "Honestly it sows more flame than it reaps.",
+        "howToEarn": "Unlocked at level 9.",
+        "howToEarnGolden": "Unlocked after winning 250 games as Demon Hunter.",
+        "id": "CORE_BT_271",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Flamereaper",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "Also damages the minions next to whomever your hero attacks.",
+        "type": "WEAPON"
+    },
+    {
         "artist": "Jaemin Kim",
         "attack": 3,
         "cardClass": "DEMONHUNTER",
@@ -17076,7 +17180,7 @@
         "faction": "HORDE",
         "flavor": "What he lacks in sight, he makes up for in sleight-of-tentacle tricks.",
         "health": 2,
-        "howToEarn": "Unlocked at level 6.",
+        "howToEarn": "Unlocked at level 2.",
         "howToEarnGolden": "Unlocked after winning 100 games as Demon Hunter.",
         "id": "CORE_BT_323",
         "mechanics": [
@@ -17109,6 +17213,28 @@
         "rarity": "COMMON",
         "set": "CORE",
         "text": "After your hero attacks, gain +1 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ware Lee",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 86547,
+        "flavor": "If throwing glaives is what you crave; \nsummon tokens and make 'em broken.",
+        "health": 2,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 250 games as Demon Hunter.",
+        "id": "CORE_BT_355",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wrathscale Naga",
+        "race": "NAGA",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "After a friendly minion dies, deal 3 damage to a random enemy.",
         "type": "MINION"
     },
     {
@@ -17158,7 +17284,7 @@
         "artist": "Anton Zemskov",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 69590,
         "flavor": "Nothing fills you up like soul food!",
         "howToEarn": "Unlocked at level 4.",
@@ -17169,6 +17295,24 @@
         "set": "CORE",
         "spellSchool": "SHADOW",
         "text": "Draw a card for each friendly minion that died this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 76308,
+        "elite": true,
+        "flavor": "As the humble caterpillar becomes a beautiful butterfly, so too does a demon hunter become a hideous mass of writhing destruction and unfettered chaos.",
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Demon Hunter.",
+        "id": "CORE_BT_429",
+        "name": "Metamorphosis",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "spellSchool": "FEL",
+        "text": "Swap your Hero Power to \"Deal 4 damage.\" After 2 uses, swap it back.",
         "type": "SPELL"
     },
     {
@@ -17275,6 +17419,72 @@
         "type": "WEAPON"
     },
     {
+        "artist": "A. J. Nazzaro",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76315,
+        "flavor": "Her favorite mixture is cola and lime.",
+        "health": 2,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_CFM_120",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Mistress of Mixtures",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Deathrattle:</b> Restore #4 Health to each hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 5,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 86535,
+        "flavor": "His job is to spy on the Goons and the Jade Lotus, but he's OBVIOUSLY a dragon so it's pretty hard work.",
+        "health": 6,
+        "howToEarn": "Unlocked at level 8.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Priest.",
+        "id": "CORE_CFM_605",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Drakonid Operative",
+        "race": "DRAGON",
+        "rarity": "RARE",
+        "set": 1810,
+        "text": "[x]<b>Battlecry:</b> If you're holding\na Dragon, <b>Discover</b> a\ncopy of a card in your\nopponent's deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Luke Mancini",
+        "attack": 6,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 76283,
+        "flavor": "The Kabal print this on every package of illicit Mana Crystals: WARNING - DO NOT PUT WITHIN REACH OF ABYSSALS. THIS IS NOT APPROVED FOR USE BY FLAMING DEMONS OF ANY KIND.",
+        "health": 6,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Warlock.",
+        "id": "CORE_CFM_751",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Abyssal Enforcer",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> Deal 3 damage to all other characters.",
+        "type": "MINION"
+    },
+    {
         "artist": "Luca Zontini",
         "cardClass": "PRIEST",
         "collectible": true,
@@ -17315,7 +17525,7 @@
         "cost": 2,
         "dbfId": 69511,
         "flavor": "Not to be confused with Jim of the Wild.",
-        "howToEarn": "Unlocked at level 5.",
+        "howToEarn": "Unlocked at level 3.",
         "howToEarnGolden": "Unlocked after winning 100 games as Druid.",
         "id": "CORE_CS2_009",
         "name": "Mark of the Wild",
@@ -17363,6 +17573,26 @@
         "type": "SPELL"
     },
     {
+        "artist": "Chris Seaman",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 76273,
+        "flavor": "This spell can be very Entertaining.",
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Mage.",
+        "id": "CORE_CS2_028",
+        "mechanics": [
+            "FREEZE"
+        ],
+        "name": "Blizzard",
+        "rarity": "RARE",
+        "set": 1810,
+        "spellSchool": "FROST",
+        "text": "Deal $2 damage to all enemy minions and <b>Freeze</b> them.",
+        "type": "SPELL"
+    },
+    {
         "artist": "Ralph Horsley",
         "cardClass": "MAGE",
         "collectible": true,
@@ -17386,7 +17616,7 @@
         "cost": 7,
         "dbfId": 69502,
         "flavor": "When the ground is on fire, you should <i>not</i> stop, drop, and roll.",
-        "howToEarn": "Unlocked at level 8.",
+        "howToEarn": "Unlocked at level 2.",
         "howToEarnGolden": "Unlocked after winning 250 games as Mage.",
         "id": "CORE_CS2_032",
         "name": "Flamestrike",
@@ -17479,6 +17709,38 @@
         "type": "SPELL"
     },
     {
+        "artist": "Luca Zontini",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 77554,
+        "flavor": "blaarghghLLGHRHARAAHAHHH!!",
+        "howToEarn": "Unlocked at level 8.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Shaman.",
+        "id": "CORE_CS2_046",
+        "name": "Bloodlust",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Give your minions +3 Attack this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Lars Grant-West",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76293,
+        "flavor": "Drek'thar can't see, but he can <i>see</i>. You know what I mean? It's ok if you don't.",
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 250 games as Shaman.",
+        "id": "CORE_CS2_053",
+        "name": "Far Sight",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "Draw a card. That card costs (3) less.",
+        "type": "SPELL"
+    },
+    {
         "artist": "Chippy",
         "cardClass": "WARLOCK",
         "collectible": true,
@@ -17515,6 +17777,29 @@
         "rarity": "COMMON",
         "set": "CORE",
         "text": "<b>Battlecry:</b> Deal 1 damage to ALL other characters.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 1,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76281,
+        "flavor": "No relation to \"The Voidsteppers\", the popular Void-based dance troupe.",
+        "health": 3,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Warlock.",
+        "id": "CORE_CS2_065",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Voidwalker",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": 1810,
+        "techLevel": 1,
+        "text": "<b>Taunt</b>",
         "type": "MINION"
     },
     {
@@ -17576,7 +17861,7 @@
         "cost": 1,
         "dbfId": 69524,
         "flavor": "There's something about this strike that just feels off.  Sinister, even.",
-        "howToEarn": "Unlocked at level 7.",
+        "howToEarn": "Unlocked at level 1.",
         "howToEarnGolden": "Unlocked after winning 100 games as Rogue.",
         "id": "CORE_CS2_075",
         "name": "Sinister Strike",
@@ -17608,7 +17893,7 @@
         "cost": 6,
         "dbfId": 69526,
         "flavor": "Rogues are not good joggers.",
-        "howToEarn": "Unlocked at level 5.",
+        "howToEarn": "Unlocked at level 1.",
         "howToEarnGolden": "Unlocked after winning 100 games as Rogue.",
         "id": "CORE_CS2_077",
         "name": "Sprint",
@@ -17626,7 +17911,7 @@
         "dbfId": 69527,
         "durability": 5,
         "flavor": "Guaranteed to have been owned by a real assassin.   Certificate of authenticity included.",
-        "howToEarn": "Unlocked at level 4.",
+        "howToEarn": "Unlocked at level 2.",
         "howToEarnGolden": "Unlocked after winning 100 games as Rogue.",
         "id": "CORE_CS2_080",
         "name": "Assassin's Blade",
@@ -17749,7 +18034,7 @@
         "artist": "Dany Orizio",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 69535,
         "flavor": "It's okay, he deserved it.",
         "howToEarn": "Unlocked at level 1.",
@@ -18002,6 +18287,162 @@
         "type": "MINION"
     },
     {
+        "artist": "Terese Nielsen",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76276,
+        "flavor": "They help the downtrodden and distressed.  Also they sell cookies.",
+        "health": 3,
+        "howToEarn": "Unlocked at level 2.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Priest.",
+        "id": "CORE_CS2_235",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Northshire Cleric",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Whenever a minion is healed, draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & A. Bozonnet",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 62349,
+        "flavor": "\"Who wants to sing the Doom song?!\"",
+        "howToEarn": "Unlocked at level 7.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Warlock.",
+        "id": "CORE_CS3_002",
+        "name": "Ritual of Doom",
+        "rarity": "RARE",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "Destroy a friendly minion. If you had 5 or more, summon a\n5/5 Demon.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jason Kang",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 62463,
+        "flavor": "It's much tidier than Illidan's storage locker.",
+        "howToEarn": "Unlocked at level 5.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Warrior.",
+        "id": "CORE_CS3_009",
+        "name": "War Cache",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "Add a random Warrior minion, spell, and weapon to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Dave Greco",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 62490,
+        "flavor": "The World Tree Nordrassil provides life-giving energy to the world--and excellent mana savings.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 7.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Druid.",
+        "id": "CORE_CS3_012",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Nordrassil Druid",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> The next spell you cast this turn costs (3) less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 62498,
+        "flavor": "He won't drop the ball.",
+        "health": 3,
+        "howToEarn": "Unlocked at level 5.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Priest.",
+        "id": "CORE_CS3_014",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Crimson Clergy",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "After a friendly character is healed, gain +1 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Nicola Saviori",
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 66259,
+        "flavor": "He's not really chained up. He just wears that to scare the imps when they get too unruly.",
+        "health": 10,
+        "howToEarn": "Unlocked at level 3.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Warlock.",
+        "id": "CORE_CS3_021",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Enslaved Fel Lord",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Taunt</b>. Also damages the minions next to whomever this attacks.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 66862,
+        "flavor": "\"Is this about justice or just us?\"",
+        "howToEarn": "Unlocked at level 8.",
+        "howToEarnGolden": "Unlocked after winning 250 games as Paladin.",
+        "id": "CORE_CS3_029",
+        "name": "Pursuit of Justice",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "spellSchool": "HOLY",
+        "text": "Give +1 Attack to Silver Hand Recruits you summon this game.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 5,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 66863,
+        "flavor": "When it comes to the Warsong clan, outriders are the insiders.",
+        "health": 4,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
+        "id": "CORE_CS3_030",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Warsong Outrider",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
         "artist": "L. Lullabi & K. Turovec",
         "attack": 2,
         "cardClass": "NEUTRAL",
@@ -18026,13 +18467,150 @@
         "type": "MINION"
     },
     {
+        "artist": "Alex Garner",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76300,
+        "flavor": "Obviously it's marked for greatness.",
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Hunter.",
+        "id": "CORE_DAL_371",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Marked Shot",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Deal $4 damage to a minion. <b>Discover</b> a spell.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 86540,
+        "flavor": "She’s more of a rat burglar.",
+        "health": 3,
+        "howToEarn": "Unlocked at level 9.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Rogue.",
+        "id": "CORE_DAL_416",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Hench-Clan Burglar",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> <b>Discover</b> a spell from another class.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Chris Rahn",
+        "attack": 4,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 76271,
+        "elite": true,
+        "flavor": "He was once the Aspect of Magic but gave it up to focus on cheap tricks.",
+        "health": 12,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Mage.",
+        "id": "CORE_DAL_609",
+        "mechanics": [
+            "AURA",
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Kalecgos",
+        "race": "DRAGON",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "Your first spell each\nturn costs (0).\n<b>Battlecry:</b> <b>Discover</b>\na spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ludo Lullabi",
+        "attack": 8,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 86536,
+        "elite": true,
+        "flavor": "\"Well, I'm glad YOU knew what I should be doing this turn.\"",
+        "health": 8,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Priest.",
+        "id": "CORE_DRG_090",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Murozond the Infinite",
+        "race": "DRAGON",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> Play all cards your opponent played last turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 86544,
+        "flavor": "Healing really resin-ates with him.",
+        "health": 6,
+        "howToEarn": "Unlocked at level 2.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Paladin.",
+        "id": "CORE_DRG_226",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Amber Watcher",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": 1810,
+        "targetingArrowText": "Restore 8 Health.",
+        "text": "<b>Battlecry:</b> Restore #8 Health.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Max Grecke",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 86545,
+        "flavor": "Always ready to explore new friendships! Except with Deathwing.",
+        "health": 3,
+        "howToEarn": "Unlocked at level 7.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Paladin.",
+        "id": "CORE_DRG_229",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER",
+            "LIFESTEAL"
+        ],
+        "name": "Bronze Explorer",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Lifesteal</b>\n<b>Battlecry:</b> <b>Discover</b> a Dragon.",
+        "type": "MINION"
+    },
+    {
         "artist": "Mauro Cascioli",
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 1,
         "dbfId": 69545,
         "flavor": "For the person who just cannot decide what card to put into a deck!",
-        "howToEarn": "Unlocked at level 4.",
+        "howToEarn": "Unlocked at level 2.",
         "howToEarnGolden": "Unlocked after winning 100 games as Hunter.",
         "id": "CORE_DS1_184",
         "mechanics": [
@@ -18051,7 +18629,7 @@
         "cost": 1,
         "dbfId": 69546,
         "flavor": "Magi conjured arcane arrows to sell to hunters, until hunters learned just enough magic to do it themselves.  The resulting loss of jobs sent Stormwind into a minor recession.",
-        "howToEarn": "Unlocked at level 5.",
+        "howToEarn": "Unlocked at level 1.",
         "howToEarnGolden": "Unlocked after winning 100 games as Hunter.",
         "id": "CORE_DS1_185",
         "name": "Arcane Shot",
@@ -18102,6 +18680,27 @@
         "set": "CORE",
         "targetingArrowText": "Destroy a minion with an Attack of 7 or more.",
         "text": "<b>Battlecry:</b> Destroy a minion with 7 or more Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Kendall",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76316,
+        "flavor": "He trained when he was younger to be an acolyte of joy, but things didn’t work out like he thought they would.",
+        "health": 3,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_EX1_007",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Acolyte of Pain",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Whenever this minion takes damage, draw a card.",
         "type": "MINION"
     },
     {
@@ -18262,6 +18861,28 @@
         "rarity": "COMMON",
         "set": "CORE",
         "text": "<b>Stealth</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76325,
+        "flavor": "Twilight drakes feed on Mystical Energy.  And Tacos.",
+        "health": 1,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 1000 total wins.",
+        "id": "CORE_EX1_043",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Twilight Drake",
+        "race": "DRAGON",
+        "rarity": "RARE",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> Gain +1 Health for each card in your hand.",
         "type": "MINION"
     },
     {
@@ -18519,7 +19140,7 @@
         "cost": 1,
         "dbfId": 69610,
         "flavor": "We will always remember you, \"Defender!\"",
-        "howToEarn": "Unlocked at level 1.",
+        "howToEarn": "Unlocked at level 3.",
         "howToEarnGolden": "Unlocked after winning 50 games as Paladin.",
         "id": "CORE_EX1_130",
         "mechanics": [
@@ -18540,7 +19161,7 @@
         "dbfId": 69621,
         "flavor": "The agents of SI:7 are responsible for Stormwind's covert activities.  Their duties include espionage, assassination, and throwing surprise birthday parties for the royal family.",
         "health": 3,
-        "howToEarn": "Unlocked at level 6.",
+        "howToEarn": "Unlocked at level 3.",
         "howToEarnGolden": "Unlocked after winning 100 games as Rogue.",
         "id": "CORE_EX1_134",
         "mechanics": [
@@ -18560,7 +19181,7 @@
         "cost": 0,
         "dbfId": 69622,
         "flavor": "Rogue dance troops will sometimes Shadowstep away at the end of a performance.  Crowds love it.",
-        "howToEarn": "Unlocked at level 1.",
+        "howToEarn": "Unlocked at level 7.",
         "howToEarnGolden": "Unlocked after winning 50 games as Rogue.",
         "id": "CORE_EX1_144",
         "name": "Shadowstep",
@@ -18584,6 +19205,26 @@
         "rarity": "EPIC",
         "set": "CORE",
         "text": "The next spell you cast this turn costs (2) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Raymond Swanland",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76288,
+        "flavor": "The talk around the Ratchet Inn is that this card is too good and should be a Legendary.",
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Druid.",
+        "id": "CORE_EX1_154",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Wrath",
+        "rarity": "COMMON",
+        "set": 1810,
+        "spellSchool": "NATURE",
+        "text": "<b>Choose One -</b>\nDeal $3 damage to a minion; or $1 damage\nand draw a card.",
         "type": "SPELL"
     },
     {
@@ -18654,10 +19295,10 @@
         "artist": "Terese Nielsen",
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 69594,
         "flavor": "Druids take nourishment from many things: the power of nature, the songbird's chirp, a chocolate cake.",
-        "howToEarn": "Unlocked at level 6.",
+        "howToEarn": "Unlocked at level 7.",
         "howToEarnGolden": "Unlocked after winning 100 games as Druid.",
         "id": "CORE_EX1_164",
         "mechanics": [
@@ -18702,7 +19343,7 @@
         "cost": 0,
         "dbfId": 69550,
         "flavor": "Some druids still have flashbacks from strangers yelling \"Innervate me!!\" at them.",
-        "howToEarn": "Unlocked at level 4.",
+        "howToEarn": "Unlocked at level 2.",
         "howToEarnGolden": "Unlocked after winning 100 games as Druid.",
         "id": "CORE_EX1_169",
         "name": "Innervate",
@@ -18895,7 +19536,7 @@
         "dbfId": 69615,
         "flavor": "The maritime Kul Tiran clergy are unique among priests for using holy saltwater.",
         "health": 3,
-        "howToEarn": "Unlocked at level 4.",
+        "howToEarn": "Unlocked at level 1.",
         "howToEarnGolden": "Unlocked after winning 100 games as Priest.",
         "id": "CORE_EX1_195",
         "mechanics": [
@@ -18996,7 +19637,7 @@
         "cost": 3,
         "dbfId": 69626,
         "flavor": "Spirit wolves are like regular wolves with pom-poms.",
-        "howToEarn": "Unlocked at level 5.",
+        "howToEarn": "Unlocked at level 4.",
         "howToEarnGolden": "Unlocked after winning 100 games as Shaman.",
         "id": "CORE_EX1_248",
         "mechanics": [
@@ -19091,7 +19732,7 @@
         "cost": 3,
         "dbfId": 69629,
         "flavor": "An umbrella won't be effective, I'm afraid.",
-        "howToEarn": "Unlocked at level 6.",
+        "howToEarn": "Unlocked at level 5.",
         "howToEarnGolden": "Unlocked after winning 100 games as Shaman.",
         "id": "CORE_EX1_259",
         "mechanics": [
@@ -19126,13 +19767,54 @@
         "type": "SPELL"
     },
     {
+        "artist": "Luca Zontini",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 76272,
+        "flavor": "Take the time for an evil laugh after you draw this card.",
+        "howToEarn": "Unlocked at level 9.",
+        "howToEarnGolden": "Unlocked after winning 250 games as Mage.",
+        "id": "CORE_EX1_279",
+        "name": "Pyroblast",
+        "rarity": "EPIC",
+        "set": 1810,
+        "spellSchool": "FIRE",
+        "text": "Deal $10 damage.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ben Zhang",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 76324,
+        "flavor": "They initially planned to be the Beryl or Cerulean drakes, but those felt a tad too pretentious.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 1000 total wins.",
+        "id": "CORE_EX1_284",
+        "mechanics": [
+            "BATTLECRY",
+            "SPELLPOWER"
+        ],
+        "name": "Azure Drake",
+        "race": "DRAGON",
+        "rarity": "RARE",
+        "set": 1810,
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>\n<b>Battlecry:</b> Draw a card.",
+        "type": "MINION"
+    },
+    {
         "artist": "Jason Chan",
         "cardClass": "MAGE",
         "collectible": true,
         "cost": 3,
         "dbfId": 69607,
         "flavor": "What's the difference between a mage playing with Counterspell and a mage who isn't?  The mage who isn't is getting Pyroblasted in the face.",
-        "howToEarn": "Unlocked at level 6.",
+        "howToEarn": "Unlocked at level 8.",
         "howToEarnGolden": "Unlocked after winning 100 games as Mage.",
         "id": "CORE_EX1_287",
         "mechanics": [
@@ -19214,7 +19896,7 @@
         "dbfId": 69633,
         "flavor": "If you put this into your deck, you WILL lose the trust of your other minions.",
         "health": 4,
-        "howToEarn": "Unlocked at level 6.",
+        "howToEarn": "Unlocked at level 3.",
         "howToEarnGolden": "Unlocked after winning 100 games as Warlock.",
         "id": "CORE_EX1_304",
         "mechanics": [
@@ -19358,7 +20040,7 @@
         "dbfId": 69612,
         "flavor": "The Aldor hate two things: the Scryers and smooth jazz.",
         "health": 3,
-        "howToEarn": "Unlocked at level 7.",
+        "howToEarn": "Unlocked at level 8.",
         "howToEarnGolden": "Unlocked after winning 100 games as Paladin.",
         "id": "CORE_EX1_382",
         "mechanics": [
@@ -19476,7 +20158,7 @@
         "cost": 5,
         "dbfId": 69640,
         "flavor": "Do you know the first rule of Brawl Club?",
-        "howToEarn": "Unlocked at level 7.",
+        "howToEarn": "Unlocked at level 5.",
         "howToEarnGolden": "Unlocked after winning 250 games as Warrior.",
         "id": "CORE_EX1_407",
         "name": "Brawl",
@@ -19568,6 +20250,30 @@
         "type": "MINION"
     },
     {
+        "artist": "Tim McBurnie",
+        "attack": 3,
+        "battlegroundsPremiumDbfId": 57403,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76270,
+        "flavor": "Do Murlocs ever get tired of making the same old sound?  Nope!  Mrglglrglglglglglglgl!",
+        "health": 3,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 2500 total wins.",
+        "id": "CORE_EX1_507",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Murloc Warleader",
+        "race": "MURLOC",
+        "rarity": "EPIC",
+        "set": 1810,
+        "techLevel": 2,
+        "text": "Your other Murlocs have +2 Attack.",
+        "type": "MINION"
+    },
+    {
         "artist": "Jaemin Kim",
         "attack": 1,
         "cardClass": "NEUTRAL",
@@ -19642,7 +20348,7 @@
         "dbfId": 69600,
         "flavor": "In the jungle, the mighty jungle, the lion gets slowly consumed by hyenas.",
         "health": 5,
-        "howToEarn": "Unlocked at level 6.",
+        "howToEarn": "Unlocked at level 3.",
         "howToEarnGolden": "Unlocked after winning 100 games as Hunter.",
         "id": "CORE_EX1_534",
         "mechanics": [
@@ -19721,6 +20427,29 @@
         "type": "MINION"
     },
     {
+        "artist": "Jonathan Ryder",
+        "attack": 0,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76294,
+        "flavor": "Totemsmiths like to use the rarest woods for their totems.  There are even rumors of totems made of Ironbark Protectors.",
+        "health": 2,
+        "howToEarn": "Unlocked at level 2.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Shaman.",
+        "id": "CORE_EX1_565",
+        "mechanics": [
+            "ADJACENT_BUFF",
+            "AURA"
+        ],
+        "name": "Flametongue Totem",
+        "race": "TOTEM",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Adjacent minions have +2 Attack.",
+        "type": "MINION"
+    },
+    {
         "artist": "John Polidora",
         "attack": 2,
         "cardClass": "SHAMAN",
@@ -19750,7 +20479,7 @@
         "cost": 5,
         "dbfId": 69597,
         "flavor": "\"I think I'll just nap under these trees. Wait... AAAAAHHH!\" - Blinkfizz, the Unfortunate Gnome",
-        "howToEarn": "Unlocked at level 8.",
+        "howToEarn": "Unlocked at level 4.",
         "howToEarnGolden": "Unlocked after winning 250 games as Druid.",
         "id": "CORE_EX1_571",
         "name": "Force of Nature",
@@ -19794,7 +20523,7 @@
         "dbfId": 69631,
         "flavor": "It is said that some shaman can say \"Floatin' totem\" 10 times, fast.",
         "health": 3,
-        "howToEarn": "Unlocked at level 4.",
+        "howToEarn": "Unlocked at level 1.",
         "howToEarnGolden": "Unlocked after winning 100 games as Shaman.",
         "id": "CORE_EX1_575",
         "mechanics": [
@@ -19805,6 +20534,24 @@
         "rarity": "RARE",
         "set": "CORE",
         "text": "At the end of your turn, draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Svetlin Velinov",
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 76322,
+        "flavor": "See?  Giant.",
+        "health": 8,
+        "howToEarn": "Unlocked at level 59.",
+        "howToEarnGolden": "Unlocked after 2500 total wins.",
+        "id": "CORE_EX1_586",
+        "name": "Sea Giant",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "Costs (1) less for each other minion on the battlefield.",
         "type": "MINION"
     },
     {
@@ -19851,6 +20598,22 @@
         "type": "MINION"
     },
     {
+        "artist": "Michael Komarck",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76302,
+        "flavor": "Shields were invented because Face Block is USELESS.",
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
+        "id": "CORE_EX1_606",
+        "name": "Shield Block",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Gain 5 Armor.\nDraw a card.",
+        "type": "SPELL"
+    },
+    {
         "artist": "Brandon Kitkouski",
         "cardClass": "HUNTER",
         "collectible": true,
@@ -19877,7 +20640,7 @@
         "cost": 2,
         "dbfId": 69604,
         "flavor": "\"Dang, that's cold.\" - appropriate response to Freezing Trap, or a mean joke.",
-        "howToEarn": "Unlocked at level 2.",
+        "howToEarn": "Unlocked at level 4.",
         "howToEarnGolden": "Unlocked after winning 50 games as Hunter.",
         "id": "CORE_EX1_611",
         "mechanics": [
@@ -19910,10 +20673,10 @@
         "artist": "Michal Ivan",
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 69614,
         "flavor": "We are all special unique snowflakes... with 1 Health.",
-        "howToEarn": "Unlocked at level 5.",
+        "howToEarn": "Unlocked at level 4.",
         "howToEarnGolden": "Unlocked after winning 100 games as Paladin.",
         "id": "CORE_EX1_619",
         "name": "Equality",
@@ -20029,7 +20792,7 @@
         "cost": 1,
         "dbfId": 69704,
         "flavor": "Several paladins have joined together to deliver justice under the name \"Justice Force\".  Their lawyer talked them out of calling themselves the Justice League.",
-        "howToEarn": "Unlocked at level 3.",
+        "howToEarn": "Unlocked at level 5.",
         "howToEarnGolden": "Unlocked after winning 50 games as Paladin.",
         "id": "CORE_FP1_020",
         "mechanics": [
@@ -20068,6 +20831,27 @@
         "type": "MINION"
     },
     {
+        "artist": "Jim Nelson",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 86550,
+        "flavor": "The hills have eyes. And teeth. Pretty bad breath, too.",
+        "health": 7,
+        "howToEarn": "Unlocked at level 21.",
+        "howToEarnGolden": "Unlocked after 2500 total wins.",
+        "id": "CORE_GIL_124",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Mossy Horror",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> Destroy all other minions with 2 or less Attack.",
+        "type": "MINION"
+    },
+    {
         "artist": "Ivan Fomin",
         "cardClass": "WARLOCK",
         "collectible": true,
@@ -20085,13 +20869,105 @@
         "type": "SPELL"
     },
     {
+        "artist": "Arthur Bozonnet",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 76301,
+        "elite": true,
+        "flavor": "You either die a villain, or live long enough to see yourself become the hero.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Warrior.",
+        "id": "CORE_GIL_547",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Darius Crowley",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "[x]<b>Rush</b>\nAfter this attacks and kills\na minion, gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Axer",
+        "attack": 6,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 86539,
+        "elite": true,
+        "flavor": "Those who cannot remember their card history are doomed to repeat it.",
+        "health": 6,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Rogue.",
+        "id": "CORE_GIL_598",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Tess Greymane",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "[x]<b>Battlecry:</b> Replay every card\nfrom another class you've\nplayed this game <i>(targets\nchosen randomly)</i>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76320,
+        "flavor": "In a pinch, he'll also settle for Holy Water: Zero.",
+        "health": 3,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 1000 total wins.",
+        "id": "CORE_GIL_622",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lifedrinker",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": 1810,
+        "text": "[x]<b>Battlecry:</b> Deal 3 damage to\nthe enemy hero. Restore\n#3 Health to your hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76296,
+        "elite": true,
+        "flavor": "They’re good dogs, Tess.",
+        "health": 6,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Hunter.",
+        "id": "CORE_GIL_650",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Houndmaster Shaw",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": 1810,
+        "text": "Your other minions have\n<b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
         "artist": "Gonzalo Ordonez",
         "cardClass": "MAGE",
         "collectible": true,
         "cost": 1,
         "dbfId": 69699,
         "flavor": "Lick the ice block. I triple-double-dog-dare-you.",
-        "howToEarn": "Unlocked at level 2.",
+        "howToEarn": "Unlocked at level 6.",
         "howToEarnGolden": "Unlocked after winning 50 games as Mage.",
         "id": "CORE_GIL_801",
         "name": "Snap Freeze",
@@ -20111,13 +20987,33 @@
         "cost": 4,
         "dbfId": 69693,
         "flavor": "It's always Huffer. And Huffer. And Huffer. And Huffer.",
-        "howToEarn": "Unlocked at level 3.",
+        "howToEarn": "Unlocked at level 6.",
         "howToEarnGolden": "Unlocked after winning 50 games as Hunter.",
         "id": "CORE_GIL_828",
         "name": "Dire Frenzy",
         "rarity": "COMMON",
         "set": "CORE",
         "text": "Give a Beast +3/+3. Shuffle 3 copies into your deck with +3/+3.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Luca Zontini",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 86534,
+        "flavor": "This is what happens when you allow goblins to be priests.",
+        "howToEarn": "Unlocked at level 5.",
+        "howToEarnGolden": "Unlocked after winning 250 games as Priest.",
+        "id": "CORE_GVG_008",
+        "mechanics": [
+            "AFFECTED_BY_SPELL_POWER"
+        ],
+        "name": "Lightbomb",
+        "rarity": "EPIC",
+        "set": 1810,
+        "spellSchool": "HOLY",
+        "text": "Deal damage to each minion equal to its Attack.",
         "type": "SPELL"
     },
     {
@@ -20287,6 +21183,29 @@
         "type": "MINION"
     },
     {
+        "artist": "Jim Nelson",
+        "attack": 5,
+        "battlegroundsPremiumDbfId": 61442,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 76330,
+        "flavor": "You get a sword! And you get a sword! Everybody gets a sword!",
+        "health": 5,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_ICC_029",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Cobalt Scalebane",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "At the end of your turn, give another random friendly minion +3 Attack.",
+        "type": "MINION"
+    },
+    {
         "artist": "Evgeniy Dlinnov",
         "attack": 1,
         "battlegroundsPremiumDbfId": 63774,
@@ -20362,7 +21281,7 @@
         "dbfId": 69708,
         "flavor": "The excruciating pain means it's working!",
         "health": 3,
-        "howToEarn": "Unlocked at level 3.",
+        "howToEarn": "Unlocked at level 6.",
         "howToEarnGolden": "Unlocked after winning 50 games as Rogue.",
         "id": "CORE_ICC_809",
         "mechanics": [
@@ -20379,6 +21298,27 @@
         "type": "MINION"
     },
     {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76299,
+        "flavor": "She's practically GIVING your secrets away!",
+        "health": 4,
+        "howToEarn": "Unlocked at level 9.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Hunter.",
+        "id": "CORE_KAR_006",
+        "name": "Cloaked Huntress",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": 1810,
+        "text": "Your <b>Secrets</b> cost (0).",
+        "type": "MINION"
+    },
+    {
         "artist": "A. J. Nazzaro",
         "attack": 1,
         "cardClass": "MAGE",
@@ -20387,7 +21327,7 @@
         "dbfId": 69700,
         "flavor": "His idol is the Green Hills of Stranglethorn, and he won't shut up about it.",
         "health": 1,
-        "howToEarn": "Unlocked at level 5.",
+        "howToEarn": "Unlocked at level 7.",
         "howToEarnGolden": "Unlocked after winning 100 games as Mage.",
         "id": "CORE_KAR_009",
         "mechanics": [
@@ -20452,7 +21392,7 @@
         "dbfId": 69742,
         "flavor": "Was almost named \"Swashb-AAAARRHHH-gler\"",
         "health": 1,
-        "howToEarn": "Unlocked at level 2.",
+        "howToEarn": "Unlocked at level 4.",
         "howToEarnGolden": "Unlocked after winning 50 games as Rogue.",
         "id": "CORE_KAR_069",
         "mechanics": [
@@ -20464,6 +21404,23 @@
         "set": "CORE",
         "text": "<b>Battlecry:</b> Add a random card from another class to your hand.",
         "type": "MINION"
+    },
+    {
+        "artist": "Daria Tuzova",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76295,
+        "flavor": "They bill this as a popular resort attraction, but they try and get your money up front.",
+        "howToEarn": "Unlocked at level 6.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Shaman.",
+        "id": "CORE_KAR_073",
+        "name": "Maelstrom Portal",
+        "rarity": "RARE",
+        "set": 1810,
+        "spellSchool": "NATURE",
+        "text": "Deal $1 damage to all enemy minions. Summon a random\n1-Cost minion.",
+        "type": "SPELL"
     },
     {
         "artist": "Daria Tuzova",
@@ -20506,6 +21463,28 @@
         "type": "MINION"
     },
     {
+        "artist": "Tyson Murphy",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 76314,
+        "elite": true,
+        "flavor": "Reno is a four-time winner of the 'Best Accessorized Explorer' award.",
+        "health": 6,
+        "howToEarn": "Unlocked at level 44.",
+        "howToEarnGolden": "Unlocked after 5000 total wins.",
+        "id": "CORE_LOE_011",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Reno Jackson",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> If your deck has no duplicates, fully heal your hero.",
+        "type": "MINION"
+    },
+    {
         "artist": "Dave Allsop",
         "attack": 5,
         "cardClass": "ROGUE",
@@ -20527,6 +21506,125 @@
         "type": "MINION"
     },
     {
+        "artist": "Skan Srisuwan",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 86548,
+        "flavor": "A-1 and A-2 went nuts, when they should have gone bolts.",
+        "health": 4,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_LOE_039",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Gorillabot A-3",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> If you control another Mech, <b>Discover</b> a Mech.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ben Zhang",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 86541,
+        "flavor": "Clever girl!",
+        "health": 2,
+        "howToEarn": "Unlocked at level 6.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Druid.",
+        "id": "CORE_LOE_050",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Mounted Raptor",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Deathrattle:</b> Summon a random 1-Cost minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76311,
+        "elite": true,
+        "flavor": "In addition to fluent Common, he also speaks fourteen dialects of 'mrgl'.",
+        "health": 3,
+        "howToEarn": "Unlocked at level 34.",
+        "howToEarnGolden": "Unlocked after 5000 total wins.",
+        "id": "CORE_LOE_076",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Sir Finley Mrrgglton",
+        "race": "MURLOC",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "<b><b>Battlecry:</b> Discover</b> a new basic Hero Power.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sam Nielson",
+        "attack": 2,
+        "battlegroundsPremiumDbfId": 58400,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76312,
+        "elite": true,
+        "flavor": "Contains 75% more fiber than his brother Magni!",
+        "health": 4,
+        "howToEarn": "Unlocked at level 41.",
+        "howToEarnGolden": "Unlocked after 5000 total wins.",
+        "id": "CORE_LOE_077",
+        "isBattlegroundsPoolMinion": true,
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Brann Bronzebeard",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": 1810,
+        "techLevel": 5,
+        "text": "Your <b>Battlecries</b> trigger twice.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Luke Mancini",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76313,
+        "elite": true,
+        "flavor": "A large part of her job entails not mixing up the Map to the Golden Monkey with the Map to Monkey Island.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 39.",
+        "howToEarnGolden": "Unlocked after 5000 total wins.",
+        "id": "CORE_LOE_079",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Elise Starseeker",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> Shuffle the 'Map to the Golden Monkey'   into your deck.",
+        "type": "MINION"
+    },
+    {
         "artist": "Oliver Chipping",
         "attack": 1,
         "cardClass": "NEUTRAL",
@@ -20543,6 +21641,27 @@
         "rarity": "COMMON",
         "set": "CORE",
         "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 86235,
+        "flavor": "Sometimes it's safer NOT to read the warning signs.",
+        "howToEarn": "Unlocked at level 3.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Mage.",
+        "id": "CORE_LOOT_101",
+        "mechanics": [
+            "SECRET",
+            "ImmuneToSpellpower"
+        ],
+        "name": "Explosive Runes",
+        "rarity": "RARE",
+        "set": 1810,
+        "spellSchool": "FIRE",
+        "text": "<b>Secret:</b> After your opponent plays a minion, deal $6 damage to it and any excess to their hero.",
+        "type": "SPELL"
     },
     {
         "artist": "Jomaro Kindred",
@@ -20615,6 +21734,94 @@
         "type": "MINION"
     },
     {
+        "artist": "Anton Kagounkin",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 86543,
+        "durability": 3,
+        "flavor": "Once called Cahn’delar, Shortbow of the Ancient Whisker.",
+        "howToEarn": "Unlocked at level 5.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Hunter.",
+        "id": "CORE_LOOT_222",
+        "name": "Candleshot",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": 1810,
+        "text": "Your hero is <b>Immune</b> while attacking.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76323,
+        "flavor": "\"Ok, your party has defeated the beetle.\" \"I put it on my head.\" \"What?\" \"I put it on my head. Like a hat.\"",
+        "health": 3,
+        "howToEarn": "Unlocked at level 45.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_LOOT_413",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Plated Beetle",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Deathrattle:</b> Gain 3 Armor.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sean McNally",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76310,
+        "elite": true,
+        "flavor": "Her name seems a bit cheesy.",
+        "health": 2,
+        "howToEarn": "Unlocked at level 32.",
+        "howToEarnGolden": "Unlocked after 5000 total wins.",
+        "id": "CORE_LOOT_516",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Zola the Gorgon",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "targetingArrowText": "Add a Golden copy to your hand.",
+        "text": "<b>Battlecry:</b> Choose a friendly minion. Add a Golden copy of it to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Hjelm",
+        "attack": 5,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 76291,
+        "flavor": "Go ahead, carve your initials in him.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 8.",
+        "howToEarnGolden": "Unlocked after winning 250 games as Druid.",
+        "id": "CORE_NEW1_008",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Ancient of Lore",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "<b>Choose One -</b> Draw 2 cards; or Restore #5 Health.",
+        "type": "MINION"
+    },
+    {
         "artist": "Raymond Swanland",
         "attack": 3,
         "cardClass": "SHAMAN",
@@ -20663,6 +21870,71 @@
         "type": "MINION"
     },
     {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76321,
+        "flavor": "BOOM BABY BOOM!  BAD IS GOOD!  DOWN WITH GOVERNMENT!",
+        "health": 2,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 1000 total wins.",
+        "id": "CORE_NEW1_020",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wild Pyromancer",
+        "rarity": "RARE",
+        "set": 1810,
+        "text": "After you cast a spell, deal 1 damage to ALL minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76317,
+        "flavor": "He's almost been right so many times. He was <i>sure</i> it was coming during the Cataclysm.",
+        "health": 7,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 2500 total wins.",
+        "id": "CORE_NEW1_021",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Doomsayer",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "At the start of your turn, destroy ALL minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Samwise",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76329,
+        "flavor": "Adorable.  Immune to Magic.  Doesn't pee on the rug.  The perfect pet!",
+        "health": 2,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_NEW1_023",
+        "mechanics": [
+            "CANT_BE_TARGETED_BY_SPELLS",
+            "CANT_BE_TARGETED_BY_HERO_POWERS"
+        ],
+        "name": "Faerie Dragon",
+        "race": "DRAGON",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Can't be targeted by spells or Hero Powers.",
+        "type": "MINION"
+    },
+    {
         "artist": "James Ryman",
         "attack": 3,
         "cardClass": "NEUTRAL",
@@ -20706,13 +21978,51 @@
         "type": "MINION"
     },
     {
+        "artist": "Wei Wang",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76297,
+        "flavor": "You could summon Misha, Leokk, or Huffer!  Huffer is more trouble than he's worth.",
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Hunter.",
+        "id": "CORE_NEW1_031",
+        "name": "Animal Companion",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Summon a random Beast Companion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76287,
+        "elite": true,
+        "flavor": "Always manages to mention \"Back when I was creating the World Tree…\" in EVERY conversation. Sheesh! Enough already.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Druid.",
+        "id": "CORE_OG_044",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Fandral Staghelm",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "Your <b>Choose One</b> cards and powers have both effects combined.",
+        "type": "MINION"
+    },
+    {
         "artist": "Alex Alexandrov",
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 3,
         "dbfId": 69688,
         "flavor": "Let's be honest. One option is a lot ragier than the other.",
-        "howToEarn": "Unlocked at level 2.",
+        "howToEarn": "Unlocked at level 5.",
         "howToEarnGolden": "Unlocked after winning 50 games as Druid.",
         "id": "CORE_OG_047",
         "mechanics": [
@@ -20743,6 +22053,73 @@
         "rarity": "COMMON",
         "set": "CORE",
         "text": "<b>Combo:</b> Gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 86538,
+        "flavor": "Do NOT be late with your overdue fines.",
+        "health": 2,
+        "howToEarn": "Unlocked at level 6.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Warlock.",
+        "id": "CORE_OG_109",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Darkshire Librarian",
+        "rarity": "RARE",
+        "set": 1810,
+        "text": "<b>Battlecry:</b>\nDiscard a random card. <b>Deathrattle:</b>\nDraw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 2,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76303,
+        "flavor": "He thought the set was called \"Flippers of the Old Cods\" and hungrily volunteered to be in it.  He is definitely going to get his hearing checked.",
+        "health": 6,
+        "howToEarn": "Unlocked at level 2.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
+        "id": "CORE_OG_218",
+        "mechanics": [
+            "ENRAGED",
+            "TAUNT"
+        ],
+        "name": "Bloodhoof Brave",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Taunt</b>\nHas +3 Attack while damaged.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 8,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 86546,
+        "elite": true,
+        "flavor": "What happens when you try and corrupt a corrupted firelord? DOUBLE NEGATIVE, INSECT!",
+        "health": 8,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Paladin.",
+        "id": "CORE_OG_229",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Ragnaros, Lightlord",
+        "race": "ELEMENTAL",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "At the end of your turn, restore #8 Health to a damaged friendly character.",
         "type": "MINION"
     },
     {
@@ -20820,6 +22197,114 @@
         "type": "SPELL"
     },
     {
+        "artist": "James Ryman",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 86537,
+        "elite": true,
+        "flavor": "If you love Jeklik, set her free. YOU CAN'T GET RID OF HER.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Warlock.",
+        "id": "CORE_TRL_252",
+        "mechanics": [
+            "LIFESTEAL",
+            "TAUNT",
+            "InvisibleDeathrattle"
+        ],
+        "name": "High Priestess Jeklik",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "[x]<b>Taunt</b>, <b>Lifesteal</b>\nWhen you discard this,\nadd 2 copies of it to\nyour hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76306,
+        "flavor": "Hey! No cameras allowed!",
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Paladin.",
+        "id": "CORE_TRL_307",
+        "name": "Flash of Light",
+        "rarity": "COMMON",
+        "set": 1810,
+        "spellSchool": "HOLY",
+        "text": "Restore #4 Health.\nDraw a card.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 86533,
+        "flavor": "She prefers “Flammably Inclined.”",
+        "health": 4,
+        "howToEarn": "Unlocked at level 5.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Mage.",
+        "id": "CORE_TRL_315",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Pyromaniac",
+        "rarity": "RARE",
+        "set": 1810,
+        "text": "Whenever your Hero Power kills a minion, draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 87920,
+        "elite": true,
+        "flavor": "Krag'wa has a ritual to honor his friends and a ritual to devour his enemies. No one can tell them apart.",
+        "health": 6,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Shaman.",
+        "id": "CORE_TRL_345",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Krag'wa, the Frog",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "<b>Battlecry:</b> Return all spells you played last turn to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 86542,
+        "flavor": "The terrible thing about lynxes is lynxes are terrible things. Their teeth are made out of biting, their paws are made out of springs!",
+        "health": 1,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Hunter.",
+        "id": "CORE_TRL_348",
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH"
+        ],
+        "name": "Springpaw",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "[x]<b>Rush</b>\n<b>Battlecry:</b> Add a 1/1 Lynx\nwith <b>Rush</b> to your hand.",
+        "type": "MINION"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "attack": 3,
         "cardClass": "NEUTRAL",
@@ -20841,6 +22326,72 @@
         "type": "MINION"
     },
     {
+        "artist": "Rafael Zanchetin",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76318,
+        "flavor": "Sure, I'll carry the water! And the food! And the tents! And the cursed monkey paw!",
+        "health": 2,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_ULD_191",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Beaming Sidekick",
+        "rarity": "COMMON",
+        "set": 1810,
+        "targetingArrowText": "Give +2 Health.",
+        "text": "<b>Battlecry:</b> Give a friendly minion +2 Health.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 86551,
+        "flavor": "A spell is a spell, but the mystery choice could be anything! (It's also a spell.)",
+        "health": 3,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 2500 total wins.",
+        "id": "CORE_ULD_209",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Vulpera Scoundrel",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "<b>Battlecry</b>: <b>Discover</b> a spell or pick a mystery choice.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 86552,
+        "flavor": "Me-OW!",
+        "health": 6,
+        "howToEarn": "Unlocked at level 27.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_ULD_271",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Injured Tol'vir",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 3 damage to this minion.",
+        "type": "MINION"
+    },
+    {
         "artist": "Eva Widermann",
         "attack": 2,
         "cardClass": "MAGE",
@@ -20849,7 +22400,7 @@
         "dbfId": 69702,
         "flavor": "What did you draw? Shhhh… it’s a secret.",
         "health": 3,
-        "howToEarn": "Unlocked at level 3.",
+        "howToEarn": "Unlocked at level 4.",
         "howToEarnGolden": "Unlocked after winning 50 games as Mage.",
         "id": "CORE_UNG_020",
         "mechanics": [
@@ -20863,6 +22414,46 @@
         "set": "CORE",
         "text": "<b>Battlecry:</b> Draw a <b>Secret</b>.",
         "type": "MINION"
+    },
+    {
+        "artist": "A. J. Nazzaro",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76277,
+        "flavor": "It's a literal lava lamp!",
+        "health": 3,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after winning 50 games as Priest.",
+        "id": "CORE_UNG_034",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Radiant Elemental",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "Your spells cost (1) less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Azevedo",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 86234,
+        "flavor": "You can make your own Earthen Scales at home. Step 1: Roll around in the dirt. Step 2: Magic.",
+        "howToEarn": "Unlocked at level 9.",
+        "howToEarnGolden": "Unlocked after winning 100 games as Druid.",
+        "id": "CORE_UNG_108",
+        "name": "Earthen Scales",
+        "rarity": "RARE",
+        "set": 1810,
+        "spellSchool": "NATURE",
+        "targetingArrowText": "Give +1/+1.",
+        "text": "Give a friendly minion +1/+1, then gain Armor equal to its Attack.",
+        "type": "SPELL"
     },
     {
         "artist": "Arthur Gimaldinov",
@@ -20949,6 +22540,97 @@
         "rarity": "RARE",
         "set": "CORE",
         "text": "Can't attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 76327,
+        "flavor": "Before he became a rap artist.",
+        "health": 8,
+        "howToEarn": "Unlocked at level 29.",
+        "howToEarnGolden": "Unlocked after 2500 total wins.",
+        "id": "CORE_UNG_848",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Primordial Drake",
+        "race": "DRAGON",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage\nto all other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76319,
+        "flavor": "If you won't come to the tar pits, we'll bring them to you!",
+        "health": 5,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 500 total wins.",
+        "id": "CORE_UNG_928",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Tar Creeper",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": 1810,
+        "text": "<b>Taunt</b>\nHas +2 Attack during your opponent's turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Phil Saunders",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 76275,
+        "elite": true,
+        "flavor": "Arise, fair sun, and kill my envious foes. They don't have a legendary as beautiful as you.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 10.",
+        "howToEarnGolden": "Unlocked after winning 500 games as Priest.",
+        "id": "CORE_UNG_963",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Lyra the Sunshard",
+        "race": "ELEMENTAL",
+        "rarity": "LEGENDARY",
+        "set": 1810,
+        "text": "Whenever you cast a spell, add a random Priest spell to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Gabe Gonzalez",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 89354,
+        "flavor": "Captive manasabers don't behave much better--they're always scratching your furniture and coughing up mana balls.",
+        "health": 5,
+        "howToEarn": "Unlocked at level 1.",
+        "howToEarnGolden": "Unlocked after 2500 total wins.",
+        "id": "CORE_YOD_006",
+        "mechanics": [
+            "STEALTH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Escaped Manasaber",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "set": 1810,
+        "text": "[x]<b>Stealth</b>\nWhenever this attacks,\ngain 1 Mana Crystal\nthis turn only.",
         "type": "MINION"
     },
     {
@@ -21935,7 +23617,7 @@
         "artist": "Dany Orizio",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 785,
         "flavor": "It's okay, he deserved it.",
         "id": "CS2_108",
@@ -22923,14 +24605,12 @@
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 0,
-        "dbfId": 62349,
+        "dbfId": 89144,
         "flavor": "\"Who wants to sing the Doom song?!\"",
-        "howToEarn": "Unlocked at level 7.",
-        "howToEarnGolden": "Unlocked after winning 100 games as Warlock.",
         "id": "CS3_002",
         "name": "Ritual of Doom",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "LEGACY",
         "spellSchool": "SHADOW",
         "text": "Destroy a friendly minion. If you had 5 or more, summon a\n5/5 Demon.",
         "type": "SPELL"
@@ -23031,14 +24711,12 @@
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 3,
-        "dbfId": 62463,
+        "dbfId": 89145,
         "flavor": "It's much tidier than Illidan's storage locker.",
-        "howToEarn": "Unlocked at level 5.",
-        "howToEarnGolden": "Unlocked after winning 100 games as Warrior.",
         "id": "CS3_009",
         "name": "War Cache",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "LEGACY",
         "text": "Add a random Warrior minion, spell, and weapon to your hand.",
         "type": "SPELL"
     },
@@ -23048,18 +24726,16 @@
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 4,
-        "dbfId": 62490,
+        "dbfId": 89146,
         "flavor": "The World Tree Nordrassil provides life-giving energy to the world--and excellent mana savings.",
         "health": 5,
-        "howToEarn": "Unlocked at level 7.",
-        "howToEarnGolden": "Unlocked after winning 100 games as Druid.",
         "id": "CS3_012",
         "mechanics": [
             "BATTLECRY"
         ],
         "name": "Nordrassil Druid",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "LEGACY",
         "text": "<b>Battlecry:</b> The next spell you cast this turn costs (3) less.",
         "type": "MINION"
     },
@@ -23090,18 +24766,16 @@
         "cardClass": "PRIEST",
         "collectible": true,
         "cost": 1,
-        "dbfId": 62498,
+        "dbfId": 89147,
         "flavor": "He won't drop the ball.",
         "health": 3,
-        "howToEarn": "Unlocked at level 5.",
-        "howToEarnGolden": "Unlocked after winning 100 games as Priest.",
         "id": "CS3_014",
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
         "name": "Crimson Clergy",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "LEGACY",
         "text": "After a friendly character is healed, gain +1 Attack.",
         "type": "MINION"
     },
@@ -23225,11 +24899,9 @@
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 7,
-        "dbfId": 66259,
+        "dbfId": 89148,
         "flavor": "He's not really chained up. He just wears that to scare the imps when they get too unruly.",
         "health": 10,
-        "howToEarn": "Unlocked at level 3.",
-        "howToEarnGolden": "Unlocked after winning 50 games as Warlock.",
         "id": "CS3_021",
         "mechanics": [
             "TAUNT"
@@ -23237,7 +24909,7 @@
         "name": "Enslaved Fel Lord",
         "race": "DEMON",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "LEGACY",
         "text": "<b>Taunt</b>. Also damages the minions next to whomever this attacks.",
         "type": "MINION"
     },
@@ -23355,14 +25027,12 @@
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 2,
-        "dbfId": 66862,
+        "dbfId": 89149,
         "flavor": "\"Is this about justice or just us?\"",
-        "howToEarn": "Unlocked at level 8.",
-        "howToEarnGolden": "Unlocked after winning 250 games as Paladin.",
         "id": "CS3_029",
         "name": "Pursuit of Justice",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "LEGACY",
         "spellSchool": "HOLY",
         "text": "Give +1 Attack to Silver Hand Recruits you summon this game.",
         "type": "SPELL"
@@ -23373,18 +25043,16 @@
         "cardClass": "WARRIOR",
         "collectible": true,
         "cost": 4,
-        "dbfId": 66863,
+        "dbfId": 89150,
         "flavor": "When it comes to the Warsong clan, outriders are the insiders.",
         "health": 4,
-        "howToEarn": "Unlocked at level 1.",
-        "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
         "id": "CS3_030",
         "mechanics": [
             "RUSH"
         ],
         "name": "Warsong Outrider",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "LEGACY",
         "text": "<b>Rush</b>",
         "type": "MINION"
     },
@@ -25505,7 +27173,7 @@
         "attack": 4,
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 10,
+        "cost": 9,
         "dbfId": 53002,
         "elite": true,
         "flavor": "He was once the Aspect of Magic but gave it up to focus on cheap tricks.",
@@ -27074,7 +28742,7 @@
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
         "spellSchool": "NATURE",
-        "text": "Your next spell this turn casts twice.",
+        "text": "The next spell you cast this turn casts twice.",
         "type": "SPELL"
     },
     {
@@ -27824,7 +29492,7 @@
         "artist": "Ivan Fomin",
         "cardClass": "MAGE",
         "collectible": true,
-        "cost": 4,
+        "cost": 2,
         "dbfId": 61587,
         "elite": true,
         "flavor": "Voted \"Most Lunacy\" in Madness Monthly magazine.",
@@ -28544,7 +30212,7 @@
     },
     {
         "artist": "Brandon Blackwell",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 3,
@@ -28582,14 +30250,14 @@
     },
     {
         "artist": "James Ryman",
-        "attack": 4,
+        "attack": 2,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 6,
+        "cost": 4,
         "dbfId": 61136,
         "elite": true,
         "flavor": "Well, that just sounds like damage with extra steps.",
-        "health": 8,
+        "health": 6,
         "id": "DMF_230",
         "name": "Il'gynoth",
         "rarity": "LEGENDARY",
@@ -31267,7 +32935,7 @@
     },
     {
         "artist": "Max Grecke",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 3,
@@ -32271,6 +33939,7 @@
             "BATTLECRY"
         ],
         "name": "Darkscale Healer",
+        "race": "NAGA",
         "rarity": "FREE",
         "set": "LEGACY",
         "text": "<b>Battlecry:</b> Restore #2 Health to all friendly characters.",
@@ -33942,7 +35611,7 @@
         "artist": "Terese Nielsen",
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 95,
         "flavor": "Druids take nourishment from many things: the power of nature, the songbird's chirp, a chocolate cake.",
         "id": "EX1_164",
@@ -34849,7 +36518,7 @@
         "cost": 5,
         "dbfId": 825,
         "flavor": "They initially planned to be the Beryl or Cerulean drakes, but those felt a tad too pretentious.",
-        "health": 4,
+        "health": 5,
         "id": "EX1_284",
         "mechanics": [
             "BATTLECRY",
@@ -37042,7 +38711,7 @@
         "artist": "Michal Ivan",
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 756,
         "flavor": "We are all special unique snowflakes... with 1 Health.",
         "id": "EX1_619",
@@ -37785,6 +39454,7 @@
         "dbfId": 1914,
         "elite": true,
         "flavor": "Loatheb used to be a simple Bog Beast.  This is why we need stricter regulations on mining and agriculture.",
+        "hasDiamondSkin": true,
         "health": 5,
         "howToEarn": "Unlocked in The Plague Quarter, in the Naxxramas adventure.",
         "howToEarnGolden": "Crafting unlocked in The Plague Quarter, in the Naxxramas adventure.",
@@ -38762,7 +40432,7 @@
         "dbfId": 47053,
         "elite": true,
         "flavor": "You either die a villain, or live long enough to see yourself become the hero.",
-        "health": 4,
+        "health": 5,
         "id": "GIL_547",
         "mechanics": [
             "RUSH",
@@ -43058,6 +44728,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 83405,
+        "health": 30,
+        "id": "HERO_01t",
+        "name": "Shipwrecked Magni",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 1066,
@@ -43289,6 +44970,28 @@
         "type": "HERO"
     },
     {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 83407,
+        "health": 30,
+        "id": "HERO_02w",
+        "name": "Deepsea Morgl",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 83411,
+        "health": 30,
+        "id": "HERO_02x",
+        "name": "Kaldorei Vashj",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 930,
@@ -43449,6 +45152,17 @@
         "health": 30,
         "id": "HERO_03q",
         "name": "Garden Party Valeera",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 83401,
+        "health": 30,
+        "id": "HERO_03u",
+        "name": "Mariner Maiev",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -43665,6 +45379,28 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 83395,
+        "health": 30,
+        "id": "HERO_04u",
+        "name": "Leeroy Jenkins",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 83402,
+        "health": 30,
+        "id": "HERO_04v",
+        "name": "Admiral Liadrin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 31,
@@ -43858,6 +45594,17 @@
         "health": 30,
         "id": "HERO_05t",
         "name": "Denwatcher Rexxar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 83409,
+        "health": 30,
+        "id": "HERO_05u",
+        "name": "Naga Sylvanas",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -44073,6 +45820,28 @@
         "type": "HERO"
     },
     {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 83398,
+        "health": 30,
+        "id": "HERO_06u",
+        "name": "Ambassador Faelin",
+        "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 83406,
+        "health": 30,
+        "id": "HERO_06v",
+        "name": "Sea Dryad Lunara",
+        "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -44260,6 +46029,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 83404,
+        "health": 30,
+        "id": "HERO_07s",
+        "name": "Diver Nemsy",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 637,
@@ -44278,6 +46058,17 @@
         "id": "HERO_08a",
         "name": "Medivh",
         "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 83403,
+        "health": 30,
+        "id": "HERO_08ab",
+        "name": "Navigator Khadgar",
+        "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
     },
@@ -44693,6 +46484,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 83408,
+        "health": 30,
+        "id": "HERO_09r",
+        "name": "Handmaiden Tyrande",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
@@ -44854,6 +46656,17 @@
         "health": 30,
         "id": "HERO_10p",
         "name": "Sabertender Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 83410,
+        "health": 30,
+        "id": "HERO_10q",
+        "name": "Nightborne Aranna",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -48880,6 +50693,7 @@
             "AURA"
         ],
         "name": "Naga Sea Witch",
+        "race": "NAGA",
         "rarity": "EPIC",
         "set": "LOE",
         "text": "Your cards cost (5).",
@@ -48890,7 +50704,7 @@
         "attack": 3,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 2911,
         "flavor": "A-1 and A-2 went nuts, when they should have gone bolts.",
         "health": 4,
@@ -51529,6 +53343,9 @@
         "dbfId": 46303,
         "flavor": "They grow up so fast.",
         "id": "LOOT_504",
+        "mechanics": [
+            "ECHO"
+        ],
         "name": "Unstable Evolution",
         "rarity": "EPIC",
         "set": "LOOTAPALOOZA",
@@ -51611,6 +53428,7 @@
             "BATTLECRY"
         ],
         "name": "Zola the Gorgon",
+        "race": "NAGA",
         "rarity": "LEGENDARY",
         "set": "LOOTAPALOOZA",
         "targetingArrowText": "Add a Golden copy to your hand.",
@@ -55523,6 +57341,7 @@
         "race": "DRAGON",
         "rarity": "COMMON",
         "set": "ALTERAC_VALLEY",
+        "targetingArrowText": "Deal damage equal to your Armor to an enemy minion.",
         "text": "[x]<b>Taunt</b>\n <b>Battlecry:</b> Deal damage\nequal to your Armor to\nan enemy minion.",
         "type": "MINION"
     },
@@ -55788,7 +57607,7 @@
         "cost": 4,
         "dbfId": 59619,
         "flavor": "How did he get to the top of his class? He pulled a few strings!",
-        "health": 4,
+        "health": 6,
         "id": "SCH_120",
         "mechanics": [
             "SPELLBURST",
@@ -55965,7 +57784,7 @@
             "PRIEST"
         ],
         "collectible": true,
-        "cost": 5,
+        "cost": 4,
         "dbfId": 59587,
         "elite": true,
         "flavor": "She's all about hitting the books. Literally.",
@@ -57154,7 +58973,7 @@
             "ROGUE"
         ],
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 59609,
         "elite": true,
         "flavor": "Her parents own Scholomance. Of course she's going to play tricks on the students!",
@@ -57234,7 +59053,7 @@
         "attack": 3,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 60151,
         "flavor": "Enjoys a good soul-crushing defeat.",
         "health": 2,
@@ -57399,7 +59218,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 5,
+        "cost": 4,
         "dbfId": 60278,
         "elite": true,
         "flavor": "quicksort [] = [] quicksort (x:xs) = quicksort small ++ (x : quicksort large) where small = [y | y <- xs, y <= x] large = [y | y <- xs, y > x]",
@@ -57989,7 +59808,7 @@
             "HUNTER"
         ],
         "collectible": true,
-        "cost": 8,
+        "cost": 7,
         "dbfId": 59539,
         "flavor": "The guidelines specifically state: \"Students may also bring an ironbeak owl OR an alleycat OR a toad.\" They never said how big.",
         "id": "SCH_610",
@@ -61844,7 +63663,7 @@
         "dbfId": 50032,
         "elite": true,
         "flavor": "If you love Jeklik, set her free. YOU CAN'T GET RID OF HER.",
-        "health": 4,
+        "health": 5,
         "id": "TRL_252",
         "mechanics": [
             "LIFESTEAL",
@@ -63719,6 +65538,233 @@
         "type": "MINION"
     },
     {
+        "artist": "Studio Hive",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71688,
+        "flavor": "A Naval Mine? I'd rather it be Naval Yours.",
+        "health": 2,
+        "id": "TSC_001",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Naval Mine",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Deathrattle:</b> Deal 4 damage\nto the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 71690,
+        "flavor": "\"...and then I'll hit 'em with the ol' puffercut!\"",
+        "health": 4,
+        "id": "TSC_002",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Pufferfist",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "After your hero attacks, deal 1 damage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Moon Colony",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71694,
+        "flavor": "“I said you get two attack, not two attacks!”",
+        "id": "TSC_006",
+        "name": "Multi-Strike",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "FEL",
+        "text": "Give your hero +2 Attack this turn. They may attack an additional enemy minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 71695,
+        "flavor": "Cownonball!",
+        "health": 4,
+        "id": "TSC_007",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Gangplank Diver",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Dormant</b> for 1 turn.\n<b>Rush</b>. <b>Immune</b> while attacking.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Moon Colony",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 71729,
+        "flavor": "You try putting on a wetsuit with scales.",
+        "health": 4,
+        "id": "TSC_013",
+        "mechanics": [
+            "POISONOUS",
+            "RUSH"
+        ],
+        "name": "Slimescale Diver",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Dormant</b> for 1 turn.\n<b>Rush</b>, <b>Poisonous</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Moon Colony",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 71701,
+        "flavor": "A folktale told to Naga children to scare them from swimming too close to the surface.",
+        "health": 4,
+        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "id": "TSC_017",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Baba Naga",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "targetingArrowText": "Deal 3 damage.",
+        "text": "<b>Battlecry:</b> If you've cast\na spell while holding this, deal 3 damage.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 71705,
+        "flavor": "Her four arms are for casting, and her forearms are for crushing.",
+        "health": 7,
+        "id": "TSC_020",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Barbaric Sorceress",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Taunt</b>. <b>Battlecry:</b> Swap the Cost of a random spell in each player's hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71709,
+        "flavor": "I caught'ya a dollar.",
+        "id": "TSC_023",
+        "name": "Barbed Nets",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]Deal $2 damage to an\nenemy. If you played a\nNaga while holding this,\nchoose a second target.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 6,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 71712,
+        "elite": true,
+        "flavor": "Ten thousand years ago, the city of Zin-Azshari fell to the bottom of the sea... and partially onto Colaque's shell.",
+        "health": 5,
+        "id": "TSC_026",
+        "mechanics": [
+            "COLOSSAL"
+        ],
+        "name": "Colaque",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +1</b>\n <b>Immune</b> while you control\nColaque's Shell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 5,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 71841,
+        "elite": true,
+        "flavor": "Always planning ahead, Ini knew she'd need this invention to protect all her other inventions.",
+        "health": 7,
+        "id": "TSC_029",
+        "mechanics": [
+            "COLOSSAL",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Gaia, the Techtonic",
+        "race": "MECHANICAL",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +2</b>\nAfter a friendly Mech\nattacks, deal 1 damage\nto all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 71984,
+        "elite": true,
+        "flavor": "Built by Ini Stormcoil, this massive vessel can withstand almost anything you put it through... although she would prefer you didn't!",
+        "health": 5,
+        "id": "TSC_030",
+        "mechanics": [
+            "COLOSSAL",
+            "DIVINE_SHIELD",
+            "DREDGE",
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "The Leviathan",
+        "race": "MECHANICAL",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +1</b>\n<b>Rush</b>, <b>Divine Shield</b>\nAfter this attacks,\n<b>Dredge</b>.",
+        "type": "MINION"
+    },
+    {
         "artist": "Hideaki Takamura",
         "attack": 2,
         "cardClass": "NEUTRAL",
@@ -63728,18 +65774,2412 @@
         "elite": true,
         "flavor": "Yet ANOTHER sword fighter that spams counters.",
         "health": 6,
-        "howToEarnGolden": "Unlockable after purchasing the Voyage to the Sunken City Tavern Pass.",
+        "howToEarnGolden": "Earnable after purchasing the <i>Voyage to the Sunken City</i> Tavern Pass.",
         "id": "TSC_032",
         "mechanics": [
             "BATTLECRY"
         ],
         "name": "Blademaster Okani",
         "rarity": "LEGENDARY",
-        "referencedTags": [
-            "COUNTER"
-        ],
         "set": "THE_SUNKEN_CITY",
         "text": "[x]<b>Battlecry:</b> <b>Secretly</b> choose to\n<b>Counter</b> the next minion or\nspell your opponent plays\nwhile this is alive.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 72021,
+        "flavor": "Be careful what you fish for.",
+        "health": 3,
+        "id": "TSC_034",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Gorloc Ravager",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> Draw 3 Murlocs.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72254,
+        "flavor": "Some local Murloc populations have adapted to survive in the harsh conditions of the ruins, much to the fascination of Sir Finley.",
+        "health": 4,
+        "id": "TSC_039",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Azsharan Scavenger",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Put a 'Sunken Scavenger' on the bottom of your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 72598,
+        "flavor": "She also tutors 3 Piranha Swarmers on her off hours.",
+        "health": 4,
+        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "id": "TSC_052",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "School Teacher",
+        "race": "NAGA",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Add a 1/1 Nagaling to your hand. <b>Discover</b> a spell that costs (3) or less to teach it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72648,
+        "flavor": "She prefers saying that she has Arcane, Fel, Fire, Frost, Holy, Nature, and Shadow Spell Damage +1.",
+        "health": 3,
+        "id": "TSC_053",
+        "mechanics": [
+            "SPELLPOWER"
+        ],
+        "name": "Rainbow Glowscale",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "spellDamage": 1,
+        "text": "<b>Spell Damage +1</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Nicola Saviori",
+        "attack": 4,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72649,
+        "flavor": "\"Why didn't you just build a normal submarine. Only you can fit inside\"\n\"WhY DiDn'T YoU JuSt BuIlD anormalsub-WHY DO YOU THINK WREZIG!! If you can build a freaking Mecha-Shark, then you build a freaking Mecha-Shark!\"",
+        "health": 3,
+        "id": "TSC_054",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Mecha-Shark",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]After you summon a Mech,\ndeal 3 damage randomly\n split among all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72650,
+        "flavor": "It's all about e-fish-ency.",
+        "id": "TSC_055",
+        "name": "Seafloor Gateway",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Draw a Mech. Reduce the Cost of Mechs in your hand by (1).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72651,
+        "flavor": "Do it again, this time with Pompeii and circumstance.",
+        "id": "TSC_056",
+        "name": "Volcanomancy",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "FIRE",
+        "text": "Choose a minion. When it dies, deal 3 damage to all other minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vlad Botos",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 72657,
+        "flavor": "\"I've got a sinking feeling about this evil Queen.\"",
+        "health": 3,
+        "id": "TSC_057",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Azsharan Defector",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Rush</b>. <b>Deathrattle:</b> Put a\n'Sunken Defector' on the \nbottom of your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Juan Calle",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72984,
+        "flavor": "No need to worry! The squid is actually being sent to a nice kelp farm upstate.",
+        "id": "TSC_058",
+        "name": "Predation",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "FEL",
+        "text": "Deal $3 damage.\nCosts (0) if you played a Naga while holding this.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Daniil Kudriavtsev",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 73428,
+        "flavor": "Bubblebot, bubble bubble bubblebot.",
+        "health": 4,
+        "id": "TSC_059",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Bubblebot",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> Give your other\nMechs <b>Divine Shield</b>\nand <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Todd Harris",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 73431,
+        "flavor": "Just keep shimmering, just keep shimmering.",
+        "health": 5,
+        "id": "TSC_060",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shimmering Sunfish",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "TAUNT"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> If you're holding a Holy Spell, gain <b>Taunt</b> and <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Grace Liu",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 73434,
+        "flavor": "The perfect place to hold Conchella.",
+        "id": "TSC_061",
+        "name": "The Garden's Grace",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "HOLY",
+        "text": "[x]Give a minion +5/+5 and\n<b>Divine Shield</b>. Costs (1) less\nfor each Mana you've spent\non Holy spells this game.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "collectionText": "<b>Battlecry:</b> If you've cast three spells while holding this, deal 3 damage to all enemies.",
+        "cost": 7,
+        "dbfId": 73792,
+        "flavor": "Colossal minions know her better as Slithering Damagescale.",
+        "health": 9,
+        "id": "TSC_064",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Slithering Deathscale",
+        "race": "NAGA",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> If you've cast three spells while holding this, deal 3 damage to all enemies.@ <i>({0} left!)</i>@ <i>(Ready!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Melvin Chan",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 73799,
+        "flavor": "I’d avoid asking if it wants to join the battle. It’s been pretty crabby lately.",
+        "health": 3,
+        "id": "TSC_065",
+        "mechanics": [
+            "CANT_ATTACK"
+        ],
+        "name": "Helmet Hermit",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Can't attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 74907,
+        "elite": true,
+        "flavor": "For thousands of years, Faelin has longed to return to his homeland. Will Zin-Ashari be as he hopes, or are the secrets of the deep better left forgotten?",
+        "health": 5,
+        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "id": "TSC_067",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ambassador Faelin",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "COLOSSAL"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Put 3 <b>Colossal</b> minions on the bottom of your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 73906,
+        "flavor": "Most explorers call it a success to find just one new species. Imagine Finley's excitement when he identified ten at once!",
+        "health": 3,
+        "id": "TSC_069",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Amalgam of the Deep",
+        "race": "ALL",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "targetingArrowText": "<b>Discover</b> a minion of the same minion type.",
+        "text": "[x]<b>Battlecry:</b> Choose a friendly\nminion. <b>Discover</b> a minion\nof the same minion type.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 74755,
+        "durability": 2,
+        "flavor": "Get ooooover here!",
+        "id": "TSC_070",
+        "mechanics": [
+            "DREDGE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Harpoon Gun",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "After your hero attacks, <b>Dredge</b>. If it's a Beast, reduce its Cost by (2).",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 74881,
+        "flavor": "Two shots. Two kills.",
+        "health": 4,
+        "id": "TSC_071",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Twinbow Terrorcoil",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> If you've cast a\nspell while holding this, your\nnext spell casts twice.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Moon Colony",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 74884,
+        "flavor": "All hail the magic conch!",
+        "id": "TSC_072",
+        "name": "Conch's Call",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Draw a Naga and\na spell.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jerry Mascho",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 74886,
+        "elite": true,
+        "flavor": "When you play the Coin, he deals emotional damage.",
+        "health": 3,
+        "id": "TSC_073",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Raj Naz'jan",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "After you cast a spell, deal damage equal to its Cost to the enemy Hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78113,
+        "elite": true,
+        "flavor": "You need healing.",
+        "health": 3,
+        "id": "TSC_074",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Kotori Lightblade",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]After you cast a Holy spell\non this, cast it again on\n  another friendly minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 80112,
+        "flavor": "They all secretly have\n'<b>Deathrattle:</b> Become very mortalized.'",
+        "id": "TSC_076",
+        "name": "Immortalized in Stone",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "HOLY",
+        "text": "Summon a 1/2, 2/4 and 4/8 Elemental with <b>Taunt</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Sergey Tsvelykh",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76250,
+        "flavor": "\"Yup! I definitely don't know how to read radar.\"",
+        "id": "TSC_079",
+        "name": "Radar Detector",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]Scan the bottom 5 cards\nof your deck. Draw any\nMechs found this way,\nthen shuffle your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Daniil Kudriavtsev",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77018,
+        "flavor": "\"TURTLE PROCURED. ADMINISTRATING BANDAGES AND KISSES. BOO BOO MUST BE ELIMINATED.\"",
+        "health": 2,
+        "id": "TSC_083",
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Seafloor Savior",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> <b>Dredge</b>.\nIf it's a minion, give it\nthis minion's Attack\nand Health.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77208,
+        "flavor": "It may be a cutlass, but you can cut lads with it too.",
+        "health": 5,
+        "id": "TSC_085",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Cutlass Courier",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "After your hero attacks, draw a Pirate.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77210,
+        "durability": 3,
+        "flavor": "While you were partying, I studied the fish.",
+        "id": "TSC_086",
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Swordfish",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> <b>Dredge</b>.\nIf it's a Pirate, give this weapon and the Pirate +2 Attack.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "collectionText": "[x]<b>Battlecry:</b> If you've cast\nthree spells while holding\nthis, add those spells back\nto your hand.",
+        "cost": 4,
+        "dbfId": 77609,
+        "elite": true,
+        "flavor": "With six legs, gills, and an impressive array of magic, Sivara is an all-terrain-spellcaster.",
+        "hasDiamondSkin": true,
+        "health": 5,
+        "id": "TSC_087",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Commander Sivara",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> If you've cast\nthree spells while holding\nthis, add those spells back\nto your hand.@ <i>({0} left!)</i>@ <i>(Ready!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 72481,
+        "flavor": "In the southern hemisphere, it actually summons all minions instead.",
+        "id": "TSC_209",
+        "name": "Whirlpool",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "NATURE",
+        "text": "Destroy all minions and all copies of them <i>(wherever they are)</i>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 72482,
+        "flavor": "BEHOLD THE GLORY OF A NEW CUP!",
+        "id": "TSC_210",
+        "mechanics": [
+            "DREDGE"
+        ],
+        "name": "Illuminate",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "HOLY",
+        "text": "<b>Dredge</b>. If it's a spell,\nreduce its Cost by (3).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jason Kang",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72483,
+        "flavor": "And in the darkest of depths, the sailor heard a command from inside his own mind… “You will also buff my original card to 9 Mana.”",
+        "id": "TSC_211",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Whispers of the Deep",
+        "rarity": "RARE",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "SHADOW",
+        "text": "[x]<b>Silence</b> a friendly minion,\nthen deal damage equal to\nits Attack randomly split\namong all enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Studio Hive",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "collectionText": "[x]<b>Battlecry:</b> If you've cast\nthree spells while holding\nthis, draw 3 cards.",
+        "cost": 3,
+        "dbfId": 72484,
+        "flavor": "Why did she unspool the last roll of royal toilet paper?!",
+        "health": 2,
+        "id": "TSC_212",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Handmaiden",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> If you've cast\nthree spells while holding\nthis, draw 3 cards.@\n<i>({0} left!)</i>@\n<i>(Ready!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72485,
+        "flavor": "Archnemesis of the Guardian of Kings.",
+        "health": 3,
+        "id": "TSC_213",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Queensguard",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Gain +1/+1\nfor each spell you've cast this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72487,
+        "flavor": "Legends say that all those who look into her eyes are turned to plush.",
+        "id": "TSC_215",
+        "name": "Serpent Wig",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]Give a minion +1/+1.\nIf you played a Naga while\nholding this, add a Serpent\nWig to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 8,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 72488,
+        "elite": true,
+        "flavor": "What's a Blackwater Behemoth's favorite meal? Fish n' Ships.",
+        "health": 10,
+        "id": "TSC_216",
+        "mechanics": [
+            "COLOSSAL",
+            "LIFESTEAL"
+        ],
+        "name": "Blackwater Behemoth",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Colossal +1</b>\n<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Angelina Chernyak",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 73721,
+        "flavor": "Carry on my wayward sage. There'll be peace and no more rage.",
+        "health": 2,
+        "id": "TSC_217",
+        "mechanics": [
+            "OUTCAST"
+        ],
+        "name": "Wayward Sage",
+        "race": "NAGA",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Outcast:</b> Reduce the Cost\nof the left and right-most\n cards in your hand by (1).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 73723,
+        "elite": true,
+        "flavor": "Only a S'theno deals in absolutes.",
+        "health": 4,
+        "id": "TSC_218",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Lady S'theno",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Immune</b> while attacking.\nAfter you cast a spell, attack\nthe lowest Health enemy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 73726,
+        "elite": true,
+        "flavor": "When ancient heroes drove a felhunter into the sea, they thought it was the end. But for Xhilag, it was only the beginning...",
+        "health": 6,
+        "id": "TSC_219",
+        "mechanics": [
+            "COLOSSAL",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Xhilag of the Abyss",
+        "race": "DEMON",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +4</b>\nAt the start of your turn,\nincrease the damage of\nXhilag's Stalks by 1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 71922,
+        "flavor": "*Happy Wisp noises*",
+        "id": "TSC_608",
+        "name": "Abyssal Depths",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "SHADOW",
+        "text": "Draw your two lowest Cost minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Trent Kaniuga",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "collectionText": "[x]<b>Taunt</b>. <b>Battlecry:</b> If you've\ncast three spells while\nholding this, summon two\n  copies of this.",
+        "cost": 6,
+        "dbfId": 71921,
+        "flavor": "Then thou shalt count to three, no more, no less. Three shall be the number thou shalt count, and the number of the counting shall be three. Four shalt thou not count, neither count thou two, excepting that thou then proceed to three. Five is right out.",
+        "health": 6,
+        "id": "TSC_609",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Coilskar Commander",
+        "race": "NAGA",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Taunt</b>. <b>Battlecry:</b> If you've\ncast three spells while\nholding this, summon two\n  copies of this.@ <i>({0} left!)</i>@ <i>(Ready!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 71919,
+        "flavor": "Can smell a drop of vengeance in the water up to a mile away.",
+        "health": 3,
+        "id": "TSC_610",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Glaiveshark",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> If your hero\nattacked this turn, deal 2\ndamage to all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Juyoung Oh",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71924,
+        "flavor": "If you stare into the abyss, it’s said that it will stare back at you. What happens to those who’ve gazed at it their entire lives?",
+        "health": 2,
+        "id": "TSC_614",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Voidgill",
+        "race": "MURLOC",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Deathrattle:</b> Give all Murlocs in your hand +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 2,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "collectionText": "[x]After you cast a spell,\nrefresh two Mana Crystals.\n<i>(Then switch to Naga!)</i>",
+        "cost": 4,
+        "dbfId": 71996,
+        "flavor": "Refresh the rainbow.",
+        "health": 5,
+        "id": "TSC_620",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Spitelash Siren",
+        "race": "NAGA",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]After you play a Naga,\nrefresh two Mana Crystals.\n<i>(Then switch to spell!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 5,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 72415,
+        "flavor": "If he could see, he might be better at targeting.",
+        "health": 4,
+        "id": "TSC_630",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Wrathspine Enchanter",
+        "race": "NAGA",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Cast a copy of a Fire, Frost, and Nature spell in your hand <i>(targets chosen randomly).</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72416,
+        "flavor": "A group of Piranha are known as a Scholomance.",
+        "id": "TSC_631",
+        "name": "Schooling",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Add three 1/1 Piranha\nSwarmers to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Melvin Chan",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72417,
+        "flavor": "Allan please add details",
+        "health": 1,
+        "id": "TSC_632",
+        "mechanics": [
+            "BATTLECRY",
+            "DIVINE_SHIELD"
+        ],
+        "name": "Click-Clocker",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Divine Shield</b>. <b>Battlecry:</b>\nGive a random Mech in\nyour hand +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72418,
+        "flavor": "This snack certainly isn’t smiling back…",
+        "health": 5,
+        "id": "TSC_633",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Piranha Poacher",
+        "race": "MURLOC",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "At the end of your turn,\nadd a 1/1 Piranha Swarmer to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72423,
+        "elite": true,
+        "flavor": "Uses Arcane, Fire, and Frost magic to vanquish Queen Azshara's foes. And for her skincare routine!",
+        "health": 4,
+        "id": "TSC_635",
+        "mechanics": [
+            "AURA",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Radiance of Azshara",
+        "race": "ELEMENTAL",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Fire Spell Damage +2</b>\nYour Nature spells cost (1)\nless. After you cast a Frost\nspell, gain 3 Armor.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72508,
+        "flavor": "”Wow, what’s that land formation called?”\n“It s’cald a Geyser.”",
+        "id": "TSC_637",
+        "mechanics": [
+            "DREDGE"
+        ],
+        "name": "Scalding Geyser",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "FIRE",
+        "text": "[x]Deal $2 damage.\n<b>Dredge</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Todd Harris",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72509,
+        "flavor": "One Fish, Two Fish.\nLess Fish? You wish.",
+        "health": 1,
+        "id": "TSC_638",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Piranha Swarmer",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Rush</b>\nAfter you summon a Piranha\nSwarmer, gain +1 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Stone",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 72553,
+        "elite": true,
+        "flavor": "Food can be scarce in the Abyssal Depths, leading its top predators to pursue any potential source of sustenance. Even extra crunchy ones.",
+        "health": 5,
+        "id": "TSC_639",
+        "mechanics": [
+            "COLOSSAL",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Glugg the Gulper",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +3</b>\n After a friendly minion dies,\ngain its original stats.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72586,
+        "flavor": "A gentle giant with some not-so-gentle friends.",
+        "health": 2,
+        "id": "TSC_640",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Reefwalker",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry and Deathrattle:</b> Summon a 1/1 Piranha Swarmer.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Daniel Orive",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "collectionText": "<b>Battlecry:</b> If you've cast three spells while holding this, choose an Ancient Relic.",
+        "cost": 5,
+        "dbfId": 72923,
+        "elite": true,
+        "flavor": "Hobbies include: Ordering subjects around, making deals with old gods, and taking long walks under the beach.",
+        "health": 5,
+        "id": "TSC_641",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Queen Azshara",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> If you've cast three spells while holding this, choose an Ancient Relic.@ <i>({0} left!)</i>@ <i>(Ready!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72925,
+        "flavor": "Liquid cooled.",
+        "health": 2,
+        "id": "TSC_642",
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Trench Surveyor",
+        "race": "MECHANICAL",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> <b>Dredge</b>.\nIf it's a Mech, draw it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72924,
+        "flavor": "\"Look, I know plenty of spells. I just need to see one first is all.\"",
+        "health": 3,
+        "id": "TSC_643",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Spellcoiler",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> If you've cast a\nspell while holding this,\n<b>Discover</b> a spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "attack": 4,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72926,
+        "flavor": "The light of Elune faded from the ruins of Zin-Azshari, but not its treasures.",
+        "health": 2,
+        "id": "TSC_644",
+        "mechanics": [
+            "BATTLECRY",
+            "DIVINE_SHIELD"
+        ],
+        "name": "Azsharan Mooncatcher",
+        "race": "MECHANICAL",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Divine Shield</b>. <b>Battlecry:</b> Put\na 'Sunken Mooncatcher' on\nthe bottom of your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 72931,
+        "flavor": "Has been known to abduct sea cows and leave kelp circles.",
+        "health": 4,
+        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "id": "TSC_645",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Mothership",
+        "race": "MECHANICAL",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Rush</b>\n<b>Deathrattle:</b> Summon two random Mechs that cost (3) or less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Moon Colony",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72932,
+        "flavor": "The Mechafish are actually totally autonomous. We gave her a fake control pad, as a joke.",
+        "health": 4,
+        "id": "TSC_646",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Seascout Operator",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> If you control a Mech, summon two 2/1 Mechafish.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72938,
+        "flavor": "The pelican’s beak is so big, some Colossal minions can even fit inside!*\n*This is a lie.",
+        "health": 1,
+        "id": "TSC_647",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Pelican Diver",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Dormant</b> for 1 turn.\n<b>Rush</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Melvin Chan",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 72973,
+        "flavor": "This here is Carl. They're in charge of these elementals. Not all of them get along, so sometimes Carl corrals the quarreling coral.",
+        "health": 4,
+        "id": "TSC_648",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Coral Keeper",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> Summon a\n3/3 Elemental for each\nspell school you've\ncast this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 73068,
+        "elite": true,
+        "flavor": "Before setting her sights on exploration, Ini was known for many inventions, such as the airborne breadmaking dirigible, the hypersprocket 200X zoom binoculars, and jobes (jean robes).",
+        "health": 4,
+        "id": "TSC_649",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ini Stormcoil",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "RUSH",
+            "WINDFURY"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "targetingArrowText": "Summon a copy with <b>Rush</b>, <b>Divine Shield</b>, and <b>Windfury</b>.",
+        "text": "[x]<b>Battlecry:</b> Choose a friendly\nMech. Summon a copy of it\nwith <b>Rush</b>, <b>Windfury</b>, and\n<b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 73462,
+        "flavor": "Despite the harsh conditions, friends can still be found under the sea.",
+        "id": "TSC_650",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Flipper Friends",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH",
+            "TAUNT"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "NATURE",
+        "text": "[x]<b>Choose One</b> - Summon a\n6/6 Orca with <b>Taunt</b>; or\nsix 1/1 Otters with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 73464,
+        "flavor": "Even as mechs, fish will still end up wrapped in seaweed.",
+        "id": "TSC_651",
+        "name": "Seaweed Strike",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "NATURE",
+        "text": "[x]Deal $4 damage to a minion.\nIf you played a Naga while\nholding this, also give your\nhero +4 Attack this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 5,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 73465,
+        "flavor": "Sometimes all a plant needs is, like, A LOT of water.",
+        "health": 5,
+        "id": "TSC_652",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Green-Thumb Gardener",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> Refresh empty\nMana Crystals equal to the\nCost of the most expensive\nspell in your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sergey Tsvelykh",
+        "attack": 1,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 73466,
+        "flavor": "Someone keeps adding fish to my deck, and I'm going to get to the bottom of it.",
+        "health": 3,
+        "id": "TSC_653",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Bottomfeeder",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Deathrattle:</b> Add a Bottomfeeder to the bottom of your deck with permanent +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 73774,
+        "flavor": "How long can YOU hold your breath underwater?",
+        "id": "TSC_654",
+        "mechanics": [
+            "DREDGE"
+        ],
+        "name": "Aquatic Form",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Dredge</b>. If you have the Mana to play the card this turn, draw it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Tanamaes Leejiarasaes",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 73471,
+        "flavor": "I’ve got NO idea what’s in that fertilizer.",
+        "id": "TSC_656",
+        "name": "Miracle Growth",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "NATURE",
+        "text": "[x]Draw 3 cards.\nSummon a Plant with\n<b>Taunt</b> and stats equal\nto your hand size.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Tanamaes Leejiarasaes",
+        "attack": 4,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 73712,
+        "flavor": "*Yaaaaawn* wake me up in another 5 Mana.",
+        "health": 4,
+        "id": "TSC_657",
+        "mechanics": [
+            "RUSH"
+        ],
+        "name": "Dozing Kelpkeeper",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Rush</b>. Starts <b>Dormant</b>.\nAfter you've cast 5 Mana\n worth of spells, awaken.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 4,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 73713,
+        "elite": true,
+        "flavor": "Hedra was cast out millennia ago for her divisive opinions among the Naga, such as \"Turning into evil underwater serpent people was bad, actually.\"",
+        "health": 5,
+        "id": "TSC_658",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Hedra the Heretic",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> For each spell\nyou've cast while holding\nthis, summon a minion\nof that spell's Cost.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Stone",
+        "attack": 8,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 74672,
+        "flavor": "Cooler heads prevail.",
+        "health": 9,
+        "id": "TSC_659",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Trenchstalker",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Attack three different random enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 5,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 74894,
+        "elite": true,
+        "flavor": "Not to be mistaken for her freshwater cousin, Nessie, this massive creature was harnessed to carry Hooktusk's favorite ship.",
+        "health": 5,
+        "id": "TSC_660",
+        "mechanics": [
+            "BATTLECRY",
+            "COLOSSAL",
+            "DISCOVER"
+        ],
+        "name": "Nellie, the Great Thresher",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +1</b>\n<b>Battlecry:</b> <b>Discover</b> 3 Pirates\nto crew Nellie's Ship!",
+        "type": "MINION"
+    },
+    {
+        "artist": "Todd Harris",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 80118,
+        "flavor": "Would you rather fight one Whale-sized Goldfish, or 100 Goldfish-sized Whales?",
+        "id": "TSC_702",
+        "name": "Switcheroo",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Draw 2 minions.\nSwap their stats.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Stone",
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76926,
+        "flavor": "Tired of eating Jellyfish and Peanut Butter fish, it’s moved on to more gruesome meals.",
+        "health": 4,
+        "id": "TSC_753",
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Bloodscent Vilefin",
+        "race": "MURLOC",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> <b>Dredge</b>. If it's a\nMurloc, change its Cost to\n Health instead of Mana.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Angelina Chernyak",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 77209,
+        "flavor": "Kids these days are always scrolling on their tomes.",
+        "id": "TSC_772",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Azsharan Scroll",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Discover</b> a Fire, Frost or Nature spell. Put a 'Sunken Scroll' on the bottom of your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77374,
+        "flavor": "The harmonious silence surrounding the ritual was unceremoniously <i>BROKEN</i> when <i>HAROLD</i> began eating stale potato chips.",
+        "id": "TSC_775",
+        "mechanics": [
+            "SILENCE"
+        ],
+        "name": "Azsharan Ritual",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Silence</b> a minion and summon a copy of it. Put a 'Sunken Ritual' on the bottom of your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77016,
+        "flavor": "The enchanted objects of Zin-Azshari have extremely long warranties.",
+        "health": 4,
+        "id": "TSC_776",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Azsharan Sweeper",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Put a 'Sunken Sweeper' on the bottom of your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Angelica Alieva",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 71917,
+        "flavor": "The pen is mightier than the trident.",
+        "health": 2,
+        "id": "TSC_823",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Murkwater Scribe",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> The next spell you play costs (1) less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 71940,
+        "flavor": "Yet another case of carcinization.",
+        "health": 4,
+        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "id": "TSC_826",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Crushclaw Enforcer",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> If you've cast\n a spell while holding this, draw a Naga.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71944,
+        "flavor": "He goes by ‘Fun-Loving Slitherspear’ on his dating profile.",
+        "health": 3,
+        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "id": "TSC_827",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Vicious Slitherspear",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]After you cast a spell,\ngain +1 Attack until\nyour next turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Tanamaes Leejiarasaes",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "collectionText": "[x]<b>Battlecry:</b> Refresh an empty\nMana Crystal for each spell\n   you've cast this turn.",
+        "cost": 0,
+        "dbfId": 71945,
+        "elite": true,
+        "flavor": "Some of the more stoic priestesses worry that she's living too lavishjly.",
+        "health": 1,
+        "id": "TSC_828",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Priestess Valishj",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> Refresh an empty\nMana Crystal for each spell\n   you've cast this turn.@ <i>(@)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 20,
+        "dbfId": 71949,
+        "flavor": "He might be giant, but he’s still a couple thousand protein shakes away from competing in the Colossal Wrestling Championship.",
+        "health": 8,
+        "id": "TSC_829",
+        "name": "Naga Giant",
+        "race": "NAGA",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Costs (1) less for each Mana you've spent on spells this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anzka Nguyen",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71781,
+        "elite": true,
+        "flavor": "\"No need to worry, ol' chums, I have the map right here. It says to continue going straight down!\"",
+        "hasDiamondSkin": true,
+        "health": 3,
+        "id": "TSC_908",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sir Finley, Sea Guide",
+        "race": "MURLOC",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> Swap your\nhand with the bottom of\nyour deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72105,
+        "flavor": "\"Fish scales? Junk. A gravestone? Junk. This weird looking puzzle box? Junk. AHA! An Ancharrr!\"",
+        "health": 3,
+        "howToEarnGolden": "Earnable on the Voyage to the Sunken City Reward Track.",
+        "id": "TSC_909",
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Tuskarrrr Trawler",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> <b>Dredge</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Maria Trepalina",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 72109,
+        "flavor": "With the jungles of Un’goro mapped out and the ruins of Uldum fully uncovered, explorers have to go a little out of their depth in their search of the great unknown.",
+        "health": 6,
+        "id": "TSC_911",
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Excavation Specialist",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> <b>Dredge</b>.\nReduce its Cost by (1).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 72111,
+        "flavor": "Not even the sturdiest Highborne ship could survive the churning waters of the Sundering.",
+        "id": "TSC_912",
+        "name": "Azsharan Vessel",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "Summon two 3/3 Pirates with <b>Stealth</b>. Put a 'Sunken Vessel' on the bottom of your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Tanamaes Leejiarasaes",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72113,
+        "durability": 2,
+        "flavor": "Nevermind the barnacles! A well-crafted weapon is eternally useful.",
+        "id": "TSC_913",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Azsharan Trident",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Deathrattle:</b> Put\na 'Sunken Trident' on the\n bottom of your deck.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Studio Hive",
+        "attack": 5,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 72117,
+        "durability": 2,
+        "flavor": "Resourceful Demon Hunters find a use for every part of the Demon.",
+        "id": "TSC_915",
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Bone Glaive",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> <b>Dredge</b>.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Steven Prescott",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72119,
+        "flavor": "Rogues want me\nFish fear me",
+        "id": "TSC_916",
+        "mechanics": [
+            "COMBO",
+            "DREDGE"
+        ],
+        "name": "Gone Fishin'",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Dredge</b>.\n<b>Combo:</b> Draw a card.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 5,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 72120,
+        "flavor": "Black, the scales of angry Naga! Red, the flames of Azshari's past!",
+        "health": 6,
+        "id": "TSC_917",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Blackscale Brute",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Taunt</b>. <b>Battlecry:</b> If you\nhave a weapon equipped, summon a 5/6 Naga with <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Bjorkstrom",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 72212,
+        "flavor": "For some, the Sundering was the collapse of civilization. For others, it was a great core workout.",
+        "health": 6,
+        "id": "TSC_919",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Azsharan Sentinel",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Taunt</b>. <b>Deathrattle:</b> Put a\n'Sunken Sentinel' on the\nbottom of your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Studio Hive",
+        "attack": 0,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72314,
+        "flavor": "The Naga devised the perfect retaliation to any pirates\ndropping anchor in their domain: vandalism.",
+        "health": 3,
+        "id": "TSC_922",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Anchored Totem",
+        "race": "TOTEM",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "After you summon a 1-Cost minion, give it +2/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Grace Liu",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72316,
+        "flavor": "The perfect card for Spell Damage Shaman and Spelling Bee Shaman.",
+        "id": "TSC_923",
+        "name": "Bioluminescence",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "NATURE",
+        "text": "Give your minions\n<b>Spell Damage +1</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 72318,
+        "flavor": "Often followed up with a chasmic handshake.",
+        "id": "TSC_924",
+        "name": "Abyssal Wave",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "SHADOW",
+        "text": "[x]Deal $4 damage to\nall minions. Give your\nopponent an Abyssal\nCurse.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72320,
+        "flavor": "I can't... *mrgglrg* understand... *mrgrllrg* your accent. *mrgrlrglr*",
+        "id": "TSC_925",
+        "mechanics": [
+            "DREDGE"
+        ],
+        "name": "Rock Bottom",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]Summon a 1/1\nMurloc, then <b>Dredge</b>.\nIf it's also a Murloc,\nsummon one more.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72333,
+        "flavor": "Is a sucker for small talk.",
+        "health": 4,
+        "id": "TSC_926",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Smothering Starfish",
+        "race": "BEAST",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "SILENCE"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> <b>Silence</b> ALL other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72336,
+        "flavor": "That's not what I meant when I asked you to water the garden.",
+        "id": "TSC_927",
+        "name": "Azsharan Gardens",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Give all minions in your hand +1/+1. Put a 'Sunken Gardens' on the bottom of your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72338,
+        "flavor": "Honestly, I feel <i>less</i> secure when it's around.",
+        "health": 3,
+        "id": "TSC_928",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Security Automaton",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "After you summon a Mech, gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72340,
+        "flavor": "DO A BARREL ROLL!",
+        "id": "TSC_929",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Emergency Maneuvers",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Secret:</b> When a friendly minion dies, summon a copy of it.\nIt's <b>Dormant</b> for 1 turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Kleston Marques",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 72473,
+        "flavor": "Fish are friends, not food! Gilgoblins on the other hand…",
+        "id": "TSC_932",
+        "name": "Blood in the Water",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "Deal $3 damage to an enemy. Summon a 5/5 Shark with <b>Rush</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 72480,
+        "flavor": "Part of the deck, part of the crew.",
+        "health": 4,
+        "id": "TSC_933",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "Bootstrap Sunkeneer",
+        "race": "PIRATE",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Combo:</b> Put an enemy\nminion on the bottom of\n your opponent's deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 8,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 72495,
+        "elite": true,
+        "flavor": "You win some, you ransom.",
+        "health": 8,
+        "id": "TSC_934",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Pirate Admiral Hooktusk",
+        "race": "PIRATE",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> If you've summoned 8 other Pirates this game, plunder the enemy!0 <i>({0} left!)</i>0 <i>(Ready!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 72504,
+        "flavor": "Keeps any ancient book it finds all to its shelf.",
+        "health": 7,
+        "id": "TSC_935",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Selfish Shellfish",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Deathrattle:</b> Your opponent draws 2 cards.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Wayne Reynolds",
+        "attack": 2,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 72533,
+        "flavor": "If you play your cards fast enough, who's to say how much they cost?",
+        "health": 2,
+        "id": "TSC_936",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Swiftscale Trickster",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Your next spell this turn costs (0).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 6,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 72536,
+        "elite": true,
+        "flavor": "This giant crab loves to sink entire naval fleets, but it'll settle for a single dinghy in a pinch.",
+        "health": 5,
+        "id": "TSC_937",
+        "mechanics": [
+            "AURA",
+            "COLOSSAL"
+        ],
+        "name": "Crabatoa",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Colossal +2</b>\nYour Crabatoa Claws have +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72583,
+        "flavor": "The real treasure was the Naga we met along the way.",
+        "health": 5,
+        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "id": "TSC_938",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Treasure Guard",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72587,
+        "flavor": "Don't worry, your wounds are self-cauterizing!",
+        "id": "TSC_939",
+        "name": "Forged in Flame",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "FIRE",
+        "text": "Destroy your weapon, then draw cards equal to its Attack.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72588,
+        "flavor": "\"This is why I'm afraid of the deep end of the pool.\"",
+        "id": "TSC_940",
+        "name": "From the Depths",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]Reduce the Cost of the\nbottom five cards in your\n deck by (3), then <b>Dredge</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72590,
+        "flavor": "At thousands of feet below the surface, it's a pretty high-pressure job.",
+        "id": "TSC_941",
+        "name": "Guard the City",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "Gain 3 Armor.\nSummon a 2/3 Naga with <b>Taunt</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72592,
+        "flavor": "Was able to produce more effective weapons than his predecessor, Kelpsmith.",
+        "health": 2,
+        "id": "TSC_942",
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Obsidiansmith",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> <b>Dredge</b>. If it's\na minion or a weapon,\ngive it +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 5,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 72594,
+        "elite": true,
+        "flavor": "This is your brain on Azerite.",
+        "health": 5,
+        "id": "TSC_943",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lady Ashvane",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Give all weapons\nin your hand, deck, and battlefield +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72632,
+        "flavor": "One heck of a hot tub.",
+        "id": "TSC_944",
+        "name": "The Fires of Zin-Azshari",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "FIRE",
+        "text": "Replace your deck with minions that cost (5) or more. They cost (5).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 72896,
+        "flavor": "Even in ancient times, the Night Elves were committed cat people.",
+        "health": 3,
+        "id": "TSC_945",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Azsharan Saber",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b><b>Rush</b>.</b> <b>Deathrattle:</b> Put a\n'Sunken Saber' on the\nbottom of your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 72897,
+        "flavor": "I shouldn't have licked that.",
+        "id": "TSC_946",
+        "name": "Urchin Spines",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "Your spells this turn are <b>Poisonous</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 72928,
+        "flavor": "Lionfish, Naga, and Spears, oh my!",
+        "id": "TSC_947",
+        "name": "Naga's Pride",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Summon two 2/2 Lionfish. If you played a Naga while holding this, give them +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 72929,
+        "flavor": "Barber: What do you want?\nNaga: You ever have a thirst for arcane power?\nBarber: Say no more.",
+        "id": "TSC_948",
+        "name": "Gifts of Azshara",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "ARCANE",
+        "text": "Draw a card. If you played a Naga while holding this, do it again.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 72935,
+        "elite": true,
+        "flavor": "Deep beneath the waves, this hydra grew to incredible size based on a steady diet of literally anything that crossed its path.",
+        "health": 5,
+        "id": "TSC_950",
+        "mechanics": [
+            "BATTLECRY",
+            "COLOSSAL"
+        ],
+        "name": "Hydralodon",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +2</b>\n<b>Battlecry:</b> Give your\n Hydralodon Heads <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Grace Liu",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 73424,
+        "flavor": "If you use all 10 mana, that's called the 'Lunch Special.'",
+        "id": "TSC_952",
+        "name": "Holy Maki Roll",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "HOLY",
+        "text": "Restore #2 Health. Repeatable this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 2,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 73436,
+        "flavor": "\"Sira'kess, she's the best! Puts her followers to the test.",
+        "health": 3,
+        "id": "TSC_955",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sira'kess Cultist",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Give\nyour opponent an\nAbyssal Curse.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jason Kang",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 73442,
+        "flavor": "I know this is a frustrating situation you’re in, Captain, but there’s no need to curse.",
+        "id": "TSC_956",
+        "name": "Dragged Below",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "SHADOW",
+        "text": "[x]Deal $4 damage\nto a minion.\nGive your opponent\nan Abyssal Curse.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 73443,
+        "flavor": "Time to go in for the krill.",
+        "id": "TSC_957",
+        "name": "Chum Bucket",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]Give all Murlocs in your\nhand +1/+1. Repeat for\neach Murloc you control.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 6,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 73446,
+        "elite": true,
+        "flavor": "Everything’s going exzaq’ully to plan.",
+        "health": 5,
+        "id": "TSC_959",
+        "mechanics": [
+            "AURA",
+            "BATTLECRY"
+        ],
+        "name": "Za'qul",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]Your Abyssal Curses heal you\nfor the damage they deal.\n<b>Battlecry:</b> Give your opponent\nan Abyssal Curse.",
+        "type": "MINION"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 74652,
+        "flavor": "They call him Murloc Joe, winner of the Big M Memorial Surf Off Competition.",
+        "health": 1,
+        "id": "TSC_960",
+        "mechanics": [
+            "BATTLECRY",
+            "RUSH"
+        ],
+        "name": "Twin-fin Fin Twin",
+        "race": "MURLOC",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Rush</b>. <b>Battlecry:</b> Summon a copy of this.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 7,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 74741,
+        "elite": true,
+        "flavor": "How much storage does Gigafin's Maw have? About a giga bite.",
+        "health": 4,
+        "id": "TSC_962",
+        "mechanics": [
+            "BATTLECRY",
+            "COLOSSAL"
+        ],
+        "name": "Gigafin",
+        "race": "MURLOC",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +1</b>. <b>Battlecry:</b>\nDevour all enemy minions.\n<b>Deathrattle:</b> Spit them\nback out.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 74890,
+        "flavor": "\"What do you mean this isn't the meal you asked for? ! I made you a Fillet Minion!\"",
+        "health": 1,
+        "id": "TSC_963",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Filletfighter",
+        "race": "PIRATE",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "targetingArrowText": "Deal 1 damage.",
+        "text": "<b>Battlecry:</b> Deal 1 damage.",
         "type": "MINION"
     },
     {
@@ -65893,6 +70333,7 @@
             "BATTLECRY"
         ],
         "name": "Naga Sand Witch",
+        "race": "NAGA",
         "rarity": "RARE",
         "set": "ULDUM",
         "text": "[x]<b>Battlecry:</b> Change the Cost\nof spells in your hand to (5).",
@@ -78051,17 +82492,14 @@
         "id": "YOP_031",
         "isMiniSet": true,
         "mechanics": [
-            "BATTLECRY",
-            "RUSH"
+            "RUSH",
+            "WINDFURY"
         ],
         "name": "Crabrider",
         "race": "MURLOC",
         "rarity": "COMMON",
-        "referencedTags": [
-            "WINDFURY"
-        ],
         "set": "DARKMOON_FAIRE",
-        "text": "[x]<b>Rush</b>\n<b>Battlecry:</b> Gain <b>Windfury</b>\nthis turn only.",
+        "text": "<b><b>Rush</b>\nWindfury</b>",
         "type": "MINION"
     },
     {

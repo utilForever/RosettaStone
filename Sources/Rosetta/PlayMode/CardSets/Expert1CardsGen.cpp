@@ -207,7 +207,7 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // ------------------------------------------ SPELL - DRUID
-    // [EX1_164] Nourish - COST:6
+    // [EX1_164] Nourish - COST:5
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
@@ -613,7 +613,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_160t", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
-    // [EX1_164a] Rampant Growth (*) - COST:6
+    // [EX1_164a] Rampant Growth (*) - COST:5
     // - Faction: Neutral, Set: Expert1
     // - Spell School: Nature
     // --------------------------------------------------------
@@ -624,7 +624,7 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_164a", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
-    // [EX1_164b] Enrich (*) - COST:6
+    // [EX1_164b] Enrich (*) - COST:5
     // - Faction: Neutral, Set: Expert1
     // - Spell School: Nature
     // --------------------------------------------------------
@@ -2033,7 +2033,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_384", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
-    // [EX1_619] Equality - COST:3
+    // [EX1_619] Equality - COST:2
     // - Faction: Neutral, Set: Expert1, Rarity: Rare
     // - Spell School: Holy
     // --------------------------------------------------------
@@ -5478,7 +5478,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
+    // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:5]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>

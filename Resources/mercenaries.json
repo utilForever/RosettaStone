@@ -16058,6 +16058,196 @@
         "specializations": []
     },
     {
+        "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 86530,
+        "equipment": [
+            {
+                "id": 355,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87856,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87855,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87854,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 86648,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 354,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87853,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87852,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87851,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 86647,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 353,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87850,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87849,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87848,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 86532,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 312,
+        "name": "Murky",
+        "skinDbfIds": [
+            86531,
+            86529,
+            86530
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 812,
+                        "name": "Slime Time",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87860,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87859,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87858,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87857,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 86649,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 813,
+                        "name": "Bubbly Bobble",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87878,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87877,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87876,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87875,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 86652,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 814,
+                        "name": "Pufferfisher",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87887,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87886,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87885,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87884,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 86653,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 369,
+                "name": "Murloc"
+            }
+        ]
+    },
+    {
         "collectible": false,
         "craftingCost": 50,
         "defaultSkinDbfId": 86436,

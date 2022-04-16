@@ -27,10 +27,19 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
 
     for (auto& cardData : j)
     {
-        const int cardSet = cardData["set"].is_null()
-                                ? 1
-                                : static_cast<int>(StrToEnum<CardSet>(
-                                      cardData["set"].get<std::string>()));
+        int cardSet = 1;
+
+        if (cardData["set"].is_number())
+        {
+            // NOTE: We don't know the meaning of the value "1810".
+            //       We replace it with "CardSet::PLACEHOLDER_202204".
+            cardSet = static_cast<int>(CardSet::PLACEHOLDER_202204);
+        }
+        else
+        {
+            cardSet = static_cast<int>(
+                StrToEnum<CardSet>(cardData["set"].get<std::string>()));
+        }
 
         if (static_cast<CardSet>(cardSet) == CardSet::LETTUCE)
         {
@@ -38,6 +47,14 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
         }
 
         const std::string id = cardData["id"].get<std::string>();
+        // NOTE: The value "isBattlegroundsPoolMinion" of
+        //       Brann Bronzebeard (CORE_LOE_077) is true, too.
+        //       It's incorrect. Therefore, we ignore it.
+        if (id == "CORE_LOE_077")
+        {
+            continue;
+        }
+
         const int dbfID =
             cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
         const int normalDbfID =

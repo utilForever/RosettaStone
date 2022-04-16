@@ -766,7 +766,7 @@ void DarkmoonFaireCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------- SPELL - MAGE
-    // [DMF_108] Deck of Lunacy - COST:4
+    // [DMF_108] Deck of Lunacy - COST:2
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Transform spells in your deck into ones that cost (3) more.
@@ -2554,12 +2554,13 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- WEAPON - DEMONHUNTER
-    // [DMF_227] Dreadlord's Bite - COST:3
+    // [DMF_227] Dreadlord's Bite - COST:3 [ATK:3/HP:0]
     // - Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Outcast:</b> Deal 1 damage to all enemies.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - OUTCAST = 1
     // --------------------------------------------------------
     power.ClearData();
@@ -2579,7 +2580,7 @@ void DarkmoonFaireCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [DMF_230] Il'gynoth - COST:6 [ATK:4/HP:8]
+    // [DMF_230] Il'gynoth - COST:4 [ATK:2/HP:6]
     // - Set: DARKMOON_FAIRE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Lifesteal</b>
@@ -3294,15 +3295,14 @@ void DarkmoonFaireCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Rush</b>
-    //       <b>Battlecry:</b> Gain <b>Windfury</b> this turn only.
+    //       <b>Windfury</b>
     // --------------------------------------------------------
     // GameTag:
     // - RUSH = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("YOP_031e", EntityType::SOURCE));
+    power.AddPowerTask(nullptr);
     cards.emplace("YOP_031", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL

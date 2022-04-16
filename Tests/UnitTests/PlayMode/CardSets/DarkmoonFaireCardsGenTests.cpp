@@ -3503,12 +3503,13 @@ TEST_CASE("[Demon Hunter : Minion] - DMF_223 : Renowned Performer")
 }
 
 // ----------------------------------- WEAPON - DEMONHUNTER
-// [DMF_227] Dreadlord's Bite - COST:3
+// [DMF_227] Dreadlord's Bite - COST:3 [ATK:3/HP:0]
 // - Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Outcast:</b> Deal 1 damage to all enemies.
 // --------------------------------------------------------
 // GameTag:
+// - DURABILITY = 2
 // - OUTCAST = 1
 // --------------------------------------------------------
 TEST_CASE("[Demon Hunter : Weapon] - DMF_227 : Dreadlord's Bite")
@@ -4449,7 +4450,7 @@ TEST_CASE("[Neutral : Minion] - YOP_021 : Imprisoned Phoenix")
 // - Race: Murloc, Set: DARKMOON_FAIRE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Rush</b>
-//       <b>Battlecry:</b> Gain <b>Windfury</b> this turn only.
+//       <b>Windfury</b>
 // --------------------------------------------------------
 // GameTag:
 // - RUSH = 1
@@ -4457,41 +4458,7 @@ TEST_CASE("[Neutral : Minion] - YOP_021 : Imprisoned Phoenix")
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - YOP_031 : Crabrider")
 {
-    GameConfig config;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::PALADIN;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Crabrider"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->HasRush(), true);
-    CHECK_EQ(curField[0]->HasWindfury(), true);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    CHECK_EQ(curField[0]->HasRush(), true);
-    CHECK_EQ(curField[0]->HasWindfury(), false);
+    // Do nothing
 }
 
 // --------------------------------------- MINION - NEUTRAL

@@ -548,7 +548,7 @@ TEST_CASE("[Hunter : Spell] - BT_205 : Scrap Shot")
 // [BT_213] Scavenger's Ingenuity - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Common
 // --------------------------------------------------------
-// Text: Draw a Beast. Give it +2/+2.
+// Text: Draw a Beast. Give it +3/+3.
 // --------------------------------------------------------
 TEST_CASE("[Hunter : Spell] - BT_213 : Scavenger's Ingenuity")
 {
@@ -585,8 +585,8 @@ TEST_CASE("[Hunter : Spell] - BT_213 : Scavenger's Ingenuity")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->GetRace(), Race::BEAST);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 5);
-    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 4);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetAttack(), 6);
+    CHECK_EQ(dynamic_cast<Minion*>(curHand[4])->GetHealth(), 5);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -1359,7 +1359,7 @@ TEST_CASE("[Preist : Minion] - BT_256 : Dragonmaw Overseer")
 // - Set: BLACK_TEMPLE, Rarity: Common
 // - Spell School: Holy
 // --------------------------------------------------------
-// Text: Give a minion +1/+2 and <b>Lifesteal</b>.
+// Text: Give a minion +2/+3 and <b>Lifesteal</b>.
 // --------------------------------------------------------
 // RefTag:
 // - LIFESTEAL = 1
@@ -1396,14 +1396,14 @@ TEST_CASE("[Preist : Spell] - BT_257 : Apotheosis")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Loot Hoarder"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::LIFESTEAL), 0);
+    CHECK_EQ(curField[0]->HasLifesteal(), false);
     CHECK_EQ(curField[0]->GetAttack(), 2);
     CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::LIFESTEAL), 1);
-    CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->HasLifesteal(), true);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
 }
 
 // ---------------------------------------- MINION - PRIEST
@@ -1933,7 +1933,7 @@ TEST_CASE("[Rogue : Minion] - BT_710 : Greyheart Sage")
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
-//       return a minion to its owner's hand. It costs (1) more.
+//       return a minion to its owner's hand. It costs (2) more.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
@@ -1992,7 +1992,7 @@ TEST_CASE("[Rogue : Minion] - BT_711 : Blackjack Stunner")
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
     CHECK_EQ(curHand.GetCount(), 0);
     CHECK_EQ(opField.GetCount(), 0);
-    CHECK_EQ(opHand[1]->GetCost(), 4);
+    CHECK_EQ(opHand[1]->GetCost(), 5);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
@@ -2055,13 +2055,14 @@ TEST_CASE("[Shaman : Spell] - BT_100 : Serpentshrine Portal")
 }
 
 // ---------------------------------------- WEAPON - SHAMAN
-// [BT_102] Boggspine Knuckles - COST:5
+// [BT_102] Boggspine Knuckles - COST:5 [ATK:4/HP:0]
 // - Set: BLACK_TEMPLE, Rarity: Epic
 // --------------------------------------------------------
 // Text: After your hero attacks, transform your minions
 //       into random ones that cost (1) more.
 // --------------------------------------------------------
 // GameTag:
+// - DURABILITY = 2
 // - TRIGGER_VISUAL = 1
 // --------------------------------------------------------
 TEST_CASE("[Shaman : Weapon] - BT_102 : Boggspine Knuckles")
@@ -2638,7 +2639,7 @@ TEST_CASE("[Warlock : Minion] - BT_304 : Enhanced Dreadlord")
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Dormant</b> for 2 turns. When this awakens,
-//       give all minions in your hand +2/+1.
+//       give all minions in your hand +2/+2.
 // --------------------------------------------------------
 TEST_CASE("[Warlock : Minion] - BT_305 : Imprisoned Scrap Imp")
 {
@@ -2695,9 +2696,9 @@ TEST_CASE("[Warlock : Minion] - BT_305 : Imprisoned Scrap Imp")
     CHECK_EQ(curField[0]->IsUntouchable(), false);
     CHECK_EQ(curField[0]->CanAttack(), false);
     CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 5);
-    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 3);
     CHECK_EQ(dynamic_cast<Minion*>(card3)->GetAttack(), 6);
-    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 13);
+    CHECK_EQ(dynamic_cast<Minion*>(card3)->GetHealth(), 14);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
@@ -2961,7 +2962,7 @@ TEST_CASE("[Warrior : Minion] - BT_123 : Kargath Bladefist")
 // [BT_124] Corsair Cache - COST:2
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
-// Text: Draw a weapon. Give it +1 Durability.
+// Text: Draw a weapon. Give it +1/+1.
 // --------------------------------------------------------
 TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
 {
@@ -2997,12 +2998,14 @@ TEST_CASE("[Warrior : Spell] - BT_124 : Corsair Cache")
     game.Process(curPlayer, PlayCardTask::Spell(card));
     CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(dynamic_cast<Weapon*>(curHand[3])->GetAttack(), 3);
     CHECK_EQ(dynamic_cast<Weapon*>(curHand[3])->GetDurability(), 2);
+    CHECK_EQ(dynamic_cast<Weapon*>(curHand[4])->GetAttack(), 4);
     CHECK_EQ(dynamic_cast<Weapon*>(curHand[4])->GetDurability(), 3);
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [BT_138] Bloodboil Brute - COST:7 [ATK:5/HP:8]
+// [BT_138] Bloodboil Brute - COST:7 [ATK:6/HP:8]
 // - Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Rush</b> Costs (1) less for each damaged minion.
@@ -3375,7 +3378,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_491 : Spectral Sight")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:5]
+// [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:7]
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: At the end of your turn,
@@ -3702,7 +3705,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_761 : Coilfang Warlord")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_934] Imprisoned Antaen - COST:6 [ATK:10/HP:6]
+// [BT_934] Imprisoned Antaen - COST:5 [ATK:10/HP:6]
 // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Dormant</b> for 2 turns. When this awakens,

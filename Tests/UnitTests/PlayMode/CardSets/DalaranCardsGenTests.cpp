@@ -1784,7 +1784,7 @@ TEST_CASE("[Mage : Spell] - DAL_608 : Magic Trick")
 }
 
 // ------------------------------------------ MINION - MAGE
-// [DAL_609] Kalecgos - COST:10 [ATK:4/HP:12]
+// [DAL_609] Kalecgos - COST:9 [ATK:4/HP:12]
 // - Race: Dragon, Set: Dalaran, Rarity: Legendary
 // --------------------------------------------------------
 // Text: Your first spell each turn costs (0).

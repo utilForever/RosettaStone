@@ -378,7 +378,7 @@ TEST_CASE("[Druid : Spell] - EX1_161 : Naturalize")
 }
 
 // ------------------------------------------ SPELL - DRUID
-// [EX1_164] Nourish - COST:6
+// [EX1_164] Nourish - COST:5
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Nature
 // --------------------------------------------------------
@@ -419,14 +419,14 @@ TEST_CASE("[Druid : Spell] - EX1_164 : Nourish")
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
     CHECK_EQ(curPlayer->GetTotalMana(), 8);
-    CHECK_EQ(curPlayer->GetRemainingMana(), 2);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 3);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Spell(card3, 1));
     CHECK_EQ(opPlayer->GetTotalMana(), 10);
-    CHECK_EQ(opPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(opPlayer->GetRemainingMana(), 7);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -4051,7 +4051,7 @@ TEST_CASE("[Paladin : Spell] - EX1_384 : Avenging Wrath")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [EX1_619] Equality - COST:3
+// [EX1_619] Equality - COST:2
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Holy
 // --------------------------------------------------------
@@ -12169,7 +12169,7 @@ TEST_CASE("[Neutral : Minion] - EX1_283 : Frost Elemental")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [EX1_284] Azure Drake - COST:5 [ATK:4/HP:4]
+// [EX1_284] Azure Drake - COST:5 [ATK:4/HP:5]
 // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Spell Damage +1</b>

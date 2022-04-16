@@ -2255,7 +2255,7 @@ TEST_CASE("[Demon Hunter : Weapon] - SCH_252 : Marrowslicer")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [SCH_355] Shardshatter Mystic - COST:4 [ATK:3/HP:2]
+// [SCH_355] Shardshatter Mystic - COST:3 [ATK:3/HP:2]
 // - Set: SCHOLOMANCE, Rarity: Rare
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Destroy a Soul Fragment
@@ -3505,7 +3505,7 @@ TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_351] Jandice Barov - COST:6 [ATK:2/HP:1]
+// [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
 // - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon two random 5-Cost minions.
@@ -3781,7 +3781,7 @@ TEST_CASE("[Neutral : Minion] - SCH_425 : Doctor Krastinov")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [SCH_428] Lorekeeper Polkelt - COST:5 [ATK:4/HP:5]
+// [SCH_428] Lorekeeper Polkelt - COST:4 [ATK:4/HP:5]
 // - Set: SCHOLOMANCE, Rarity: Legendary
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Reorder your deck from the highest

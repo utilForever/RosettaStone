@@ -450,7 +450,7 @@ void BlackTempleCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [BT_213] Scavenger's Ingenuity - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Draw a Beast. Give it +2/+2.
+    // Text: Draw a Beast. Give it +3/+3.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(
@@ -565,7 +565,7 @@ void BlackTempleCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_004", CardDef(power));
 
     // ------------------------------------------- SPELL - MAGE
-    // [BT_006] Evocation - COST:2
+    // [BT_006] Evocation - COST:1
     // - Set: BLACK_TEMPLE, Rarity: Legendary
     // - Spell School: Arcane
     // --------------------------------------------------------
@@ -697,7 +697,7 @@ void BlackTempleCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [BT_028t] Solarian Prime - COST:9 [ATK:7/HP:7]
+    // [BT_028t] Solarian Prime - COST:7 [ATK:7/HP:7]
     // - Race: Demon, Set: BLACK_TEMPLE
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
@@ -1038,7 +1038,7 @@ void BlackTempleCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: BLACK_TEMPLE, Rarity: Common
     // - Spell School: Holy
     // --------------------------------------------------------
-    // Text: Give a minion +1/+2 and <b>Lifesteal</b>.
+    // Text: Give a minion +2/+3 and <b>Lifesteal</b>.
     // --------------------------------------------------------
     // RefTag:
     // - LIFESTEAL = 1
@@ -1155,7 +1155,7 @@ void BlackTempleCardsGen::AddPriestNonCollect(
     // [BT_257e] Apotheosis - COST:0
     // - Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: +1/+2 and <b>Lifesteal</b>.
+    // Text: +2/+3 and <b>Lifesteal</b>.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_257e"));
@@ -1321,7 +1321,7 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
-    //       return a minion to its owner's hand. It costs (1) more.
+    //       return a minion to its owner's hand. It costs (2) more.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1334,7 +1334,7 @@ void BlackTempleCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(Effects::AddCost(1),
+    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(Effects::AddCost(2),
                                                            EntityType::TARGET));
     cards.emplace(
         "BT_711",
@@ -1456,13 +1456,14 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- WEAPON - SHAMAN
-    // [BT_102] Boggspine Knuckles - COST:5
+    // [BT_102] Boggspine Knuckles - COST:5 [ATK:4/HP:0]
     // - Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
     // Text: After your hero attacks, transform your minions
     //       into random ones that cost (1) more.
     // --------------------------------------------------------
     // GameTag:
+    // - DURABILITY = 2
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     power.ClearData();
@@ -1769,7 +1770,7 @@ void BlackTempleCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Dormant</b> for 2 turns. When this awakens,
-    //       give all minions in your hand +2/+1.
+    //       give all minions in your hand +2/+2.
     // --------------------------------------------------------
     power.ClearData();
     power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
@@ -1833,7 +1834,7 @@ void BlackTempleCardsGen::AddWarlockNonCollect(
     // [BT_305e] Scrap Weapons - COST:0
     // - Set: BLACK_TEMPLE
     // --------------------------------------------------------
-    // Text: +2/+1.
+    // Text: +2/+2.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_305e"));
@@ -1990,7 +1991,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [BT_124] Corsair Cache - COST:2
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Draw a weapon. Give it +1 Durability.
+    // Text: Draw a weapon. Give it +1/+1.
     // --------------------------------------------------------
     power.ClearData();
     power.AddPowerTask(std::make_shared<DrawWeaponTask>(1, true));
@@ -1999,7 +2000,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_124", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
-    // [BT_138] Bloodboil Brute - COST:7 [ATK:5/HP:8]
+    // [BT_138] Bloodboil Brute - COST:7 [ATK:6/HP:8]
     // - Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b> Costs (1) less for each damaged minion.
@@ -2127,10 +2128,12 @@ void BlackTempleCardsGen::AddWarriorNonCollect(
     // [BT_124e] Void Sharpened
     // - Set: BLACK_TEMPLE
     // --------------------------------------------------------
-    // Text: +1 Durability.
+    // Text: +1/+1.
     // --------------------------------------------------------
     power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::DurabilityN(1)));
+    power.AddEnchant(
+        std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>(
+            { Effects::AttackN(1), Effects::DurabilityN(1) })));
     cards.emplace("BT_124e", CardDef(power));
 }
 
@@ -2139,7 +2142,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_187] Kayn Sunfury - COST:4 [ATK:3/HP:4]
+    // [BT_187] Kayn Sunfury - COST:4 [ATK:3/HP:5]
     // - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Charge</b> All friendly attacks ignore <b>Taunt</b>.
@@ -2259,7 +2262,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_491", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:5]
+    // [BT_493] Priestess of Fury - COST:7 [ATK:6/HP:7]
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: At the end of your turn,
@@ -2366,7 +2369,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("BT_761", CardDef(power));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_934] Imprisoned Antaen - COST:6 [ATK:10/HP:6]
+    // [BT_934] Imprisoned Antaen - COST:5 [ATK:10/HP:6]
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Dormant</b> for 2 turns. When this awakens,
@@ -2542,7 +2545,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [BT_255] Kael'thas Sunstrider - COST:7 [ATK:4/HP:7]
     // - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: Every third spell you cast each turn costs (1).
+    // Text: Every third spell you cast each turn costs (0).
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2807,7 +2810,7 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [BT_733] Mo'arg Artificer - COST:3 [ATK:2/HP:5]
+    // [BT_733] Mo'arg Artificer - COST:2 [ATK:2/HP:5]
     // - Race: Demon, Set: BLACK_TEMPLE, Rarity: Epic
     // --------------------------------------------------------
     // Text: All minions take double damage from spells.
@@ -3030,7 +3033,7 @@ void BlackTempleCardsGen::AddNeutralNonCollect(
     // [BT_213e] Pack Tactics - COST:0
     // - Set: BLACK_TEMPLE
     // --------------------------------------------------------
-    // Text: +2/+2.
+    // Text: +3/+3.
     // --------------------------------------------------------
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("BT_213e"));

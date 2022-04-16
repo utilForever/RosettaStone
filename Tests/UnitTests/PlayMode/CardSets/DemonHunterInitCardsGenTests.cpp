@@ -336,7 +336,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_354 : Blade Dance")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [BT_355] Wrathscale Naga (*) - COST:3 [ATK:3/HP:1]
+// [BT_355] Wrathscale Naga (*) - COST:3 [ATK:3/HP:2]
 // - Set: Demon Hunter Initiate, Rarity: Epic
 // --------------------------------------------------------
 // Text: After a friendly minion dies,
@@ -504,7 +504,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_416 : Raging Felscreamer")
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
-// [BT_427] Feast of Souls - COST:2
+// [BT_427] Feast of Souls - COST:1
 // - Set: Demon Hunter Initiate, Rarity: Rare
 // - Spell School: Shadow
 // --------------------------------------------------------

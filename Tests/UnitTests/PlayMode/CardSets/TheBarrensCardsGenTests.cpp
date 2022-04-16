@@ -2470,7 +2470,7 @@ TEST_CASE("[Paladin : Minion] - BAR_902 : Cariel Roame")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     CHECK_EQ(card2->GetCost(), 2);
-    CHECK_EQ(card3->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 2);
     CHECK_EQ(card4->GetCost(), 1);
 
     game.Process(curPlayer, EndTurnTask());
@@ -2489,7 +2489,7 @@ TEST_CASE("[Paladin : Minion] - BAR_902 : Cariel Roame")
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(opField.GetCount(), 0);
     CHECK_EQ(card2->GetCost(), 1);
-    CHECK_EQ(card3->GetCost(), 2);
+    CHECK_EQ(card3->GetCost(), 1);
     CHECK_EQ(card4->GetCost(), 1);
 }
 

@@ -37,10 +37,18 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
     for (auto& cardData : j)
     {
-        const int cardSet = cardData["set"].is_null()
-                                ? 1
-                                : static_cast<int>(StrToEnum<CardSet>(
-                                      cardData["set"].get<std::string>()));
+        int cardSet = 1;
+
+        if (cardData["set"].is_number())
+        {
+            // NOTE: 1810 -> CardSet::PLACEHOLDER_202204
+            cardSet = static_cast<int>(CardSet::PLACEHOLDER_202204);
+        }
+        else
+        {
+            cardSet = static_cast<int>(
+                StrToEnum<CardSet>(cardData["set"].get<std::string>()));
+        }
 
         if (static_cast<CardSet>(cardSet) == CardSet::BATTLEGROUNDS ||
             static_cast<CardSet>(cardSet) == CardSet::LETTUCE)

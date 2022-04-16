@@ -3235,7 +3235,7 @@ TEST_CASE("[Paladin : Minion] - DRG_226 : Amber Watcher")
 }
 
 // --------------------------------------- MINION - PALADIN
-// [DRG_229] Bronze Explorer - COST:3 [ATK:2/HP:3]
+// [DRG_229] Bronze Explorer - COST:3 [ATK:3/HP:3]
 // - Race: Dragon, Set: Dragons, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Lifesteal</b>

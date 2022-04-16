@@ -123,7 +123,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [BT_355] Wrathscale Naga - COST:3 [ATK:3/HP:1]
+    // [BT_355] Wrathscale Naga - COST:3 [ATK:3/HP:2]
     // - Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
     // Text: After a friendly minion dies,
@@ -170,7 +170,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cards.emplace("BT_416", CardDef(power));
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [BT_427] Feast of Souls - COST:2
+    // [BT_427] Feast of Souls - COST:1
     // - Set: Demon Hunter Initiate, Rarity: Rare
     // - Spell School: Shadow
     // --------------------------------------------------------

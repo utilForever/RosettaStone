@@ -408,7 +408,7 @@ void ScholomanceCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - HUNTER
-    // [SCH_610] Guardian Animals - COST:8
+    // [SCH_610] Guardian Animals - COST:7
     // - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
     // Text: Summon two Beasts that cost (5) or less from your deck.
@@ -649,7 +649,7 @@ void ScholomanceCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [SCH_141] High Abbess Alura - COST:5 [ATK:3/HP:6]
+    // [SCH_141] High Abbess Alura - COST:4 [ATK:3/HP:6]
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Spellburst:</b> Cast a spell from your deck
@@ -864,7 +864,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ---------------------------------------- MINION - PRIEST
-    // [SCH_120] Cabal Acolyte - COST:4 [ATK:2/HP:4]
+    // [SCH_120] Cabal Acolyte - COST:4 [ATK:2/HP:6]
     // - Set: SCHOLOMANCE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Taunt</b> <b>Spellburst:</b> Gain control
@@ -1769,7 +1769,7 @@ void ScholomanceCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [SCH_355] Shardshatter Mystic - COST:4 [ATK:3/HP:2]
+    // [SCH_355] Shardshatter Mystic - COST:3 [ATK:3/HP:2]
     // - Set: SCHOLOMANCE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy a Soul Fragment
@@ -2498,7 +2498,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("SCH_350", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [SCH_351] Jandice Barov - COST:6 [ATK:2/HP:1]
+    // [SCH_351] Jandice Barov - COST:5 [ATK:2/HP:1]
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon two random 5-Cost minions.
@@ -2640,7 +2640,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("SCH_425", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [SCH_428] Lorekeeper Polkelt - COST:5 [ATK:4/HP:5]
+    // [SCH_428] Lorekeeper Polkelt - COST:4 [ATK:4/HP:5]
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Reorder your deck from the highest

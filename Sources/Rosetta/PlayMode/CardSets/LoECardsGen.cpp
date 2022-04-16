@@ -522,7 +522,7 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [LOE_039] Gorillabot A-3 - COST:4 [ATK:3/HP:4]
+    // [LOE_039] Gorillabot A-3 - COST:3 [ATK:3/HP:4]
     // - Race: Mechanical, Set: LoE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you control another Mech,
