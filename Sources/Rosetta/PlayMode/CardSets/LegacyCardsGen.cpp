@@ -29,6 +29,7 @@ using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void LegacyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -583,7 +584,7 @@ void LegacyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
-    // - Faction: neutral, Set: Legacy, Rarity: Free
+    // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -593,6 +594,21 @@ void LegacyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_232", CardDef(power));
+
+    // ----------------------------------------- MINION - DRUID
+    // [CS3_012] Nordrassil Druid - COST:4 [ATK:3/HP:5]
+    // - Set: Legacy, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next spell you cast this turn
+    //       costs (3) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS3_012e", EntityType::PLAYER));
+    cards.emplace("CS3_012", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_169] Innervate - COST:0
@@ -686,6 +702,26 @@ void LegacyCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_017o"));
     cards.emplace("CS2_017o", CardDef(power));
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [CS3_012e] Nature's Rite - COST:0
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Your next spell this turn costs (3) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(3) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
+    }
+    cards.emplace("CS3_012e", CardDef(power));
 }
 
 void LegacyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)

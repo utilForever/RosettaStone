@@ -846,57 +846,6 @@ TEST_CASE("[Druid : Spell] - CORE_TRL_243 : Pounce")
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 0);
 }
 
-// ----------------------------------------- MINION - DRUID
-// [CS3_012] Nordrassil Druid - COST:4 [ATK:3/HP:5]
-// - Set: CORE, Rarity: Rare
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> The next spell you cast this turn
-//       costs (3) less.
-// --------------------------------------------------------
-// GameTag:
-// - BATTLECRY = 1
-// --------------------------------------------------------
-TEST_CASE("[Druid : Minion] - CS3_012 : Nordrassil Druid")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::DRUID;
-    config.player2Class = CardClass::HUNTER;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer,
-        Cards::FindCardByName("Nordrassil Druid", FormatType::STANDARD));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
-
-    CHECK_EQ(card2->GetCost(), 4);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(card2->GetCost(), 1);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    CHECK_EQ(card2->GetCost(), 4);
-}
-
 // ----------------------------------------- SPELL - HUNTER
 // [CORE_AT_061] Lock and Load - COST:1
 // - Set: CORE, Rarity: Epic
