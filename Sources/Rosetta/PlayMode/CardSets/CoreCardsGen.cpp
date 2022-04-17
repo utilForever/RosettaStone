@@ -952,15 +952,6 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-
-    // ---------------------------------------- SPELL - PALADIN
-    // [CS3_029] Pursuit of Justice - COST:2
-    // - Set: CORE, Rarity: Epic
-    // - Spell School: Holy
-    // --------------------------------------------------------
-    // Text: Give +1 Attack to Silver Hand Recruits
-    //       you summon this game.
-    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)

@@ -1320,6 +1320,15 @@ void LegacyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_097", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
+    // [CS3_029] Pursuit of Justice - COST:2
+    // - Set: Legacy, Rarity: Epic
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Give +1 Attack to Silver Hand Recruits
+    //       you summon this game.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
     // [EX1_360] Humility - COST:1
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
