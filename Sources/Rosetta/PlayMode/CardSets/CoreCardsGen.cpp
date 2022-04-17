@@ -1141,22 +1141,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
     cards.emplace("CS3_013", CardDef(power));
 
-    // ---------------------------------------- MINION - PRIEST
-    // [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
-    // - Set: CORE, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: After a friendly character is healed, gain +1 Attack.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TRIGGER_VISUAL = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-        "CS3_014e", EntityType::SOURCE) };
-    cards.emplace("CS3_014", CardDef(power));
-
     // ----------------------------------------- SPELL - PRIEST
     // [CS3_027] Focused Will - COST:1
     // - Set: CORE, Rarity: Rare

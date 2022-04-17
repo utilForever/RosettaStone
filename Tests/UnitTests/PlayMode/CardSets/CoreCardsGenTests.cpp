@@ -3312,69 +3312,6 @@ TEST_CASE("[Priest : Minion] - CS3_013 : Shadowed Spirit")
     CHECK_EQ(opHero->GetHealth(), 27);
 }
 
-// ---------------------------------------- MINION - PRIEST
-// [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
-// - Set: CORE, Rarity: Rare
-// --------------------------------------------------------
-// Text: After a friendly character is healed, gain +1 Attack.
-// --------------------------------------------------------
-// GameTag:
-// - TRIGGER_VISUAL = 1
-// --------------------------------------------------------
-TEST_CASE("[Priest : Minion] - CS3_014 : Crimson Clergy")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer,
-        Cards::FindCardByName("Crimson Clergy", FormatType::STANDARD));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetAttack(), 1);
-
-    curPlayer->SetUsedMana(0);
-
-    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 2);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
-    CHECK_EQ(curField[1]->GetHealth(), 6);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, HeroPowerTask(card2));
-    CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[1]->GetHealth(), 8);
-}
-
 // ----------------------------------------- SPELL - PRIEST
 // [CS3_027] Focused Will - COST:1
 // - Set: CORE, Rarity: Rare

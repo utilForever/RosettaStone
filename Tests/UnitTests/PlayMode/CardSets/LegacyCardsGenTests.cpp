@@ -3215,6 +3215,67 @@ TEST_CASE("[Priest : Spell] - CS2_236 : Divine Spirit")
     CHECK_EQ(curField[0]->GetHealth(), 8);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
+// - Set: Legacy, Rarity: Rare
+// --------------------------------------------------------
+// Text: After a friendly character is healed, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CS3_014 : Crimson Clergy")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Crimson Clergy"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 8);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [DS1_233] Mind Blast - COST:2
 // - Faction: Neutral, Set: Legacy, Rarity: Free

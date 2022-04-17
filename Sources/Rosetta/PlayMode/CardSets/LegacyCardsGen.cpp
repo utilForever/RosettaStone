@@ -1566,6 +1566,22 @@ void LegacyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
+    // ---------------------------------------- MINION - PRIEST
+    // [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
+    // - Set: Legacy, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After a friendly character is healed, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "CS3_014e", EntityType::SOURCE) };
+    cards.emplace("CS3_014", CardDef(power));
+
     // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
     // - Faction: Neutral, Set: Legacy, Rarity: Free
