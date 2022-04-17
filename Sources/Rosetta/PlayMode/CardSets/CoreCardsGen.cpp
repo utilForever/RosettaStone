@@ -731,17 +731,6 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_088", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
-    // [CORE_CS2_089] Holy Light - COST:2
-    // - Set: CORE, Rarity: Rare
-    // - Spell School: Holy
-    // --------------------------------------------------------
-    // Text: Restore 8 Health to your hero.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 8));
-    cards.emplace("CORE_CS2_089", CardDef(power));
-
-    // ---------------------------------------- SPELL - PALADIN
     // [CORE_CS2_092] Blessing of Kings - COST:4
     // - Set: CORE, Rarity: Common
     // - Spell School: Holy
