@@ -429,20 +429,6 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
 
     // ---------------------------------------- MINION - HUNTER
-    // [CORE_ICC_419] Bearshark - COST:3 [ATK:4/HP:3]
-    // - Race: Beast, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Can't be targeted by spells or Hero Powers.
-    // --------------------------------------------------------
-    // GameTag:
-    // - CANT_BE_TARGETED_BY_SPELLS = 1
-    // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_ICC_419", CardDef(power));
-
-    // ---------------------------------------- MINION - HUNTER
     // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:3]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
