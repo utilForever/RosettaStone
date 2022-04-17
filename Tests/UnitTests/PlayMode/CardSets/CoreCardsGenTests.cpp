@@ -550,59 +550,6 @@ TEST_CASE("[Druid : Spell] - CORE_EX1_169 : Innervate")
     CHECK_EQ(curPlayer->GetUsedMana(), 0);
 }
 
-// ----------------------------------------- MINION - DRUID
-// [CORE_EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
-// - Set: CORE, Rarity: Epic
-// --------------------------------------------------------
-// Text: <b>Choose One -</b>
-//       +5 Attack; or +5 Health and <b>Taunt</b>.
-// --------------------------------------------------------
-// GameTag:
-// - CHOOSE_ONE = 1
-// --------------------------------------------------------
-// RefTag:
-// - TAUNT = 1
-// --------------------------------------------------------
-TEST_CASE("[Druid : Minion] - CORE_EX1_178 : Ancient of War")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::DRUID;
-    config.player2Class = CardClass::DRUID;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient of War"));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Ancient of War"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
-    CHECK_EQ(curField[0]->GetHealth(), 10);
-    CHECK_EQ(curField[0]->GetGameTag(GameTag::TAUNT), 1);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card2, 2));
-    CHECK_EQ(opField[0]->GetAttack(), 10);
-}
-
 // ------------------------------------------ SPELL - DRUID
 // [CORE_EX1_571] Force of Nature - COST:5
 // - Set: CORE, Rarity: Epic

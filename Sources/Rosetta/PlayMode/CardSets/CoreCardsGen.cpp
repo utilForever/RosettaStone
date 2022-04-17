@@ -184,24 +184,6 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<TempManaTask>(1));
     cards.emplace("CORE_EX1_169", CardDef(power));
 
-    // ----------------------------------------- MINION - DRUID
-    // [CORE_EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
-    // - Set: CORE, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: <b>Choose One -</b>
-    //       +5 Attack; or +5 Health and <b>Taunt</b>.
-    // --------------------------------------------------------
-    // GameTag:
-    // - CHOOSE_ONE = 1
-    // --------------------------------------------------------
-    // RefTag:
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_EX1_178",
-                  CardDef(power, ChooseCardIDs{ "EX1_178a", "EX1_178b" }));
-
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_571] Force of Nature - COST:5
     // - Set: CORE, Rarity: Epic
