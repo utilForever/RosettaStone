@@ -240,18 +240,6 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ----------------------------------------- SPELL - HUNTER
-    // [CORE_AT_061] Lock and Load - COST:1
-    // - Set: CORE, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: Each time you cast a spell this turn,
-    //       add a random Hunter card to your hand.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("AT_061e", EntityType::PLAYER));
-    cards.emplace("CORE_AT_061", CardDef(power));
-
-    // ----------------------------------------- SPELL - HUNTER
     // [CORE_BRM_013] Quick Shot - COST:2
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
