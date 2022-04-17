@@ -470,18 +470,6 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                                              EffectOperator::ADD, 1) }));
     cards.emplace("CORE_AT_003", CardDef(power));
 
-    // ------------------------------------------ MINION - MAGE
-    // [CORE_AT_008] Coldarra Drake - COST:6 [ATK:6/HP:7]
-    // - Race: Dragon, Set: CORE, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: You can use your Hero Power any number of times.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
-    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
-        EntityType::HERO_POWER, GameTag::EXHAUSTED, 0) };
-    cards.emplace("CORE_AT_008", CardDef(power));
-
     // ------------------------------------------- SPELL - MAGE
     // [CORE_BOT_453] Shooting Star - COST:1
     // - Set: CORE, Rarity: Common

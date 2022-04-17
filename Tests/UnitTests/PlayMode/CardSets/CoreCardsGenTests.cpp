@@ -1439,58 +1439,6 @@ TEST_CASE("[Mage : Minion] - CORE_AT_003 : Fallen Hero")
     CHECK_EQ(opHero->GetHealth(), 26);
 }
 
-// ------------------------------------------ MINION - MAGE
-// [CORE_AT_008] Coldarra Drake - COST:6 [ATK:6/HP:7]
-// - Race: Dragon, Set: CORE, Rarity: Epic
-// --------------------------------------------------------
-// Text: You can use your Hero Power any number of times.
-// --------------------------------------------------------
-TEST_CASE("[Mage : Minion] - CORE_AT_008 : Coldarra Drake")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto opHero = opPlayer->GetHero();
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Coldarra Drake"));
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 29);
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 29);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 28);
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 27);
-}
-
 // ------------------------------------------- SPELL - MAGE
 // [CORE_BOT_453] Shooting Star - COST:1
 // - Set: CORE, Rarity: Common
