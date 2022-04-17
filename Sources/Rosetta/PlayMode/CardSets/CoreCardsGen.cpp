@@ -1072,35 +1072,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_197", CardDef(power));
 
     // ---------------------------------------- MINION - PRIEST
-    // [CORE_EX1_198] Natalie Seline - COST:8 [ATK:8/HP:1]
-    // - Set: CORE, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Destroy a minion and gain its Health.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_MINION_TARGET = 0
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    power.AddPowerTask(
-        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::DAMAGE, 0, 1));
-    power.AddPowerTask(
-        std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
-    power.AddPowerTask(std::make_shared<SetGameTagNumberTask>(
-        EntityType::SOURCE, GameTag::HEALTH));
-    cards.emplace(
-        "CORE_EX1_198",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
-
-    // ---------------------------------------- MINION - PRIEST
     // [CORE_EX1_335] Lightspawn - COST:3 [ATK:0/HP:4]
     // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------

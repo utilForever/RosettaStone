@@ -3091,64 +3091,6 @@ TEST_CASE("[Priest : Spell] - CORE_EX1_197 : Shadow Word: Ruin")
 }
 
 // ---------------------------------------- MINION - PRIEST
-// [CORE_EX1_198] Natalie Seline - COST:8 [ATK:8/HP:1]
-// - Set: CORE, Rarity: Legendary
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Destroy a minion and gain its Health.
-// --------------------------------------------------------
-// GameTag:
-// - ELITE = 1
-// - BATTLECRY = 1
-// --------------------------------------------------------
-// PlayReq:
-// - REQ_MINION_TARGET = 0
-// - REQ_TARGET_IF_AVAILABLE = 0
-// --------------------------------------------------------
-TEST_CASE("[Priest : Minion] - CORE_EX1_198 : Natalie Seline")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Natalie Seline"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetHealth(), 12);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, HeroPowerTask(card1));
-    CHECK_EQ(curField[0]->GetHealth(), 11);
-
-    game.Process(opPlayer, PlayCardTask::MinionTarget(card2, card1));
-    CHECK_EQ(curField.GetCount(), 0);
-    CHECK_EQ(opField[0]->GetAttack(), 8);
-    CHECK_EQ(opField[0]->GetHealth(), 11);
-}
-
-// ---------------------------------------- MINION - PRIEST
 // [CORE_EX1_335] Lightspawn - COST:3 [ATK:0/HP:4]
 // - Race: Elemental, Set: CORE, Rarity: Common
 // --------------------------------------------------------
