@@ -515,19 +515,6 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 5, true));
     cards.emplace("CORE_CS2_032", CardDef(power));
 
-    // ------------------------------------------ MINION - MAGE
-    // [CORE_CS2_033] Water Elemental - COST:4 [ATK:3/HP:6]
-    // - Race: Elemental, Set: CORE, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: <b>Freeze</b> any character damaged by this minion.
-    // --------------------------------------------------------
-    // GameTag:
-    // - FREEZE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_CS2_033", CardDef(power));
-
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_275] Cone of Cold - COST:3
     // - Set: CORE, Rarity: Common
