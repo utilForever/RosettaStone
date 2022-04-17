@@ -1392,20 +1392,6 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_LOE_012", CardDef(power));
 
     // ----------------------------------------- MINION - ROGUE
-    // [CORE_OG_070] Bladed Cultist - COST:1 [ATK:1/HP:2]
-    // - Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Combo:</b> Gain +1/+1.
-    // --------------------------------------------------------
-    // GameTag:
-    // - COMBO = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddComboTask(
-        std::make_shared<AddEnchantmentTask>("OG_070e", EntityType::SOURCE));
-    cards.emplace("CORE_OG_070", CardDef(power));
-
-    // ----------------------------------------- MINION - ROGUE
     // [CS3_005] Vanessa VanCleef - COST:2 [ATK:2/HP:3]
     // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
