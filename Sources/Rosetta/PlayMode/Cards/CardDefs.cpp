@@ -42,7 +42,7 @@ CardDefs::CardDefs()
 {
     AlteracValleyCardsGen::AddAll(m_data);
     VanillaCardsGen::AddAll(m_data);
-    //CoreCardsGen::AddAll(m_data);
+    CoreCardsGen::AddAll(m_data);
     LegacyCardsGen::AddAll(m_data);
     Expert1CardsGen::AddAll(m_data);
     DemonHunterInitCardsGen::AddAll(m_data);
