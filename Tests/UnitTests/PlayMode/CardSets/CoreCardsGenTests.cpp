@@ -1377,68 +1377,6 @@ TEST_CASE("[Hunter : Minion] - CS3_015 : Selective Breeder")
     CHECK_EQ(curHand[4]->card->GetRace(), Race::BEAST);
 }
 
-// ------------------------------------------ MINION - MAGE
-// [CORE_AT_003] Fallen Hero - COST:2 [ATK:3/HP:2]
-// - Set: CORE, Rarity: Rare
-// --------------------------------------------------------
-// Text: Your Hero Power deals 1 extra damage.
-// --------------------------------------------------------
-// GameTag:
-// - HEROPOWER_DAMAGE = 1
-// --------------------------------------------------------
-TEST_CASE("[Mage : Minion] - CORE_AT_003 : Fallen Hero")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto opHero = opPlayer->GetHero();
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fallen Hero"));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 29);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 27);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 26);
-}
-
 // ------------------------------------------- SPELL - MAGE
 // [CORE_BOT_453] Shooting Star - COST:1
 // - Set: CORE, Rarity: Common
