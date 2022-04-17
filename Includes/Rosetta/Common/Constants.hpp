@@ -24,11 +24,8 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 8> STANDARD_CARD_SETS = {
+constexpr std::array<CardSet, 5> STANDARD_CARD_SETS = {
     CardSet::CORE,             // Core, 2021
-    CardSet::BLACK_TEMPLE,     // Ashes of Outland, 2020
-    CardSet::SCHOLOMANCE,      // Scholomance Academy, 2020
-    CardSet::DARKMOON_FAIRE,   // Madness at the Darkmoon Faire, 2020
     CardSet::THE_BARRENS,      // Forged in the Barrens, 2021
     CardSet::STORMWIND,        // United in Stormwind, 2021
     CardSet::ALTERAC_VALLEY,   // Fractured in Alterac Valley, 2021
