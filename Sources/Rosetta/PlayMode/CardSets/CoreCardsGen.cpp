@@ -294,25 +294,6 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ---------------------------------------- MINION - HUNTER
-    // [CORE_EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2]
-    // - Race: Beast, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Whenever a friendly Beast dies, gain +2/+1.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TRIGGER_VISUAL = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->conditions = SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST))
-    };
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-        "EX1_531e", EntityType::SOURCE) };
-    cards.emplace("CORE_EX1_531", CardDef(power));
-
-    // ---------------------------------------- MINION - HUNTER
     // [CORE_EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
     // - Race: Beast, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
