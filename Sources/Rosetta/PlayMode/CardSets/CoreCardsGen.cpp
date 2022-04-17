@@ -422,23 +422,6 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
         "CORE_EX1_617",
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
-    // ---------------------------------------- MINION - HUNTER
-    // [CORE_FP1_011] Webspinner - COST:1 [ATK:1/HP:1]
-    // - Race: Beast, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Add a random Beast card
-    //       to your hand.
-    // --------------------------------------------------------
-    // GameTag:
-    // - DEATHRATTLE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(TagValues{
-        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
-    power.AddDeathrattleTask(
-        std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("CORE_FP1_011", CardDef(power));
-
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_GIL_828] Dire Frenzy - COST:4
     // - Set: CORE, Rarity: Common
