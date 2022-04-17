@@ -3160,61 +3160,6 @@ TEST_CASE("[Priest : Spell] - CORE_EX1_622 : Shadow Word: Death")
 }
 
 // ---------------------------------------- MINION - PRIEST
-// [CORE_EX1_623] Temple Enforcer - COST:5 [ATK:5/HP:6]
-// - Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
-// --------------------------------------------------------
-// GameTag:
-// - BATTLECRY = 1
-// --------------------------------------------------------
-// PlayReq:
-// - REQ_FRIENDLY_TARGET = 0
-// - REQ_MINION_TARGET = 0
-// - REQ_TARGET_IF_AVAILABLE = 0
-// --------------------------------------------------------
-TEST_CASE("[Priest : Minion] - CORE_EX1_623 : Temple Enforcer")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::PRIEST;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Temple Enforcer"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
-    CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[0]->GetHealth(), 1);
-
-    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
-    CHECK_EQ(curPlayer->GetRemainingMana(), 2);
-    CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[0]->GetHealth(), 4);
-    CHECK_EQ(curField[1]->GetAttack(), 5);
-    CHECK_EQ(curField[1]->GetHealth(), 6);
-}
-
-// ---------------------------------------- MINION - PRIEST
 // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------

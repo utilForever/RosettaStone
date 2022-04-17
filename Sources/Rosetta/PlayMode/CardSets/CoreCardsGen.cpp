@@ -1092,29 +1092,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_MIN_ATTACK, 5 } }));
 
     // ---------------------------------------- MINION - PRIEST
-    // [CORE_EX1_623] Temple Enforcer - COST:5 [ATK:5/HP:6]
-    // - Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_FRIENDLY_TARGET = 0
-    // - REQ_MINION_TARGET = 0
-    // - REQ_TARGET_IF_AVAILABLE = 0
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("EX1_623e", EntityType::TARGET));
-    cards.emplace(
-        "CORE_EX1_623",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
-
-    // ---------------------------------------- MINION - PRIEST
     // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
