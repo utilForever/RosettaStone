@@ -16781,7 +16781,7 @@
         ],
         "name": "Fallen Hero",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Your Hero Power deals 1 extra damage.",
         "type": "MINION"
     },
@@ -16800,7 +16800,7 @@
         "name": "Coldarra Drake",
         "race": "DRAGON",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "You can use your Hero Power any number of times.",
         "type": "MINION"
     },
@@ -16844,7 +16844,7 @@
         "name": "Buccaneer",
         "race": "PIRATE",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Whenever you equip a weapon, give it +1 Attack.",
         "type": "MINION"
     },
@@ -16863,7 +16863,7 @@
         ],
         "name": "Living Roots",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "NATURE",
         "text": "<b>Choose One -</b> Deal $2 damage; or Summon two 1/1 Saplings.",
         "type": "SPELL"
@@ -16885,7 +16885,7 @@
         ],
         "name": "Draenei Totemcarver",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> Gain +1/+1 for each friendly Totem.",
         "type": "MINION"
     },
@@ -16918,7 +16918,7 @@
         "id": "CORE_AT_061",
         "name": "Lock and Load",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Each time you cast a spell this turn, add a random Hunter card to your hand.",
         "type": "SPELL"
     },
@@ -16934,7 +16934,7 @@
         "id": "CORE_AT_064",
         "name": "Bash",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Deal $3 damage.\nGain 3 Armor.",
         "type": "SPELL"
     },
@@ -16974,7 +16974,7 @@
         "name": "Ice Rager",
         "race": "ELEMENTAL",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "type": "MINION"
     },
     {
@@ -16994,7 +16994,7 @@
         ],
         "name": "Toxicologist",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> Give your weapon +1 Attack.",
         "type": "MINION"
     },
@@ -17010,7 +17010,7 @@
         "id": "CORE_BOT_420",
         "name": "Landscaping",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "spellSchool": "NATURE",
         "text": "Summon two 2/2 Treants.",
         "type": "SPELL"
@@ -17073,7 +17073,7 @@
         "name": "Imp Gang Boss",
         "race": "DEMON",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Whenever this minion takes damage, summon a 1/1 Imp.",
         "type": "MINION"
     },
@@ -17166,7 +17166,7 @@
         ],
         "name": "Flamereaper",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "Also damages the minions next to whomever your hero attacks.",
         "type": "WEAPON"
     },
@@ -17276,7 +17276,7 @@
         ],
         "name": "Ashtongue Battlelord",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Taunt</b>\n<b>Lifesteal</b>",
         "type": "MINION"
     },
@@ -17310,7 +17310,7 @@
         "id": "CORE_BT_429",
         "name": "Metamorphosis",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "FEL",
         "text": "Swap your Hero Power to \"Deal 4 damage.\" After 2 uses, swap it back.",
         "type": "SPELL"
@@ -17332,7 +17332,7 @@
         ],
         "name": "Warglaives of Azzinoth",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "After attacking a minion, your hero may attack again.",
         "type": "WEAPON"
     },
@@ -17435,7 +17435,7 @@
         ],
         "name": "Mistress of Mixtures",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Deathrattle:</b> Restore #4 Health to each hero.",
         "type": "MINION"
     },
@@ -17458,7 +17458,7 @@
         "name": "Drakonid Operative",
         "race": "DRAGON",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "text": "[x]<b>Battlecry:</b> If you're holding\na Dragon, <b>Discover</b> a\ncopy of a card in your\nopponent's deck.",
         "type": "MINION"
     },
@@ -17480,7 +17480,7 @@
         "name": "Abyssal Enforcer",
         "race": "DEMON",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> Deal 3 damage to all other characters.",
         "type": "MINION"
     },
@@ -17587,7 +17587,7 @@
         ],
         "name": "Blizzard",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "FROST",
         "text": "Deal $2 damage to all enemy minions and <b>Freeze</b> them.",
         "type": "SPELL"
@@ -17644,7 +17644,7 @@
         "name": "Water Elemental",
         "race": "ELEMENTAL",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Freeze</b> any character damaged by this minion.",
         "type": "MINION"
     },
@@ -17663,7 +17663,7 @@
         "referencedTags": [
             "WINDFURY"
         ],
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "spellSchool": "NATURE",
         "text": "Give a minion <b>Windfury</b>.",
         "type": "SPELL"
@@ -17720,7 +17720,7 @@
         "id": "CORE_CS2_046",
         "name": "Bloodlust",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Give your minions +3 Attack this turn.",
         "type": "SPELL"
     },
@@ -17736,7 +17736,7 @@
         "id": "CORE_CS2_053",
         "name": "Far Sight",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "Draw a card. That card costs (3) less.",
         "type": "SPELL"
     },
@@ -17775,7 +17775,7 @@
         "name": "Dread Infernal",
         "race": "DEMON",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> Deal 1 damage to ALL other characters.",
         "type": "MINION"
     },
@@ -17797,7 +17797,7 @@
         "name": "Voidwalker",
         "race": "DEMON",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
@@ -17937,7 +17937,7 @@
         ],
         "name": "Guardian of Kings",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Taunt</b>\n<b>Battlecry:</b> Restore #6 Health to your hero.",
         "type": "MINION"
     },
@@ -17953,7 +17953,7 @@
         "id": "CORE_CS2_089",
         "name": "Holy Light",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "spellSchool": "HOLY",
         "text": "Restore #8 Health to your hero.",
         "type": "SPELL"
@@ -18063,7 +18063,7 @@
         ],
         "name": "Earthen Ring Farseer",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "targetingArrowText": "Restore 3 Health.",
         "text": "<b>Battlecry:</b> Restore #3 Health.",
         "type": "MINION"
@@ -18083,7 +18083,7 @@
         "name": "River Crocolisk",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "type": "MINION"
     },
     {
@@ -18170,7 +18170,7 @@
         ],
         "name": "Injured Blademaster",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> Deal 4 damage to HIMSELF.",
         "type": "MINION"
     },
@@ -18303,7 +18303,7 @@
         ],
         "name": "Northshire Cleric",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Whenever a minion is healed, draw a card.",
         "type": "MINION"
     },
@@ -18319,7 +18319,7 @@
         "id": "CORE_CS3_002",
         "name": "Ritual of Doom",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "spellSchool": "SHADOW",
         "text": "Destroy a friendly minion. If you had 5 or more, summon a\n5/5 Demon.",
         "type": "SPELL"
@@ -18336,7 +18336,7 @@
         "id": "CORE_CS3_009",
         "name": "War Cache",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Add a random Warrior minion, spell, and weapon to your hand.",
         "type": "SPELL"
     },
@@ -18357,7 +18357,7 @@
         ],
         "name": "Nordrassil Druid",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> The next spell you cast this turn costs (3) less.",
         "type": "MINION"
     },
@@ -18378,7 +18378,7 @@
         ],
         "name": "Crimson Clergy",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "After a friendly character is healed, gain +1 Attack.",
         "type": "MINION"
     },
@@ -18400,7 +18400,7 @@
         "name": "Enslaved Fel Lord",
         "race": "DEMON",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Taunt</b>. Also damages the minions next to whomever this attacks.",
         "type": "MINION"
     },
@@ -18416,7 +18416,7 @@
         "id": "CORE_CS3_029",
         "name": "Pursuit of Justice",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "spellSchool": "HOLY",
         "text": "Give +1 Attack to Silver Hand Recruits you summon this game.",
         "type": "SPELL"
@@ -18438,7 +18438,7 @@
         ],
         "name": "Warsong Outrider",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Rush</b>",
         "type": "MINION"
     },
@@ -18481,7 +18481,7 @@
         ],
         "name": "Marked Shot",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Deal $4 damage to a minion. <b>Discover</b> a spell.",
         "type": "SPELL"
     },
@@ -18504,7 +18504,7 @@
         "name": "Hench-Clan Burglar",
         "race": "PIRATE",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> <b>Discover</b> a spell from another class.",
         "type": "MINION"
     },
@@ -18529,7 +18529,7 @@
         "name": "Kalecgos",
         "race": "DRAGON",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "Your first spell each\nturn costs (0).\n<b>Battlecry:</b> <b>Discover</b>\na spell.",
         "type": "MINION"
     },
@@ -18552,7 +18552,7 @@
         "name": "Murozond the Infinite",
         "race": "DRAGON",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> Play all cards your opponent played last turn.",
         "type": "MINION"
     },
@@ -18574,7 +18574,7 @@
         "name": "Amber Watcher",
         "race": "DRAGON",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "targetingArrowText": "Restore 8 Health.",
         "text": "<b>Battlecry:</b> Restore #8 Health.",
         "type": "MINION"
@@ -18656,7 +18656,7 @@
         ],
         "name": "Young Priestess",
         "rarity": "RARE",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "At the end of your turn, give another random friendly minion +1 Health.",
         "type": "MINION"
     },
@@ -18699,7 +18699,7 @@
         ],
         "name": "Acolyte of Pain",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Whenever this minion takes damage, draw a card.",
         "type": "MINION"
     },
@@ -18721,7 +18721,7 @@
         ],
         "name": "Argent Squire",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Divine Shield</b>",
         "type": "MINION"
     },
@@ -18813,7 +18813,7 @@
         "name": "King Mukla",
         "race": "BEAST",
         "rarity": "LEGENDARY",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> Give your opponent 2 Bananas.",
         "type": "MINION"
     },
@@ -18881,7 +18881,7 @@
         "name": "Twilight Drake",
         "race": "DRAGON",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> Gain +1 Health for each card in your hand.",
         "type": "MINION"
     },
@@ -19017,7 +19017,7 @@
         "referencedTags": [
             "RUSH"
         ],
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "After you summon another minion, give it <b>Rush</b>.",
         "type": "MINION"
     },
@@ -19222,7 +19222,7 @@
         ],
         "name": "Wrath",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "NATURE",
         "text": "<b>Choose One -</b>\nDeal $3 damage to a minion; or $1 damage\nand draw a card.",
         "type": "SPELL"
@@ -19373,7 +19373,7 @@
         "referencedTags": [
             "TAUNT"
         ],
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Choose One -</b>\n+5 Attack; or +5 Health and <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -19440,7 +19440,7 @@
         ],
         "name": "Barrens Stablehand",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> Summon a random Beast.",
         "type": "MINION"
     },
@@ -19463,7 +19463,7 @@
         "name": "Brightwing",
         "race": "DRAGON",
         "rarity": "LEGENDARY",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> Add a random <b>Legendary</b> minion to your hand.",
         "type": "MINION"
     },
@@ -19485,7 +19485,7 @@
         ],
         "name": "High Inquisitor Whitemane",
         "rarity": "LEGENDARY",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Battlecry:</b> Summon all friendly minions that died this turn.",
         "type": "MINION"
     },
@@ -19584,7 +19584,7 @@
         ],
         "name": "Natalie Seline",
         "rarity": "LEGENDARY",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "targetingArrowText": "Destroy a minion.",
         "text": "<b>Battlecry:</b> Destroy a minion and gain its Health.",
         "type": "MINION"
@@ -19696,7 +19696,7 @@
         "overload": 2,
         "race": "ELEMENTAL",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Taunt</b>\n<b><b>Overload</b>:</b> (2)",
         "type": "MINION"
     },
@@ -19721,7 +19721,7 @@
         "referencedTags": [
             "OVERLOAD"
         ],
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "After you play a card with <b>Overload</b>, gain +1/+1.",
         "type": "MINION"
     },
@@ -19778,7 +19778,7 @@
         "id": "CORE_EX1_279",
         "name": "Pyroblast",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "FIRE",
         "text": "Deal $10 damage.",
         "type": "SPELL"
@@ -19802,7 +19802,7 @@
         "name": "Azure Drake",
         "race": "DRAGON",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "spellDamage": 1,
         "text": "<b>Spell Damage +1</b>\n<b>Battlecry:</b> Draw a card.",
         "type": "MINION"
@@ -19865,7 +19865,7 @@
         ],
         "name": "Mirror Entity",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "spellSchool": "ARCANE",
         "text": "<b>Secret:</b> After your opponent plays a minion, summon a copy of it.",
         "type": "SPELL"
@@ -20002,7 +20002,7 @@
         "name": "Lightspawn",
         "race": "ELEMENTAL",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "This minion's Attack is always equal to its Health.",
         "type": "MINION"
     },
@@ -20110,7 +20110,7 @@
         ],
         "name": "Gurubashi Berserker",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Whenever this minion takes damage, gain +3 Attack.",
         "type": "MINION"
     },
@@ -20268,7 +20268,7 @@
         "name": "Murloc Warleader",
         "race": "MURLOC",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "techLevel": 2,
         "text": "Your other Murlocs have +2 Attack.",
         "type": "MINION"
@@ -20313,7 +20313,7 @@
         ],
         "name": "Patient Assassin",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Stealth</b>\n <b>Poisonous</b>",
         "type": "MINION"
     },
@@ -20335,7 +20335,7 @@
         "name": "Scavenging Hyena",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Whenever a friendly Beast dies, gain +2/+1.",
         "type": "MINION"
     },
@@ -20445,7 +20445,7 @@
         "name": "Flametongue Totem",
         "race": "TOTEM",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Adjacent minions have +2 Attack.",
         "type": "MINION"
     },
@@ -20550,7 +20550,7 @@
         "id": "CORE_EX1_586",
         "name": "Sea Giant",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "Costs (1) less for each other minion on the battlefield.",
         "type": "MINION"
     },
@@ -20609,7 +20609,7 @@
         "id": "CORE_EX1_606",
         "name": "Shield Block",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Gain 5 Armor.\nDraw a card.",
         "type": "SPELL"
     },
@@ -20720,7 +20720,7 @@
         ],
         "name": "Temple Enforcer",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "targetingArrowText": "Give +3 Health.",
         "text": "<b>Battlecry:</b> Give a friendly minion +3 Health.",
         "type": "MINION"
@@ -20737,7 +20737,7 @@
         "id": "CORE_EX1_625",
         "name": "Shadowform",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "spellSchool": "SHADOW",
         "text": "Your Hero Power becomes 'Deal 2 damage.'",
         "type": "SPELL"
@@ -20781,7 +20781,7 @@
         "name": "Webspinner",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Deathrattle:</b> Add a random Beast card to your hand.",
         "type": "MINION"
     },
@@ -20826,7 +20826,7 @@
         "referencedTags": [
             "DEATHRATTLE"
         ],
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Your minions trigger their <b>Deathrattles</b> twice.",
         "type": "MINION"
     },
@@ -20847,7 +20847,7 @@
         ],
         "name": "Mossy Horror",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> Destroy all other minions with 2 or less Attack.",
         "type": "MINION"
     },
@@ -20909,7 +20909,7 @@
         ],
         "name": "Tess Greymane",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "[x]<b>Battlecry:</b> Replay every card\nfrom another class you've\nplayed this game <i>(targets\nchosen randomly)</i>.",
         "type": "MINION"
     },
@@ -20931,7 +20931,7 @@
         "name": "Lifedrinker",
         "race": "BEAST",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "text": "[x]<b>Battlecry:</b> Deal 3 damage to\nthe enemy hero. Restore\n#3 Health to your hero.",
         "type": "MINION"
     },
@@ -20956,7 +20956,7 @@
         "referencedTags": [
             "RUSH"
         ],
-        "set": 1810,
+        "set": "CORE",
         "text": "Your other minions have\n<b>Rush</b>.",
         "type": "MINION"
     },
@@ -21011,7 +21011,7 @@
         ],
         "name": "Lightbomb",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "HOLY",
         "text": "Deal damage to each minion equal to its Attack.",
         "type": "SPELL"
@@ -21030,7 +21030,7 @@
         "id": "CORE_GVG_013",
         "name": "Cogmaster",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Has +2 Attack while you have a Mech.",
         "type": "MINION"
     },
@@ -21049,7 +21049,7 @@
         "name": "Spider Tank",
         "race": "MECHANICAL",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "type": "MINION"
     },
     {
@@ -21137,7 +21137,7 @@
         ],
         "name": "Mini-Mage",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "spellDamage": 1,
         "text": "<b>Stealth</b>\n<b>Spell Damage +1</b>",
         "type": "MINION"
@@ -21157,7 +21157,7 @@
         "name": "Clockwork Giant",
         "race": "MECHANICAL",
         "rarity": "EPIC",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Costs (1) less for each card in your opponent's hand.",
         "type": "MINION"
     },
@@ -21201,7 +21201,7 @@
         "name": "Cobalt Scalebane",
         "race": "DRAGON",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "At the end of your turn, give another random friendly minion +3 Attack.",
         "type": "MINION"
     },
@@ -21268,7 +21268,7 @@
         "name": "Bearshark",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Can't be targeted by spells or Hero Powers.",
         "type": "MINION"
     },
@@ -21314,7 +21314,7 @@
         "referencedTags": [
             "SECRET"
         ],
-        "set": 1810,
+        "set": "CORE",
         "text": "Your <b>Secrets</b> cost (0).",
         "type": "MINION"
     },
@@ -21357,7 +21357,7 @@
         "name": "Arcane Anomaly",
         "race": "ELEMENTAL",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "After you cast a spell, give this minion +1 Health.",
         "type": "MINION"
     },
@@ -21378,7 +21378,7 @@
         ],
         "name": "Menagerie Warden",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "targetingArrowText": "Summon a copy.",
         "text": "<b>Battlecry:</b> Choose a friendly Beast. Summon a copy of it.",
         "type": "MINION"
@@ -21417,7 +21417,7 @@
         "id": "CORE_KAR_073",
         "name": "Maelstrom Portal",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "NATURE",
         "text": "Deal $1 damage to all enemy minions. Summon a random\n1-Cost minion.",
         "type": "SPELL"
@@ -21437,7 +21437,7 @@
         "name": "Enchanted Raven",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "type": "MINION"
     },
     {
@@ -21480,7 +21480,7 @@
         ],
         "name": "Reno Jackson",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> If your deck has no duplicates, fully heal your hero.",
         "type": "MINION"
     },
@@ -21524,7 +21524,7 @@
         "name": "Gorillabot A-3",
         "race": "MECHANICAL",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> If you control another Mech, <b>Discover</b> a Mech.",
         "type": "MINION"
     },
@@ -21546,7 +21546,7 @@
         "name": "Mounted Raptor",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Deathrattle:</b> Summon a random 1-Cost minion.",
         "type": "MINION"
     },
@@ -21570,7 +21570,7 @@
         "name": "Sir Finley Mrrgglton",
         "race": "MURLOC",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b><b>Battlecry:</b> Discover</b> a new basic Hero Power.",
         "type": "MINION"
     },
@@ -21597,7 +21597,7 @@
         "referencedTags": [
             "BATTLECRY"
         ],
-        "set": 1810,
+        "set": "CORE",
         "techLevel": 5,
         "text": "Your <b>Battlecries</b> trigger twice.",
         "type": "MINION"
@@ -21620,7 +21620,7 @@
         ],
         "name": "Elise Starseeker",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> Shuffle the 'Map to the Golden Monkey'   into your deck.",
         "type": "MINION"
     },
@@ -21658,7 +21658,7 @@
         ],
         "name": "Explosive Runes",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "FIRE",
         "text": "<b>Secret:</b> After your opponent plays a minion, deal $6 damage to it and any excess to their hero.",
         "type": "SPELL"
@@ -21707,7 +21707,7 @@
         "name": "Stoneskin Basilisk",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Divine Shield</b>\n <b>Poisonous</b>",
         "type": "MINION"
     },
@@ -21750,7 +21750,7 @@
         "referencedTags": [
             "IMMUNE"
         ],
-        "set": 1810,
+        "set": "CORE",
         "text": "Your hero is <b>Immune</b> while attacking.",
         "type": "WEAPON"
     },
@@ -21772,7 +21772,7 @@
         "name": "Plated Beetle",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Deathrattle:</b> Gain 3 Armor.",
         "type": "MINION"
     },
@@ -21795,7 +21795,7 @@
         "name": "Zola the Gorgon",
         "race": "NAGA",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "targetingArrowText": "Add a Golden copy to your hand.",
         "text": "<b>Battlecry:</b> Choose a friendly minion. Add a Golden copy of it to your hand.",
         "type": "MINION"
@@ -21817,7 +21817,7 @@
         ],
         "name": "Ancient of Lore",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Choose One -</b> Draw 2 cards; or Restore #5 Health.",
         "type": "MINION"
     },
@@ -21886,7 +21886,7 @@
         ],
         "name": "Wild Pyromancer",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "text": "After you cast a spell, deal 1 damage to ALL minions.",
         "type": "MINION"
     },
@@ -21907,7 +21907,7 @@
         ],
         "name": "Doomsayer",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "At the start of your turn, destroy ALL minions.",
         "type": "MINION"
     },
@@ -21930,7 +21930,7 @@
         "name": "Faerie Dragon",
         "race": "DRAGON",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Can't be targeted by spells or Hero Powers.",
         "type": "MINION"
     },
@@ -21989,7 +21989,7 @@
         "id": "CORE_NEW1_031",
         "name": "Animal Companion",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Summon a random Beast Companion.",
         "type": "SPELL"
     },
@@ -22011,7 +22011,7 @@
         ],
         "name": "Fandral Staghelm",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "Your <b>Choose One</b> cards and powers have both effects combined.",
         "type": "MINION"
     },
@@ -22051,7 +22051,7 @@
         ],
         "name": "Bladed Cultist",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Combo:</b> Gain +1/+1.",
         "type": "MINION"
     },
@@ -22073,7 +22073,7 @@
         ],
         "name": "Darkshire Librarian",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b>\nDiscard a random card. <b>Deathrattle:</b>\nDraw a card.",
         "type": "MINION"
     },
@@ -22095,7 +22095,7 @@
         ],
         "name": "Bloodhoof Brave",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Taunt</b>\nHas +3 Attack while damaged.",
         "type": "MINION"
     },
@@ -22118,7 +22118,7 @@
         "name": "Ragnaros, Lightlord",
         "race": "ELEMENTAL",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "At the end of your turn, restore #8 Health to a damaged friendly character.",
         "type": "MINION"
     },
@@ -22139,7 +22139,7 @@
         ],
         "name": "Possessed Villager",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "<b>Deathrattle:</b> Summon a 1/1 Shadowbeast.",
         "type": "MINION"
     },
@@ -22176,7 +22176,7 @@
         ],
         "name": "Headhunter's Hatchet",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "[x]<b>Battlecry:</b> If you\ncontrol a Beast, gain\n+1 Durability.",
         "type": "WEAPON"
     },
@@ -22216,7 +22216,7 @@
         ],
         "name": "High Priestess Jeklik",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "[x]<b>Taunt</b>, <b>Lifesteal</b>\nWhen you discard this,\nadd 2 copies of it to\nyour hand.",
         "type": "MINION"
     },
@@ -22232,7 +22232,7 @@
         "id": "CORE_TRL_307",
         "name": "Flash of Light",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "HOLY",
         "text": "Restore #4 Health.\nDraw a card.",
         "type": "SPELL"
@@ -22254,7 +22254,7 @@
         ],
         "name": "Pyromaniac",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "text": "Whenever your Hero Power kills a minion, draw a card.",
         "type": "MINION"
     },
@@ -22277,7 +22277,7 @@
         "name": "Krag'wa, the Frog",
         "race": "BEAST",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry:</b> Return all spells you played last turn to your hand.",
         "type": "MINION"
     },
@@ -22300,7 +22300,7 @@
         "name": "Springpaw",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "[x]<b>Rush</b>\n<b>Battlecry:</b> Add a 1/1 Lynx\nwith <b>Rush</b> to your hand.",
         "type": "MINION"
     },
@@ -22321,7 +22321,7 @@
         ],
         "name": "Flesheating Ghoul",
         "rarity": "COMMON",
-        "set": "CORE",
+        "set": "PLACEHOLDER_202204",
         "text": "Whenever a minion dies, gain +1 Attack.",
         "type": "MINION"
     },
@@ -22342,7 +22342,7 @@
         ],
         "name": "Beaming Sidekick",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "targetingArrowText": "Give +2 Health.",
         "text": "<b>Battlecry:</b> Give a friendly minion +2 Health.",
         "type": "MINION"
@@ -22365,7 +22365,7 @@
         ],
         "name": "Vulpera Scoundrel",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Battlecry</b>: <b>Discover</b> a spell or pick a mystery choice.",
         "type": "MINION"
     },
@@ -22387,7 +22387,7 @@
         ],
         "name": "Injured Tol'vir",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Taunt</b>\n<b>Battlecry:</b> Deal 3 damage to this minion.",
         "type": "MINION"
     },
@@ -22433,7 +22433,7 @@
         "name": "Radiant Elemental",
         "race": "ELEMENTAL",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "Your spells cost (1) less.",
         "type": "MINION"
     },
@@ -22449,7 +22449,7 @@
         "id": "CORE_UNG_108",
         "name": "Earthen Scales",
         "rarity": "RARE",
-        "set": 1810,
+        "set": "CORE",
         "spellSchool": "NATURE",
         "targetingArrowText": "Give +1/+1.",
         "text": "Give a friendly minion +1/+1, then gain Armor equal to its Attack.",
@@ -22561,7 +22561,7 @@
         "name": "Primordial Drake",
         "race": "DRAGON",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Deal 2 damage\nto all other minions.",
         "type": "MINION"
     },
@@ -22583,7 +22583,7 @@
         "name": "Tar Creeper",
         "race": "ELEMENTAL",
         "rarity": "COMMON",
-        "set": 1810,
+        "set": "CORE",
         "text": "<b>Taunt</b>\nHas +2 Attack during your opponent's turn.",
         "type": "MINION"
     },
@@ -22606,7 +22606,7 @@
         "name": "Lyra the Sunshard",
         "race": "ELEMENTAL",
         "rarity": "LEGENDARY",
-        "set": 1810,
+        "set": "CORE",
         "text": "Whenever you cast a spell, add a random Priest spell to your hand.",
         "type": "MINION"
     },
@@ -22629,7 +22629,7 @@
         "name": "Escaped Manasaber",
         "race": "BEAST",
         "rarity": "EPIC",
-        "set": 1810,
+        "set": "CORE",
         "text": "[x]<b>Stealth</b>\nWhenever this attacks,\ngain 1 Mana Crystal\nthis turn only.",
         "type": "MINION"
     },
