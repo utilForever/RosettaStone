@@ -2893,25 +2893,6 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
         }));
     cards.emplace("CORE_BT_427", CardDef(power));
 
-    // ----------------------------------- WEAPON - DEMONHUNTER
-    // [CORE_BT_430] Warglaives of Azzinoth - COST:5
-    // - Set: CORE, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: After attacking a minion, your hero may attack again.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TRIGGER_VISUAL = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->conditions =
-        SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsEventTargetIs(CardType::MINION)) };
-    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
-        EntityType::HERO, GameTag::EXHAUSTED, 0) };
-    cards.emplace("CORE_BT_430", CardDef(power));
-
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]
     // - Set: CORE, Rarity: Common
