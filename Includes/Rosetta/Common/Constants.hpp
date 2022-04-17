@@ -36,7 +36,7 @@ constexpr std::array<CardSet, 8> STANDARD_CARD_SETS = {
 };
 
 //! Specifies which card sets combine into the WILD set.
-constexpr std::array<CardSet, 30> WILD_CARD_SETS = {
+constexpr std::array<CardSet, 31> WILD_CARD_SETS = {
     CardSet::EXPERT1,                // Classic, 2014
     CardSet::LEGACY,                 // Legacy, 2021
     CardSet::NAXX,                   // Curse of Naxxramas, 2014
@@ -65,6 +65,7 @@ constexpr std::array<CardSet, 30> WILD_CARD_SETS = {
     CardSet::STORMWIND,              // United in Stormwind, 2021
     CardSet::ALTERAC_VALLEY,         // Fractured in Alterac Valley, 2021
     CardSet::THE_SUNKEN_CITY,        // Voyage to the Sunken City, 2022
+    CardSet::PLACEHOLDER_202204,     // Placeholder between 2020.04 and 2022.04
 };
 
 //! Specifies which card sets combine into the CLASSIC set.
