@@ -8060,22 +8060,6 @@ TEST_CASE("[Demon Hunter : Minion] - CORE_BT_416 : Raging Felscreamer")
     CHECK_EQ(card5->GetCost(), 5);
 }
 
-// ----------------------------------- MINION - DEMONHUNTER
-// [CORE_BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
-// - Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b>Lifesteal</b>
-// --------------------------------------------------------
-// GameTag:
-// - LIFESTEAL = 1
-// - TAUNT = 1
-// --------------------------------------------------------
-TEST_CASE("[Demon Hunter : Minion] - CORE_BT_423 : Ashtongue Battlelord")
-{
-    // Do nothing
-}
-
 // ------------------------------------ SPELL - DEMONHUNTER
 // [CORE_BT_427] Feast of Souls - COST:1
 // - Set: CORE, Rarity: Rare

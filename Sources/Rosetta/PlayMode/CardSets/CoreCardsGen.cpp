@@ -2858,21 +2858,6 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
         std::make_shared<AddEnchantmentTask>("BT_416e", EntityType::SOURCE));
     cards.emplace("CORE_BT_416", CardDef(power));
 
-    // ----------------------------------- MINION - DEMONHUNTER
-    // [CORE_BT_423] Ashtongue Battlelord - COST:4 [ATK:3/HP:5]
-    // - Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    //       <b>Lifesteal</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - LIFESTEAL = 1
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_BT_423", CardDef(power));
-
     // ------------------------------------ SPELL - DEMONHUNTER
     // [CORE_BT_427] Feast of Souls - COST:2
     // - Set: CORE, Rarity: Rare
