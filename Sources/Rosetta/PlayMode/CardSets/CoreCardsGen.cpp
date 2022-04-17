@@ -1071,19 +1071,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
     cards.emplace("CORE_EX1_197", CardDef(power));
 
-    // ---------------------------------------- MINION - PRIEST
-    // [CORE_EX1_335] Lightspawn - COST:3 [ATK:0/HP:4]
-    // - Race: Elemental, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: This minion's Attack is always equal to its Health.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
-            return dynamic_cast<Minion*>(playable)->GetHealth();
-        }));
-    cards.emplace("CORE_EX1_335", CardDef(power));
-
     // ----------------------------------------- SPELL - PRIEST
     // [CORE_EX1_622] Shadow Word: Death - COST:2
     // - Set: CORE, Rarity: Common
