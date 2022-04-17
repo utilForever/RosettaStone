@@ -3261,57 +3261,6 @@ TEST_CASE("[Priest : Minion] - CORE_EX1_623 : Temple Enforcer")
     CHECK_EQ(curField[1]->GetHealth(), 6);
 }
 
-// ----------------------------------------- SPELL - PRIEST
-// [CORE_EX1_625] Shadowform - COST:2
-// - Set: CORE, Rarity: Epic
-// - Spell School: Shadow
-// --------------------------------------------------------
-// Text: Your Hero Power becomes 'Deal 2 damage.'
-// --------------------------------------------------------
-TEST_CASE("[Priest : Spell] - CORE_EX1_625 : Shadowform")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    Hero* opHero = opPlayer->GetHero();
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 29);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 27);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
-    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
-
-    game.Process(curPlayer, HeroPowerTask(opHero));
-    CHECK_EQ(opHero->GetHealth(), 25);
-}
-
 // ---------------------------------------- MINION - PRIEST
 // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
 // - Set: CORE, Rarity: Common

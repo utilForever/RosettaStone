@@ -1127,17 +1127,6 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 },
                                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
-    // ----------------------------------------- SPELL - PRIEST
-    // [CORE_EX1_625] Shadowform - COST:2
-    // - Set: CORE, Rarity: Epic
-    // - Spell School: Shadow
-    // --------------------------------------------------------
-    // Text: Your Hero Power becomes 'Deal 2 damage.'
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ChangeHeroPowerTask>("EX1_625t"));
-    cards.emplace("CORE_EX1_625", CardDef(power));
-
     // ---------------------------------------- MINION - PRIEST
     // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
     // - Set: CORE, Rarity: Common
