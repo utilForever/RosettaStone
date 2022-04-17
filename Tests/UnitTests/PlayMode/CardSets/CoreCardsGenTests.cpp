@@ -2066,48 +2066,6 @@ TEST_CASE("[Paladin : Minion] - CORE_AT_075 : Warhorse Trainer")
     CHECK_EQ(curField[1]->GetAttack(), 1);
 }
 
-// --------------------------------------- MINION - PALADIN
-// [CORE_CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:7]
-// - Set: CORE, Rarity: Rare
-// --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b>Battlecry:</b> Restore 6 Health to your hero.
-// --------------------------------------------------------
-// GameTag:
-// - BATTLECRY = 1
-// - TAUNT = 1
-// --------------------------------------------------------
-TEST_CASE("[Paladin : Minion] - CORE_CS2_088 : Guardian of Kings")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::PALADIN;
-    config.player2Class = CardClass::DRUID;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Guardian of Kings"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->HasTaunt(), true);
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
-}
-
 // ---------------------------------------- SPELL - PALADIN
 // [CORE_CS2_092] Blessing of Kings - COST:4
 // - Set: CORE, Rarity: Common

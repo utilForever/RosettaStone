@@ -715,21 +715,6 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     }
     cards.emplace("CORE_AT_075", CardDef(power));
 
-    // --------------------------------------- MINION - PALADIN
-    // [CORE_CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:7]
-    // - Set: CORE, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: <b>Taunt</b>
-    //       <b>Battlecry:</b> Restore 6 Health to your hero.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // - TAUNT = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 6));
-    cards.emplace("CORE_CS2_088", CardDef(power));
-
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_CS2_092] Blessing of Kings - COST:4
     // - Set: CORE, Rarity: Common
