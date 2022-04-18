@@ -1428,28 +1428,6 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
     cards.emplace("CORE_BOT_533", CardDef(power));
 
-    // ----------------------------------------- SPELL - SHAMAN
-    // [CORE_CS2_039] Windfury - COST:2
-    // - Set: CORE, Rarity: Common
-    // - Spell School: Nature
-    // --------------------------------------------------------
-    // Text: Give a minion <b>Windfury</b>.
-    // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
-    // RefTag:
-    // - WINDFURY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::WINDFURY, 1));
-    cards.emplace(
-        "CORE_CS2_039",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
-
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_CS2_042] Fire Elemental - COST:6 [ATK:6/HP:5]
     // - Race: Elemental, Set: CORE, Rarity: Common
