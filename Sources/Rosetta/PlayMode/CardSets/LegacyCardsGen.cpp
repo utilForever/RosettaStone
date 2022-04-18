@@ -2333,6 +2333,36 @@ void LegacyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_065", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
+    // [CS3_002] Ritual of Doom - COST:0
+    // - Set: Legacy, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy a friendly minion.
+    //       If you had 5 or more, summon a 5/5 Demon.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(5, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET),
+                        std::make_shared<SummonTask>("CS3_002t",
+                                                     SummonSide::TARGET) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
+    cards.emplace(
+        "CS3_002",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // ---------------------------------------- SPELL - WARLOCK
     // [EX1_302] Mortal Coil - COST:1
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // - Spell School: Shadow
