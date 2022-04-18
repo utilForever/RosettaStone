@@ -1528,27 +1528,6 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
         "CORE_EX1_248",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
-    // ---------------------------------------- MINION - SHAMAN
-    // [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
-    // - Race: Elemental, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: After you play a card with <b>Overload</b>, gain +1/+1.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TRIGGER_VISUAL = 1
-    // --------------------------------------------------------
-    // RefTag:
-    // - OVERLOAD = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->conditions = SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard())
-    };
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-        "EX1_258e", EntityType::SOURCE) };
-    cards.emplace("CORE_EX1_258", CardDef(power));
-
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_259] Lightning Storm - COST:3
     // - Set: CORE, Rarity: Rare

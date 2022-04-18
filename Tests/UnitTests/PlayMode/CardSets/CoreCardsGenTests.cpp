@@ -4334,67 +4334,6 @@ TEST_CASE("[Shaman : Spell] - CORE_EX1_248 : Feral Spirit")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
-// ---------------------------------------- MINION - SHAMAN
-// [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
-// - Race: Elemental, Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: After you play a card with <b>Overload</b>, gain +1/+1.
-// --------------------------------------------------------
-// GameTag:
-// - TRIGGER_VISUAL = 1
-// --------------------------------------------------------
-// RefTag:
-// - OVERLOAD = 1
-// --------------------------------------------------------
-TEST_CASE("[Shaman : Minion] - CORE_EX1_258 : Unbound Elemental")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::SHAMAN;
-    config.player2Class = CardClass::WARLOCK;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Unbound Elemental"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Earth Elemental"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Spirit"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[0]->GetHealth(), 4);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetAttack(), 4);
-    CHECK_EQ(curField[0]->GetHealth(), 5);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card3));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 6);
-}
-
 // ----------------------------------------- SPELL - SHAMAN
 // [CORE_EX1_259] Lightning Storm - COST:3
 // - Set: CORE, Rarity: Rare
