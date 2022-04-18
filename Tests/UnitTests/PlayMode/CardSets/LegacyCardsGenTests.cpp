@@ -5103,6 +5103,75 @@ TEST_CASE("[Warlock : Minion] - CS3_002 : Ritual of Doom")
     CHECK_EQ(curField[0]->GetHealth(), 5);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [CS3_021] Enslaved Fel Lord - COST:7 [ATK:4/HP:10]
+// - Race: Demon, Set: Legacy, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>. Also damages the minions next to
+//       whomever this attacks.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - CS3_021 : Enslaved Fel Lord")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Enslaved Fel Lord"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Argent Squire"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Stranglethorn Tiger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[1]->HasDivineShield(), true);
+    CHECK_EQ(opField[2]->HasStealth(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card3));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->HasDivineShield(), false);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[2]->HasStealth(), true);
+    CHECK_EQ(opField[2]->GetHealth(), 1);
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [EX1_302] Mortal Coil - COST:1
 // - Faction: Neutral, Set: Legacy, Rarity: Free

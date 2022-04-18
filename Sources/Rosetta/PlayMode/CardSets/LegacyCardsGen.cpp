@@ -2362,6 +2362,40 @@ void LegacyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
+    // --------------------------------------- MINION - WARLOCK
+    // [CS3_021] Enslaved Fel Lord - COST:7 [ATK:4/HP:10]
+    // - Race: Demon, Set: Legacy, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>. Also damages the minions next to
+    //       whomever this attacks.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = {
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            const auto target = dynamic_cast<Minion*>(
+                playable->game->currentEventData->eventTarget);
+            if (target == nullptr)
+            {
+                return 0;
+            }
+
+            auto& taskStack = playable->game->taskStack;
+            for (auto& minion : target->GetAdjacentMinions())
+            {
+                taskStack.playables.emplace_back(minion);
+            }
+
+            return dynamic_cast<Minion*>(playable)->GetAttack();
+        }),
+        std::make_shared<DamageNumberTask>(EntityType::STACK)
+    };
+    cards.emplace("CS3_021", CardDef(power));
+
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_302] Mortal Coil - COST:1
     // - Faction: Neutral, Set: Legacy, Rarity: Free
