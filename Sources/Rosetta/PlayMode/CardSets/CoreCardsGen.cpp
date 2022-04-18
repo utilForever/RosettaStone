@@ -1414,24 +1414,6 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     Power power;
 
     // ---------------------------------------- MINION - SHAMAN
-    // [CORE_AT_047] Draenei Totemcarver - COST:4 [ATK:4/HP:5]
-    // - Set: CORE, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1/+1 for each friendly Totem.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
-    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "AT_047e", EntityType::SOURCE, true));
-    cards.emplace("CORE_AT_047", CardDef(power));
-
-    // ---------------------------------------- MINION - SHAMAN
     // [CORE_BOT_533] Menacing Nimbus - COST:2 [ATK:2/HP:2]
     // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
