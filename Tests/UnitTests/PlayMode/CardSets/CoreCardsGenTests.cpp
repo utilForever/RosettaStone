@@ -4447,65 +4447,6 @@ TEST_CASE("[Shaman : Spell] - CORE_EX1_248 : Feral Spirit")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
 }
 
-//----------------------------------------- MINION - SHAMAN
-// [CORE_EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
-// - Race: Elemental, Set: CORE, Rarity: Epic
-// --------------------------------------------------------
-// Text: <b>Taunt</b>
-//       <b><b>Overload</b>:</b> (2)
-// --------------------------------------------------------
-// GameTag:
-// - OVERLOAD = 2
-// - OVERLOAD_OWED = 2
-// - TAUNT = 1
-// --------------------------------------------------------
-TEST_CASE("[Shaman : Minion] - CORE_EX1_250 : Earth Elemental")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::SHAMAN;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Earth Elemental"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField[0]->HasTaunt(), true);
-    CHECK_EQ(curField[0]->GetAttack(), 7);
-    CHECK_EQ(curField[0]->GetHealth(), 8);
-
-    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
-    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
-    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
-    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
-    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
-}
-
 // ---------------------------------------- MINION - SHAMAN
 // [CORE_EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
 // - Race: Elemental, Set: CORE, Rarity: Common
