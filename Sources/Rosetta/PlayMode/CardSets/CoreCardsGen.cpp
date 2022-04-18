@@ -1667,19 +1667,6 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 3, true));
     cards.emplace("CORE_CS2_062", CardDef(power));
 
-    // --------------------------------------- MINION - WARLOCK
-    // [CORE_CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
-    // - Race: Demon, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 1 damage to all other characters.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::ALL, 1));
-    cards.emplace("CORE_CS2_064", CardDef(power));
-
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_302] Mortal Coil - COST:1
     // - Set: CORE, Rarity: Common

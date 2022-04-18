@@ -4717,55 +4717,6 @@ TEST_CASE("[Warlock : Spell] - CORE_CS2_062 : Hellfire")
     CHECK_EQ(opField[0]->GetHealth(), 4);
 }
 
-// --------------------------------------- MINION - WARLOCK
-// [CORE_CS2_064] Dread Infernal - COST:6 [ATK:6/HP:6]
-// - Race: Demon, Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Deal 1 damage to all other characters.
-// --------------------------------------------------------
-// GameTag:
-// - BATTLECRY = 1
-// --------------------------------------------------------
-TEST_CASE("[Warlock : Minion] - CORE_CS2_064 : Dread Infernal")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::SHAMAN;
-    config.player2Class = CardClass::WARLOCK;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boulderfist Ogre"));
-    const auto card2 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dread Infernal"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetHealth(), 7);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
-    CHECK_EQ(curField[0]->GetHealth(), 6);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
-}
-
 // ---------------------------------------- SPELL - WARLOCK
 // [CORE_EX1_302] Mortal Coil - COST:1
 // - Set: CORE, Rarity: Common
