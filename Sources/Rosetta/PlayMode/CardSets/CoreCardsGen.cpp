@@ -1818,20 +1818,6 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
 
     // --------------------------------------- MINION - WARLOCK
-    // [CORE_OG_241] Possessed Villager - COST:1 [ATK:1/HP:1]
-    // - Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> Summon a 1/1 Shadowbeast.
-    // --------------------------------------------------------
-    // GameTag:
-    // - DEATHRATTLE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
-        std::make_shared<SummonTask>("OG_241a", SummonSide::DEATHRATTLE));
-    cards.emplace("CORE_OG_241", CardDef(power));
-
-    // --------------------------------------- MINION - WARLOCK
     // [CORE_UNG_833] Lakkari Felhound - COST:4 [ATK:3/HP:8]
     // - Race: Demon, Set: CORE, Rarity: Common
     // --------------------------------------------------------
