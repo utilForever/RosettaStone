@@ -3138,18 +3138,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_GVG_085", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_GVG_121] Clockwork Giant - COST:12 [ATK:8/HP:8]
-    // - Race: Mechanical, Set: CORE, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: Costs (1) less for each card in your opponent's hand.
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        return playable->player->opponent->GetHandZone()->GetCount();
-    }));
-    cards.emplace("CORE_GVG_121", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_ICC_026] Grim Necromancer - COST:4 [ATK:2/HP:4]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------

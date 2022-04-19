@@ -8887,54 +8887,6 @@ TEST_CASE("[Neutral : Minion] - CORE_GVG_085 : Annoy-o-Tron")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CORE_GVG_121] Clockwork Giant - COST:12 [ATK:8/HP:8]
-// - Race: Mechanical, Set: CORE, Rarity: Epic
-// --------------------------------------------------------
-// Text: Costs (1) less for each card in your opponent's hand.
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - CORE_GVG_121 : Clockwork Giant")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::PALADIN;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Clockwork Giant"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spider Tank"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Violet Teacher"));
-
-    CHECK_EQ(card1->GetCost(), 6);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(card1->GetCost(), 6);
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    CHECK_EQ(card1->GetCost(), 5);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(card1->GetCost(), 6);
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [CORE_ICC_026] Grim Necromancer - COST:4 [ATK:2/HP:4]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
