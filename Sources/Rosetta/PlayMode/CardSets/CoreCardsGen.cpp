@@ -3150,26 +3150,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_FP1_007", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_FP1_031] Baron Rivendare - COST:4 [ATK:1/HP:7]
-    // - Set: CORE, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: Your minions trigger their <b>Deathrattles</b> twice.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - AURA = 1
-    // --------------------------------------------------------
-    // RefTag:
-    // - DEATHRATTLE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(
-        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
-                              GameTag::EXTRA_MINION_DEATHRATTLES_BASE,
-                              EffectOperator::SET, 1) }));
-    cards.emplace("CORE_FP1_031", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_013] Cogmaster - COST:1 [ATK:1/HP:2]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
