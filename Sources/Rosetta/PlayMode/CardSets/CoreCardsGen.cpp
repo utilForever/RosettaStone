@@ -2897,22 +2897,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_249", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_EX1_399] Gurubashi Berserker - COST:5 [ATK:2/HP:8]
-    // - Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: Whenever this minion takes damage, gain +3 Attack.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TRIGGER_VISUAL = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-        "EX1_399e", EntityType::SOURCE) };
-    cards.emplace("CORE_EX1_399", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
