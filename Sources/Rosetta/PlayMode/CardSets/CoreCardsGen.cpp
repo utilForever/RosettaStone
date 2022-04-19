@@ -2982,14 +2982,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_FP1_007", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
-    // - Race: Mechanical, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_GVG_044", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1]
     // - Race: Mechanical, Set: CORE, Rarity: Common
     // --------------------------------------------------------

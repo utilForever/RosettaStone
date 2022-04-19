@@ -8508,15 +8508,6 @@ TEST_CASE("[Neutral : Minion] - CORE_FP1_007 : Nerubian Egg")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CORE_GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
-// - Race: Mechanical, Set: CORE, Rarity: Common
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - CORE_GVG_044 : Spider Tank")
-{
-    // Do nothing
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [CORE_GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1]
 // - Race: Mechanical, Set: CORE, Rarity: Common
 // --------------------------------------------------------
