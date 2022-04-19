@@ -6739,66 +6739,6 @@ TEST_CASE("[Neutral : Minion] - CORE_AT_092 : Ice Rager")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CORE_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
-// - Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Restore 3 Health.
-// --------------------------------------------------------
-// GameTag:
-// - BATTLECRY = 1
-// --------------------------------------------------------
-// PlayReq:
-// - REQ_TARGET_IF_AVAILABLE = 0
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - CORE_CS2_117 : Earthen Ring Farseer")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::PALADIN;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-    curPlayer->GetHero()->SetDamage(10);
-
-    auto& opField = *(opPlayer->GetFieldZone());
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Earthen Ring Farseer"));
-    const auto card2 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Earthen Ring Farseer"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
-
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-    opField[0]->SetDamage(1);
-
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    game.Process(curPlayer,
-                 PlayCardTask::MinionTarget(card1, curPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
-
-    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card3));
-    CHECK_EQ(opField[0]->GetHealth(), 2);
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
