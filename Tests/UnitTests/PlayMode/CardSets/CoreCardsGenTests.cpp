@@ -5280,56 +5280,6 @@ TEST_CASE("[Warrior : Spell] - CORE_CS2_108 : Execute")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
-// --------------------------------------- MINION - WARRIOR
-// [CORE_EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
-// - Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: After you summon another minion, give it <b>Rush</b>.
-// --------------------------------------------------------
-// GameTag:
-// - AURA = 1
-// --------------------------------------------------------
-// RefTag:
-// - CHARGE = 1
-// --------------------------------------------------------
-TEST_CASE("[Warrior : Minion] - CORE_EX1_084 : Warsong Commander")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::WARRIOR;
-    config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Warsong Commander"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->HasRush(), false);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField[2]->HasRush(), true);
-}
-
 // ---------------------------------------- SPELL - WARRIOR
 // [CORE_EX1_391] Slam - COST:2
 // - Set: CORE, Rarity: Common

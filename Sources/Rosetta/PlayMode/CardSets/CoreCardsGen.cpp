@@ -1905,25 +1905,6 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_ENEMY_TARGET, 0 },
                                  { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
 
-    // --------------------------------------- MINION - WARRIOR
-    // [CORE_EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
-    // - Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: After you summon another minion, give it <b>Rush</b>.
-    // --------------------------------------------------------
-    // GameTag:
-    // - AURA = 1
-    // --------------------------------------------------------
-    // RefTag:
-    // - CHARGE = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-        "EX1_084e", EntityType::TARGET) };
-    cards.emplace("CORE_EX1_084", CardDef(power));
-
     // ---------------------------------------- SPELL - WARRIOR
     // [CORE_EX1_391] Slam - COST:2
     // - Set: CORE, Rarity: Common
