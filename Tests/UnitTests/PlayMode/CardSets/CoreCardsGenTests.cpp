@@ -5908,20 +5908,20 @@ TEST_CASE("[Warrior : Minion] - CS3_008 : Bloodsail Deckhand")
     CHECK_EQ(card2->GetCost(), 3);
     CHECK_EQ(card3->GetCost(), 3);
     CHECK_EQ(card4->GetCost(), 9);
-    CHECK_EQ(card5->GetCost(), 2);
+    CHECK_EQ(card5->GetCost(), 1);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curPlayer->GetRemainingMana(), 9);
     CHECK_EQ(card2->GetCost(), 2);
     CHECK_EQ(card3->GetCost(), 2);
     CHECK_EQ(card4->GetCost(), 9);
-    CHECK_EQ(card5->GetCost(), 2);
+    CHECK_EQ(card5->GetCost(), 1);
 
     game.Process(curPlayer, PlayCardTask::Weapon(card2));
     CHECK_EQ(curPlayer->GetRemainingMana(), 7);
     CHECK_EQ(card3->GetCost(), 3);
     CHECK_EQ(card4->GetCost(), 9);
-    CHECK_EQ(card5->GetCost(), 2);
+    CHECK_EQ(card5->GetCost(), 1);
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
