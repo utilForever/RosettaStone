@@ -2494,20 +2494,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_179", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
-    // - Faction: Horde, Set: CORE, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 4 damage to himself.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::SOURCE, 4, false));
-    cards.emplace("CORE_CS2_181", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_182] Chillwind Yeti - COST:4 [ATK:4/HP:5]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
