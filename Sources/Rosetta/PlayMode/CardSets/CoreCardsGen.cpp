@@ -2616,24 +2616,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_DAL_086", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
-    // - Set: CORE, Rarity: Rare
-    // --------------------------------------------------------
-    // Text: At the end of your turn,
-    //       give another random friendly minion +1 Health.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TRIGGER_VISUAL = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
-        std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
-        std::make_shared<AddEnchantmentTask>("EX1_004e", EntityType::STACK)
-    };
-    cards.emplace("CORE_EX1_004", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
     // - Set: CORE, Rarity: Epic
     // --------------------------------------------------------
