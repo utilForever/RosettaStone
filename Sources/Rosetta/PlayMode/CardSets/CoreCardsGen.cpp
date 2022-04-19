@@ -2973,21 +2973,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_187", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_EX1_188] Barrens Stablehand - COST:7 [ATK:5/HP:5]
-    // - Set: CORE, Rarity: Epic
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a random Beast.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
-        { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
-    power.AddPowerTask(std::make_shared<SummonTask>());
-    cards.emplace("CORE_EX1_188", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
     // - Race: Elemental, Set: CORE, Rarity: Legendary
     // --------------------------------------------------------

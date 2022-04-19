@@ -8388,46 +8388,6 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_187 : Arcane Devourer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CORE_EX1_188] Barrens Stablehand - COST:7 [ATK:5/HP:5]
-// - Set: CORE, Rarity: Epic
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Summon a random Beast.
-// --------------------------------------------------------
-// GameTag:
-// - BATTLECRY = 1
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - CORE_EX1_188 : Barrens Stablehand")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::ROGUE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Barrens Stablehand"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField.GetCount(), 2);
-    CHECK_EQ(curField[1]->card->GetRace(), Race::BEAST);
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [CORE_EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
 // - Race: Elemental, Set: CORE, Rarity: Legendary
 // --------------------------------------------------------
