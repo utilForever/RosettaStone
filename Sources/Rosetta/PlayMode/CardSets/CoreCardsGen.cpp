@@ -2625,19 +2625,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                                  { PlayReq::REQ_TARGET_MIN_ATTACK, 7 } }));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
-    // - Faction: Alliance, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Divine Shield</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - DIVINE_SHIELD = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_EX1_008", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
     // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
