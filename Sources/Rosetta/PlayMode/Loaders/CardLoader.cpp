@@ -43,7 +43,8 @@ void CardLoader::Load(std::vector<Card*>& cards)
                                       cardData["set"].get<std::string>()));
 
         if (static_cast<CardSet>(cardSet) == CardSet::BATTLEGROUNDS ||
-            static_cast<CardSet>(cardSet) == CardSet::LETTUCE)
+            static_cast<CardSet>(cardSet) == CardSet::LETTUCE ||
+            static_cast<CardSet>(cardSet) == CardSet::PLACEHOLDER_202204)
         {
             continue;
         }
