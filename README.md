@@ -43,7 +43,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Standard Format
 
-  * 97% Core Set (230 of 235 cards)
+  * 69% Core Set (174 of 235 cards)
   * 60% Ashes of Outland (81 of 135 cards)
   * 57% Scholomance Academy (78 of 135 cards)
   * 46% Madness at the Darkmoon Faire (79 of 170 cards)
