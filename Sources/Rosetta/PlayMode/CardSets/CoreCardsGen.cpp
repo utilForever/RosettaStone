@@ -3058,21 +3058,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_LOOT_124", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
-    // - Race: Beast, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Divine Shield</b>
-    //       <b>Poisonous</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - DIVINE_SHIELD = 1
-    // - POISONOUS = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_LOOT_125", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12]
     // - Race: Dragon, Set: CORE, Rarity: Common
     // --------------------------------------------------------

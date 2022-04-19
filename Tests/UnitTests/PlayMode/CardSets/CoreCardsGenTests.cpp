@@ -8692,22 +8692,6 @@ TEST_CASE("[Neutral : Minion] - CORE_LOOT_124 : Lone Champion")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CORE_LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
-// - Race: Beast, Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Divine Shield</b>
-//       <b>Poisonous</b>
-// --------------------------------------------------------
-// GameTag:
-// - DIVINE_SHIELD = 1
-// - POISONOUS = 1
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - CORE_LOOT_125 : Stoneskin Basilisk")
-{
-    // Do nothing
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [CORE_LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12]
 // - Race: Dragon, Set: CORE, Rarity: Common
 // --------------------------------------------------------
