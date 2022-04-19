@@ -5660,6 +5660,48 @@ TEST_CASE("[Warrior : Spell] - CS2_114 : Cleave")
     CHECK_EQ(opField[1]->GetHealth(), 5);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [CS3_009] War Cache - COST:3
+// - Set: Legacy, Rarity: Rare
+// --------------------------------------------------------
+// Text: Add a random Warrior minion, spell,
+//       and weapon to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - CS3_009 : War Cache")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("War Cache"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK(curHand[0]->card->IsCardClass(CardClass::WARRIOR));
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK(curHand[1]->card->IsCardClass(CardClass::WARRIOR));
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+    CHECK(curHand[2]->card->IsCardClass(CardClass::WARRIOR));
+    CHECK_EQ(curHand[2]->card->GetCardType(), CardType::WEAPON);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
 // - Faction: Neutral, Set: Legacy, Rarity: Free

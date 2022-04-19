@@ -2590,6 +2590,25 @@ void LegacyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
         "CS2_114",
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
 
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CS3_009] War Cache - COST:3
+    // - Set: Legacy, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Add a random Warrior minion, spell,
+    //       and weapon to your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::WEAPON, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CS3_009", CardDef(power));
+
     // --------------------------------------- MINION - WARRIOR
     // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
     // - Faction: Neutral, Set: Legacy, Rarity: Free
