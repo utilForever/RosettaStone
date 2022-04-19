@@ -3122,23 +3122,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_ICC_026", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
-    // - Race: Elemental, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: After you cast a spell,
-    //       give this minion +1 Health.
-    // --------------------------------------------------------
-    // GameTag:
-    // - TRIGGER_VISUAL = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-        "KAR_036e", EntityType::SOURCE) };
-    cards.emplace("CORE_KAR_036", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------

@@ -8838,56 +8838,6 @@ TEST_CASE("[Warlock : Spell] - CORE_ICC_026 : Grim Necromancer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CORE_KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
-// - Race: Elemental, Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: After you cast a spell,
-//       give this minion +1 Health.
-// --------------------------------------------------------
-// GameTag:
-// - TRIGGER_VISUAL = 1
-// --------------------------------------------------------
-TEST_CASE("[Netural : Minion] - CORE_KAR_036 : Arcane Anomaly")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::HUNTER;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Anomaly"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField[0]->GetHealth(), 1);
-
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetHealth(), 1);
-
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
-    CHECK_EQ(curField[0]->GetHealth(), 2);
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
 // - Race: Murloc, Set: CORE, Rarity: Common
 // --------------------------------------------------------
