@@ -5703,6 +5703,20 @@ TEST_CASE("[Warrior : Spell] - CS3_009 : War Cache")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
+// - Set: Legacy, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - CS3_030 : Warsong Outrider")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------

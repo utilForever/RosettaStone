@@ -5924,20 +5924,6 @@ TEST_CASE("[Warrior : Minion] - CS3_008 : Bloodsail Deckhand")
     CHECK_EQ(card5->GetCost(), 2);
 }
 
-// --------------------------------------- MINION - WARRIOR
-// [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
-// - Set: CORE, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Rush</b>
-// --------------------------------------------------------
-// GameTag:
-// - RUSH = 1
-// --------------------------------------------------------
-TEST_CASE("[Warrior : Minion] - CS3_030 : Warsong Outrider")
-{
-    // Do nothing
-}
-
 // ------------------------------------ SPELL - DEMONHUNTER
 // [CORE_BT_035] Chaos Strike - COST:2
 // - Set: CORE, Rarity: Common

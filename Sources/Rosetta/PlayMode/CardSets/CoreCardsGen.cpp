@@ -2101,19 +2101,6 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS3_008e", EntityType::PLAYER));
     cards.emplace("CS3_008", CardDef(power));
-
-    // --------------------------------------- MINION - WARRIOR
-    // [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
-    // - Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Rush</b>
-    // --------------------------------------------------------
-    // GameTag:
-    // - RUSH = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS3_030", CardDef(power));
 }
 
 void CoreCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
