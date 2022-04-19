@@ -2406,14 +2406,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     Power power;
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_AT_092] Ice Rager - COST:3 [ATK:5/HP:2]
-    // - Race: Elemental, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_AT_092", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
