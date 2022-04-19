@@ -2988,66 +2988,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_188", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
-    // - Set: CORE, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon all friendly minions
-    //       that died this turn.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
-           [[maybe_unused]] Playable* target) {
-            const auto field = player->GetFieldZone();
-            if (field->IsFull())
-            {
-                return;
-            }
-
-            const int num = player->GetNumFriendlyMinionsDiedThisTurn();
-            auto& graveyard = *(player->GetGraveyardZone());
-
-            std::vector<int> buffer;
-            buffer.reserve(num);
-            int k = 0;
-
-            for (int i = graveyard.GetCount() - 1, j = 0; j < num; --i)
-            {
-                if (!graveyard[i]->isDestroyed)
-                {
-                    continue;
-                }
-
-                if (graveyard[i]->card->GetCardType() != CardType::MINION)
-                {
-                    continue;
-                }
-
-                buffer.emplace_back(i);
-
-                ++j;
-                ++k;
-            }
-
-            for (--k; k >= 0; --k)
-            {
-                const auto playable = Entity::GetFromCard(
-                    player, graveyard[buffer[k]]->card, std::nullopt, field);
-                field->Add(playable);
-
-                if (field->IsFull())
-                {
-                    return;
-                }
-            }
-        }));
-    cards.emplace("CORE_EX1_190", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
     // - Race: Elemental, Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
