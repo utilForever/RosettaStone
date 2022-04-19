@@ -6844,15 +6844,6 @@ TEST_CASE("[Neutral : Minion] - CORE_CS2_117 : Earthen Ring Farseer")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CORE_CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
-// - Race: Beast, Set: CORE, Rarity: Common
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - CORE_CS2_120 : River Crocolisk")
-{
-    // Do nothing
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------

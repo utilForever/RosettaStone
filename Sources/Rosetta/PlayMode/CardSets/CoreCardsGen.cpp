@@ -2446,14 +2446,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_CS2_120] River Crocolisk - COST:2 [ATK:2/HP:3]
-    // - Race: Beast, Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CORE_CS2_120", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
