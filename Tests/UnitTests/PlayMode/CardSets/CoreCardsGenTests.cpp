@@ -8485,49 +8485,6 @@ TEST_CASE("[Neutral : Minion] - CORE_EX1_188 : Barrens Stablehand")
 }
 
 // --------------------------------------- MINION - NEUTRAL
-// [CORE_EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
-// - Race: Dragon, Set: CORE, Rarity: Legendary
-// --------------------------------------------------------
-// Text: <b>Battlecry:</b> Add a random <b>Legendary</b>
-//       minion to your hand.
-// --------------------------------------------------------
-// GameTag:
-// - ELITE = 1
-// - BATTLECRY = 1
-// --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - CORE_EX1_189 : Brightwing")
-{
-    GameConfig config;
-    config.formatType = FormatType::STANDARD;
-    config.player1Class = CardClass::MAGE;
-    config.player2Class = CardClass::ROGUE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = false;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curHand = *(curPlayer->GetHandZone());
-
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Brightwing"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curHand.GetCount(), 1);
-    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
-    CHECK_EQ(curHand[0]->card->GetRarity(), Rarity::LEGENDARY);
-}
-
-// --------------------------------------- MINION - NEUTRAL
 // [CORE_EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
 // - Set: CORE, Rarity: Legendary
 // --------------------------------------------------------

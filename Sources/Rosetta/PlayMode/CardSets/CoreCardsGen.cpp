@@ -3003,24 +3003,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_188", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
-    // - Race: Dragon, Set: CORE, Rarity: Legendary
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Add a random <b>Legendary</b>
-    //       minion to your hand.
-    // --------------------------------------------------------
-    // GameTag:
-    // - ELITE = 1
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
-                                         Race::INVALID, Rarity::LEGENDARY));
-    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("CORE_EX1_189", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
     // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
