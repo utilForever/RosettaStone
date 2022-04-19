@@ -2414,20 +2414,6 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_AT_092", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
-    // [CORE_BOT_083] Toxicologist - COST:2 [ATK:2/HP:2]
-    // - Set: CORE, Rarity: Common
-    // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Give your weapon +1 Attack.
-    // --------------------------------------------------------
-    // GameTag:
-    // - BATTLECRY = 1
-    // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
-        std::make_shared<AddEnchantmentTask>("BOT_083e", EntityType::WEAPON));
-    cards.emplace("CORE_BOT_083", CardDef(power));
-
-    // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
