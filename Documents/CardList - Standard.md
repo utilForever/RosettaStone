@@ -798,6 +798,140 @@ ALTERAC_VALLEY | ONY_036 | Razorglaive Sentinel |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
+THE_SUNKEN_CITY | TSC_001 | Naval Mine |  
+THE_SUNKEN_CITY | TSC_002 | Pufferfist |  
+THE_SUNKEN_CITY | TSC_006 | Multi-Strike |  
+THE_SUNKEN_CITY | TSC_007 | Gangplank Diver |  
+THE_SUNKEN_CITY | TSC_013 | Slimescale Diver |  
+THE_SUNKEN_CITY | TSC_017 | Baba Naga |  
+THE_SUNKEN_CITY | TSC_020 | Barbaric Sorceress |  
+THE_SUNKEN_CITY | TSC_023 | Barbed Nets |  
+THE_SUNKEN_CITY | TSC_026 | Colaque |  
+THE_SUNKEN_CITY | TSC_029 | Gaia, the Techtonic |  
+THE_SUNKEN_CITY | TSC_030 | The Leviathan |  
 THE_SUNKEN_CITY | TSC_032 | Blademaster Okani |  
+THE_SUNKEN_CITY | TSC_034 | Gorloc Ravager |  
+THE_SUNKEN_CITY | TSC_039 | Azsharan Scavenger |  
+THE_SUNKEN_CITY | TSC_052 | School Teacher |  
+THE_SUNKEN_CITY | TSC_053 | Rainbow Glowscale |  
+THE_SUNKEN_CITY | TSC_054 | Mecha-Shark |  
+THE_SUNKEN_CITY | TSC_055 | Seafloor Gateway |  
+THE_SUNKEN_CITY | TSC_056 | Volcanomancy |  
+THE_SUNKEN_CITY | TSC_057 | Azsharan Defector |  
+THE_SUNKEN_CITY | TSC_058 | Predation |  
+THE_SUNKEN_CITY | TSC_059 | Bubblebot |  
+THE_SUNKEN_CITY | TSC_060 | Shimmering Sunfish |  
+THE_SUNKEN_CITY | TSC_061 | The Garden's Grace |  
+THE_SUNKEN_CITY | TSC_064 | Slithering Deathscale |  
+THE_SUNKEN_CITY | TSC_065 | Helmet Hermit |  
+THE_SUNKEN_CITY | TSC_067 | Ambassador Faelin |  
+THE_SUNKEN_CITY | TSC_069 | Amalgam of the Deep |  
+THE_SUNKEN_CITY | TSC_070 | Harpoon Gun |  
+THE_SUNKEN_CITY | TSC_071 | Twinbow Terrorcoil |  
+THE_SUNKEN_CITY | TSC_072 | Conch's Call |  
+THE_SUNKEN_CITY | TSC_073 | Raj Naz'jan |  
+THE_SUNKEN_CITY | TSC_074 | Kotori Lightblade |  
+THE_SUNKEN_CITY | TSC_076 | Immortalized in Stone |  
+THE_SUNKEN_CITY | TSC_079 | Radar Detector |  
+THE_SUNKEN_CITY | TSC_083 | Seafloor Savior |  
+THE_SUNKEN_CITY | TSC_085 | Cutlass Courier |  
+THE_SUNKEN_CITY | TSC_086 | Swordfish |  
+THE_SUNKEN_CITY | TSC_087 | Commander Sivara |  
+THE_SUNKEN_CITY | TSC_209 | Whirlpool |  
+THE_SUNKEN_CITY | TSC_210 | Illuminate |  
+THE_SUNKEN_CITY | TSC_211 | Whispers of the Deep |  
+THE_SUNKEN_CITY | TSC_212 | Handmaiden |  
+THE_SUNKEN_CITY | TSC_213 | Queensguard |  
+THE_SUNKEN_CITY | TSC_215 | Serpent Wig |  
+THE_SUNKEN_CITY | TSC_216 | Blackwater Behemoth |  
+THE_SUNKEN_CITY | TSC_217 | Wayward Sage |  
+THE_SUNKEN_CITY | TSC_218 | Lady S'theno |  
+THE_SUNKEN_CITY | TSC_219 | Xhilag of the Abyss |  
+THE_SUNKEN_CITY | TSC_608 | Abyssal Depths |  
+THE_SUNKEN_CITY | TSC_609 | Coilskar Commander |  
+THE_SUNKEN_CITY | TSC_610 | Glaiveshark |  
+THE_SUNKEN_CITY | TSC_614 | Voidgill |  
+THE_SUNKEN_CITY | TSC_620 | Spitelash Siren |  
+THE_SUNKEN_CITY | TSC_630 | Wrathspine Enchanter |  
+THE_SUNKEN_CITY | TSC_631 | Schooling |  
+THE_SUNKEN_CITY | TSC_632 | Click-Clocker |  
+THE_SUNKEN_CITY | TSC_633 | Piranha Poacher |  
+THE_SUNKEN_CITY | TSC_635 | Radiance of Azshara |  
+THE_SUNKEN_CITY | TSC_637 | Scalding Geyser |  
+THE_SUNKEN_CITY | TSC_638 | Piranha Swarmer |  
+THE_SUNKEN_CITY | TSC_639 | Glugg the Gulper |  
+THE_SUNKEN_CITY | TSC_640 | Reefwalker |  
+THE_SUNKEN_CITY | TSC_641 | Queen Azshara |  
+THE_SUNKEN_CITY | TSC_642 | Trench Surveyor |  
+THE_SUNKEN_CITY | TSC_643 | Spellcoiler |  
+THE_SUNKEN_CITY | TSC_644 | Azsharan Mooncatcher |  
+THE_SUNKEN_CITY | TSC_645 | Mothership |  
+THE_SUNKEN_CITY | TSC_646 | Seascout Operator |  
+THE_SUNKEN_CITY | TSC_647 | Pelican Diver |  
+THE_SUNKEN_CITY | TSC_648 | Coral Keeper |  
+THE_SUNKEN_CITY | TSC_649 | Ini Stormcoil |  
+THE_SUNKEN_CITY | TSC_650 | Flipper Friends |  
+THE_SUNKEN_CITY | TSC_651 | Seaweed Strike |  
+THE_SUNKEN_CITY | TSC_652 | Green-Thumb Gardener |  
+THE_SUNKEN_CITY | TSC_653 | Bottomfeeder |  
+THE_SUNKEN_CITY | TSC_654 | Aquatic Form |  
+THE_SUNKEN_CITY | TSC_656 | Miracle Growth |  
+THE_SUNKEN_CITY | TSC_657 | Dozing Kelpkeeper |  
+THE_SUNKEN_CITY | TSC_658 | Hedra the Heretic |  
+THE_SUNKEN_CITY | TSC_659 | Trenchstalker |  
+THE_SUNKEN_CITY | TSC_660 | Nellie, the Great Thresher |  
+THE_SUNKEN_CITY | TSC_702 | Switcheroo |  
+THE_SUNKEN_CITY | TSC_753 | Bloodscent Vilefin |  
+THE_SUNKEN_CITY | TSC_772 | Azsharan Scroll |  
+THE_SUNKEN_CITY | TSC_775 | Azsharan Ritual |  
+THE_SUNKEN_CITY | TSC_776 | Azsharan Sweeper |  
+THE_SUNKEN_CITY | TSC_823 | Murkwater Scribe |  
+THE_SUNKEN_CITY | TSC_826 | Crushclaw Enforcer |  
+THE_SUNKEN_CITY | TSC_827 | Vicious Slitherspear |  
+THE_SUNKEN_CITY | TSC_828 | Priestess Valishj |  
+THE_SUNKEN_CITY | TSC_829 | Naga Giant |  
+THE_SUNKEN_CITY | TSC_908 | Sir Finley, Sea Guide |  
+THE_SUNKEN_CITY | TSC_909 | Tuskarrrr Trawler |  
+THE_SUNKEN_CITY | TSC_911 | Excavation Specialist |  
+THE_SUNKEN_CITY | TSC_912 | Azsharan Vessel |  
+THE_SUNKEN_CITY | TSC_913 | Azsharan Trident |  
+THE_SUNKEN_CITY | TSC_915 | Bone Glaive |  
+THE_SUNKEN_CITY | TSC_916 | Gone Fishin' |  
+THE_SUNKEN_CITY | TSC_917 | Blackscale Brute |  
+THE_SUNKEN_CITY | TSC_919 | Azsharan Sentinel |  
+THE_SUNKEN_CITY | TSC_922 | Anchored Totem |  
+THE_SUNKEN_CITY | TSC_923 | Bioluminescence |  
+THE_SUNKEN_CITY | TSC_924 | Abyssal Wave |  
+THE_SUNKEN_CITY | TSC_925 | Rock Bottom |  
+THE_SUNKEN_CITY | TSC_926 | Smothering Starfish |  
+THE_SUNKEN_CITY | TSC_927 | Azsharan Gardens |  
+THE_SUNKEN_CITY | TSC_928 | Security Automaton |  
+THE_SUNKEN_CITY | TSC_929 | Emergency Maneuvers |  
+THE_SUNKEN_CITY | TSC_932 | Blood in the Water |  
+THE_SUNKEN_CITY | TSC_933 | Bootstrap Sunkeneer |  
+THE_SUNKEN_CITY | TSC_934 | Pirate Admiral Hooktusk |  
+THE_SUNKEN_CITY | TSC_935 | Selfish Shellfish |  
+THE_SUNKEN_CITY | TSC_936 | Swiftscale Trickster |  
+THE_SUNKEN_CITY | TSC_937 | Crabatoa |  
+THE_SUNKEN_CITY | TSC_938 | Treasure Guard |  
+THE_SUNKEN_CITY | TSC_939 | Forged in Flame |  
+THE_SUNKEN_CITY | TSC_940 | From the Depths |  
+THE_SUNKEN_CITY | TSC_941 | Guard the City |  
+THE_SUNKEN_CITY | TSC_942 | Obsidiansmith |  
+THE_SUNKEN_CITY | TSC_943 | Lady Ashvane |  
+THE_SUNKEN_CITY | TSC_944 | The Fires of Zin-Azshari |  
+THE_SUNKEN_CITY | TSC_945 | Azsharan Saber |  
+THE_SUNKEN_CITY | TSC_946 | Urchin Spines |  
+THE_SUNKEN_CITY | TSC_947 | Naga's Pride |  
+THE_SUNKEN_CITY | TSC_948 | Gifts of Azshara |  
+THE_SUNKEN_CITY | TSC_950 | Hydralodon |  
+THE_SUNKEN_CITY | TSC_952 | Holy Maki Roll |  
+THE_SUNKEN_CITY | TSC_955 | Sira'kess Cultist |  
+THE_SUNKEN_CITY | TSC_956 | Dragged Below |  
+THE_SUNKEN_CITY | TSC_957 | Chum Bucket |  
+THE_SUNKEN_CITY | TSC_959 | Za'qul |  
+THE_SUNKEN_CITY | TSC_960 | Twin-fin Fin Twin |  
+THE_SUNKEN_CITY | TSC_962 | Gigafin |  
+THE_SUNKEN_CITY | TSC_963 | Filletfighter |  
 
-- Progress: 0% (0 of 1 Cards)
+- Progress: 0% (0 of 135 Cards)
