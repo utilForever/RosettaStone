@@ -32,9 +32,11 @@
 * [x] Casts When Drawn
 * [x] Charge
 * [ ] Choose Twice
+* [ ] Colossal
 * [x] Corrupt
 * [x] Counter
 * [x] Dormant
+* [ ] Dredge
 * [x] Echo
 * [ ] Frenzy
 * [x] Honorable Kill

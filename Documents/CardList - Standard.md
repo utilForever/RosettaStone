@@ -1,9 +1,6 @@
 # RosettaStone - Standard Format Card List
 
 * [Core](#core)
-* [Ashes of Outland](#ashes-of-outland)
-* [Scholomance Academy](#scholomance-academy)
-* [Madness at the Darkmoon Faire](#madness-at-the-darkmoon-faire)
 * [Forged in the Barrens](#forged-in-the-barrens)
 * [United in Stormwind](#united-in-stormwind)
 * [Fractured in Alterac Valley](#fractured-in-alterac-valley)
@@ -265,467 +262,6 @@ CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
 - Progress: 69% (174 of 250 Cards)
-
-## Ashes of Outland
-
-Set | ID | Name | Implemented
-:---: | :---: | :---: | :---:
-BLACK_TEMPLE | BT_002 | Incanter's Flow | O
-BLACK_TEMPLE | BT_003 | Netherwind Portal | O
-BLACK_TEMPLE | BT_004 | Imprisoned Observer | O
-BLACK_TEMPLE | BT_006 | Evocation |  
-BLACK_TEMPLE | BT_008 | Rustsworn Initiate | O
-BLACK_TEMPLE | BT_009 | Imprisoned Sungill | O
-BLACK_TEMPLE | BT_010 | Felfin Navigator | O
-BLACK_TEMPLE | BT_011 | Libram of Justice | O
-BLACK_TEMPLE | BT_014 | Starscryer | O
-BLACK_TEMPLE | BT_018 | Underlight Angling Rod | O
-BLACK_TEMPLE | BT_019 | Murgur Murgurgle |  
-BLACK_TEMPLE | BT_020 | Aldor Attendant |  
-BLACK_TEMPLE | BT_021 | Font of Power |  
-BLACK_TEMPLE | BT_022 | Apexis Smuggler |  
-BLACK_TEMPLE | BT_024 | Libram of Hope | O
-BLACK_TEMPLE | BT_025 | Libram of Wisdom |  
-BLACK_TEMPLE | BT_026 | Aldor Truthseeker |  
-BLACK_TEMPLE | BT_028 | Astromancer Solarian |  
-BLACK_TEMPLE | BT_042 | Bamboozle | O
-BLACK_TEMPLE | BT_072 | Deep Freeze | O
-BLACK_TEMPLE | BT_100 | Serpentshrine Portal | O
-BLACK_TEMPLE | BT_101 | Vivid Spores |  
-BLACK_TEMPLE | BT_102 | Boggspine Knuckles | O
-BLACK_TEMPLE | BT_106 | Bogstrok Clacker | O
-BLACK_TEMPLE | BT_109 | Lady Vashj |  
-BLACK_TEMPLE | BT_110 | Torrent | O
-BLACK_TEMPLE | BT_113 | Totemic Reflection | O
-BLACK_TEMPLE | BT_114 | Shattered Rumbler | O
-BLACK_TEMPLE | BT_115 | Marshspawn | O
-BLACK_TEMPLE | BT_117 | Bladestorm | O
-BLACK_TEMPLE | BT_120 | Warmaul Challenger | O
-BLACK_TEMPLE | BT_121 | Imprisoned Gan'arg | O
-BLACK_TEMPLE | BT_123 | Kargath Bladefist | O
-BLACK_TEMPLE | BT_124 | Corsair Cache | O
-BLACK_TEMPLE | BT_126 | Teron Gorefiend |  
-BLACK_TEMPLE | BT_127 | Imprisoned Satyr | O
-BLACK_TEMPLE | BT_128 | Fungal Fortunes |  
-BLACK_TEMPLE | BT_129 | Germination |  
-BLACK_TEMPLE | BT_130 | Overgrowth | O
-BLACK_TEMPLE | BT_131 | Ysiel Windsinger | O
-BLACK_TEMPLE | BT_132 | Ironbark | O
-BLACK_TEMPLE | BT_133 | Marsh Hydra | O
-BLACK_TEMPLE | BT_134 | Bogbeam | O
-BLACK_TEMPLE | BT_135 | Glowfly Swarm |  
-BLACK_TEMPLE | BT_136 | Archspore Msshi'fn | O
-BLACK_TEMPLE | BT_138 | Bloodboil Brute | O
-BLACK_TEMPLE | BT_140 | Bonechewer Raider |  
-BLACK_TEMPLE | BT_155 | Scrapyard Colossus | O
-BLACK_TEMPLE | BT_156 | Imprisoned Vilefiend | O
-BLACK_TEMPLE | BT_159 | Terrorguard Escapee | O
-BLACK_TEMPLE | BT_160 | Rustsworn Cultist | O
-BLACK_TEMPLE | BT_163 | Nagrand Slam |  
-BLACK_TEMPLE | BT_187 | Kayn Sunfury |  
-BLACK_TEMPLE | BT_188 | Shadowjeweler Hanar |  
-BLACK_TEMPLE | BT_190 | Replicat-o-tron |  
-BLACK_TEMPLE | BT_196 | Keli'dan the Breaker |  
-BLACK_TEMPLE | BT_197 | Reliquary of Souls |  
-BLACK_TEMPLE | BT_198 | Soul Mirror |  
-BLACK_TEMPLE | BT_199 | Unstable Felbolt | O
-BLACK_TEMPLE | BT_201 | Augmented Porcupine |  
-BLACK_TEMPLE | BT_202 | Helboar | O
-BLACK_TEMPLE | BT_203 | Pack Tactics |  
-BLACK_TEMPLE | BT_205 | Scrap Shot | O
-BLACK_TEMPLE | BT_210 | Zixor, Apex Predator |  
-BLACK_TEMPLE | BT_211 | Imprisoned Felmaw |  
-BLACK_TEMPLE | BT_212 | Mok'Nathal Lion |  
-BLACK_TEMPLE | BT_213 | Scavenger's Ingenuity | O
-BLACK_TEMPLE | BT_214 | Beastmaster Leoroxx |  
-BLACK_TEMPLE | BT_230 | The Lurker Below |  
-BLACK_TEMPLE | BT_233 | Sword and Board | O
-BLACK_TEMPLE | BT_249 | Scrap Golem |  
-BLACK_TEMPLE | BT_252 | Renew | O
-BLACK_TEMPLE | BT_253 | Psyche Split | O
-BLACK_TEMPLE | BT_254 | Sethekk Veilweaver |  
-BLACK_TEMPLE | BT_255 | Kael'thas Sunstrider |  
-BLACK_TEMPLE | BT_256 | Dragonmaw Overseer | O
-BLACK_TEMPLE | BT_257 | Apotheosis | O
-BLACK_TEMPLE | BT_258 | Imprisoned Homunculus | O
-BLACK_TEMPLE | BT_262 | Dragonmaw Sentinel | O
-BLACK_TEMPLE | BT_291 | Apexis Blast | O
-BLACK_TEMPLE | BT_292 | Hand of A'dal | O
-BLACK_TEMPLE | BT_300 | Hand of Gul'dan |  
-BLACK_TEMPLE | BT_301 | Nightshade Matron | O
-BLACK_TEMPLE | BT_302 | The Dark Portal | O
-BLACK_TEMPLE | BT_304 | Enhanced Dreadlord | O
-BLACK_TEMPLE | BT_305 | Imprisoned Scrap Imp | O
-BLACK_TEMPLE | BT_306 | Shadow Council |  
-BLACK_TEMPLE | BT_307 | Darkglare |  
-BLACK_TEMPLE | BT_309 | Kanrethad Ebonlocke |  
-BLACK_TEMPLE | BT_321 | Netherwalker | O
-BLACK_TEMPLE | BT_334 | Lady Liadrin |  
-BLACK_TEMPLE | BT_341 | Skeletal Dragon | O
-BLACK_TEMPLE | BT_423 | Ashtongue Battlelord | O
-BLACK_TEMPLE | BT_429 | Metamorphosis |  
-BLACK_TEMPLE | BT_430 | Warglaives of Azzinoth | O
-BLACK_TEMPLE | BT_480 | Crimson Sigil Runner | O
-BLACK_TEMPLE | BT_486 | Pit Commander | O
-BLACK_TEMPLE | BT_491 | Spectral Sight | O
-BLACK_TEMPLE | BT_493 | Priestess of Fury | O
-BLACK_TEMPLE | BT_496 | Furious Felfin | O
-BLACK_TEMPLE | BT_509 | Fel Summoner | O
-BLACK_TEMPLE | BT_514 | Immolation Aura | O
-BLACK_TEMPLE | BT_601 | Skull of Gul'dan | O
-BLACK_TEMPLE | BT_701 | Spymistress | O
-BLACK_TEMPLE | BT_702 | Ashtongue Slayer |  
-BLACK_TEMPLE | BT_703 | Cursed Vagrant | O
-BLACK_TEMPLE | BT_707 | Ambush | O
-BLACK_TEMPLE | BT_709 | Dirty Tricks | O
-BLACK_TEMPLE | BT_710 | Greyheart Sage | O
-BLACK_TEMPLE | BT_711 | Blackjack Stunner | O
-BLACK_TEMPLE | BT_713 | Akama |  
-BLACK_TEMPLE | BT_714 | Frozen Shadoweaver | O
-BLACK_TEMPLE | BT_715 | Bonechewer Brawler | O
-BLACK_TEMPLE | BT_716 | Bonechewer Vanguard | O
-BLACK_TEMPLE | BT_717 | Burrowing Scorpid |  
-BLACK_TEMPLE | BT_720 | Ruststeed Raider |  
-BLACK_TEMPLE | BT_721 | Blistering Rot |  
-BLACK_TEMPLE | BT_722 | Guardian Augmerchant | O
-BLACK_TEMPLE | BT_723 | Rocket Augmerchant | O
-BLACK_TEMPLE | BT_724 | Ethereal Augmerchant | O
-BLACK_TEMPLE | BT_726 | Dragonmaw Sky Stalker | O
-BLACK_TEMPLE | BT_727 | Soulbound Ashtongue |  
-BLACK_TEMPLE | BT_728 | Disguised Wanderer | O
-BLACK_TEMPLE | BT_729 | Waste Warden |  
-BLACK_TEMPLE | BT_730 | Overconfident Orc |  
-BLACK_TEMPLE | BT_731 | Infectious Sporeling |  
-BLACK_TEMPLE | BT_732 | Scavenging Shivarra |  
-BLACK_TEMPLE | BT_733 | Mo'arg Artificer |  
-BLACK_TEMPLE | BT_734 | Supreme Abyssal |  
-BLACK_TEMPLE | BT_735 | Al'ar |  
-BLACK_TEMPLE | BT_737 | Maiev Shadowsong |  
-BLACK_TEMPLE | BT_761 | Coilfang Warlord | O
-BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |  
-BLACK_TEMPLE | BT_850 | Magtheridon |  
-BLACK_TEMPLE | BT_934 | Imprisoned Antaen | O
-
-- Progress: 60% (81 of 135 Cards)
-
-## Scholomance Academy
-
-Set | ID | Name | Implemented
-:---: | :---: | :---: | :---:
-SCHOLOMANCE | SCH_120 | Cabal Acolyte |  
-SCHOLOMANCE | SCH_126 | Disciplinarian Gandling |  
-SCHOLOMANCE | SCH_133 | Wolpertinger | O
-SCHOLOMANCE | SCH_135 | Turalyon, the Tenured |  
-SCHOLOMANCE | SCH_136 | Power Word: Feast |  
-SCHOLOMANCE | SCH_137 | Frazzled Freshman | O
-SCHOLOMANCE | SCH_138 | Blessing of Authority |  
-SCHOLOMANCE | SCH_139 | Devout Pupil |  
-SCHOLOMANCE | SCH_140 | Flesh Giant |  
-SCHOLOMANCE | SCH_141 | High Abbess Alura |  
-SCHOLOMANCE | SCH_142 | Voracious Reader |  
-SCHOLOMANCE | SCH_143 | Divine Rager | O
-SCHOLOMANCE | SCH_145 | Desk Imp | O
-SCHOLOMANCE | SCH_146 | Robes of Protection |  
-SCHOLOMANCE | SCH_147 | Boneweb Egg | O
-SCHOLOMANCE | SCH_149 | Argent Braggart |  
-SCHOLOMANCE | SCH_157 | Enchanted Cauldron |  
-SCHOLOMANCE | SCH_158 | Demonic Studies | O
-SCHOLOMANCE | SCH_159 | Mindrender Illucia |  
-SCHOLOMANCE | SCH_160 | Wandmaker | O
-SCHOLOMANCE | SCH_162 | Vectus | O
-SCHOLOMANCE | SCH_181 | Archwitch Willow |  
-SCHOLOMANCE | SCH_182 | Speaker Gidra |  
-SCHOLOMANCE | SCH_199 | Transfer Student |  
-SCHOLOMANCE | SCH_224 | Headmaster Kel'Thuzad |  
-SCHOLOMANCE | SCH_230 | Onyx Magescribe | O
-SCHOLOMANCE | SCH_231 | Intrepid Initiate | O
-SCHOLOMANCE | SCH_232 | Crimson Hothead | O
-SCHOLOMANCE | SCH_233 | Draconic Studies | O
-SCHOLOMANCE | SCH_234 | Shifty Sophomore | O
-SCHOLOMANCE | SCH_235 | Devolving Missiles |  
-SCHOLOMANCE | SCH_236 | Diligent Notetaker |  
-SCHOLOMANCE | SCH_237 | Athletic Studies | O
-SCHOLOMANCE | SCH_238 | Reaper's Scythe |  
-SCHOLOMANCE | SCH_239 | Krolusk Barkstripper | O
-SCHOLOMANCE | SCH_241 | Firebrand | O
-SCHOLOMANCE | SCH_242 | Gibberling | O
-SCHOLOMANCE | SCH_243 | Wyrm Weaver | O
-SCHOLOMANCE | SCH_244 | Teacher's Pet | O
-SCHOLOMANCE | SCH_245 | Steward of Scrolls | O
-SCHOLOMANCE | SCH_247 | First Day of School | O
-SCHOLOMANCE | SCH_248 | Pen Flinger | O
-SCHOLOMANCE | SCH_250 | Wave of Apathy |  
-SCHOLOMANCE | SCH_252 | Marrowslicer | O
-SCHOLOMANCE | SCH_253 | Cycle of Hatred |  
-SCHOLOMANCE | SCH_259 | Sphere of Sapience | O
-SCHOLOMANCE | SCH_270 | Primordial Studies | O
-SCHOLOMANCE | SCH_271 | Molten Blast |  
-SCHOLOMANCE | SCH_273 | Ras Frostwhisper | O
-SCHOLOMANCE | SCH_276 | Magehunter |  
-SCHOLOMANCE | SCH_279 | Trueaim Crescent |  
-SCHOLOMANCE | SCH_283 | Manafeeder Panthara | O
-SCHOLOMANCE | SCH_300 | Carrion Studies | O
-SCHOLOMANCE | SCH_301 | Rune Dagger |  
-SCHOLOMANCE | SCH_302 | Gift of Luminance |  
-SCHOLOMANCE | SCH_305 | Secret Passage |  
-SCHOLOMANCE | SCH_307 | School Spirits | O
-SCHOLOMANCE | SCH_310 | Lab Partner | O
-SCHOLOMANCE | SCH_311 | Animated Broomstick | O
-SCHOLOMANCE | SCH_312 | Tour Guide | O
-SCHOLOMANCE | SCH_313 | Wretched Tutor | O
-SCHOLOMANCE | SCH_317 | Playmaker |  
-SCHOLOMANCE | SCH_333 | Nature Studies | O
-SCHOLOMANCE | SCH_337 | Troublemaker |  
-SCHOLOMANCE | SCH_340 | Bloated Python | O
-SCHOLOMANCE | SCH_343 | Void Drinker | O
-SCHOLOMANCE | SCH_348 | Combustion |  
-SCHOLOMANCE | SCH_350 | Wand Thief | O
-SCHOLOMANCE | SCH_351 | Jandice Barov | O
-SCHOLOMANCE | SCH_352 | Potion of Illusion | O
-SCHOLOMANCE | SCH_353 | Cram Session |  
-SCHOLOMANCE | SCH_354 | Ancient Void Hound |  
-SCHOLOMANCE | SCH_355 | Shardshatter Mystic | O
-SCHOLOMANCE | SCH_356 | Glide |  
-SCHOLOMANCE | SCH_357 | Fel Guardians |  
-SCHOLOMANCE | SCH_400 | Mozaki, Master Duelist |  
-SCHOLOMANCE | SCH_422 | Double Jump | O
-SCHOLOMANCE | SCH_425 | Doctor Krastinov | O
-SCHOLOMANCE | SCH_426 | Infiltrator Lilian | O
-SCHOLOMANCE | SCH_427 | Lightning Bloom | O
-SCHOLOMANCE | SCH_428 | Lorekeeper Polkelt | O
-SCHOLOMANCE | SCH_507 | Instructor Fireheart |  
-SCHOLOMANCE | SCH_509 | Brain Freeze | O
-SCHOLOMANCE | SCH_512 | Initiation |  
-SCHOLOMANCE | SCH_513 | Brittlebone Destroyer |  
-SCHOLOMANCE | SCH_514 | Raise Dead |  
-SCHOLOMANCE | SCH_517 | Shadowlight Scholar | O
-SCHOLOMANCE | SCH_519 | Vulpera Toxinblade | O
-SCHOLOMANCE | SCH_521 | Coerce | O
-SCHOLOMANCE | SCH_522 | Steeldancer | O
-SCHOLOMANCE | SCH_523 | Ceremonial Maul |  
-SCHOLOMANCE | SCH_524 | Shield of Honor | O
-SCHOLOMANCE | SCH_525 | In Formation! | O
-SCHOLOMANCE | SCH_526 | Lord Barov | O
-SCHOLOMANCE | SCH_530 | Sorcerous Substitute | O
-SCHOLOMANCE | SCH_532 | Goody Two-Shields | O
-SCHOLOMANCE | SCH_533 | Commencement | O
-SCHOLOMANCE | SCH_535 | Tidal Wave |  
-SCHOLOMANCE | SCH_537 | Trick Totem |  
-SCHOLOMANCE | SCH_538 | Ace Hunter Kreen |  
-SCHOLOMANCE | SCH_539 | Professor Slate |  
-SCHOLOMANCE | SCH_600 | Demon Companion | O
-SCHOLOMANCE | SCH_603 | Star Student Stelina |  
-SCHOLOMANCE | SCH_604 | Overwhelm |  
-SCHOLOMANCE | SCH_605 | Lake Thresher |  
-SCHOLOMANCE | SCH_606 | Partner Assignment | O
-SCHOLOMANCE | SCH_607 | Shan'do Wildclaw |  
-SCHOLOMANCE | SCH_609 | Survival of the Fittest |  
-SCHOLOMANCE | SCH_610 | Guardian Animals |  
-SCHOLOMANCE | SCH_612 | Runic Carvings | O
-SCHOLOMANCE | SCH_613 | Groundskeeper | O
-SCHOLOMANCE | SCH_614 | Forest Warden Omu | O
-SCHOLOMANCE | SCH_615 | Totem Goliath |  
-SCHOLOMANCE | SCH_616 | Twilight Runner | O
-SCHOLOMANCE | SCH_617 | Adorable Infestation | O
-SCHOLOMANCE | SCH_618 | Blood Herald |  
-SCHOLOMANCE | SCH_621 | Rattlegore |  
-SCHOLOMANCE | SCH_622 | Self-Sharpening Sword | O
-SCHOLOMANCE | SCH_623 | Cutting Class | O
-SCHOLOMANCE | SCH_700 | Spirit Jailer | O
-SCHOLOMANCE | SCH_701 | Soul Shear | O
-SCHOLOMANCE | SCH_702 | Felosophy |  
-SCHOLOMANCE | SCH_703 | Soulciologist Malicia |  
-SCHOLOMANCE | SCH_704 | Soulshard Lapidary | O
-SCHOLOMANCE | SCH_705 | Vilefiend Trainer | O
-SCHOLOMANCE | SCH_706 | Plagiarize | O
-SCHOLOMANCE | SCH_707 | Fishy Flyer | O
-SCHOLOMANCE | SCH_708 | Sneaky Delinquent | O
-SCHOLOMANCE | SCH_709 | Smug Senior | O
-SCHOLOMANCE | SCH_710 | Ogremancer | O
-SCHOLOMANCE | SCH_711 | Plagued Protodrake | O
-SCHOLOMANCE | SCH_712 | Judicious Junior | O
-SCHOLOMANCE | SCH_713 | Cult Neophyte | O
-SCHOLOMANCE | SCH_714 | Educated Elekk |  
-SCHOLOMANCE | SCH_717 | Keymaster Alabaster | O
-
-- Progress: 57% (78 of 135 Cards)
-
-## Madness at the Darkmoon Faire
-
-Set | ID | Name | Implemented
-:---: | :---: | :---: | :---:
-DARKMOON_FAIRE | DMF_002 | N'Zoth, God of the Deep |  
-DARKMOON_FAIRE | DMF_004 | Yogg-Saron, Master of Fate |  
-DARKMOON_FAIRE | DMF_044 | Rock Rager | O
-DARKMOON_FAIRE | DMF_053 | Blood of G'huun |  
-DARKMOON_FAIRE | DMF_054 | Insight |  
-DARKMOON_FAIRE | DMF_055 | Idol of Y'Shaarj |  
-DARKMOON_FAIRE | DMF_056 | G'huun the Blood God |  
-DARKMOON_FAIRE | DMF_057 | Lunar Eclipse | O
-DARKMOON_FAIRE | DMF_058 | Solar Eclipse | O
-DARKMOON_FAIRE | DMF_059 | Fizzy Elemental | O
-DARKMOON_FAIRE | DMF_060 | Umbral Owl | O
-DARKMOON_FAIRE | DMF_061 | Faire Arborist | O
-DARKMOON_FAIRE | DMF_062 | Gyreworm |  
-DARKMOON_FAIRE | DMF_064 | Carousel Gryphon | O
-DARKMOON_FAIRE | DMF_065 | Banana Vendor | O
-DARKMOON_FAIRE | DMF_066 | Knife Vendor | O
-DARKMOON_FAIRE | DMF_067 | Prize Vendor | O
-DARKMOON_FAIRE | DMF_068 | Optimistic Ogre |  
-DARKMOON_FAIRE | DMF_069 | Claw Machine |  
-DARKMOON_FAIRE | DMF_070 | Darkmoon Rabbit |  
-DARKMOON_FAIRE | DMF_071 | Tenwu of the Red Smoke |  
-DARKMOON_FAIRE | DMF_073 | Darkmoon Dirigible | O
-DARKMOON_FAIRE | DMF_074 | Silas Darkmoon |  
-DARKMOON_FAIRE | DMF_075 | Guess the Weight |  
-DARKMOON_FAIRE | DMF_078 | Strongman | O
-DARKMOON_FAIRE | DMF_079 | Inconspicuous Rider |  
-DARKMOON_FAIRE | DMF_080 | Fleethoof Pearltusk | O
-DARKMOON_FAIRE | DMF_081 | K'thir Ritualist |  
-DARKMOON_FAIRE | DMF_082 | Darkmoon Statue |  
-DARKMOON_FAIRE | DMF_083 | Dancing Cobra | O
-DARKMOON_FAIRE | DMF_084 | Jewel of N'Zoth | O
-DARKMOON_FAIRE | DMF_085 | Darkmoon Tonk | O
-DARKMOON_FAIRE | DMF_086 | Petting Zoo |  
-DARKMOON_FAIRE | DMF_087 | Trampling Rhino |  
-DARKMOON_FAIRE | DMF_088 | Rinling's Rifle | O
-DARKMOON_FAIRE | DMF_089 | Maxima Blastenheimer |  
-DARKMOON_FAIRE | DMF_090 | Don't Feed the Animals |  
-DARKMOON_FAIRE | DMF_091 | Wriggling Horror | O
-DARKMOON_FAIRE | DMF_100 | Confection Cyclone | O
-DARKMOON_FAIRE | DMF_101 | Firework Elemental | O
-DARKMOON_FAIRE | DMF_102 | Game Master | O
-DARKMOON_FAIRE | DMF_103 | Mask of C'Thun | O
-DARKMOON_FAIRE | DMF_104 | Grand Finale |  
-DARKMOON_FAIRE | DMF_105 | Ring Toss |  
-DARKMOON_FAIRE | DMF_106 | Occult Conjurer |  
-DARKMOON_FAIRE | DMF_107 | Rigged Faire Game |  
-DARKMOON_FAIRE | DMF_108 | Deck of Lunacy |  
-DARKMOON_FAIRE | DMF_109 | Sayge, Seer of Darkmoon |  
-DARKMOON_FAIRE | DMF_110 | Fire Breather | O
-DARKMOON_FAIRE | DMF_111 | Man'ari Mosher | O
-DARKMOON_FAIRE | DMF_113 | Free Admission |  
-DARKMOON_FAIRE | DMF_114 | Midway Maniac | O
-DARKMOON_FAIRE | DMF_115 | Revenant Rascal | O
-DARKMOON_FAIRE | DMF_116 | The Nameless One |  
-DARKMOON_FAIRE | DMF_117 | Cascading Disaster |  
-DARKMOON_FAIRE | DMF_118 | Tickatus |  
-DARKMOON_FAIRE | DMF_119 | Wicked Whispers |  
-DARKMOON_FAIRE | DMF_120 | Nazmani Bloodweaver |  
-DARKMOON_FAIRE | DMF_121 | Fortune Teller |  
-DARKMOON_FAIRE | DMF_122 | Mystery Winner | O
-DARKMOON_FAIRE | DMF_123 | Open the Cages |  
-DARKMOON_FAIRE | DMF_124 | Horrendous Growth |  
-DARKMOON_FAIRE | DMF_125 | Safety Inspector |  
-DARKMOON_FAIRE | DMF_163 | Carnival Clown |  
-DARKMOON_FAIRE | DMF_174 | Circus Medic | O
-DARKMOON_FAIRE | DMF_184 | Fairground Fool | O
-DARKMOON_FAIRE | DMF_186 | Auspicious Spirits | O
-DARKMOON_FAIRE | DMF_187 | Palm Reading |  
-DARKMOON_FAIRE | DMF_188 | Y'Shaarj, the Defiler |  
-DARKMOON_FAIRE | DMF_189 | Costumed Entertainer | O
-DARKMOON_FAIRE | DMF_190 | Fantastic Firebird | O
-DARKMOON_FAIRE | DMF_191 | Showstopper | O
-DARKMOON_FAIRE | DMF_194 | Redscale Dragontamer | O
-DARKMOON_FAIRE | DMF_195 | Snack Run |  
-DARKMOON_FAIRE | DMF_202 | Derailed Coaster |  
-DARKMOON_FAIRE | DMF_217 | Line Hopper |  
-DARKMOON_FAIRE | DMF_219 | Relentless Pursuit | O
-DARKMOON_FAIRE | DMF_221 | Felscream Blast |  
-DARKMOON_FAIRE | DMF_222 | Redeemed Pariah |  
-DARKMOON_FAIRE | DMF_223 | Renowned Performer | O
-DARKMOON_FAIRE | DMF_224 | Expendable Performers |  
-DARKMOON_FAIRE | DMF_225 | Throw Glaive |  
-DARKMOON_FAIRE | DMF_226 | Bladed Lady |  
-DARKMOON_FAIRE | DMF_227 | Dreadlord's Bite | O
-DARKMOON_FAIRE | DMF_229 | Stiltstepper |  
-DARKMOON_FAIRE | DMF_230 | Il'gynoth |  
-DARKMOON_FAIRE | DMF_231 | Zai, the Incredible |  
-DARKMOON_FAIRE | DMF_235 | Balloon Merchant | O
-DARKMOON_FAIRE | DMF_236 | Oh My Yogg! |  
-DARKMOON_FAIRE | DMF_237 | Carnival Barker | O
-DARKMOON_FAIRE | DMF_238 | Hammer of the Naaru | O
-DARKMOON_FAIRE | DMF_240 | Lothraxion the Redeemed |  
-DARKMOON_FAIRE | DMF_241 | High Exarch Yrel | O
-DARKMOON_FAIRE | DMF_244 | Day at the Faire | O
-DARKMOON_FAIRE | DMF_247 | Insatiable Felhound | O
-DARKMOON_FAIRE | DMF_248 | Felsteel Executioner |  
-DARKMOON_FAIRE | DMF_249 | Acrobatics |  
-DARKMOON_FAIRE | DMF_254 | C'Thun, the Shattered |  
-DARKMOON_FAIRE | DMF_511 | Foxy Fraud |  
-DARKMOON_FAIRE | DMF_512 | Cloak of Shadows |  
-DARKMOON_FAIRE | DMF_513 | Shadow Clone |  
-DARKMOON_FAIRE | DMF_514 | Ticket Master | O
-DARKMOON_FAIRE | DMF_515 | Swindle | O
-DARKMOON_FAIRE | DMF_516 | Grand Empress Shek'zara |  
-DARKMOON_FAIRE | DMF_517 | Sweet Tooth | O
-DARKMOON_FAIRE | DMF_518 | Malevolent Strike |  
-DARKMOON_FAIRE | DMF_519 | Prize Plunderer |  
-DARKMOON_FAIRE | DMF_520 | Parade Leader |  
-DARKMOON_FAIRE | DMF_521 | Sword Eater | O
-DARKMOON_FAIRE | DMF_522 | Minefield | O
-DARKMOON_FAIRE | DMF_523 | Bumper Car | O
-DARKMOON_FAIRE | DMF_524 | Ringmaster's Baton |  
-DARKMOON_FAIRE | DMF_525 | Ringmaster Whatley |  
-DARKMOON_FAIRE | DMF_526 | Stage Dive | O
-DARKMOON_FAIRE | DMF_528 | Tent Trasher |  
-DARKMOON_FAIRE | DMF_529 | E.T.C., God of Metal |  
-DARKMOON_FAIRE | DMF_530 | Feat of Strength |  
-DARKMOON_FAIRE | DMF_531 | Stage Hand | O
-DARKMOON_FAIRE | DMF_532 | Circus Amalgam | O
-DARKMOON_FAIRE | DMF_533 | Ring Matron | O
-DARKMOON_FAIRE | DMF_534 | Deck of Chaos |  
-DARKMOON_FAIRE | DMF_700 | Revolve | O
-DARKMOON_FAIRE | DMF_701 | Dunk Tank | O
-DARKMOON_FAIRE | DMF_702 | Stormstrike | O
-DARKMOON_FAIRE | DMF_703 | Pit Master | O
-DARKMOON_FAIRE | DMF_704 | Cagematch Custodian | O
-DARKMOON_FAIRE | DMF_705 | Whack-A-Gnoll Hammer | O
-DARKMOON_FAIRE | DMF_706 | Deathmatch Pavilion | O
-DARKMOON_FAIRE | DMF_707 | Magicfin |  
-DARKMOON_FAIRE | DMF_708 | Inara Stormcrash |  
-DARKMOON_FAIRE | DMF_709 | Grand Totem Eys'or |  
-DARKMOON_FAIRE | DMF_730 | Moontouched Amulet | O
-DARKMOON_FAIRE | DMF_732 | Cenarion Ward | O
-DARKMOON_FAIRE | DMF_733 | Kiri, Chosen of Elune | O
-DARKMOON_FAIRE | DMF_734 | Greybough |  
-DARKMOON_FAIRE | YOP_001 | Illidari Studies |  
-DARKMOON_FAIRE | YOP_002 | Felsaber |  
-DARKMOON_FAIRE | YOP_003 | Luckysoul Hoarder |  
-DARKMOON_FAIRE | YOP_004 | Envoy Rustwix |  
-DARKMOON_FAIRE | YOP_005 | Barricade |  
-DARKMOON_FAIRE | YOP_006 | Hysteria |  
-DARKMOON_FAIRE | YOP_007 | Dark Inquisitor Xanesh |  
-DARKMOON_FAIRE | YOP_008 | Lightsteed |  
-DARKMOON_FAIRE | YOP_009 | Rally! |  
-DARKMOON_FAIRE | YOP_010 | Imprisoned Celestial | O
-DARKMOON_FAIRE | YOP_011 | Libram of Judgment | O
-DARKMOON_FAIRE | YOP_012 | Deathwarden |  
-DARKMOON_FAIRE | YOP_013 | Spiked Wheel |  
-DARKMOON_FAIRE | YOP_014 | Ironclad | O
-DARKMOON_FAIRE | YOP_015 | Nitroboost Poison | O
-DARKMOON_FAIRE | YOP_016 | Sparkjoy Cheat | O
-DARKMOON_FAIRE | YOP_017 | Shenanigans |  
-DARKMOON_FAIRE | YOP_018 | Keywarden Ivory |  
-DARKMOON_FAIRE | YOP_019 | Conjure Mana Biscuit | O
-DARKMOON_FAIRE | YOP_020 | Glacier Racer | O
-DARKMOON_FAIRE | YOP_021 | Imprisoned Phoenix | O
-DARKMOON_FAIRE | YOP_022 | Mistrunner | O
-DARKMOON_FAIRE | YOP_023 | Landslide | O
-DARKMOON_FAIRE | YOP_024 | Guidance |  
-DARKMOON_FAIRE | YOP_025 | Dreaming Drake | O
-DARKMOON_FAIRE | YOP_026 | Arbor Up | O
-DARKMOON_FAIRE | YOP_027 | Bola Shot |  
-DARKMOON_FAIRE | YOP_028 | Saddlemaster |  
-DARKMOON_FAIRE | YOP_029 | Resizing Pouch |  
-DARKMOON_FAIRE | YOP_030 | Felfire Deadeye |  
-DARKMOON_FAIRE | YOP_031 | Crabrider | O
-DARKMOON_FAIRE | YOP_032 | Armor Vendor | O
-DARKMOON_FAIRE | YOP_033 | Backfire | O
-DARKMOON_FAIRE | YOP_034 | Runaway Blackwing | O
-DARKMOON_FAIRE | YOP_035 | Moonfang |  
-
-- Progress: 46% (79 of 170 Cards)
 
 ## Forged in the Barrens
 
@@ -1262,6 +798,140 @@ ALTERAC_VALLEY | ONY_036 | Razorglaive Sentinel |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
+THE_SUNKEN_CITY | TSC_001 | Naval Mine |  
+THE_SUNKEN_CITY | TSC_002 | Pufferfist |  
+THE_SUNKEN_CITY | TSC_006 | Multi-Strike |  
+THE_SUNKEN_CITY | TSC_007 | Gangplank Diver |  
+THE_SUNKEN_CITY | TSC_013 | Slimescale Diver |  
+THE_SUNKEN_CITY | TSC_017 | Baba Naga |  
+THE_SUNKEN_CITY | TSC_020 | Barbaric Sorceress |  
+THE_SUNKEN_CITY | TSC_023 | Barbed Nets |  
+THE_SUNKEN_CITY | TSC_026 | Colaque |  
+THE_SUNKEN_CITY | TSC_029 | Gaia, the Techtonic |  
+THE_SUNKEN_CITY | TSC_030 | The Leviathan |  
 THE_SUNKEN_CITY | TSC_032 | Blademaster Okani |  
+THE_SUNKEN_CITY | TSC_034 | Gorloc Ravager |  
+THE_SUNKEN_CITY | TSC_039 | Azsharan Scavenger |  
+THE_SUNKEN_CITY | TSC_052 | School Teacher |  
+THE_SUNKEN_CITY | TSC_053 | Rainbow Glowscale |  
+THE_SUNKEN_CITY | TSC_054 | Mecha-Shark |  
+THE_SUNKEN_CITY | TSC_055 | Seafloor Gateway |  
+THE_SUNKEN_CITY | TSC_056 | Volcanomancy |  
+THE_SUNKEN_CITY | TSC_057 | Azsharan Defector |  
+THE_SUNKEN_CITY | TSC_058 | Predation |  
+THE_SUNKEN_CITY | TSC_059 | Bubblebot |  
+THE_SUNKEN_CITY | TSC_060 | Shimmering Sunfish |  
+THE_SUNKEN_CITY | TSC_061 | The Garden's Grace |  
+THE_SUNKEN_CITY | TSC_064 | Slithering Deathscale |  
+THE_SUNKEN_CITY | TSC_065 | Helmet Hermit |  
+THE_SUNKEN_CITY | TSC_067 | Ambassador Faelin |  
+THE_SUNKEN_CITY | TSC_069 | Amalgam of the Deep |  
+THE_SUNKEN_CITY | TSC_070 | Harpoon Gun |  
+THE_SUNKEN_CITY | TSC_071 | Twinbow Terrorcoil |  
+THE_SUNKEN_CITY | TSC_072 | Conch's Call |  
+THE_SUNKEN_CITY | TSC_073 | Raj Naz'jan |  
+THE_SUNKEN_CITY | TSC_074 | Kotori Lightblade |  
+THE_SUNKEN_CITY | TSC_076 | Immortalized in Stone |  
+THE_SUNKEN_CITY | TSC_079 | Radar Detector |  
+THE_SUNKEN_CITY | TSC_083 | Seafloor Savior |  
+THE_SUNKEN_CITY | TSC_085 | Cutlass Courier |  
+THE_SUNKEN_CITY | TSC_086 | Swordfish |  
+THE_SUNKEN_CITY | TSC_087 | Commander Sivara |  
+THE_SUNKEN_CITY | TSC_209 | Whirlpool |  
+THE_SUNKEN_CITY | TSC_210 | Illuminate |  
+THE_SUNKEN_CITY | TSC_211 | Whispers of the Deep |  
+THE_SUNKEN_CITY | TSC_212 | Handmaiden |  
+THE_SUNKEN_CITY | TSC_213 | Queensguard |  
+THE_SUNKEN_CITY | TSC_215 | Serpent Wig |  
+THE_SUNKEN_CITY | TSC_216 | Blackwater Behemoth |  
+THE_SUNKEN_CITY | TSC_217 | Wayward Sage |  
+THE_SUNKEN_CITY | TSC_218 | Lady S'theno |  
+THE_SUNKEN_CITY | TSC_219 | Xhilag of the Abyss |  
+THE_SUNKEN_CITY | TSC_608 | Abyssal Depths |  
+THE_SUNKEN_CITY | TSC_609 | Coilskar Commander |  
+THE_SUNKEN_CITY | TSC_610 | Glaiveshark |  
+THE_SUNKEN_CITY | TSC_614 | Voidgill |  
+THE_SUNKEN_CITY | TSC_620 | Spitelash Siren |  
+THE_SUNKEN_CITY | TSC_630 | Wrathspine Enchanter |  
+THE_SUNKEN_CITY | TSC_631 | Schooling |  
+THE_SUNKEN_CITY | TSC_632 | Click-Clocker |  
+THE_SUNKEN_CITY | TSC_633 | Piranha Poacher |  
+THE_SUNKEN_CITY | TSC_635 | Radiance of Azshara |  
+THE_SUNKEN_CITY | TSC_637 | Scalding Geyser |  
+THE_SUNKEN_CITY | TSC_638 | Piranha Swarmer |  
+THE_SUNKEN_CITY | TSC_639 | Glugg the Gulper |  
+THE_SUNKEN_CITY | TSC_640 | Reefwalker |  
+THE_SUNKEN_CITY | TSC_641 | Queen Azshara |  
+THE_SUNKEN_CITY | TSC_642 | Trench Surveyor |  
+THE_SUNKEN_CITY | TSC_643 | Spellcoiler |  
+THE_SUNKEN_CITY | TSC_644 | Azsharan Mooncatcher |  
+THE_SUNKEN_CITY | TSC_645 | Mothership |  
+THE_SUNKEN_CITY | TSC_646 | Seascout Operator |  
+THE_SUNKEN_CITY | TSC_647 | Pelican Diver |  
+THE_SUNKEN_CITY | TSC_648 | Coral Keeper |  
+THE_SUNKEN_CITY | TSC_649 | Ini Stormcoil |  
+THE_SUNKEN_CITY | TSC_650 | Flipper Friends |  
+THE_SUNKEN_CITY | TSC_651 | Seaweed Strike |  
+THE_SUNKEN_CITY | TSC_652 | Green-Thumb Gardener |  
+THE_SUNKEN_CITY | TSC_653 | Bottomfeeder |  
+THE_SUNKEN_CITY | TSC_654 | Aquatic Form |  
+THE_SUNKEN_CITY | TSC_656 | Miracle Growth |  
+THE_SUNKEN_CITY | TSC_657 | Dozing Kelpkeeper |  
+THE_SUNKEN_CITY | TSC_658 | Hedra the Heretic |  
+THE_SUNKEN_CITY | TSC_659 | Trenchstalker |  
+THE_SUNKEN_CITY | TSC_660 | Nellie, the Great Thresher |  
+THE_SUNKEN_CITY | TSC_702 | Switcheroo |  
+THE_SUNKEN_CITY | TSC_753 | Bloodscent Vilefin |  
+THE_SUNKEN_CITY | TSC_772 | Azsharan Scroll |  
+THE_SUNKEN_CITY | TSC_775 | Azsharan Ritual |  
+THE_SUNKEN_CITY | TSC_776 | Azsharan Sweeper |  
+THE_SUNKEN_CITY | TSC_823 | Murkwater Scribe |  
+THE_SUNKEN_CITY | TSC_826 | Crushclaw Enforcer |  
+THE_SUNKEN_CITY | TSC_827 | Vicious Slitherspear |  
+THE_SUNKEN_CITY | TSC_828 | Priestess Valishj |  
+THE_SUNKEN_CITY | TSC_829 | Naga Giant |  
+THE_SUNKEN_CITY | TSC_908 | Sir Finley, Sea Guide |  
+THE_SUNKEN_CITY | TSC_909 | Tuskarrrr Trawler |  
+THE_SUNKEN_CITY | TSC_911 | Excavation Specialist |  
+THE_SUNKEN_CITY | TSC_912 | Azsharan Vessel |  
+THE_SUNKEN_CITY | TSC_913 | Azsharan Trident |  
+THE_SUNKEN_CITY | TSC_915 | Bone Glaive |  
+THE_SUNKEN_CITY | TSC_916 | Gone Fishin' |  
+THE_SUNKEN_CITY | TSC_917 | Blackscale Brute |  
+THE_SUNKEN_CITY | TSC_919 | Azsharan Sentinel |  
+THE_SUNKEN_CITY | TSC_922 | Anchored Totem |  
+THE_SUNKEN_CITY | TSC_923 | Bioluminescence |  
+THE_SUNKEN_CITY | TSC_924 | Abyssal Wave |  
+THE_SUNKEN_CITY | TSC_925 | Rock Bottom |  
+THE_SUNKEN_CITY | TSC_926 | Smothering Starfish |  
+THE_SUNKEN_CITY | TSC_927 | Azsharan Gardens |  
+THE_SUNKEN_CITY | TSC_928 | Security Automaton |  
+THE_SUNKEN_CITY | TSC_929 | Emergency Maneuvers |  
+THE_SUNKEN_CITY | TSC_932 | Blood in the Water |  
+THE_SUNKEN_CITY | TSC_933 | Bootstrap Sunkeneer |  
+THE_SUNKEN_CITY | TSC_934 | Pirate Admiral Hooktusk |  
+THE_SUNKEN_CITY | TSC_935 | Selfish Shellfish |  
+THE_SUNKEN_CITY | TSC_936 | Swiftscale Trickster |  
+THE_SUNKEN_CITY | TSC_937 | Crabatoa |  
+THE_SUNKEN_CITY | TSC_938 | Treasure Guard |  
+THE_SUNKEN_CITY | TSC_939 | Forged in Flame |  
+THE_SUNKEN_CITY | TSC_940 | From the Depths |  
+THE_SUNKEN_CITY | TSC_941 | Guard the City |  
+THE_SUNKEN_CITY | TSC_942 | Obsidiansmith |  
+THE_SUNKEN_CITY | TSC_943 | Lady Ashvane |  
+THE_SUNKEN_CITY | TSC_944 | The Fires of Zin-Azshari |  
+THE_SUNKEN_CITY | TSC_945 | Azsharan Saber |  
+THE_SUNKEN_CITY | TSC_946 | Urchin Spines |  
+THE_SUNKEN_CITY | TSC_947 | Naga's Pride |  
+THE_SUNKEN_CITY | TSC_948 | Gifts of Azshara |  
+THE_SUNKEN_CITY | TSC_950 | Hydralodon |  
+THE_SUNKEN_CITY | TSC_952 | Holy Maki Roll |  
+THE_SUNKEN_CITY | TSC_955 | Sira'kess Cultist |  
+THE_SUNKEN_CITY | TSC_956 | Dragged Below |  
+THE_SUNKEN_CITY | TSC_957 | Chum Bucket |  
+THE_SUNKEN_CITY | TSC_959 | Za'qul |  
+THE_SUNKEN_CITY | TSC_960 | Twin-fin Fin Twin |  
+THE_SUNKEN_CITY | TSC_962 | Gigafin |  
+THE_SUNKEN_CITY | TSC_963 | Filletfighter |  
 
-- Progress: 0% (0 of 1 Cards)
+- Progress: 0% (0 of 135 Cards)
