@@ -29,6 +29,7 @@ using Entourages = std::vector<std::string>;
 using TaskList = std::vector<std::shared_ptr<ITask>>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void LegacyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -583,7 +584,7 @@ void LegacyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
     // ----------------------------------------- MINION - DRUID
     // [CS2_232] Ironbark Protector - COST:8 [ATK:8/HP:8]
-    // - Faction: neutral, Set: Legacy, Rarity: Free
+    // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
@@ -593,6 +594,21 @@ void LegacyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddPowerTask(nullptr);
     cards.emplace("CS2_232", CardDef(power));
+
+    // ----------------------------------------- MINION - DRUID
+    // [CS3_012] Nordrassil Druid - COST:4 [ATK:3/HP:5]
+    // - Set: Legacy, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> The next spell you cast this turn
+    //       costs (3) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS3_012e", EntityType::PLAYER));
+    cards.emplace("CS3_012", CardDef(power));
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_169] Innervate - COST:0
@@ -686,6 +702,26 @@ void LegacyCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     power.ClearData();
     power.AddEnchant(Enchants::GetEnchantFromText("CS2_017o"));
     cards.emplace("CS2_017o", CardDef(power));
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [CS3_012e] Nature's Rite - COST:0
+    // - Set: Legacy
+    // --------------------------------------------------------
+    // Text: Your next spell this turn costs (3) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAG_ONE_TURN_EFFECT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
+                                         EffectList{ Effects::ReduceCost(3) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+        aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
+    }
+    cards.emplace("CS3_012e", CardDef(power));
 }
 
 void LegacyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -1284,6 +1320,15 @@ void LegacyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_097", CardDef(power));
 
     // ---------------------------------------- SPELL - PALADIN
+    // [CS3_029] Pursuit of Justice - COST:2
+    // - Set: Legacy, Rarity: Epic
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Give +1 Attack to Silver Hand Recruits
+    //       you summon this game.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
     // [EX1_360] Humility - COST:1
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
@@ -1520,6 +1565,22 @@ void LegacyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
         "CS2_236",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                  { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
+    // - Set: Legacy, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After a friendly character is healed, gain +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "CS3_014e", EntityType::SOURCE) };
+    cards.emplace("CS3_014", CardDef(power));
 
     // ----------------------------------------- SPELL - PRIEST
     // [DS1_233] Mind Blast - COST:2
@@ -2272,6 +2333,70 @@ void LegacyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_065", CardDef(power));
 
     // ---------------------------------------- SPELL - WARLOCK
+    // [CS3_002] Ritual of Doom - COST:0
+    // - Set: Legacy, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Destroy a friendly minion.
+    //       If you had 5 or more, summon a 5/5 Demon.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(5, RelaSign::GEQ)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET),
+                        std::make_shared<SummonTask>("CS3_002t",
+                                                     SummonSide::TARGET) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
+    cards.emplace(
+        "CS3_002",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CS3_021] Enslaved Fel Lord - COST:7 [ATK:4/HP:10]
+    // - Race: Demon, Set: Legacy, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>. Also damages the minions next to
+    //       whomever this attacks.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    power.GetTrigger()->tasks = {
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            const auto target = dynamic_cast<Minion*>(
+                playable->game->currentEventData->eventTarget);
+            if (target == nullptr)
+            {
+                return 0;
+            }
+
+            auto& taskStack = playable->game->taskStack;
+            for (auto& minion : target->GetAdjacentMinions())
+            {
+                taskStack.playables.emplace_back(minion);
+            }
+
+            return dynamic_cast<Minion*>(playable)->GetAttack();
+        }),
+        std::make_shared<DamageNumberTask>(EntityType::STACK)
+    };
+    cards.emplace("CS3_021", CardDef(power));
+
+    // ---------------------------------------- SPELL - WARLOCK
     // [EX1_302] Mortal Coil - COST:1
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // - Spell School: Shadow
@@ -2464,6 +2589,38 @@ void LegacyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace(
         "CS2_114",
         CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CS3_009] War Cache - COST:3
+    // - Set: Legacy, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Add a random Warrior minion, spell,
+    //       and weapon to your hand.
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::WEAPON, CardClass::WARRIOR));
+    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("CS3_009", CardDef(power));
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
+    // - Set: Legacy, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("CS3_030", CardDef(power));
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_084] Warsong Commander - COST:3 [ATK:2/HP:3]

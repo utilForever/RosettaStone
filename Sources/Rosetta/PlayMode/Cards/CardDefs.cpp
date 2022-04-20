@@ -22,6 +22,7 @@
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/Placeholder202204CardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
@@ -42,7 +43,7 @@ CardDefs::CardDefs()
 {
     AlteracValleyCardsGen::AddAll(m_data);
     VanillaCardsGen::AddAll(m_data);
-    //CoreCardsGen::AddAll(m_data);
+    CoreCardsGen::AddAll(m_data);
     LegacyCardsGen::AddAll(m_data);
     Expert1CardsGen::AddAll(m_data);
     DemonHunterInitCardsGen::AddAll(m_data);
@@ -69,6 +70,7 @@ CardDefs::CardDefs()
     TheBarrensCardsGen::AddAll(m_data);
     StormwindCardsGen::AddAll(m_data);
     TheSunkenCityCardsGen::AddAll(m_data);
+    Placeholder202204CardsGen::AddAll(m_data);
 }
 
 CardDefs::~CardDefs()

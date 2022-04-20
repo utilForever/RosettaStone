@@ -885,6 +885,55 @@ TEST_CASE("[Druid : Minion] - CS2_232 : Ironbark Protector")
     // Do nothing
 }
 
+// ----------------------------------------- MINION - DRUID
+// [CS3_012] Nordrassil Druid - COST:4 [ATK:3/HP:5]
+// - Set: Legacy, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> The next spell you cast this turn
+//       costs (3) less.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - CS3_012 : Nordrassil Druid")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nordrassil Druid"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(card2->GetCost(), 4);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(card2->GetCost(), 4);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [EX1_169] Innervate - COST:0
 // - Faction: Neutral, Set: Legacy, Rarity: Free
@@ -3166,6 +3215,67 @@ TEST_CASE("[Priest : Spell] - CS2_236 : Divine Spirit")
     CHECK_EQ(curField[0]->GetHealth(), 8);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [CS3_014] Crimson Clergy - COST:1 [ATK:1/HP:3]
+// - Set: Legacy, Rarity: Rare
+// --------------------------------------------------------
+// Text: After a friendly character is healed, gain +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CS3_014 : Crimson Clergy")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Crimson Clergy"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, HeroPowerTask(curPlayer->GetHero()));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField[1]->GetHealth(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 8);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [DS1_233] Mind Blast - COST:2
 // - Faction: Neutral, Set: Legacy, Rarity: Free
@@ -4922,6 +5032,147 @@ TEST_CASE("[Warlock : Minion] - CS2_065 : Voidwalker")
 }
 
 // ---------------------------------------- SPELL - WARLOCK
+// [CS3_002] Ritual of Doom - COST:0
+// - Set: Legacy, Rarity: Rare
+// - Spell School: Shadow
+// --------------------------------------------------------
+// Text: Destroy a friendly minion.
+//       If you had 5 or more, summon a 5/5 Demon.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - CS3_002 : Ritual of Doom")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ritual of Doom"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ritual of Doom"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card8 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 4);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+    game.Process(curPlayer, PlayCardTask::Minion(card8));
+    CHECK_EQ(curField.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[0]->card->name, "Demonic Tyrant");
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [CS3_021] Enslaved Fel Lord - COST:7 [ATK:4/HP:10]
+// - Race: Demon, Set: Legacy, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>. Also damages the minions next to
+//       whomever this attacks.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - CS3_021 : Enslaved Fel Lord")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Enslaved Fel Lord"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Argent Squire"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Stranglethorn Tiger"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[1]->HasDivineShield(), true);
+    CHECK_EQ(opField[2]->HasStealth(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card3));
+    CHECK_EQ(curField[0]->GetHealth(), 9);
+    CHECK_EQ(opField.GetCount(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->HasDivineShield(), false);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[2]->HasStealth(), true);
+    CHECK_EQ(opField[2]->GetHealth(), 1);
+}
+
+// ---------------------------------------- SPELL - WARLOCK
 // [EX1_302] Mortal Coil - COST:1
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // - Spell School: Shadow
@@ -5407,6 +5658,62 @@ TEST_CASE("[Warrior : Spell] - CS2_114 : Cleave")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
     CHECK_EQ(opField[0]->GetHealth(), 3);
     CHECK_EQ(opField[1]->GetHealth(), 5);
+}
+
+// ---------------------------------------- SPELL - WARRIOR
+// [CS3_009] War Cache - COST:3
+// - Set: Legacy, Rarity: Rare
+// --------------------------------------------------------
+// Text: Add a random Warrior minion, spell,
+//       and weapon to your hand.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - CS3_009 : War Cache")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("War Cache"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK(curHand[0]->card->IsCardClass(CardClass::WARRIOR));
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK(curHand[1]->card->IsCardClass(CardClass::WARRIOR));
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+    CHECK(curHand[2]->card->IsCardClass(CardClass::WARRIOR));
+    CHECK_EQ(curHand[2]->card->GetCardType(), CardType::WEAPON);
+}
+
+// --------------------------------------- MINION - WARRIOR
+// [CS3_030] Warsong Outrider - COST:4 [ATK:5/HP:4]
+// - Set: Legacy, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+// --------------------------------------------------------
+// GameTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - CS3_030 : Warsong Outrider")
+{
+    // Do nothing
 }
 
 // --------------------------------------- MINION - WARRIOR
