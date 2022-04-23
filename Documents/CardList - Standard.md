@@ -803,7 +803,7 @@ THE_SUNKEN_CITY | TSC_002 | Pufferfist |
 THE_SUNKEN_CITY | TSC_006 | Multi-Strike |  
 THE_SUNKEN_CITY | TSC_007 | Gangplank Diver |  
 THE_SUNKEN_CITY | TSC_013 | Slimescale Diver |  
-THE_SUNKEN_CITY | TSC_017 | Baba Naga |  
+THE_SUNKEN_CITY | TSC_017 | Baba Naga | O
 THE_SUNKEN_CITY | TSC_020 | Barbaric Sorceress |  
 THE_SUNKEN_CITY | TSC_023 | Barbed Nets |  
 THE_SUNKEN_CITY | TSC_026 | Colaque |  
@@ -818,7 +818,7 @@ THE_SUNKEN_CITY | TSC_054 | Mecha-Shark |
 THE_SUNKEN_CITY | TSC_055 | Seafloor Gateway |  
 THE_SUNKEN_CITY | TSC_056 | Volcanomancy |  
 THE_SUNKEN_CITY | TSC_057 | Azsharan Defector |  
-THE_SUNKEN_CITY | TSC_058 | Predation |  
+THE_SUNKEN_CITY | TSC_058 | Predation | O
 THE_SUNKEN_CITY | TSC_059 | Bubblebot |  
 THE_SUNKEN_CITY | TSC_060 | Shimmering Sunfish |  
 THE_SUNKEN_CITY | TSC_061 | The Garden's Grace |  
@@ -922,7 +922,7 @@ THE_SUNKEN_CITY | TSC_943 | Lady Ashvane |
 THE_SUNKEN_CITY | TSC_944 | The Fires of Zin-Azshari |  
 THE_SUNKEN_CITY | TSC_945 | Azsharan Saber |  
 THE_SUNKEN_CITY | TSC_946 | Urchin Spines |  
-THE_SUNKEN_CITY | TSC_947 | Naga's Pride |  
+THE_SUNKEN_CITY | TSC_947 | Naga's Pride | O
 THE_SUNKEN_CITY | TSC_948 | Gifts of Azshara |  
 THE_SUNKEN_CITY | TSC_950 | Hydralodon |  
 THE_SUNKEN_CITY | TSC_952 | Holy Maki Roll |  
@@ -934,4 +934,4 @@ THE_SUNKEN_CITY | TSC_960 | Twin-fin Fin Twin |
 THE_SUNKEN_CITY | TSC_962 | Gigafin |  
 THE_SUNKEN_CITY | TSC_963 | Filletfighter |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 2% (3 of 135 Cards)

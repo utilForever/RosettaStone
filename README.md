@@ -47,7 +47,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * 81% Forged in the Barrens (139 of 170 cards)
   * 35% United in Stormwind (60 of 170 cards)
   * 35% Fractured in Alterac Valley (61 of 170 cards)
-  * 0% Voyage to the Sunken City (0 of 135 cards)
+  * 2% Voyage to the Sunken City (3 of 135 cards)
 
 ### Wild Format
 
