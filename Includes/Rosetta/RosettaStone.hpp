@@ -161,6 +161,7 @@
 #include <Rosetta/PlayMode/Models/Spell.hpp>
 #include <Rosetta/PlayMode/Models/Weapon.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTrigger.hpp>
 #include <Rosetta/PlayMode/Tasks/EventMetaData.hpp>
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks.hpp>
