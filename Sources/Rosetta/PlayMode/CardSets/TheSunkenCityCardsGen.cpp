@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/TheSunkenCityCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTrigger.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -366,14 +367,7 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                   "TSC_947e", EntityType::STACK) }));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->conditions = SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::NAGA))
-    };
-    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 1) };
+    ComplexTrigger::PlayedNagaWhileHoldingThis(power);
     cards.emplace(
         "TSC_947",
         CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
@@ -1942,14 +1936,7 @@ void TheSunkenCityCardsGen::AddDemonHunter(
 
         return 0;
     }));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->conditions = SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::NAGA))
-    };
-    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
-        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 1) };
+    ComplexTrigger::PlayedNagaWhileHoldingThis(power);
     cards.emplace(
         "TSC_058",
         CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
