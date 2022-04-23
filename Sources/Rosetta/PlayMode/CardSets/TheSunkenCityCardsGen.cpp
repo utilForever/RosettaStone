@@ -2134,6 +2134,8 @@ void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
 
 void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+    
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_001] Naval Mine - COST:2 [ATK:0/HP:2]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Common
@@ -2190,6 +2192,20 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::TAG_SCRIPT_DATA_NUM_1, 1)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3) }));
+    ComplexTrigger::CastSpellWhileHoldingThis(power);
+    cards.emplace(
+        "TSC_017",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_020] Barbaric Sorceress - COST:6 [ATK:3/HP:7]
