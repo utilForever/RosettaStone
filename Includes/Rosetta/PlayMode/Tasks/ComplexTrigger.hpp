@@ -36,6 +36,19 @@ class ComplexTrigger
                 EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 1)
         };
     }
+
+    //! Adds a trigger for checking "If you cast a spell while holding this".
+    //! \param power A power to add the trigger.
+    static void CastSpellWhileHoldingThis(Power& power)
+    {
+        power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+        power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+        power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+        power.GetTrigger()->tasks = {
+            std::make_shared<SimpleTasks::SetGameTagTask>(
+                EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 1)
+        };
+    }
 };
 }  // namespace RosettaStone::PlayMode
 
