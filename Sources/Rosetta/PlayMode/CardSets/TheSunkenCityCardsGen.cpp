@@ -4,9 +4,16 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/TheSunkenCityCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+
+using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+
 void TheSunkenCityCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -249,6 +256,8 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
 
 void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------------- SPELL - HUNTER
     // [TSC_023] Barbed Nets - COST:1
     // - Set: THE_SUNKEN_CITY, Rarity: Common
@@ -343,6 +352,30 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     //       If you played a Naga while holding this,
     //       give them +1/+1.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_947t", 2, SummonSide::SPELL, true));
+    power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::TAG_SCRIPT_DATA_NUM_1, 1)) }));
+    power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "TSC_947e", EntityType::STACK) }));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::NAGA))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 1) };
+    cards.emplace(
+        "TSC_947",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
 
     // ---------------------------------------- MINION - HUNTER
     // [TSC_950] Hydralodon - COST:7 [ATK:5/HP:5]
@@ -364,6 +397,8 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [TSC_071e] Twinned - COST:0
     // - Set: THE_SUNKEN_CITY
@@ -428,11 +463,17 @@ void TheSunkenCityCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddEnchant(Enchants::GetEnchantFromText("TSC_947e"));
+    cards.emplace("TSC_947e", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [TSC_947t] Lionfish - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(nullptr);
+    cards.emplace("TSC_947t", CardDef(power));
 
     // ---------------------------------------- MINION - HUNTER
     // [TSC_950t] Hydralodon Head - COST:2 [ATK:3/HP:1]
