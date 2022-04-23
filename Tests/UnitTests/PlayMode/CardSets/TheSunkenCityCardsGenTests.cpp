@@ -79,3 +79,60 @@ TEST_CASE("[Hunter : Spell] - TSC_947 : Naga's Pride")
     CHECK_EQ(curField[4]->GetAttack(), 3);
     CHECK_EQ(curField[4]->GetHealth(), 3);
 }
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [TSC_058] Predation - COST:3
+// - Set: THE_SUNKEN_CITY, Rarity: Rare
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Deal 3 damage.
+//       Costs (0) if you played a Naga while holding this.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - TSC_058 : Predation")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Predation"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Predation"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Rainbow Glowscale"));
+
+    CHECK_EQ(card1->GetCost(), 3);
+    CHECK_EQ(card2->GetCost(), 3);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(card2->GetCost(), 0);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 23);
+}

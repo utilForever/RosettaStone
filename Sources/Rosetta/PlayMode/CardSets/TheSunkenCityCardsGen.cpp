@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/CardSets/TheSunkenCityCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1896,6 +1897,8 @@ void TheSunkenCityCardsGen::AddWarriorNonCollect(
 void TheSunkenCityCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
 {
+    Power power;
+
     // ------------------------------------ SPELL - DEMONHUNTER
     // [TSC_006] Multi-Strike - COST:1
     // - Set: THE_SUNKEN_CITY, Rarity: Rare
@@ -1925,6 +1928,31 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     // Text: Deal 3 damage.
     //       Costs (0) if you played a Naga while holding this.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        if (playable->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) == 1)
+        {
+            return playable->GetGameTag(GameTag::COST);
+        }
+
+        return 0;
+    }));
+    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::NAGA))
+    };
+    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::SOURCE, GameTag::TAG_SCRIPT_DATA_NUM_1, 1) };
+    cards.emplace(
+        "TSC_058",
+        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [TSC_217] Wayward Sage - COST:2 [ATK:2/HP:2]
