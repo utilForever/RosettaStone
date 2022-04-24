@@ -14,6 +14,10 @@ namespace RosettaStone::PlayMode::SimpleTasks
 //! \brief DredgeTask class.
 //!
 //! This class represents the task for processing keyword 'Dredge'.
+//! Dredge is a mechanic introduced in Voyage to the Sunken City. Dredge allows
+//! the player to look at the bottom 3 cards from their deck, then choose one to
+//! put them on the top of their deck. Dredge can also be considered a Putting
+//! on deck mechanic.
 //!
 class DredgeTask : public ITask
 {
