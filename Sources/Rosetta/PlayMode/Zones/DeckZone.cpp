@@ -29,6 +29,11 @@ Playable* DeckZone::GetNthTopCard(int rank) const
     return m_entities[m_count - rank];
 }
 
+Playable* DeckZone::GetBottomCard() const
+{
+    return m_entities[0];
+}
+
 void DeckZone::Add(Playable* entity, int zonePos)
 {
     LimitedZone::Add(entity, zonePos);
