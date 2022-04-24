@@ -40,6 +40,11 @@ class DeckZone : public LimitedZone<Playable>
     //! \return The bottom card of deck.
     Playable* GetBottomCard() const;
 
+    //! Returns the n-th bottom card from deck.
+    //! \param rank The rank of entity from deck.
+    //! \return The n-th bottom card of deck.
+    Playable* GetNthBottomCard(int rank) const;
+
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
