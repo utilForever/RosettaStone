@@ -21,22 +21,42 @@ DeckZone::DeckZone(Player* player) : LimitedZone(ZoneType::DECK, MAX_DECK_SIZE)
 
 Playable* DeckZone::GetTopCard() const
 {
+    if (IsEmpty())
+    {
+        return nullptr;
+    }
+
     return m_entities[m_count - 1];
 }
 
 Playable* DeckZone::GetNthTopCard(int rank) const
 {
+    if (IsEmpty() || rank < 0 || rank > m_count)
+    {
+        return nullptr;
+    }
+
     return m_entities[m_count - rank];
 }
 
 Playable* DeckZone::GetBottomCard() const
 {
+    if (IsEmpty())
+    {
+        return nullptr;
+    }
+
     return m_entities[0];
 }
 
 Playable* DeckZone::GetNthBottomCard(int rank) const
 {
-    return m_entities[rank];
+    if (IsEmpty() || rank < 0 || rank > m_count)
+    {
+        return nullptr;
+    }
+
+    return m_entities[rank - 1];
 }
 
 void DeckZone::Add(Playable* entity, int zonePos)
