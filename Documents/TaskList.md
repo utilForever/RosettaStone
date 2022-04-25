@@ -54,6 +54,7 @@
 * DrawStackTask
 * DrawTask
 * DrawWeaponTask
+* DredgeTask
 * EnqueueNumberTask
 * EnqueueTask
 * FilterStackTask
