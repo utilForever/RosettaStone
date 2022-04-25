@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DredgeTask.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
@@ -14,6 +15,13 @@ DredgeTask::DredgeTask(bool addToStack) : m_addToStack(addToStack)
 
 TaskStatus DredgeTask::Impl(Player* player)
 {
+    auto deck = player->GetDeckZone();
+
+    if (deck->IsEmpty())
+    {
+        return TaskStatus::STOP;
+    }
+
     return TaskStatus::COMPLETE;
 }
 
