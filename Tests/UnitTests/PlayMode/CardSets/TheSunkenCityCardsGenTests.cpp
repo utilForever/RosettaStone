@@ -11,7 +11,9 @@
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
@@ -189,4 +191,74 @@ TEST_CASE("[Neutral : Minion] - TSC_017 : Baba Naga")
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [TSC_909] Tuskarrrr Trawler - COST:2 [ATK:2/HP:3]
+// - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Dredge</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DREDGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - TSC_909 : Tuskarrrr Trawler")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doShuffle = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 5)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Frostbolt");
+        config.player1Deck[i + 3] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i + 4] = Cards::FindCardByName("Pyroblast");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Tuskarrrr Trawler"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+
+    auto firstChoice = game.entityList[curPlayer->choice->choices[0]];
+    auto secondChoice = game.entityList[curPlayer->choice->choices[1]];
+    auto thirdChoice = game.entityList[curPlayer->choice->choices[2]];
+    CHECK_EQ(firstChoice->card->name, "Pyroblast");
+    CHECK_EQ(secondChoice->card->name, "Wisp");
+    CHECK_EQ(thirdChoice->card->name, "Frostbolt");
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curDeck.GetTopCard()->card->name, "Pyroblast");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Pyroblast");
 }
