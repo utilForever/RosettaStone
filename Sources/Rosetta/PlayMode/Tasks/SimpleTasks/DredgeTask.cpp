@@ -15,11 +15,25 @@ DredgeTask::DredgeTask(bool addToStack) : m_addToStack(addToStack)
 
 TaskStatus DredgeTask::Impl(Player* player)
 {
-    auto deck = player->GetDeckZone();
+    const auto deck = player->GetDeckZone();
 
     if (deck->IsEmpty())
     {
         return TaskStatus::STOP;
+    }
+
+    std::vector<int> cardList;
+    cardList.reserve(3);
+
+    for (int i = 0; i < 3; ++i)
+    {
+        const auto card = deck->GetNthBottomCard(i);
+        if (!card)
+        {
+            break;
+        }
+
+        cardList.emplace_back(card->GetGameTag(GameTag::ENTITY_ID));
     }
 
     return TaskStatus::COMPLETE;
