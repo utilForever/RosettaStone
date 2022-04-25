@@ -891,7 +891,7 @@ THE_SUNKEN_CITY | TSC_827 | Vicious Slitherspear |
 THE_SUNKEN_CITY | TSC_828 | Priestess Valishj |  
 THE_SUNKEN_CITY | TSC_829 | Naga Giant |  
 THE_SUNKEN_CITY | TSC_908 | Sir Finley, Sea Guide |  
-THE_SUNKEN_CITY | TSC_909 | Tuskarrrr Trawler |  
+THE_SUNKEN_CITY | TSC_909 | Tuskarrrr Trawler | O
 THE_SUNKEN_CITY | TSC_911 | Excavation Specialist |  
 THE_SUNKEN_CITY | TSC_912 | Azsharan Vessel |  
 THE_SUNKEN_CITY | TSC_913 | Azsharan Trident |  
@@ -934,4 +934,4 @@ THE_SUNKEN_CITY | TSC_960 | Twin-fin Fin Twin |
 THE_SUNKEN_CITY | TSC_962 | Gigafin |  
 THE_SUNKEN_CITY | TSC_963 | Filletfighter |  
 
-- Progress: 2% (3 of 135 Cards)
+- Progress: 2% (4 of 135 Cards)

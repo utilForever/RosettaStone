@@ -178,6 +178,12 @@ bool ChoicePick(Player* player, int choice)
             }
             break;
         }
+        case ChoiceAction::DREDGE:
+        {
+            const auto deckZone = player->GetDeckZone();
+            deckZone->Add(deckZone->Remove(playable));
+            break;
+        }
         case ChoiceAction::STACK:
         {
             player->choice->AddToStack(choice);

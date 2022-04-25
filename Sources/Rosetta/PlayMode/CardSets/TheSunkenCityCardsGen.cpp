@@ -2485,6 +2485,9 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DREDGE = 1
     // --------------------------------------------------------
+    power.ClearData();
+    power.AddPowerTask(std::make_shared<DredgeTask>());
+    cards.emplace("TSC_909", CardDef(power));
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_911] Excavation Specialist - COST:4 [ATK:3/HP:6]

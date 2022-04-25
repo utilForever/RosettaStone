@@ -3110,7 +3110,7 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
 
     CHECK_EQ(curHero->weapon->GetDurability(), 3);
     CHECK_EQ(curHand.GetAll().back()->card->id, secondCardID);
-    CHECK_EQ(curDeck.GetNthTopCard(curDeck.GetCount())->card->id, topCardID);
+    CHECK_EQ(curDeck.GetBottomCard()->card->id, topCardID);
 }
 
 // ---------------------------------------- SPELL - NEUTRAL

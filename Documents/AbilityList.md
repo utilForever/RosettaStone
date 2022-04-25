@@ -36,7 +36,7 @@
 * [x] Corrupt
 * [x] Counter
 * [x] Dormant
-* [ ] Dredge
+* [x] Dredge
 * [x] Echo
 * [ ] Frenzy
 * [x] Honorable Kill

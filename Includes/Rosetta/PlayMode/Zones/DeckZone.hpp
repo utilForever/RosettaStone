@@ -27,14 +27,23 @@ class DeckZone : public LimitedZone<Playable>
     //! \param player The player.
     explicit DeckZone(Player* player);
 
-    //! Returns the top card from deck.
-    //! \return The top card of deck.
+    //! Returns the top card from the deck.
+    //! \return The top card of the deck.
     Playable* GetTopCard() const;
 
-    //! Returns the n-th top card from deck.
-    //! \param rank The rank of entity from deck.
-    //! \return The n-th top card of deck.
+    //! Returns the n-th top card from the deck.
+    //! \param rank The rank of entity from the deck.
+    //! \return The n-th top card of the deck.
     Playable* GetNthTopCard(int rank) const;
+
+    //! Returns the bottom card from the deck.
+    //! \return The bottom card of the deck.
+    Playable* GetBottomCard() const;
+
+    //! Returns the n-th bottom card from the deck.
+    //! \param rank The rank of entity from the deck.
+    //! \return The n-th bottom card of the deck.
+    Playable* GetNthBottomCard(int rank) const;
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
