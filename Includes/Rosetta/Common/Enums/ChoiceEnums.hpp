@@ -59,6 +59,7 @@ enum class ChoiceAction
     DRAW_FROM_DECK,      //!< Draw from deck.
     CAST_SPELL,          //!< Cast spell.
     SUMMON,              //!< Summon.
+    DREDGE,              //!< Dredge.
     STACK,               //!< Stack.
     ENVOY_OF_LAZUL,      //!< Envoy Of Lazul.
     SIGHTLESS_WATCHER,   //!< Sightless Watcher.
