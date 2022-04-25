@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DredgeTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 
@@ -35,6 +36,9 @@ TaskStatus DredgeTask::Impl(Player* player)
 
         cardList.emplace_back(card->GetGameTag(GameTag::ENTITY_ID));
     }
+
+    Generic::CreateChoice(player, m_source, ChoiceType::GENERAL,
+                          ChoiceAction::DREDGE, cardList);
 
     return TaskStatus::COMPLETE;
 }
