@@ -6,28 +6,27 @@
 #ifndef ROSETTASTONE_PLAYMODE_CARD_DEF_HPP
 #define ROSETTASTONE_PLAYMODE_CARD_DEF_HPP
 
+#include <Rosetta/PlayMode/Cards/CardProperty.hpp>
 #include <Rosetta/PlayMode/Enchants/Power.hpp>
-
-#include <map>
-#include <vector>
 
 namespace RosettaStone::PlayMode
 {
 //!
-//! \brief CardDef class.
+//! \brief CardDef struct.
 //!
-//! This class stores the card data such as powers and play requirements.
+//! This struct stores card power and property.
 //!
-class CardDef
+struct CardDef
 {
- public:
+    //! Clears power and property data.
+    void ClearData()
+    {
+        power.ClearData();
+        property.ClearData();
+    }
+
     Power power;
-    std::map<PlayReq, int> playReqs;
-    std::vector<std::string> chooseCardIDs;
-    std::vector<std::string> entourages;
-    std::string corruptCardID;
-    int questProgressTotal = 0;
-    int heroPowerDbfID = 0;
+    CardProperty property;
 };
 }  // namespace RosettaStone::PlayMode
 
