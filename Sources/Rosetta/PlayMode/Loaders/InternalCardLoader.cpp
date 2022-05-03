@@ -17,14 +17,14 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
         const auto cardDef = CardDefs::GetInstance().FindCardDefByID(card->id);
 
         card->power = cardDef.power;
-        card->playRequirements = cardDef.playReqs;
-        card->chooseCardIDs = cardDef.chooseCardIDs;
-        card->entourages = cardDef.entourages;
+        card->playRequirements = cardDef.property.playReqs;
+        card->chooseCardIDs = cardDef.property.chooseCardIDs;
+        card->entourages = cardDef.property.entourages;
         card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] =
-            cardDef.questProgressTotal;
-        card->gameTags[GameTag::HERO_POWER] = cardDef.heroPowerDbfID;
+            cardDef.property.questProgressTotal;
+        card->gameTags[GameTag::HERO_POWER] = cardDef.property.heroPowerDbfID;
         card->gameTags[GameTag::CORRUPTEDCARD] =
-            Cards::FindCardByID(cardDef.corruptCardID)->dbfID;
+            Cards::FindCardByID(cardDef.property.corruptCardID)->dbfID;
 
         // NOTE: Load some game tag data
         // Scheme series
