@@ -7,7 +7,7 @@
 //#include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/DalaranCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/DemonHunterInitCardsGen.hpp>
@@ -43,7 +43,7 @@ CardDefs::CardDefs()
 {
     AlteracValleyCardsGen::AddAll(m_data);
     //VanillaCardsGen::AddAll(m_data);
-    //CoreCardsGen::AddAll(m_data);
+    CoreCardsGen::AddAll(m_data);
     //LegacyCardsGen::AddAll(m_data);
     //Expert1CardsGen::AddAll(m_data);
     //DemonHunterInitCardsGen::AddAll(m_data);
