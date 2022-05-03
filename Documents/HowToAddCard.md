@@ -83,7 +83,7 @@ Wolfrider is a minion with the **Charge** ability. [Charge](https://hearthstone.
 ```C++
 void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_124] Wolfrider - COST:3 [ATK:3/HP:1]
@@ -94,8 +94,8 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
     cards.emplace("CS2_124", CardDef(power));
 }
 ```
@@ -121,7 +121,7 @@ This card has two powers: One is the power to restore current maximum health, an
 ```C++
 void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_041] Ancestral Healing - COST:0
@@ -139,9 +139,9 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Tag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::TARGET));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<HealFullTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS2_041e", EntityType::TARGET));
     cards.emplace(
         "CS2_041",
@@ -155,7 +155,7 @@ Meanwhile, The power to grant the Taunt ability is the enchantment of Ancestral 
 ```C++
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_041e] Ancestral Infusion (*) - COST:0
@@ -166,8 +166,8 @@ void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_unique<Enchant>(Effects::Taunt));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_unique<Enchant>(Effects::Taunt));
     cards.emplace("CS2_041e", CardDef(power));
 }
 ```
