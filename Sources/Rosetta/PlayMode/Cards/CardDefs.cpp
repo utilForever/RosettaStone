@@ -17,7 +17,7 @@
 //#include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/LoECardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
@@ -44,7 +44,7 @@ CardDefs::CardDefs()
     AlteracValleyCardsGen::AddAll(m_data);
     //VanillaCardsGen::AddAll(m_data);
     CoreCardsGen::AddAll(m_data);
-    //LegacyCardsGen::AddAll(m_data);
+    LegacyCardsGen::AddAll(m_data);
     //Expert1CardsGen::AddAll(m_data);
     //DemonHunterInitCardsGen::AddAll(m_data);
     //NaxxCardsGen::AddAll(m_data);
