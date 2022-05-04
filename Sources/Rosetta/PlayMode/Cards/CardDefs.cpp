@@ -21,7 +21,7 @@
 //#include <Rosetta/PlayMode/CardSets/LoECardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Placeholder202204CardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
@@ -52,7 +52,7 @@ CardDefs::CardDefs()
     //BrmCardsGen::AddAll(m_data);
     TgtCardsGen::AddAll(m_data);
     //LoECardsGen::AddAll(m_data);
-    //OgCardsGen::AddAll(m_data);
+    OgCardsGen::AddAll(m_data);
     //KaraCardsGen::AddAll(m_data);
     //UngoroCardsGen::AddAll(m_data);
     //IcecrownCardsGen::AddAll(m_data);
