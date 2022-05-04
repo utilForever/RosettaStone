@@ -5,7 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/AlteracValleyCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/DalaranCardsGen.hpp>
@@ -58,7 +58,7 @@ CardDefs::CardDefs()
     //IcecrownCardsGen::AddAll(m_data);
     //LootapaloozaCardsGen::AddAll(m_data);
     //GilneasCardsGen::AddAll(m_data);
-    //BoomsdayCardsGen::AddAll(m_data);
+    BoomsdayCardsGen::AddAll(m_data);
     //TrollCardsGen::AddAll(m_data);
     //DalaranCardsGen::AddAll(m_data);
     //UldumCardsGen::AddAll(m_data);
