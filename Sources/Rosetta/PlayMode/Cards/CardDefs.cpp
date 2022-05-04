@@ -28,7 +28,7 @@
 //#include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/TheSunkenCityCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/TrollCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/TrollCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/UngoroCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
@@ -59,7 +59,7 @@ CardDefs::CardDefs()
     //LootapaloozaCardsGen::AddAll(m_data);
     //GilneasCardsGen::AddAll(m_data);
     BoomsdayCardsGen::AddAll(m_data);
-    //TrollCardsGen::AddAll(m_data);
+    TrollCardsGen::AddAll(m_data);
     //DalaranCardsGen::AddAll(m_data);
     //UldumCardsGen::AddAll(m_data);
     //DragonsCardsGen::AddAll(m_data);
