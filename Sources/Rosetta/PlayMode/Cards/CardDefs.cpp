@@ -20,7 +20,7 @@
 #include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LoECardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Placeholder202204CardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
@@ -47,7 +47,7 @@ CardDefs::CardDefs()
     LegacyCardsGen::AddAll(m_data);
     Expert1CardsGen::AddAll(m_data);
     DemonHunterInitCardsGen::AddAll(m_data);
-    //NaxxCardsGen::AddAll(m_data);
+    NaxxCardsGen::AddAll(m_data);
     GvgCardsGen::AddAll(m_data);
     BrmCardsGen::AddAll(m_data);
     TgtCardsGen::AddAll(m_data);
