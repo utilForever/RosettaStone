@@ -14,7 +14,7 @@
 //#include <Rosetta/PlayMode/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
@@ -48,7 +48,7 @@ CardDefs::CardDefs()
     Expert1CardsGen::AddAll(m_data);
     DemonHunterInitCardsGen::AddAll(m_data);
     //NaxxCardsGen::AddAll(m_data);
-    //GvgCardsGen::AddAll(m_data);
+    GvgCardsGen::AddAll(m_data);
     BrmCardsGen::AddAll(m_data);
     TgtCardsGen::AddAll(m_data);
     LoECardsGen::AddAll(m_data);
