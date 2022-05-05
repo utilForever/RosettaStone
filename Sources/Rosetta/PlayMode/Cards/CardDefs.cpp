@@ -13,7 +13,7 @@
 #include <Rosetta/PlayMode/CardSets/DemonHunterInitCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
@@ -57,7 +57,7 @@ CardDefs::CardDefs()
     UngoroCardsGen::AddAll(m_data);
     //IcecrownCardsGen::AddAll(m_data);
     LootapaloozaCardsGen::AddAll(m_data);
-    //GilneasCardsGen::AddAll(m_data);
+    GilneasCardsGen::AddAll(m_data);
     BoomsdayCardsGen::AddAll(m_data);
     TrollCardsGen::AddAll(m_data);
     //DalaranCardsGen::AddAll(m_data);
