@@ -15,7 +15,7 @@
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/LoECardsGen.hpp>
@@ -55,7 +55,7 @@ CardDefs::CardDefs()
     OgCardsGen::AddAll(m_data);
     KaraCardsGen::AddAll(m_data);
     UngoroCardsGen::AddAll(m_data);
-    //IcecrownCardsGen::AddAll(m_data);
+    IcecrownCardsGen::AddAll(m_data);
     LootapaloozaCardsGen::AddAll(m_data);
     GilneasCardsGen::AddAll(m_data);
     BoomsdayCardsGen::AddAll(m_data);
