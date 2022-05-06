@@ -4,7 +4,7 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/AlteracValleyCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
@@ -64,7 +64,7 @@ CardDefs::CardDefs()
     UldumCardsGen::AddAll(m_data);
     DragonsCardsGen::AddAll(m_data);
     YoDCardsGen::AddAll(m_data);
-    //BlackTempleCardsGen::AddAll(m_data);
+    BlackTempleCardsGen::AddAll(m_data);
     //ScholomanceCardsGen::AddAll(m_data);
     //DarkmoonFaireCardsGen::AddAll(m_data);
     //TheBarrensCardsGen::AddAll(m_data);
