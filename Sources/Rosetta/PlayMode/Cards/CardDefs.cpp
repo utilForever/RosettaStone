@@ -11,7 +11,7 @@
 #include <Rosetta/PlayMode/CardSets/DalaranCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DemonHunterInitCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/DragonsCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
@@ -62,7 +62,7 @@ CardDefs::CardDefs()
     TrollCardsGen::AddAll(m_data);
     DalaranCardsGen::AddAll(m_data);
     UldumCardsGen::AddAll(m_data);
-    //DragonsCardsGen::AddAll(m_data);
+    DragonsCardsGen::AddAll(m_data);
     //YoDCardsGen::AddAll(m_data);
     //BlackTempleCardsGen::AddAll(m_data);
     //ScholomanceCardsGen::AddAll(m_data);
