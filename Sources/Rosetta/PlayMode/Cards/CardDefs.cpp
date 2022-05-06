@@ -32,7 +32,7 @@
 #include <Rosetta/PlayMode/CardSets/UldumCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/UngoroCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/YoDCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/CardDefs.hpp>
 
 namespace RosettaStone::PlayMode
@@ -63,7 +63,7 @@ CardDefs::CardDefs()
     DalaranCardsGen::AddAll(m_data);
     UldumCardsGen::AddAll(m_data);
     DragonsCardsGen::AddAll(m_data);
-    //YoDCardsGen::AddAll(m_data);
+    YoDCardsGen::AddAll(m_data);
     //BlackTempleCardsGen::AddAll(m_data);
     //ScholomanceCardsGen::AddAll(m_data);
     //DarkmoonFaireCardsGen::AddAll(m_data);
