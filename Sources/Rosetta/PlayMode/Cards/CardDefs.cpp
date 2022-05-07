@@ -9,7 +9,7 @@
 #include <Rosetta/PlayMode/CardSets/BrmCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DalaranCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DemonHunterInitCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/DragonsCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
@@ -66,7 +66,7 @@ CardDefs::CardDefs()
     YoDCardsGen::AddAll(m_data);
     BlackTempleCardsGen::AddAll(m_data);
     ScholomanceCardsGen::AddAll(m_data);
-    //DarkmoonFaireCardsGen::AddAll(m_data);
+    DarkmoonFaireCardsGen::AddAll(m_data);
     //TheBarrensCardsGen::AddAll(m_data);
     //StormwindCardsGen::AddAll(m_data);
     //TheSunkenCityCardsGen::AddAll(m_data);
