@@ -24,7 +24,7 @@
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Placeholder202204CardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
-//#include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TheBarrensCardsGen.hpp>
 //#include <Rosetta/PlayMode/CardSets/TheSunkenCityCardsGen.hpp>
@@ -68,7 +68,7 @@ CardDefs::CardDefs()
     ScholomanceCardsGen::AddAll(m_data);
     DarkmoonFaireCardsGen::AddAll(m_data);
     TheBarrensCardsGen::AddAll(m_data);
-    //StormwindCardsGen::AddAll(m_data);
+    StormwindCardsGen::AddAll(m_data);
     //TheSunkenCityCardsGen::AddAll(m_data);
     Placeholder202204CardsGen::AddAll(m_data);
 }
