@@ -258,7 +258,7 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
 
 void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - HUNTER
     // [TSC_023] Barbed Nets - COST:1
@@ -357,20 +357,20 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("TSC_947t", 2, SummonSide::SPELL, true));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsTagValue(GameTag::TAG_SCRIPT_DATA_NUM_1, 1)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                   "TSC_947e", EntityType::STACK) }));
-    ComplexTrigger::PlayedNagaWhileHoldingThis(power);
-    cards.emplace(
-        "TSC_947",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    ComplexTrigger::PlayedNagaWhileHoldingThis(cardDef.power);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("TSC_947", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [TSC_950] Hydralodon - COST:7 [ATK:5/HP:5]
@@ -392,7 +392,7 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [TSC_071e] Twinned - COST:0
@@ -458,17 +458,17 @@ void TheSunkenCityCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("TSC_947e"));
-    cards.emplace("TSC_947e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("TSC_947e"));
+    cards.emplace("TSC_947e", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [TSC_947t] Lionfish - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("TSC_947t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_947t", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [TSC_950t] Hydralodon Head - COST:2 [ATK:3/HP:1]
@@ -1891,7 +1891,7 @@ void TheSunkenCityCardsGen::AddWarriorNonCollect(
 void TheSunkenCityCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [TSC_006] Multi-Strike - COST:1
@@ -1907,7 +1907,7 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     // - Set: THE_SUNKEN_CITY, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>. <b>Deathrattle:</b>
-    //       Put a 'Sunken Defector' on the bottom of your deck.
+    //       Put a 'Sunken Defector' on theï¿½bottom of your deck.
     // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1
@@ -1925,21 +1925,21 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        if (playable->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) == 1)
-        {
-            return playable->GetGameTag(GameTag::COST);
-        }
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+            if (playable->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) == 1)
+            {
+                return playable->GetGameTag(GameTag::COST);
+            }
 
-        return 0;
-    }));
-    ComplexTrigger::PlayedNagaWhileHoldingThis(power);
-    cards.emplace(
-        "TSC_058",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+            return 0;
+        }));
+    ComplexTrigger::PlayedNagaWhileHoldingThis(cardDef.power);
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("TSC_058", cardDef);
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [TSC_217] Wayward Sage - COST:2 [ATK:2/HP:2]
@@ -2134,8 +2134,8 @@ void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
 
 void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
-    
+    CardDef cardDef;
+
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_001] Naval Mine - COST:2 [ATK:0/HP:2]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Common
@@ -2195,17 +2195,17 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsTagValue(GameTag::TAG_SCRIPT_DATA_NUM_1, 1)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 3) }));
-    ComplexTrigger::CastSpellWhileHoldingThis(power);
-    cards.emplace(
-        "TSC_017",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    ComplexTrigger::CastSpellWhileHoldingThis(cardDef.power);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("TSC_017", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_020] Barbaric Sorceress - COST:6 [ATK:3/HP:7]
@@ -2485,9 +2485,9 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DREDGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DredgeTask>());
-    cards.emplace("TSC_909", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DredgeTask>());
+    cards.emplace("TSC_909", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_911] Excavation Specialist - COST:4 [ATK:3/HP:6]

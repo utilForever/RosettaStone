@@ -102,7 +102,7 @@ void BrmCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - HUNTER
     // [BRM_013] Quick Shot - COST:2
@@ -117,17 +117,16 @@ void BrmCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsHandEmpty()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DrawTask>(1) }));
-    cards.emplace(
-        "BRM_013",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("BRM_013", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [BRM_014] Core Rager - COST:4 [ATK:4/HP:4]

@@ -1742,7 +1742,7 @@ void LootapaloozaCardsGen::AddWarriorNonCollect(
 
 void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_069] Sewer Crawler - COST:3 [ATK:1/HP:1]
@@ -1819,14 +1819,14 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsFieldCount(1)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                   "LOOT_124e", EntityType::SOURCE) }));
-    cards.emplace("LOOT_124", CardDef(power));
+    cards.emplace("LOOT_124", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
@@ -1839,9 +1839,9 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("LOOT_125", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOOT_125", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_130] Arcane Tyrant - COST:5 [ATK:4/HP:4]
@@ -1904,9 +1904,9 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("LOOT_137", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOOT_137", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_144] Hoarding Dragon - COST:4 [ATK:5/HP:6]
@@ -2267,7 +2267,7 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void LootapaloozaCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOOT_018e] Hooked Horror (*) - COST:0
@@ -2309,9 +2309,9 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Taunt</b> and <b>Divine Shield</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("LOOT_124e"));
-    cards.emplace("LOOT_124e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOOT_124e"));
+    cards.emplace("LOOT_124e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_131t1] Green Ooze (*) - COST:2 [ATK:1/HP:2]
@@ -2587,9 +2587,9 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Draw a card. Fill your hand with copies of it.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
-    power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
         [=](const std::vector<Playable*>& playables) {
             if (playables.empty())
             {
@@ -2612,7 +2612,7 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
 
             return std::vector<Playable*>{};
         }));
-    cards.emplace("LOOT_998h", CardDef(power));
+    cards.emplace("LOOT_998h", cardDef);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [LOOT_998j] Zarog's Crown (*) - COST:3
@@ -2627,14 +2627,14 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DiscoverTask>(DiscoverType::LEGENDARY_MINION_SUMMON));
-    power.AddAfterChooseTask(
+    cardDef.power.AddAfterChooseTask(
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY));
-    cards.emplace(
-        "LOOT_998j",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("LOOT_998j", cardDef);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [LOOT_998l] Wondrous Wand (*) - COST:3
@@ -2642,11 +2642,11 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Draw 3 cards. Reduce their Costs to (0).
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(3, true));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(3, true));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("LOOT_998le", EntityType::STACK));
-    cards.emplace("LOOT_998l", CardDef(power));
+    cards.emplace("LOOT_998l", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOOT_998le] Wand's Wonder (*) - COST:0
@@ -2654,9 +2654,9 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Costs (0).
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
-    cards.emplace("LOOT_998le", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(0)));
+    cards.emplace("LOOT_998le", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_998k] Golden Kobold (*) - COST:3 [ATK:6/HP:6]
@@ -2670,11 +2670,11 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ChangeEntityTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ChangeEntityTask>(
         EntityType::HAND, CardType::MINION, CardClass::INVALID, Race::INVALID,
         Rarity::LEGENDARY, false));
-    cards.emplace("LOOT_998k", CardDef(power));
+    cards.emplace("LOOT_998k", cardDef);
 }
 
 void LootapaloozaCardsGen::AddAll(std::map<std::string, CardDef>& cards)

@@ -134,7 +134,7 @@ void LoECardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------- SPELL - MAGE
     // [LOE_002] Forgotten Torch - COST:3
@@ -158,9 +158,10 @@ void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscoverTask>(DiscoverType::SPELL));
-    cards.emplace("LOE_003", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("LOE_003", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [LOE_119] Animated Armor - COST:4 [ATK:4/HP:4]
@@ -273,7 +274,7 @@ void LoECardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - ROGUE
     // [LOE_010] Pit Snake - COST:1 [ATK:2/HP:1]
@@ -294,10 +295,10 @@ void LoECardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "GAME_005"));
-    cards.emplace("LOE_012", CardDef(power));
+    cards.emplace("LOE_012", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [LOE_019] Unearthed Raptor - COST:3 [ATK:3/HP:4]
@@ -484,7 +485,7 @@ void LoECardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
@@ -690,13 +691,13 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
 
-	// --------------------------------------- MINION - NEUTRAL
-	// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1] 
-	// - Race: Murloc, Set: LoE, Rarity: Common
-	// --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("LOEA10_3", CardDef(power));
+    // --------------------------------------- MINION - NEUTRAL
+    // [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
+    // - Race: Murloc, Set: LoE, Rarity: Common
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOEA10_3", cardDef);
 }
 
 void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)

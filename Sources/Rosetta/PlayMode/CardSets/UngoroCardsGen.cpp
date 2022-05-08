@@ -424,7 +424,7 @@ void UngoroCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------- SPELL - MAGE
     // [UNG_018] Flame Geyser - COST:2
@@ -449,11 +449,11 @@ void UngoroCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
         1, SelfCondList{
                std::make_shared<SelfCondition>(SelfCondition::IsSecret()) }));
-    cards.emplace("UNG_020", CardDef(power));
+    cards.emplace("UNG_020", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [UNG_021] Steam Surger - COST:4 [ATK:5/HP:4]
@@ -1098,7 +1098,7 @@ void UngoroCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- MINION - SHAMAN
     // [UNG_019] Air Elemental - COST:1 [ATK:2/HP:1]
@@ -1187,13 +1187,12 @@ void UngoroCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
-    cards.emplace(
-        "UNG_817",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("UNG_817", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [UNG_938] Hot Spring Guardian - COST:3 [ATK:2/HP:4]
@@ -1308,7 +1307,7 @@ void UngoroCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - WARLOCK
     // [UNG_047] Ravenous Pterrordax - COST:4 [ATK:4/HP:4]
@@ -1398,10 +1397,10 @@ void UngoroCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DiscardTask>(2, DiscardType::LOWEST_COST));
-    cards.emplace("UNG_833", CardDef(power));
+    cards.emplace("UNG_833", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [UNG_834] Feeding Time - COST:5
@@ -1657,7 +1656,7 @@ void UngoroCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_001] Pterrordax Hatchling - COST:3 [ATK:2/HP:2]
@@ -2012,9 +2011,9 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("UNG_813", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("UNG_813", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_814] Giant Wasp - COST:3 [ATK:2/HP:2]
@@ -2088,9 +2087,9 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("UNG_844", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("UNG_844", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_845] Igneous Elemental - COST:3 [ATK:2/HP:3]

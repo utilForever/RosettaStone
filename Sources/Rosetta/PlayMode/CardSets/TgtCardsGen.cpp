@@ -236,7 +236,7 @@ void TgtCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ SPELL - DRUID
     // [AT_037a] Living Roots (*) - COST:0
@@ -320,9 +320,9 @@ void TgtCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AT_132_DRUIDe"));
-    cards.emplace("AT_132_DRUIDe", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AT_132_DRUIDe"));
+    cards.emplace("AT_132_DRUIDe", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [OG_044c] Sabertooth Tiger (*) - COST:2 [ATK:3/HP:2]
@@ -338,7 +338,7 @@ void TgtCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- MINION - HUNTER
     // [AT_010] Ram Wrangler - COST:5 [ATK:3/HP:3]
@@ -424,10 +424,10 @@ void TgtCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // Text: Each time you cast a spell this turn,
     //       add a random Hunter card to your hand.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("AT_061e", EntityType::PLAYER));
-    cards.emplace("AT_061", CardDef(power));
+    cards.emplace("AT_061", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [AT_062] Ball of Spiders - COST:6
@@ -463,7 +463,7 @@ void TgtCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AT_057o] Groomed (*) - COST:0
@@ -482,18 +482,19 @@ void TgtCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<RandomCardTask>(CardType::INVALID, CardClass::HUNTER),
         std::make_shared<AddStackToTask>(EntityType::HAND)
     };
-    cards.emplace("AT_061e", CardDef(power));
+    cards.emplace("AT_061e", cardDef);
 }
 
 void TgtCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------- SPELL - MAGE
     // [AT_001] Flame Lance - COST:5
@@ -526,12 +527,12 @@ void TgtCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HEROPOWER_DAMAGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
         AuraType::HERO,
         EffectList{ std::make_shared<Effect>(GameTag::HEROPOWER_DAMAGE,
                                              EffectOperator::ADD, 1) }));
-    cards.emplace("AT_003", CardDef(power));
+    cards.emplace("AT_003", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [AT_004] Arcane Blast - COST:1
@@ -595,11 +596,11 @@ void TgtCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: You can use your Hero Power any number of times.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
-    power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
         EntityType::HERO_POWER, GameTag::EXHAUSTED, 0) };
-    cards.emplace("AT_008", CardDef(power));
+    cards.emplace("AT_008", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [AT_009] Rhonin - COST:8 [ATK:7/HP:7]
@@ -626,7 +627,7 @@ void TgtCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - PALADIN
     // [AT_073] Competitive Spirit - COST:1
@@ -662,15 +663,15 @@ void TgtCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
+    cardDef.ClearData();
+    cardDef.power.AddAura(
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "AT_075e"));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition = std::make_shared<SelfCondition>(
             SelfCondition::IsSilverHandRecruit());
     }
-    cards.emplace("AT_075", CardDef(power));
+    cards.emplace("AT_075", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [AT_076] Murloc Knight - COST:4 [ATK:3/HP:4]
@@ -741,7 +742,7 @@ void TgtCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [AT_074e2] Seal of Champions (*) - COST:0
@@ -756,9 +757,9 @@ void TgtCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Warhorse Trainer is granting this minion +1 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AT_075e"));
-    cards.emplace("AT_075e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AT_075e"));
+    cards.emplace("AT_075e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [AT_081e] Purified (*) - COST:0
@@ -770,7 +771,7 @@ void TgtCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- MINION - PRIEST
     // [AT_011] Holy Champion - COST:4 [ATK:3/HP:5]
@@ -847,11 +848,11 @@ void TgtCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
-    cards.emplace(
-        "AT_055",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 5));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("AT_055", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [AT_116] Wyrmrest Agent - COST:2 [ATK:1/HP:4]
@@ -985,7 +986,7 @@ void TgtCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [AT_032e] Shady Deals (*) - COST:0
@@ -1024,14 +1025,14 @@ void TgtCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 2
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AT_132_ROGUEt", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AT_132_ROGUEt", cardDef);
 }
 
 void TgtCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- MINION - SHAMAN
     // [AT_046] Tuskarr Totemic - COST:3 [ATK:3/HP:2]
@@ -1052,14 +1053,15 @@ void TgtCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::TOTEM)) }));
-    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "AT_047e", EntityType::SOURCE, true));
-    cards.emplace("AT_047", CardDef(power));
+    cards.emplace("AT_047", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [AT_048] Healing Wave - COST:3
@@ -1143,7 +1145,7 @@ void TgtCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [AT_047e] Experienced (*) - COST:0
@@ -1151,10 +1153,10 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_unique<Enchant>(Enchants::AddAttackHealthScriptTag));
-    cards.emplace("AT_047e", CardDef(power));
+    cards.emplace("AT_047e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [AT_049e] Power of the Bluff (*) - COST:0
@@ -1169,19 +1171,19 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: At the end of your turn, restore 1 Health to all friendly minions.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<HealTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<HealTask>(
         EntityType::MINIONS, 1) };
-    cards.emplace("AT_132_SHAMANa", CardDef(power));
+    cards.emplace("AT_132_SHAMANa", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [AT_132_SHAMANb] Searing Totem (*) - COST:0 [ATK:1/HP:1]
     // - Set: Tgt
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AT_132_SHAMANb", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AT_132_SHAMANb", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [AT_132_SHAMANc] Stoneclaw Totem (*) - COST:0 [ATK:0/HP:2]
@@ -1189,9 +1191,9 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AT_132_SHAMANc", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AT_132_SHAMANc", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [AT_132_SHAMANd] Wrath of Air Totem (*) - COST:0 [ATK:0/HP:2]
@@ -1199,9 +1201,9 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AT_132_SHAMANd", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AT_132_SHAMANd", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [AT_132_SHAMANe] Strength Totem (*) - COST:0 [ATK:0/HP:2]
@@ -1210,18 +1212,18 @@ void TgtCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn,
     //       give another friendly minion +1 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
         std::make_shared<AddEnchantmentTask>("CS2_058e", EntityType::STACK)
     };
-    cards.emplace("AT_132_SHAMANe", CardDef(power));
+    cards.emplace("AT_132_SHAMANe", cardDef);
 }
 
 void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - WARLOCK
     // [AT_019] Dreadsteed - COST:4 [ATK:1/HP:1]
@@ -1248,11 +1250,11 @@ void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "AT_021e", EntityType::SOURCE) };
-    cards.emplace("AT_021", CardDef(power));
+    cards.emplace("AT_021", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AT_022] Fist of Jaraxxus - COST:4
@@ -1323,7 +1325,7 @@ void TgtCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [AT_021e] Felrage (*) - COST:0
@@ -1331,10 +1333,10 @@ void TgtCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<OngoingEnchant>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<OngoingEnchant>(
         std::vector<std::shared_ptr<IEffect>>{ Effects::AttackHealthN(1) }));
-    cards.emplace("AT_021e", CardDef(power));
+    cards.emplace("AT_021e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [AT_027e] Master Summoner (*) - COST:0
@@ -1484,7 +1486,7 @@ void TgtCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [AT_017] Twilight Guardian - COST:4 [ATK:2/HP:6]
@@ -1634,9 +1636,9 @@ void TgtCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [AT_092] Ice Rager - COST:3 [ATK:5/HP:2]
     // - Race: Elemental, Set: Tgt, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AT_092", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AT_092", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AT_093] Frigid Snobold - COST:4 [ATK:2/HP:6]

@@ -958,7 +958,7 @@ void GvgCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void GvgCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - WARRIOR
     // [GVG_050] Bouncing Blade - COST:3
@@ -1002,9 +1002,9 @@ void GvgCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ArmorTask>(5));
-    cards.emplace("GVG_053", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(5));
+    cards.emplace("GVG_053", cardDef);
 
     // --------------------------------------- WEAPON - WARRIOR
     // [GVG_054] Ogre Warmaul - COST:3 [ATK:4/HP:0]
@@ -1092,7 +1092,7 @@ void GvgCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_006] Mechwarper - COST:2 [ATK:2/HP:3]
@@ -1113,8 +1113,8 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveEffect>(
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
         GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
             auto minions = playable->player->GetFieldZone()->GetAll();
 
@@ -1128,7 +1128,7 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
             return 0;
         }));
-    cards.emplace("GVG_013", CardDef(power));
+    cards.emplace("GVG_013", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_016] Fel Reaver - COST:5 [ATK:8/HP:8]
@@ -1142,9 +1142,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
     // - Race: Mechanical, Set: Gvg, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("GVG_044", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("GVG_044", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_064] Puddlestomper - COST:2 [ATK:3/HP:2]
@@ -1226,10 +1226,10 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 2));
-    cards.emplace("GVG_076", CardDef(power));
+    cards.emplace("GVG_076", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_078] Mechanical Yeti - COST:4 [ATK:4/HP:5]
@@ -1305,9 +1305,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("GVG_085", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("GVG_085", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_089] Illuminator - COST:3 [ATK:2/HP:4]
@@ -1524,9 +1524,9 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("GVG_109", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("GVG_109", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_110] Dr. Boom - COST:7 [ATK:7/HP:7]
@@ -1666,16 +1666,17 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each card in your opponent's hand.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        return playable->player->opponent->GetHandZone()->GetCount();
-    }));
-    cards.emplace("GVG_121", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+            return playable->player->opponent->GetHandZone()->GetCount();
+        }));
+    cards.emplace("GVG_121", cardDef);
 }
 
 void GvgCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [GVG_010b] Velen's Chosen (*) - COST:0
@@ -1802,13 +1803,13 @@ void GvgCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
-    power.AddDeathrattleTask(std::make_shared<MathRandTask>(1, 4));
-    power.AddDeathrattleTask(
+    cardDef.power.AddDeathrattleTask(std::make_shared<MathRandTask>(1, 4));
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<DamageNumberTask>(EntityType::STACK));
-    cards.emplace("GVG_110t", CardDef(power));
+    cards.emplace("GVG_110t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [GVG_111t] V-07-TR-0N (*) - COST:8 [ATK:4/HP:8]

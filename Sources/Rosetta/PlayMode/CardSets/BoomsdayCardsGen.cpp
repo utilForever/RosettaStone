@@ -25,7 +25,7 @@ void BoomsdayCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // [BOT_238] Dr. Boom, Mad Genius - COST:7
     // - Set: BOOMSDAY, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> For the rest of the game,
+    // Text: <b>Battlecry:</b> For the rest of the game,game
     //       your Mechs have <b>Rush</b>.
     // --------------------------------------------------------
     // GameTag:
@@ -99,7 +99,7 @@ void BoomsdayCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void BoomsdayCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ SPELL - DRUID
     // [BOT_054] Biology Project - COST:1
@@ -139,11 +139,11 @@ void BoomsdayCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 2));
-    cards.emplace(
-        "BOT_420",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 2));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("BOT_420", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [BOT_422] Tending Tauren - COST:6 [ATK:3/HP:4]
@@ -410,7 +410,7 @@ void BoomsdayCardsGen::AddHunterNonCollect(
 
 void BoomsdayCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------- SPELL - MAGE
     // [BOT_101] Astral Rift - COST:2
@@ -475,15 +475,14 @@ void BoomsdayCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::TARGET, true));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::STACK, 1, true));
-    cards.emplace(
-        "BOT_453",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("BOT_453", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [BOT_531] Celestial Emissary - COST:2 [ATK:2/HP:1]
@@ -1041,7 +1040,7 @@ void BoomsdayCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void BoomsdayCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - SHAMAN
     // [BOT_093] Elementary Reaction - COST:2
@@ -1142,11 +1141,12 @@ void BoomsdayCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomCardTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomCardTask>(
         CardType::MINION, CardClass::INVALID, Race::ELEMENTAL));
-    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("BOT_533", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("BOT_533", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [BOT_543] Omega Mind - COST:2 [ATK:2/HP:3]
@@ -1459,7 +1459,7 @@ void BoomsdayCardsGen::AddWarriorNonCollect(
 
 void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [BOT_020] Skaterbot - COST:1 [ATK:1/HP:1]
@@ -1536,10 +1536,10 @@ void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BOT_083e", EntityType::WEAPON));
-    cards.emplace("BOT_083", CardDef(power));
+    cards.emplace("BOT_083", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BOT_098] Unpowered Mauler - COST:2 [ATK:2/HP:4]
@@ -1988,7 +1988,7 @@ void BoomsdayCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void BoomsdayCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BOT_020e] Skaterbot - COST:0
@@ -2045,9 +2045,9 @@ void BoomsdayCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("BOT_083e"));
-    cards.emplace("BOT_083e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("BOT_083e"));
+    cards.emplace("BOT_083e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BOT_101e2] Warcried - COST:0
@@ -2198,10 +2198,12 @@ void BoomsdayCardsGen::AddNeutralNonCollect(
     // - TOPDECK = 1
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTopdeckTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
-    cards.emplace("BOT_511t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTopdeckTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 5));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 5));
+    cards.emplace("BOT_511t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BOT_517e] Downside Up - COST:0

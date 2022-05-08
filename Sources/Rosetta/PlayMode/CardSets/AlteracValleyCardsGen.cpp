@@ -302,7 +302,7 @@ void AlteracValleyCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - DRUID
     // [AV_210] Pathmaker - COST:3 [ATK:3/HP:4]
@@ -329,10 +329,10 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("AV_211t", SummonSide::DEATHRATTLE));
-    cards.emplace("AV_211", CardDef(power));
+    cards.emplace("AV_211", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [AV_291] Frostsaber Matriarch - COST:7 [ATK:4/HP:5]
@@ -355,18 +355,18 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("AV_292e", EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST)) }));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("AV_292e2", EntityType::STACK));
-    cards.emplace(
-        "AV_292",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("AV_292", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [AV_293] Wing Commander Mulverick - COST:4 [ATK:2/HP:5]
@@ -428,12 +428,12 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "AV_211t", SummonSide::SPELL) };
-    power.GetTrigger()->lastTurn = 3;
-    cards.emplace("AV_360", CardDef(power));
+    cardDef.power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_360", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [ONY_018] Boomkin - COST:5 [ATK:4/HP:5]
@@ -448,12 +448,12 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace(
-        "ONY_018",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
-                ChooseCardIDs{ "ONY_018t", "ONY_018t2" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "ONY_018t", "ONY_018t2" };
+    cards.emplace("ONY_018", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [ONY_019] Raid Negotiator - COST:4 [ATK:3/HP:4]
@@ -480,18 +480,18 @@ void AlteracValleyCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("ONY_001t", 7, SummonSide::SPELL));
-    cards.emplace(
-        "ONY_021",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("ONY_021", cardDef);
 }
 
 void AlteracValleyCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ SPELL - DRUID
     // [AV_205a] Ice Blossom - COST:2
@@ -520,9 +520,9 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_292e"));
-    cards.emplace("AV_292e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_292e"));
+    cards.emplace("AV_292e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [AV_292e2] Pack Member - COST:0
@@ -530,9 +530,9 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_292e2"));
-    cards.emplace("AV_292e2", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_292e2"));
+    cards.emplace("AV_292e2", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [AV_293e] Air Strike - COST:0
@@ -599,9 +599,9 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Restore 8 Health to your hero.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 8));
-    cards.emplace("ONY_018t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 8));
+    cards.emplace("ONY_018t", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [ONY_018t2] Heart of the Sun - COST:5
@@ -612,12 +612,11 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
-    cards.emplace(
-        "ONY_018t2",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("ONY_018t2", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [ONY_019e] Decisive - COST:0
@@ -629,7 +628,7 @@ void AlteracValleyCardsGen::AddDruidNonCollect(
 
 void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - HUNTER
     // [AV_147] Dun Baldar Bunker - COST:2
@@ -641,17 +640,17 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { ComplexTask::DrawCardFromDeck(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { ComplexTask::DrawCardFromDeck(
         1,
         SelfCondList{
             std::make_shared<SelfCondition>(SelfCondition::IsSecret()) },
         true) };
-    power.GetTrigger()->tasks.emplace_back(
+    cardDef.power.GetTrigger()->tasks.emplace_back(
         std::make_shared<AddEnchantmentTask>("AV_147e", EntityType::STACK));
-    power.GetTrigger()->lastTurn = 3;
-    cards.emplace("AV_147", CardDef(power));
+    cardDef.power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_147", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [AV_224] Spring the Trap - COST:4
@@ -668,15 +667,14 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - HONORABLEKILL = 1
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    power.AddPowerTask(ComplexTask::CastSecretFromDeck());
-    power.AddHonorableKillTask(ComplexTask::CastSecretFromDeck());
-    cards.emplace(
-        "AV_224",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.power.AddPowerTask(ComplexTask::CastSecretFromDeck());
+    cardDef.power.AddHonorableKillTask(ComplexTask::CastSecretFromDeck());
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("AV_224", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [AV_226] Ice Trap - COST:2
@@ -700,10 +698,10 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - HONORABLEKILL = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddHonorableKillTask(
+    cardDef.ClearData();
+    cardDef.power.AddHonorableKillTask(
         std::make_shared<AddEnchantmentTask>("AV_244e", EntityType::WEAPON));
-    cards.emplace("AV_244", CardDef(power));
+    cards.emplace("AV_244", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [AV_333] Revive Pet - COST:3
@@ -728,10 +726,10 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - RUSH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<AddEnchantmentTask>("AV_334e2", EntityType::SOURCE));
-    cards.emplace("AV_334", CardDef(power));
+    cards.emplace("AV_334", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [AV_335] Ram Tamer - COST:3 [ATK:4/HP:3]
@@ -747,16 +745,16 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsControllingSecret()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                             "AV_335e", EntityType::SOURCE),
                         std::make_shared<SetGameTagTask>(
                             EntityType::SOURCE, GameTag::STEALTH, 1) }));
-    cards.emplace("AV_335", CardDef(power));
+    cards.emplace("AV_335", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [AV_336] Wing Commander Ichman - COST:9 [ATK:5/HP:4]
@@ -785,10 +783,10 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("AV_337t", 2, SummonSide::DEATHRATTLE));
-    cards.emplace("AV_337", CardDef(power));
+    cards.emplace("AV_337", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [ONY_008] Furious Howl - COST:2
@@ -808,10 +806,10 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(ComplexTask::SummonRaceCostMinionFromDeck(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::SummonRaceCostMinionFromDeck(
         Race::BEAST, 5, RelaSign::LEQ));
-    cards.emplace("ONY_009", CardDef(power));
+    cards.emplace("ONY_009", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [ONY_010] Dragonbane Shot - COST:2
@@ -827,20 +825,19 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    power.AddHonorableKillTask(
+    cardDef.power.AddHonorableKillTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "ONY_010"));
-    cards.emplace(
-        "ONY_010",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("ONY_010", cardDef);
 }
 
 void AlteracValleyCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - HUNTER
     // [AV_113t1] Improved Explosive Trap - COST:2
@@ -942,9 +939,9 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1).
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
-    cards.emplace("AV_147e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::SetCost(1)));
+    cards.emplace("AV_147e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AV_226e] Frosty - COST:0
@@ -959,11 +956,11 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>(
             { Effects::AttackN(1), Effects::DurabilityN(1) })));
-    cards.emplace("AV_244e", CardDef(power));
+    cards.emplace("AV_244e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AV_334e] Ready for Battle - COST:0
@@ -981,18 +978,18 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: Costs (2) less.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
-                                         EffectList{ Effects::ReduceCost(2) }));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::ReduceCost(2) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST));
         aura->removeTrigger = { TriggerType::PLAY_MINION,
                                 std::make_shared<SelfCondition>(
                                     SelfCondition::IsRace(Race::BEAST)) };
     }
-    cards.emplace("AV_334e2", CardDef(power));
+    cards.emplace("AV_334e2", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AV_335e] Sneaking Up - COST:0
@@ -1000,9 +997,9 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_335e"));
-    cards.emplace("AV_335e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_335e"));
+    cards.emplace("AV_335e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [AV_336e] Frightful Pack - COST:0
@@ -1024,9 +1021,9 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_337t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_337t", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [ONY_010e] Drakeshot - COST:0
@@ -1038,7 +1035,7 @@ void AlteracValleyCardsGen::AddHunterNonCollect(
 
 void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ MINION - MAGE
     // [AV_114] Shivering Sorceress - COST:1 [ATK:2/HP:2]
@@ -1093,10 +1090,10 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform all minions into 1/1 Sheep.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<TransformTask>(EntityType::ALL_MINIONS, "CS2_tk1"));
-    cards.emplace("AV_218", CardDef(power));
+    cards.emplace("AV_218", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_282] Build a Snowman - COST:3
@@ -1112,13 +1109,13 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t"));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("AV_282t"));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "AV_282t2"));
-    cards.emplace(
-        "AV_282",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("AV_282", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_283] Rune of the Archmage - COST:9
@@ -1167,17 +1164,18 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
         TaskList{
             std::make_shared<FilterStackTask>(SelfCondList{
                 std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
             std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
             std::make_shared<DamageTask>(EntityType::STACK, 1) },
         4, false) };
-    cards.emplace("ONY_007", CardDef(power));
+    cards.emplace("ONY_007", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [ONY_029] Drakefire Amulet - COST:10
@@ -1196,7 +1194,7 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [AV_114e] Shocking - COST:0
@@ -1229,9 +1227,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_282t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_282t2] Build a Snowbrute - COST:6
@@ -1247,13 +1245,13 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t3"));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("AV_282t3"));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "AV_282t4"));
-    cards.emplace(
-        "AV_282t2",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("AV_282t2", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [AV_282t3] Snowbrute - COST:6 [ATK:6/HP:6]
@@ -1264,9 +1262,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_282t3", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t3", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [AV_282t4] Build a Snowgre - COST:9
@@ -1281,11 +1279,11 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("AV_282t5"));
-    cards.emplace(
-        "AV_282t4",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("AV_282t5"));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("AV_282t4", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [AV_282t5] Snowgre - COST:9 [ATK:9/HP:9]
@@ -1296,9 +1294,9 @@ void AlteracValleyCardsGen::AddMageNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_282t5", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_282t5", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [AV_284e] Arcane Swap - COST:0
@@ -1310,7 +1308,7 @@ void AlteracValleyCardsGen::AddMageNonCollect(
 
 void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - PALADIN
     // [AV_213] Vitality Surge - COST:2
@@ -1425,12 +1423,14 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
-    power.GetTrigger()->triggerSource = TriggerSource::SPELLS_CASTED_ON_THIS;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::SPELLS_CASTED_ON_THIS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "ONY_020e", EntityType::SOURCE) };
-    cards.emplace("ONY_020", CardDef(power));
+    cards.emplace("ONY_020", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [ONY_022] Battle Vicar - COST:2 [ATK:1/HP:3]
@@ -1442,10 +1442,10 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DiscoverTask>(DiscoverType::HOLY_SPELL));
-    cards.emplace("ONY_022", CardDef(power));
+    cards.emplace("ONY_022", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [ONY_027] Ring of Courage - COST:2
@@ -1461,23 +1461,23 @@ void AlteracValleyCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("ONY_027e", EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+    cardDef.power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
         TaskList{ std::make_shared<AddEnchantmentTask>("ONY_027e",
                                                        EntityType::TARGET) }));
-    cards.emplace(
-        "ONY_027",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("ONY_027", cardDef);
 }
 
 void AlteracValleyCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- WEAPON - PALADIN
     // [AV_146] The Immovable Object - COST:7
@@ -1567,9 +1567,9 @@ void AlteracValleyCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("ONY_020e"));
-    cards.emplace("ONY_020e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("ONY_020e"));
+    cards.emplace("ONY_020e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [ONY_027e] Heroic - COST:0
@@ -1577,14 +1577,14 @@ void AlteracValleyCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("ONY_027e"));
-    cards.emplace("ONY_027e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("ONY_027e"));
+    cards.emplace("ONY_027e", cardDef);
 }
 
 void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - PRIEST
     // [AV_315] Deliverance - COST:3
@@ -1692,15 +1692,15 @@ void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawMinionTask>(1, true));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawMinionTask>(1, true));
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsRace(Race::DRAGON)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<SummonTask>("ONY_001t", 2,
                                                      SummonSide::SPELL) }));
-    cards.emplace("ONY_017", CardDef(power));
+    cards.emplace("ONY_017", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [ONY_026] Lightmaw Netherdrake - COST:4 [ATK:4/HP:4]
@@ -1712,18 +1712,18 @@ void AlteracValleyCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE,
         SelfCondList{
             std::make_shared<SelfCondition>(
                 SelfCondition::IsHoldingSpell(SpellSchool::HOLY)),
             std::make_shared<SelfCondition>(
                 SelfCondition::IsHoldingSpell(SpellSchool::SHADOW)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DamageTask>(
                   EntityType::ALL_MINIONS_NOSOURCE, 3) }));
-    cards.emplace("ONY_026", CardDef(power));
+    cards.emplace("ONY_026", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [ONY_028] Mi'da, Pure Light - COST:6 [ATK:4/HP:6]
@@ -1846,7 +1846,7 @@ void AlteracValleyCardsGen::AddPriestNonCollect(
 
 void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - ROGUE
     // [AV_201] Coldtooth Yeti - COST:3 [ATK:1/HP:5]
@@ -1857,10 +1857,10 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddComboTask(
+    cardDef.ClearData();
+    cardDef.power.AddComboTask(
         std::make_shared<AddEnchantmentTask>("AV_201e", EntityType::SOURCE));
-    cards.emplace("AV_201", CardDef(power));
+    cards.emplace("AV_201", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [AV_298] Wildpaw Gnoll - COST:6 [ATK:3/HP:5]
@@ -1996,7 +1996,7 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [AV_201e] Yeti Rage - COST:0
@@ -2004,9 +2004,9 @@ void AlteracValleyCardsGen::AddRogueNonCollect(
     // --------------------------------------------------------
     // Text: +3 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_201e"));
-    cards.emplace("AV_201e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_201e"));
+    cards.emplace("AV_201e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [AV_203pe] Sleight of Hand - COST:0
@@ -2066,7 +2066,7 @@ void AlteracValleyCardsGen::AddRogueNonCollect(
 
 void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - SHAMAN
     // [AV_107] Glaciate - COST:6
@@ -2162,10 +2162,10 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "AV_266"));
-    cards.emplace("AV_260", CardDef(power));
+    cards.emplace("AV_260", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [AV_266] Windchill - COST:1
@@ -2181,13 +2181,13 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace(
-        "AV_266",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<FreezeTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("AV_266", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [AV_268] Wildpaw Cavern - COST:4
@@ -2199,12 +2199,12 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "AV_257t", SummonSide::SPELL) };
-    power.GetTrigger()->lastTurn = 3;
-    cards.emplace("AV_268", CardDef(power));
+    cardDef.power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_268", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [ONY_011] Don't Stand in the Fire! - COST:5
@@ -2243,7 +2243,7 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddShamanNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [AV_255e] Chilled - COST:0
@@ -2261,9 +2261,9 @@ void AlteracValleyCardsGen::AddShamanNonCollect(
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_257t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_257t", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [AV_258t] Earth Invocation - COST:0
@@ -2343,7 +2343,7 @@ void AlteracValleyCardsGen::AddShamanNonCollect(
 
 void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AV_277] Seeds of Destruction - COST:2
@@ -2353,10 +2353,10 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Shuffle four Rifts into your deck.
     //       They summon a 3/3 Dread Imp when drawn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::DECK, "AV_316t4", 4));
-    cards.emplace("AV_277", CardDef(power));
+    cards.emplace("AV_277", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AV_281] Felfire in the Hole! - COST:5
@@ -2366,17 +2366,17 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Draw a spell and deal 2 damage to all enemies.
     //       If it's a Fel spell, deal 1 more.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawSpellTask>(1, true));
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::STACK, SelfCondList{ std::make_shared<SelfCondition>(
                                SelfCondition::IsFelSpell()) }));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<FlagTask>(true, TaskList{ std::make_shared<DamageTask>(
                                              EntityType::ENEMIES, 1, true) }));
-    cards.emplace("AV_281", CardDef(power));
+    cards.emplace("AV_281", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AV_285] Full-Blown Evil - COST:3
@@ -2389,16 +2389,16 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
         TaskList{
             std::make_shared<FilterStackTask>(SelfCondList{
                 std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
             std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1),
             std::make_shared<DamageTask>(EntityType::STACK, 1) },
         5, true));
-    power.AddPowerTask(ComplexTask::RepeatableThisTurn());
-    cards.emplace("AV_285", CardDef(power));
+    cardDef.power.AddPowerTask(ComplexTask::RepeatableThisTurn());
+    cards.emplace("AV_285", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [AV_286] Felwalker - COST:6 [ATK:3/HP:7]
@@ -2422,11 +2422,11 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(ComplexTask::CopyCardInHand(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::CopyCardInHand(
         1, SelfCondList{
                std::make_shared<SelfCondition>(SelfCondition::IsFelSpell()) }));
-    cards.emplace("AV_308", CardDef(power));
+    cards.emplace("AV_308", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [AV_312] Sacrificial Summoner - COST:3 [ATK:3/HP:3]
@@ -2508,7 +2508,7 @@ void AlteracValleyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [AV_286e2] Felgorged - COST:0
@@ -2528,9 +2528,9 @@ void AlteracValleyCardsGen::AddWarlockNonCollect(
     // [AV_316t] Dread Imp - COST:3 [ATK:3/HP:3]
     // - Race: Demon, Set: ALTERAC_VALLEY
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_316t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_316t", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [AV_316t4] Fel Rift - COST:3
@@ -2543,10 +2543,10 @@ void AlteracValleyCardsGen::AddWarlockNonCollect(
     // GameTag:
     // - TOPDECK = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTopdeckTask(std::make_shared<SummonTask>("AV_316t"));
-    power.AddPowerTask(std::make_shared<SummonTask>("AV_316t"));
-    cards.emplace("AV_316t4", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTopdeckTask(std::make_shared<SummonTask>("AV_316t"));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("AV_316t"));
+    cards.emplace("AV_316t4", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [AV_317e] Lich Perfume - COST:0
@@ -2583,7 +2583,7 @@ void AlteracValleyCardsGen::AddWarlockNonCollect(
 
 void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_108] Shield Shatter - COST:10
@@ -2593,13 +2593,14 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 5 damage to all minions.
     //       Costs (1) less for each Armor you have.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 5, true));
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        return playable->player->GetHero()->GetArmor();
-    }));
-    cards.emplace("AV_108", CardDef(power));
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+            return playable->player->GetHero()->GetArmor();
+        }));
+    cards.emplace("AV_108", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_109] Frozen Buckler - COST:2
@@ -2609,11 +2610,11 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Gain 10 Armor.
     //       At the start of your next turn, lose 5 Armor.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ArmorTask>(10));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(10));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("AV_109e", EntityType::SOURCE));
-    cards.emplace("AV_109", CardDef(power));
+    cards.emplace("AV_109", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_119] To the Front! - COST:2
@@ -2651,13 +2652,14 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::HasTaunt())
     };
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("AV_321", CardDef(power));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("AV_321", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_322] Snowed In - COST:3
@@ -2675,15 +2677,15 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_DAMAGED_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(
         std::make_shared<FreezeTask>(EntityType::ALL_MINIONS_NOTARGET));
-    cards.emplace(
-        "AV_322",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_DAMAGED_TARGET, 0 } };
+    cards.emplace("AV_322", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [AV_323] Scrapsmith - COST:3 [ATK:2/HP:4]
@@ -2697,10 +2699,10 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "AV_323t", 2));
-    cards.emplace("AV_323", CardDef(power));
+    cards.emplace("AV_323", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [AV_565] Axe Berserker - COST:4 [ATK:3/HP:5]
@@ -2714,9 +2716,9 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - HONORABLEKILL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddHonorableKillTask(std::make_shared<DrawWeaponTask>(1));
-    cards.emplace("AV_565", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddHonorableKillTask(std::make_shared<DrawWeaponTask>(1));
+    cards.emplace("AV_565", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [AV_660] Iceblood Garrison - COST:2
@@ -2725,12 +2727,12 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn,
     //       deal 1 damage to all minions. Lasts 3 turns.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
         EntityType::ALL_MINIONS, 1, true) };
-    power.GetTrigger()->lastTurn = 3;
-    cards.emplace("AV_660", CardDef(power));
+    cardDef.power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_660", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [ONY_023] Hit It Very Hard - COST:1
@@ -2770,7 +2772,7 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [AV_109e] Chilly - COST:0
@@ -2778,11 +2780,12 @@ void AlteracValleyCardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Lose 5 Armor next turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(-5) };
-    power.GetTrigger()->removeAfterTriggered = true;
-    cards.emplace("AV_109e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(-5) };
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("AV_109e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [AV_119e] Frontlined - COST:0
@@ -2822,9 +2825,9 @@ void AlteracValleyCardsGen::AddWarriorNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_323t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_323t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [ONY_023e] HIT IT HARD - COST:0
@@ -2840,7 +2843,7 @@ void AlteracValleyCardsGen::AddWarriorNonCollect(
 void AlteracValleyCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [AV_118] Battleworn Vanguard - COST:2 [ATK:2/HP:2]
@@ -2851,11 +2854,13 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { std::make_shared<SummonTask>("BT_922t", 2) };
-    cards.emplace("AV_118", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BT_922t", 2) };
+    cards.emplace("AV_118", cardDef);
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [AV_209] Dreadprison Glaive - COST:1
@@ -2877,12 +2882,12 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
-    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "AV_261e", EntityType::SOURCE) };
-    cards.emplace("AV_261", CardDef(power));
+    cards.emplace("AV_261", cardDef);
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [AV_262] Warden of Chains - COST:4 [ATK:2/HP:6]
@@ -2896,14 +2901,14 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::Has5MoreCostDemonInHand()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                   "AV_262e2", EntityType::SOURCE) }));
-    cards.emplace("AV_262", CardDef(power));
+    cards.emplace("AV_262", cardDef);
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [AV_264] Sigil of Reckoning - COST:5
@@ -2951,12 +2956,12 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // --------------------------------------------------------
     // Text: Your minions have +1 Attack. Lasts 3 turns.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "AV_661e2", EntityType::MINIONS) };
-    power.GetTrigger()->lastTurn = 3;
-    cards.emplace("AV_661", CardDef(power));
+    cardDef.power.GetTrigger()->lastTurn = 3;
+    cards.emplace("AV_661", cardDef);
 
     // ------------------------------------ SPELL - DEMONHUNTER
     // [ONY_014] Keen Reflex - COST:2
@@ -2992,7 +2997,7 @@ void AlteracValleyCardsGen::AddDemonHunter(
 void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_204e] Ashfallen's Power - COST:0
@@ -3020,9 +3025,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_261e"));
-    cards.emplace("AV_261e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_261e"));
+    cards.emplace("AV_261e", cardDef);
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_262e2] Terrifying - COST:0
@@ -3030,9 +3035,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1/+2.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_262e2"));
-    cards.emplace("AV_262e2", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_262e2"));
+    cards.emplace("AV_262e2", cardDef);
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [AV_267e2] Demonic - COST:0
@@ -3069,9 +3074,9 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack from {0}.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_661e2"));
-    cards.emplace("AV_661e2", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_661e2"));
+    cards.emplace("AV_661e2", cardDef);
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER
     // [ONY_014e] Keen Reflex - COST:0
@@ -3101,7 +3106,7 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
 
 void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_100] Drek'Thar - COST:4 [ATK:4/HP:4]
@@ -3124,9 +3129,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawSpellTask>(SpellSchool::FROST, 1));
-    cards.emplace("AV_101", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(SpellSchool::FROST, 1));
+    cards.emplace("AV_101", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_102] Popsicooler - COST:3 [ATK:3/HP:3]
@@ -3141,11 +3147,12 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
-    power.AddDeathrattleTask(std::make_shared<FreezeTask>(EntityType::STACK));
-    cards.emplace("AV_102", CardDef(power));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<FreezeTask>(EntityType::STACK));
+    cards.emplace("AV_102", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_112] Snowblind Harpy - COST:3 [ATK:3/HP:4]
@@ -3157,14 +3164,14 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsHoldingSpell(SpellSchool::FROST)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<ArmorTask>(5) }));
-    cards.emplace("AV_112", CardDef(power));
+    cards.emplace("AV_112", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_121] Gnome Private - COST:1 [ATK:1/HP:3]
@@ -3175,10 +3182,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HONORABLEKILL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddHonorableKillTask(
+    cardDef.ClearData();
+    cardDef.power.AddHonorableKillTask(
         std::make_shared<AddEnchantmentTask>("AV_121e", EntityType::SOURCE));
-    cards.emplace("AV_121", CardDef(power));
+    cards.emplace("AV_121", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_122] Corporal - COST:2 [ATK:2/HP:3]
@@ -3193,10 +3200,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddHonorableKillTask(std::make_shared<SetGameTagTask>(
+    cardDef.ClearData();
+    cardDef.power.AddHonorableKillTask(std::make_shared<SetGameTagTask>(
         EntityType::MINIONS_NOSOURCE, GameTag::DIVINE_SHIELD, 1));
-    cards.emplace("AV_122", CardDef(power));
+    cards.emplace("AV_122", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_123] Sneaky Scout - COST:2 [ATK:3/HP:2]
@@ -3209,10 +3216,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - HONORABLEKILL = 1
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddHonorableKillTask(
+    cardDef.ClearData();
+    cardDef.power.AddHonorableKillTask(
         std::make_shared<AddEnchantmentTask>("AV_123e", EntityType::PLAYER));
-    cards.emplace("AV_123", CardDef(power));
+    cards.emplace("AV_123", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_124] Direwolf Commander - COST:3 [ATK:2/HP:5]
@@ -3227,10 +3234,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddHonorableKillTask(
+    cardDef.ClearData();
+    cardDef.power.AddHonorableKillTask(
         std::make_shared<SummonTask>("AV_211t", SummonSide::RIGHT));
-    cards.emplace("AV_124", CardDef(power));
+    cards.emplace("AV_124", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_125] Tower Sergeant - COST:4 [ATK:4/HP:4]
@@ -3242,15 +3249,15 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsFieldCount(3, RelaSign::GEQ)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                   "AV_125e", EntityType::SOURCE) }));
-    cards.emplace("AV_125", CardDef(power));
+    cards.emplace("AV_125", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_126] Bunker Sergeant - COST:3 [ATK:2/HP:4]
@@ -3262,15 +3269,15 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsOpFieldCount(2, RelaSign::GEQ)) }));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<FlagTask>(true, TaskList{ std::make_shared<DamageTask>(
                                              EntityType::ENEMY_MINIONS, 1) }));
-    cards.emplace("AV_126", CardDef(power));
+    cards.emplace("AV_126", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_127] Ice Revenant - COST:4 [ATK:4/HP:5]
@@ -3281,15 +3288,16 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsFrostSpell())
     };
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "AV_127e", EntityType::SOURCE) };
-    cards.emplace("AV_127", CardDef(power));
+    cards.emplace("AV_127", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_128] Frozen Mammoth - COST:4 [ATK:6/HP:7]
@@ -3318,13 +3326,15 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<IncludeTask>(EntityType::HAND));
-    power.AddDeathrattleTask(std::make_shared<FilterStackTask>(SelfCondList{
-        std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<IncludeTask>(EntityType::HAND));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<AddEnchantmentTask>("AV_130e", EntityType::STACK));
-    cards.emplace("AV_130", CardDef(power));
+    cards.emplace("AV_130", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_131] Knight-Captain - COST:5 [ATK:3/HP:3]
@@ -3340,13 +3350,13 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
-    power.AddHonorableKillTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    cardDef.power.AddHonorableKillTask(
         std::make_shared<AddEnchantmentTask>("AV_131e", EntityType::SOURCE));
-    cards.emplace(
-        "AV_131",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("AV_131", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_132] Troll Centurion - COST:8 [ATK:8/HP:8]
@@ -3359,10 +3369,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - HONORABLEKILL = 1
     // - RUSH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddHonorableKillTask(
+    cardDef.ClearData();
+    cardDef.power.AddHonorableKillTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 8));
-    cards.emplace("AV_132", CardDef(power));
+    cards.emplace("AV_132", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_133] Icehoof Protector - COST:6 [ATK:2/HP:10]
@@ -3378,9 +3388,9 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_133", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_133", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_134] Frostwolf Warmaster - COST:4 [ATK:3/HP:3]
@@ -3388,12 +3398,13 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each card you've played this turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        return playable->player->GetGameTag(
-            GameTag::NUM_CARDS_PLAYED_THIS_TURN);
-    }));
-    cards.emplace("AV_134", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+            return playable->player->GetGameTag(
+                GameTag::NUM_CARDS_PLAYED_THIS_TURN);
+        }));
+    cards.emplace("AV_134", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_135] Stormpike Marshal - COST:4 [ATK:2/HP:6]
@@ -3445,14 +3456,15 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    cards.emplace(
-        "AV_138",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_LEGENDARY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_LEGENDARY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_ENEMY_TARGET, 0 } };
+    cards.emplace("AV_138", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_139] Abominable Lieutenant - COST:8 [ATK:3/HP:5]
@@ -3526,10 +3538,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddHonorableKillTask(std::make_shared<SetGameTagTask>(
+    cardDef.ClearData();
+    cardDef.power.AddHonorableKillTask(std::make_shared<SetGameTagTask>(
         EntityType::SOURCE, GameTag::WINDFURY, 1));
-    cards.emplace("AV_215", CardDef(power));
+    cards.emplace("AV_215", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_219] Ram Commander - COST:2 [ATK:2/HP:2]
@@ -3544,10 +3556,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "AV_219t", 2));
-    cards.emplace("AV_219", CardDef(power));
+    cards.emplace("AV_219", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_222] Spammy Arcanist - COST:5 [ATK:3/HP:4]
@@ -3604,10 +3616,10 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("AV_309t", SummonSide::DEATHRATTLE));
-    cards.emplace("AV_309", CardDef(power));
+    cards.emplace("AV_309", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_401] Stormpike Quartermaster - COST:2 [ATK:2/HP:2]
@@ -3619,12 +3631,14 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { ComplexTask::GiveBuffToRandomMinionInHand(
-        "AV_401e") };
-    cards.emplace("AV_401", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        ComplexTask::GiveBuffToRandomMinionInHand("AV_401e")
+    };
+    cards.emplace("AV_401", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_704] Humongous Owl - COST:7 [ATK:8/HP:4]
@@ -3635,12 +3649,12 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
-    power.AddDeathrattleTask(
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<DamageTask>(EntityType::STACK, 8));
-    cards.emplace("AV_704", CardDef(power));
+    cards.emplace("AV_704", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ONY_001] Onyxian Warder - COST:5 [ATK:3/HP:6]
@@ -3713,7 +3727,7 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void AlteracValleyCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_121e] Gnome's Honor - COST:0
@@ -3721,9 +3735,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_121e"));
-    cards.emplace("AV_121e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_121e"));
+    cards.emplace("AV_121e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_123e] Scouted - COST:0
@@ -3731,14 +3745,14 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Your Hero Power costs (0).
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::HERO_POWER,
-                                         EffectList{ Effects::SetCost(0) }));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HERO_POWER, EffectList{ Effects::SetCost(0) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->removeTrigger = { TriggerType::INSPIRE, nullptr };
     }
-    cards.emplace("AV_123e", CardDef(power));
+    cards.emplace("AV_123e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_125e] Shielded - COST:0
@@ -3746,9 +3760,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_125e"));
-    cards.emplace("AV_125e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_125e"));
+    cards.emplace("AV_125e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_127e] Frosty Spirit - COST:0
@@ -3756,9 +3770,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_127e"));
-    cards.emplace("AV_127e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_127e"));
+    cards.emplace("AV_127e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_128e] Unthawed - COST:0
@@ -3783,9 +3797,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_130e"));
-    cards.emplace("AV_130e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_130e"));
+    cards.emplace("AV_130e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_131e] Armed to the Teeth - COST:0
@@ -3793,9 +3807,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_131e"));
-    cards.emplace("AV_131e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_131e"));
+    cards.emplace("AV_131e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_136e] Rusted Armor - COST:0
@@ -3856,9 +3870,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_211t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_211t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [AV_218t] Sheep - COST:1 [ATK:1/HP:1]
@@ -3874,9 +3888,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_219t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_219t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_223e] Occupy the Keep - COST:0
@@ -3917,9 +3931,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // [AV_309t] Backpiggy Imp - COST:3 [ATK:4/HP:1]
     // - Race: Demon, Set: ALTERAC_VALLEY
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("AV_309t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AV_309t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AV_401e] Quartered - COST:0
@@ -3927,9 +3941,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("AV_401e"));
-    cards.emplace("AV_401e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_401e"));
+    cards.emplace("AV_401e", cardDef);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [AV_COIN1] The Coin - COST:0
@@ -3954,9 +3968,9 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("ONY_001t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("ONY_001t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ONY_002e] More Loot! - COST:0

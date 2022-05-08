@@ -45,7 +45,7 @@ void TrollCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - DRUID
     // [TRL_223] Spirit of the Raptor - COST:1 [ATK:0/HP:3]
@@ -102,10 +102,10 @@ void TrollCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +2 Attack this turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("TRL_243e", EntityType::HERO));
-    cards.emplace("TRL_243", CardDef(power));
+    cards.emplace("TRL_243", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [TRL_244] Predatory Instincts - COST:4
@@ -321,7 +321,7 @@ void TrollCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- WEAPON - HUNTER
     // [TRL_111] Headhunter's Hatchet - COST:2 [ATK:2/HP:0]
@@ -334,15 +334,15 @@ void TrollCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 2
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsControllingRace(Race::BEAST)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                   "TRL_111e1", EntityType::SOURCE) }));
-    cards.emplace("TRL_111", CardDef(power));
+    cards.emplace("TRL_111", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [TRL_119] The Beast Within - COST:1
@@ -1947,7 +1947,7 @@ void TrollCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [TRL_020t] Bat (*) - COST:1 [ATK:1/HP:1]
@@ -2006,9 +2006,10 @@ void TrollCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Durability.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::DurabilityN(1)));
-    cards.emplace("TRL_111e1", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::DurabilityN(1)));
+    cards.emplace("TRL_111e1", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [TRL_119e] The Beast Within (*) - COST:0
@@ -2031,9 +2032,9 @@ void TrollCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("TRL_243e"));
-    cards.emplace("TRL_243e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("TRL_243e"));
+    cards.emplace("TRL_243e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [TRL_244e] Predatory Instincts (*) - COST:0

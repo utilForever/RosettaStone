@@ -20,7 +20,7 @@ using namespace SimpleTasks;
 // [TRL_243] Pounce - COST:0
 // - Set: Troll, Rarity: Common
 // --------------------------------------------------------
-// Text: Give your hero +2 Attack this turn.
+// Text: Give your hero +2 Attack this turn.turn
 // --------------------------------------------------------
 TEST_CASE("[Druid : Spell] - TRL_243 : Pounce")
 {

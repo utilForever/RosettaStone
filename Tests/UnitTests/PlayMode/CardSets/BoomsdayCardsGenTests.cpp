@@ -133,8 +133,7 @@ TEST_CASE("[Mage : Spell] - BOT_453 : Shooting Star")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
-    CHECK_EQ(opField.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 11);
 }
 

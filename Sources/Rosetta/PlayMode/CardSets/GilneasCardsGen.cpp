@@ -204,7 +204,7 @@ void GilneasCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void GilneasCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- MINION - HUNTER
     // [GIL_128] Emeriss - COST:10 [ATK:8/HP:8]
@@ -314,18 +314,18 @@ void GilneasCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_WITH_RACE = 20
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("GIL_828e", EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<CopyTask>(EntityType::TARGET,
-                                                  ZoneType::DECK, 3, true));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(std::make_shared<CopyTask>(
+        EntityType::TARGET, ZoneType::DECK, 3, true));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("GIL_828e", EntityType::STACK));
-    cards.emplace(
-        "GIL_828",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_WITH_RACE, 20 } };
+    cards.emplace("GIL_828", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [GIL_905] Carrion Drake - COST:5 [ATK:3/HP:7]
@@ -388,7 +388,7 @@ void GilneasCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void GilneasCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ MINION - MAGE
     // [GIL_116] Arcane Keysmith - COST:4 [ATK:2/HP:2]
@@ -486,18 +486,17 @@ void GilneasCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsFrozen()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<FreezeTask>(EntityType::TARGET) }));
-    cards.emplace(
-        "GIL_801",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("GIL_801", cardDef);
 }
 
 void GilneasCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
@@ -1000,7 +999,7 @@ void GilneasCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void GilneasCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - WARLOCK
     // [GIL_191] Fiendish Circle - COST:3
@@ -1011,11 +1010,11 @@ void GilneasCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("GIL_191t", 4));
-    cards.emplace(
-        "GIL_191",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("GIL_191t", 4));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("GIL_191", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [GIL_508] Duskbat - COST:3 [ATK:2/HP:4]
@@ -1139,15 +1138,15 @@ void GilneasCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 void GilneasCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - WARLOCK
     // [GIL_191t] Imp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: Gilneas
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("GIL_191t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("GIL_191t", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [GIL_508t] Bat (*) - COST:1 [ATK:1/HP:1]
@@ -1793,7 +1792,7 @@ void GilneasCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void GilneasCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [GIL_000] Echo Enchant (*) - COST:0
@@ -2132,9 +2131,9 @@ void GilneasCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("GIL_828e"));
-    cards.emplace("GIL_828e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("GIL_828e"));
+    cards.emplace("GIL_828e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [GIL_837e] Moth Dust (*) - COST:0

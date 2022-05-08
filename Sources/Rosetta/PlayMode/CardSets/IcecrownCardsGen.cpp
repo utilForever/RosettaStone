@@ -642,7 +642,7 @@ void IcecrownCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void IcecrownCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- MINION - HUNTER
     // [ICC_021] Exploding Bloatbat - COST:4 [ATK:2/HP:1]
@@ -751,9 +751,9 @@ void IcecrownCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("ICC_419", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("ICC_419", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [ICC_825] Abominable Bowman - COST:7 [ATK:6/HP:7]
@@ -924,7 +924,7 @@ void IcecrownCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void IcecrownCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - PALADIN
     // [ICC_034] Arrogant Crusader - COST:4 [ATK:5/HP:2]
@@ -948,9 +948,9 @@ void IcecrownCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("ICC_038", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("ICC_038", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [ICC_039] Dark Conviction - COST:2
@@ -1224,7 +1224,7 @@ void IcecrownCardsGen::AddPriestNonCollect(
 
 void IcecrownCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - ROGUE
     // [ICC_065] Bone Baron - COST:5 [ATK:5/HP:5]
@@ -1303,14 +1303,14 @@ void IcecrownCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddComboTask(
+    cardDef.ClearData();
+    cardDef.power.AddComboTask(
         std::make_shared<AddEnchantmentTask>("ICC_809e", EntityType::TARGET));
-    cards.emplace(
-        "ICC_809",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_FOR_COMBO, 0 } };
+    cards.emplace("ICC_809", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [ICC_811] Lilian Voss - COST:4 [ATK:4/HP:5]
@@ -1356,7 +1356,7 @@ void IcecrownCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void IcecrownCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [ICC_018e] Witty Weaponplay (*) - COST:0
@@ -1392,9 +1392,9 @@ void IcecrownCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("ICC_809e"));
-    cards.emplace("ICC_809e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("ICC_809e"));
+    cards.emplace("ICC_809e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [ICC_827e] Shadow Reflection (*) - COST:0
@@ -1562,7 +1562,7 @@ void IcecrownCardsGen::AddShamanNonCollect(
 
 void IcecrownCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - WARLOCK
     // [ICC_041] Defile - COST:2
@@ -1587,13 +1587,12 @@ void IcecrownCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    cards.emplace(
-        "ICC_055",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("ICC_055", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [ICC_075] Despicable Dreadlord - COST:5 [ATK:4/HP:5]
@@ -1786,7 +1785,7 @@ void IcecrownCardsGen::AddWarriorNonCollect(
 
 void IcecrownCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [ICC_018] Phantom Freebooter - COST:4 [ATK:3/HP:3]
@@ -1835,12 +1834,12 @@ void IcecrownCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("ICC_026t", SummonSide::LEFT));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("ICC_026t", SummonSide::RIGHT));
-    cards.emplace("ICC_026", CardDef(power));
+    cards.emplace("ICC_026", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ICC_027] Bone Drake - COST:6 [ATK:6/HP:5]
@@ -2328,7 +2327,7 @@ void IcecrownCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void IcecrownCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [ICC_019t] Skeletal Flayer (*) - COST:8 [ATK:8/HP:8]
@@ -2344,9 +2343,9 @@ void IcecrownCardsGen::AddNeutralNonCollect(
     // [ICC_026t] Skeleton (*) - COST:1 [ATK:1/HP:1]
     // - Set: Icecrown
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("ICC_026t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("ICC_026t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ICC_028e] Blessing of the Val'kyr (*) - COST:0

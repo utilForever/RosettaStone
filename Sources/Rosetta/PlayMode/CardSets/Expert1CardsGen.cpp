@@ -36,7 +36,7 @@ using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void Expert1CardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- HERO - WARLOCK
     // [EX1_323] Lord Jaraxxus - COST:9 [ATK:0/HP:30]
@@ -48,14 +48,15 @@ void Expert1CardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<WeaponTask>("EX1_323w"));
-    cards.emplace("EX1_323", CardDef(power, 0, 1178));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<WeaponTask>("EX1_323w"));
+    cardDef.property.heroPowerDbfID = 1178;
+    cards.emplace("EX1_323", cardDef);
 }
 
 void Expert1CardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [EX1_625t] Mind Spike (*) - COST:2
@@ -66,11 +67,11 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
-    cards.emplace(
-        "EX1_625t",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_625t", cardDef);
 
     // ------------------------------------ HERO_POWER - PRIEST
     // [EX1_625t2] Mind Shatter (*) - COST:2
@@ -81,11 +82,11 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 3));
-    cards.emplace(
-        "EX1_625t2",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_625t2", cardDef);
 
     // ----------------------------------- HERO_POWER - WARLOCK
     // [EX1_tk33] INFERNO! (*) - COST:2
@@ -96,16 +97,16 @@ void Expert1CardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk34"));
-    cards.emplace(
-        "EX1_tk33",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk34"));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("EX1_tk33", cardDef);
 }
 
 void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154] Wrath - COST:2
@@ -122,13 +123,12 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_154",
-                  CardDef(power,
-                          PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                    { PlayReq::REQ_MINION_TARGET, 0 } },
-                          ChooseCardIDs{ "EX1_154a", "EX1_154b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_154a", "EX1_154b" };
+    cards.emplace("EX1_154", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155] Mark of Nature - COST:3
@@ -148,13 +148,12 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_155",
-                  CardDef(power,
-                          PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                    { PlayReq::REQ_MINION_TARGET, 0 } },
-                          ChooseCardIDs{ "EX1_155a", "EX1_155b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_155a", "EX1_155b" };
+    cards.emplace("EX1_155", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_158] Soul of the Forest - COST:4
@@ -167,10 +166,10 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_158e", EntityType::MINIONS));
-    cards.emplace("EX1_158", CardDef(power));
+    cards.emplace("EX1_158", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_160] Power of the Wild - COST:2
@@ -182,10 +181,10 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_160",
-                  CardDef(power, ChooseCardIDs{ "EX1_160a", "EX1_160b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_160a", "EX1_160b" };
+    cards.emplace("EX1_160", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_161] Naturalize - COST:1
@@ -198,13 +197,13 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
-    cards.emplace(
-        "EX1_161",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<DrawOpTask>(2));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_161", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164] Nourish - COST:5
@@ -217,10 +216,10 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_164",
-                  CardDef(power, ChooseCardIDs{ "EX1_164a", "EX1_164b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_164a", "EX1_164b" };
+    cards.emplace("EX1_164", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165] Druid of the Claw - COST:5 [ATK:5/HP:4]
@@ -236,11 +235,11 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<TransformTask>(EntityType::SOURCE, "OG_044a"));
-    cards.emplace("EX1_165",
-                  CardDef(power, ChooseCardIDs{ "EX1_165a", "EX1_165b" }));
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_165a", "EX1_165b" };
+    cards.emplace("EX1_165", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:4]
@@ -258,12 +257,12 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace(
-        "EX1_166",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
-                ChooseCardIDs{ "EX1_166a", "EX1_166b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_166a", "EX1_166b" };
+    cards.emplace("EX1_166", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
@@ -278,10 +277,10 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_178",
-                  CardDef(power, ChooseCardIDs{ "EX1_178a", "EX1_178b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_178a", "EX1_178b" };
+    cards.emplace("EX1_178", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_183] Gift of the Wild - COST:8
@@ -293,10 +292,10 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_183e", EntityType::MINIONS));
-    cards.emplace("EX1_183", CardDef(power));
+    cards.emplace("EX1_183", cardDef);
 
     // ------------------------------------------- SPELL - DRUID
     // [EX1_570] Bite - COST:4
@@ -304,11 +303,11 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn. Gain 4 Armor.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_570e", EntityType::HERO));
-    power.AddPowerTask(std::make_shared<ArmorTask>(4));
-    cards.emplace("EX1_570", CardDef(power));
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    cards.emplace("EX1_570", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_571] Force of Nature - COST:5
@@ -320,11 +319,11 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 3));
-    cards.emplace(
-        "EX1_571",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk9", 3));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("EX1_571", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_573] Cenarius - COST:8 [ATK:5/HP:8]
@@ -340,10 +339,10 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_573",
-                  CardDef(power, ChooseCardIDs{ "EX1_573a", "EX1_573b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_573a", "EX1_573b" };
+    cards.emplace("EX1_573", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_578] Savagery - COST:1
@@ -358,15 +357,14 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::HERO, GameTag::ATK));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
-    cards.emplace(
-        "EX1_578",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_578", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [NEW1_007] Starfall - COST:5
@@ -383,13 +381,13 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("NEW1_007",
-                  CardDef(power,
-                          PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                    { PlayReq::REQ_MINION_TARGET, 0 } },
-                          ChooseCardIDs{ "NEW1_007a", "NEW1_007b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "NEW1_007a", "NEW1_007b" };
+    cards.emplace("NEW1_007", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
@@ -404,17 +402,17 @@ void Expert1CardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace(
-        "NEW1_008",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } },
-                ChooseCardIDs{ "NEW1_008a", "NEW1_008b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "NEW1_008a", "NEW1_008b" };
+    cards.emplace("NEW1_008", cardDef);
 }
 
 void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154a] Solar Wrath (*) - COST:0
@@ -427,13 +425,12 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    cards.emplace(
-        "EX1_154a",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_154a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_154b] Nature's Wrath (*) - COST:0
@@ -446,14 +443,13 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace(
-        "EX1_154b",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_154b", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155a] Tiger's Fury (*) - COST:0
@@ -466,13 +462,12 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_155ae", EntityType::TARGET));
-    cards.emplace(
-        "EX1_155a",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_155a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155ae] Mark of Nature (*) - COST:0
@@ -480,9 +475,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: This minion has +4 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_155ae"));
-    cards.emplace("EX1_155ae", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_155ae"));
+    cards.emplace("EX1_155ae", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155b] Thick Hide (*) - COST:0
@@ -495,13 +490,12 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_155be", EntityType::TARGET));
-    cards.emplace(
-        "EX1_155b",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_155b", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_155be] Mark of Nature (*) - COST:0
@@ -509,9 +503,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: This minion has +4 Health and <b>Taunt</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_155be"));
-    cards.emplace("EX1_155be", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_155be"));
+    cards.emplace("EX1_155be", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_166a] Moonfire (*) - COST:0
@@ -522,11 +516,11 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
-    cards.emplace(
-        "EX1_166a",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_166a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_166b] Dispel (*) - COST:0
@@ -541,12 +535,12 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_166b",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_166b", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_158e] Soul of the Forest (*) - COST:0
@@ -554,18 +548,18 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deathrattle: Summon a 2/2 Treant.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("EX1_158t", SummonSide::DEFAULT));
-    cards.emplace("EX1_158e", CardDef(power));
+    cards.emplace("EX1_158e", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_158t] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_158t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_158t", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_160a] Summon a Panther (*) - COST:2
@@ -576,12 +570,12 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("EX1_160t", SummonSide::SPELL));
-    cards.emplace(
-        "EX1_160a",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("EX1_160a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_160b] Leader of the Pack (*) - COST:2
@@ -589,10 +583,10 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your minions +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_160be", EntityType::MINIONS));
-    cards.emplace("EX1_160b", CardDef(power));
+    cards.emplace("EX1_160b", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_160be] Leader of the Pack (*) - COST:0
@@ -600,17 +594,17 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_160be"));
-    cards.emplace("EX1_160be", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_160be"));
+    cards.emplace("EX1_160be", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_160t] Panther (*) - COST:2 [ATK:3/HP:2]
     // - Race: Beast, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_160t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_160t", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164a] Rampant Growth (*) - COST:5
@@ -619,9 +613,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 2 Mana Crystals.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ManaCrystalTask>(2, true));
-    cards.emplace("EX1_164a", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ManaCrystalTask>(2, true));
+    cards.emplace("EX1_164a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_164b] Enrich (*) - COST:5
@@ -630,9 +624,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 3 cards.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(3));
-    cards.emplace("EX1_164b", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(3));
+    cards.emplace("EX1_164b", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165a] Cat Form (*) - COST:5 [ATK:5/HP:4]
@@ -640,10 +634,10 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Charge</b>
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<TransformTask>(EntityType::SOURCE, "EX1_165t1"));
-    cards.emplace("EX1_165a", CardDef(power));
+    cards.emplace("EX1_165a", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165b] Bear Form (*) - COST:5 [ATK:5/HP:6]
@@ -651,10 +645,10 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<TransformTask>(EntityType::SOURCE, "EX1_165t2"));
-    cards.emplace("EX1_165b", CardDef(power));
+    cards.emplace("EX1_165b", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:5/HP:4]
@@ -665,9 +659,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_165t1", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_165t1", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:5/HP:6]
@@ -678,9 +672,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_165t2", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_165t2", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_178a] Rooted (*) - COST:7
@@ -688,10 +682,10 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +5 Health and <b>Taunt</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_178ae", EntityType::SOURCE));
-    cards.emplace("EX1_178a", CardDef(power));
+    cards.emplace("EX1_178a", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_178ae] Rooted (*) - COST:0
@@ -699,9 +693,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +5 Health and <b>Taunt</b>
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_178ae"));
-    cards.emplace("EX1_178ae", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_178ae"));
+    cards.emplace("EX1_178ae", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_178b] Uproot (*) - COST:7
@@ -709,10 +703,10 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +5 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_178be", EntityType::SOURCE));
-    cards.emplace("EX1_178b", CardDef(power));
+    cards.emplace("EX1_178b", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_178be] Uprooted (*) - COST:0
@@ -720,9 +714,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +5 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_178be"));
-    cards.emplace("EX1_178be", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_178be"));
+    cards.emplace("EX1_178be", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_183e] Gift of the Wild (*) - COST:0
@@ -730,9 +724,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2 and <b>Taunt</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_183e"));
-    cards.emplace("EX1_183e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_183e"));
+    cards.emplace("EX1_183e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_570e] Bite - COST:0
@@ -740,9 +734,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +4 Attack this turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_570e"));
-    cards.emplace("EX1_570e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_570e"));
+    cards.emplace("EX1_570e", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_573a] Demigod's Favor (*) - COST:0
@@ -750,10 +744,10 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your other minions +2/+2.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "EX1_573ae", EntityType::MINIONS_NOSOURCE));
-    cards.emplace("EX1_573a", CardDef(power));
+    cards.emplace("EX1_573a", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [EX1_573ae] Demigod's Favor (*) - COST:0
@@ -761,9 +755,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_573ae"));
-    cards.emplace("EX1_573ae", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_573ae"));
+    cards.emplace("EX1_573ae", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [EX1_573b] Shan'do's Lesson (*) - COST:0
@@ -771,12 +765,12 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 2/2 Treants with <b>Taunt</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
         TaskList{ std::make_shared<SummonTask>("EX1_573t", SummonSide::RIGHT),
                   std::make_shared<SummonTask>("EX1_573t", SummonSide::LEFT) },
         1));
-    cards.emplace("EX1_573b", CardDef(power));
+    cards.emplace("EX1_573b", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_573t] Treant (*) - COST:2 [ATK:2/HP:2]
@@ -787,17 +781,17 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_573t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_573t", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [EX1_tk9] Treant (*) - COST:2 [ATK:2/HP:2]
     // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_tk9", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk9", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [NEW1_007a] Stellar Drift (*) - COST:0
@@ -806,10 +800,10 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage to all enemy minions.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
-    cards.emplace("NEW1_007a", CardDef(power));
+    cards.emplace("NEW1_007a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [NEW1_007b] Starlord (*) - COST:0
@@ -822,13 +816,12 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
-    cards.emplace(
-        "NEW1_007b",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("NEW1_007b", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [NEW1_008a] Ancient Teachings (*) - COST:0
@@ -836,9 +829,9 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 2 cards.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(2));
-    cards.emplace("NEW1_008a", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cards.emplace("NEW1_008a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [NEW1_008b] Ancient Secrets (*) - COST:0
@@ -849,16 +842,16 @@ void Expert1CardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 5));
-    cards.emplace(
-        "NEW1_008b",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 5));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("NEW1_008b", cardDef);
 }
 
 void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- WEAPON - HUNTER
     // [DS1_188] Gladiator's Longbow - COST:7 [ATK:5/HP:0]
@@ -872,12 +865,12 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "DS1_188e", EntityType::HERO) };
-    cards.emplace("DS1_188", CardDef(power));
+    cards.emplace("DS1_188", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2]
@@ -888,15 +881,15 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::BEAST))
     };
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_531e", EntityType::SOURCE) };
-    cards.emplace("EX1_531", CardDef(power));
+    cards.emplace("EX1_531", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_533] Misdirection - COST:2
@@ -908,12 +901,12 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->conditions =
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsProposedDefender(CardType::HERO)) };
-    power.GetTrigger()->tasks = {
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(
             EntityType::ALL,
             EntityTypeList{ EntityType::TARGET, EntityType::HERO }),
@@ -937,7 +930,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                       std::make_shared<ChangeAttackingTargetTask>(
                           EntityType::TARGET, EntityType::STACK) }))
     };
-    cards.emplace("EX1_533", CardDef(power));
+    cards.emplace("EX1_533", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
@@ -948,10 +941,10 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("EX1_534t", 2, SummonSide::DEATHRATTLE));
-    cards.emplace("EX1_534", CardDef(power));
+    cards.emplace("EX1_534", cardDef);
 
     // ---------------------------------------- WEAPON - HUNTER
     // [EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0]
@@ -967,12 +960,13 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SECRET_REVEALED));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::SECRET_REVEALED));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_536e", EntityType::WEAPON) };
-    cards.emplace("EX1_536", CardDef(power));
+    cards.emplace("EX1_536", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_537] Explosive Shot - COST:5
@@ -986,17 +980,16 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::TARGET));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::STACK, 2, true));
-    cards.emplace(
-        "EX1_537",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_537", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_538] Unleash the Hounds - COST:3
@@ -1012,14 +1005,15 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
         std::make_shared<SummonTask>("EX1_538t", SummonSide::SPELL) }));
-    cards.emplace(
-        "EX1_538",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 },
-                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 },
+                  { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("EX1_538", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
@@ -1031,9 +1025,9 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_543", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_543", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_544] Flare - COST:1
@@ -1046,13 +1040,13 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RevealStealthTask>(EntityType::ALL_MINIONS));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<MoveToGraveyardTask>(EntityType::ENEMY_SECRETS));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_544", CardDef(power));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("EX1_544", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_549] Bestial Wrath - COST:1
@@ -1068,14 +1062,13 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_549o", EntityType::TARGET));
-    cards.emplace(
-        "EX1_549",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_TARGET_WITH_RACE, 20 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("EX1_549", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_554] Snake Trap - COST:2
@@ -1087,17 +1080,17 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->conditions =
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    cardDef.power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
                           SelfCondition::IsProposedDefender(CardType::MINION)),
                       std::make_shared<SelfCondition>(
                           SelfCondition::IsEventTargetFieldNotFull()) };
-    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<SummonTask>("EX1_554t", 3) });
-    cards.emplace("EX1_554", CardDef(power));
+    cards.emplace("EX1_554", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_609] Snipe - COST:2
@@ -1109,10 +1102,11 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                     SelfCondition::IsNotDead()) }),
@@ -1121,7 +1115,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
             ComplexTask::ActivateSecret(TaskList{
                 std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }))
     };
-    cards.emplace("EX1_609", CardDef(power));
+    cards.emplace("EX1_609", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_610] Explosive Trap - COST:2
@@ -1134,15 +1128,15 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->conditions =
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    cardDef.power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsProposedDefender(CardType::HERO)) };
-    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<DamageTask>(EntityType::ENEMIES, 2, true) });
-    cards.emplace("EX1_610", CardDef(power));
+    cards.emplace("EX1_610", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_611] Freezing Trap - COST:2
@@ -1155,10 +1149,10 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                     SelfCondition::IsNotDead()) }),
@@ -1168,7 +1162,7 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                       std::make_shared<AddAuraEffectTask>(
                           Effects::AddCost(2), EntityType::TARGET) }))
     };
-    cards.emplace("EX1_611", CardDef(power));
+    cards.emplace("EX1_611", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [EX1_617] Deadly Shot - COST:3
@@ -1179,27 +1173,30 @@ void Expert1CardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(ComplexTask::DestroyRandomEnemyMinion(1));
-    cards.emplace(
-        "EX1_617",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } };
+    cards.emplace("EX1_617", cardDef);
 }
 
 void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [DS1_188e] Gladiator's Longbow enchantment (*) - COST:0
     // - Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::Immune));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
-    cards.emplace("DS1_188e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::Immune));
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RemoveEnchantmentTask>()
+    };
+    cards.emplace("DS1_188e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [EX1_531e] Well Fed (*) - COST:0
@@ -1207,19 +1204,19 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Attack and Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<OngoingEnchant>(std::vector<std::shared_ptr<IEffect>>{
             Effects::AttackN(2), Effects::HealthN(1) }));
-    cards.emplace("EX1_531e", CardDef(power));
+    cards.emplace("EX1_531e", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [EX1_534t] Hyena (*) - COST:2 [ATK:2/HP:2]
     // - Race: Beast, Set: Expert1, Rarity: Rare
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_534t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_534t", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [EX1_536e] Upgraded (*) - COST:0
@@ -1227,10 +1224,10 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Durability.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<OngoingEnchant>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<OngoingEnchant>(
         std::vector<std::shared_ptr<IEffect>>{ Effects::DurabilityN(1) }));
-    cards.emplace("EX1_536e", CardDef(power));
+    cards.emplace("EX1_536e", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [EX1_538t] Hound (*) - COST:1 [ATK:1/HP:1]
@@ -1241,9 +1238,9 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_538t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_538t", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [EX1_549o] Bestial Wrath (*) - COST:0
@@ -1254,22 +1251,22 @@ void Expert1CardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_549o"));
-    cards.emplace("EX1_549o", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_549o"));
+    cards.emplace("EX1_549o", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [EX1_554t] Snake (*) - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_554t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_554t", cardDef);
 }
 
 void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_028] Blizzard - COST:6
@@ -1281,11 +1278,12 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
-    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::ENEMY_MINIONS));
-    cards.emplace("CS2_028", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<FreezeTask>(EntityType::ENEMY_MINIONS));
+    cards.emplace("CS2_028", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [CS2_031] Ice Lance - COST:1
@@ -1301,18 +1299,17 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsFrozen()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true,
         TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<FreezeTask>(EntityType::TARGET) }));
-    cards.emplace(
-        "CS2_031",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("CS2_031", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_179] Icicle - COST:2
@@ -1329,18 +1326,17 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - FREEZE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsFrozen()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DrawTask>(1) }));
-    cards.emplace(
-        "EX1_179",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_179", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_180] Tome of Intellect - COST:1
@@ -1349,11 +1345,12 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add a random Mage spell to your hand.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE));
-    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("EX1_180", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("EX1_180", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
@@ -1368,14 +1365,14 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsControllingSecret())
     };
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_274e", EntityType::SOURCE) };
-    cards.emplace("EX1_274", CardDef(power));
+    cards.emplace("EX1_274", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_275] Cone of Cold - COST:3
@@ -1392,16 +1389,15 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::TARGET, true));
-    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::STACK));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::STACK));
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::STACK, 1, true));
-    cards.emplace(
-        "EX1_275",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_275", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_279] Pyroblast - COST:10
@@ -1413,12 +1409,11 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 10, true));
-    cards.emplace(
-        "EX1_279",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_279", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_287] Counterspell - COST:3
@@ -1434,14 +1429,15 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - COUNTER = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
-    power.GetTrigger()->tasks =
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    cardDef.power.GetTrigger()->tasks =
         ComplexTask::ActivateSecret(TaskList{ std::make_shared<SetGameTagTask>(
             EntityType::TARGET, GameTag::CANT_PLAY, 1) });
-    power.GetTrigger()->fastExecution = true;
-    cards.emplace("EX1_287", CardDef(power));
+    cardDef.power.GetTrigger()->fastExecution = true;
+    cards.emplace("EX1_287", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_289] Ice Barrier - COST:3
@@ -1454,14 +1450,14 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->conditions =
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsProposedDefender(CardType::HERO)) };
-    power.GetTrigger()->tasks =
+    cardDef.power.GetTrigger()->tasks =
         ComplexTask::ActivateSecret(TaskList{ std::make_shared<ArmorTask>(8) });
-    cards.emplace("EX1_289", CardDef(power));
+    cards.emplace("EX1_289", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_294] Mirror Entity - COST:3
@@ -1474,10 +1470,11 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::EVENT_SOURCE,
             SelfCondList{
@@ -1491,7 +1488,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
             ComplexTask::ActivateSecret(TaskList{
                 std::make_shared<SummonCopyTask>(EntityType::EVENT_SOURCE) }))
     };
-    cards.emplace("EX1_294", CardDef(power));
+    cards.emplace("EX1_294", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_295] Ice Block - COST:3
@@ -1507,16 +1504,16 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsHeroFatalPreDamaged())
     };
-    power.GetTrigger()->fastExecution = true;
-    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+    cardDef.power.GetTrigger()->fastExecution = true;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<AddEnchantmentTask>("EX1_295o", EntityType::HERO) });
-    cards.emplace("EX1_295", CardDef(power));
+    cards.emplace("EX1_295", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
@@ -1529,12 +1526,13 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddCardTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddCardTask>(
         EntityType::HAND, "CS2_029") };
-    cards.emplace("EX1_559", CardDef(power));
+    cards.emplace("EX1_559", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [EX1_594] Vaporize - COST:3
@@ -1547,16 +1545,16 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
-    power.GetTrigger()->conditions =
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    cardDef.power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsProposedDefender(CardType::HERO)) };
-    power.GetTrigger()->fastExecution = true;
-    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+    cardDef.power.GetTrigger()->fastExecution = true;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) });
-    cards.emplace("EX1_594", CardDef(power));
+    cards.emplace("EX1_594", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [EX1_608] Sorcerer's Apprentice - COST:4 [ATK:3/HP:2]
@@ -1567,15 +1565,15 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
-                                         EffectList{ Effects::ReduceCost(1) }));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::ReduceCost(1) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsSpell());
     }
-    cards.emplace("EX1_608", CardDef(power));
+    cards.emplace("EX1_608", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3]
@@ -1590,10 +1588,10 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_612o", EntityType::PLAYER));
-    cards.emplace("EX1_612", CardDef(power));
+    cards.emplace("EX1_612", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:2]
@@ -1601,12 +1599,13 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you cast a spell, gain +1 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SPELLS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "NEW1_012o", EntityType::SOURCE) };
-    cards.emplace("NEW1_012", CardDef(power));
+    cards.emplace("NEW1_012", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [tt_010] Spellbender - COST:3
@@ -1618,12 +1617,12 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsSpellTargetingMinion())
     };
-    power.GetTrigger()->tasks = {
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::SOURCE,
             SelfCondList{
@@ -1646,12 +1645,12 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
                               return playables;
                           }) }))
     };
-    cards.emplace("tt_010", CardDef(power));
+    cards.emplace("tt_010", cardDef);
 }
 
 void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [EX1_274e] Raw Power! (*) - COST:0
@@ -1659,9 +1658,10 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackHealthN(2)));
-    cards.emplace("EX1_274e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::AttackHealthN(2)));
+    cards.emplace("EX1_274e", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [EX1_295o] Ice Block (*) - COST:0
@@ -1672,9 +1672,9 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_295o"));
-    cards.emplace("EX1_295o", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_295o"));
+    cards.emplace("EX1_295o", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [EX1_612o] Power of the Kirin Tor (*) - COST:0
@@ -1685,18 +1685,18 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
-                                         EffectList{ Effects::SetCost(0) }));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::SetCost(0) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsSecret());
         aura->removeTrigger = { TriggerType::CAST_SPELL,
                                 std::make_shared<SelfCondition>(
                                     SelfCondition::IsSecret()) };
     }
-    cards.emplace("EX1_612o", CardDef(power));
+    cards.emplace("EX1_612o", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [NEW1_012o] Mana Gorged (*) - COST:0
@@ -1704,22 +1704,22 @@ void Expert1CardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
-    cards.emplace("NEW1_012o", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    cards.emplace("NEW1_012o", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [tt_010a] Spellbender - COST:0 [ATK:1/HP:3]
     // - Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("tt_010a", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("tt_010a", cardDef);
 }
 
 void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_130] Noble Sacrifice - COST:1
@@ -1731,14 +1731,14 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
-    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<SummonTask>("EX1_130a", SummonSide::SPELL, true),
         std::make_shared<ChangeAttackingTargetTask>(EntityType::TARGET,
                                                     EntityType::STACK) });
-    cards.emplace("EX1_130", CardDef(power));
+    cards.emplace("EX1_130", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_132] Eye for an Eye - COST:1
@@ -1751,13 +1751,14 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<GetEventNumberTask>(),
         std::make_shared<DamageNumberTask>(EntityType::ENEMY_HERO, true) });
-    cards.emplace("EX1_132", CardDef(power));
+    cards.emplace("EX1_132", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_136] Redemption - COST:1
@@ -1770,10 +1771,10 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
-    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
-    power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
         std::make_shared<FuncPlayableTask>(
             [=](const std::vector<Playable*>& playables) {
@@ -1786,8 +1787,8 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
                 target->SetDamage(target->GetHealth() - 1);
                 return std::vector<Playable*>{ target };
             }) });
-    power.GetTrigger()->removeAfterTriggered = true;
-    cards.emplace("EX1_136", CardDef(power));
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("EX1_136", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_184] Righteousness - COST:5
@@ -1799,10 +1800,10 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagTask>(
         EntityType::MINIONS, GameTag::DIVINE_SHIELD, 1));
-    cards.emplace("EX1_184", CardDef(power));
+    cards.emplace("EX1_184", cardDef);
 
     // ----------------------------------------- SPELL - PALADIN
     // [EX1_349] Divine Favor - COST:3
@@ -1812,15 +1813,16 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Draw cards until you have as many in hand
     //       as your opponent.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<FuncNumberTask>([](Playable* playable) {
-        const int diffHands =
-            playable->player->opponent->GetHandZone()->GetCount() -
-            playable->player->GetHandZone()->GetCount();
-        return diffHands > 0 ? diffHands : 0;
-    }));
-    power.AddPowerTask(std::make_shared<DrawNumberTask>());
-    cards.emplace("EX1_349", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            const int diffHands =
+                playable->player->opponent->GetHandZone()->GetCount() -
+                playable->player->GetHandZone()->GetCount();
+            return diffHands > 0 ? diffHands : 0;
+        }));
+    cardDef.power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace("EX1_349", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_354] Lay on Hands - COST:8
@@ -1832,12 +1834,12 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 8));
-    power.AddPowerTask(std::make_shared<DrawTask>(3));
-    cards.emplace(
-        "EX1_354",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 8));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(3));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_354", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_355] Blessed Champion - COST:5
@@ -1850,13 +1852,12 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_355e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_355",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_355", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [EX1_362] Argent Protector - COST:2 [ATK:3/HP:2]
@@ -1877,15 +1878,15 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagTask>(
         EntityType::TARGET, GameTag::DIVINE_SHIELD, 1));
-    cards.emplace(
-        "EX1_362",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 } };
+    cards.emplace("EX1_362", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_363] Blessing of Wisdom - COST:1
@@ -1898,13 +1899,12 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_363e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_363",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_363", cardDef);
 
     // ------------------------------------------ SPELL - PALADIN
     // [EX1_365] Holy Wrath - COST:5
@@ -1919,15 +1919,14 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::STACK, GameTag::COST));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
-    cards.emplace(
-        "EX1_365",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_365", cardDef);
 
     // --------------------------------------- WEAPON - PALADIN
     // [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
@@ -1940,13 +1939,15 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - DURABILITY = 5
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
-                                      "EX1_366e", EntityType::TARGET),
-                                  std::make_shared<DamageWeaponTask>(false) };
-    cards.emplace("EX1_366", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<AddEnchantmentTask>("EX1_366e", EntityType::TARGET),
+        std::make_shared<DamageWeaponTask>(false)
+    };
+    cards.emplace("EX1_366", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_379] Repentance - COST:1
@@ -1959,9 +1960,10 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::EVENT_SOURCE,
             SelfCondList{
@@ -1973,7 +1975,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
                       TaskList{ std::make_shared<AddEnchantmentTask>(
                           "EX1_379e", EntityType::EVENT_SOURCE) }))
     };
-    cards.emplace("EX1_379", CardDef(power));
+    cards.emplace("EX1_379", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
@@ -1989,14 +1991,14 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_382e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_382",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("EX1_382", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
@@ -2011,9 +2013,9 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<WeaponTask>("EX1_383t"));
-    cards.emplace("EX1_383", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<WeaponTask>("EX1_383t"));
+    cards.emplace("EX1_383", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_384] Avenging Wrath - COST:6
@@ -2025,12 +2027,12 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
         TaskList{ std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
                   std::make_shared<DamageTask>(EntityType::STACK, 1) },
         8, true));
-    cards.emplace("EX1_384", CardDef(power));
+    cards.emplace("EX1_384", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [EX1_619] Equality - COST:2
@@ -2039,24 +2041,24 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Change the Health of all minions to 1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "EX1_619e", EntityType::ALL_MINIONS));
-    cards.emplace("EX1_619", CardDef(power));
+    cards.emplace("EX1_619", cardDef);
 }
 
 void Expert1CardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - PALADIN
     // [EX1_130a] Defender (*) - COST:1 [ATK:2/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_130a", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_130a", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_355e] Blessed Champion (*) - COST:0
@@ -2064,10 +2066,10 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: This minion's Attack has been doubled.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(GameTag::ATK, EffectOperator::MUL, 2));
-    cards.emplace("EX1_355e", CardDef(power));
+    cards.emplace("EX1_355e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_363e] Blessing of Wisdom (*) - COST:0
@@ -2076,10 +2078,11 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // Text: When this minion attacks, the player who blessed
     //       it draws a card.
     // --------------------------------------------------------
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("EX1_363e", CardDef(power));
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::ENCHANTMENT_TARGET;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("EX1_363e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_366e] Justice Served (*) - COST:0
@@ -2087,9 +2090,9 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Has +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_366e"));
-    cards.emplace("EX1_366e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_366e"));
+    cards.emplace("EX1_366e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_379e] Repentance (*) - COST:0
@@ -2097,9 +2100,10 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Health reduced to 1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
-    cards.emplace("EX1_379e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
+    cards.emplace("EX1_379e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_382e] Stand Down! (*) - COST:0
@@ -2107,9 +2111,9 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Attack changed to 1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetAttack(1)));
-    cards.emplace("EX1_382e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::SetAttack(1)));
+    cards.emplace("EX1_382e", cardDef);
 
     // --------------------------------------- WEAPON - PALADIN
     // [EX1_383t] Ashbringer (*) - COST:5 [ATK:5/HP:0]
@@ -2119,9 +2123,9 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // - ELITE = 1
     // - DURABILITY = 3
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_383t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_383t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [EX1_619e] Equality (*) - COST:0
@@ -2129,14 +2133,15 @@ void Expert1CardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Health changed to 1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
-    cards.emplace("EX1_619e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SetBaseHealth(1)));
+    cards.emplace("EX1_619e", cardDef);
 }
 
 void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - PRIEST
     // [CS1_129] Inner Fire - COST:1
@@ -2148,19 +2153,18 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::DAMAGE, 0, 1));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::TARGET, GameTag::DAMAGE, 0, 1));
+    cardDef.power.AddPowerTask(
         std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "CS1_129e", EntityType::TARGET, true));
-    cards.emplace(
-        "CS1_129",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CS1_129", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5]
@@ -2179,14 +2183,15 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_091",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_TARGET_MAX_ATTACK, 2 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<ControlTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_TARGET_MAX_ATTACK, 2 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_ENEMY_TARGET, 0 } };
+    cards.emplace("EX1_091", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_195] Kul Tiran Chaplain - COST:2 [ATK:2/HP:3]
@@ -2202,14 +2207,14 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_195e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_195",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("EX1_195", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_196] Scarlet Subjugator - COST:1 [ATK:2/HP:1]
@@ -2226,14 +2231,14 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_196e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_196",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("EX1_196", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_197] Shadow Word: Ruin - COST:4
@@ -2242,13 +2247,15 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all minions with 5 or more Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsTagValue(GameTag::ATK, 5, RelaSign::GEQ)) }));
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
-    cards.emplace("EX1_197", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("EX1_197", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_198] Natalie Seline - COST:8 [ATK:8/HP:1]
@@ -2264,20 +2271,21 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::HEALTH));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::TARGET,
-                                                        GameTag::DAMAGE, 0, 1));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::TARGET, GameTag::DAMAGE, 0, 1));
+    cardDef.power.AddPowerTask(
         std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
-    power.AddPowerTask(std::make_shared<SetGameTagNumberTask>(
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagNumberTask>(
         EntityType::SOURCE, GameTag::HEALTH));
-    cards.emplace(
-        "EX1_198",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("EX1_198", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_332] Silence - COST:0
@@ -2293,12 +2301,12 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_332",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_332", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_334] Shadow Madness - COST:3
@@ -2315,17 +2323,18 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_NUM_MINION_SLOTS = 1
     // - REQ_TARGET_MAX_ATTACK = 3
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ControlTask>(EntityType::TARGET));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<ControlTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_334e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_334",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_ENEMY_TARGET, 0 },
-                                 { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
-                                 { PlayReq::REQ_TARGET_MAX_ATTACK, 3 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_ENEMY_TARGET, 0 },
+                  { PlayReq::REQ_NUM_MINION_SLOTS, 1 },
+                  { PlayReq::REQ_TARGET_MAX_ATTACK, 3 } };
+    cards.emplace("EX1_334", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_335] Lightspawn - COST:3 [ATK:0/HP:4]
@@ -2333,12 +2342,12 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: This minion's Attack is always equal to its Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveEffect>(
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
         GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
             return dynamic_cast<Minion*>(playable)->GetHealth();
         }));
-    cards.emplace("EX1_335", CardDef(power));
+    cards.emplace("EX1_335", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_339] Thoughtsteal - COST:2
@@ -2348,11 +2357,12 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Copy 2 cards in your opponent's deck and
     //       add them to your hand.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::ENEMY_DECK, 2));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::ENEMY_DECK, 2));
+    cardDef.power.AddPowerTask(
         std::make_shared<CopyTask>(EntityType::STACK, ZoneType::HAND));
-    cards.emplace("EX1_339", CardDef(power));
+    cards.emplace("EX1_339", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
@@ -2364,16 +2374,17 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::FRIENDS),
         std::make_shared<FilterStackTask>(SelfCondList{
             std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }),
         std::make_shared<RandomTask>(EntityType::STACK, 1),
         std::make_shared<HealTask>(EntityType::STACK, 3)
     };
-    cards.emplace("EX1_341", CardDef(power));
+    cards.emplace("EX1_341", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_345] Mindgames - COST:4
@@ -2386,24 +2397,25 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_DECK));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
-    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
                         std::make_shared<CopyTask>(EntityType::STACK,
                                                    ZoneType::PLAY) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<SummonTask>("EX1_345t",
                                                       SummonSide::SPELL) }));
-    cards.emplace(
-        "EX1_345",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("EX1_345", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
@@ -2415,12 +2427,12 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
         AuraType::PLAYER,
         EffectList{ std::make_shared<Effect>(GameTag::SPELLPOWER_DOUBLE,
                                              EffectOperator::ADD, 1) }));
-    cards.emplace("EX1_350", CardDef(power));
+    cards.emplace("EX1_350", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
@@ -2432,12 +2444,12 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
         AuraType::PLAYER,
         EffectList{ std::make_shared<Effect>(GameTag::HEALING_DOES_DAMAGE,
                                              EffectOperator::SET, 1) }));
-    cards.emplace("EX1_591", CardDef(power));
+    cards.emplace("EX1_591", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_621] Circle of Healing - COST:0
@@ -2446,9 +2458,10 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 4 Health to all minions.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::ALL_MINIONS, 4));
-    cards.emplace("EX1_621", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::ALL_MINIONS, 4));
+    cards.emplace("EX1_621", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_623] Temple Enforcer - COST:5 [ATK:5/HP:6]
@@ -2464,14 +2477,14 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_623e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_623",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("EX1_623", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_624] Holy Fire - COST:6
@@ -2483,13 +2496,12 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
-    cards.emplace(
-        "EX1_624",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 5));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_624", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_625] Shadowform - COST:2
@@ -2498,9 +2510,10 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your Hero Power becomes 'Deal 2 damage'.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ChangeHeroPowerTask>("EX1_625t"));
-    cards.emplace("EX1_625", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<ChangeHeroPowerTask>("EX1_625t"));
+    cards.emplace("EX1_625", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [EX1_626] Mass Dispel - COST:4
@@ -2512,16 +2525,16 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SILENCE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<SilenceTask>(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_626", CardDef(power));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("EX1_626", cardDef);
 }
 
 void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- ENCHANTMENT - PRIEST
     // [CS1_129e] Inner Fire - COST:0
@@ -2529,9 +2542,10 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Change a minion's Attack to be equal to its Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Enchants::SetAttackScriptTag));
-    cards.emplace("CS1_129e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Enchants::SetAttackScriptTag));
+    cards.emplace("CS1_129e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_195e] Aided (*) - COST:0
@@ -2539,9 +2553,9 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_195e"));
-    cards.emplace("EX1_195e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_195e"));
+    cards.emplace("EX1_195e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_196e] Subjugated (*) - COST:0
@@ -2549,13 +2563,16 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: -2 Attack until your next turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(Atk::Effect(EffectOperator::SUB, 2)));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->removeAfterTriggered = true;
-    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
-    cards.emplace("EX1_196e", CardDef(power));
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RemoveEnchantmentTask>()
+    };
+    cards.emplace("EX1_196e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_334e] Shadow Madness (*) - COST:0
@@ -2563,18 +2580,19 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: This minion has switched controllers this turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>{
             Effects::Charge,
             std::make_shared<Effect>(GameTag::CONTROLLER_CHANGED_THIS_TURN,
                                      EffectOperator::SET, 1) }));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->eitherTurn = true;
-    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>(),
-                                  std::make_shared<ControlTask>(
-                                      EntityType::TARGET, true) };
-    cards.emplace("EX1_334e", CardDef(power));
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->eitherTurn = true;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RemoveEnchantmentTask>(),
+        std::make_shared<ControlTask>(EntityType::TARGET, true)
+    };
+    cards.emplace("EX1_334e", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [EX1_345t] Shadow of Nothing - COST:0 [ATK:0/HP:1]
@@ -2582,9 +2600,9 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Mindgames whiffed! Your opponent had no minions!
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_345t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_345t", cardDef);
 
     // ----------------------------------- ENCHANTMENT - PRIEST
     // [EX1_623e] Infusion (*) - COST:0
@@ -2592,14 +2610,14 @@ void Expert1CardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +3 Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_623e"));
-    cards.emplace("EX1_623e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_623e"));
+    cards.emplace("EX1_623e", cardDef);
 }
 
 void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_073] Cold Blood - COST:1
@@ -2615,15 +2633,14 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS2_073e", EntityType::TARGET));
-    power.AddComboTask(
+    cardDef.power.AddComboTask(
         std::make_shared<AddEnchantmentTask>("CS2_073e2", EntityType::TARGET));
-    cards.emplace(
-        "CS2_073",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CS2_073", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [CS2_233] Blade Flurry - COST:2
@@ -2638,15 +2655,15 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_WEAPON_EQUIPPED = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::WEAPON, GameTag::ATK));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS, true));
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::WEAPON));
-    cards.emplace(
-        "CS2_233",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::WEAPON));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_WEAPON_EQUIPPED, 0 } };
+    cards.emplace("CS2_233", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_124] Eviscerate - COST:2
@@ -2660,14 +2677,13 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    power.AddComboTask(
+    cardDef.power.AddComboTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
-    cards.emplace(
-        "EX1_124",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_124", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_126] Betrayal - COST:2
@@ -2681,16 +2697,17 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<DamageNumberTask>(EntityType::STACK));
-    cards.emplace("EX1_126",
-                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                           { PlayReq::REQ_MINION_TARGET, 0 },
-                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageNumberTask>(EntityType::STACK));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } };
+    cards.emplace("EX1_126", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_128] Conceal - COST:1
@@ -2702,11 +2719,11 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "EX1_128e", EntityType::MINIONS, false, false,
         SelfCondition::HasNotStealth()));
-    cards.emplace("EX1_128", CardDef(power));
+    cards.emplace("EX1_128", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2]
@@ -2717,10 +2734,10 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddComboTask(
+    cardDef.ClearData();
+    cardDef.power.AddComboTask(
         std::make_shared<SummonTask>("EX1_131t", SummonSide::RIGHT));
-    cards.emplace("EX1_131", CardDef(power));
+    cards.emplace("EX1_131", cardDef);
 
     // ----------------------------------------- WEAPON - ROGUE
     // [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0]
@@ -2737,12 +2754,14 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
-    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
-    cards.emplace(
-        "EX1_133",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    cardDef.power.AddComboTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("EX1_133", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
@@ -2756,11 +2775,12 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_FOR_COMBO = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddComboTask(std::make_shared<DamageTask>(EntityType::TARGET, 2));
-    cards.emplace(
-        "EX1_134",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddComboTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_FOR_COMBO, 0 } };
+    cards.emplace("EX1_134", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_137] Headcrack - COST:3
@@ -2772,15 +2792,15 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
-    power.AddComboTask(
+    cardDef.power.AddComboTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, true));
-    power.AddComboTask(std::make_shared<SetGameTagTask>(
+    cardDef.power.AddComboTask(std::make_shared<SetGameTagTask>(
         EntityType::SOURCE, GameTag::HEADCRACK_COMBO, 1));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::SOURCE,
             SelfCondList{ std::make_shared<SelfCondition>(
@@ -2798,8 +2818,8 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                           }),
                       std::make_shared<AddStackToTask>(EntityType::HAND) })
     };
-    power.GetTrigger()->removeAfterTriggered = true;
-    cards.emplace("EX1_137", CardDef(power));
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("EX1_137", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_144] Shadowstep - COST:0
@@ -2814,15 +2834,15 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<AddAuraEffectTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<AddAuraEffectTask>(
         Effects::ReduceCost(2), EntityType::TARGET));
-    cards.emplace(
-        "EX1_144",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("EX1_144", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_145] Preparation - COST:0
@@ -2830,10 +2850,10 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: The next spell you cast this turn costs (2) less.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_145o", EntityType::PLAYER));
-    cards.emplace("EX1_145", CardDef(power));
+    cards.emplace("EX1_145", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_182] Pilfer - COST:1
@@ -2842,11 +2862,12 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // Text: Add a random card from another class to your hand
     //       <i>(from your opponent's class)</i>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomCardTask>(EntityType::ENEMY_HERO));
-    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("EX1_182", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("EX1_182", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:2]
@@ -2859,9 +2880,9 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - POISONOUS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_522", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_522", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
@@ -2874,14 +2895,14 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - COMBO = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddComboTask(std::make_shared<GetPlayerGameTagTask>(
+    cardDef.ClearData();
+    cardDef.power.AddComboTask(std::make_shared<GetPlayerGameTagTask>(
         GameTag::NUM_CARDS_PLAYED_THIS_TURN));
-    power.AddComboTask(std::make_shared<MathSubtractTask>(1));
-    power.AddComboTask(std::make_shared<MathMultiplyTask>(2));
-    power.AddComboTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.power.AddComboTask(std::make_shared<MathSubtractTask>(1));
+    cardDef.power.AddComboTask(std::make_shared<MathMultiplyTask>(2));
+    cardDef.power.AddComboTask(std::make_shared<AddEnchantmentTask>(
         "EX1_613e", EntityType::SOURCE, true));
-    cards.emplace("EX1_613", CardDef(power));
+    cards.emplace("EX1_613", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
@@ -2896,12 +2917,13 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_FOR_COMBO = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddComboTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    cards.emplace(
-        "NEW1_005",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_FOR_COMBO, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddComboTask(
+        std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_FOR_COMBO, 0 } };
+    cards.emplace("NEW1_005", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4]
@@ -2922,20 +2944,20 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("NEW1_014e", EntityType::TARGET));
-    cards.emplace(
-        "NEW1_014",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("NEW1_014", cardDef);
 }
 
 void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [CS2_073e] Cold Blood (*) - COST:0
@@ -2943,9 +2965,9 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_073e"));
-    cards.emplace("CS2_073e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("CS2_073e"));
+    cards.emplace("CS2_073e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [CS2_073e2] Cold Blood (*) - COST:0
@@ -2953,9 +2975,9 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +4 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_073e2"));
-    cards.emplace("CS2_073e2", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("CS2_073e2"));
+    cards.emplace("CS2_073e2", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [EX1_128e] Conceal - COST:1
@@ -2966,20 +2988,23 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
-    power.GetTrigger()->removeAfterTriggered = true;
-    cards.emplace("EX1_128e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RemoveEnchantmentTask>()
+    };
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("EX1_128e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_131t] Defias Bandit (*) - COST:1 [ATK:2/HP:1]
     // - Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_131t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_131t", cardDef);
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [EX1_145o] Preparation (*) - COST:0
@@ -2991,16 +3016,16 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // - CANT_BE_SILENCED = 1
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
-                                         EffectList{ Effects::ReduceCost(2) }));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::ReduceCost(2) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsSpell());
         aura->removeTrigger = { TriggerType::CAST_SPELL, nullptr };
     }
-    cards.emplace("EX1_145o", CardDef(power));
+    cards.emplace("EX1_145o", cardDef);
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [EX1_613e] VanCleef's Vengeance (*) - COST:0
@@ -3008,10 +3033,10 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(Enchants::AddAttackHealthScriptTag));
-    cards.emplace("EX1_613e", CardDef(power));
+    cards.emplace("EX1_613e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [NEW1_014e] Disguised (*) - COST:0
@@ -3019,17 +3044,20 @@ void Expert1CardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Stealthed until your next turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->removeAfterTriggered = true;
-    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
-    cards.emplace("NEW1_014e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::Stealth));
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RemoveEnchantmentTask>()
+    };
+    cards.emplace("NEW1_014e", cardDef);
 }
 
 void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_038] Ancestral Spirit - COST:2
@@ -3044,13 +3072,12 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS2_038e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_038",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CS2_038", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CS2_053] Far Sight - COST:3
@@ -3058,11 +3085,11 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a card. That card costs (3) less.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(1, true));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS2_053e", EntityType::STACK));
-    cards.emplace("CS2_053", CardDef(power));
+    cards.emplace("CS2_053", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_238] Lightning Bolt - COST:1
@@ -3078,12 +3105,11 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
-    cards.emplace(
-        "EX1_238",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_238", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_241] Lava Burst - COST:3
@@ -3099,12 +3125,11 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
-    cards.emplace(
-        "EX1_241",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_241", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
@@ -3117,9 +3142,9 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - OVERLOAD_OWED = 2
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_243", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_243", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_245] Earth Shock - COST:1
@@ -3135,14 +3160,14 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
-    cards.emplace(
-        "EX1_245",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_245", cardDef);
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
@@ -3155,9 +3180,9 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - OVERLOAD = 1
     // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_247", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_247", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_248] Feral Spirit - COST:3
@@ -3173,11 +3198,11 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk11", 2));
-    cards.emplace(
-        "EX1_248",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("EX1_tk11", 2));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("EX1_248", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
@@ -3191,9 +3216,9 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - OVERLOAD_OWED = 2
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_250", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_250", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_251] Forked Lightning - COST:1
@@ -3210,14 +3235,14 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_MINIMUM_ENEMY_MINIONS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 2));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::STACK, 2, true));
-    cards.emplace(
-        "EX1_251",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } };
+    cards.emplace("EX1_251", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_258] Unbound Elemental - COST:3 [ATK:3/HP:4]
@@ -3232,14 +3257,14 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard())
     };
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_258e", EntityType::SOURCE) };
-    cards.emplace("EX1_258", CardDef(power));
+    cards.emplace("EX1_258", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [EX1_259] Lightning Storm - COST:3
@@ -3253,10 +3278,10 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - OVERLOAD = 2
     // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true));
-    cards.emplace("EX1_259", CardDef(power));
+    cards.emplace("EX1_259", cardDef);
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
@@ -3270,9 +3295,9 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - OVERLOAD = 2
     // - OVERLOAD_OWED = 2
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_567", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_567", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
@@ -3283,10 +3308,10 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("EX1_575", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("EX1_575", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
@@ -3301,14 +3326,14 @@ void Expert1CardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("NEW1_010", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_010", cardDef);
 }
 
 void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_038e] Ancestral Spirit (*) - COST:0
@@ -3316,10 +3341,10 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Resummon this minion.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<CopyTask>(EntityType::SOURCE, ZoneType::PLAY));
-    cards.emplace("CS2_038e", CardDef(power));
+    cards.emplace("CS2_038e", cardDef);
 
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [CS2_053e] Far Sight (*) - COST:0
@@ -3327,17 +3352,20 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: One of your cards costs (3) less.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>{
             Effects::ReduceCost(3),
             std::make_shared<Effect>(GameTag::DISPLAYED_CREATOR,
                                      EffectOperator::SET, 1) }));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
-    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>() };
-    power.GetTrigger()->removeAfterTriggered = true;
-    cards.emplace("CS2_053e", CardDef(power));
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::ENCHANTMENT_TARGET;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RemoveEnchantmentTask>()
+    };
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cards.emplace("CS2_053e", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [EX1_tk11] Spirit Wolf (*) - COST:2 [ATK:2/HP:3]
@@ -3348,9 +3376,9 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_tk11", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk11", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_258e] Overloading (*) - COST:0
@@ -3358,14 +3386,15 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackHealthN(1)));
-    cards.emplace("EX1_258e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::AttackHealthN(1)));
+    cards.emplace("EX1_258e", cardDef);
 }
 
 void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - WARLOCK
     // [CS2_059] Blood Imp - COST:1 [ATK:0/HP:1]
@@ -3378,13 +3407,13 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
         std::make_shared<AddEnchantmentTask>("CS2_059o", EntityType::STACK)
     };
-    cards.emplace("CS2_059", CardDef(power));
+    cards.emplace("CS2_059", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_181] Call of the Void - COST:1
@@ -3393,11 +3422,12 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add a random Demon to your hand.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomCardTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomCardTask>(
         CardType::MINION, CardClass::INVALID, Race::DEMON));
-    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("EX1_181", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("EX1_181", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_185] Siegebreaker - COST:7 [ATK:5/HP:8]
@@ -3410,15 +3440,15 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
+    cardDef.ClearData();
+    cardDef.power.AddAura(
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_185e"));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::DEMON));
     }
-    cards.emplace("EX1_185", CardDef(power));
+    cards.emplace("EX1_185", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_301] Felguard - COST:3 [ATK:3/HP:5]
@@ -3431,9 +3461,9 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ManaCrystalTask>(-1, false));
-    cards.emplace("EX1_301", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ManaCrystalTask>(-1, false));
+    cards.emplace("EX1_301", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_303] Shadowflame - COST:4
@@ -3451,17 +3481,17 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS, true));
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_303",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_303", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_304] Void Terror - COST:3 [ATK:3/HP:4]
@@ -3473,25 +3503,26 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<IncludeAdjacentTask>(EntityType::SOURCE));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
-                                                        GameTag::ATK, 0, 1));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
-                                                        GameTag::ATK, 1, 2));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::ATK, 0, 1));
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::ATK, 1, 2));
+    cardDef.power.AddPowerTask(
         std::make_shared<MathNumberIndexTask>(1, 2, MathOperation::ADD));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
-                                                        GameTag::HEALTH, 0, 3));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(EntityType::STACK,
-                                                        GameTag::HEALTH, 1, 4));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::HEALTH, 0, 3));
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::STACK, GameTag::HEALTH, 1, 4));
+    cardDef.power.AddPowerTask(
         std::make_shared<MathNumberIndexTask>(3, 4, MathOperation::ADD, 1));
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::STACK));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "EX1_304e", EntityType::SOURCE, true));
-    cards.emplace("EX1_304", CardDef(power));
+    cards.emplace("EX1_304", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_309] Siphon Soul - COST:5
@@ -3504,13 +3535,13 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 3));
-    cards.emplace(
-        "EX1_309",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 3));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_309", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_310] Doomguard - COST:5 [ATK:5/HP:7]
@@ -3523,9 +3554,9 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DiscardTask>(2));
-    cards.emplace("EX1_310", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DiscardTask>(2));
+    cards.emplace("EX1_310", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_312] Twisting Nether - COST:8
@@ -3534,9 +3565,10 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Destroy all minions.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
-    cards.emplace("EX1_312", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ALL_MINIONS));
+    cards.emplace("EX1_312", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
@@ -3547,9 +3579,10 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 5));
-    cards.emplace("EX1_313", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 5));
+    cards.emplace("EX1_313", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4]
@@ -3560,9 +3593,9 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<SummoningPortalAura>());
-    cards.emplace("EX1_315", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<SummoningPortalAura>());
+    cards.emplace("EX1_315", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_316] Power Overwhelming - COST:1
@@ -3577,14 +3610,13 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_316e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_316",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("EX1_316", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_317] Sense Demons - COST:3
@@ -3593,26 +3625,28 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw 2 Demons from your deck.
     // --------------------------------------------------------
-    power.ClearData();
+    cardDef.ClearData();
     for (size_t i = 0; i < 2; ++i)
     {
-        power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
-        power.AddPowerTask(std::make_shared<FilterStackTask>(
+        cardDef.power.AddPowerTask(
+            std::make_shared<IncludeTask>(EntityType::DECK));
+        cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
             SelfCondList{ std::make_shared<SelfCondition>(
                 SelfCondition::IsRace(Race::DEMON)) }));
-        power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
-        power.AddPowerTask(std::make_shared<ConditionTask>(
+        cardDef.power.AddPowerTask(
+            std::make_shared<CountTask>(EntityType::STACK));
+        cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
             EntityType::HERO,
             SelfCondList{ std::make_shared<SelfCondition>(
                 SelfCondition::IsStackNum(1, RelaSign::GEQ)) }));
-        power.AddPowerTask(std::make_shared<FlagTask>(
+        cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
             true, TaskList{ std::make_shared<RandomTask>(EntityType::STACK, 1),
                             std::make_shared<DrawStackTask>() }));
-        power.AddPowerTask(std::make_shared<FlagTask>(
+        cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
             false, TaskList{ std::make_shared<AddCardTask>(EntityType::HAND,
                                                            "EX1_317t") }));
     }
-    cards.emplace("EX1_317", CardDef(power));
+    cards.emplace("EX1_317", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_319] Flame Imp - COST:1
@@ -3623,9 +3657,10 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::HERO, 3));
-    cards.emplace("EX1_319", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 3));
+    cards.emplace("EX1_319", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_320] Bane of Doom - COST:5
@@ -3638,19 +3673,18 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsDead()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<RandomCardTask>(
                             CardType::MINION, CardClass::INVALID, Race::DEMON),
                         std::make_shared<SummonTask>(SummonSide::SPELL) }));
-    cards.emplace(
-        "EX1_320",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_320", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [EX1_596] Demonfire - COST:2
@@ -3664,29 +3698,28 @@ void Expert1CardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET,
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsRace(Race::DEMON)) },
         RelaCondList{
             std::make_shared<RelaCondition>(RelaCondition::IsFriendly()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                   "EX1_596e", EntityType::TARGET) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         false,
         TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 2, true) }));
-    cards.emplace(
-        "EX1_596",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_596", cardDef);
 }
 
 void Expert1CardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [CS2_059o] Blood Pact (*) - COST:0
@@ -3694,9 +3727,9 @@ void Expert1CardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: Increased Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(1)));
-    cards.emplace("CS2_059o", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(1)));
+    cards.emplace("CS2_059o", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [EX1_185e] Siegebreaking (*) - COST:0
@@ -3704,9 +3737,9 @@ void Expert1CardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: Siegebreaker is granting this minion +1 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_185e"));
-    cards.emplace("EX1_185e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_185e"));
+    cards.emplace("EX1_185e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [EX1_304e] Consume (*) - COST:0
@@ -3714,10 +3747,10 @@ void Expert1CardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(Enchants::AddAttackHealthScriptTag));
-    cards.emplace("EX1_304e", CardDef(power));
+    cards.emplace("EX1_304e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [EX1_316e] Power Overwhelming (*) - COST:0
@@ -3726,12 +3759,12 @@ void Expert1CardsGen::AddWarlockNonCollect(
     // Text: This minion has +4/+4, but will die a horrible death
     //       at the end of the turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_316e"));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_316e"));
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
         EntityType::TARGET) };
-    cards.emplace("EX1_316e", CardDef(power));
+    cards.emplace("EX1_316e", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_317t] Worthless Imp - COST:1 [ATK:1/HP:1]
@@ -3740,9 +3773,9 @@ void Expert1CardsGen::AddWarlockNonCollect(
     // Text: <i>You are out of demons!
     //       At least there are always imps...</i>
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_317t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_317t", cardDef);
 
     // --------------------------------------- WEAPON - WARLOCK
     // [EX1_323w] Blood Fury (*) - COST:3 [ATK:3/HP:0]
@@ -3752,9 +3785,9 @@ void Expert1CardsGen::AddWarlockNonCollect(
     // - ELITE = 1
     // - DURABILITY = 8
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_323w", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_323w", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [EX1_596e] Demonfire (*) - COST:0
@@ -3762,22 +3795,22 @@ void Expert1CardsGen::AddWarlockNonCollect(
     // --------------------------------------------------------
     // Text: This Demon has +2/+2.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_596e"));
-    cards.emplace("EX1_596e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_596e"));
+    cards.emplace("EX1_596e", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [EX1_tk34] Infernal (*) - COST:6 [ATK:6/HP:6]
     // - Race: Demon, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_tk34", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk34", cardDef);
 }
 
 void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------------- SPELL - WARRIOR
     // [CS2_104] Rampage - COST:2
@@ -3790,14 +3823,13 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_DAMAGED_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS2_104e", EntityType::TARGET));
-    cards.emplace(
-        "CS2_104",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_DAMAGED_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_DAMAGED_TARGET, 0 } };
+    cards.emplace("CS2_104", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_391] Slam - COST:2
@@ -3810,18 +3842,17 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsNotDead()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DrawTask>(1) }));
-    cards.emplace(
-        "EX1_391",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_391", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_392] Battle Rage - COST:2
@@ -3832,14 +3863,13 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<CountTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CountTask>(
         EntityType::FRIENDS, 0,
         std::vector<SelfCondition>{ SelfCondition::IsDamaged() }));
-    power.AddPowerTask(std::make_shared<DrawNumberTask>());
-    cards.emplace(
-        "EX1_392",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_392", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
@@ -3850,10 +3880,10 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
         std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_393e")));
-    cards.emplace("EX1_393", CardDef(power));
+    cards.emplace("EX1_393", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3]
@@ -3864,9 +3894,9 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<WeaponTask>("EX1_398t"));
-    cards.emplace("EX1_398", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<WeaponTask>("EX1_398t"));
+    cards.emplace("EX1_398", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
@@ -3878,11 +3908,12 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
-    power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(1) };
-    cards.emplace("EX1_402", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<ArmorTask>(1) };
+    cards.emplace("EX1_402", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_407] Brawl - COST:5
@@ -3894,15 +3925,16 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_MINIMUM_TOTAL_MINIONS = 2
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomTask>(EntityType::ALL_MINIONS, 1));
-    power.AddPowerTask(std::make_shared<IncludeTask>(
+    cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(
         EntityType::ALL_MINIONS, std::vector<EntityType>{ EntityType::STACK }));
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
-    cards.emplace(
-        "EX1_407",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINIMUM_TOTAL_MINIONS, 2 } }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::STACK));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINIMUM_TOTAL_MINIONS, 2 } };
+    cards.emplace("EX1_407", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_408] Mortal Strike - COST:4
@@ -3914,19 +3946,18 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true,
         TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 6, true) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         false,
         TaskList{ std::make_shared<DamageTask>(EntityType::TARGET, 4, true) }));
-    cards.emplace(
-        "EX1_408",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_408", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_409] Upgrade! - COST:1
@@ -3935,16 +3966,16 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: If you have a weapon, give it +1/+1.
     //       Otherwise equip a 1/3 weapon.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
                               SelfCondition::IsWeaponEquipped()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<AddEnchantmentTask>(
                   "EX1_409e", EntityType::WEAPON) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<WeaponTask>("EX1_409t") }));
-    cards.emplace("EX1_409", CardDef(power));
+    cards.emplace("EX1_409", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [EX1_410] Shield Slam - COST:1
@@ -3959,15 +3990,14 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::HERO, GameTag::ARMOR));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageNumberTask>(EntityType::TARGET, true));
-    cards.emplace(
-        "EX1_410",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_TO_PLAY, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("EX1_410", cardDef);
 
     // --------------------------------------- WEAPON - WARRIOR
     // [EX1_411] Gorehowl - COST:7 [ATK:7/HP:0]
@@ -3978,16 +4008,16 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->conditions =
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsProposedDefender(CardType::MINION)) };
-    power.GetTrigger()->fastExecution = true;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.power.GetTrigger()->fastExecution = true;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_411e", EntityType::SOURCE) };
-    cards.emplace("EX1_411", CardDef(power));
+    cards.emplace("EX1_411", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
@@ -4001,9 +4031,10 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_414e"));
-    cards.emplace("EX1_414", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_414e"));
+    cards.emplace("EX1_414", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
@@ -4020,15 +4051,16 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_NONSELF_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DamageTask>(EntityType::TARGET, 1));
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_603e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_603",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 } };
+    cards.emplace("EX1_603", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
@@ -4039,12 +4071,13 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_604o", EntityType::SOURCE) };
-    cards.emplace("EX1_604", CardDef(power));
+    cards.emplace("EX1_604", cardDef);
 
     // ----------------------------------------- SPELL - WARRIOR
     // [EX1_607] Inner Rage - COST:0
@@ -4056,15 +4089,14 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_607e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_607",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_607", cardDef);
 
     // ----------------------------------------- SPELL - WARRIOR
     // [NEW1_036] Commanding Shout - COST:2
@@ -4073,17 +4105,17 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Your minions can't be reduced below 1 Health this turn.
     //       Draw a card.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("NEW1_036e2", EntityType::PLAYER));
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("NEW1_036", CardDef(power));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("NEW1_036", cardDef);
 }
 
 void Expert1CardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [CS2_104e] Rampage (*) - COST:0
@@ -4091,9 +4123,9 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_104e"));
-    cards.emplace("CS2_104e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("CS2_104e"));
+    cards.emplace("CS2_104e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_393e] Enraged (*) - COST:0
@@ -4104,9 +4136,9 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_393e"));
-    cards.emplace("EX1_393e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_393e"));
+    cards.emplace("EX1_393e", cardDef);
 
     // --------------------------------------- WEAPON - WARRIOR
     // [EX1_398t] Battle Axe (*) - COST:1 [ATK:2/HP:0]
@@ -4115,9 +4147,9 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // GameTag:
     // - DURABILITY = 2
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_398t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_398t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_409e] Upgraded (*) - COST:0
@@ -4125,11 +4157,11 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack and +1 Durability.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>{
             Effects::AttackN(1), Effects::DurabilityN(1) }));
-    cards.emplace("EX1_409e", CardDef(power));
+    cards.emplace("EX1_409e", cardDef);
 
     // --------------------------------------- WEAPON - WARRIOR
     // [EX1_409t] Heavy Axe (*) - COST:1 [ATK:1/HP:0]
@@ -4138,9 +4170,9 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // GameTag:
     // - DURABILITY = 3
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_409t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_409t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_411e] Bloodrage (*) - COST:0
@@ -4148,15 +4180,17 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: No durability loss.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::Immune));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
-    power.GetTrigger()->triggerSource = TriggerSource::HERO;
-    power.GetTrigger()->fastExecution = true;
-    power.GetTrigger()->tasks = { std::make_shared<RemoveEnchantmentTask>(),
-                                  std::make_shared<AddEnchantmentTask>(
-                                      "EX1_411e2", EntityType::WEAPON) };
-    cards.emplace("EX1_411e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::Immune));
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->fastExecution = true;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RemoveEnchantmentTask>(),
+        std::make_shared<AddEnchantmentTask>("EX1_411e2", EntityType::WEAPON)
+    };
+    cards.emplace("EX1_411e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_411e2] Needs Sharpening (*) - COST:0
@@ -4164,11 +4198,11 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Decreased Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<OngoingEnchant>(std::vector<std::shared_ptr<IEffect>>{
             std::make_shared<Effect>(GameTag::ATK, EffectOperator::SUB, 1) }));
-    cards.emplace("EX1_411e2", CardDef(power));
+    cards.emplace("EX1_411e2", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_414e] Enraged (*) - COST:0
@@ -4176,9 +4210,9 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +6 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_414e"));
-    cards.emplace("EX1_414e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_414e"));
+    cards.emplace("EX1_414e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_603e] Whipped Into Shape (*) - COST:0
@@ -4186,9 +4220,9 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_603e"));
-    cards.emplace("EX1_603e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_603e"));
+    cards.emplace("EX1_603e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_604o] Berserk (*) - COST:0
@@ -4196,10 +4230,10 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<OngoingEnchant>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<OngoingEnchant>(
         std::vector<std::shared_ptr<IEffect>>{ Effects::AttackN(1) }));
-    cards.emplace("EX1_604o", CardDef(power));
+    cards.emplace("EX1_604o", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [EX1_607e] Inner Rage (*) - COST:0
@@ -4207,9 +4241,9 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_607e"));
-    cards.emplace("EX1_607e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_607e"));
+    cards.emplace("EX1_607e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [NEW1_036e] Commanding Shout (*) - COST:0
@@ -4220,16 +4254,16 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(std::make_shared<Effect>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(std::make_shared<Effect>(
         GameTag::HEALTH_MINIMUM, EffectOperator::SET, 1)));
     {
-        const auto enchant = dynamic_cast<Enchant*>(power.GetEnchant());
+        const auto enchant = dynamic_cast<Enchant*>(cardDef.power.GetEnchant());
         enchant->isOneTurnEffect = true;
     }
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PREDAMAGE));
     {
-        const auto trigger = dynamic_cast<Trigger*>(power.GetTrigger());
+        const auto trigger = dynamic_cast<Trigger*>(cardDef.power.GetTrigger());
         trigger->triggerSource = TriggerSource::ENCHANTMENT_TARGET;
         trigger->fastExecution = true;
         trigger->tasks = {
@@ -4249,7 +4283,7 @@ void Expert1CardsGen::AddWarriorNonCollect(
                 })
         };
     }
-    cards.emplace("NEW1_036e", CardDef(power));
+    cards.emplace("NEW1_036e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [NEW1_036e2] Commanding Shout (*) - COST:0
@@ -4260,14 +4294,14 @@ void Expert1CardsGen::AddWarriorNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "NEW1_036e"));
-    cards.emplace("NEW1_036e2", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(AuraType::FIELD, "NEW1_036e"));
+    cards.emplace("NEW1_036e2", cardDef);
 }
 
 void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS1_069] Fen Creeper - COST:5 [ATK:3/HP:6]
@@ -4278,9 +4312,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS1_069", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("CS1_069", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
@@ -4294,11 +4328,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::TARGET, 3));
-    cards.emplace(
-        "CS2_117",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 3));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("CS2_117", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
@@ -4309,11 +4344,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveEffect>(
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
         std::make_shared<SelfCondition>(SelfCondition::IsWeaponEquipped()),
         GameTag::CHARGE));
-    cards.emplace("CS2_146", CardDef(power));
+    cards.emplace("CS2_146", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
@@ -4324,10 +4359,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("CS2_152", SummonSide::RIGHT));
-    cards.emplace("CS2_151", CardDef(power));
+    cards.emplace("CS2_151", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_161] Ravenholdt Assassin - COST:7 [ATK:7/HP:5]
@@ -4338,9 +4373,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_161", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("CS2_161", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_169] Young Dragonhawk - COST:1 [ATK:1/HP:1]
@@ -4351,9 +4386,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_169", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("CS2_169", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
@@ -4364,10 +4399,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::SOURCE, 4, false));
-    cards.emplace("CS2_181", CardDef(power));
+    cards.emplace("CS2_181", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
@@ -4382,13 +4417,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("CS2_188o", EntityType::TARGET));
-    cards.emplace(
-        "CS2_188",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CS2_188", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_203] Ironbeak Owl - COST:3 [ATK:2/HP:1]
@@ -4406,12 +4440,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
-    cards.emplace(
-        "CS2_203",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CS2_203", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_221] Spiteful Smith - COST:5 [ATK:4/HP:6]
@@ -4422,9 +4457,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<EnrageEffect>(AuraType::WEAPON, "CS2_221e"));
-    cards.emplace("CS2_221", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<EnrageEffect>(AuraType::WEAPON, "CS2_221e"));
+    cards.emplace("CS2_221", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6]
@@ -4435,23 +4471,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::HAND,
-                                         EffectList{ Effects::AddCost(3) }));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::AddCost(3) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsMinion());
     }
-    cards.emplace("CS2_227", CardDef(power));
+    cards.emplace("CS2_227", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_231] Wisp - COST:0 [ATK:1/HP:1]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_231", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("CS2_231", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_001] Lightwarden - COST:1 [ATK:1/HP:2]
@@ -4459,11 +4495,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever a character is healed, gain +2 Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_001e", EntityType::SOURCE) };
-    cards.emplace("EX1_001", CardDef(power));
+    cards.emplace("EX1_001", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_002] The Black Knight - COST:6 [ATK:4/HP:5]
@@ -4485,14 +4521,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_002",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_MUST_TARGET_TAUNTER, 0 },
-                                 { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_MUST_TARGET_TAUNTER, 0 },
+                  { PlayReq::REQ_ENEMY_TARGET, 0 } };
+    cards.emplace("EX1_002", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
@@ -4504,13 +4541,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
         std::make_shared<AddEnchantmentTask>("EX1_004e", EntityType::STACK)
     };
-    cards.emplace("EX1_004", CardDef(power));
+    cards.emplace("EX1_004", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_005] Big Game Hunter - COST:4 [ATK:4/HP:2]
@@ -4527,13 +4564,14 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_MIN_ATTACK = 7
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_005",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_MIN_ATTACK, 7 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_MIN_ATTACK, 7 } };
+    cards.emplace("EX1_005", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_006] Alarm-o-Bot - COST:3 [ATK:0/HP:3]
@@ -4545,12 +4583,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::HasMinionInHand())
     };
-    power.GetTrigger()->tasks = {
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<GetGameTagTask>(EntityType::SOURCE,
                                          GameTag::ZONE_POSITION),
         std::make_shared<MoveToSetasideTask>(EntityType::SOURCE),
@@ -4562,7 +4601,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         std::make_shared<SummonTask>(SummonSide::NUMBER),
         std::make_shared<ReturnHandTask>(EntityType::SOURCE)
     };
-    cards.emplace("EX1_006", CardDef(power));
+    cards.emplace("EX1_006", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
@@ -4573,11 +4612,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
-    power.GetTrigger()->triggerSource = TriggerSource::SELF;
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("EX1_007", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("EX1_007", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
@@ -4588,9 +4628,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_008", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_008", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_009] Angry Chicken - COST:1 [ATK:1/HP:1]
@@ -4601,10 +4641,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
         std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_009e")));
-    cards.emplace("EX1_009", CardDef(power));
+    cards.emplace("EX1_009", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
@@ -4615,9 +4655,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_010", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_010", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1]
@@ -4631,9 +4671,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - SPELLPOWER = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_012", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("EX1_012", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_014] King Mukla - COST:3 [ATK:5/HP:5]
@@ -4645,10 +4685,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "EX1_014t", 2));
-    cards.emplace("EX1_014", CardDef(power));
+    cards.emplace("EX1_014", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_016] Sylvanas Windrunner - COST:6 [ATK:5/HP:5]
@@ -4661,11 +4701,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<RandomTask>(EntityType::ENEMY_MINIONS, 1));
-    power.AddDeathrattleTask(std::make_shared<ControlTask>(EntityType::STACK));
-    cards.emplace("EX1_016", CardDef(power));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<ControlTask>(EntityType::STACK));
+    cards.emplace("EX1_016", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
@@ -4676,9 +4717,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_017", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_017", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_020] Scarlet Crusader - COST:3 [ATK:3/HP:1]
@@ -4689,9 +4730,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_020", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_020", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_021] Thrallmar Farseer - COST:3 [ATK:2/HP:3]
@@ -4702,9 +4743,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_021", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_021", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_023] Silvermoon Guardian - COST:4 [ATK:3/HP:3]
@@ -4715,9 +4756,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_023", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_023", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
@@ -4728,9 +4769,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_028", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_028", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_029] Leper Gnome - COST:1 [ATK:2/HP:1]
@@ -4741,10 +4782,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 2, false));
-    cards.emplace("EX1_029", CardDef(power));
+    cards.emplace("EX1_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_032] Sunwalker - COST:6 [ATK:4/HP:5]
@@ -4757,9 +4798,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_032", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_032", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_033] Windfury Harpy - COST:6 [ATK:4/HP:5]
@@ -4770,9 +4811,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_033", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_033", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
@@ -4781,11 +4822,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: <b>Battlecry:</b> Gain +1 Health
     //       for each card in your hand.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "EX1_043e", EntityType::SOURCE, true));
-    cards.emplace("EX1_043", CardDef(power));
+    cards.emplace("EX1_043", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_044] Questing Adventurer - COST:3 [ATK:2/HP:2]
@@ -4793,12 +4834,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you play a card, gain +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_044e", EntityType::SOURCE) };
-    cards.emplace("EX1_044", CardDef(power));
+    cards.emplace("EX1_044", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5]
@@ -4809,9 +4850,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_045", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_045", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
@@ -4826,13 +4867,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_046e", EntityType::TARGET));
-    cards.emplace(
-        "EX1_046",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_046", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
@@ -4851,13 +4891,14 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SilenceTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_048",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 } };
+    cards.emplace("EX1_048", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
@@ -4875,14 +4916,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_049",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("EX1_049", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2]
@@ -4893,10 +4935,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(2));
-    power.AddPowerTask(std::make_shared<DrawOpTask>(2));
-    cards.emplace("EX1_050", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cardDef.power.AddPowerTask(std::make_shared<DrawOpTask>(2));
+    cards.emplace("EX1_050", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
@@ -4907,12 +4949,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_055o", EntityType::SOURCE) };
-    cards.emplace("EX1_055", CardDef(power));
+    cards.emplace("EX1_055", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_057] Ancient Brewmaster - COST:4 [ATK:5/HP:4]
@@ -4930,14 +4973,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_NONSELF_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_057",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 } };
+    cards.emplace("EX1_057", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_058] Sunfury Protector - COST:2 [ATK:2/HP:3]
@@ -4951,14 +4995,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
         EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
                                 RelaCondition::IsSideBySide()) }));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<SetGameTagTask>(EntityType::STACK, GameTag::TAUNT, 1));
-    cards.emplace("EX1_058", CardDef(power));
+    cards.emplace("EX1_058", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2]
@@ -4973,13 +5018,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<SwapAttackHealthTask>(EntityType::TARGET, "EX1_059e"));
-    cards.emplace(
-        "EX1_059",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("EX1_059", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
@@ -4992,9 +5037,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DIVINE_SHIELD = 1
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_067", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_067", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_076] Pint-Sized Summoner - COST:2 [ATK:2/HP:2]
@@ -5005,16 +5050,16 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<SwitchingAura>(
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<SwitchingAura>(
         AuraType::HAND, SelfCondition::MinionsPlayedThisTurn(0),
         TriggerType::PLAY_MINION, EffectList{ Effects::ReduceCost(1) }));
     {
-        const auto aura = dynamic_cast<SwitchingAura*>(power.GetAura());
+        const auto aura = dynamic_cast<SwitchingAura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsMinion());
     }
-    cards.emplace("EX1_076", CardDef(power));
+    cards.emplace("EX1_076", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_080] Secretkeeper - COST:1 [ATK:1/HP:2]
@@ -5028,14 +5073,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsSecret())
     };
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_080o", EntityType::SOURCE) };
-    cards.emplace("EX1_080", CardDef(power));
+    cards.emplace("EX1_080", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2]
@@ -5047,12 +5093,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
         TaskList{ std::make_shared<RandomTask>(EntityType::ALL_NOSOURCE, 1),
                   std::make_shared<DamageTask>(EntityType::STACK, 1) },
         3, false));
-    cards.emplace("EX1_082", CardDef(power));
+    cards.emplace("EX1_082", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_083] Tinkmaster Overspark - COST:3 [ATK:3/HP:3]
@@ -5065,17 +5111,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomTask>(EntityType::ALL_MINIONS_NOSOURCE, 1));
-    power.AddPowerTask(std::make_shared<ChanceTask>(true));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<ChanceTask>(true));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<TransformTask>(EntityType::STACK,
                                                         "EX1_tk28") }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<TransformTask>(EntityType::STACK,
                                                          "EX1_tk29") }));
-    cards.emplace("EX1_083", CardDef(power));
+    cards.emplace("EX1_083", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3]
@@ -5087,22 +5133,23 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
         [=](const std::vector<Playable*>& playables) {
             return playables.size() > 3 ? playables : std::vector<Playable*>{};
         }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsFieldFull()) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DestroyTask>(EntityType::STACK) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         false, TaskList{ std::make_shared<ControlTask>(EntityType::STACK) }));
-    cards.emplace("EX1_085", CardDef(power));
+    cards.emplace("EX1_085", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:2]
@@ -5115,9 +5162,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - CHARGE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false, true));
-    cards.emplace("EX1_089", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<ManaCrystalTask>(1, false, true));
+    cards.emplace("EX1_089", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_093] Defender of Argus - COST:4 [ATK:3/HP:3]
@@ -5132,14 +5180,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
         EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
                                 RelaCondition::IsSideBySide()) }));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_093e", EntityType::STACK));
-    cards.emplace("EX1_093", CardDef(power));
+    cards.emplace("EX1_093", cardDef);
 
     // ---------------------------------------- MINION - NEUTRAL
     // [EX1_095] Gadgetzan Auctioneer - COST:5 [ATK:4/HP:4]
@@ -5150,11 +5199,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("EX1_095", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("EX1_095", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1]
@@ -5165,9 +5215,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_096", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("EX1_096", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_097] Abomination - COST:5 [ATK:4/HP:4]
@@ -5180,9 +5230,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<DamageTask>(EntityType::ALL, 2));
-    cards.emplace("EX1_097", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ALL, 2));
+    cards.emplace("EX1_097", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_100] Lorewalker Cho - COST:2 [ATK:0/HP:4]
@@ -5194,9 +5245,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<ConditionTask>(
             EntityType::TARGET, RelaCondList{ std::make_shared<RelaCondition>(
                                     RelaCondition::IsFriendly()) }),
@@ -5207,7 +5259,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             false, TaskList{ std::make_shared<CopyTask>(EntityType::TARGET,
                                                         ZoneType::HAND) })
     };
-    cards.emplace("EX1_100", CardDef(power));
+    cards.emplace("EX1_100", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
@@ -5219,13 +5271,14 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
         std::make_shared<DamageTask>(EntityType::STACK, 2)
     };
-    cards.emplace("EX1_102", CardDef(power));
+    cards.emplace("EX1_102", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3]
@@ -5236,15 +5289,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<IncludeTask>(EntityType::MINIONS_NOSOURCE));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsRace(Race::MURLOC)) }));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_103e", EntityType::STACK));
-    cards.emplace("EX1_103", CardDef(power));
+    cards.emplace("EX1_103", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
@@ -5252,11 +5305,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each other card in your hand.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        return playable->player->GetHandZone()->GetCount() - 1;
-    }));
-    cards.emplace("EX1_105", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+            return playable->player->GetHandZone()->GetCount() - 1;
+        }));
+    cards.emplace("EX1_105", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_110] Cairne Bloodhoof - COST:6 [ATK:5/HP:5]
@@ -5268,10 +5322,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("EX1_110t", SummonSide::DEATHRATTLE));
-    cards.emplace("EX1_110", CardDef(power));
+    cards.emplace("EX1_110", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
@@ -5285,10 +5339,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CHARGE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
         TaskList{ std::make_shared<SummonOpTask>("EX1_116t") }, 2));
-    cards.emplace("EX1_116", CardDef(power));
+    cards.emplace("EX1_116", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
@@ -5300,9 +5354,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdjacentAura>("EX1_162o"));
-    cards.emplace("EX1_162", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdjacentAura>("EX1_162o"));
+    cards.emplace("EX1_162", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
@@ -5313,9 +5367,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_170", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_170", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4]
@@ -5329,12 +5383,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomTask>(EntityType::ENEMY_SECRETS, 1));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<MoveToGraveyardTask>(EntityType::STACK));
-    cards.emplace("EX1_186", CardDef(power));
+    cards.emplace("EX1_186", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_187] Arcane Devourer - COST:8 [ATK:4/HP:8]
@@ -5345,12 +5399,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_187e", EntityType::SOURCE) };
-    cards.emplace("EX1_187", CardDef(power));
+    cards.emplace("EX1_187", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_188] Barrens Stablehand - COST:7 [ATK:5/HP:5]
@@ -5361,11 +5416,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(TagValues{
         { GameTag::CARDRACE, static_cast<int>(Race::BEAST), RelaSign::EQ } }));
-    power.AddPowerTask(std::make_shared<SummonTask>());
-    cards.emplace("EX1_188", CardDef(power));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("EX1_188", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
@@ -5378,12 +5433,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID,
                                          Race::INVALID, Rarity::LEGENDARY));
-    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("EX1_189", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("EX1_189", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_190] High Inquisitor Whitemane - COST:6 [ATK:5/HP:7]
@@ -5396,8 +5452,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<CustomTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
             const auto field = player->GetFieldZone();
@@ -5443,7 +5499,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 }
             }
         }));
-    cards.emplace("EX1_190", CardDef(power));
+    cards.emplace("EX1_190", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:7]
@@ -5456,11 +5512,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
         EntityType::ALL_NOSOURCE, 2) };
-    cards.emplace("EX1_249", CardDef(power));
+    cards.emplace("EX1_249", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
@@ -5471,11 +5527,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<FreezeTask>(EntityType::TARGET));
-    cards.emplace(
-        "EX1_283",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<FreezeTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("EX1_283", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_284] Azure Drake - COST:5 [ATK:4/HP:5]
@@ -5488,9 +5545,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - SPELLPOWER = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<DrawTask>(1));
-    cards.emplace("EX1_284", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("EX1_284", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_298] Ragnaros the Firelord - COST:8 [ATK:8/HP:8]
@@ -5499,16 +5556,16 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Can't attack. At the end of your turn,
     //       deal 8 damage to a random enemy.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::ENEMIES),
         std::make_shared<FilterStackTask>(SelfCondList{
             std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
         std::make_shared<RandomTask>(EntityType::STACK, 1),
         std::make_shared<DamageTask>(EntityType::STACK, 8)
     };
-    cards.emplace("EX1_298", CardDef(power));
+    cards.emplace("EX1_298", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
@@ -5520,10 +5577,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ENRAGED = 1
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
         std::make_shared<Trigger>(Triggers::EnrageTrigger("EX1_390e")));
-    cards.emplace("EX1_390", CardDef(power));
+    cards.emplace("EX1_390", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
@@ -5534,9 +5591,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_396", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_396", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_405] Shieldbearer - COST:1 [ATK:0/HP:4]
@@ -5547,9 +5604,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_405", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_405", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
@@ -5563,9 +5620,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - WINDFURY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_412e"));
-    cards.emplace("EX1_412", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<EnrageEffect>(AuraType::SELF, "EX1_412e"));
+    cards.emplace("EX1_412", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
@@ -5576,15 +5634,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
+    cardDef.ClearData();
+    cardDef.power.AddAura(
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_507e"));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition = std::make_shared<SelfCondition>(
             SelfCondition::IsRace(Race::MURLOC));
     }
-    cards.emplace("EX1_507", CardDef(power));
+    cards.emplace("EX1_507", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
@@ -5595,15 +5653,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->conditions = SelfCondList{
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::SUMMON));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MURLOC))
     };
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "EX1_509e", EntityType::SOURCE) };
-    cards.emplace("EX1_509", CardDef(power));
+    cards.emplace("EX1_509", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
@@ -5614,10 +5672,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("skele21", SummonSide::DEATHRATTLE));
-    cards.emplace("EX1_556", CardDef(power));
+    cards.emplace("EX1_556", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
@@ -5629,11 +5687,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->percentage = 0.5f;
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("EX1_557", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->percentage = 0.5f;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("EX1_557", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4]
@@ -5646,16 +5705,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
         EntityType::ENEMY_WEAPON, GameTag::DURABILITY));
-    power.AddPowerTask(std::make_shared<GetGameTagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
         EntityType::ENEMY_WEAPON, GameTag::DAMAGE, 0, 1));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<MathNumberIndexTask>(0, 1, MathOperation::SUB));
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
-    power.AddPowerTask(std::make_shared<DrawNumberTask>());
-    cards.emplace("EX1_558", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::ENEMY_WEAPON));
+    cardDef.power.AddPowerTask(std::make_shared<DrawNumberTask>());
+    cards.emplace("EX1_558", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
@@ -5666,11 +5726,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
         AuraType::PLAYERS, EffectList{ std::make_shared<Effect>(
                                GameTag::TIMEOUT, EffectOperator::SET, -60) }));
-    cards.emplace("EX1_560", CardDef(power));
+    cards.emplace("EX1_560", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8]
@@ -5686,17 +5746,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_HERO_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<CustomTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
         []([[maybe_unused]] Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
             Hero* hero = dynamic_cast<Hero*>(target);
             hero->SetDamage(hero->GetBaseHealth() - 15);
         }));
-    cards.emplace(
-        "EX1_561",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_HERO_TARGET, 0 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_HERO_TARGET, 0 } };
+    cards.emplace("EX1_561", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_562] Onyxia - COST:9 [ATK:8/HP:8]
@@ -5709,12 +5769,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<EnqueueTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
         TaskList{ std::make_shared<SummonTask>("EX1_116t", SummonSide::RIGHT),
                   std::make_shared<SummonTask>("EX1_116t", SummonSide::LEFT) },
         3));
-    cards.emplace("EX1_562", CardDef(power));
+    cards.emplace("EX1_562", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
@@ -5726,9 +5786,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - SPELLPOWER = 5
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_563", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_563", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
@@ -5741,13 +5801,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_NONSELF_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<TransformCopyTask>());
-    cards.emplace(
-        "EX1_564",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_NONSELF_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<TransformCopyTask>());
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 } };
+    cards.emplace("EX1_564", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_572] Ysera - COST:9 [ATK:4/HP:12]
@@ -5761,15 +5821,16 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<RandomEntourageTask>(1),
-                                  std::make_shared<AddStackToTask>(
-                                      EntityType::HAND) };
-    cards.emplace("EX1_572",
-                  CardDef(power, PlayReqs{}, ChooseCardIDs{},
-                          Entourages{ "DREAM_01", "DREAM_02", "DREAM_03",
-                                      "DREAM_04", "DREAM_05" }));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RandomEntourageTask>(1),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cardDef.property.entourages =
+        Entourages{ "DREAM_01", "DREAM_02", "DREAM_03", "DREAM_04",
+                    "DREAM_05" };
+    cards.emplace("EX1_572", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
@@ -5782,9 +5843,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(std::make_shared<SummonOpTask>("EX1_finkle"));
-    cards.emplace("EX1_577", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonOpTask>("EX1_finkle"));
+    cards.emplace("EX1_577", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4]
@@ -5795,9 +5857,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 4));
-    cards.emplace("EX1_583", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 4));
+    cards.emplace("EX1_583", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
@@ -5812,14 +5874,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
         EntityType::SOURCE, RelaCondList{ std::make_shared<RelaCondition>(
                                 RelaCondition::IsSideBySide()) }));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_584e", EntityType::STACK));
-    cards.emplace("EX1_584", CardDef(power));
+    cards.emplace("EX1_584", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_586] Sea Giant - COST:10 [ATK:8/HP:8]
@@ -5827,12 +5890,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each other minion on the battlefield.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
-        return playable->player->GetFieldZone()->GetCount() +
-               playable->player->opponent->GetFieldZone()->GetCount();
-    }));
-    cards.emplace("EX1_586", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+            return playable->player->GetFieldZone()->GetCount() +
+                   playable->player->opponent->GetFieldZone()->GetCount();
+        }));
+    cards.emplace("EX1_586", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_590] Blood Knight - COST:3 [ATK:3/HP:3]
@@ -5847,18 +5911,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DIVINE_SHIELD = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsTagValue(GameTag::DIVINE_SHIELD, 1)) }));
-    power.AddPowerTask(std::make_shared<SetGameTagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagTask>(
         EntityType::STACK, GameTag::DIVINE_SHIELD, 0));
-    power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
-    power.AddPowerTask(std::make_shared<MathMultiplyTask>(3));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.power.AddPowerTask(std::make_shared<CountTask>(EntityType::STACK));
+    cardDef.power.AddPowerTask(std::make_shared<MathMultiplyTask>(3));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "EX1_590e", EntityType::SOURCE, true));
-    cards.emplace("EX1_590", CardDef(power));
+    cards.emplace("EX1_590", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_595] Cult Master - COST:4 [ATK:4/HP:2]
@@ -5869,11 +5934,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
-    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
-    power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
-    cards.emplace("EX1_595", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::MINIONS_EXCEPT_SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("EX1_595", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
@@ -5885,13 +5951,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<DamageTask>(EntityType::SOURCE, 1),
         std::make_shared<SummonTask>("EX1_598", SummonSide::RIGHT)
     };
-    cards.emplace("EX1_597", CardDef(power));
+    cards.emplace("EX1_597", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_614] Xavius - COST:6 [ATK:7/HP:5]
@@ -5903,11 +5969,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "EX1_614t", SummonSide::RIGHT) };
-    cards.emplace("EX1_614", CardDef(power));
+    cards.emplace("EX1_614", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_616] Mana Wraith - COST:2 [ATK:2/HP:2]
@@ -5918,15 +5984,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::HANDS,
-                                         EffectList{ Effects::AddCost(1) }));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HANDS, EffectList{ Effects::AddCost(1) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsMinion());
     }
-    cards.emplace("EX1_616", CardDef(power));
+    cards.emplace("EX1_616", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8]
@@ -5934,11 +6000,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each damage your hero has taken.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        return playable->player->GetHero()->GetDamage();
-    }));
-    cards.emplace("EX1_620", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+            return playable->player->GetHero()->GetDamage();
+        }));
+    cards.emplace("EX1_620", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
@@ -5953,18 +6020,18 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_TARGET_WITH_RACE = 14
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ConditionTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
         EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsRace(Race::MURLOC)) }));
-    power.AddPowerTask(std::make_shared<FlagTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET),
                         std::make_shared<AddEnchantmentTask>(
                             "NEW1_017e", EntityType::SOURCE) }));
-    cards.emplace(
-        "NEW1_017",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_TARGET_WITH_RACE, 14 } }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_TARGET_WITH_RACE, 14 } };
+    cards.emplace("NEW1_017", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
@@ -5976,12 +6043,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<GetGameTagTask>(EntityType::WEAPON, GameTag::ATK));
-    power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "NEW1_018e", EntityType::SOURCE, true));
-    cards.emplace("NEW1_018", CardDef(power));
+    cards.emplace("NEW1_018", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_019] Knife Juggler - COST:2 [ATK:3/HP:2]
@@ -5993,17 +6060,19 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
-    power.GetTrigger()->triggerSource = TriggerSource::MINIONS_EXCEPT_SELF;
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::MINIONS_EXCEPT_SELF;
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<IncludeTask>(EntityType::ENEMIES),
         std::make_shared<FilterStackTask>(SelfCondList{
             std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
         std::make_shared<RandomTask>(EntityType::STACK, 1),
         std::make_shared<DamageTask>(EntityType::STACK, 1)
     };
-    cards.emplace("NEW1_019", CardDef(power));
+    cards.emplace("NEW1_019", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
@@ -6014,11 +6083,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::AFTER_CAST));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
         EntityType::ALL_MINIONS, 1) };
-    cards.emplace("NEW1_020", CardDef(power));
+    cards.emplace("NEW1_020", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
@@ -6029,11 +6099,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
         EntityType::ALL_MINIONS) };
-    cards.emplace("NEW1_021", CardDef(power));
+    cards.emplace("NEW1_021", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_022] Dread Corsair - COST:4 [ATK:3/HP:3]
@@ -6045,16 +6116,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-        if (!playable->player->GetHero()->HasWeapon())
-        {
-            return 0;
-        }
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+            if (!playable->player->GetHero()->HasWeapon())
+            {
+                return 0;
+            }
 
-        return playable->player->GetHero()->weapon->GetAttack();
-    }));
-    cards.emplace("NEW1_022", CardDef(power));
+            return playable->player->GetHero()->weapon->GetAttack();
+        }));
+    cards.emplace("NEW1_022", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
@@ -6066,9 +6138,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("NEW1_023", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_023", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
@@ -6080,10 +6152,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("NEW1_024o", EntityType::WEAPON));
-    cards.emplace("NEW1_024", CardDef(power));
+    cards.emplace("NEW1_024", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_025] Bloodsail Corsair - COST:2 [ATK:1/HP:2]
@@ -6095,9 +6167,9 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<RemoveDurabilityTask>(1, true));
-    cards.emplace("NEW1_025", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RemoveDurabilityTask>(1, true));
+    cards.emplace("NEW1_025", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
@@ -6109,12 +6181,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "NEW1_026t", SummonSide::RIGHT) };
-    cards.emplace("NEW1_026", CardDef(power));
+    cards.emplace("NEW1_026", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
@@ -6125,15 +6198,15 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(
+    cardDef.ClearData();
+    cardDef.power.AddAura(
         std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "NEW1_027e"));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition = std::make_shared<SelfCondition>(
             SelfCondition::IsRace(Race::PIRATE));
     }
-    cards.emplace("NEW1_027", CardDef(power));
+    cards.emplace("NEW1_027", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_029] Millhouse Manastorm - COST:2 [ATK:4/HP:4]
@@ -6145,10 +6218,10 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("NEW1_029t", EntityType::PLAYER));
-    cards.emplace("NEW1_029", CardDef(power));
+    cards.emplace("NEW1_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
@@ -6161,11 +6234,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<DestroyTask>(EntityType::ALL_MINIONS_NOSOURCE));
-    power.AddPowerTask(std::make_shared<RemoveHandTask>(EntityType::HAND));
-    cards.emplace("NEW1_030", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<RemoveHandTask>(EntityType::HAND));
+    cards.emplace("NEW1_030", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
@@ -6177,13 +6251,13 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = {
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
         std::make_shared<RandomTask>(EntityType::MINIONS_NOSOURCE, 1),
         std::make_shared<AddEnchantmentTask>("NEW1_037e", EntityType::STACK)
     };
-    cards.emplace("NEW1_037", CardDef(power));
+    cards.emplace("NEW1_037", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_038] Gruul - COST:8 [ATK:7/HP:7]
@@ -6195,12 +6269,12 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->eitherTurn = true;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->eitherTurn = true;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "NEW1_038o", EntityType::SOURCE) };
-    cards.emplace("NEW1_038", CardDef(power));
+    cards.emplace("NEW1_038", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
@@ -6216,11 +6290,11 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
-    power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
         "NEW1_040t", SummonSide::RIGHT) };
-    cards.emplace("NEW1_040", CardDef(power));
+    cards.emplace("NEW1_040", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5]
@@ -6232,15 +6306,17 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
-    power.AddPowerTask(std::make_shared<RandomTask>(EntityType::STACK, 1));
-    power.AddPowerTask(std::make_shared<DestroyTask>(EntityType::STACK));
-    cards.emplace("NEW1_041", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("NEW1_041", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [tt_004] Flesheating Ghoul - COST:3 [ATK:3/HP:3]
@@ -6251,26 +6327,26 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
-    power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "tt_004o", EntityType::SOURCE) };
-    cards.emplace("tt_004", CardDef(power));
+    cards.emplace("tt_004", cardDef);
 }
 
 void Expert1CardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS2_152] Squire (*) - COST:1 [ATK:2/HP:2]
     // - Faction: Alliance, Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("CS2_152", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("CS2_152", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS2_188o] Inspired (*) - COST:0
@@ -6281,9 +6357,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("CS2_188o"));
-    cards.emplace("CS2_188o", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("CS2_188o"));
+    cards.emplace("CS2_188o", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [CS2_221e] Sharp! (*) - COST:0
@@ -6291,10 +6367,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack from Spiteful Smith.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(
         std::make_shared<Effect>(GameTag::ATK, EffectOperator::ADD, 2)));
-    cards.emplace("CS2_221e", CardDef(power));
+    cards.emplace("CS2_221e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [DREAM_05e] Nightmare (*) - COST:0
@@ -6302,12 +6378,13 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: This minion has +4/+4, but will be destroyed soon.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("DREAM_05e"));
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_START));
-    power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("DREAM_05e"));
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
         EntityType::TARGET) };
-    cards.emplace("DREAM_05e", CardDef(power));
+    cards.emplace("DREAM_05e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_001e] Warded (*) - COST:0
@@ -6315,9 +6392,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(2)));
-    cards.emplace("EX1_001e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(2)));
+    cards.emplace("EX1_001e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_004e] Elune's Grace (*) - COST:0
@@ -6325,9 +6402,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(1)));
-    cards.emplace("EX1_004e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(1)));
+    cards.emplace("EX1_004e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_009e] Enraged (*) - COST:0
@@ -6338,9 +6415,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_009e"));
-    cards.emplace("EX1_009e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_009e"));
+    cards.emplace("EX1_009e", cardDef);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [EX1_014t] Bananas (*) - COST:1
@@ -6352,13 +6429,12 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_014te", EntityType::TARGET));
-    cards.emplace(
-        "EX1_014t",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("EX1_014t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_014te] Bananas (*) - COST:0
@@ -6366,9 +6442,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Has +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_014te"));
-    cards.emplace("EX1_014te", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_014te"));
+    cards.emplace("EX1_014te", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_043e] Hour of Twilight (*) - COST:0
@@ -6376,9 +6452,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Enchants::AddHealthScriptTag));
-    cards.emplace("EX1_043e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Enchants::AddHealthScriptTag));
+    cards.emplace("EX1_043e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_044e] Level Up! (*) - COST:0
@@ -6386,9 +6463,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack and Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackHealthN(1)));
-    cards.emplace("EX1_044e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::AttackHealthN(1)));
+    cards.emplace("EX1_044e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_046e] Tempered (*) - COST:0
@@ -6399,9 +6477,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
-    cards.emplace("EX1_046e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_046e"));
+    cards.emplace("EX1_046e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_055o] Empowered (*) - COST:0
@@ -6412,10 +6490,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(Effects::AttackN(2), false, true));
-    cards.emplace("EX1_055o", CardDef(power));
+    cards.emplace("EX1_055o", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_059e] Experiments! (*) - COST:0
@@ -6423,10 +6501,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Attack and Health have been swapped by Crazed Alchemist.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(Enchants::SetAttackHealthScriptTag));
-    cards.emplace("EX1_059e", CardDef(power));
+    cards.emplace("EX1_059e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_080o] Keeping Secrets (*) - COST:0
@@ -6434,10 +6512,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(
         std::vector<std::shared_ptr<IEffect>>{ Effects::AttackHealthN(1) }));
-    cards.emplace("EX1_080o", CardDef(power));
+    cards.emplace("EX1_080o", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_093e] Hand of Argus (*) - COST:0
@@ -6445,9 +6523,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1 and <b>Taunt</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_093e"));
-    cards.emplace("EX1_093e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_093e"));
+    cards.emplace("EX1_093e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_103e] Mrghlglhal (*) - COST:0
@@ -6455,9 +6533,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_103e"));
-    cards.emplace("EX1_103e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_103e"));
+    cards.emplace("EX1_103e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_187e] Arcane Gorged (*) - COST:0
@@ -6465,10 +6543,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<OngoingEnchant>(Effects::AttackHealthN(2)));
-    cards.emplace("EX1_187e", CardDef(power));
+    cards.emplace("EX1_187e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:5/HP:5]
@@ -6477,17 +6555,17 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_110t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_110t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_116t] Whelp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Dragon, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_116t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_116t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_162o] Strength of the Pack (*) - COST:0
@@ -6495,9 +6573,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Attack from Dire Wolf Alpha.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_162o"));
-    cards.emplace("EX1_162o", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_162o"));
+    cards.emplace("EX1_162o", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_390e] Enraged (*) - COST:0
@@ -6508,9 +6586,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_390e"));
-    cards.emplace("EX1_390e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_390e"));
+    cards.emplace("EX1_390e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_412e] Enraged (*) - COST:0
@@ -6521,9 +6599,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_412e"));
-    cards.emplace("EX1_412e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_412e"));
+    cards.emplace("EX1_412e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_507e] Mrgglaargl! (*) - COST:0
@@ -6531,9 +6609,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2 Attack from Murloc Warleader.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("EX1_507e"));
-    cards.emplace("EX1_507e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("EX1_507e"));
+    cards.emplace("EX1_507e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_509e] Blarghghl (*) - COST:0
@@ -6541,9 +6619,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
-    cards.emplace("EX1_509e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    cards.emplace("EX1_509e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_584e] Teachings of the Kirin Tor (*) - COST:0
@@ -6551,9 +6629,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::SpellPowerN(1)));
-    cards.emplace("EX1_584e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SpellPowerN(1)));
+    cards.emplace("EX1_584e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [EX1_590e] Shadows of M'uru (*) - COST:0
@@ -6562,26 +6641,26 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // Text: This minion has consumed Divine Shields and
     //       has increased Attack and Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(Enchants::AddAttackHealthScriptTag));
-    cards.emplace("EX1_590e", CardDef(power));
+    cards.emplace("EX1_590e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_614t] Xavian Satyr (*) - COST:1 [ATK:2/HP:1]
     // - Race: Demon, Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_614t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_614t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_598] Imp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Faction: Neutral, Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_598", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_598", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_finkle] Finkle Einhorn (*) - COST:3 [ATK:3/HP:3]
@@ -6590,25 +6669,25 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_finkle", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_finkle", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_tk28] Squirrel (*) - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_tk28", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk28", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [EX1_tk29] Devilsaur (*) - COST:5 [ATK:5/HP:5]
     // - Race: Beast, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("EX1_tk29", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("EX1_tk29", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_017e] Full Belly (*) - COST:0
@@ -6616,9 +6695,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +2/+2. Full of Murloc.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_017e"));
-    cards.emplace("NEW1_017e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("NEW1_017e"));
+    cards.emplace("NEW1_017e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_018e] Treasure Crazed (*) - COST:0
@@ -6626,9 +6705,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Enchants::AddAttackScriptTag));
-    cards.emplace("NEW1_018e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("NEW1_018e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_024o] Greenskin's Command (*) - COST:0
@@ -6636,19 +6716,19 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>(
             { Effects::AttackN(1), Effects::DurabilityN(1) })));
-    cards.emplace("NEW1_024o", CardDef(power));
+    cards.emplace("NEW1_024o", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_026t] Violet Apprentice (*) - COST:1 [ATK:1/HP:1]
     // - Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("NEW1_026t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_026t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_027e] Yarrr! (*) - COST:0
@@ -6656,9 +6736,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Southsea Captain is granting +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("NEW1_027e"));
-    cards.emplace("NEW1_027e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("NEW1_027e"));
+    cards.emplace("NEW1_027e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_029t] Kill Millhouse! (*) - COST:0
@@ -6666,18 +6746,18 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Spells cost (0) this turn!
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddAura(std::make_shared<Aura>(AuraType::ENEMY_HAND,
-                                         EffectList{ Effects::SetCost(0) }));
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::ENEMY_HAND, EffectList{ Effects::SetCost(0) }));
     {
-        const auto aura = dynamic_cast<Aura*>(power.GetAura());
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
         aura->condition =
             std::make_shared<SelfCondition>(SelfCondition::IsSpell());
         aura->removeTrigger = { TriggerType::TURN_END,
                                 std::make_shared<SelfCondition>(
                                     SelfCondition::IsEnemyTurn()) };
     }
-    cards.emplace("NEW1_029t", CardDef(power));
+    cards.emplace("NEW1_029t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_037e] Equipped (*) - COST:0
@@ -6685,9 +6765,9 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
-    cards.emplace("NEW1_037e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(1)));
+    cards.emplace("NEW1_037e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [NEW1_038o] Growth (*) - COST:0
@@ -6695,10 +6775,10 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Gruul is growing...
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<OngoingEnchant>(Effects::AttackHealthN(1)));
-    cards.emplace("NEW1_038o", CardDef(power));
+    cards.emplace("NEW1_038o", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [NEW1_040t] Gnoll (*) - COST:2 [ATK:2/HP:2]
@@ -6709,17 +6789,17 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("NEW1_040t", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("NEW1_040t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [skele21] Damaged Golem (*) - COST:1 [ATK:2/HP:1]
     // - Race: Mechanical, Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("skele21", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("skele21", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [tt_004o] Cannibalize (*) - COST:0
@@ -6727,15 +6807,15 @@ void Expert1CardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(std::make_shared<OngoingEnchant>(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<OngoingEnchant>(
         std::vector<std::shared_ptr<IEffect>>{ Effects::AttackN(1) }));
-    cards.emplace("tt_004o", CardDef(power));
+    cards.emplace("tt_004o", cardDef);
 }
 
 void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - DREAM
     // [DREAM_01] Laughing Sister (*) - COST:2 [ATK:3/HP:5]
@@ -6747,9 +6827,9 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("DREAM_01", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("DREAM_01", cardDef);
 
     // ------------------------------------------ SPELL - DREAM
     // [DREAM_02] Ysera Awakens (*) - COST:3
@@ -6757,22 +6837,23 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 5 damage to all minions except Ysera.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
-    power.AddPowerTask(std::make_shared<FilterStackTask>(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
         SelfCondList{ std::make_shared<SelfCondition>(
             SelfCondition::IsName("Ysera", false)) }));
-    power.AddPowerTask(
+    cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::STACK, 5, true));
-    cards.emplace("DREAM_02", CardDef(power));
+    cards.emplace("DREAM_02", cardDef);
 
     // ----------------------------------------- MINION - DREAM
     // [DREAM_03] Emerald Drake (*) - COST:4 [ATK:7/HP:6]
     // - Race: Dragon, Set: Expert1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("DREAM_03", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("DREAM_03", cardDef);
 
     // ------------------------------------------ SPELL - DREAM
     // [DREAM_04] Dream (*) - COST:1
@@ -6785,12 +6866,13 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ReturnHandTask>(EntityType::TARGET));
-    cards.emplace("DREAM_04",
-                  CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                           { PlayReq::REQ_MINION_TARGET, 0 },
-                                           { PlayReq::REQ_ENEMY_TARGET, 0 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<ReturnHandTask>(EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } };
+    cards.emplace("DREAM_04", cardDef);
 
     // ------------------------------------------ SPELL - DREAM
     // [DREAM_05] Nightmare (*) - COST:0
@@ -6802,13 +6884,12 @@ void Expert1CardsGen::AddDreamNonCollect(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DREAM_05e", EntityType::TARGET));
-    cards.emplace(
-        "DREAM_05",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 } }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("DREAM_05", cardDef);
 }
 
 void Expert1CardsGen::AddAll(std::map<std::string, CardDef>& cards)

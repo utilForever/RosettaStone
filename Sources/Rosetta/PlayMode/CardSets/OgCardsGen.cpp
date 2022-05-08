@@ -35,7 +35,7 @@ void OgCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - DRUID
     // [OG_044] Fandral Staghelmh - COST:4 [ATK:3/HP:5]
@@ -59,10 +59,10 @@ void OgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("OG_047",
-                  CardDef(power, ChooseCardIDs{ "OG_047a", "OG_047b" }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "OG_047a", "OG_047b" };
+    cards.emplace("OG_047", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [OG_048] Mark of Y'Shaarj - COST:2
@@ -145,7 +145,7 @@ void OgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [OG_045a] Nerubian Spores (*) - COST:0
@@ -160,10 +160,10 @@ void OgCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your hero +4 Attack this turn.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("OG_047e", EntityType::HERO));
-    cards.emplace("OG_047a", CardDef(power));
+    cards.emplace("OG_047a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [OG_047b] Evolve Scales (*) - COST:0
@@ -171,9 +171,9 @@ void OgCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 8 Armor.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<ArmorTask>(8));
-    cards.emplace("OG_047b", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("OG_047b", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [OG_047e] Spines (*) - COST:0
@@ -184,9 +184,9 @@ void OgCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("OG_047e"));
-    cards.emplace("OG_047e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("OG_047e"));
+    cards.emplace("OG_047e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [OG_048e] Mark of Y'Shaarj (*) - COST:0
@@ -472,7 +472,7 @@ void OgCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - PALADIN
     // [OG_006] Vilefin Inquisitor - COST:1 [ATK:1/HP:3]
@@ -555,13 +555,13 @@ void OgCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("CS2_101t", 5, SummonSide::SPELL));
-    cards.emplace(
-        "OG_273",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } }));
-    
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("OG_273", cardDef);
+
     // --------------------------------------- MINION - PALADIN
     // [OG_310] Steward of Darkshire - COST:3 [ATK:3/HP:3]
     // - Set: Og, Rarity: Rare
@@ -707,7 +707,7 @@ void OgCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - ROGUE
     // [OG_070] Bladed Cultist - COST:1 [ATK:1/HP:2]
@@ -718,10 +718,10 @@ void OgCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - COMBO = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddComboTask(
+    cardDef.ClearData();
+    cardDef.power.AddComboTask(
         std::make_shared<AddEnchantmentTask>("OG_070e", EntityType::SOURCE));
-    cards.emplace("OG_070", CardDef(power));
+    cards.emplace("OG_070", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [OG_072] Journey Below - COST:1
@@ -827,7 +827,7 @@ void OgCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [OG_070e] Thirsty Blades (*) - COST:0
@@ -835,9 +835,9 @@ void OgCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(Enchants::GetEnchantFromText("OG_070e"));
-    cards.emplace("OG_070e", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("OG_070e"));
+    cards.emplace("OG_070e", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [OG_080b] Kingsblood Toxin (*) - COST:1
@@ -1034,7 +1034,7 @@ void OgCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - WARLOCK
     // [OG_109] Darkshire Librarian - COST:2 [ATK:3/HP:2]
@@ -1109,10 +1109,10 @@ void OgCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddDeathrattleTask(
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("OG_241a", SummonSide::DEATHRATTLE));
-    cards.emplace("OG_241", CardDef(power));
+    cards.emplace("OG_241", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [OG_302] Usher of Souls - COST:5 [ATK:5/HP:6]
@@ -1128,7 +1128,7 @@ void OgCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [OG_113e] Power of the People (*) - COST:0
@@ -1146,9 +1146,9 @@ void OgCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // [OG_241a] Shadowbeast (*) - COST:1 [ATK:1/HP:1]
     // - Set: Og
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("OG_241a", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("OG_241a", cardDef);
 }
 
 void OgCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)

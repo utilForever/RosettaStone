@@ -4,9 +4,9 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Enchants/Effects.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -27,7 +27,7 @@ void KaraCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - DRUID
     // [KAR_065] Menagerie Warden - COST:5 [ATK:4/HP:4]
@@ -45,14 +45,15 @@ void KaraCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_TARGET_WITH_RACE = 20
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(std::make_shared<SummonCopyTask>(EntityType::TARGET));
-    cards.emplace(
-        "KAR_065",
-        CardDef(power, PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
-                                 { PlayReq::REQ_FRIENDLY_TARGET, 0 },
-                                 { PlayReq::REQ_MINION_TARGET, 0 },
-                                 { PlayReq::REQ_TARGET_WITH_RACE, 20 } }));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonCopyTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_WITH_RACE, 20 } };
+    cards.emplace("KAR_065", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [KAR_075] Moonglade Portal - COST:6
@@ -68,9 +69,9 @@ void KaraCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]
     // - Race: Beast, Set: Kara, Rarity: Common
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(nullptr);
-    cards.emplace("KAR_300", CardDef(power));
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_300", cardDef);
 }
 
 void KaraCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
@@ -135,7 +136,7 @@ void KaraCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ------------------------------------------ MINION - MAGE
     // [KAR_009] Babbling Book - COST:1 [ATK:1/HP:1]
@@ -146,11 +147,12 @@ void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::MAGE));
-    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("KAR_009", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("KAR_009", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [KAR_076] Firelands Portal - COST:7
@@ -277,7 +279,7 @@ void KaraCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // ----------------------------------------- MINION - ROGUE
     // [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
@@ -289,11 +291,12 @@ void KaraCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddPowerTask(
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
         std::make_shared<RandomCardTask>(EntityType::ENEMY_HERO));
-    power.AddPowerTask(std::make_shared<AddStackToTask>(EntityType::HAND));
-    cards.emplace("KAR_069", CardDef(power));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("KAR_069", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [KAR_070] Ethereal Peddler - COST:5 [ATK:5/HP:6]
@@ -462,7 +465,7 @@ void KaraCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_011] Pompous Thespian - COST:2 [ATK:3/HP:2]
@@ -522,12 +525,13 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddTrigger(std::make_shared<Trigger>(TriggerType::CAST_SPELL));
-    power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
-    power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
         "KAR_036e", EntityType::SOURCE) };
-    cards.emplace("KAR_036", CardDef(power));
+    cards.emplace("KAR_036", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6]
@@ -691,7 +695,7 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
-    Power power;
+    CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_030] Cellar Spider (*) - COST:3 [ATK:1/HP:3]
@@ -704,10 +708,10 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Health.
     // --------------------------------------------------------
-    power.ClearData();
-    power.AddEnchant(
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
         std::make_shared<OngoingEnchant>(EffectList{ Effects::HealthN(1) }));
-    cards.emplace("KAR_036e", CardDef(power));
+    cards.emplace("KAR_036e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_037t] Secrets of Karazhan (*) - COST:0
