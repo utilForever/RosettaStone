@@ -20,6 +20,7 @@ void InternalCardLoader::Load(std::vector<Card*>& cards)
         card->playRequirements = cardDef.property.playReqs;
         card->chooseCardIDs = cardDef.property.chooseCardIDs;
         card->entourages = cardDef.property.entourages;
+        card->appendages = cardDef.property.appendages;
         card->gameTags[GameTag::QUEST_PROGRESS_TOTAL] =
             cardDef.property.questProgressTotal;
         card->gameTags[GameTag::HERO_POWER] = cardDef.property.heroPowerDbfID;
