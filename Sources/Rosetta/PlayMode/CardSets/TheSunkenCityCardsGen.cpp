@@ -661,6 +661,8 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
 
 void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [TSC_030] The Leviathan - COST:7 [ATK:4/HP:5]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary
@@ -677,6 +679,13 @@ void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DredgeTask>() };
+    cardDef.property.appendages = { "TSC_030t2" };
+    cards.emplace("TSC_030", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TSC_059] Bubblebot - COST:4 [ATK:4/HP:4]
@@ -789,6 +798,8 @@ void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [TSC_030t2] The Leviathan's Claw - COST:3 [ATK:4/HP:2]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY
@@ -802,6 +813,12 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("TSC_030t2", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [TSC_032e3] Blade Counter - COST:0

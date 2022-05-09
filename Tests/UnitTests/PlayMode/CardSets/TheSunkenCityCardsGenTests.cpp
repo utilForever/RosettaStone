@@ -82,6 +82,95 @@ TEST_CASE("[Hunter : Spell] - TSC_947 : Naga's Pride")
     CHECK_EQ(curField[4]->GetHealth(), 3);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [TSC_030] The Leviathan - COST:7 [ATK:4/HP:5]
+// - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Colossal +1</b>
+//       <b>Rush</b>, <b>Divine Shield</b>
+//       After this attacks, <b>Dredge</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - COLOSSAL = 1
+// - DIVINE_SHIELD = 1
+// - DREDGE = 1
+// - RUSH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - TSC_030 : The Leviathan")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doShuffle = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 5)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Frostbolt");
+        config.player1Deck[i + 3] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i + 4] = Cards::FindCardByName("Pyroblast");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("The Leviathan"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(opField[0]->GetHealth(), 8);
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+
+    auto firstChoice = game.entityList[curPlayer->choice->choices[0]];
+    auto secondChoice = game.entityList[curPlayer->choice->choices[1]];
+    auto thirdChoice = game.entityList[curPlayer->choice->choices[2]];
+    CHECK_EQ(firstChoice->card->name, "Pyroblast");
+    CHECK_EQ(secondChoice->card->name, "Wisp");
+    CHECK_EQ(thirdChoice->card->name, "Frostbolt");
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curDeck.GetTopCard()->card->name, "Pyroblast");
+
+    game.Process(curPlayer, AttackTask(curField[1], card2));
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[6]->card->name, "Pyroblast");
+}
+
 // ------------------------------------ SPELL - DEMONHUNTER
 // [TSC_058] Predation - COST:3
 // - Set: THE_SUNKEN_CITY, Rarity: Rare
