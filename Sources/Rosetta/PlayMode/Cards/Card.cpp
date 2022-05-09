@@ -384,6 +384,11 @@ bool Card::IsGalakrond() const
     return false;
 }
 
+bool Card::IsColossal() const
+{
+    return HasGameTag(GameTag::COLOSSAL);
+}
+
 bool Card::IsUntouchable() const
 {
     return HasGameTag(GameTag::UNTOUCHABLE) &&

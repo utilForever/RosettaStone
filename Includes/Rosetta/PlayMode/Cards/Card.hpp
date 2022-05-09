@@ -110,6 +110,10 @@ class Card
     //! \return The flag that indicates whether it is Galakrond.
     bool IsGalakrond() const;
 
+    //! Returns the flag that indicates whether it is Colossal.
+    //! \return The flag that indicates whether it is Colossal.
+    bool IsColossal() const;
+
     //! Returns the flag that indicates whether it is untouchable.
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;
