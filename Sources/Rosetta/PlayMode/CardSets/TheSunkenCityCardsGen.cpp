@@ -106,7 +106,7 @@ void TheSunkenCityCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
-    // [TSC_656] Miracle Growth - COST:7
+    // [TSC_656] Miracle Growth - COST:8
     // - Set: THE_SUNKEN_CITY, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------
@@ -959,7 +959,7 @@ void TheSunkenCityCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [TSC_702] Switcheroo - COST:3
     // - Set: THE_SUNKEN_CITY, Rarity: Common
     // --------------------------------------------------------
-    // Text: Draw 2 minions. Swap their stats.
+    // Text: Draw 2 minions. Swap their Health.
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - PRIEST
@@ -2147,7 +2147,7 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [TSC_002] Pufferfist - COST:3 [ATK:3/HP:4]
+    // [TSC_002] Pufferfist - COST:3 [ATK:3/HP:3]
     // - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
     // --------------------------------------------------------
     // Text: After your hero attacks, deal 1 damage to all enemies.

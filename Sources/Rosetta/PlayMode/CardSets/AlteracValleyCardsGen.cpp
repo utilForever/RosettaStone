@@ -3715,7 +3715,7 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Race: Dragon, Set: ALTERAC_VALLEY, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b>
-    //       If all minions in your deck are Dragons,
+    //       If you played 4 other Dragons this game,
     //       craft a custom deck of Treasures.
     // --------------------------------------------------------
     // GameTag:

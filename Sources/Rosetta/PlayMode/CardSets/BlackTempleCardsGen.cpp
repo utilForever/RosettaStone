@@ -2561,10 +2561,10 @@ void BlackTempleCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [BT_255] Kael'thas Sunstrider - COST:7 [ATK:4/HP:7]
+    // [BT_255] Kael'thas Sunstrider - COST:6 [ATK:4/HP:7]
     // - Set: BLACK_TEMPLE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: Every third spell you cast each turn costs (0).
+    // Text: Every third spell you cast each turn costs (1).
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
