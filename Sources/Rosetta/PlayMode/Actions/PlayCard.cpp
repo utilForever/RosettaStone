@@ -6,8 +6,10 @@
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/PlayCard.hpp>
+#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
@@ -284,6 +286,24 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     for (const auto& tags : minion->GetGameTags())
     {
         minion->SetGameTag(tags.first, tags.second);
+    }
+
+    // Check 'Colossal'
+    if (minion->card->IsColossal())
+    {
+        for (auto& appendage : minion->card->appendages)
+        {
+            using namespace SimpleTasks;
+
+            const auto appendageMinion = dynamic_cast<Minion*>(
+                Entity::GetFromCard(player, Cards::FindCardByID(appendage),
+                                    std::nullopt, player->GetFieldZone()));
+            int alternateCount = 0;
+            const int summonPos = SummonTask::GetPosition(
+                minion, SummonSide::RIGHT, appendageMinion, alternateCount);
+
+            Summon(appendageMinion, summonPos, minion);
+        }
     }
 
     // Process play card trigger
