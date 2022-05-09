@@ -142,10 +142,10 @@ constexpr int NUM_TIER1_MINIONS = 17;
 constexpr int NUM_TIER2_MINIONS = 26;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 29;
+constexpr int NUM_TIER3_MINIONS = 28;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 31;
+constexpr int NUM_TIER4_MINIONS = 32;
 
 //! The number of tier 5 minions in Battlegrounds.
 constexpr int NUM_TIER5_MINIONS = 24;
