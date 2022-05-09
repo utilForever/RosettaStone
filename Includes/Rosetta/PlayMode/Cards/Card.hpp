@@ -166,6 +166,7 @@ class Card
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
+    std::vector<std::string> appendages;
 
     std::vector<TargetingPredicate> targetingPredicate;
     std::vector<AvailabilityPredicate> targetingAvailabilityPredicate;
