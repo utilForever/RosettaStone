@@ -168,7 +168,7 @@ TEST_CASE("[Paladin : Minion] - TSC_030 : The Leviathan")
     game.Process(curPlayer, AttackTask(curField[1], card2));
     CHECK_EQ(opField[0]->GetHealth(), 4);
     CHECK_EQ(curHand.GetCount(), 6);
-    CHECK_EQ(curHand[6]->card->name, "Pyroblast");
+    CHECK_EQ(curHand[5]->card->name, "Pyroblast");
 }
 
 // ------------------------------------ SPELL - DEMONHUNTER
