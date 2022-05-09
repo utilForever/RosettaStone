@@ -27,6 +27,7 @@ struct CardProperty
         playReqs.clear();
         chooseCardIDs.clear();
         entourages.clear();
+        appendages.clear();
         corruptCardID.clear();
         questProgressTotal = 0;
         heroPowerDbfID = 0;
@@ -35,6 +36,7 @@ struct CardProperty
     std::map<PlayReq, int> playReqs;
     std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
+    std::vector<std::string> appendages;
     std::string corruptCardID;
     int questProgressTotal = 0;
     int heroPowerDbfID = 0;
