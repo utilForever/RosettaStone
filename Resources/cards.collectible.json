@@ -12503,7 +12503,7 @@
         "name": "Kael'thas Sunstrider",
         "rarity": "LEGENDARY",
         "set": "BLACK_TEMPLE",
-        "text": "Every third spell you cast each turn costs (0).",
+        "text": "Every third spell you cast each turn costs (1).",
         "type": "MINION"
     },
     {
@@ -35187,7 +35187,7 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 3,
+        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give your other Murlocs +2 Health.",
         "type": "MINION"
     },
@@ -53350,7 +53350,7 @@
         "rarity": "EPIC",
         "set": "LOOTAPALOOZA",
         "spellSchool": "NATURE",
-        "text": "Transform a friendly minion into\none that costs (1) more. Repeatable this turn.",
+        "text": "<b>Echo</b>\nTransform a friendly minion into one that costs (1) more.",
         "type": "SPELL"
     },
     {
@@ -56993,6 +56993,7 @@
         "attack": 8,
         "cardClass": "NEUTRAL",
         "collectible": true,
+        "collectionText": "[x]<b>Battlecry:</b> If you played 4\nother Dragons this game,\ncraft a custom deck\nof Treasures.",
         "cost": 8,
         "dbfId": 71684,
         "elite": true,
@@ -57007,7 +57008,7 @@
         "race": "DRAGON",
         "rarity": "LEGENDARY",
         "set": "ALTERAC_VALLEY",
-        "text": "[x]<b>Battlecry:</b> If all minions\nin your deck are Dragons,\ncraft a custom deck\nof Treasures.",
+        "text": "[x]<b>Battlecry:</b> If you played 4\nother Dragons this game,\ncraft a custom deck\nof Treasures.@ <i>({0} left!)</i>@ <i>(Ready!)</i>",
         "type": "MINION"
     },
     {
@@ -61197,13 +61198,13 @@
     },
     {
         "artist": "Samche Chen",
-        "attack": 1,
+        "attack": 2,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 2,
+        "cost": 3,
         "dbfId": 64713,
         "flavor": "She carries everything you didn't want and more!",
-        "health": 3,
+        "health": 4,
         "howToEarnGolden": "Unlocked with \"Forgot This At Home\" Achievement.",
         "id": "SW_065",
         "mechanics": [
@@ -65565,7 +65566,7 @@
         "cost": 3,
         "dbfId": 71690,
         "flavor": "\"...and then I'll hit 'em with the ol' puffercut!\"",
-        "health": 4,
+        "health": 3,
         "id": "TSC_002",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -67080,7 +67081,7 @@
         "artist": "Tanamaes Leejiarasaes",
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 73471,
         "flavor": "I’ve got NO idea what’s in that fertilizer.",
         "id": "TSC_656",
@@ -67189,7 +67190,7 @@
         "name": "Switcheroo",
         "rarity": "COMMON",
         "set": "THE_SUNKEN_CITY",
-        "text": "Draw 2 minions.\nSwap their stats.",
+        "text": "Draw 2 minions.\nSwap their Health.",
         "type": "SPELL"
     },
     {
