@@ -24,8 +24,9 @@ void SummonReborn(Minion* minion);
 //! \param appendages Appendage minions to summon.
 //! \param fieldPos The position of minion to summon.
 //! \param summoner The summoner of minion.
-void SummonAppendages(const std::vector<std::string>& appendages,
-                      Entity* summoner);
+void SummonAppendages(
+    const std::vector<std::tuple<std::string, SummonSide>>& appendages,
+    Entity* summoner);
 }  // namespace RosettaStone::PlayMode::Generic
 
 #endif  // ROSETTASTONE_PLAYMODE_SUMMON_HPP

@@ -77,14 +77,15 @@ void SummonReborn(Minion* minion)
     Summon(copy, zonePos, minion);
 }
 
-void SummonAppendages(const std::vector<std::string>& appendages,
-                      Entity* summoner)
+void SummonAppendages(
+    const std::vector<std::tuple<std::string, SummonSide>>& appendages,
+    Entity* summoner)
 {
     for (auto& appendage : appendages)
     {
         const auto appendageMinion = dynamic_cast<Minion*>(Entity::GetFromCard(
-            summoner->player, Cards::FindCardByID(appendage), std::nullopt,
-            summoner->player->GetFieldZone()));
+            summoner->player, Cards::FindCardByID(std::get<0>(appendage)),
+            std::nullopt, summoner->player->GetFieldZone()));
         int alternateCount = 0;
         const int summonPos = SummonTask::GetPosition(
             summoner, SummonSide::RIGHT, appendageMinion, alternateCount);
