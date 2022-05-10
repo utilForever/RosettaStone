@@ -19,6 +19,13 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner);
 //! Summons an minion that has reborn on battlefield.
 //! \param minion An minion to summon.
 void SummonReborn(Minion* minion);
+
+//! Summons appendage minions for Colossal on battlefield.
+//! \param appendages Appendage minions to summon.
+//! \param fieldPos The position of minion to summon.
+//! \param summoner The summoner of minion.
+void SummonAppendages(const std::vector<std::string>& appendages,
+                      Entity* summoner);
 }  // namespace RosettaStone::PlayMode::Generic
 
 #endif  // ROSETTASTONE_PLAYMODE_SUMMON_HPP
