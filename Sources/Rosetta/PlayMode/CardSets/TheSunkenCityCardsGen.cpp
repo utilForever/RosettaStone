@@ -684,7 +684,7 @@ void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
     cardDef.power.GetTrigger()->tasks = { std::make_shared<DredgeTask>() };
-    cardDef.property.appendages = { "TSC_030t2" };
+    cardDef.property.appendages = { { "TSC_030t2", SummonSide::RIGHT } };
     cards.emplace("TSC_030", cardDef);
 
     // --------------------------------------- MINION - PALADIN
