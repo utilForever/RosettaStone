@@ -9,6 +9,7 @@
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/Common/Enums/TargetingEnums.hpp>
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
 #include <Rosetta/PlayMode/Enchants/Power.hpp>
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>
 
@@ -170,7 +171,7 @@ class Card
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
-    std::vector<std::string> appendages;
+    std::vector<std::tuple<std::string, SummonSide>> appendages;
 
     std::vector<TargetingPredicate> targetingPredicate;
     std::vector<AvailabilityPredicate> targetingAvailabilityPredicate;
