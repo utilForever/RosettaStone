@@ -80,16 +80,17 @@ enum class EntityType
 //! \brief An enumerator for identifying the side of summoned minion.
 enum class SummonSide
 {
-    DEFAULT,      //!< Summoning on the last position on the right side.
-    LEFT,         //!< Summoning left of the minion.
-    RIGHT,        //!< Summoning right of the minion.
-    DEATHRATTLE,  //!< Summoning at the last position of the source.
-    NUMBER,       //!< Summoning at a given position in the stack number.
-    SPELL,        //!< Summoning by spell, currently like default.
-    TARGET,       //!< Summoning right of the target.
-    ALTERNATE,    //!< Summoning on the right side and left side alternately.
-    ALTERNATE_ENEMY,  //!< Summoning on the right side and left side
-                      //!< alternately for opponent.
+    DEFAULT,             //!< Summoning on the last position on the right side.
+    LEFT,                //!< Summoning left of the minion.
+    RIGHT,               //!< Summoning right of the minion.
+    DEATHRATTLE,         //!< Summoning at the last position of the source.
+    NUMBER,              //!< Summoning at a given position in the stack number.
+    SPELL,               //!< Summoning by spell, currently like default.
+    TARGET,              //!< Summoning right of the target.
+    ALTERNATE_FRIENDLY,  //!< Summoning on the right side and left side
+                         //!< alternately for friendly.
+    ALTERNATE_ENEMY,     //!< Summoning on the right side and left side
+                         //!< alternately for opponent.
 };
 
 //! \brief An enumerator for evaluating the relation between primitive values
