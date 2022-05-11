@@ -806,9 +806,9 @@ THE_SUNKEN_CITY | TSC_013 | Slimescale Diver |
 THE_SUNKEN_CITY | TSC_017 | Baba Naga | O
 THE_SUNKEN_CITY | TSC_020 | Barbaric Sorceress |  
 THE_SUNKEN_CITY | TSC_023 | Barbed Nets |  
-THE_SUNKEN_CITY | TSC_026 | Colaque |  
+THE_SUNKEN_CITY | TSC_026 | Colaque | O
 THE_SUNKEN_CITY | TSC_029 | Gaia, the Techtonic |  
-THE_SUNKEN_CITY | TSC_030 | The Leviathan |  
+THE_SUNKEN_CITY | TSC_030 | The Leviathan | O
 THE_SUNKEN_CITY | TSC_032 | Blademaster Okani |  
 THE_SUNKEN_CITY | TSC_034 | Gorloc Ravager |  
 THE_SUNKEN_CITY | TSC_039 | Azsharan Scavenger |  
@@ -934,4 +934,4 @@ THE_SUNKEN_CITY | TSC_960 | Twin-fin Fin Twin |
 THE_SUNKEN_CITY | TSC_962 | Gigafin |  
 THE_SUNKEN_CITY | TSC_963 | Filletfighter |  
 
-- Progress: 2% (4 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)

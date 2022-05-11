@@ -32,7 +32,7 @@
 * [x] Casts When Drawn
 * [x] Charge
 * [ ] Choose Twice
-* [ ] Colossal
+* [x] Colossal
 * [x] Corrupt
 * [x] Counter
 * [x] Dormant
