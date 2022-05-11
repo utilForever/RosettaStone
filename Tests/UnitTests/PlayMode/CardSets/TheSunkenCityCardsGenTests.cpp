@@ -21,6 +21,61 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ----------------------------------------- MINION - DRUID
+// [TSC_026] Colaque - COST:7 [ATK:6/HP:5]
+// - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Colossal +1</b>
+//       <b>Immune</b> while you control Colaque's Shell.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - COLOSSAL = 1
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - TSC_026 : Colaque")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Colaque"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->IsImmune(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, curField[1]));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
+    CHECK_EQ(curField[0]->IsImmune(), false);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [TSC_947] Naga's Pride - COST:3
 // - Set: THE_SUNKEN_CITY, Rarity: Rare
@@ -133,10 +188,10 @@ TEST_CASE("[Paladin : Minion] - TSC_030 : The Leviathan")
     auto& curField = *(curPlayer->GetFieldZone());
     auto& opField = *(opPlayer->GetFieldZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("The Leviathan"));
-    const auto card2 = Generic::DrawCard(
-        opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("The Leviathan"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
