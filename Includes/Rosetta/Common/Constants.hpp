@@ -74,7 +74,7 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 constexpr int NUM_PLAY_MODE_CARDS = 14334;
 
 //! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 15742;
+constexpr int NUM_BATTLEGROUNDS_CARDS = 15855;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -112,7 +112,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 80;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 81;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -136,22 +136,22 @@ constexpr int NUM_COPIES_OF_EACH_TIER5_MINIONS = 9;
 constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 
 //! The number of tier 1 minions in Battlegrounds.
-constexpr int NUM_TIER1_MINIONS = 17;
+constexpr int NUM_TIER1_MINIONS = 19;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS = 26;
+constexpr int NUM_TIER2_MINIONS = 29;
 
 //! The number of tier 3 minions in Battlegrounds.
-constexpr int NUM_TIER3_MINIONS = 28;
+constexpr int NUM_TIER3_MINIONS = 32;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 32;
+constexpr int NUM_TIER4_MINIONS = 35;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 24;
+constexpr int NUM_TIER5_MINIONS = 28;
 
 //! The number of tier 6 minions in Battlegrounds.
-constexpr int NUM_TIER6_MINIONS = 17;
+constexpr int NUM_TIER6_MINIONS = 19;
 
 //! The total number of tier minions in Battlegrounds Tavern.
 constexpr int NUM_TOTAL_TAVERN_MINIONS =
@@ -163,9 +163,10 @@ constexpr int NUM_TOTAL_TAVERN_MINIONS =
     NUM_TIER6_MINIONS * NUM_COPIES_OF_EACH_TIER6_MINIONS;
 
 //! A list of races in Battlegrounds.
-constexpr std::array<Race, 8> RACES_IN_BATTLEGROUNDS = {
-    Race::BEAST,      Race::DEMON,  Race::DRAGON, Race::ELEMENTAL,
-    Race::MECHANICAL, Race::MURLOC, Race::PIRATE, Race::QUILBOAR
+constexpr std::array<Race, 9> RACES_IN_BATTLEGROUNDS = {
+    Race::BEAST,     Race::DEMON,      Race::DRAGON,
+    Race::ELEMENTAL, Race::MECHANICAL, Race::MURLOC,
+    Race::PIRATE,    Race::QUILBOAR,   Race::NAGA
 };
 
 //! The number of coin to purchase a minion.
