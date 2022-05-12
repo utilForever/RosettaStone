@@ -21577,7 +21577,6 @@
     {
         "artist": "Sam Nielson",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58400,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -21588,7 +21587,6 @@
         "howToEarn": "Unlocked at level 41.",
         "howToEarnGolden": "Unlocked after 5000 total wins.",
         "id": "CORE_LOE_077",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -21598,7 +21596,6 @@
             "BATTLECRY"
         ],
         "set": "CORE",
-        "techLevel": 5,
         "text": "Your <b>Battlecries</b> trigger twice.",
         "type": "MINION"
     },
@@ -41456,6 +41453,7 @@
     {
         "artist": "Andrew Hou",
         "attack": 3,
+        "battlegroundsPremiumDbfId": 91216,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -41463,11 +41461,12 @@
         "flavor": "Be all that you can be.",
         "health": 4,
         "id": "GIL_681",
+        "isBattlegroundsPoolMinion": true,
         "name": "Nightmare Amalgam",
         "race": "ALL",
         "rarity": "EPIC",
         "set": "GILNEAS",
-        "techLevel": 2,
+        "techLevel": 3,
         "text": "<i>This has all minion types.</i>",
         "type": "MINION"
     },
@@ -44992,6 +44991,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 83832,
+        "health": 30,
+        "id": "HERO_02y",
+        "name": "Murragnaros",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 930,
@@ -45396,6 +45406,17 @@
         "health": 30,
         "id": "HERO_04v",
         "name": "Admiral Liadrin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 83826,
+        "health": 30,
+        "id": "HERO_04w",
+        "name": "Sir Finley Mrrgglton",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -45838,6 +45859,17 @@
         "id": "HERO_06v",
         "name": "Sea Dryad Lunara",
         "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 83831,
+        "health": 30,
+        "id": "HERO_06w",
+        "name": "Guff Murtotem",
+        "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
     },
@@ -46308,6 +46340,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 83830,
+        "health": 30,
+        "id": "HERO_08y",
+        "name": "Jaina Proudmurgle",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -46667,6 +46710,17 @@
         "health": 30,
         "id": "HERO_10q",
         "name": "Nightborne Aranna",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 83829,
+        "health": 30,
+        "id": "HERO_10r",
+        "name": "Mrrgillidan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -66068,7 +66122,7 @@
         "cost": 4,
         "dbfId": 74907,
         "elite": true,
-        "flavor": "For thousands of years, Faelin has longed to return to his homeland. Will Zin-Ashari be as he hopes, or are the secrets of the deep better left forgotten?",
+        "flavor": "For thousands of years, Faelin has longed to return to his homeland. Will Zin-Azshari be as he hopes, or are the secrets of the deep better left forgotten?",
         "health": 5,
         "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
         "id": "TSC_067",
