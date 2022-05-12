@@ -320,8 +320,8 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::Has5MoreCostSpellInHand()) }));
     cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<SummonTask>("ULD_137t", 2,
-                                                     SummonSide::ALTERNATE) }));
+        true, TaskList{ std::make_shared<SummonTask>(
+                  "ULD_137t", 2, SummonSide::ALTERNATE_FRIENDLY) }));
     cards.emplace("ULD_137", cardDef);
 
     // ----------------------------------------- MINION - DRUID

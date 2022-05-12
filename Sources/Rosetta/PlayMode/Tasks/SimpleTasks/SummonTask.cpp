@@ -129,7 +129,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
             }
             break;
         }
-        case SummonSide::ALTERNATE:
+        case SummonSide::ALTERNATE_FRIENDLY:
         {
             const auto src = dynamic_cast<Playable*>(source);
             if (alternateCount % 2 == 0)

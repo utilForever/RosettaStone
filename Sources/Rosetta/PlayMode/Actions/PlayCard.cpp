@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/PlayCard.hpp>
+#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
@@ -284,6 +285,12 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
     for (const auto& tags : minion->GetGameTags())
     {
         minion->SetGameTag(tags.first, tags.second);
+    }
+
+    // Check 'Colossal'
+    if (minion->card->IsColossal())
+    {
+        SummonAppendages(minion->card->appendages, minion);
     }
 
     // Process play card trigger

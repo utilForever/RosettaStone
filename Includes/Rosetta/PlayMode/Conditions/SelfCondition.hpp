@@ -198,6 +198,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsControllingLackey();
 
+    //! SelfCondition wrapper for checking there is a Colaque's Shell
+    //! in field zone.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsControllingColaqueShell();
+
     //! SelfCondition wrapper for checking the player has
     //! a secret card in hand zone.
     //! \return Generated SelfCondition for intended purpose.

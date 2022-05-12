@@ -2543,8 +2543,9 @@ void DalaranCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true, TaskList{ std::make_shared<FuncNumberTask>(
                   []([[maybe_unused]] Playable* playable) { return 3; }) }));
-    cardDef.power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
-        std::make_shared<SummonTask>("GVG_110t", 2, SummonSide::ALTERNATE) }));
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueNumberTask>(
+        TaskList{ std::make_shared<SummonTask>(
+            "GVG_110t", 2, SummonSide::ALTERNATE_FRIENDLY) }));
     cards.emplace("DAL_064", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
@@ -2824,8 +2825,8 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     cardDef.ClearData();
-    cardDef.power.AddPowerTask(
-        std::make_shared<SummonTask>("DAL_087t", 2, SummonSide::ALTERNATE));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>(
+        "DAL_087t", 2, SummonSide::ALTERNATE_FRIENDLY));
     cards.emplace("DAL_087", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3110,8 +3111,8 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsDeckEmpty()) }));
     cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
-        true, TaskList{ std::make_shared<SummonTask>("DAL_554t", 6,
-                                                     SummonSide::ALTERNATE) }));
+        true, TaskList{ std::make_shared<SummonTask>(
+                  "DAL_554t", 6, SummonSide::ALTERNATE_FRIENDLY) }));
     cards.emplace("DAL_554", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
@@ -3452,7 +3453,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<CountTask>(ZoneType::PLAY, true, false));
     cardDef.power.AddPowerTask(std::make_shared<SummonNumberTask>(
-        "DAL_751t", false, SummonSide::ALTERNATE));
+        "DAL_751t", false, SummonSide::ALTERNATE_FRIENDLY));
     cardDef.power.AddPowerTask(
         std::make_shared<CountTask>(ZoneType::PLAY, true, true));
     cardDef.power.AddPowerTask(std::make_shared<SummonNumberTask>(

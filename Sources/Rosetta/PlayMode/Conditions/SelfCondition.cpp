@@ -352,6 +352,21 @@ SelfCondition SelfCondition::IsControllingLackey()
     });
 }
 
+SelfCondition SelfCondition::IsControllingColaqueShell()
+{
+    return SelfCondition([](Playable* playable) {
+        for (auto& minion : playable->player->GetFieldZone()->GetAll())
+        {
+            if (minion->card->id == "TSC_026t")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsHoldingSecret()
 {
     return SelfCondition([](Playable* playable) {

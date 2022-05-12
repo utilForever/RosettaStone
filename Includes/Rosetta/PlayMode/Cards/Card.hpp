@@ -9,6 +9,7 @@
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/Common/Enums/TargetingEnums.hpp>
+#include <Rosetta/Common/Enums/TaskEnums.hpp>
 #include <Rosetta/PlayMode/Enchants/Power.hpp>
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>
 
@@ -110,6 +111,10 @@ class Card
     //! \return The flag that indicates whether it is Galakrond.
     bool IsGalakrond() const;
 
+    //! Returns the flag that indicates whether it is Colossal.
+    //! \return The flag that indicates whether it is Colossal.
+    bool IsColossal() const;
+
     //! Returns the flag that indicates whether it is untouchable.
     //! \return The flag that indicates whether it is untouchable.
     bool IsUntouchable() const;
@@ -166,6 +171,7 @@ class Card
     std::map<PlayReq, int> playRequirements;
     std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
+    std::vector<std::tuple<std::string, SummonSide>> appendages;
 
     std::vector<TargetingPredicate> targetingPredicate;
     std::vector<AvailabilityPredicate> targetingAvailabilityPredicate;

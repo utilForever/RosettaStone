@@ -3,6 +3,7 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
+#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/TheSunkenCityCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTrigger.hpp>
@@ -28,6 +29,8 @@ void TheSunkenCityCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void TheSunkenCityCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - DRUID
     // [TSC_026] Colaque - COST:7 [ATK:6/HP:5]
     // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Legendary
@@ -42,6 +45,13 @@ void TheSunkenCityCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingColaqueShell()),
+        GameTag::IMMUNE));
+    cardDef.property.appendages = { { "TSC_026t", SummonSide::RIGHT } };
+    cards.emplace("TSC_026", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [TSC_650] Flipper Friends - COST:5
@@ -154,6 +164,8 @@ void TheSunkenCityCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - DRUID
     // [TSC_026t] Colaque's Shell - COST:5 [ATK:0/HP:8]
     // - Race: Beast, Set: THE_SUNKEN_CITY
@@ -166,6 +178,9 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<ArmorTask>(8));
+    cards.emplace("TSC_026t", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [TSC_650a] Order the Orca - COST:5
@@ -661,6 +676,8 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
 
 void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [TSC_030] The Leviathan - COST:7 [ATK:4/HP:5]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary
@@ -677,6 +694,13 @@ void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DredgeTask>() };
+    cardDef.property.appendages = { { "TSC_030t2", SummonSide::RIGHT } };
+    cards.emplace("TSC_030", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TSC_059] Bubblebot - COST:4 [ATK:4/HP:4]
@@ -789,6 +813,8 @@ void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [TSC_030t2] The Leviathan's Claw - COST:3 [ATK:4/HP:2]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY
@@ -802,6 +828,12 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("TSC_030t2", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [TSC_032e3] Blade Counter - COST:0
