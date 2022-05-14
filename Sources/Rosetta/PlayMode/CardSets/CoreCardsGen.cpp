@@ -2038,6 +2038,26 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         "AT_021e", EntityType::SOURCE) };
     cards.emplace("CORE_AT_021", cardDef);
 
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_BRM_006] Imp Gang Boss - COST:3 [ATK:2/HP:4]
+    // - Race: Demon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever this minion takes damage, summon a 1/1 Imp.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_CFM_751] Abyssal Enforcer - COST:7 [ATK:6/HP:6]
+    // - Race: Demon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 3 damage to all other characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_CS2_062] Hellfire - COST:4
     // - Set: CORE, Rarity: Common
@@ -2049,6 +2069,16 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ALL, 3, true));
     cards.emplace("CORE_CS2_062", cardDef);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
+    // - Race: Demon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_302] Mortal Coil - COST:1
@@ -2188,6 +2218,33 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } };
     cards.emplace("CORE_ICC_055", cardDef);
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_OG_109] Darkshire Librarian - COST:2 [ATK:3/HP:2]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Discard a random card.
+    //       <b>Deathrattle:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [CORE_TRL_252] High Priestess Jeklik - COST:4 [ATK:3/HP:5]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>, <b>Lifesteal</b>
+    //       When you discard this,
+    //       add 2 copies of it to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - LIFESTEAL = 1
+    // - TAUNT = 1
+    // - InvisibleDeathrattle = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_UNG_833] Lakkari Felhound - COST:4 [ATK:3/HP:8]
