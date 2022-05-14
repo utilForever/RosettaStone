@@ -1800,6 +1800,20 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_045", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
+    // [CORE_CS2_046] Bloodlust - COST:5
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Give your minions +3 Attack this turn.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CORE_CS2_053] Far Sight - COST:3
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Draw a card. That card costs (3) less.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_238] Lightning Bolt - COST:1
     // - Set: CORE, Rarity: Common
     // - Spell School: Nature
@@ -1877,6 +1891,17 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
         std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 3, true));
     cards.emplace("CORE_EX1_259", cardDef);
 
+    // ---------------------------------------- MINION - SHAMAN
+    // [CORE_EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:2]
+    // - Race: Totem, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Adjacent minions have +2 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ADJACENT_BUFF = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+
     // ---------------------------------------- WEAPON - SHAMAN
     // [CORE_EX1_567] Doomhammer - COST:5
     // - Set: CORE, Rarity: Epic
@@ -1907,6 +1932,15 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
     cards.emplace("CORE_EX1_575", cardDef);
 
+    // ----------------------------------------- SPELL - SHAMAN
+    // [CORE_KAR_073] Maelstrom Portal - COST:2
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to all enemy minions.
+    //       Summon a random 1-Cost minion.
+    // --------------------------------------------------------
+
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
     // - Race: Elemental, Set: CORE, Rarity: Legendary
@@ -1923,6 +1957,18 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(nullptr);
     cards.emplace("CORE_NEW1_010", cardDef);
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [CORE_TRL_345] Krag'wa, the Frog - COST:6 [ATK:4/HP:6]
+    // - Race: Beast, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Return all spells you played
+    //       last turn to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_UNG_817] Tidal Surge - COST:3
@@ -1965,7 +2011,12 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void CoreCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
-    // Do nothing
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [CORE_CS2_039e] Windfury - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: <b>Windfury</b>.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
