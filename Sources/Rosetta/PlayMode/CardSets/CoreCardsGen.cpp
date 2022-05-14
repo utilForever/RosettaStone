@@ -946,6 +946,29 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         EntityType::HERO, 2) };
     cards.emplace("CORE_CS2_097", cardDef);
 
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_DRG_226] Amber Watcher - COST:5 [ATK:4/HP:6]
+    // - Race: Dragon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Restore 8 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_DRG_229] Bronze Explorer - COST:3 [ATK:3/HP:3]
+    // - Race: Dragon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    //       <b>Battlecry:</b> <b>Discover</b> a Dragon.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_EX1_130] Noble Sacrifice - COST:1
     // - Set: CORE, Rarity: Common
@@ -1082,6 +1105,18 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(nullptr);
     cards.emplace("CORE_ICC_038", cardDef);
 
+    // --------------------------------------- MINION - PALADIN
+    // [CORE_OG_229] Ragnaros, Lightlord - COST:8 [ATK:8/HP:8]
+    // - Race: Elemental, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       restore 8 Health to a damaged friendly character.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_OG_273] Stand Against Darkness - COST:5
     // - Set: CORE, Rarity: Common
@@ -1097,6 +1132,14 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cardDef.property.playReqs =
         PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
     cards.emplace("CORE_OG_273", cardDef);
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [CORE_TRL_307] Flash of Light - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Restore 4 Health. Draw a card.
+    // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS3_016] Reckoning - COST:1
