@@ -614,6 +614,18 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_023", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
+    // [CORE_CS2_028] Blizzard - COST:6
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Frost
+    // --------------------------------------------------------
+    // Text: Deal 2 damage to all enemy minions
+    //       and <b>Freeze</b> them.
+    // --------------------------------------------------------
+    // GameTag:
+    // - FREEZE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
     // [CORE_CS2_029] Fireball - COST:4
     // - Set: CORE, Rarity: Common
     // - Spell School: Fire
@@ -641,6 +653,20 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 5, true));
     cards.emplace("CORE_CS2_032", cardDef);
 
+    // ------------------------------------------ MINION - MAGE
+    // [CORE_DAL_609] Kalecgos - COST:9 [ATK:4/HP:12]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Your first spell each turn costs (0).
+    //       <b>Battlecry:</b> <b>Discover</b> a spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - AURA = 1
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_275] Cone of Cold - COST:3
     // - Set: CORE, Rarity: Common
@@ -665,6 +691,14 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } };
     cards.emplace("CORE_EX1_275", cardDef);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [CORE_EX1_279] Pyroblast - COST:10
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Deal 10 damage.
+    // --------------------------------------------------------
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_287] Counterspell - COST:3
@@ -767,6 +801,29 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DiscoverTask>(DiscoverType::SPELL));
     cards.emplace("CORE_LOE_003", cardDef);
+
+    // ------------------------------------------- SPELL - MAGE
+    // [CORE_LOOT_101] Explosive Runes - COST:3
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: <b>Secret:</b> After your opponent plays a minion,
+    //       deal 6 damage to it and any excess to their hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - SECRET = 1
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [CORE_TRL_315] Pyromaniac - COST:3 [ATK:3/HP:4]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Whenever your Hero Power kills a minion, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_UNG_020] Arcanologist - COST:2 [ATK:2/HP:3]
