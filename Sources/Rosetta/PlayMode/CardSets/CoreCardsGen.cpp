@@ -58,6 +58,18 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     CardDef cardDef;
 
     // ------------------------------------------ SPELL - DRUID
+    // [CORE_AT_037] Living Roots - COST:1
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Deal 2 damage;
+    //       or Summon two 1/1 Saplings.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
     // [CORE_CS2_009] Mark of the Wild - COST:2
     // - Set: CORE, Rarity: Rare
     // - Spell School: Nature
@@ -89,6 +101,18 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false));
     cards.emplace("CORE_CS2_013", cardDef);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [CORE_EX1_154] Wrath - COST:2
+    // - Set: CORE, Rarity: Common
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Deal 3 damage to a minion;
+    //       or 1 damage and draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_158] Soul of the Forest - COST:4
@@ -203,6 +227,39 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_573a", "EX1_573b" };
     cards.emplace("CORE_EX1_573", cardDef);
 
+    // ----------------------------------------- MINION - DRUID
+    // [CORE_LOE_050] Mounted Raptor - COST:3 [ATK:3/HP:2]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Summon a random 1-Cost minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [CORE_NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Choose One -</b> Draw 2 cards;
+    //       or Restore 5 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CHOOSE_ONE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [CORE_OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Your <b>Choose One</b> cards and powers
+    //       have both effects combined.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+
     // ------------------------------------------ SPELL - DRUID
     // [CORE_OG_047] Feral Rage - COST:3
     // - Set: CORE, Rarity: Common
@@ -228,6 +285,15 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("TRL_243e", EntityType::HERO));
     cards.emplace("CORE_TRL_243", cardDef);
+
+    // ------------------------------------------ SPELL - DRUID
+    // [CORE_UNG_108] Earthen Scales - COST:1
+    // - Set: CORE, Rarity: Rare
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Give a friendly minion +1/+1,
+    //       then gain Armor equal to its Attack.
+    // --------------------------------------------------------
 }
 
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
