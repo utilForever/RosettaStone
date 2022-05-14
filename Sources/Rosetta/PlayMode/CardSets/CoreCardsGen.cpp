@@ -2932,6 +2932,16 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     CardDef cardDef;
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CORE_CFM_120] Mistress of Mixtures - COST:1 [ATK:2/HP:2]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Restore 4 Health to each hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
@@ -3105,6 +3115,16 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_005", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever this minion takes damage, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
     // - Faction: Alliance, Set: CORE, Rarity: Common
     // --------------------------------------------------------
@@ -3177,6 +3197,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(nullptr);
     cards.emplace("CORE_EX1_028", cardDef);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
+    // - Race: Dragon, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain +1 Health for each card
+    //       in your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
@@ -3430,6 +3461,18 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_249", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_284] Azure Drake - COST:5 [ATK:4/HP:5]
+    // - Race: Dragon, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +1</b>
+    //       <b>Battlecry:</b> Draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
@@ -3442,6 +3485,16 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("CORE_EX1_506a", SummonSide::RIGHT));
     cards.emplace("CORE_EX1_506", cardDef);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
+    // - Race: Murloc, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Your other Murlocs have +2 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
@@ -3485,6 +3538,14 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_564", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CORE_EX1_586] Sea Giant - COST:10 [ATK:8/HP:8]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Costs (1) less for each other minion
+    //       on the battlefield.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CORE_FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
@@ -3497,6 +3558,28 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddDeathrattleTask(
         std::make_shared<SummonTask>("FP1_007t", SummonSide::DEATHRATTLE));
     cards.emplace("CORE_FP1_007", cardDef);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_GIL_124] Mossy Horror - COST:6 [ATK:2/HP:7]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Destroy all other minions
+    //       with 2 or less Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_GIL_622] Lifedrinker - COST:4 [ATK:3/HP:3]
+    // - Race: Beast, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 3 damage to the enemy hero.
+    //       Restore 3 Health to your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1]
@@ -3544,6 +3627,79 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_ICC_026", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CORE_ICC_029] Cobalt Scalebane - COST:5 [ATK:5/HP:5]
+    // - Race: Dragon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: At the end of your turn,
+    //       give another random friendly minion +3 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If your deck has no duplicates,
+    //       fully heal your hero.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_LOE_039] Gorillabot A-3 - COST:3 [ATK:3/HP:4]
+    // - Race: Mechanical, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you control another Mech,
+    //       <b>Discover</b> a Mech.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
+    // - Race: Murloc, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b><b>Battlecry:</b> Discover</b> a new basic Hero Power.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_LOE_077] Brann Bronzebeard - COST:3 [ATK:2/HP:4]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Your <b>Battlecries</b> trigger twice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Shuffle the 'Map to the Golden Monkey'
+    //       into your deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
     // - Race: Murloc, Set: CORE, Rarity: Common
     // --------------------------------------------------------
@@ -3588,6 +3744,28 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_LOOT_137", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CORE_LOOT_413] Plated Beetle - COST:2 [ATK:2/HP:3]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b> Gain 3 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_LOOT_516] Zola the Gorgon - COST:3 [ATK:2/HP:2]
+    // - Race: Naga, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Choose a friendly minion.
+    //       Add a Golden copy of it to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
     // - Race: Pirate, Set: CORE, Rarity: Common
     // --------------------------------------------------------
@@ -3603,6 +3781,37 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "NEW1_018e", EntityType::SOURCE, true));
     cards.emplace("CORE_NEW1_018", cardDef);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
+    // - Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: After you cast a spell, deal 1 damage to ALL minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: At the start of your turn, destroy ALL minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
+    // - Race: Dragon, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Can't be targeted by spells or Hero Powers.
+    // --------------------------------------------------------
+    // GameTag:
+    // - CANT_BE_TARGETED_BY_SPELLS = 1
+    // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
@@ -3642,6 +3851,40 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_NEW1_027", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
+    // [CORE_ULD_191] Beaming Sidekick - COST:1 [ATK:1/HP:2]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give a friendly minion +2 Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_ULD_209] Vulpera Scoundrel - COST:3 [ATK:2/HP:3]
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Battlecry</b>: <b>Discover</b> a spell
+    //       or pick a mystery choice.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Deal 3 damage to this minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
     // [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
     // - Race: Elemental, Set: CORE, Rarity: Common
     // --------------------------------------------------------
@@ -3666,6 +3909,42 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(nullptr);
     cards.emplace("CORE_UNG_844", cardDef);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_UNG_848] Primordial Drake - COST:8 [ATK:4/HP:8]
+    // - Race: Dragon, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> Deal 2 damage to all other minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_UNG_928] Tar Creeper - COST:3 [ATK:1/HP:5]
+    // - Race: Elemental, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       Has +2 Attack during your opponent's turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [CORE_YOD_006] Escaped Manasaber - COST:4 [ATK:3/HP:5]
+    // - Race: Beast, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    //       Whenever this attacks,
+    //       gain 1 Mana Crystal this turn only.
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]
