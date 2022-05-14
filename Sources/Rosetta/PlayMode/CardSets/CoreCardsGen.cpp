@@ -2172,6 +2172,17 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
         std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
     cards.emplace("CORE_BT_235", cardDef);
 
+    // ----------------------------------- WEAPON - DEMONHUNTER
+    // [CORE_BT_271] Flamereaper - COST:7
+    // - Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Also damages the minions next to whomever
+    //       your hero attacks.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
     // - Race: Demon, Faction: Horde, Set: CORE, Rarity: Rare
@@ -2223,6 +2234,17 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_BT_351", cardDef);
 
     // ----------------------------------- MINION - DEMONHUNTER
+    // [CORE_BT_355] Wrathscale Naga - COST:3 [ATK:3/HP:2]
+    // - Race: Naga, Set: CORE, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: After a friendly minion dies,
+    //       deal 3 damage to a random enemy.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_416] Raging Felscreamer - COST:4 [ATK:4/HP:4]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
@@ -2255,6 +2277,18 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
             }
         }));
     cards.emplace("CORE_BT_427", cardDef);
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [CORE_BT_429] Metamorphosis - COST:5
+    // - Set: CORE, Rarity: Legendary
+    // - Spell School: Fel
+    // --------------------------------------------------------
+    // Text: Swap your Hero Power to "Deal 4 damage."
+    //       After 2 uses, swap it back.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]
