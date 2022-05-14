@@ -329,6 +329,16 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_BRM_013", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
+    // [CORE_DAL_371] Marked Shot - COST:4
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal 4 damage to a minion. <b>Discover</b> a spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
     // [CORE_DS1_184] Tracking - COST:1
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
@@ -468,6 +478,20 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
         PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 1 } };
     cards.emplace("CORE_EX1_617", cardDef);
 
+    // ---------------------------------------- MINION - HUNTER
+    // [CORE_GIL_650] Houndmaster Shaw - COST:4 [ATK:3/HP:6]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Your other minions have <b>Rush</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - AURA = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
+
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_GIL_828] Dire Frenzy - COST:4
     // - Set: CORE, Rarity: Common
@@ -492,6 +516,45 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
                   { PlayReq::REQ_MINION_TARGET, 0 },
                   { PlayReq::REQ_TARGET_WITH_RACE, 20 } };
     cards.emplace("CORE_GIL_828", cardDef);
+
+    // ---------------------------------------- MINION - HUNTER
+    // [CORE_KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your <b>Secrets</b> cost (0).
+    // --------------------------------------------------------
+    // RefTag:
+    // - SECRET = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- WEAPON - HUNTER
+    // [CORE_LOOT_222] Candleshot - COST:1
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your hero is <b>Immune</b> while attacking.
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [CORE_NEW1_031] Animal Companion - COST:3
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Summon a random Beast Companion.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [CORE_TRL_348] Springpaw - COST:1 [ATK:1/HP:1]
+    // - Race: Beast, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Rush</b> <b>Battlecry:</b> Add a 1/1 Lynx
+    //       with <b>Rush</b> to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - RUSH = 1
+    // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
     // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:3]
