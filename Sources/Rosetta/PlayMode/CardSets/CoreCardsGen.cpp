@@ -1191,6 +1191,19 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
     cards.emplace("CORE_AT_055", cardDef);
 
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_CFM_605] Drakonid Operative - COST:5 [ATK:5/HP:6]
+    // - Race: Dragon, Set: CORE, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> If you're holding a Dragon,
+    //       <b>Discover</b> a copy of a card in
+    //       your opponent's deck.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
     // ----------------------------------------- SPELL - PRIEST
     // [CORE_CS1_112] Holy Nova - COST:4
     // - Set: CORE, Rarity: Common
@@ -1223,6 +1236,28 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } };
     cards.emplace("CORE_CS1_130", cardDef);
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever a minion is healed, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
+    // - Race: Dragon, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Play all cards
+    //       your opponent played last turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
@@ -1319,6 +1354,39 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                   { PlayReq::REQ_MINION_TARGET, 0 },
                   { PlayReq::REQ_TARGET_MIN_ATTACK, 5 } };
     cards.emplace("CORE_EX1_622", cardDef);
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [CORE_GVG_008] Lightbomb - COST:6
+    // - Set: CORE, Rarity: Epic
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Deal damage to each minion equal to its Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_UNG_034] Radiant Elemental - COST:2 [ATK:2/HP:3]
+    // - Race: Elemental, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Your spells cost (1) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [CORE_UNG_963] Lyra the Sunshard - COST:5 [ATK:3/HP:5]
+    // - Race: Elemental, Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Whenever you cast a spell,
+    //       add a random Priest spell to your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
     // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
