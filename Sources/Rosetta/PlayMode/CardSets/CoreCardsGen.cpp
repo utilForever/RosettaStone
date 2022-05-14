@@ -1469,6 +1469,16 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
     CardDef cardDef;
 
+    // ----------------------------------------- MINION - ROGUE
+    // [CORE_AT_029] Buccaneer - COST:1 [ATK:2/HP:1]
+    // - Race: Pirate, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Whenever you equip a weapon, give it +1 Attack.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_072] Backstab - COST:0
     // - Set: CORE, Rarity: Common
@@ -1580,6 +1590,18 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_080", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
+    // [CORE_DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:3]
+    // - Race: Pirate, Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Discover</b> a spell
+    //       from another class.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
     // [CORE_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
@@ -1631,6 +1653,19 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("EX1_145o", EntityType::PLAYER));
     cards.emplace("CORE_EX1_145", cardDef);
+
+    // ----------------------------------------- MINION - ROGUE
+    // [CORE_GIL_598] Tess Greymane - COST:8 [ATK:6/HP:6]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Replay every card from
+    //       another class you've played this game
+    //       <i>(targets chosen randomly)</i>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_ICC_809] Plague Scientist - COST:3 [ATK:2/HP:3]
