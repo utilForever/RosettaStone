@@ -2315,6 +2315,14 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
     CardDef cardDef;
 
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CORE_AT_064] Bash - COST:3
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Deal 3 damage.
+    //       Gain 3 Armor.
+    // --------------------------------------------------------
+
     // --------------------------------------- WEAPON - WARRIOR
     // [CORE_CS2_106] Fiery War Axe - COST:3
     // - Set: CORE, Rarity: Common
@@ -2519,6 +2527,27 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
         "EX1_604o", EntityType::SOURCE) };
     cards.emplace("CORE_EX1_604", cardDef);
 
+    // ---------------------------------------- SPELL - WARRIOR
+    // [CORE_EX1_606] Shield Block - COST:3
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Gain 5 Armor.
+    //       Draw a card.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CORE_GIL_547] Darius Crowley - COST:5 [ATK:4/HP:5]
+    // - Set: CORE, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    //       After this attacks and kills a minion, gain +2/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
     // --------------------------------------- MINION - WARRIOR
     // [CORE_GVG_053] Shieldmaiden - COST:5 [ATK:5/HP:5]
     // - Set: CORE, Rarity: Rare
@@ -2531,6 +2560,18 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(5));
     cards.emplace("CORE_GVG_053", cardDef);
+
+    // --------------------------------------- MINION - WARRIOR
+    // [CORE_OG_218] Bloodhoof Brave - COST:4 [ATK:2/HP:6]
+    // - Set: CORE, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       Has +3 Attack while damaged.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENRAGED = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARRIOR
     // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]
