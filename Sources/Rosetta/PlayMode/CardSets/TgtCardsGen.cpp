@@ -13,6 +13,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using ChooseCardIDs = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
@@ -125,6 +126,8 @@ void TgtCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - DRUID
     // [AT_037] Living Roots - COST:1
     // - Set: Tgt, Rarity: Common
@@ -136,8 +139,14 @@ void TgtCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
     // PlayReq:
-    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_TARGET_IF_AVAILABLE = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "AT_037a", "AT_037b" };
+    cards.emplace("AT_037", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [AT_038] Darnassus Aspirant - COST:2 [ATK:2/HP:3]
@@ -247,6 +256,11 @@ void TgtCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("AT_037a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [AT_037b] Living Roots (*) - COST:0
@@ -254,11 +268,23 @@ void TgtCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon two 1/1 Saplings.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("AT_037t", 2, SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("AT_037b", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [AT_037t] Sapling (*) - COST:1 [ATK:1/HP:1]
     // - Set: Tgt
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("AT_037t", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [AT_039e] Savage (*) - COST:0
