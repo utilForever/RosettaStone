@@ -68,6 +68,15 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "AT_037a", "AT_037b" };
+    cards.emplace("CORE_AT_037", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_CS2_009] Mark of the Wild - COST:2

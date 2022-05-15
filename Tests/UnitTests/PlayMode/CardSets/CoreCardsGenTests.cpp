@@ -76,6 +76,62 @@ TEST_CASE("[Warlock : Hero] - CORE_EX1_323 : Lord Jaraxxus")
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [CORE_AT_037] Living Roots - COST:1
+// - Set: CORE, Rarity: Common
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Deal 2 damage;
+//       or Summon two 1/1 Saplings.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - CORE_AT_037 : Living Roots")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Living Roots"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Living Roots"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero(), 1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Sapling");
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->card->name, "Sapling");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [CORE_CS2_009] Mark of the Wild - COST:2
 // - Set: CORE, Rarity: Rare
 // - Spell School: Nature
