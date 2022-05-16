@@ -228,6 +228,69 @@ TEST_CASE("[Druid : Spell] - CORE_CS2_013 : Wild Growth")
 }
 
 // ------------------------------------------ SPELL - DRUID
+// [CORE_EX1_154] Wrath - COST:2
+// - Set: CORE, Rarity: Common
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Deal 3 damage to a minion;
+//       or 1 damage and draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - CORE_EX1_154 : Wrath")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wrath"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wrath"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 7);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3, 1));
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card3, 2));
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+}
+
+// ------------------------------------------ SPELL - DRUID
 // [CORE_EX1_158] Soul of the Forest - COST:4
 // - Set: CORE, Rarity: Common
 // - Spell School: Nature

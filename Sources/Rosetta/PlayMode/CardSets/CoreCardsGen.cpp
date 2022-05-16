@@ -122,6 +122,16 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_154a", "EX1_154b" };
+    cards.emplace("CORE_EX1_154", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_158] Soul of the Forest - COST:4
