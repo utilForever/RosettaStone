@@ -255,6 +255,11 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }));
+    cardDef.power.AddDeathrattleTask(std::make_shared<SummonStackTask>());
+    cards.emplace("CORE_LOE_050", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
