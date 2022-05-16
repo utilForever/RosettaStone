@@ -271,6 +271,15 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "NEW1_008a", "NEW1_008b" };
+    cards.emplace("CORE_NEW1_008", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5]
