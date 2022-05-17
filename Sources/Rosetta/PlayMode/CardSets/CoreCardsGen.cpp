@@ -332,6 +332,21 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a friendly minion +1/+1,
     //       then gain Armor equal to its Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("UNG_108e", EntityType::TARGET));
+    cardDef.power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK));
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(0, false, true));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("CORE_UNG_108", cardDef);
 }
 
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
