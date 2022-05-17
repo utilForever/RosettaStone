@@ -242,4 +242,14 @@ void AuraEffects::SetCantAttack(int value)
 {
     m_data[7] = value;
 }
+
+int AuraEffects::GetChooseBoth() const
+{
+    return m_data[8];
+}
+
+void AuraEffects::SetChooseBoth(int value)
+{
+    m_data[8] = value;
+}
 }  // namespace RosettaStone::PlayMode
