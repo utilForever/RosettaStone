@@ -292,6 +292,11 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::CHOOSE_BOTH, EffectOperator::SET, 1) }));
+    cards.emplace("CORE_OG_044", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_OG_047] Feral Rage - COST:3
