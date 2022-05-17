@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/UngoroCardsGen.hpp>
+#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
@@ -43,6 +44,8 @@ void UngoroCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - DRUID
     // [UNG_078] Tortollan Forager - COST:2 [ATK:2/HP:2]
     // - Set: Ungoro, Rarity: Common
@@ -115,6 +118,16 @@ void UngoroCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_FRIENDLY_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("UNG_108e", EntityType::TARGET));
+    cardDef.power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK));
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(0, false, true));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("UNG_108", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [UNG_109] Elder Longneck - COST:3 [ATK:5/HP:1]
@@ -171,6 +184,8 @@ void UngoroCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - DRUID
     // [UNG_101a] Raptor Form (*) - COST:0
     // - Set: Ungoro
@@ -223,6 +238,9 @@ void UngoroCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("UNG_108e"));
+    cards.emplace("UNG_108e", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [UNG_111t1] Mana Treant (*) - COST:2 [ATK:2/HP:2]
