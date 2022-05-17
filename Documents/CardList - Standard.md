@@ -12,7 +12,7 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 CORE | CORE_AT_021 | Tiny Knight of Evil | O
 CORE | CORE_AT_029 | Buccaneer |  
-CORE | CORE_AT_037 | Living Roots |  
+CORE | CORE_AT_037 | Living Roots | O
 CORE | CORE_AT_055 | Flash Heal | O
 CORE | CORE_AT_064 | Bash |  
 CORE | CORE_AT_075 | Warhorse Trainer | O
@@ -103,7 +103,7 @@ CORE | CORE_EX1_130 | Noble Sacrifice | O
 CORE | CORE_EX1_134 | SI:7 Agent | O
 CORE | CORE_EX1_144 | Shadowstep | O
 CORE | CORE_EX1_145 | Preparation | O
-CORE | CORE_EX1_154 | Wrath |  
+CORE | CORE_EX1_154 | Wrath | O
 CORE | CORE_EX1_158 | Soul of the Forest | O
 CORE | CORE_EX1_160 | Power of the Wild | O
 CORE | CORE_EX1_162 | Dire Wolf Alpha | O
@@ -190,7 +190,7 @@ CORE | CORE_LOE_003 | Ethereal Conjurer | O
 CORE | CORE_LOE_011 | Reno Jackson |  
 CORE | CORE_LOE_012 | Tomb Pillager | O
 CORE | CORE_LOE_039 | Gorillabot A-3 |  
-CORE | CORE_LOE_050 | Mounted Raptor |  
+CORE | CORE_LOE_050 | Mounted Raptor | O
 CORE | CORE_LOE_076 | Sir Finley Mrrgglton |  
 CORE | CORE_LOE_077 | Brann Bronzebeard |  
 CORE | CORE_LOE_079 | Elise Starseeker |  
@@ -201,7 +201,7 @@ CORE | CORE_LOOT_137 | Sleepy Dragon | O
 CORE | CORE_LOOT_222 | Candleshot |  
 CORE | CORE_LOOT_413 | Plated Beetle |  
 CORE | CORE_LOOT_516 | Zola the Gorgon |  
-CORE | CORE_NEW1_008 | Ancient of Lore |  
+CORE | CORE_NEW1_008 | Ancient of Lore | O
 CORE | CORE_NEW1_010 | Al'Akir the Windlord | O
 CORE | CORE_NEW1_018 | Bloodsail Raider | O
 CORE | CORE_NEW1_020 | Wild Pyromancer |  
@@ -210,7 +210,7 @@ CORE | CORE_NEW1_023 | Faerie Dragon |
 CORE | CORE_NEW1_026 | Violet Teacher | O
 CORE | CORE_NEW1_027 | Southsea Captain | O
 CORE | CORE_NEW1_031 | Animal Companion |  
-CORE | CORE_OG_044 | Fandral Staghelm |  
+CORE | CORE_OG_044 | Fandral Staghelm | O
 CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_109 | Darkshire Librarian |  
 CORE | CORE_OG_218 | Bloodhoof Brave |  
@@ -227,7 +227,7 @@ CORE | CORE_ULD_209 | Vulpera Scoundrel |
 CORE | CORE_ULD_271 | Injured Tol'vir |  
 CORE | CORE_UNG_020 | Arcanologist | O
 CORE | CORE_UNG_034 | Radiant Elemental |  
-CORE | CORE_UNG_108 | Earthen Scales |  
+CORE | CORE_UNG_108 | Earthen Scales | O
 CORE | CORE_UNG_813 | Stormwatcher | O
 CORE | CORE_UNG_817 | Tidal Surge | O
 CORE | CORE_UNG_833 | Lakkari Felhound | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 69% (174 of 250 Cards)
+- Progress: 72% (180 of 250 Cards)
 
 ## Forged in the Barrens
 

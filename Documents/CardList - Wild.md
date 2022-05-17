@@ -724,7 +724,7 @@ TGT | AT_033 | Burgle |
 TGT | AT_034 | Poisoned Blade |  
 TGT | AT_035 | Beneath the Grounds |  
 TGT | AT_036 | Anub'arak |  
-TGT | AT_037 | Living Roots |  
+TGT | AT_037 | Living Roots | O
 TGT | AT_038 | Darnassus Aspirant |  
 TGT | AT_039 | Savage Combatant |  
 TGT | AT_040 | Wildwalker |  
@@ -821,7 +821,7 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 6% (8 of 132 Cards)
+- Progress: 6% (9 of 132 Cards)
 
 ## The League of Explorers
 
@@ -850,7 +850,7 @@ LOE | LOE_038 | Naga Sea Witch |
 LOE | LOE_039 | Gorillabot A-3 |  
 LOE | LOE_046 | Huge Toad |  
 LOE | LOE_047 | Tomb Spider |  
-LOE | LOE_050 | Mounted Raptor |  
+LOE | LOE_050 | Mounted Raptor | O
 LOE | LOE_051 | Jungle Moonkin |  
 LOE | LOE_053 | Djinni of Zephyrs |  
 LOE | LOE_061 | Anubisath Sentinel |  
@@ -873,7 +873,7 @@ LOE | LOE_118 | Cursed Blade |
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 6% (3 of 45 Cards)
+- Progress: 8% (4 of 45 Cards)
 
 ## Whispers of the Old Gods
 
@@ -889,7 +889,7 @@ OG | OG_031 | Hammer of Twilight |
 OG | OG_033 | Tentacles for Arms |  
 OG | OG_034 | Silithid Swarmer |  
 OG | OG_042 | Y'Shaarj, Rage Unbound |  
-OG | OG_044 | Fandral Staghelm |  
+OG | OG_044 | Fandral Staghelm | O
 OG | OG_045 | Infest |  
 OG | OG_047 | Feral Rage | O
 OG | OG_048 | Mark of Y'Shaarj |  
@@ -1014,7 +1014,7 @@ OG | OG_338 | Nat, the Darkfisher |
 OG | OG_339 | Skeram Cultist |  
 OG | OG_340 | Soggoth the Slitherer |  
 
-- Progress: 2% (4 of 134 Cards)
+- Progress: 3% (5 of 134 Cards)
 
 ## One Night in Karazhan
 
@@ -1124,7 +1124,7 @@ UNGORO | UNG_099 | Charged Devilsaur |
 UNGORO | UNG_100 | Verdant Longneck |  
 UNGORO | UNG_101 | Shellshifter |  
 UNGORO | UNG_103 | Evolving Spores |  
-UNGORO | UNG_108 | Earthen Scales |  
+UNGORO | UNG_108 | Earthen Scales | O
 UNGORO | UNG_109 | Elder Longneck |  
 UNGORO | UNG_111 | Living Mana |  
 UNGORO | UNG_113 | Bright-Eyed Scout |  
@@ -1208,7 +1208,7 @@ UNGORO | UNG_961 | Adaptation |
 UNGORO | UNG_962 | Lightfused Stegodon |  
 UNGORO | UNG_963 | Lyra the Sunshard |  
 
-- Progress: 3% (5 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)
 
 ## Knights of the Frozen Throne
 
