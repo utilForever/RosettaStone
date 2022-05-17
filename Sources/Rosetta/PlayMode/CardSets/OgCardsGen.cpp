@@ -13,6 +13,7 @@ namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void OgCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -38,7 +39,7 @@ void OgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     CardDef cardDef;
 
     // ----------------------------------------- MINION - DRUID
-    // [OG_044] Fandral Staghelmh - COST:4 [ATK:3/HP:5]
+    // [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5]
     // - Set: Og, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Your <b>Choose One</b> cards and powers
@@ -48,6 +49,11 @@ void OgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::CHOOSE_BOTH, EffectOperator::SET, 1) }));
+    cards.emplace("OG_044", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [OG_047] Feral Rage - COST:3
