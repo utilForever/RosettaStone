@@ -68,6 +68,15 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "AT_037a", "AT_037b" };
+    cards.emplace("CORE_AT_037", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_CS2_009] Mark of the Wild - COST:2
@@ -113,6 +122,16 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "EX1_154a", "EX1_154b" };
+    cards.emplace("CORE_EX1_154", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_EX1_158] Soul of the Forest - COST:4
@@ -236,6 +255,11 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }));
+    cardDef.power.AddDeathrattleTask(std::make_shared<SummonStackTask>());
+    cards.emplace("CORE_LOE_050", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
@@ -247,6 +271,15 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "NEW1_008a", "NEW1_008b" };
+    cards.emplace("CORE_NEW1_008", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [CORE_OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5]
@@ -259,6 +292,11 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER, EffectList{ std::make_shared<Effect>(
+                              GameTag::CHOOSE_BOTH, EffectOperator::SET, 1) }));
+    cards.emplace("CORE_OG_044", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [CORE_OG_047] Feral Rage - COST:3
@@ -294,6 +332,21 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give a friendly minion +1/+1,
     //       then gain Armor equal to its Attack.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("UNG_108e", EntityType::TARGET));
+    cardDef.power.AddPowerTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::ATK));
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(0, false, true));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("CORE_UNG_108", cardDef);
 }
 
 void CoreCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)

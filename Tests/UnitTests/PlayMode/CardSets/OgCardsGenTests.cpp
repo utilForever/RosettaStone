@@ -17,6 +17,59 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ----------------------------------------- MINION - DRUID
+// [OG_044] Fandral Staghelm - COST:4 [ATK:3/HP:5]
+// - Set: Og, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your <b>Choose One</b> cards and powers
+//       have both effects combined.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - OG_044 : Fandral Staghelmh")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fandral Staghelm"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Living Roots"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Druid of the Claw"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[3]->GetAttack(), 5);
+    CHECK_EQ(curField[3]->GetHealth(), 6);
+    CHECK_EQ(curField[3]->HasRush(), true);
+    CHECK_EQ(curField[3]->HasTaunt(), true);
+}
+
 // ------------------------------------------ SPELL - DRUID
 // [OG_047] Feral Rage - COST:3
 // - Set: Og, Rarity: Common

@@ -16,7 +16,7 @@ constexpr int AURA_EFFECT_CARD_SIZE = 0;
 constexpr int AURA_EFFECT_WEAPON_SIZE = AURA_EFFECT_CARD_SIZE + 2;
 constexpr int AURA_EFFECT_CHARACTER_SIZE = AURA_EFFECT_CARD_SIZE + 2;
 constexpr int AURA_EFFECT_HERO_SIZE = AURA_EFFECT_CHARACTER_SIZE + 3;
-constexpr int AURA_EFFECT_MINION_SIZE = AURA_EFFECT_CHARACTER_SIZE + 5;
+constexpr int AURA_EFFECT_MINION_SIZE = AURA_EFFECT_CHARACTER_SIZE + 7;
 
 //!
 //! \brief AuraEffects class.
@@ -148,6 +148,14 @@ class AuraEffects
     //! \param value The value of GameTag::CANT_ATTACK to set.
     void SetCantAttack(int value);
 
+    //! Returns the value of GameTag::CHOOSE_BOTH.
+    //! \return The value of GameTag::CHOOSE_BOTH.
+    int GetChooseBoth() const;
+
+    //! Sets the value of GameTag::CHOOSE_BOTH.
+    //! \param value The value of GameTag::CHOOSE_BOTH to set.
+    void SetChooseBoth(int value);
+
  private:
     CardType m_type = CardType::INVALID;
 
@@ -171,6 +179,7 @@ class AuraEffects
     // 5 : CHARGE
     // 6 : LIFESTEAL
     // 7 : CANT_ATTACK
+    // 8 : CHOOSE_BOTH
     int* m_data = nullptr;
 };
 }  // namespace RosettaStone::PlayMode

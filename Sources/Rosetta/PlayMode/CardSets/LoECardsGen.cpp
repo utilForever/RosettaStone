@@ -10,6 +10,8 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
+
 void LoECardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -22,6 +24,8 @@ void LoECardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - DRUID
     // [LOE_050] Mounted Raptor - COST:3 [ATK:3/HP:2]
     // - Race: Beast, Set: LoE, Rarity: Common
@@ -31,6 +35,11 @@ void LoECardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }));
+    cardDef.power.AddDeathrattleTask(std::make_shared<SummonStackTask>());
+    cards.emplace("LOE_050", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [LOE_051] Jungle Moonkin - COST:4 [ATK:4/HP:4]
