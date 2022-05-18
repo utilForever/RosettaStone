@@ -560,6 +560,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "GIL_650e"));
+    cards.emplace("CORE_GIL_650", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_GIL_828] Dire Frenzy - COST:4
