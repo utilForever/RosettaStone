@@ -16,7 +16,7 @@ constexpr int AURA_EFFECT_CARD_SIZE = 0;
 constexpr int AURA_EFFECT_WEAPON_SIZE = AURA_EFFECT_CARD_SIZE + 2;
 constexpr int AURA_EFFECT_CHARACTER_SIZE = AURA_EFFECT_CARD_SIZE + 2;
 constexpr int AURA_EFFECT_HERO_SIZE = AURA_EFFECT_CHARACTER_SIZE + 3;
-constexpr int AURA_EFFECT_MINION_SIZE = AURA_EFFECT_CHARACTER_SIZE + 6;
+constexpr int AURA_EFFECT_MINION_SIZE = AURA_EFFECT_CHARACTER_SIZE + 7;
 
 //!
 //! \brief AuraEffects class.
@@ -132,6 +132,14 @@ class AuraEffects
     //! \param value The value of GameTag::CHARGE to set.
     void SetCharge(int value);
 
+    //! Returns the value of GameTag::RUSH.
+    //! \return The value of GameTag::RUSH.
+    int GetRush() const;
+
+    //! Sets the value of GameTag::RUSH.
+    //! \param value The value of GameTag::RUSH to set.
+    void SetRush(int value);
+
     //! Returns the value of GameTag::LIFESTEAL.
     //! \return The value of GameTag::LIFESTEAL.
     int GetLifesteal() const;
@@ -169,8 +177,9 @@ class AuraEffects
     // 3 : WINDFURY
     // 4 : TAUNT
     // 5 : CHARGE
-    // 6 : LIFESTEAL
-    // 7 : CANT_ATTACK
+    // 6 : RUSH
+    // 7 : LIFESTEAL
+    // 8 : CANT_ATTACK
     int* m_data = nullptr;
 };
 }  // namespace RosettaStone::PlayMode

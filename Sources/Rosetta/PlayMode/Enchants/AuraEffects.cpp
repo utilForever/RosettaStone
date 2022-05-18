@@ -223,23 +223,33 @@ void AuraEffects::SetCharge(int value)
     m_data[5] = value;
 }
 
-int AuraEffects::GetLifesteal() const
+int AuraEffects::GetRush() const
 {
     return m_data[6];
 }
 
-void AuraEffects::SetLifesteal(int value)
+void AuraEffects::SetRush(int value)
 {
     m_data[6] = value;
 }
 
-int AuraEffects::GetCantAttack() const
+int AuraEffects::GetLifesteal() const
 {
     return m_data[7];
 }
 
-void AuraEffects::SetCantAttack(int value)
+void AuraEffects::SetLifesteal(int value)
 {
     m_data[7] = value;
+}
+
+int AuraEffects::GetCantAttack() const
+{
+    return m_data[8];
+}
+
+void AuraEffects::SetCantAttack(int value)
+{
+    m_data[8] = value;
 }
 }  // namespace RosettaStone::PlayMode
