@@ -385,11 +385,27 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [CORE_DAL_371] Marked Shot - COST:4
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 4 damage to a minion. <b>Discover</b> a spell.
+    // Text: Deal 4 damage to a minion. <b>Discover</b> a spell.
     // --------------------------------------------------------
     // GameTag:
     // - DISCOVER = 1
+    // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CORE_DAL_371", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_DS1_184] Tracking - COST:1
