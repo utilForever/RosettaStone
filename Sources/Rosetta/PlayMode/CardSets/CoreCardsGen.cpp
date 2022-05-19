@@ -599,6 +599,15 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSecret());
+    }
+    cards.emplace("CORE_KAR_006", cardDef);
 
     // ---------------------------------------- WEAPON - HUNTER
     // [CORE_LOOT_222] Candleshot - COST:1
