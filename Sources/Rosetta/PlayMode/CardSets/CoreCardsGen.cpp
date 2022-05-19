@@ -615,9 +615,18 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your hero is <b>Immune</b> while attacking.
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 3
+    // --------------------------------------------------------
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("CORE_LOOT_222", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_NEW1_031] Animal Companion - COST:3

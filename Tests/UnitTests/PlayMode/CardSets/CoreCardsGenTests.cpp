@@ -1831,6 +1831,61 @@ TEST_CASE("[Hunter : Minion] - CORE_KAR_006 : Cloaked Huntress")
     CHECK_EQ(card2->GetCost(), 2);
 }
 
+// ---------------------------------------- WEAPON - HUNTER
+// [CORE_LOOT_222] Candleshot - COST:1
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Your hero is <b>Immune</b> while attacking.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Weapon] - CORE_LOOT_222 : Candleshot")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Candleshot"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->IsImmune(), false);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:3]
 // - Set: CORE, Rarity: Rare
