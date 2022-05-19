@@ -73,7 +73,7 @@ CORE | CORE_CS2_203 | Ironbeak Owl | O
 CORE | CORE_CS2_222 | Stormwind Champion | O
 CORE | CORE_CS2_235 | Northshire Cleric |  
 CORE | CORE_DAL_086 | Sunreaver Spy | O
-CORE | CORE_DAL_371 | Marked Shot |  
+CORE | CORE_DAL_371 | Marked Shot | O
 CORE | CORE_DAL_416 | Hench-Clan Burglar |  
 CORE | CORE_DAL_609 | Kalecgos |  
 CORE | CORE_DRG_090 | Murozond the Infinite |  
@@ -170,7 +170,7 @@ CORE | CORE_GIL_191 | Fiendish Circle | O
 CORE | CORE_GIL_547 | Darius Crowley |  
 CORE | CORE_GIL_598 | Tess Greymane |  
 CORE | CORE_GIL_622 | Lifedrinker |  
-CORE | CORE_GIL_650 | Houndmaster Shaw |  
+CORE | CORE_GIL_650 | Houndmaster Shaw | O
 CORE | CORE_GIL_801 | Snap Freeze | O
 CORE | CORE_GIL_828 | Dire Frenzy | O
 CORE | CORE_GVG_008 | Lightbomb |  
@@ -182,7 +182,7 @@ CORE | CORE_ICC_029 | Cobalt Scalebane |
 CORE | CORE_ICC_038 | Righteous Protector | O
 CORE | CORE_ICC_055 | Drain Soul | O
 CORE | CORE_ICC_809 | Plague Scientist | O
-CORE | CORE_KAR_006 | Cloaked Huntress |  
+CORE | CORE_KAR_006 | Cloaked Huntress | O
 CORE | CORE_KAR_009 | Babbling Book | O
 CORE | CORE_KAR_069 | Swashburglar | O
 CORE | CORE_KAR_073 | Maelstrom Portal |  
@@ -198,7 +198,7 @@ CORE | CORE_LOEA10_3 | Murloc Tinyfin | O
 CORE | CORE_LOOT_101 | Explosive Runes |  
 CORE | CORE_LOOT_124 | Lone Champion | O
 CORE | CORE_LOOT_137 | Sleepy Dragon | O
-CORE | CORE_LOOT_222 | Candleshot |  
+CORE | CORE_LOOT_222 | Candleshot | O
 CORE | CORE_LOOT_413 | Plated Beetle |  
 CORE | CORE_LOOT_516 | Zola the Gorgon |  
 CORE | CORE_NEW1_008 | Ancient of Lore | O
@@ -209,7 +209,7 @@ CORE | CORE_NEW1_021 | Doomsayer |
 CORE | CORE_NEW1_023 | Faerie Dragon |  
 CORE | CORE_NEW1_026 | Violet Teacher | O
 CORE | CORE_NEW1_027 | Southsea Captain | O
-CORE | CORE_NEW1_031 | Animal Companion |  
+CORE | CORE_NEW1_031 | Animal Companion | O
 CORE | CORE_OG_044 | Fandral Staghelm | O
 CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_109 | Darkshire Librarian |  
@@ -221,7 +221,7 @@ CORE | CORE_TRL_252 | High Priestess Jeklik |
 CORE | CORE_TRL_307 | Flash of Light |  
 CORE | CORE_TRL_315 | Pyromaniac |  
 CORE | CORE_TRL_345 | Krag'wa, the Frog |  
-CORE | CORE_TRL_348 | Springpaw |  
+CORE | CORE_TRL_348 | Springpaw | O
 CORE | CORE_ULD_191 | Beaming Sidekick |  
 CORE | CORE_ULD_209 | Vulpera Scoundrel |  
 CORE | CORE_ULD_271 | Injured Tol'vir |  
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 72% (180 of 250 Cards)
+- Progress: 74% (186 of 250 Cards)
 
 ## Forged in the Barrens
 
