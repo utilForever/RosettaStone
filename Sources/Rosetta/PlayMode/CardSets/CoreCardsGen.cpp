@@ -660,6 +660,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "TRL_348t", 1));
+    cards.emplace("CORE_TRL_348", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:3]

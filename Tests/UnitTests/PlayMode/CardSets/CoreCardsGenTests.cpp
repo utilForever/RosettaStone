@@ -1987,6 +1987,55 @@ TEST_CASE("[Hunter : Spell] - CORE_NEW1_031 : Animal Companion")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [CORE_TRL_348] Springpaw - COST:1 [ATK:1/HP:1]
+// - Race: Beast, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Battlecry:</b> Add a 1/1 Lynx
+//       with <b>Rush</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - CORE_TRL_348 : Springpaw")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Springpaw"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasRush(), true);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Lynx");
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasRush(), true);
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:3]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
