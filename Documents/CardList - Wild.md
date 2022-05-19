@@ -1022,7 +1022,7 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 KARA | KAR_004 | Cat Trick |  
 KARA | KAR_005 | Kindly Grandmother |  
-KARA | KAR_006 | Cloaked Huntress |  
+KARA | KAR_006 | Cloaked Huntress | O
 KARA | KAR_009 | Babbling Book | O
 KARA | KAR_010 | Nightbane Templar |  
 KARA | KAR_011 | Pompous Thespian |  
@@ -1066,7 +1066,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 11% (5 of 45 Cards)
+- Progress: 13% (6 of 45 Cards)
 
 ## Journey to Un'Goro
 
@@ -1423,7 +1423,7 @@ LOOTAPALOOZA | LOOT_214 | Evasion |
 LOOTAPALOOZA | LOOT_216 | Lynessa Sunsorrow |  
 LOOTAPALOOZA | LOOT_217 | To My Side! |  
 LOOTAPALOOZA | LOOT_218 | Feral Gibberer |  
-LOOTAPALOOZA | LOOT_222 | Candleshot |  
+LOOTAPALOOZA | LOOT_222 | Candleshot | O
 LOOTAPALOOZA | LOOT_231 | Arcane Artificer |  
 LOOTAPALOOZA | LOOT_233 | Cursed Disciple |  
 LOOTAPALOOZA | LOOT_258 | Dire Mole |  
@@ -1492,7 +1492,7 @@ LOOTAPALOOZA | LOOT_540 | Dragonhatcher |
 LOOTAPALOOZA | LOOT_541 | King Togwaggle |  
 LOOTAPALOOZA | LOOT_542 | Kingsbane |  
 
-- Progress: 2% (3 of 135 Cards)
+- Progress: 2% (4 of 135 Cards)
 
 ## The Witchwood
 
@@ -1584,7 +1584,7 @@ GILNEAS | GIL_640 | Curio Collector |
 GILNEAS | GIL_645 | Bonfire Elemental |  
 GILNEAS | GIL_646 | Clockwork Automaton |  
 GILNEAS | GIL_648 | Chief Inspector |  
-GILNEAS | GIL_650 | Houndmaster Shaw |  
+GILNEAS | GIL_650 | Houndmaster Shaw | O
 GILNEAS | GIL_653 | Woodcutter's Axe |  
 GILNEAS | GIL_654 | Warpath |  
 GILNEAS | GIL_655 | Festeroot Hulk |  
@@ -1634,7 +1634,7 @@ GILNEAS | GIL_902 | Cutthroat Buccaneer |
 GILNEAS | GIL_903 | Hidden Wisdom |  
 GILNEAS | GIL_905 | Carrion Drake |  
 
-- Progress: 2% (3 of 135 Cards)
+- Progress: 2% (4 of 135 Cards)
 
 ## The Boomsday Project
 
@@ -1859,7 +1859,7 @@ TROLL | TRL_341 | Treespeaker |
 TROLL | TRL_343 | Wardruid Loti |  
 TROLL | TRL_345 | Krag'wa, the Frog |  
 TROLL | TRL_347 | Baited Arrow |  
-TROLL | TRL_348 | Springpaw |  
+TROLL | TRL_348 | Springpaw | O
 TROLL | TRL_349 | Bloodscalp Strategist |  
 TROLL | TRL_351 | Rain of Toads |  
 TROLL | TRL_352 | Likkim |  
@@ -1919,7 +1919,7 @@ TROLL | TRL_570 | Soup Vendor |
 TROLL | TRL_900 | Halazzi, the Lynx |  
 TROLL | TRL_901 | Spirit of the Lynx |  
 
-- Progress: 1% (2 of 135 Cards)
+- Progress: 2% (3 of 135 Cards)
 
 ## Rise of Shadows
 

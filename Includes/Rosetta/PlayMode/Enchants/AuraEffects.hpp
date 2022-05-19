@@ -132,6 +132,14 @@ class AuraEffects
     //! \param value The value of GameTag::CHARGE to set.
     void SetCharge(int value);
 
+    //! Returns the value of GameTag::RUSH.
+    //! \return The value of GameTag::RUSH.
+    int GetRush() const;
+
+    //! Sets the value of GameTag::RUSH.
+    //! \param value The value of GameTag::RUSH to set.
+    void SetRush(int value);
+
     //! Returns the value of GameTag::LIFESTEAL.
     //! \return The value of GameTag::LIFESTEAL.
     int GetLifesteal() const;
@@ -147,14 +155,6 @@ class AuraEffects
     //! Sets the value of GameTag::CANT_ATTACK.
     //! \param value The value of GameTag::CANT_ATTACK to set.
     void SetCantAttack(int value);
-
-    //! Returns the value of GameTag::CHOOSE_BOTH.
-    //! \return The value of GameTag::CHOOSE_BOTH.
-    int GetChooseBoth() const;
-
-    //! Sets the value of GameTag::CHOOSE_BOTH.
-    //! \param value The value of GameTag::CHOOSE_BOTH to set.
-    void SetChooseBoth(int value);
 
  private:
     CardType m_type = CardType::INVALID;
@@ -177,9 +177,9 @@ class AuraEffects
     // 3 : WINDFURY
     // 4 : TAUNT
     // 5 : CHARGE
-    // 6 : LIFESTEAL
-    // 7 : CANT_ATTACK
-    // 8 : CHOOSE_BOTH
+    // 6 : RUSH
+    // 7 : LIFESTEAL
+    // 8 : CANT_ATTACK
     int* m_data = nullptr;
 };
 }  // namespace RosettaStone::PlayMode

@@ -1087,6 +1087,68 @@ TEST_CASE("[Hunter : Spell] - CORE_BRM_013 : Quick Shot")
 }
 
 // ----------------------------------------- SPELL - HUNTER
+// [CORE_DAL_371] Marked Shot - COST:4
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 4 damage to a minion. <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - CORE_DAL_371 : Marked Shot")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Marked Shot"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 8);
+    CHECK(opPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK(card->IsCardClass(CardClass::PALADIN));
+    }
+}
+
+// ----------------------------------------- SPELL - HUNTER
 // [CORE_DS1_184] Tracking - COST:1
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
@@ -1572,6 +1634,70 @@ TEST_CASE("[Hunter : Spell] - CORE_EX1_617 : Deadly Shot")
     CHECK_EQ(curField.GetCount(), 0);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [CORE_GIL_650] Houndmaster Shaw - COST:4 [ATK:3/HP:6]
+// - Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your other minions have <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - CORE_GIL_650 : Houndmaster Shaw")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Houndmaster Shaw"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodfen Raptor"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bluegill Warrior"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasRush(), false);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->HasRush(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[1]->HasRush(), false);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [CORE_GIL_828] Dire Frenzy - COST:4
 // - Set: CORE, Rarity: Common
@@ -1643,6 +1769,270 @@ TEST_CASE("[Hunter : Spell] - CORE_GIL_828 : Dire Frenzy")
     CHECK_EQ(curHand[0]->card->name, "Bloodfen Raptor");
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetAttack(), 6);
     CHECK_EQ(dynamic_cast<Minion*>(curHand[0])->GetHealth(), 5);
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [CORE_KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Your <b>Secrets</b> cost (0).
+// --------------------------------------------------------
+// RefTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - CORE_KAR_006 : Cloaked Huntress")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cloaked Huntress"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snake Trap"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Snipe"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(card2->GetCost(), 2);
+    CHECK_EQ(card3->GetCost(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(card2->GetCost(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(card2->GetCost(), 2);
+}
+
+// ---------------------------------------- WEAPON - HUNTER
+// [CORE_LOOT_222] Candleshot - COST:1
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Your hero is <b>Immune</b> while attacking.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Weapon] - CORE_LOOT_222 : Candleshot")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Candleshot"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->IsImmune(), false);
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [CORE_NEW1_031] Animal Companion - COST:3
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon a random Beast Companion.
+// --------------------------------------------------------
+// Entourage: NEW1_032, NEW1_033, NEW1_034
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - CORE_NEW1_031 : Animal Companion")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Animal Companion"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    const bool isMisha = curField[1]->card->id == "NEW1_032";
+    const bool isLeokk = curField[1]->card->id == "NEW1_033";
+    const bool isHuffer = curField[1]->card->id == "NEW1_034";
+    const bool isAnimal = isMisha || isLeokk || isHuffer;
+    CHECK(isAnimal);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    SUBCASE("Misha - NEW1_032")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_032"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 4);
+        CHECK_EQ(curField[1]->GetHealth(), 4);
+        CHECK_EQ(curField[1]->HasTaunt(), true);
+    }
+
+    SUBCASE("Leokk - NEW1_033")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_033"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 2);
+        CHECK_EQ(curField[1]->GetHealth(), 4);
+        CHECK_EQ(curField[0]->GetAttack(), 4);
+    }
+
+    SUBCASE("Huffer - NEW1_034")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_034"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 4);
+        CHECK_EQ(curField[1]->GetHealth(), 2);
+        CHECK_EQ(curField[1]->HasCharge(), true);
+    }
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [CORE_TRL_348] Springpaw - COST:1 [ATK:1/HP:1]
+// - Race: Beast, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b> <b>Battlecry:</b> Add a 1/1 Lynx
+//       with <b>Rush</b> to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - CORE_TRL_348 : Springpaw")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Springpaw"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasRush(), true);
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Lynx");
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasRush(), true);
 }
 
 // ---------------------------------------- MINION - HUNTER

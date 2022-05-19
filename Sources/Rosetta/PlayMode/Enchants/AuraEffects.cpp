@@ -59,6 +59,8 @@ int AuraEffects::GetGameTag(GameTag tag) const
             return GetTaunt();
         case GameTag::CHARGE:
             return GetCharge();
+        case GameTag::RUSH:
+            return GetRush();
         case GameTag::LIFESTEAL:
             return GetLifesteal();
         case GameTag::CANT_ATTACK:
@@ -99,6 +101,9 @@ void AuraEffects::SetGameTag(GameTag tag, int value)
             break;
         case GameTag::CHARGE:
             SetCharge(value);
+            break;
+        case GameTag::RUSH:
+            SetRush(value);
             break;
         case GameTag::LIFESTEAL:
             SetLifesteal(value);
@@ -223,32 +228,32 @@ void AuraEffects::SetCharge(int value)
     m_data[5] = value;
 }
 
-int AuraEffects::GetLifesteal() const
+int AuraEffects::GetRush() const
 {
     return m_data[6];
 }
 
-void AuraEffects::SetLifesteal(int value)
+void AuraEffects::SetRush(int value)
 {
     m_data[6] = value;
 }
 
-int AuraEffects::GetCantAttack() const
+int AuraEffects::GetLifesteal() const
 {
     return m_data[7];
 }
 
-void AuraEffects::SetCantAttack(int value)
+void AuraEffects::SetLifesteal(int value)
 {
     m_data[7] = value;
 }
 
-int AuraEffects::GetChooseBoth() const
+int AuraEffects::GetCantAttack() const
 {
     return m_data[8];
 }
 
-void AuraEffects::SetChooseBoth(int value)
+void AuraEffects::SetCantAttack(int value)
 {
     m_data[8] = value;
 }

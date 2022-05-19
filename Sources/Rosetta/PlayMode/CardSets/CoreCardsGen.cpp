@@ -24,6 +24,7 @@ namespace RosettaStone::PlayMode
 using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
@@ -385,11 +386,27 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [CORE_DAL_371] Marked Shot - COST:4
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Deal 4 damage to a minion. <b>Discover</b> a spell.
+    // Text: Deal 4 damage to a minion. <b>Discover</b> a spell.
     // --------------------------------------------------------
     // GameTag:
     // - DISCOVER = 1
+    // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    // RefTag:
+    // - DISCOVER = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CORE_DAL_371", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_DS1_184] Tracking - COST:1
@@ -544,6 +561,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "GIL_650e"));
+    cards.emplace("CORE_GIL_650", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_GIL_828] Dire Frenzy - COST:4
@@ -579,6 +600,15 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSecret());
+    }
+    cards.emplace("CORE_KAR_006", cardDef);
 
     // ---------------------------------------- WEAPON - HUNTER
     // [CORE_LOOT_222] Candleshot - COST:1
@@ -586,9 +616,18 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your hero is <b>Immune</b> while attacking.
     // --------------------------------------------------------
+    // GameTag:
+    // - DURABILITY = 3
+    // --------------------------------------------------------
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("CORE_LOOT_222", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [CORE_NEW1_031] Animal Companion - COST:3
@@ -596,6 +635,19 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a random Beast Companion.
     // --------------------------------------------------------
+    // Entourage: NEW1_032, NEW1_033, NEW1_034
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cardDef.property.entourages =
+        Entourages{ "NEW1_032", "NEW1_033", "NEW1_034" };
+    cards.emplace("CORE_NEW1_031", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_TRL_348] Springpaw - COST:1 [ATK:1/HP:1]
@@ -608,6 +660,10 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "TRL_348t", 1));
+    cards.emplace("CORE_TRL_348", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [CS3_015] Selective Breeder - COST:2 [ATK:1/HP:3]

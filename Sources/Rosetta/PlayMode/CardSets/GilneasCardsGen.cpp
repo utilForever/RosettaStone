@@ -301,6 +301,10 @@ void GilneasCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "GIL_650e"));
+    cards.emplace("GIL_650", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [GIL_828] Dire Frenzy - COST:4
@@ -2060,6 +2064,9 @@ void GilneasCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Houndmaster Shaw grants <b>Rush</b>.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("GIL_650e"));
+    cards.emplace("GIL_650e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [GIL_653e] Woodcutter (*) - COST:0
