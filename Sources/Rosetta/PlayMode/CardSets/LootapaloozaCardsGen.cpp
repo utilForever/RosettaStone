@@ -209,6 +209,8 @@ void LootapaloozaCardsGen::AddDruidNonCollect(
 
 void LootapaloozaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - HUNTER
     // [LOOT_077] Flanking Strike - COST:4
     // - Set: Lootapalooza, Rarity: Common
@@ -286,6 +288,15 @@ void LootapaloozaCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 3
     // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TARGET));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "DS1_188e", EntityType::HERO) };
+    cards.emplace("LOOT_222", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [LOOT_511] Kathrena Winterwisp - COST:8 [ATK:6/HP:6]

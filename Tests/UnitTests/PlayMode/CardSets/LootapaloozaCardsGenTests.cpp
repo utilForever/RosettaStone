@@ -17,6 +17,60 @@ using namespace PlayMode;
 using namespace PlayerTasks;
 using namespace SimpleTasks;
 
+// ---------------------------------------- WEAPON - HUNTER
+// [LOOT_222] Candleshot - COST:1 [ATK:1/HP:0]
+// - Set: Lootapalooza, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Immune</b> while attacking.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// --------------------------------------------------------
+// RefTag:
+// - IMMUNE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Weapon] - LOOT_222 : Candleshot")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Candleshot"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetWeapon().GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetWeapon().GetDurability(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->IsImmune(), false);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [LOOT_124] Lone Champion - COST:3 [ATK:2/HP:4]
 // - Set: Lootapalooza, Rarity: Rare
