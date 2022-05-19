@@ -1801,9 +1801,6 @@ TEST_CASE("[Hunter : Minion] - CORE_KAR_006 : Cloaked Huntress")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
-    auto& curField = *(curPlayer->GetFieldZone());
-
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Cloaked Huntress"));
     const auto card2 =
@@ -1884,6 +1881,109 @@ TEST_CASE("[Hunter : Weapon] - CORE_LOOT_222 : Candleshot")
     game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(curPlayer->GetHero()->IsImmune(), false);
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [CORE_NEW1_031] Animal Companion - COST:3
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon a random Beast Companion.
+// --------------------------------------------------------
+// Entourage: NEW1_032, NEW1_033, NEW1_034
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - CORE_NEW1_031 : Animal Companion")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Animal Companion"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    const bool isMisha = curField[1]->card->id == "NEW1_032";
+    const bool isLeokk = curField[1]->card->id == "NEW1_033";
+    const bool isHuffer = curField[1]->card->id == "NEW1_034";
+    const bool isAnimal = isMisha || isLeokk || isHuffer;
+    CHECK(isAnimal);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, curField[1]));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    SUBCASE("Misha - NEW1_032")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_032"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 4);
+        CHECK_EQ(curField[1]->GetHealth(), 4);
+        CHECK_EQ(curField[1]->HasTaunt(), true);
+    }
+
+    SUBCASE("Leokk - NEW1_033")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_033"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 2);
+        CHECK_EQ(curField[1]->GetHealth(), 4);
+        CHECK_EQ(curField[0]->GetAttack(), 4);
+    }
+
+    SUBCASE("Huffer - NEW1_034")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("NEW1_034"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetAttack(), 4);
+        CHECK_EQ(curField[1]->GetHealth(), 2);
+        CHECK_EQ(curField[1]->HasCharge(), true);
+    }
 }
 
 // ---------------------------------------- MINION - HUNTER

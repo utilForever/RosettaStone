@@ -24,6 +24,7 @@ namespace RosettaStone::PlayMode
 using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using ChooseCardIDs = std::vector<std::string>;
+using Entourages = std::vector<std::string>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
@@ -634,6 +635,19 @@ void CoreCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a random Beast Companion.
     // --------------------------------------------------------
+    // Entourage: NEW1_032, NEW1_033, NEW1_034
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cardDef.property.entourages =
+        Entourages{ "NEW1_032", "NEW1_033", "NEW1_034" };
+    cards.emplace("CORE_NEW1_031", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [CORE_TRL_348] Springpaw - COST:1 [ATK:1/HP:1]
