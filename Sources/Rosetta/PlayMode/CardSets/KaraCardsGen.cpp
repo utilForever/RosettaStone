@@ -81,6 +81,8 @@ void KaraCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - HUNTER
     // [KAR_004] Cat Trick - COST:2
     // - Set: Kara, Rarity: Rare
@@ -114,6 +116,15 @@ void KaraCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSecret());
+    }
+    cards.emplace("KAR_006", cardDef);
 }
 
 void KaraCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
