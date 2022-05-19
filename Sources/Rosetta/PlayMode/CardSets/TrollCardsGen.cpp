@@ -387,14 +387,17 @@ void TrollCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [TRL_348] Springpaw - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Troll, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Rush</b>
-    //       <b>Battlecry:</b> Add a 1/1 Lynx with <b>Rush</b>
-    //       to your hand.
+    // Text: <b>Rush</b> <b>Battlecry:</b> Add a 1/1 Lynx
+    //       with <b>Rush</b> to your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "TRL_348t", 1));
+    cards.emplace("TRL_348", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [TRL_349] Bloodscalp Strategist - COST:3 [ATK:2/HP:4]
@@ -450,6 +453,8 @@ void TrollCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - HUNTER
     // [TRL_347t] Devilsaur (*) - COST:5 [ATK:5/HP:5]
     // - Race: Beast, Set: Troll
@@ -464,6 +469,9 @@ void TrollCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TRL_348t", cardDef);
 }
 
 void TrollCardsGen::AddMage(std::map<std::string, CardDef>& cards)
