@@ -1150,7 +1150,7 @@ void AlteracValleyCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Spell School: Fire
     // --------------------------------------------------------
     // Text: Deal 1 damage to a minion and its neighbors.
-    //       (Improved by number of  other spells in your hand.)
+    //       (Improved by number of other spells in your hand.)
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
@@ -4417,7 +4417,7 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
     // Text: After your hero attacks,
-    //       deal 4 damage to all enemies.
+    //       deal 4 damage to all enemies.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1

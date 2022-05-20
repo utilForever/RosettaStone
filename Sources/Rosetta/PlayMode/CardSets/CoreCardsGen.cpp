@@ -952,7 +952,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // [CORE_TRL_315] Pyromaniac - COST:3 [ATK:3/HP:4]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Whenever your Hero Power kills a minion, draw a card.
+    // Text: Whenever your Hero Power kills a minion, draw a card.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -1083,7 +1083,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [CORE_DRG_226] Amber Watcher - COST:5 [ATK:4/HP:6]
     // - Race: Dragon, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 8 Health.
+    // Text: <b>Battlecry:</b> Restore 8 Health.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1936,7 +1936,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [CORE_CS2_046] Bloodlust - COST:5
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your minions +3 Attack this turn.
+    // Text: Give your minions +3 Attack this turn.
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
@@ -2028,7 +2028,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:2]
     // - Race: Totem, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Adjacent minions have +2 Attack.
+    // Text: Adjacent minions have +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - ADJACENT_BUFF = 1
@@ -2070,7 +2070,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Deal 1 damage to all enemy minions.
+    // Text: Deal 1 damage to all enemy minions.
     //       Summon a random 1-Cost minion.
     // --------------------------------------------------------
 
@@ -3697,7 +3697,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy all other minions
-    //       with 2 or less Attack.
+    //       with 2 or less Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
