@@ -8,14 +8,12 @@
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
+#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -781,6 +779,18 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<SwitchingAura>(
+        AuraType::HAND, SelfCondition::SpellsCastThisTurn(0),
+        TriggerType::CAST_SPELL, EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<SwitchingAura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("CORE_DAL_609", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_275] Cone of Cold - COST:3

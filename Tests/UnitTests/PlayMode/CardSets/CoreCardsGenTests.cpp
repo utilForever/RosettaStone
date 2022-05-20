@@ -2387,6 +2387,70 @@ TEST_CASE("[Mage : Spell] - CORE_CS2_032 : Flamestrike")
     CHECK_EQ(opField[0]->GetHealth(), 2);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [CORE_DAL_609] Kalecgos - COST:9 [ATK:4/HP:12]
+// - Race: Dragon, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your first spell each turn costs (0).
+//       <b>Battlecry:</b> <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - AURA = 1
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - CORE_DAL_609 : Kalecgos")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kalecgos"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK(card->IsCardClass(CardClass::MAGE));
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(curHand[6]->GetCost(), 0);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(card3->GetCost(), 4);
+}
+
 // ------------------------------------------- SPELL - MAGE
 // [CORE_EX1_275] Cone of Cold - COST:3
 // - Set: CORE, Rarity: Common
