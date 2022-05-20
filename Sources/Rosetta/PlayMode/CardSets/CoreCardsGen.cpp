@@ -733,6 +733,12 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<FreezeTask>(EntityType::ENEMY_MINIONS));
+    cards.emplace("CORE_CS2_028", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_CS2_029] Fireball - COST:4
