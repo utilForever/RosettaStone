@@ -997,6 +997,13 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
+    cards.emplace("CORE_TRL_315", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_UNG_020] Arcanologist - COST:2 [ATK:2/HP:3]
