@@ -2061,7 +2061,8 @@ TEST_CASE("[Hunter : Spell] - EX1_617 : Deadly Shot")
 // - Faction: Neutral, Set: Expert1, Rarity: Rare
 // - Spell School: Frost
 // --------------------------------------------------------
-// Text: Deal 2 damage to all enemy minions and <b>Freeze</b> them.
+// Text: Deal 2 damage to all enemy minions
+//       and <b>Freeze</b> them.
 // --------------------------------------------------------
 // GameTag:
 // - FREEZE = 1

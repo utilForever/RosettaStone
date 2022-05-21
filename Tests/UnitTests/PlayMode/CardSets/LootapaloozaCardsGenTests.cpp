@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -69,6 +70,88 @@ TEST_CASE("[Hunter : Weapon] - LOOT_222 : Candleshot")
     game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
     CHECK_EQ(curPlayer->GetHero()->IsImmune(), false);
+}
+
+// ------------------------------------------- SPELL - MAGE
+// [LOOT_101] Explosive Runes - COST:3
+// - Faction: Neutral, Set: Lootapalooza, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After your opponent plays a minion,
+//       deal 6 damage to it and any excess to their hero.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// - ImmuneToSpellpower = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - LOOT_101 : Explosive Runes")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Explosive Runes"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Explosive Runes"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Bloodmage Thalnos"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Chillwind Yeti"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curSecret->GetCount(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+    CHECK_EQ(opField[0]->GetHealth(), 5);
 }
 
 // --------------------------------------- MINION - NEUTRAL

@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -364,6 +365,8 @@ void LootapaloozaCardsGen::AddHunterNonCollect(
 
 void LootapaloozaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------- SPELL - MAGE
     // [LOOT_101] Explosive Runes - COST:3
     // - Faction: Neutral, Set: Lootapalooza, Rarity: Rare
@@ -375,6 +378,46 @@ void LootapaloozaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsNotDead()) }),
+        std::make_shared<FlagTask>(
+            true,
+            ComplexTask::ActivateSecret(TaskList{ std::make_shared<CustomTask>(
+                [](Player* player, Entity* source, Playable* target) {
+                    if (!target)
+                    {
+                        return;
+                    }
+
+                    const auto realSource = dynamic_cast<Playable*>(source);
+                    const auto realTarget = dynamic_cast<Character*>(target);
+
+                    const int targetHealth = realTarget->GetHealth();
+                    const int realDamage =
+                        6 + source->player->GetCurrentSpellPower();
+
+                    Generic::TakeDamageToCharacter(realSource, realTarget,
+                                                   realDamage, true);
+
+                    if (realTarget->isDestroyed)
+                    {
+                        const int remainDamage = realDamage - targetHealth;
+                        if (remainDamage > 0)
+                        {
+                            Generic::TakeDamageToCharacter(
+                                realSource, player->opponent->GetHero(),
+                                remainDamage, true);
+                        }
+                    }
+                }) }))
+    };
+    cards.emplace("LOOT_101", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [LOOT_103] Lesser Ruby Spellstone - COST:2

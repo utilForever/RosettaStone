@@ -56,6 +56,9 @@ TaskStatus HeroPowerTask::Impl(Player* player)
     // Process target trigger
     if (m_target != nullptr)
     {
+        player->game->currentEventData =
+            std::make_unique<EventMetaData>(&power, m_target);
+
         Trigger::ValidateTriggers(player->game, &power, SequenceType::TARGET);
         player->game->taskQueue.StartEvent();
         player->game->triggerManager.OnTargetTrigger(&power);

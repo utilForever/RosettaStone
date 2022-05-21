@@ -1383,7 +1383,7 @@ LOOTAPALOOZA | LOOT_085 | Rhok'delar |
 LOOTAPALOOZA | LOOT_088 | Potion of Heroism |  
 LOOTAPALOOZA | LOOT_091 | Lesser Pearl Spellstone |  
 LOOTAPALOOZA | LOOT_093 | Call to Arms |  
-LOOTAPALOOZA | LOOT_101 | Explosive Runes |  
+LOOTAPALOOZA | LOOT_101 | Explosive Runes | O
 LOOTAPALOOZA | LOOT_103 | Lesser Ruby Spellstone |  
 LOOTAPALOOZA | LOOT_104 | Shifting Scroll |  
 LOOTAPALOOZA | LOOT_106 | Deck of Wonders |  
@@ -1492,7 +1492,7 @@ LOOTAPALOOZA | LOOT_540 | Dragonhatcher |
 LOOTAPALOOZA | LOOT_541 | King Togwaggle |  
 LOOTAPALOOZA | LOOT_542 | Kingsbane |  
 
-- Progress: 2% (4 of 135 Cards)
+- Progress: 3% (5 of 135 Cards)
 
 ## The Witchwood
 
@@ -1841,7 +1841,7 @@ TROLL | TRL_310 | Elemental Evocation |
 TROLL | TRL_311 | Arcanosaur |  
 TROLL | TRL_312 | Spellzerker |  
 TROLL | TRL_313 | Scorch |  
-TROLL | TRL_315 | Pyromaniac |  
+TROLL | TRL_315 | Pyromaniac | O
 TROLL | TRL_316 | Jan'alai, the Dragonhawk |  
 TROLL | TRL_317 | Blast Wave |  
 TROLL | TRL_318 | Hex Lord Malacrass |  
@@ -1919,7 +1919,7 @@ TROLL | TRL_570 | Soup Vendor |
 TROLL | TRL_900 | Halazzi, the Lynx |  
 TROLL | TRL_901 | Spirit of the Lynx |  
 
-- Progress: 2% (3 of 135 Cards)
+- Progress: 2% (4 of 135 Cards)
 
 ## Rise of Shadows
 

@@ -42,7 +42,7 @@ CORE | CORE_CS1_130 | Holy Smite | O
 CORE | CORE_CS2_009 | Mark of the Wild | O
 CORE | CORE_CS2_013 | Wild Growth | O
 CORE | CORE_CS2_023 | Arcane Intellect | O
-CORE | CORE_CS2_028 | Blizzard |  
+CORE | CORE_CS2_028 | Blizzard | O
 CORE | CORE_CS2_029 | Fireball | O
 CORE | CORE_CS2_032 | Flamestrike | O
 CORE | CORE_CS2_042 | Fire Elemental | O
@@ -75,7 +75,7 @@ CORE | CORE_CS2_235 | Northshire Cleric |
 CORE | CORE_DAL_086 | Sunreaver Spy | O
 CORE | CORE_DAL_371 | Marked Shot | O
 CORE | CORE_DAL_416 | Hench-Clan Burglar |  
-CORE | CORE_DAL_609 | Kalecgos |  
+CORE | CORE_DAL_609 | Kalecgos | O
 CORE | CORE_DRG_090 | Murozond the Infinite |  
 CORE | CORE_DRG_226 | Amber Watcher |  
 CORE | CORE_DRG_229 | Bronze Explorer |  
@@ -122,7 +122,7 @@ CORE | CORE_EX1_248 | Feral Spirit | O
 CORE | CORE_EX1_249 | Baron Geddon | O
 CORE | CORE_EX1_259 | Lightning Storm | O
 CORE | CORE_EX1_275 | Cone of Cold | O
-CORE | CORE_EX1_279 | Pyroblast |  
+CORE | CORE_EX1_279 | Pyroblast | O
 CORE | CORE_EX1_284 | Azure Drake |  
 CORE | CORE_EX1_287 | Counterspell | O
 CORE | CORE_EX1_289 | Ice Barrier | O
@@ -195,7 +195,7 @@ CORE | CORE_LOE_076 | Sir Finley Mrrgglton |
 CORE | CORE_LOE_077 | Brann Bronzebeard |  
 CORE | CORE_LOE_079 | Elise Starseeker |  
 CORE | CORE_LOEA10_3 | Murloc Tinyfin | O
-CORE | CORE_LOOT_101 | Explosive Runes |  
+CORE | CORE_LOOT_101 | Explosive Runes | O
 CORE | CORE_LOOT_124 | Lone Champion | O
 CORE | CORE_LOOT_137 | Sleepy Dragon | O
 CORE | CORE_LOOT_222 | Candleshot | O
@@ -219,7 +219,7 @@ CORE | CORE_OG_273 | Stand Against Darkness | O
 CORE | CORE_TRL_243 | Pounce | O
 CORE | CORE_TRL_252 | High Priestess Jeklik |  
 CORE | CORE_TRL_307 | Flash of Light |  
-CORE | CORE_TRL_315 | Pyromaniac |  
+CORE | CORE_TRL_315 | Pyromaniac | O
 CORE | CORE_TRL_345 | Krag'wa, the Frog |  
 CORE | CORE_TRL_348 | Springpaw | O
 CORE | CORE_ULD_191 | Beaming Sidekick |  
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 74% (186 of 250 Cards)
+- Progress: 76% (191 of 250 Cards)
 
 ## Forged in the Barrens
 

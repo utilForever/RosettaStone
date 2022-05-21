@@ -8,14 +8,12 @@
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
+#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/CoreCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -733,6 +731,12 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - FREEZE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 2, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<FreezeTask>(EntityType::ENEMY_MINIONS));
+    cards.emplace("CORE_CS2_028", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_CS2_029] Fireball - COST:4
@@ -775,6 +779,18 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<SwitchingAura>(
+        AuraType::HAND, SelfCondition::SpellsCastThisTurn(0),
+        TriggerType::CAST_SPELL, EffectList{ Effects::SetCost(0) }));
+    {
+        const auto aura = dynamic_cast<SwitchingAura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("CORE_DAL_609", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_275] Cone of Cold - COST:3
@@ -808,6 +824,14 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 10 damage.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 10, true));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("CORE_EX1_279", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [CORE_EX1_287] Counterspell - COST:3
@@ -923,16 +947,63 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - SECRET = 1
     // - ImmuneToSpellpower = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_MINIONS;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<ConditionTask>(
+            EntityType::TARGET, SelfCondList{ std::make_shared<SelfCondition>(
+                                    SelfCondition::IsNotDead()) }),
+        std::make_shared<FlagTask>(
+            true,
+            ComplexTask::ActivateSecret(TaskList{ std::make_shared<CustomTask>(
+                [](Player* player, Entity* source, Playable* target) {
+                    if (!target)
+                    {
+                        return;
+                    }
+
+                    const auto realSource = dynamic_cast<Playable*>(source);
+                    const auto realTarget = dynamic_cast<Character*>(target);
+
+                    const int targetHealth = realTarget->GetHealth();
+                    const int realDamage =
+                        6 + source->player->GetCurrentSpellPower();
+
+                    Generic::TakeDamageToCharacter(realSource, realTarget,
+                                                   realDamage, true);
+
+                    if (realTarget->isDestroyed)
+                    {
+                        const int remainDamage = realDamage - targetHealth;
+                        if (remainDamage > 0)
+                        {
+                            Generic::TakeDamageToCharacter(
+                                realSource, player->opponent->GetHero(),
+                                remainDamage, true);
+                        }
+                    }
+                }) }))
+    };
+    cards.emplace("CORE_LOOT_101", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_TRL_315] Pyromaniac - COST:3 [ATK:3/HP:4]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Whenever your Hero Power kills a minion, draw a card.
+    // Text: Whenever your Hero Power kills a minion, draw a card.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
+    cards.emplace("CORE_TRL_315", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [CORE_UNG_020] Arcanologist - COST:2 [ATK:2/HP:3]
@@ -1059,7 +1130,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [CORE_DRG_226] Amber Watcher - COST:5 [ATK:4/HP:6]
     // - Race: Dragon, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 8 Health.
+    // Text: <b>Battlecry:</b> Restore 8 Health.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1912,7 +1983,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [CORE_CS2_046] Bloodlust - COST:5
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Give your minions +3 Attack this turn.
+    // Text: Give your minions +3 Attack this turn.
     // --------------------------------------------------------
 
     // ----------------------------------------- SPELL - SHAMAN
@@ -2004,7 +2075,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:2]
     // - Race: Totem, Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Adjacent minions have +2 Attack.
+    // Text: Adjacent minions have +2 Attack.
     // --------------------------------------------------------
     // GameTag:
     // - ADJACENT_BUFF = 1
@@ -2046,7 +2117,7 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Deal 1 damage to all enemy minions.
+    // Text: Deal 1 damage to all enemy minions.
     //       Summon a random 1-Cost minion.
     // --------------------------------------------------------
 
@@ -3673,7 +3744,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - Set: CORE, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Destroy all other minions
-    //       with 2 or less Attack.
+    //       with 2 or less Attack.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
