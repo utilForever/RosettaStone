@@ -476,6 +476,8 @@ void TrollCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------- SPELL - MAGE
     // [TRL_310] Elemental Evocation - COST:0
     // - Set: Troll, Rarity: Common
@@ -512,6 +514,16 @@ void TrollCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever your Hero Power kills a minion, draw a card.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
+    cards.emplace("TRL_315", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [TRL_316] Jan'alai, the Dragonhawk - COST:7 [ATK:4/HP:4]
