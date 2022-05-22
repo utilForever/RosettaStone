@@ -1707,7 +1707,7 @@ void DalaranCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("DAL_415", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
-    // [DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:3]
+    // [DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:4]
     // - Race: Pirate, Set: Dalaran, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a spell from another class.

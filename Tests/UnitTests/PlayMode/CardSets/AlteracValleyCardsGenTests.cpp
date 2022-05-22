@@ -745,7 +745,7 @@ TEST_CASE("[Hunter : Minion] - AV_337 : Mountain Bear")
 }
 
 // ---------------------------------------- MINION - HUNTER
-// [ONY_009] Pet Collector - COST:5 [ATK:3/HP:3]
+// [ONY_009] Pet Collector - COST:5 [ATK:4/HP:4]
 // - Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a Beast from your deck
@@ -795,7 +795,7 @@ TEST_CASE("[Hunter : Minion] - ONY_009 : Pet Collector")
 }
 
 // ----------------------------------------- SPELL - HUNTER
-// [ONY_010] Dragonbane Shot - COST:2
+// [ONY_010] Dragonbane Shot - COST:3
 // - Set: ALTERAC_VALLEY, Rarity: Rare
 // --------------------------------------------------------
 // Text: Deal 2 damage.

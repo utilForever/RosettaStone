@@ -289,7 +289,7 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - Set: THE_SUNKEN_CITY, Rarity: Rare
     // --------------------------------------------------------
     // Text: After your hero attacks, <b>Dredge</b>.
-    //       If it's a Beast, reduce its Cost by (2).
+    //       If it's a Beast, reduce its Cost by (3).
     // --------------------------------------------------------
     // GameTag:
     // - DREDGE = 1
@@ -340,7 +340,7 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [TSC_945] Azsharan Saber - COST:4 [ATK:3/HP:3]
+    // [TSC_945] Azsharan Saber - COST:4 [ATK:4/HP:3]
     // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Common
     // --------------------------------------------------------
     // Text: <b><b>Rush</b>.</b> <b>Deathrattle:</b>
@@ -437,7 +437,7 @@ void TheSunkenCityCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [TSC_945t] Sunken Saber - COST:4 [ATK:3/HP:3]
+    // [TSC_945t] Sunken Saber - COST:4 [ATK:4/HP:3]
     // - Race: Beast, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: <b><b>Rush</b>.</b> <b>Deathrattle:</b>
@@ -906,7 +906,7 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
 void TheSunkenCityCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- SPELL - PRIEST
-    // [TSC_209] Whirlpool - COST:9
+    // [TSC_209] Whirlpool - COST:8
     // - Set: THE_SUNKEN_CITY, Rarity: Epic
     // - Spell School: Nature
     // --------------------------------------------------------
@@ -969,13 +969,13 @@ void TheSunkenCityCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [TSC_215] Serpent Wig - COST:1
     // - Set: THE_SUNKEN_CITY, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Give a minion +1/+1.
+    // Text: Give a minion +1/+2.
     //       If you played a Naga while holding this,
     //       add a Serpent Wig to your hand.
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - PRIEST
-    // [TSC_216] Blackwater Behemoth - COST:8 [ATK:8/HP:10]
+    // [TSC_216] Blackwater Behemoth - COST:7 [ATK:8/HP:10]
     // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Colossal +1</b>
@@ -1502,7 +1502,7 @@ void TheSunkenCityCardsGen::AddShamanNonCollect(
 void TheSunkenCityCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARLOCK
-    // [TSC_039] Azsharan Scavenger - COST:3 [ATK:3/HP:4]
+    // [TSC_039] Azsharan Scavenger - COST:2 [ATK:2/HP:3]
     // - Race: Murloc, Set: THE_SUNKEN_CITY, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b>
@@ -1523,7 +1523,7 @@ void TheSunkenCityCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [TSC_753] Bloodscent Vilefin - COST:4 [ATK:4/HP:4]
+    // [TSC_753] Bloodscent Vilefin - COST:3 [ATK:3/HP:4]
     // - Race: Murloc, Set: THE_SUNKEN_CITY, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Dredge</b>.
@@ -1556,7 +1556,7 @@ void TheSunkenCityCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - WARLOCK
-    // [TSC_955] Sira'kess Cultist - COST:3 [ATK:2/HP:3]
+    // [TSC_955] Sira'kess Cultist - COST:3 [ATK:3/HP:4]
     // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give your opponent an Abyssal Curse.
@@ -1566,7 +1566,7 @@ void TheSunkenCityCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - WARLOCK
-    // [TSC_956] Dragged Below - COST:4
+    // [TSC_956] Dragged Below - COST:3
     // - Set: THE_SUNKEN_CITY, Rarity: Common
     // - Spell School: Shadow
     // --------------------------------------------------------
@@ -1617,7 +1617,7 @@ void TheSunkenCityCardsGen::AddWarlockNonCollect(
     std::map<std::string, CardDef>& cards)
 {
     // --------------------------------------- MINION - WARLOCK
-    // [TSC_039t] Sunken Scavenger - COST:3 [ATK:3/HP:4]
+    // [TSC_039t] Sunken Scavenger - COST:2 [ATK:2/HP:3]
     // - Race: Murloc, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Give your other Murlocs +1/+1
@@ -1926,7 +1926,7 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     CardDef cardDef;
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [TSC_006] Multi-Strike - COST:1
+    // [TSC_006] Multi-Strike - COST:2
     // - Set: THE_SUNKEN_CITY, Rarity: Rare
     // - Spell School: Fel
     // --------------------------------------------------------
@@ -2120,7 +2120,7 @@ void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
     // - Race: Demon, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: At the end of your turn,
-    //       deal 1 damage to a random enemy.
+    //       deal 2 damage to a random enemy.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2132,7 +2132,7 @@ void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
     // - Race: Demon, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: At the end of your turn,
-    //       deal 1 damage to a random enemy.
+    //       deal 2 damage to a random enemy.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2144,7 +2144,7 @@ void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
     // - Race: Demon, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: At the end of your turn,
-    //       deal 1 damage to a random enemy.
+    //       deal 2 damage to a random enemy.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2156,7 +2156,7 @@ void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
     // - Race: Demon, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: At the end of your turn,
-    //       deal 1 damage to a random enemy.
+    //       deal 2 damage to a random enemy.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

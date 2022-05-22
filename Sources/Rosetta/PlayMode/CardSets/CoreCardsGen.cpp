@@ -1770,7 +1770,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_080", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
-    // [CORE_DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:3]
+    // [CORE_DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:4]
     // - Race: Pirate, Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a spell
@@ -1835,7 +1835,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_145", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
-    // [CORE_GIL_598] Tess Greymane - COST:8 [ATK:6/HP:6]
+    // [CORE_GIL_598] Tess Greymane - COST:7 [ATK:6/HP:6]
     // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Replay every card from
