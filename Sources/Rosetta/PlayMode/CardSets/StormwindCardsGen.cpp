@@ -1397,7 +1397,7 @@ void StormwindCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     CardDef cardDef;
 
     // ---------------------------------------- WEAPON - PRIEST
-    // [SW_012] Shadowcloth Needle - COST:2
+    // [SW_012] Shadowcloth Needle - COST:1
     // - Set: STORMWIND, Rarity: Rare
     // --------------------------------------------------------
     // Text: After you cast a Shadow spell,

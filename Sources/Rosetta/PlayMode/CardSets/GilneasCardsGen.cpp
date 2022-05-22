@@ -806,7 +806,7 @@ void GilneasCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [GIL_598] Tess Greymane - COST:8 [ATK:6/HP:6]
+    // [GIL_598] Tess Greymane - COST:7 [ATK:6/HP:6]
     // - Set: Gilneas, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Replay every card

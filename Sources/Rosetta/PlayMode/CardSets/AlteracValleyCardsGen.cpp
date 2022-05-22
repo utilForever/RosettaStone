@@ -797,7 +797,7 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [ONY_009] Pet Collector - COST:5 [ATK:3/HP:3]
+    // [ONY_009] Pet Collector - COST:5 [ATK:4/HP:4]
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a Beast from your deck
@@ -812,7 +812,7 @@ void AlteracValleyCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     cards.emplace("ONY_009", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
-    // [ONY_010] Dragonbane Shot - COST:2
+    // [ONY_010] Dragonbane Shot - COST:3
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // --------------------------------------------------------
     // Text: Deal 2 damage.
@@ -1863,7 +1863,7 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("AV_201", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
-    // [AV_298] Wildpaw Gnoll - COST:6 [ATK:3/HP:5]
+    // [AV_298] Wildpaw Gnoll - COST:5 [ATK:4/HP:5]
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>
@@ -1963,7 +1963,7 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [ONY_030] SI:7 Smuggler - COST:3 [ATK:1/HP:3]
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a random 0-cost minion
+    // Text: <b>Battlecry:</b> Summon a random 1-cost minion
     //       (Upgraded for each SI:7 card you have played this game).
     // --------------------------------------------------------
     // GameTag:
@@ -1981,7 +1981,7 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - ROGUE
-    // [ONY_032] Tooth of Nefarian - COST:3
+    // [ONY_032] Tooth of Nefarian - COST:2
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 3 damage. <b>Honorable Kill:</b>
@@ -3112,8 +3112,8 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [AV_100] Drek'Thar - COST:4 [ATK:4/HP:4]
     // - Set: ALTERAC_VALLEY, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry</b>: If this costs more than
-    //       every minion in your deck, summon 2 of them.
+    // Text: <b>Battlecry</b>: If this costs more than every
+    //       minion in your deck, summon one of those minions.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
