@@ -665,10 +665,10 @@ void DalaranCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
     // ---------------------------------------- WEAPON - HUNTER
     // [DAL_379t] Thori'dal, the Stars' Fury (*) - COST:3 [ATK:2/HP:0]
-    // - Set: Dalaran,
-    // - Set: Dalaran,
+    // - Set: Dalaran
     // --------------------------------------------------------
-    // Text: After your hero attacks, gain <b>Spell Damage +2</b> this turn.
+    // Text: After your hero attacks,
+    //       gain <b>Spell Damage +2</b> this turn.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
