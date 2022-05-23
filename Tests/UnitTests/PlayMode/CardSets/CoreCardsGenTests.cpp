@@ -3818,6 +3818,89 @@ TEST_CASE("[Paladin : Minion] - CORE_ICC_038 : Righteous Protector")
     // Do nothing
 }
 
+// --------------------------------------- MINION - PALADIN
+// [CORE_OG_229] Ragnaros, Lightlord - COST:8 [ATK:8/HP:8]
+// - Race: Elemental, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: At the end of your turn,
+//       restore 8 Health to a damaged friendly character.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - CORE_OG_229 : Ragnaros, Lightlord")
+{
+    GameConfig config;
+
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Ragnaros, Lightlord"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    int totalHealth =
+        curPlayer->GetHero()->GetHealth() + curField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 42);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    totalHealth = curPlayer->GetHero()->GetHealth() + curField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 32);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    totalHealth = curPlayer->GetHero()->GetHealth() + curField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 40);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
+    totalHealth = curPlayer->GetHero()->GetHealth() + curField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 30);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    totalHealth = curPlayer->GetHero()->GetHealth() + curField[0]->GetHealth();
+    const bool checkHealth = totalHealth == 32 || totalHealth == 38;
+    CHECK(checkHealth);
+}
+
 // ---------------------------------------- SPELL - PALADIN
 // [CORE_OG_273] Stand Against Darkness - COST:5
 // - Set: CORE, Rarity: Common

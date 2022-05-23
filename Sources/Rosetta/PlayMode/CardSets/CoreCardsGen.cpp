@@ -1310,6 +1310,16 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<IncludeTask>(EntityType::FRIENDS),
+        std::make_shared<FilterStackTask>(SelfCondList{
+            std::make_shared<SelfCondition>(SelfCondition::IsDamaged()) }),
+        std::make_shared<RandomTask>(EntityType::STACK, 1),
+        std::make_shared<HealTask>(EntityType::STACK, 8)
+    };
+    cards.emplace("CORE_OG_229", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_OG_273] Stand Against Darkness - COST:5
