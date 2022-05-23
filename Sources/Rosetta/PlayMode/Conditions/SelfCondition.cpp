@@ -888,6 +888,28 @@ SelfCondition SelfCondition::IsAttack(int value, RelaSign relaSign)
     });
 }
 
+SelfCondition SelfCondition::IsEventSourceAttack(int value, RelaSign relaSign)
+{
+    return SelfCondition([value, relaSign](Playable* playable) {
+        if (const auto eventData = playable->game->currentEventData.get();
+            eventData)
+        {
+            if (const auto character =
+                    dynamic_cast<Character*>(eventData->eventSource))
+            {
+                return (relaSign == RelaSign::EQ &&
+                        character->GetAttack() == value) ||
+                       (relaSign == RelaSign::GEQ &&
+                        character->GetAttack() >= value) ||
+                       (relaSign == RelaSign::LEQ &&
+                        character->GetAttack() <= value);
+            }
+        }
+
+        return false;
+    });
+}
+
 SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 {
     return SelfCondition([value, relaSign](Playable* playable) {

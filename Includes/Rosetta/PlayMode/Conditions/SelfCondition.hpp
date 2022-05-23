@@ -430,6 +430,13 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsAttack(int value, RelaSign relaSign);
 
+    //! SelfCondition wrapper for checking the attack of event source
+    //! that satisfies condition with \p value and \p relaSign.
+    //! \param value The value to check condition.
+    //! \param relaSign The comparer to check condition.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsEventSourceAttack(int value, RelaSign relaSign);
+
     //! SelfCondition wrapper for checking the health that satisfies
     //! condition with \p value and \p relaSign.
     //! \param value The value to check condition.

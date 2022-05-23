@@ -11,6 +11,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using PlayReqs = std::map<PlayReq, int>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void TrollCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -613,6 +614,8 @@ void TrollCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [TRL_300] Shirvallah, the Tiger - COST:25 [ATK:7/HP:5]
     // - Race: Beast, Set: Troll, Rarity: Legendary
@@ -689,6 +692,12 @@ void TrollCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 4));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("TRL_307", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TRL_308] High Priest Thekal - COST:3 [ATK:3/HP:4]
