@@ -4008,6 +4008,71 @@ TEST_CASE("[Paladin : Spell] - CORE_TRL_307 : Flash of Light")
     CHECK_EQ(curHand.GetCount(), 6);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [CS3_016] Reckoning - COST:1
+// - Set: CORE, Rarity: Epic
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After an enemy minion deals 3 or
+//       more damage, destroy it.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - CS3_016 : Reckoning")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Reckoning", FormatType::STANDARD));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Stonetusk Boar"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, AttackTask(card2, curPlayer->GetHero()));
+    CHECK_EQ(curSecret->GetCount(), 1);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, AttackTask(card3, curPlayer->GetHero()));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(opField.GetCount(), 1);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [CORE_AT_055] Flash Heal - COST:1
 // - Set: CORE, Rarity: Common

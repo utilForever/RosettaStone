@@ -1365,6 +1365,16 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACKED));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsEventSourceAttack(3, RelaSign::GEQ)) };
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<DestroyTask>(EntityType::EVENT_SOURCE) });
+    cards.emplace("CS3_016", cardDef);
 }
 
 void CoreCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
