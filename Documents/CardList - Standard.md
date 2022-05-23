@@ -77,8 +77,8 @@ CORE | CORE_DAL_371 | Marked Shot | O
 CORE | CORE_DAL_416 | Hench-Clan Burglar |  
 CORE | CORE_DAL_609 | Kalecgos | O
 CORE | CORE_DRG_090 | Murozond the Infinite |  
-CORE | CORE_DRG_226 | Amber Watcher |  
-CORE | CORE_DRG_229 | Bronze Explorer |  
+CORE | CORE_DRG_226 | Amber Watcher | O
+CORE | CORE_DRG_229 | Bronze Explorer | O
 CORE | CORE_DS1_184 | Tracking | O
 CORE | CORE_DS1_185 | Arcane Shot | O
 CORE | CORE_EX1_005 | Big Game Hunter | O
@@ -214,11 +214,11 @@ CORE | CORE_OG_044 | Fandral Staghelm | O
 CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_109 | Darkshire Librarian |  
 CORE | CORE_OG_218 | Bloodhoof Brave |  
-CORE | CORE_OG_229 | Ragnaros, Lightlord |  
+CORE | CORE_OG_229 | Ragnaros, Lightlord | O
 CORE | CORE_OG_273 | Stand Against Darkness | O
 CORE | CORE_TRL_243 | Pounce | O
 CORE | CORE_TRL_252 | High Priestess Jeklik |  
-CORE | CORE_TRL_307 | Flash of Light |  
+CORE | CORE_TRL_307 | Flash of Light | O
 CORE | CORE_TRL_315 | Pyromaniac | O
 CORE | CORE_TRL_345 | Krag'wa, the Frog |  
 CORE | CORE_TRL_348 | Springpaw | O
@@ -243,7 +243,7 @@ CORE | CS3_007 | Novice Zapper | O
 CORE | CS3_008 | Bloodsail Deckhand | O
 CORE | CS3_013 | Shadowed Spirit | O
 CORE | CS3_015 | Selective Breeder | O
-CORE | CS3_016 | Reckoning |  
+CORE | CS3_016 | Reckoning | O
 CORE | CS3_017 | Gan'arg Glaivesmith | O
 CORE | CS3_019 | Kor'vas Bloodthorn | O
 CORE | CS3_020 | Illidari Inquisitor | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 76% (191 of 250 Cards)
+- Progress: 78% (196 of 250 Cards)
 
 ## Forged in the Barrens
 

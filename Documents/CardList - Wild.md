@@ -957,7 +957,7 @@ OG | OG_220 | Malkorok |
 OG | OG_221 | Selfless Hero |  
 OG | OG_222 | Rallying Blade |  
 OG | OG_223 | Divine Strength |  
-OG | OG_229 | Ragnaros, Lightlord |  
+OG | OG_229 | Ragnaros, Lightlord | O
 OG | OG_234 | Darkshire Alchemist |  
 OG | OG_239 | DOOM! |  
 OG | OG_241 | Possessed Villager | O
@@ -1014,7 +1014,7 @@ OG | OG_338 | Nat, the Darkfisher |
 OG | OG_339 | Skeram Cultist |  
 OG | OG_340 | Soggoth the Slitherer |  
 
-- Progress: 3% (5 of 134 Cards)
+- Progress: 4% (6 of 134 Cards)
 
 ## One Night in Karazhan
 
@@ -1834,7 +1834,7 @@ TROLL | TRL_302 | Time Out! |
 TROLL | TRL_304 | Farraki Battleaxe |  
 TROLL | TRL_305 | A New Challenger... |  
 TROLL | TRL_306 | Immortal Prelate |  
-TROLL | TRL_307 | Flash of Light |  
+TROLL | TRL_307 | Flash of Light | O
 TROLL | TRL_308 | High Priest Thekal |  
 TROLL | TRL_309 | Spirit of the Tiger |  
 TROLL | TRL_310 | Elemental Evocation |  
@@ -1919,7 +1919,7 @@ TROLL | TRL_570 | Soup Vendor |
 TROLL | TRL_900 | Halazzi, the Lynx |  
 TROLL | TRL_901 | Spirit of the Lynx |  
 
-- Progress: 2% (4 of 135 Cards)
+- Progress: 3% (5 of 135 Cards)
 
 ## Rise of Shadows
 
