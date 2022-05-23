@@ -1344,6 +1344,15 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Restore 4 Health. Draw a card.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 4));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("CORE_TRL_307", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [CS3_016] Reckoning - COST:1
