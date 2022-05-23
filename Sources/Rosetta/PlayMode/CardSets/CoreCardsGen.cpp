@@ -1156,7 +1156,12 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // - LIFESTEAL = 1
+    // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::DRAGON));
+    cards.emplace("CORE_DRG_229", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [CORE_EX1_130] Noble Sacrifice - COST:1
