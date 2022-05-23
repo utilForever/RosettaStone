@@ -1135,6 +1135,15 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 8));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 } };
+    cards.emplace("CORE_DRG_226", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [CORE_DRG_229] Bronze Explorer - COST:3 [ATK:3/HP:3]
