@@ -4408,6 +4408,66 @@ TEST_CASE("[Priest : Minion] - CORE_CS2_235 : Northshire Cleric")
 }
 
 // ---------------------------------------- MINION - PRIEST
+// [CORE_DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
+// - Race: Dragon, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Play all cards
+//       your opponent played last turn.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CORE_DRG_090 : Murozond the Infinite")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shield Block"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Murozond the Infinite"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(opPlayer->GetHero()->weapon->card->name, "Fiery War Axe");
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[1]->card->name, "Wolfrider");
+    CHECK_EQ(opHand.GetCount(), 7);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 5);
+}
+
+// ---------------------------------------- MINION - PRIEST
 // [CORE_EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
