@@ -4353,6 +4353,61 @@ TEST_CASE("[Priest : Spell] - CORE_CS1_130 : Holy Smite")
 }
 
 // ---------------------------------------- MINION - PRIEST
+// [CORE_CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever a minion is healed, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CORE_CS2_235 : Northshire Cleric")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(6);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Northshire Cleric"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voodoo Doctor"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voodoo Doctor"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+
+    curField[0]->SetDamage(2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
+
+// ---------------------------------------- MINION - PRIEST
 // [CORE_EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------

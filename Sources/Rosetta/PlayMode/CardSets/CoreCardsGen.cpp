@@ -1477,6 +1477,11 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("CORE_CS2_235", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
