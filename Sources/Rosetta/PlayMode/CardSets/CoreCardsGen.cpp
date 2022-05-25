@@ -1419,13 +1419,21 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Race: Dragon, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you're holding a Dragon,
-    //       <b>Discover</b> a copy of a card in
-    //       your opponent's deck.
+    //       <b>Discover</b> a copy of a card
+    //       in your opponent's deck.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DiscoverTask>(DiscoverType::ENEMY_DECK) }));
+    cards.emplace("CORE_CFM_605", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [CORE_CS1_112] Holy Nova - COST:4
