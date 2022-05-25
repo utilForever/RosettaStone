@@ -1,13 +1,17 @@
 // This code is based on Sabberstone project.
-// Copyright (c) 2017-2019 SabberStone Team, darkfriend77 & rnilva
-// Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
-// Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+// Copyright (c) 2017-2021 SabberStone Team, darkfriend77 & rnilva
+// RosettaStone is hearthstone simulator using C++ with reinforcement learning.
+// Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/GangsCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
+using namespace RosettaStone::PlayMode::SimpleTasks;
+
 namespace RosettaStone::PlayMode
 {
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+
 void GangsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -513,6 +517,8 @@ void GangsCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void GangsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - PRIEST
     // [CFM_020] Raza the Chained - COST:5 [ATK:5/HP:5]
     // - Set: GANGS, Rarity: Legendary
@@ -554,6 +560,14 @@ void GangsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DiscoverTask>(DiscoverType::ENEMY_DECK) }));
+    cards.emplace("CFM_605", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CFM_606] Mana Geode - COST:2 [ATK:2/HP:3]
