@@ -256,6 +256,16 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             }
             break;
         }
+        case DiscoverType::ENEMY_DECK:
+        {
+            choiceAction = ChoiceAction::HAND_COPY;
+            for (auto& playable : player->opponent->GetDeckZone()->GetAll())
+            {
+                cardsForOtherEffect.emplace_back(
+                    playable->GetGameTag(GameTag::ENTITY_ID));
+            }
+            break;
+        }
         case DiscoverType::SPELL_FROM_DECK:
         {
             choiceAction = ChoiceAction::DRAW_FROM_DECK;
