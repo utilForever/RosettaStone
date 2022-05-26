@@ -35,33 +35,20 @@ TaskStatus DamageTask::Impl(Player* player)
 {
     int damage = m_damage;
 
-    if (m_isSpellDamage)
-    {
-        damage += m_source->player->GetCurrentSpellPower();
-
-        if (const auto spell = dynamic_cast<Spell*>(m_source); spell)
-        {
-            const SpellSchool spellSchool = spell->GetSpellSchool();
-            damage += m_source->player->GetExtraSpellPower(spellSchool);
-        }
-    }
-
     auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
     {
-        int realDamage = damage;
-
         const auto source = dynamic_cast<Playable*>(m_source);
         const auto character = dynamic_cast<Character*>(playable);
 
         if (m_randomDamage > 0)
         {
-            realDamage += Random::get<int>(0, m_randomDamage);
+            damage += Random::get<int>(0, m_randomDamage);
         }
 
-        Generic::TakeDamageToCharacter(source, character, realDamage,
+        Generic::TakeDamageToCharacter(source, character, damage,
                                        m_isSpellDamage);
     }
 
