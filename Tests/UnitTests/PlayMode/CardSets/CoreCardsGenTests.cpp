@@ -7681,7 +7681,6 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_235 : Chaos Nova")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
-
     game.Process(opPlayer, PlayCardTask::Spell(card4));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 2);

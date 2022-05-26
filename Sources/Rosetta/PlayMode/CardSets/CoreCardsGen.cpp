@@ -971,15 +971,12 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     const auto realTarget = dynamic_cast<Character*>(target);
 
                     const int targetHealth = realTarget->GetHealth();
-                    const int realDamage =
-                        6 + source->player->GetCurrentSpellPower();
-
-                    Generic::TakeDamageToCharacter(realSource, realTarget,
-                                                   realDamage, true);
+                    Generic::TakeDamageToCharacter(realSource, realTarget, 6,
+                                                   true);
 
                     if (realTarget->isDestroyed)
                     {
-                        const int remainDamage = realDamage - targetHealth;
+                        const int remainDamage = 6 - targetHealth;
                         if (remainDamage > 0)
                         {
                             Generic::TakeDamageToCharacter(
