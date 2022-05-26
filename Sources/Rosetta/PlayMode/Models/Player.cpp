@@ -92,15 +92,13 @@ int Player::GetCurrentSpellPower() const
 {
     int value = 0;
 
-    for (auto& minion : GetFieldZone()->GetAll())
-    {
-        if (minion->IsUntouchable())
+    m_fieldZone->ForEach([&](Playable* playable) {
+        if (auto minion = dynamic_cast<Minion*>(playable);
+            minion && !minion->IsUntouchable())
         {
-            continue;
+            value += minion->GetSpellPower();
         }
-
-        value += minion->GetSpellPower();
-    }
+    });
 
     value += GetHero()->GetSpellPower();
     value += GetGameTag(GameTag::SPELLPOWER);
