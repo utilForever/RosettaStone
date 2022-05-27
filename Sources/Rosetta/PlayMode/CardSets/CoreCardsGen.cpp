@@ -1688,6 +1688,25 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::SOURCE));
+    cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::ALL_MINIONS, std::vector<EntityType>(), true));
+    cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            const auto source = playables[0];
+
+            for (std::size_t i = 1; i < playables.size(); ++i)
+            {
+                const auto character = dynamic_cast<Character*>(playables[i]);
+                Generic::TakeDamageToCharacter(source, character,
+                                               character->GetAttack(), true);
+            }
+
+            return std::vector<Playable*>{};
+        }));
+    cards.emplace("CORE_GVG_008", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_UNG_034] Radiant Elemental - COST:2 [ATK:2/HP:3]
