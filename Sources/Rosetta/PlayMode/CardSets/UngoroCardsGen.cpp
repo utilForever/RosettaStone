@@ -935,7 +935,17 @@ void UngoroCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::PRIEST),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("UNG_963", cardDef);
 }
 
 void UngoroCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)

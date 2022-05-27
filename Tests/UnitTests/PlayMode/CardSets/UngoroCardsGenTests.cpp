@@ -173,6 +173,53 @@ TEST_CASE("[Priest : Minion] - UNG_034 : Radiant Elemental")
     CHECK_EQ(curPlayer->GetRemainingMana(), 7);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [UNG_963] Lyra the Sunshard - COST:5 [ATK:3/HP:5]
+// - Race: Elemental, Set: Ungoro, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       add a random Priest spell to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - UNG_963 : Lyra the Sunshard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lyra the Sunshard"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flash Heal"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::PRIEST);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::SPELL);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [UNG_817] Tidal Surge - COST:3
 // - Faction: Neutral, Set: Ungoro, Rarity: Common
