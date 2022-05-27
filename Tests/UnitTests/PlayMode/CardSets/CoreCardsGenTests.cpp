@@ -4823,6 +4823,64 @@ TEST_CASE("[Priest : Spell] - CORE_GVG_008 : Lightbomb")
 }
 
 // ---------------------------------------- MINION - PRIEST
+// [CORE_UNG_034] Radiant Elemental - COST:2 [ATK:2/HP:3]
+// - Race: Elemental, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Your spells cost (1) less.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CORE_UNG_034 : Radiant Elemental")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Radiant Elemental"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Radiant Elemental"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Power Infusion"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Silence"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card3->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card3->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(card3->GetCost(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+}
+
+// ---------------------------------------- MINION - PRIEST
 // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------

@@ -1717,6 +1717,15 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("CORE_UNG_034", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_UNG_963] Lyra the Sunshard - COST:5 [ATK:3/HP:5]
