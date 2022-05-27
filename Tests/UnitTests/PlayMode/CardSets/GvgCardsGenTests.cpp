@@ -26,7 +26,7 @@ using namespace SimpleTasks;
 // GameTag:
 // - AFFECTED_BY_SPELL_POWER = 1
 // --------------------------------------------------------
-TEST_CASE("[Warrior : Minion] - GVG_008 : Lightbomb")
+TEST_CASE("[Priest : Spell] - GVG_008 : Lightbomb")
 {
     GameConfig config;
     config.player1Class = CardClass::PRIEST;
