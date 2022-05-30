@@ -4122,6 +4122,86 @@ TEST_CASE("[Priest : Spell] - CORE_AT_055 : Flash Heal")
     CHECK_EQ(opHero->GetHealth(), 25);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [CORE_CFM_605] Drakonid Operative - COST:5 [ATK:5/HP:6]
+// - Race: Dragon, Set: CORE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       <b>Discover</b> a copy of a card
+//       in your opponent's deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CORE_CFM_605 : Drakonid Operative")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+    config.doShuffle = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i + 1] = Cards::FindCardByName("Fireball");
+        config.player2Deck[i + 2] = Cards::FindCardByName("Blizzard");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Drakonid Operative"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Drakonid Operative"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        const bool checkName = card->name == "Wisp" ||
+                               card->name == "Fireball" ||
+                               card->name == "Blizzard";
+        CHECK(checkName);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(opDeck.GetCount(), 26);
+
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK(curPlayer->choice == nullptr);
+}
+
 // ----------------------------------------- SPELL - PRIEST
 // [CORE_CS1_112] Holy Nova - COST:4
 // - Set: CORE, Rarity: Common
@@ -4270,6 +4350,121 @@ TEST_CASE("[Priest : Spell] - CORE_CS1_130 : Holy Smite")
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [CORE_CS2_235] Northshire Cleric - COST:1 [ATK:1/HP:3]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever a minion is healed, draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CORE_CS2_235 : Northshire Cleric")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(6);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Northshire Cleric"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voodoo Doctor"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Voodoo Doctor"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+
+    curField[0]->SetDamage(2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [CORE_DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
+// - Race: Dragon, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Play all cards
+//       your opponent played last turn.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CORE_DRG_090 : Murozond the Infinite")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opHand = *(opPlayer->GetHandZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shield Block"));
+    const auto card4 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Murozond the Infinite"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(opPlayer->GetHero()->weapon->card->name, "Fiery War Axe");
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[1]->card->name, "Wolfrider");
+    CHECK_EQ(opHand.GetCount(), 7);
+    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 5);
 }
 
 // ---------------------------------------- MINION - PRIEST
@@ -4558,6 +4753,179 @@ TEST_CASE("[Priest : Spell] - CORE_EX1_622 : Shadow Word: Death")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
     CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ(opField.GetCount(), 1);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [CORE_GVG_008] Lightbomb - COST:6
+// - Set: CORE, Rarity: Epic
+// - Spell School: Holy
+// --------------------------------------------------------
+// Text: Deal damage to each minion equal to its Attack.
+// --------------------------------------------------------
+// GameTag:
+// - AFFECTED_BY_SPELL_POWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - CORE_GVG_008 : Lightbomb")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lightbomb"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Righteous Protector"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Sen'jin Shieldmasta"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->HasDivineShield(), false);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [CORE_UNG_034] Radiant Elemental - COST:2 [ATK:2/HP:3]
+// - Race: Elemental, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Your spells cost (1) less.
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CORE_UNG_034 : Radiant Elemental")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Radiant Elemental"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Radiant Elemental"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Power Infusion"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Silence"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card3->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card3->GetCost(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(card3->GetCost(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [CORE_UNG_963] Lyra the Sunshard - COST:5 [ATK:3/HP:5]
+// - Race: Elemental, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       add a random Priest spell to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - CORE_UNG_963 : Lyra the Sunshard")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Lyra the Sunshard"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flash Heal"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::PRIEST);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::SPELL);
 }
 
 // ---------------------------------------- MINION - PRIEST
@@ -7486,7 +7854,6 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_235 : Chaos Nova")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card5));
-
     game.Process(opPlayer, PlayCardTask::Spell(card4));
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 2);

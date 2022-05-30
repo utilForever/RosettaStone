@@ -3,8 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
+#include <Rosetta/PlayMode/Actions/CastSpell.hpp>
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Actions/PlayCard.hpp>
+#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
@@ -968,15 +971,12 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     const auto realTarget = dynamic_cast<Character*>(target);
 
                     const int targetHealth = realTarget->GetHealth();
-                    const int realDamage =
-                        6 + source->player->GetCurrentSpellPower();
-
-                    Generic::TakeDamageToCharacter(realSource, realTarget,
-                                                   realDamage, true);
+                    Generic::TakeDamageToCharacter(realSource, realTarget, 6,
+                                                   true);
 
                     if (realTarget->isDestroyed)
                     {
-                        const int remainDamage = realDamage - targetHealth;
+                        const int remainDamage = 6 - targetHealth;
                         if (remainDamage > 0)
                         {
                             Generic::TakeDamageToCharacter(
@@ -1419,13 +1419,21 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Race: Dragon, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If you're holding a Dragon,
-    //       <b>Discover</b> a copy of a card in
-    //       your opponent's deck.
+    //       <b>Discover</b> a copy of a card
+    //       in your opponent's deck.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DiscoverTask>(DiscoverType::ENEMY_DECK) }));
+    cards.emplace("CORE_CFM_605", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [CORE_CS1_112] Holy Nova - COST:4
@@ -1469,6 +1477,11 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TAKE_HEAL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ALL_MINIONS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("CORE_CS2_235", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
@@ -1481,6 +1494,93 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
+        [](Player* player, [[maybe_unused]] Entity* source,
+           [[maybe_unused]] Playable* target) {
+            auto cardsOpPlayedLastTurn = player->opponent->cardsPlayedThisTurn;
+            Random::shuffle(cardsOpPlayedLastTurn.begin(),
+                            cardsOpPlayedLastTurn.end());
+
+            for (auto& card : cardsOpPlayedLastTurn)
+            {
+                auto validTargets = card->GetValidPlayTargets(player);
+                if (card->mustHaveToTargetToPlay && validTargets.empty())
+                {
+                    continue;
+                }
+
+                const auto targetIdx =
+                    Random::get<std::size_t>(0, validTargets.size() - 1);
+                const auto randTarget =
+                    validTargets.empty() ? nullptr : validTargets[targetIdx];
+                const auto chooseOneIdx = Random::get<int>(1, 2);
+
+                Entity* entity = Entity::GetFromCard(player, card);
+
+                switch (card->GetCardType())
+                {
+                    case CardType::HERO:
+                    {
+                        Generic::PlayHero(player, dynamic_cast<Hero*>(entity),
+                                          randTarget, chooseOneIdx);
+                        break;
+                    }
+                    case CardType::MINION:
+                    {
+                        if (player->GetFieldZone()->IsFull())
+                        {
+                            break;
+                        }
+
+                        Generic::Summon(dynamic_cast<Minion*>(entity), -1,
+                                        player);
+
+                        player->game->ProcessDestroyAndUpdateAura();
+                        break;
+                    }
+                    case CardType::SPELL:
+                    {
+                        Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
+                                           randTarget, chooseOneIdx);
+
+                        while (player->choice != nullptr)
+                        {
+                            const auto choiceIdx = Random::get<std::size_t>(
+                                0, player->choice->choices.size());
+                            Generic::ChoicePick(player,
+                                                static_cast<int>(choiceIdx));
+                        }
+
+                        player->game->ProcessDestroyAndUpdateAura();
+                        break;
+                    }
+                    case CardType::WEAPON:
+                    {
+                        auto weapon = dynamic_cast<Weapon*>(entity);
+
+                        if (auto aura = weapon->card->power.GetAura(); aura)
+                        {
+                            aura->Activate(weapon);
+                        }
+
+                        if (auto trigger = weapon->card->power.GetTrigger();
+                            trigger)
+                        {
+                            trigger->Activate(weapon);
+                        }
+
+                        player->GetHero()->AddWeapon(*weapon);
+                        break;
+                    }
+                    default:
+                        throw std::invalid_argument(
+                            "Murozond the Infinite (CORE_DRG_090) - Invalid "
+                            "card type!");
+                }
+            }
+        }));
+    cards.emplace("CORE_DRG_090", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_EX1_193] Psychic Conjurer - COST:1 [ATK:1/HP:1]
@@ -1588,6 +1688,25 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::SOURCE));
+    cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::ALL_MINIONS, std::vector<EntityType>(), true));
+    cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            const auto source = playables[0];
+
+            for (std::size_t i = 1; i < playables.size(); ++i)
+            {
+                const auto character = dynamic_cast<Character*>(playables[i]);
+                Generic::TakeDamageToCharacter(source, character,
+                                               character->GetAttack(), true);
+            }
+
+            return std::vector<Playable*>{};
+        }));
+    cards.emplace("CORE_GVG_008", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_UNG_034] Radiant Elemental - COST:2 [ATK:2/HP:3]
@@ -1598,6 +1717,15 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("CORE_UNG_034", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CORE_UNG_963] Lyra the Sunshard - COST:5 [ATK:3/HP:5]
@@ -1610,6 +1738,15 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::PRIEST),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("CORE_UNG_963", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [CS3_013] Shadowed Spirit - COST:3 [ATK:4/HP:3]

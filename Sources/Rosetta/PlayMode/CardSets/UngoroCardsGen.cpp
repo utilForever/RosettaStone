@@ -13,6 +13,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using PlayReqs = std::map<PlayReq, int>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void UngoroCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -796,6 +797,8 @@ void UngoroCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - PRIEST
     // [UNG_022] Mirage Caller - COST:3 [ATK:2/HP:3]
     // - Set: Ungoro, Rarity: Rare
@@ -853,6 +856,15 @@ void UngoroCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::ReduceCost(1) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsSpell());
+    }
+    cards.emplace("UNG_034", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [UNG_035] Curious Glimmerroot - COST:3 [ATK:3/HP:3]
@@ -923,7 +935,17 @@ void UngoroCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
+    // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RandomCardTask>(CardType::SPELL, CardClass::PRIEST),
+        std::make_shared<AddStackToTask>(EntityType::HAND)
+    };
+    cards.emplace("UNG_963", cardDef);
 }
 
 void UngoroCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)

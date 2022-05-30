@@ -1845,8 +1845,8 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
     // - Race: Dragon, Set: Dragons, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Play all cards your opponent
-    //       played last turn.
+    // Text: <b>Battlecry:</b> Play all cards
+    //       your opponent played last turn.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

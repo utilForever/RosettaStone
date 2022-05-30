@@ -35,7 +35,7 @@ CORE | CORE_BT_491 | Spectral Sight | O
 CORE | CORE_BT_801 | Eye Beam | O
 CORE | CORE_BT_921 | Aldrachi Warblades | O
 CORE | CORE_CFM_120 | Mistress of Mixtures |  
-CORE | CORE_CFM_605 | Drakonid Operative |  
+CORE | CORE_CFM_605 | Drakonid Operative | O
 CORE | CORE_CFM_751 | Abyssal Enforcer |  
 CORE | CORE_CS1_112 | Holy Nova | O
 CORE | CORE_CS1_130 | Holy Smite | O
@@ -71,12 +71,12 @@ CORE | CORE_CS2_188 | Abusive Sergeant | O
 CORE | CORE_CS2_189 | Elven Archer | O
 CORE | CORE_CS2_203 | Ironbeak Owl | O
 CORE | CORE_CS2_222 | Stormwind Champion | O
-CORE | CORE_CS2_235 | Northshire Cleric |  
+CORE | CORE_CS2_235 | Northshire Cleric | O
 CORE | CORE_DAL_086 | Sunreaver Spy | O
 CORE | CORE_DAL_371 | Marked Shot | O
 CORE | CORE_DAL_416 | Hench-Clan Burglar |  
 CORE | CORE_DAL_609 | Kalecgos | O
-CORE | CORE_DRG_090 | Murozond the Infinite |  
+CORE | CORE_DRG_090 | Murozond the Infinite | O
 CORE | CORE_DRG_226 | Amber Watcher | O
 CORE | CORE_DRG_229 | Bronze Explorer | O
 CORE | CORE_DS1_184 | Tracking | O
@@ -173,7 +173,7 @@ CORE | CORE_GIL_622 | Lifedrinker |
 CORE | CORE_GIL_650 | Houndmaster Shaw | O
 CORE | CORE_GIL_801 | Snap Freeze | O
 CORE | CORE_GIL_828 | Dire Frenzy | O
-CORE | CORE_GVG_008 | Lightbomb |  
+CORE | CORE_GVG_008 | Lightbomb | O
 CORE | CORE_GVG_053 | Shieldmaiden | O
 CORE | CORE_GVG_076 | Explosive Sheep | O
 CORE | CORE_GVG_085 | Annoy-o-Tron | O
@@ -226,7 +226,7 @@ CORE | CORE_ULD_191 | Beaming Sidekick |
 CORE | CORE_ULD_209 | Vulpera Scoundrel |  
 CORE | CORE_ULD_271 | Injured Tol'vir |  
 CORE | CORE_UNG_020 | Arcanologist | O
-CORE | CORE_UNG_034 | Radiant Elemental |  
+CORE | CORE_UNG_034 | Radiant Elemental | O
 CORE | CORE_UNG_108 | Earthen Scales | O
 CORE | CORE_UNG_813 | Stormwatcher | O
 CORE | CORE_UNG_817 | Tidal Surge | O
@@ -234,7 +234,7 @@ CORE | CORE_UNG_833 | Lakkari Felhound | O
 CORE | CORE_UNG_844 | Humongous Razorleaf | O
 CORE | CORE_UNG_848 | Primordial Drake |  
 CORE | CORE_UNG_928 | Tar Creeper |  
-CORE | CORE_UNG_963 | Lyra the Sunshard |  
+CORE | CORE_UNG_963 | Lyra the Sunshard | O
 CORE | CORE_YOD_006 | Escaped Manasaber |  
 CORE | CS3_001 | Aegwynn, the Guardian |  
 CORE | CS3_003 | Felsoul Jailer | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 78% (196 of 250 Cards)
+- Progress: 80% (202 of 250 Cards)
 
 ## Forged in the Barrens
 

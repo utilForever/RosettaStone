@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/GvgCardsGen.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
@@ -517,6 +518,8 @@ void GvgCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void GvgCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - PRIEST
     // [GVG_008] Lightbomb - COST:6
     // - Set: Gvg, Rarity: Epic
@@ -526,6 +529,25 @@ void GvgCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::SOURCE));
+    cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(
+        EntityType::ALL_MINIONS, std::vector<EntityType>(), true));
+    cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            const auto source = playables[0];
+
+            for (std::size_t i = 1; i < playables.size(); ++i)
+            {
+                const auto character = dynamic_cast<Character*>(playables[i]);
+                Generic::TakeDamageToCharacter(source, character,
+                                               character->GetAttack(), true);
+            }
+
+            return std::vector<Playable*>{};
+        }));
+    cards.emplace("GVG_008", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [GVG_009] Shadowbomber - COST:1 [ATK:2/HP:1]

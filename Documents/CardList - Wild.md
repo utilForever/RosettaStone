@@ -12,6 +12,7 @@
 * [The League of Explorers](#the-league-of-explorers)
 * [Whispers of the Old Gods](#whispers-of-the-old-gods)
 * [One Night in Karazhan](#one-night-in-karazhan)
+* [Mean Streets of Gadgetzan](#mean-streets-of-gadgetzan)
 * [Journey to Un'Goro](#journey-to-ungoro)
 * [Knights of the Frozen Throne](#knights-of-the-frozen-throne)
 * [Kobolds & Catacombs](#kobolds--catacombs)
@@ -527,7 +528,7 @@ GVG | GVG_004 | Goblin Blastmage |
 GVG | GVG_005 | Echo of Medivh |  
 GVG | GVG_006 | Mechwarper |  
 GVG | GVG_007 | Flame Leviathan |  
-GVG | GVG_008 | Lightbomb |  
+GVG | GVG_008 | Lightbomb | O
 GVG | GVG_009 | Shadowbomber |  
 GVG | GVG_010 | Velen's Chosen |  
 GVG | GVG_011 | Shrinkmeister |  
@@ -644,7 +645,7 @@ GVG | GVG_121 | Clockwork Giant | O
 GVG | GVG_122 | Wee Spellstopper |  
 GVG | GVG_123 | Soot Spewer |  
 
-- Progress: 5% (7 of 123 Cards)
+- Progress: 6% (8 of 123 Cards)
 
 ## Blackrock Mountain
 
@@ -1068,6 +1069,145 @@ KARA | KAR_712 | Violet Illusionist |
 
 - Progress: 13% (6 of 45 Cards)
 
+## Mean Streets of Gadgetzan
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+GANGS | CFM_020 | Raza the Chained |  
+GANGS | CFM_021 | Freezing Potion |  
+GANGS | CFM_025 | Wind-up Burglebot |  
+GANGS | CFM_026 | Hidden Cache |  
+GANGS | CFM_039 | Street Trickster |  
+GANGS | CFM_060 | Red Mana Wyrm |  
+GANGS | CFM_061 | Jinyu Waterspeaker |  
+GANGS | CFM_062 | Grimestreet Protector |  
+GANGS | CFM_063 | Kooky Chemist |  
+GANGS | CFM_064 | Blubber Baron |  
+GANGS | CFM_065 | Volcanic Potion |  
+GANGS | CFM_066 | Kabal Lackey |  
+GANGS | CFM_067 | Hozen Healer |  
+GANGS | CFM_094 | Felfire Potion |  
+GANGS | CFM_095 | Weasel Tunneler |  
+GANGS | CFM_120 | Mistress of Mixtures |  
+GANGS | CFM_300 | Public Defender |  
+GANGS | CFM_305 | Smuggler's Run |  
+GANGS | CFM_308 | Kun the Forgotten King |  
+GANGS | CFM_310 | Call in the Finishers |  
+GANGS | CFM_312 | Jade Chieftain |  
+GANGS | CFM_313 | Finders Keepers |  
+GANGS | CFM_315 | Alleycat |  
+GANGS | CFM_316 | Rat Pack |  
+GANGS | CFM_321 | Grimestreet Informant |  
+GANGS | CFM_324 | White Eyes |  
+GANGS | CFM_325 | Small-Time Buccaneer |  
+GANGS | CFM_328 | Fight Promoter |  
+GANGS | CFM_333 | Knuckles |  
+GANGS | CFM_334 | Smuggler's Crate |  
+GANGS | CFM_335 | Dispatch Kodo |  
+GANGS | CFM_336 | Shaky Zipgunner |  
+GANGS | CFM_337 | Piranha Launcher |  
+GANGS | CFM_338 | Trogg Beastrager |  
+GANGS | CFM_341 | Sergeant Sally |  
+GANGS | CFM_342 | Luckydo Buccaneer |  
+GANGS | CFM_343 | Jade Behemoth |  
+GANGS | CFM_344 | Finja, the Flying Star |  
+GANGS | CFM_602 | Jade Idol |  
+GANGS | CFM_603 | Potion of Madness |  
+GANGS | CFM_604 | Greater Healing Potion |  
+GANGS | CFM_605 | Drakonid Operative | O
+GANGS | CFM_606 | Mana Geode |  
+GANGS | CFM_608 | Blastcrystal Potion |  
+GANGS | CFM_609 | Fel Orc Soulfiend |  
+GANGS | CFM_610 | Crystalweaver |  
+GANGS | CFM_611 | Bloodfury Potion |  
+GANGS | CFM_614 | Mark of the Lotus |  
+GANGS | CFM_616 | Pilfered Power |  
+GANGS | CFM_617 | Celestial Dreamer |  
+GANGS | CFM_619 | Kabal Chemist |  
+GANGS | CFM_620 | Potion of Polymorph |  
+GANGS | CFM_621 | Kazakus |  
+GANGS | CFM_623 | Greater Arcane Missiles |  
+GANGS | CFM_626 | Kabal Talonpriest |  
+GANGS | CFM_630 | Counterfeit Coin |  
+GANGS | CFM_631 | Brass Knuckles |  
+GANGS | CFM_634 | Lotus Assassin |  
+GANGS | CFM_636 | Shadow Rager |  
+GANGS | CFM_637 | Patches the Pirate |  
+GANGS | CFM_639 | Grimestreet Enforcer |  
+GANGS | CFM_643 | Hobart Grapplehammer |  
+GANGS | CFM_646 | Backstreet Leper |  
+GANGS | CFM_647 | Blowgill Sniper |  
+GANGS | CFM_648 | Big-Time Racketeer |  
+GANGS | CFM_649 | Kabal Courier |  
+GANGS | CFM_650 | Grimscale Chum |  
+GANGS | CFM_651 | Naga Corsair |  
+GANGS | CFM_652 | Second-Rate Bruiser |  
+GANGS | CFM_653 | Hired Gun |  
+GANGS | CFM_654 | Friendly Bartender |  
+GANGS | CFM_655 | Toxic Sewer Ooze |  
+GANGS | CFM_656 | Streetwise Investigator |  
+GANGS | CFM_657 | Kabal Songstealer |  
+GANGS | CFM_658 | Backroom Bouncer |  
+GANGS | CFM_659 | Gadgetzan Socialite |  
+GANGS | CFM_660 | Manic Soulcaster |  
+GANGS | CFM_661 | Pint-Size Potion |  
+GANGS | CFM_662 | Dragonfire Potion |  
+GANGS | CFM_663 | Kabal Trafficker |  
+GANGS | CFM_665 | Worgen Greaser |  
+GANGS | CFM_666 | Grook Fu Master |  
+GANGS | CFM_667 | Bomb Squad |  
+GANGS | CFM_668 | Doppelgangster |  
+GANGS | CFM_669 | Burgly Bully |  
+GANGS | CFM_670 | Mayor Noggenfogger |  
+GANGS | CFM_671 | Cryomancer |  
+GANGS | CFM_672 | Madam Goya |  
+GANGS | CFM_685 | Don Han'Cho |  
+GANGS | CFM_687 | Inkmaster Solia |  
+GANGS | CFM_688 | Spiked Hogrider |  
+GANGS | CFM_690 | Jade Shuriken |  
+GANGS | CFM_691 | Jade Swarmer |  
+GANGS | CFM_693 | Gadgetzan Ferryman |  
+GANGS | CFM_694 | Shadow Sensei |  
+GANGS | CFM_696 | Devolve |  
+GANGS | CFM_697 | Lotus Illusionist |  
+GANGS | CFM_699 | Seadevil Stinger |  
+GANGS | CFM_707 | Jade Lightning |  
+GANGS | CFM_713 | Jade Blossom |  
+GANGS | CFM_715 | Jade Spirit |  
+GANGS | CFM_716 | Sleep with the Fishes |  
+GANGS | CFM_717 | Jade Claws |  
+GANGS | CFM_750 | Krul the Unshackled |  
+GANGS | CFM_751 | Abyssal Enforcer |  
+GANGS | CFM_752 | Stolen Goods |  
+GANGS | CFM_753 | Grimestreet Outfitter |  
+GANGS | CFM_754 | Grimy Gadgeteer |  
+GANGS | CFM_755 | Grimestreet Pawnbroker |  
+GANGS | CFM_756 | Alley Armorsmith |  
+GANGS | CFM_759 | Meanstreet Marshal |  
+GANGS | CFM_760 | Kabal Crystal Runner |  
+GANGS | CFM_781 | Shaku, the Collector |  
+GANGS | CFM_790 | Dirty Rat |  
+GANGS | CFM_800 | Getaway Kodo |  
+GANGS | CFM_806 | Wrathion |  
+GANGS | CFM_807 | Auctionmaster Beardo |  
+GANGS | CFM_808 | Genzo, the Shark |  
+GANGS | CFM_809 | Tanaris Hogchopper |  
+GANGS | CFM_810 | Leatherclad Hogleader |  
+GANGS | CFM_811 | Lunar Visions |  
+GANGS | CFM_815 | Wickerflame Burnbristle |  
+GANGS | CFM_816 | Virmen Sensei |  
+GANGS | CFM_851 | Daring Reporter |  
+GANGS | CFM_852 | Lotus Agents |  
+GANGS | CFM_853 | Grimestreet Smuggler |  
+GANGS | CFM_854 | Ancient of Blossoms |  
+GANGS | CFM_855 | Defias Cleaner |  
+GANGS | CFM_900 | Unlicensed Apothecary |  
+GANGS | CFM_902 | Aya Blackpaw |  
+GANGS | CFM_905 | Small-Time Recruits |  
+GANGS | CFM_940 | I Know a Guy |  
+
+- Progress: 0% (1 of 132 Cards)
+
 ## Journey to Un'Goro
 
 Set | ID | Name | Implemented
@@ -1091,7 +1231,7 @@ UNGORO | UNG_028 | Open the Waygate |
 UNGORO | UNG_029 | Shadow Visions |  
 UNGORO | UNG_030 | Binding Heal |  
 UNGORO | UNG_032 | Crystalline Oracle |  
-UNGORO | UNG_034 | Radiant Elemental |  
+UNGORO | UNG_034 | Radiant Elemental | O
 UNGORO | UNG_035 | Curious Glimmerroot |  
 UNGORO | UNG_037 | Tortollan Shellraiser |  
 UNGORO | UNG_047 | Ravenous Pterrordax |  
@@ -1206,9 +1346,9 @@ UNGORO | UNG_957 | Direhorn Hatchling |
 UNGORO | UNG_960 | Lost in the Jungle |  
 UNGORO | UNG_961 | Adaptation |  
 UNGORO | UNG_962 | Lightfused Stegodon |  
-UNGORO | UNG_963 | Lyra the Sunshard |  
+UNGORO | UNG_963 | Lyra the Sunshard | O
 
-- Progress: 4% (6 of 135 Cards)
+- Progress: 5% (8 of 135 Cards)
 
 ## Knights of the Frozen Throne
 

@@ -92,15 +92,13 @@ int Player::GetCurrentSpellPower() const
 {
     int value = 0;
 
-    for (auto& minion : GetFieldZone()->GetAll())
-    {
-        if (minion->IsUntouchable())
+    m_fieldZone->ForEach([&](Playable* playable) {
+        if (auto minion = dynamic_cast<Minion*>(playable);
+            minion && !minion->IsUntouchable())
         {
-            continue;
+            value += minion->GetSpellPower();
         }
-
-        value += minion->GetSpellPower();
-    }
+    });
 
     value += GetHero()->GetSpellPower();
     value += GetGameTag(GameTag::SPELLPOWER);
@@ -113,29 +111,27 @@ int Player::GetExtraSpellPower(SpellSchool spellSchool) const
 {
     int value = 0;
 
-    for (const auto& minion : GetFieldZone()->GetAll())
-    {
-        if (minion->IsUntouchable())
+    m_fieldZone->ForEach([&](Playable* playable) {
+        if (auto minion = dynamic_cast<Minion*>(playable);
+            minion && !minion->IsUntouchable())
         {
-            continue;
+            switch (spellSchool)
+            {
+                case SpellSchool::NATURE:
+                    value += minion->GetSpellPowerNature();
+                    break;
+                case SpellSchool::NONE:
+                case SpellSchool::ARCANE:
+                case SpellSchool::FIRE:
+                case SpellSchool::FROST:
+                case SpellSchool::HOLY:
+                case SpellSchool::SHADOW:
+                case SpellSchool::FEL:
+                case SpellSchool::PHYSICAL_COMBAT:
+                    break;
+            }
         }
-
-        switch (spellSchool)
-        {
-            case SpellSchool::NATURE:
-                value += minion->GetSpellPowerNature();
-                break;
-            case SpellSchool::NONE:
-            case SpellSchool::ARCANE:
-            case SpellSchool::FIRE:
-            case SpellSchool::FROST:
-            case SpellSchool::HOLY:
-            case SpellSchool::SHADOW:
-            case SpellSchool::FEL:
-            case SpellSchool::PHYSICAL_COMBAT:
-                break;
-        }
-    }
+    });
 
     return value;
 }

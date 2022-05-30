@@ -3680,8 +3680,8 @@ TEST_CASE("[Paladin : Minion] - DRG_309 : Nozdormu the Timeless")
 // [DRG_090] Murozond the Infinite - COST:8 [ATK:8/HP:8]
 // - Race: Dragon, Set: Dragons, Rarity: Legendary
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> Play all cards your opponent
-//       played last turn.
+// Text: <b>Battlecry:</b> Play all cards
+//       your opponent played last turn.
 // --------------------------------------------------------
 // GameTag:
 // - ELITE = 1

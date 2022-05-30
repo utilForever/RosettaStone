@@ -43,7 +43,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Standard Format
 
-  * 78% Core Set (196 of 235 cards)
+  * 80% Core Set (202 of 235 cards)
   * 81% Forged in the Barrens (139 of 170 cards)
   * 35% United in Stormwind (60 of 170 cards)
   * 35% Fractured in Alterac Valley (61 of 170 cards)
@@ -55,14 +55,14 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * **100% Expert1 (245 of 245 Cards)**
   * **100% Demon Hunter Initiate (20 of 20 Cards)**
   * **100% Curse of Naxxramas (30 of 30 Cards)**
-  * 5% Goblins vs Gnomes (7 of 123 Cards)
+  * 6% Goblins vs Gnomes (8 of 123 Cards)
   * 3% Blackrock Mountain (1 of 31 Cards)
   * 6% The Grand Tournament (9 of 132 Cards)
   * 8% The League of Explorers (4 of 45 Cards)
   * 4% Whispers of the Old Gods (6 of 134 Cards)
   * 13% One Night in Karazhan (6 of 45 Cards)
-  * 0% Mean Streets of Gadgetzan (0 of 132 Cards)
-  * 4% Journey to Un'Goro (6 of 135 Cards)
+  * 0% Mean Streets of Gadgetzan (1 of 132 Cards)
+  * 5% Journey to Un'Goro (8 of 135 Cards)
   * 3% Knights of the Frozen Throne (5 of 135 Cards)
   * 3% Kobolds & Catacombs (5 of 135 Cards)
   * 2% The Witchwood (4 of 135 Cards)

@@ -21,30 +21,17 @@ TaskStatus DamageNumberTask::Impl(Player* player)
 {
     int damage = m_source->game->taskStack.num[0];
 
-    if (m_isSpellDamage)
-    {
-        damage += m_source->player->GetCurrentSpellPower();
-
-        if (const auto spell = dynamic_cast<Spell*>(m_source); spell)
-        {
-            const SpellSchool spellSchool = spell->GetSpellSchool();
-            damage += m_source->player->GetExtraSpellPower(spellSchool);
-        }
-    }
-
     auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
     {
-        const auto character = dynamic_cast<Character*>(playable);
-        if (character == nullptr)
+        if (const auto character = dynamic_cast<Character*>(playable);
+            character)
         {
-            continue;
+            Generic::TakeDamageToCharacter(dynamic_cast<Playable*>(m_source),
+                                           character, damage, m_isSpellDamage);
         }
-
-        Generic::TakeDamageToCharacter(dynamic_cast<Playable*>(m_source),
-                                       character, damage, m_isSpellDamage);
     }
 
     return TaskStatus::COMPLETE;
