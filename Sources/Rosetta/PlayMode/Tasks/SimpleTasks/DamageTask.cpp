@@ -33,13 +33,13 @@ DamageTask::DamageTask(EntityType entityType, int damage, int randomDamage,
 
 TaskStatus DamageTask::Impl(Player* player)
 {
-    int damage = m_damage;
-
     auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
     {
+        int damage = m_damage;
+
         const auto source = dynamic_cast<Playable*>(m_source);
         const auto character = dynamic_cast<Character*>(playable);
 
