@@ -159,6 +159,37 @@ void TheSunkenCityCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // Text: Give all minions in your hand +1/+1.
     //       Put a 'Sunken Gardens' on the bottom of your deck.
     // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [TID_000] Spirit of the Tides - COST:2 [ATK:2/HP:2]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: If you have any unspent Mana at the end
+    //       of your turn, gain +1/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - DRUID
+    // [TID_001] Moonbeam - COST:1
+    // - Set: THE_SUNKEN_CITY, Rarity: Common
+    // - Spell School: Arcane
+    // --------------------------------------------------------
+    // Text: Deal 1 damage to an enemy, twice.
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - DRUID
+    // [TID_002] Herald of Nature - COST:3 [ATK:3/HP:3]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       If you've cast a Nature spell while holding this,
+    //       give your other minions +1/+2.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddDruidNonCollect(
@@ -268,6 +299,34 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Give +1/+1 to all minions in your hand, deck,
     //       and battlefield.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [TID_000e] Endless Sea - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: +1/+2.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [TID_002e] Nature's Bounty - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: +1/+2.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [TID_078e] In Shambles - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Your next <b>Deathrattle</b> card costs (1) less.
+    // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - DRUID
+    // [TID_078e2] Shambled - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
     // --------------------------------------------------------
 }
 
@@ -401,6 +460,43 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [TID_074] Ancient Krakenbane - COST:3 [ATK:3/HP:3]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       If you've cast three spells while holding this,
+    //       deal 5 damage.
+    //       <i>({0} left!)</i> <i>(Ready!)</i>
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - HUNTER
+    // [TID_075] Shellshot - COST:3
+    // - Set: THE_SUNKEN_CITY, Rarity: Rare
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Deal 3 damage to a random enemy minion.
+    //       Repeat this with 1 less damage.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - HUNTER
+    // [TID_099] K9-0tron - COST:2 [ATK:2/HP:3]
+    // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Dredge</b>.
+    //       If it's a 1-Cost minion, summon it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DREDGE = 1
     // --------------------------------------------------------
 }
 
@@ -624,6 +720,41 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Draw a card.
     //       If you played a Naga while holding this, do it again.
     // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [TID_707] Submerged Spacerock - COST:2 [ATK:2/HP:2]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Deathrattle:</b>
+    //       Add two Arcane Mage spells to your hand.
+    //       At the end of your turn, discard them.
+    // --------------------------------------------------------
+    // GameTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------- SPELL - MAGE
+    // [TID_708] Polymorph: Jellyfish - COST:3
+    // - Set: THE_SUNKEN_CITY, Rarity: Common
+    // - Spell School: Arcane
+    // --------------------------------------------------------
+    // Text: Transform a minion into a 4/1 Jellyfish
+    //       with <b>Spell Damage +2</b>.
+    // --------------------------------------------------------
+    // RefTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [TID_709] Lady Naz'jar - COST:5 [ATK:5/HP:5]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: While in your hand, this transforms after you cast
+    //       a Fire, Frost, or Arcane spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddMageNonCollect(
@@ -670,6 +801,65 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // Text: <b>Battlecry:</b> Add 3 random Mechs to your hand.
     // --------------------------------------------------------
     // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [TID_707e] Submerged - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Discards at the end of your turn.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [TID_708t] Jellyfish - COST:3 [ATK:4/HP:1]
+    // - Race: Beast, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: <b>Spell Damage +2</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - SPELLPOWER = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------- ENCHANTMENT - MAGE
+    // [TID_709e] Naz'jar's Gift - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Costs (1) less.
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [TID_709t] Lady Naz'jar - COST:5 [ATK:5/HP:5]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Reduce the Cost of spells
+    //       in your hand by (1).
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [TID_709t2] Lady Naz'jar - COST:5 [ATK:5/HP:5]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 5 damage to an enemy minion
+    //       and 2 to adjacent minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ MINION - MAGE
+    // [TID_709t3] Lady Naz'jar - COST:5 [ATK:5/HP:5]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Gain 8 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
 }
@@ -807,6 +997,36 @@ void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Spell School: Holy
     // --------------------------------------------------------
     // Text: Restore 2 Health. Repeatable this turn.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [TID_077] Lightray - COST:9 [ATK:5/HP:5]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       Costs (1) less for each Paladin card
+    //       you've played this game.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - PALADIN
+    // [TID_098] Myrmidon - COST:3 [ATK:3/HP:4]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After you cast a spell on this minion, draw a card.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - PALADIN
+    // [TID_949] Front Lines - COST:9
+    // - Set: THE_SUNKEN_CITY, Rarity: Epic
+    // --------------------------------------------------------
+    // Text: Summon a minion from each player's deck.
+    //       Repeat until either side of the battlefield is full.
     // --------------------------------------------------------
 }
 
@@ -1016,6 +1236,38 @@ void TheSunkenCityCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [TID_085] Herald of Light - COST:3 [ATK:3/HP:4]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       If you've cast a Holy spell while holding this,
+    //       restore 6 Health to all friendly characters.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - PRIEST
+    // [TID_700] Disarming Elemental - COST:4 [ATK:4/HP:4]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Dredge</b> for your opponent.
+    //       Set its Cost to (6).
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DREDGE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - PRIEST
+    // [TID_920] Drown - COST:4
+    // - Set: THE_SUNKEN_CITY, Rarity: Rare
+    // - Spell School: Shadow
+    // --------------------------------------------------------
+    // Text: Put an enemy minion on the bottom of your deck.
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddPriestNonCollect(
@@ -1063,6 +1315,13 @@ void TheSunkenCityCardsGen::AddPriestNonCollect(
     // --------------------------------------------------------
     // GameTag:
     // - SILENCE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - PRIEST
+    // [TID_700e] Disarmed - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Costs (6).
     // --------------------------------------------------------
 }
 
@@ -1181,6 +1440,43 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [TID_078] Shattershambler - COST:1 [ATK:1/HP:3]
+    // - Race: Elemental, Faction: Horde, Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       Your next <b>Deathrattle</b> minion costs (1) less,
+    //       but immediately dies when played.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- MINION - ROGUE
+    // [TID_080] Inkveil Ambusher - COST:2 [ATK:1/HP:2]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Stealth</b>
+    //       Has +3 Attack and <b>Immune</b> while attacking.
+    // --------------------------------------------------------
+    // GameTag:
+    // - STEALTH = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
+    // ------------------------------------------ SPELL - ROGUE
+    // [TID_931] Jackpot! - COST:2
+    // - Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: Add two random spells from other classes
+    //       that cost (5) or more to your hand.
     // --------------------------------------------------------
 }
 
@@ -1304,6 +1600,13 @@ void TheSunkenCityCardsGen::AddRogueNonCollect(
     // - DEATHRATTLE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+
+    // ------------------------------------ ENCHANTMENT - ROGUE
+    // [TID_080e2] Inked - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: <b>Immune</b> and +3 Attack while attacking.
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
@@ -1419,6 +1722,43 @@ void TheSunkenCityCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [TID_003] Tidelost Burrower - COST:4 [ATK:4/HP:4]
+    // - Race: Murloc, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> <b>Dredge</b>.
+    //       If it's a Murloc, summon a 2/2 copy of it.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DREDGE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [TID_004] Clownfish - COST:3 [ATK:3/HP:2]
+    // - Race: Murloc, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Your next two Murlocs cost (2) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------------- SPELL - SHAMAN
+    // [TID_005] Command of Neptulon - COST:5
+    // - Set: THE_SUNKEN_CITY, Rarity: Rare
+    // - Spell School: Nature
+    // --------------------------------------------------------
+    // Text: Summon two 5/4 Elementals with <b>Rush</b>.
+    //       <b>Overload:</b> (1)
+    // --------------------------------------------------------
+    // GameTag:
+    // - OVERLOAD = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddShamanNonCollect(
@@ -1496,6 +1836,40 @@ void TheSunkenCityCardsGen::AddShamanNonCollect(
     // - Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: <b>Spell Damage +1</b>.
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [TID_003e2] Revealed - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: 2/2.
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [TID_004e] Clownfish Car - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Your next two Murlocs cost (2) less.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AURA = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- ENCHANTMENT - SHAMAN
+    // [TID_004e2] Clownin' Around - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
+    // --------------------------------------------------------
+
+    // ---------------------------------------- MINION - SHAMAN
+    // [TID_005t] Water Revenant - COST:4 [ATK:5/HP:4]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: <b>Rush</b>
+    // --------------------------------------------------------
+    // GameTag:
+    // - RUSH = 1
     // --------------------------------------------------------
 }
 
@@ -1611,6 +1985,39 @@ void TheSunkenCityCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [TID_717] Herald of Shadows - COST:3 [ATK:4/HP:2]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       If you've cast a Shadow spell while holding this,
+    //       steal 2 Health from a minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARLOCK
+    // [TID_718] Immolate - COST:4
+    // - Set: THE_SUNKEN_CITY, Rarity: Rare
+    // - Spell School: Fire
+    // --------------------------------------------------------
+    // Text: Light every card in the opponent's hand on fire.
+    //       In 3 turns, any still in hand are destroyed!
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARLOCK
+    // [TID_719] Commander Ulthok - COST:5 [ATK:7/HP:7]
+    // - Set: THE_SUNKEN_CITY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Your opponent's cards cost Health
+    //       instead of Mana next turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddWarlockNonCollect(
@@ -1712,6 +2119,61 @@ void TheSunkenCityCardsGen::AddWarlockNonCollect(
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [TID_717e] Siphoned - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Reduced Health.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [TID_717e2] Shadow Siphon - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Increased Health.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [TID_717e2b] Siphoned - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Increased Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENCHANTMENT_INVISIBLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [TID_717eb] Siphoned - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Reduced Health.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ENCHANTMENT_INVISIBLE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [TID_718e] Engulfed in Flame - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: In 3 turns, destroy the opponent's cards that are on fire.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [TID_718e2] Engulfed in Flame - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: This card is on fire!
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARLOCK
+    // [TID_719e] Blood Squeeze - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Your cards cost Health instead of Mana this turn.
     // --------------------------------------------------------
 }
 
@@ -1828,6 +2290,42 @@ void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Replace your deck with minions that cost (5) or more.
     //       They cost (5).
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [TID_714] Igneous Lavagorger - COST:4 [ATK:3/HP:5]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Taunt</b>
+    //       <b>Battlecry:</b> <b>Dredge</b>.
+    //       Gain Armor equal to its Cost.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - DREDGE = 1
+    // - TAUNT = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - WARRIOR
+    // [TID_715] Clash of the Colossals - COST:3
+    // - Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: Add a random <b>Colossal</b> minion
+    //       to both players' hands.
+    //       Yours costs (2) less.
+    // --------------------------------------------------------
+    // RefTag:
+    // - COLOSSAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - WARRIOR
+    // [TID_716] Tidal Revenant - COST:8 [ATK:5/HP:8]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Deal 5 damage. Gain 8 Armor.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddWarriorNonCollect(
@@ -1917,6 +2415,20 @@ void TheSunkenCityCardsGen::AddWarriorNonCollect(
     // - Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: Costs (5).
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [TID_714e] Gorged - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Increased attack.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - WARRIOR
+    // [TID_715e] Colossal Advantage - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Costs (2) less.
     // --------------------------------------------------------
 }
 
@@ -2057,6 +2569,45 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     // - BATTLECRY = 1
     // - DREDGE = 1
     // --------------------------------------------------------
+
+    // ------------------------------------ SPELL - DEMONHUNTER
+    // [TID_703] Topple the Idol - COST:5
+    // - Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Dredge</b>. Reveal it and deal damage equal to
+    //       its Cost to all minions.
+    // --------------------------------------------------------
+    // GameTag:
+    // - AFFECTED_BY_SPELL_POWER = 1
+    // - DREDGE = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [TID_704] Fossil Fanatic - COST:2 [ATK:2/HP:2]
+    // - Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After your hero attacks, draw a Fel spell.
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ----------------------------------- MINION - DEMONHUNTER
+    // [TID_706] Herald of Chaos - COST:3 [ATK:3/HP:4]
+    // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: <b>Lifesteal</b>
+    //       <b>Battlecry:</b>
+    //       If you've cast a Fel spell while holding this,
+    //       gain <b>Rush</b>.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // - LIFESTEAL = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - RUSH = 1
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
@@ -2161,6 +2712,13 @@ void TheSunkenCityCardsGen::AddDemonHunterNonCollect(
     // GameTag:
     // - ELITE = 1
     // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // ------------------------------ ENCHANTMENT - DEMONHUNTER
+    // [TID_706e] Felfused - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Has <b>Rush</b>.
     // --------------------------------------------------------
 }
 
@@ -2600,6 +3158,70 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - RUSH = 1
     // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_710] Snapdragon - COST:3 [ATK:3/HP:3]
+    // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b> Give all <b>Battlecry</b> minions
+    //       in your deck +1/+1.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_711] Ozumat - COST:8 [ATK:6/HP:5]
+    // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Colossal +6</b>
+    //       <b>Deathrattle:</b> For each of Ozumat's Tentacles,
+    //       destroy a random enemy minion.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - COLOSSAL = 1
+    // - DEATHRATTLE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_712] Neptulon the Tidehunter - COST:10 [ATK:7/HP:7]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: <b>Colossal +2</b>, <b>Rush</b>, <b>Windfury</b>
+    //       Whenever Neptulon attacks, if you control any Hands,
+    //       they attack instead.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // - COLOSSAL = 1
+    // - RUSH = 1
+    // - TRIGGER_VISUAL = 1
+    // - WINDFURY = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_713] Bubbler - COST:1 [ATK:2/HP:4]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Common
+    // --------------------------------------------------------
+    // Text: After this minion takes exactly one damage,
+    //       destroy it. <i>(Pop!)</i>
+    // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_744] Coilfang Constrictor - COST:4 [ATK:5/HP:4]
+    // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Rare
+    // --------------------------------------------------------
+    // Text: <b>Battlecry:</b>
+    //       Look at 3 cards in your opponent's hand
+    //       and choose one. It can't be played next turn.
+    // --------------------------------------------------------
+    // GameTag:
+    // - BATTLECRY = 1
+    // --------------------------------------------------------
 }
 
 void TheSunkenCityCardsGen::AddNeutralNonCollect(
@@ -2852,6 +3474,94 @@ void TheSunkenCityCardsGen::AddNeutralNonCollect(
     // - Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: Gain 1 Mana Crystal this turn only.
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [TID_710e] Razor Sharp - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: +1/+1.
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_711t] Ozumat's Tentacle - COST:1 [ATK:1/HP:3]
+    // - Race: Beast, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_711t2] Ozumat's Tentacle - COST:1 [ATK:1/HP:3]
+    // - Race: Beast, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_711t3] Ozumat's Tentacle - COST:1 [ATK:1/HP:3]
+    // - Race: Beast, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_711t4] Ozumat's Tentacle - COST:1 [ATK:1/HP:3]
+    // - Race: Beast, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_711t5] Ozumat's Tentacle - COST:1 [ATK:1/HP:3]
+    // - Race: Beast, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_711t6] Ozumat's Tentacle - COST:1 [ATK:1/HP:3]
+    // - Race: Beast, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_712t] Neptulon's Hand - COST:4 [ATK:4/HP:2]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: <b>Immune</b> while attacking.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [TID_712t2] Neptulon's Hand - COST:4 [ATK:4/HP:2]
+    // - Race: Elemental, Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: <b>Immune</b> while attacking.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - IMMUNE = 1
+    // --------------------------------------------------------
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [TID_744e] Constricted - COST:0
+    // - Set: THE_SUNKEN_CITY
+    // --------------------------------------------------------
+    // Text: Can't be played next turn.
     // --------------------------------------------------------
 }
 
