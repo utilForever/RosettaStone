@@ -14937,6 +14937,388 @@
     {
         "collectible": true,
         "craftingCost": 300,
+        "defaultSkinDbfId": 84176,
+        "equipment": [
+            {
+                "id": 289,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87832,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87831,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87830,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 84185,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 288,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87829,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87828,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87827,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 84184,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 352,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87835,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87834,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87833,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 86363,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 289,
+        "name": "Lady Vashj",
+        "shortName": "Vashj",
+        "skinDbfIds": [
+            84178,
+            84177,
+            84176
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 757,
+                        "name": "Electrify",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87839,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87838,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87837,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87836,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 84180,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 759,
+                        "name": "Handmaiden's Poison",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87843,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87842,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87841,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87840,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 84182,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 811,
+                        "name": "Reflex Shot",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87847,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87846,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87845,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87844,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 86327,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 348,
+                "name": "Orc"
+            }
+        ]
+    },
+    {
+        "collectible": true,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 84407,
+        "equipment": [
+            {
+                "id": 290,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 86908,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 86907,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 86906,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 84417,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 291,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 86911,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 86910,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 86909,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 84416,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 292,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 86914,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 86913,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 86912,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 84415,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 290,
+        "name": "Queen Azshara",
+        "shortName": "Azshara",
+        "skinDbfIds": [
+            84407,
+            84406,
+            84405
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 763,
+                        "name": "Shifting Tides",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 86918,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 86917,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 86916,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 86915,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 84408,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 764,
+                        "name": "Mage Paramount",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 86944,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 86943,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 86942,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 86941,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 84409,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 765,
+                        "name": "Vainglorious Rebuke",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 86976,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 86975,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 86974,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 86972,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 84413,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 349,
+                "name": "Uncategorized"
+            }
+        ]
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
         "defaultSkinDbfId": 84783,
         "equipment": [
             {
@@ -15507,6 +15889,373 @@
     },
     {
         "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 85060,
+        "equipment": [
+            {
+                "id": 306,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87539,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87538,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87537,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 85070,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 307,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87569,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87568,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87567,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 85071,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 401,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 85069,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 89635,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 89636,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89637,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 294,
+        "name": "Zar'jira, the Sea Witch",
+        "shortName": "Zar'jira",
+        "skinDbfIds": [
+            85062,
+            85061,
+            85060
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 775,
+                        "name": "Witch's Curse",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87579,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87574,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87573,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87572,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85063,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 776,
+                        "name": "Freezing Touch",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87629,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87628,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87627,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87626,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85064,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 777,
+                        "name": "Wavethrasher",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87634,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87632,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87631,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87630,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85066,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 353,
+                "name": "Uncategorized"
+            }
+        ]
+    },
+    {
+        "collectible": true,
+        "craftingCost": 100,
+        "defaultSkinDbfId": 85111,
+        "equipment": [
+            {
+                "id": 308,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87803,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87802,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87801,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 85133,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 309,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87806,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87805,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87804,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 85135,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 310,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 85136,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 295,
+        "name": "Fathom-Lord Karathress",
+        "shortName": "Karathress",
+        "skinDbfIds": [
+            85113,
+            85112,
+            85111
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 778,
+                        "name": "Tidal Strike",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87818,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87817,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87816,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87815,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85129,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 779,
+                        "name": "Cataclysmic Bolt",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87810,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87809,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87808,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87807,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85131,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 780,
+                        "name": "Blessing of the Tides",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87822,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87821,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87820,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87819,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85132,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 354,
+                "name": "Beast"
+            }
+        ]
+    },
+    {
+        "collectible": true,
         "craftingCost": 500,
         "defaultSkinDbfId": 84774,
         "equipment": [
@@ -15692,6 +16441,358 @@
                 ],
                 "id": 356,
                 "name": "Combo"
+            }
+        ]
+    },
+    {
+        "collectible": true,
+        "craftingCost": 100,
+        "defaultSkinDbfId": 85396,
+        "equipment": [
+            {
+                "id": 323,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87766,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87765,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87764,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 85406,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 321,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87760,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87759,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87758,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 85404,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 322,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 85405,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 304,
+        "name": "Tidemistress Athissa",
+        "shortName": "Athissa",
+        "skinDbfIds": [
+            85398,
+            85397,
+            85396
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 796,
+                        "name": "Wave Crush",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87770,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87769,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87768,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87767,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85399,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 797,
+                        "name": "Riptide",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87774,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87773,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87772,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87771,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85401,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 798,
+                        "name": "Captive Tides",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87778,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87777,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87776,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87775,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85403,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 362,
+                "name": "Uncategorized"
+            }
+        ]
+    },
+    {
+        "collectible": true,
+        "craftingCost": 100,
+        "defaultSkinDbfId": 85475,
+        "equipment": [
+            {
+                "id": 324,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87781,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87780,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87779,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 85483,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 326,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87784,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87783,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87782,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 85485,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 325,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 85484,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 305,
+        "name": "Lord Slitherspear",
+        "shortName": "Slitherspear",
+        "skinDbfIds": [
+            85477,
+            85476,
+            85475
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 799,
+                        "name": "Slithering Rage",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87792,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87791,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87790,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87789,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85478,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 800,
+                        "name": "You Lift Bro?",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87796,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87795,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87794,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87793,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85480,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 801,
+                        "name": "Enough of this Trash!",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87800,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87799,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87798,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87797,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 85482,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 363,
+                "name": "Uncategorized"
             }
         ]
     },
@@ -15896,6 +16997,387 @@
             86730
         ],
         "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 86078,
+        "equipment": [
+            {
+                "id": 349,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 86081,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90377,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90378,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90379,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 351,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 86083,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90426,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90427,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90428,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 350,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 86082,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90422,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90423,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90424,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 309,
+        "name": "Captain Hooktusk",
+        "shortName": "Hooktusk",
+        "skinDbfIds": [
+            86080,
+            86079,
+            86078
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 808,
+                        "name": "Turnabout Strike",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 86086,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90373,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90374,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90375,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90376,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 809,
+                        "name": "Shiver Their Timbers",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 90384,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90387,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90390,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90393,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90396,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 810,
+                        "name": "Cutthroat Negotiations",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 86197,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90408,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90411,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90414,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90417,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 367,
+                "name": "Orc"
+            }
+        ]
+    },
+    {
+        "collectible": true,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 86523,
+        "equipment": [
+            {
+                "id": 389,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90723,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90726,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90727,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90728,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 390,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90724,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90729,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90730,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90731,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 391,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90725,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90732,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90733,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90734,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 311,
+        "name": "Tyrael",
+        "skinDbfIds": [
+            86525,
+            86524,
+            86523
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 894,
+                        "name": "Divine Bladestrike",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 90702,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90711,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90712,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90713,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90714,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 895,
+                        "name": "Holy Judgement",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 90703,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90715,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90716,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90717,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90718,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 896,
+                        "name": "Angelic Protection",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 90705,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90719,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90720,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90721,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90722,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 368,
+                "name": "Uncategorized"
+            }
+        ]
     },
     {
         "collectible": true,
@@ -16543,6 +18025,196 @@
         ]
     },
     {
+        "collectible": true,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 87893,
+        "equipment": [
+            {
+                "id": 363,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87916,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87924,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87927,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 87937,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 364,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87917,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87925,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87930,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 87941,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 365,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87919,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87926,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87943,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 87946,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 344,
+        "name": "Y'Shaarj",
+        "skinDbfIds": [
+            87893,
+            87892,
+            87891
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 857,
+                        "name": "Defiled Attack",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87894,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87897,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87898,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87899,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87900,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 858,
+                        "name": "Strength of Y'Shaarj",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87901,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87903,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87904,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87905,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87906,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 859,
+                        "name": "Rage Unbound",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87907,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87912,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87913,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87914,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87915,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 399,
+                "name": "Speed Control"
+            }
+        ]
+    },
+    {
         "collectible": false,
         "craftingCost": 50,
         "defaultSkinDbfId": 87034,
@@ -16551,6 +18223,30 @@
         "name": "Dark-Depths Feastbringer",
         "skinDbfIds": [
             87034
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 86876,
+        "equipment": [],
+        "id": 348,
+        "name": "Naga Commandant",
+        "skinDbfIds": [
+            86876
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 86877,
+        "equipment": [],
+        "id": 349,
+        "name": "Torrential Slitherer",
+        "skinDbfIds": [
+            86877
         ],
         "specializations": []
     },
@@ -16568,6 +18264,741 @@
     },
     {
         "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 88233,
+        "equipment": [],
+        "id": 355,
+        "name": "Faceless Behemoth",
+        "skinDbfIds": [
+            88233
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 88234,
+        "equipment": [],
+        "id": 356,
+        "name": "Doppelgangster",
+        "skinDbfIds": [
+            88234
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 88238,
+        "equipment": [],
+        "id": 357,
+        "name": "Tentacled Menace",
+        "skinDbfIds": [
+            88238
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 88317,
+        "equipment": [],
+        "id": 358,
+        "name": "Faceless Corruptor",
+        "skinDbfIds": [
+            88317
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 88646,
+        "equipment": [],
+        "id": 359,
+        "name": "Naga Battlemage",
+        "skinDbfIds": [
+            88646
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 88695,
+        "equipment": [],
+        "id": 360,
+        "name": "Twilight Elder",
+        "skinDbfIds": [
+            88695
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 88693,
+        "equipment": [],
+        "id": 361,
+        "name": "Naga Puppeteer",
+        "skinDbfIds": [
+            88693
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89347,
+        "equipment": [],
+        "id": 362,
+        "name": "Zealous Initiate",
+        "skinDbfIds": [
+            89347
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89353,
+        "equipment": [],
+        "id": 363,
+        "name": "Eater of Secrets",
+        "skinDbfIds": [
+            89353
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89358,
+        "equipment": [],
+        "id": 364,
+        "name": "Faceless Shambler",
+        "skinDbfIds": [
+            89358
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 89546,
+        "equipment": [
+            {
+                "id": 367,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90598,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90599,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90601,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89603,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 366,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91180,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91184,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91185,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 91186,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 368,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91648,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91647,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91646,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89617,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 366,
+        "name": "Lorewalker Cho",
+        "shortName": "Cho",
+        "skinDbfIds": [
+            89548,
+            89547,
+            89546
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 89719,
+        "equipment": [
+            {
+                "id": 369,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90629,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90630,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90631,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89790,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 370,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90632,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90633,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90634,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89811,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 371,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90635,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90636,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90638,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89787,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 367,
+        "name": "Yrel",
+        "skinDbfIds": [
+            89722,
+            89721,
+            89719
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 100,
+        "defaultSkinDbfId": 89587,
+        "equipment": [
+            {
+                "id": 375,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 89735,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 89769,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 89770,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89871,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 376,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 89656,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89657,
+                        "tier": 2
+                    }
+                ]
+            },
+            {
+                "id": 377,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 89729,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 89732,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 89733,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 89734,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 371,
+        "name": "Baine Bloodhoof",
+        "shortName": "Baine",
+        "skinDbfIds": [
+            89589,
+            89588,
+            89587
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 90029,
+        "equipment": [
+            {
+                "id": 378,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90666,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90665,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90664,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90077,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 379,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90079,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 380,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90669,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90668,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90667,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90295,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 372,
+        "name": "Maiev Shadowsong",
+        "shortName": "Maiev",
+        "skinDbfIds": [
+            90032,
+            90031,
+            90029
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 90025,
+        "equipment": [
+            {
+                "id": 383,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91434,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91433,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91432,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90294,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 384,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91437,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91435,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90296,
+                        "tier": 3
+                    }
+                ]
+            },
+            {
+                "id": 385,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91440,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91439,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91438,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90300,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 373,
+        "name": "Brann Bronzebeard",
+        "shortName": "Brann",
+        "skinDbfIds": [
+            90027,
+            90026,
+            90025
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 100,
+        "defaultSkinDbfId": 90466,
+        "equipment": [
+            {
+                "id": 386,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90508,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90509,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90510,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90511,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 387,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90512,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90516,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90517,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90518,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 388,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 90520,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 90524,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 90525,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90526,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 374,
+        "name": "Patches the Pirate",
+        "shortName": "Patches",
+        "skinDbfIds": [
+            90478,
+            90477,
+            90466
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 891,
+                        "name": "Eye Matey",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 90479,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90486,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90487,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90488,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90489,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 892,
+                        "name": "Eye Cap'n",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 90482,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90490,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90491,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90492,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90493,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 893,
+                        "name": "Crew The Guns",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 90496,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 90504,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 90505,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90506,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 90507,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 429,
+                "name": "Uncategorized"
+            }
+        ]
+    },
+    {
+        "collectible": false,
         "craftingCost": 500,
         "defaultSkinDbfId": 90848,
         "equipment": [],
@@ -16577,5 +19008,448 @@
             90848
         ],
         "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 90870,
+        "equipment": [
+            {
+                "id": 395,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91606,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91605,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91604,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90981,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 396,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91610,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91609,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91608,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90982,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 397,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91613,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91612,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91611,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90976,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 376,
+        "name": "Maestra",
+        "skinDbfIds": [
+            90934,
+            90928,
+            90870
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 90837,
+        "equipment": [
+            {
+                "id": 392,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91403,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91402,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91401,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90925,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 393,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91410,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91409,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91408,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90932,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 394,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91411,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90930,
+                        "tier": 2
+                    }
+                ]
+            }
+        ],
+        "id": 377,
+        "name": "Reno Jackson",
+        "shortName": "Reno",
+        "skinDbfIds": [
+            90839,
+            90838,
+            90837
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 91032,
+        "equipment": [],
+        "id": 379,
+        "name": "Tauren Druid",
+        "skinDbfIds": [
+            91032
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 91034,
+        "equipment": [],
+        "id": 380,
+        "name": "Tauren Paladin",
+        "skinDbfIds": [
+            91034
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 91033,
+        "equipment": [],
+        "id": 381,
+        "name": "Tauren Monk",
+        "skinDbfIds": [
+            91033
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 91036,
+        "equipment": [],
+        "id": 382,
+        "name": "Spirit Cow",
+        "skinDbfIds": [
+            91036
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 90742,
+        "equipment": [
+            {
+                "id": 398,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91678,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91677,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91676,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90748,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 399,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91675,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91674,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 90757,
+                        "tier": 3
+                    }
+                ]
+            },
+            {
+                "id": 400,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 91673,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 91672,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 91671,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 91038,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 383,
+        "name": "Elise Starseeker",
+        "shortName": "Elise",
+        "skinDbfIds": [
+            90744,
+            90743,
+            90742
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89158,
+        "equipment": [],
+        "id": 384,
+        "name": "Sword Eater",
+        "skinDbfIds": [
+            89158
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89162,
+        "equipment": [],
+        "id": 385,
+        "name": "Circus Amalgam",
+        "skinDbfIds": [
+            89162
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 91222,
+        "equipment": [],
+        "id": 386,
+        "name": "Fizzy Elemental",
+        "skinDbfIds": [
+            91222
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 91393,
+        "equipment": [],
+        "id": 387,
+        "name": "Event Y'Shaarj",
+        "skinDbfIds": [
+            91393
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89731,
+        "equipment": [],
+        "id": 388,
+        "name": "Fortune Teller",
+        "skinDbfIds": [
+            89731
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89140,
+        "equipment": [],
+        "id": 389,
+        "name": "Street Magician",
+        "skinDbfIds": [
+            89140
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 91513,
+        "equipment": [],
+        "id": 390,
+        "name": "Fairground Fool",
+        "skinDbfIds": [
+            91513
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89742,
+        "equipment": [],
+        "id": 394,
+        "name": "Vengeful Cosplayer",
+        "skinDbfIds": [
+            89742
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 89351,
+        "equipment": [],
+        "id": 395,
+        "name": "Darkmoon Statue",
+        "skinDbfIds": [
+            89351
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 50,
+        "defaultSkinDbfId": 92028,
+        "equipment": [],
+        "id": 396,
+        "name": "Tainted Arborist",
+        "skinDbfIds": [
+            92028
+        ],
+        "specializations": []
+    },
+    {
+        "collectible": false,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 92981,
+        "equipment": [],
+        "id": 400,
+        "name": "Campaign Sir Finley",
+        "skinDbfIds": [
+            92981
+        ],
+        "specializations": [
+            {
+                "abilities": [],
+                "id": 458,
+                "name": "Murloc"
+            }
+        ]
     }
 ]

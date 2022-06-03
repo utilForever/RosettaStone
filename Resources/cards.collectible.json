@@ -3416,7 +3416,8 @@
         "flavor": "Keep your allies close. Keep your evil demons in your weapon.",
         "id": "AV_209",
         "mechanics": [
-            "HONORABLEKILL"
+            "HONORABLEKILL",
+            "TRIGGER_VISUAL"
         ],
         "name": "Dreadprison Glaive",
         "rarity": "COMMON",
@@ -45169,6 +45170,17 @@
     {
         "cardClass": "ROGUE",
         "collectible": true,
+        "dbfId": 84090,
+        "health": 30,
+        "id": "HERO_03s",
+        "name": "Garona Halforcen",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "ROGUE",
+        "collectible": true,
         "dbfId": 83401,
         "health": 30,
         "id": "HERO_03u",
@@ -46072,6 +46084,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 84095,
+        "health": 30,
+        "id": "HERO_07t",
+        "name": "Feast Nemsy",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 637,
@@ -46351,6 +46374,17 @@
         "type": "HERO"
     },
     {
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 84094,
+        "health": 30,
+        "id": "HERO_08z",
+        "name": "Eternal Medivh",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -46533,6 +46567,17 @@
         "health": 30,
         "id": "HERO_09r",
         "name": "Handmaiden Tyrande",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 84096,
+        "health": 30,
+        "id": "HERO_09s",
+        "name": "Butler Anduin",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -46721,6 +46766,17 @@
         "health": 30,
         "id": "HERO_10r",
         "name": "Mrrgillidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 84097,
+        "health": 30,
+        "id": "HERO_10s",
+        "name": "Illhoof Illidan",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -60428,6 +60484,26 @@
         "type": "MINION"
     },
     {
+        "artist": "Konstantin Turovec",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 92384,
+        "flavor": "Someone got a little too excited inventing a can opener.",
+        "health": 6,
+        "id": "Story_11_RemoteControlPuzzle",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Remote-Controlled Golem",
+        "race": "MECHANICAL",
+        "rarity": "EPIC",
+        "set": "STORMWIND",
+        "text": "[x]After this takes damage,\nshuffle two Golem Parts into\nyour deck. When drawn,\n  summon a 2/1 Mech.",
+        "type": "MINION"
+    },
+    {
         "artist": "Jason Kang",
         "attack": 0,
         "cardClass": "MAGE",
@@ -63011,6 +63087,729 @@
         "set": "STORMWIND",
         "text": "[x]<b>Tradeable</b>\n <b>Deathrattle:</b> Summon two\n1/1 Spiders with\n<b>Poisonous</b> and <b>Rush</b>.",
         "type": "MINION"
+    },
+    {
+        "artist": "Mooncolony",
+        "attack": 2,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 75558,
+        "flavor": "Cleans the ocean better than any store-brand competitor - guaranteed or your Mana back!",
+        "health": 2,
+        "id": "TID_000",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Spirit of the Tides",
+        "race": "ELEMENTAL",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]If you have any unspent\nMana at the end of\n your turn, gain +1/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76117,
+        "flavor": "The light of the moon may have disappeared from Zin-Azshari after the Sundering, but not its power.",
+        "id": "TID_001",
+        "isMiniSet": true,
+        "name": "Moonbeam",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "ARCANE",
+        "text": "Deal $1 damage to an enemy, twice.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 75560,
+        "flavor": "A mother of plants in mother of pearl.",
+        "health": 3,
+        "id": "TID_002",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Herald of Nature",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> If you've cast a Nature spell while holding this, give your other minions +1/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Adam Byrne",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 75586,
+        "flavor": "Burrowing may not be for everyone, but I dig it.",
+        "health": 4,
+        "id": "TID_003",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Tidelost Burrower",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> <b>Dredge</b>.\nIf it's a Murloc, summon a 2/2 copy of it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ursula Dorada",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 75589,
+        "flavor": "His jokes are hilarious if you know Nerglish.",
+        "health": 2,
+        "id": "TID_004",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Clownfish",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Your next two Murlocs cost (2) less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 75590,
+        "flavor": "\"REVENANT TO F6. CHECKMATE, OZUMAT!\"",
+        "id": "TID_005",
+        "isMiniSet": true,
+        "mechanics": [
+            "OVERLOAD"
+        ],
+        "name": "Command of Neptulon",
+        "overload": 1,
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "NATURE",
+        "text": "Summon two 5/4 Elementals with <b>Rush</b>.\n<b>Overload:</b> (1)",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "collectionText": "[x]<b>Battlecry:</b> If you've cast\nthree spells while holding\nthis, deal 5 damage.",
+        "cost": 3,
+        "dbfId": 76224,
+        "flavor": "\"Call me Fishmael.\"",
+        "health": 3,
+        "id": "TID_074",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ancient Krakenbane",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "targetingArrowText": "Deal 5 damage.",
+        "text": "[x]<b>Battlecry:</b> If you've cast\nthree spells while holding\nthis, deal 5 damage.@\n<i>({0} left!)</i>@\n<i>(Ready!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76225,
+        "flavor": "Precision over accuracy.",
+        "id": "TID_075",
+        "isMiniSet": true,
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Shellshot",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "NATURE",
+        "text": "[x]Deal $3 damage to a\nrandom enemy minion.\nRepeat this with 1\nless damage.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Tanamaes Leejiarasaes",
+        "attack": 5,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 76258,
+        "flavor": "Lightrays, much like rays of light, tend to be seen closer to the surface.",
+        "health": 5,
+        "id": "TID_077",
+        "isMiniSet": true,
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Lightray",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Taunt</b>\nCosts (1) less for each Paladin card you've played this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76259,
+        "faction": "HORDE",
+        "flavor": "Someone didn’t realize the ‘cold, black heart’ thing was supposed to be a metaphor.",
+        "health": 3,
+        "id": "TID_078",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shattershambler",
+        "race": "ELEMENTAL",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Your next <b>Deathrattle</b> minion costs (1) less, but immediately dies when played.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vika Yarova",
+        "attack": 1,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76261,
+        "flavor": "You’ve got it wrong. She releases ink when <i>you’re</i> scared.",
+        "health": 2,
+        "id": "TID_080",
+        "mechanics": [
+            "STEALTH"
+        ],
+        "name": "Inkveil Ambusher",
+        "race": "NAGA",
+        "rarity": "RARE",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Stealth</b>\nHas +3 Attack and <b>Immune</b> while attacking.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76583,
+        "flavor": "Wake up! No sleeping in with the fishes!",
+        "health": 4,
+        "id": "TID_085",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Herald of Light",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> If you've cast a\nHoly spell while holding this,\nrestore #6 Health to all\nfriendly characters.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ursula Dorada",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 73427,
+        "flavor": "He didn't have time to Myrmidon the other half of his armor before combat started.",
+        "health": 4,
+        "id": "TID_098",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Myrmidon",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "After you cast a spell on this minion, draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76223,
+        "flavor": "You merely adopted the Battlegrounds. I was born in it. Molded by it.",
+        "health": 3,
+        "id": "TID_099",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "K9-0tron",
+        "race": "MECHANICAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> <b>Dredge</b>.\nIf it's a 1-Cost minion,\nsummon it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Todd Harris",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 74988,
+        "flavor": "\"You can have these back when you learn to play nice.\"",
+        "health": 4,
+        "id": "TID_700",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE"
+        ],
+        "name": "Disarming Elemental",
+        "race": "ELEMENTAL",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> <b>Dredge</b> for\nyour opponent. Set its\nCost to (6).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 75070,
+        "flavor": "No Old Gods or Kings, only Naga.",
+        "id": "TID_703",
+        "isMiniSet": true,
+        "mechanics": [
+            "AFFECTED_BY_SPELL_POWER",
+            "DREDGE"
+        ],
+        "name": "Topple the Idol",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Dredge</b>. Reveal it and\ndeal damage equal to\n its Cost to all minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 75072,
+        "flavor": "Praise Lord Helix!",
+        "health": 2,
+        "id": "TID_704",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Fossil Fanatic",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "After your hero attacks, draw a Fel spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 3,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 75552,
+        "flavor": "They used to be called the Heralds of Order before all of this silly Sundering nonsense.",
+        "health": 4,
+        "id": "TID_706",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "LIFESTEAL"
+        ],
+        "name": "Herald of Chaos",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Lifesteal</b>\n<b>Battlecry:</b> If you've cast a\nFel spell while holding this,\ngain <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 2,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 75555,
+        "flavor": "Time for some out of this world RNG.",
+        "health": 2,
+        "id": "TID_707",
+        "isMiniSet": true,
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Submerged Spacerock",
+        "race": "ELEMENTAL",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Deathrattle:</b> Add two Arcane\nMage spells to your hand.\nAt the end of your turn,\ndiscard them.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sergey Tsvelykh",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 75556,
+        "flavor": "While Ini’s first use of the Spontaneous Gelatin Transmalgamizer may have gotten her banned from the Gnomish Cooking Convention, she’s never one to throw away a new invention.",
+        "id": "TID_708",
+        "isMiniSet": true,
+        "name": "Polymorph: Jellyfish",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "ARCANE",
+        "text": "Transform a minion\ninto a 4/1 Jellyfish with <b>Spell Damage +2</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "attack": 5,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 72024,
+        "elite": true,
+        "flavor": "Talk about an identity crisis.",
+        "health": 5,
+        "id": "TID_709",
+        "isMiniSet": true,
+        "name": "Lady Naz'jar",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]While in your hand, this\n   transforms after you cast a   \nFire, Frost, or Arcane spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Luca Zontini",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 75579,
+        "flavor": "Good synergy with Crackledragon, not so much with Popdragon.",
+        "health": 3,
+        "id": "TID_710",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Snapdragon",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> Give all\n<b>Battlecry</b> minions in\nyour deck +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 75580,
+        "elite": true,
+        "flavor": "<b>Deathrattle:</b> You'll be octo-sorry.",
+        "health": 5,
+        "id": "TID_711",
+        "isMiniSet": true,
+        "mechanics": [
+            "COLOSSAL",
+            "DEATHRATTLE"
+        ],
+        "name": "Ozumat",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +6</b> \n<b>Deathrattle:</b> For each of\nOzumat's Tentacles, destroy\n   a random enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 75583,
+        "elite": true,
+        "flavor": "Neptulon, tired of filling hands, is now throwing hands.",
+        "health": 7,
+        "id": "TID_712",
+        "isMiniSet": true,
+        "mechanics": [
+            "COLOSSAL",
+            "RUSH",
+            "TRIGGER_VISUAL",
+            "WINDFURY"
+        ],
+        "name": "Neptulon the Tidehunter",
+        "race": "ELEMENTAL",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Colossal +2</b>, <b>Rush</b>, <b>Windfury</b>\nWhenever Neptulon attacks,\nif you control any Hands,\nthey attack instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 71646,
+        "flavor": "Prefers regular over diet shampoo.",
+        "health": 4,
+        "id": "TID_713",
+        "isMiniSet": true,
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bubbler",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]After this minion takes\n exactly one damage,\ndestroy it. <i>(Pop!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Studio Hive",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 75631,
+        "flavor": "Lava shark, doo doo doo doo doo doo.",
+        "health": 5,
+        "id": "TID_714",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY",
+            "DREDGE",
+            "TAUNT"
+        ],
+        "name": "Igneous Lavagorger",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Taunt</b>\n <b>Battlecry:</b> <b>Dredge</b>. Gain\n Armor equal to its Cost.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 75633,
+        "flavor": "Don’t let this distract you from the fact that in 1998, Ozumat threw Neptulon off Shell in a Cell, and plummeted 16 fathoms through an announcer’s table.",
+        "id": "TID_715",
+        "isMiniSet": true,
+        "name": "Clash of the Colossals",
+        "rarity": "RARE",
+        "referencedTags": [
+            "COLOSSAL"
+        ],
+        "set": "THE_SUNKEN_CITY",
+        "text": "Add a random <b>Colossal</b> minion to both players' hands. Yours costs (2) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Daniil Kudriavtsev",
+        "attack": 5,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 75635,
+        "flavor": "A big minion that clears the board and gains Armor? Wow, Warrior is really in their element now.",
+        "health": 8,
+        "id": "TID_716",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Tidal Revenant",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "targetingArrowText": "Deal 5 damage.",
+        "text": "<b>Battlecry:</b> Deal 5 damage. Gain 8 Armor.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Alex Stone",
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 73445,
+        "flavor": "“IT’S NOT A PHASE, MOM!”",
+        "health": 2,
+        "id": "TID_717",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Herald of Shadows",
+        "race": "NAGA",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "targetingArrowText": "Steal 2 Health from a minion.",
+        "text": "<b>Battlecry:</b> If you've cast a Shadow spell while holding this, steal 2 Health from a minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 75637,
+        "flavor": "\"Well if you cared about those cards so much, why didn't you play them?\"",
+        "id": "TID_718",
+        "isMiniSet": true,
+        "name": "Immolate",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "FIRE",
+        "text": "Light every card in the opponent's hand on fire. In 3 turns, any still\nin hand are destroyed!",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 7,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 75639,
+        "elite": true,
+        "flavor": "He likes to spend his free time in his garden, growing Bloodradish, Bloodcabbage, and his favorite, Bloodbloom.",
+        "health": 7,
+        "id": "TID_719",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Commander Ulthok",
+        "rarity": "LEGENDARY",
+        "set": "THE_SUNKEN_CITY",
+        "text": "<b>Battlecry:</b> Your opponent's cards cost Health instead of Mana next turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Bjorkstrom",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 85810,
+        "flavor": "How do you know when someone has a crush on you? They take your breath away.",
+        "health": 4,
+        "id": "TID_744",
+        "isMiniSet": true,
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Coilfang Constrictor",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]<b>Battlecry:</b> Look at 3 cards\nin your opponent's hand\n and choose one. It can't\nbe played next turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 80120,
+        "flavor": "If you play it on a Naga, they drown in their sorrows instead.",
+        "id": "TID_920",
+        "isMiniSet": true,
+        "name": "Drown",
+        "rarity": "RARE",
+        "set": "THE_SUNKEN_CITY",
+        "spellSchool": "SHADOW",
+        "text": "Put an enemy minion on the bottom of your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 80121,
+        "flavor": "Find someone who looks at you the way Hooktusk looks at loot.",
+        "id": "TID_931",
+        "isMiniSet": true,
+        "name": "Jackpot!",
+        "rarity": "COMMON",
+        "set": "THE_SUNKEN_CITY",
+        "text": "Add two random\nspells from other classes\nthat cost (5) or more\nto your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Daniil Kudriavtsev",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 80117,
+        "flavor": "With the line in the sand crossed, the battle for the Throne of Tides had begun.",
+        "id": "TID_949",
+        "isMiniSet": true,
+        "name": "Front Lines",
+        "rarity": "EPIC",
+        "set": "THE_SUNKEN_CITY",
+        "text": "[x]Summon a minion\nfrom each player's deck.\nRepeat until either side\nof the battlefield is full.",
+        "type": "SPELL"
     },
     {
         "artist": "Ivan Fomin",
