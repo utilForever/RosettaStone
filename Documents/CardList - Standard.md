@@ -798,6 +798,41 @@ ALTERAC_VALLEY | ONY_036 | Razorglaive Sentinel |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
+THE_SUNKEN_CITY | TID_000 | Spirit of the Tides |  
+THE_SUNKEN_CITY | TID_001 | Moonbeam |  
+THE_SUNKEN_CITY | TID_002 | Herald of Nature |  
+THE_SUNKEN_CITY | TID_003 | Tidelost Burrower |  
+THE_SUNKEN_CITY | TID_004 | Clownfish |  
+THE_SUNKEN_CITY | TID_005 | Command of Neptulon |  
+THE_SUNKEN_CITY | TID_074 | Ancient Krakenbane |  
+THE_SUNKEN_CITY | TID_075 | Shellshot |  
+THE_SUNKEN_CITY | TID_077 | Lightray |  
+THE_SUNKEN_CITY | TID_078 | Shattershambler |  
+THE_SUNKEN_CITY | TID_080 | Inkveil Ambusher |  
+THE_SUNKEN_CITY | TID_085 | Herald of Light |  
+THE_SUNKEN_CITY | TID_098 | Myrmidon |  
+THE_SUNKEN_CITY | TID_099 | K9-0tron |  
+THE_SUNKEN_CITY | TID_700 | Disarming Elemental |  
+THE_SUNKEN_CITY | TID_703 | Topple the Idol |  
+THE_SUNKEN_CITY | TID_704 | Fossil Fanatic |  
+THE_SUNKEN_CITY | TID_706 | Herald of Chaos |  
+THE_SUNKEN_CITY | TID_707 | Submerged Spacerock |  
+THE_SUNKEN_CITY | TID_708 | Polymorph: Jellyfish |  
+THE_SUNKEN_CITY | TID_709 | Lady Naz'jar |  
+THE_SUNKEN_CITY | TID_710 | Snapdragon |  
+THE_SUNKEN_CITY | TID_711 | Ozumat |  
+THE_SUNKEN_CITY | TID_712 | Neptulon the Tidehunter |  
+THE_SUNKEN_CITY | TID_713 | Bubbler |  
+THE_SUNKEN_CITY | TID_714 | Igneous Lavagorger |  
+THE_SUNKEN_CITY | TID_715 | Clash of the Colossals |  
+THE_SUNKEN_CITY | TID_716 | Tidal Revenant |  
+THE_SUNKEN_CITY | TID_717 | Herald of Shadows |  
+THE_SUNKEN_CITY | TID_718 | Immolate |  
+THE_SUNKEN_CITY | TID_719 | Commander Ulthok |  
+THE_SUNKEN_CITY | TID_744 | Coilfang Constrictor |  
+THE_SUNKEN_CITY | TID_920 | Drown |  
+THE_SUNKEN_CITY | TID_931 | Jackpot! |  
+THE_SUNKEN_CITY | TID_949 | Front Lines |  
 THE_SUNKEN_CITY | TSC_001 | Naval Mine |  
 THE_SUNKEN_CITY | TSC_002 | Pufferfist |  
 THE_SUNKEN_CITY | TSC_006 | Multi-Strike |  
@@ -934,4 +969,4 @@ THE_SUNKEN_CITY | TSC_960 | Twin-fin Fin Twin |
 THE_SUNKEN_CITY | TSC_962 | Gigafin |  
 THE_SUNKEN_CITY | TSC_963 | Filletfighter |  
 
-- Progress: 4% (6 of 135 Cards)
+- Progress: 3% (6 of 170 Cards)
