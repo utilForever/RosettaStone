@@ -5087,6 +5087,53 @@ TEST_CASE("[Priest : Spell] - CS3_028 : Thrive in the Shadows")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [CORE_AT_029] Buccaneer - COST:1 [ATK:2/HP:1]
+// - Race: Pirate, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you equip a weapon, give it +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - CORE_AT_029 : Buccaneer")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Buccaneer"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+}
+
 // ------------------------------------------ SPELL - ROGUE
 // [CORE_CS2_072] Backstab - COST:0
 // - Set: CORE, Rarity: Common

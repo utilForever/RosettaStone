@@ -1838,6 +1838,13 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::EQUIP_WEAPON));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AT_029e", EntityType::WEAPON) };
+    cards.emplace("CORE_AT_029", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_072] Backstab - COST:0
