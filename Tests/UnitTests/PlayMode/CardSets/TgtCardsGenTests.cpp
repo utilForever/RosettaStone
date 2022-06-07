@@ -349,6 +349,52 @@ TEST_CASE("[Priest : Spell] - AT_055 : Flash Heal")
     CHECK_EQ(opHero->GetHealth(), 25);
 }
 
+//----------------------------------------- MINION - ROGUE
+// [AT_029] Buccaneer - COST:1 [ATK:2/HP:1]
+// - Race: Pirate, Set: Tgt, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you equip a weapon, give it +1 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - AT_029 : Buccaneer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Buccaneer"));
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 2);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [AT_047] Draenei Totemcarver - COST:4 [ATK:4/HP:5]
 // - Set: Tgt, Rarity: Rare

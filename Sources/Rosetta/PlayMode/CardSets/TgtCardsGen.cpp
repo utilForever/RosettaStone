@@ -921,6 +921,8 @@ void TgtCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - ROGUE
     // [AT_028] Shado-Pan Rider - COST:5 [ATK:3/HP:7]
     // - Set: Tgt, Rarity: Common
@@ -937,6 +939,16 @@ void TgtCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you equip a weapon, give it +1 Attack.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::EQUIP_WEAPON));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AT_029e", EntityType::WEAPON) };
+    cards.emplace("AT_029", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [AT_030] Undercity Valiant - COST:2 [ATK:3/HP:2]
@@ -2078,6 +2090,8 @@ void TgtCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void TgtCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - NEUTRAL
     // [AT_005t] Boar (*) - COST:3 [ATK:4/HP:2]
     // - Race: Beast, Set: Tgt
@@ -2140,6 +2154,9 @@ void TgtCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1 Attack
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AT_029e"));
+    cards.emplace("AT_029e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [AT_041e] Call of the Wild (*) - COST:0
