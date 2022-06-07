@@ -1967,6 +1967,10 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::SPELL, CardClass::ANOTHER_CLASS));
+    cards.emplace("CORE_DAL_416", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]

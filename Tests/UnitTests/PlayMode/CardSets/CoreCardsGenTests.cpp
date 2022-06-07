@@ -5445,6 +5445,52 @@ TEST_CASE("[Rogue : Weapon] - CORE_CS2_080 : Assassin's Blade")
 }
 
 // ----------------------------------------- MINION - ROGUE
+// [CORE_DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:4]
+// - Race: Pirate, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a spell
+//       from another class.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - CORE_DAL_416 : Hench-Clan Burglar")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Hench-Clan Burglar"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_NE(card->GetCardClass(), CardClass::ROGUE);
+    }
+}
+
+// ----------------------------------------- MINION - ROGUE
 // [CORE_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
