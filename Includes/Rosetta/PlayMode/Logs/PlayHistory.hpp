@@ -17,8 +17,8 @@ namespace RosettaStone::PlayMode
 //!
 struct PlayHistory
 {
-    PlayHistory(Playable* source, Playable* target = nullptr,
-                int _chooseOne = -1)
+    explicit PlayHistory(Playable* source, Playable* target = nullptr,
+                         int _chooseOne = -1)
     {
         sourcePlayer = source->player;
         sourceCard = source->card;
