@@ -3312,12 +3312,11 @@ TEST_CASE("[Rogue : Minion] - DAL_415 : EVIL Miscreant")
 // [DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:4]
 // - Race: Pirate, Set: Dalaran, Rarity: Common
 // --------------------------------------------------------
-// Text: <b>Battlecry:</b> <b>Discover</b> a spell from another class.
+// Text: <b>Battlecry:</b> <b>Discover</b> a spell
+//       from another class.
 // --------------------------------------------------------
 // GameTag:
 // - BATTLECRY = 1
-// --------------------------------------------------------
-// RefTag:
 // - DISCOVER = 1
 // --------------------------------------------------------
 TEST_CASE("[Rogue : Minion] - DAL_416 : Hench-Clan Burglar")

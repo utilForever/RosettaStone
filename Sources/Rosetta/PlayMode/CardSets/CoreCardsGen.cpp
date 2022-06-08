@@ -1544,7 +1544,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                         Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
                                            randTarget, chooseOneIdx);
 
-                        while (player->choice != nullptr)
+                        while (player->choice)
                         {
                             const auto choiceIdx = Random::get<std::size_t>(
                                 0, player->choice->choices.size());
@@ -1838,6 +1838,13 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::EQUIP_WEAPON));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "AT_029e", EntityType::WEAPON) };
+    cards.emplace("CORE_AT_029", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [CORE_CS2_072] Backstab - COST:0
@@ -1960,6 +1967,10 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DiscoverTask>(
+        CardType::SPELL, CardClass::ANOTHER_CLASS));
+    cards.emplace("CORE_DAL_416", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
@@ -2026,6 +2037,109 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::DECK, 3));
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+
+            std::vector<Card*> playedCards;
+            playedCards.reserve(30);
+
+            for (auto& history : player->playHistory)
+            {
+                if (!history.sourceCard->IsCardClass(CardClass::NEUTRAL) &&
+                    !history.sourceCard->IsCardClass(
+                        player->GetHero()->card->GetCardClass()))
+                {
+                    playedCards.emplace_back(history.sourceCard);
+                }
+            }
+
+            Random::shuffle(playedCards);
+
+            for (auto& card : playedCards)
+            {
+                auto validTargets = card->GetValidPlayTargets(player);
+                if (card->mustHaveToTargetToPlay && validTargets.empty())
+                {
+                    continue;
+                }
+
+                const auto targetIdx =
+                    Random::get<std::size_t>(0, validTargets.size() - 1);
+                const auto randTarget =
+                    validTargets.empty() ? nullptr : validTargets[targetIdx];
+                const auto chooseOneIdx = Random::get<int>(1, 2);
+
+                Entity* entity = Entity::GetFromCard(player, card);
+
+                switch (card->GetCardType())
+                {
+                    case CardType::HERO:
+                    {
+                        Generic::PlayHero(player, dynamic_cast<Hero*>(entity),
+                                          randTarget, chooseOneIdx);
+                        break;
+                    }
+                    case CardType::MINION:
+                    {
+                        if (player->GetFieldZone()->IsFull())
+                        {
+                            break;
+                        }
+
+                        Generic::Summon(dynamic_cast<Minion*>(entity), -1,
+                                        player);
+
+                        player->game->ProcessDestroyAndUpdateAura();
+                        break;
+                    }
+                    case CardType::SPELL:
+                    {
+                        Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
+                                           randTarget, chooseOneIdx);
+
+                        while (player->choice)
+                        {
+                            const auto choiceIdx = Random::get<std::size_t>(
+                                0, player->choice->choices.size());
+                            Generic::ChoicePick(player,
+                                                static_cast<int>(choiceIdx));
+                        }
+
+                        player->game->ProcessDestroyAndUpdateAura();
+                        break;
+                    }
+                    case CardType::WEAPON:
+                    {
+                        auto weapon = dynamic_cast<Weapon*>(entity);
+
+                        if (auto aura = weapon->card->power.GetAura(); aura)
+                        {
+                            aura->Activate(weapon);
+                        }
+
+                        if (auto trigger = weapon->card->power.GetTrigger();
+                            trigger)
+                        {
+                            trigger->Activate(weapon);
+                        }
+
+                        player->GetHero()->AddWeapon(*weapon);
+                        break;
+                    }
+                    default:
+                        throw std::invalid_argument(
+                            "Tess Greymane (CORE_GIL_598) - Invalid card "
+                            "type!");
+                }
+            }
+
+            return 0;
+        }));
+    cards.emplace("CORE_GIL_598", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [CORE_ICC_809] Plague Scientist - COST:3 [ATK:2/HP:3]

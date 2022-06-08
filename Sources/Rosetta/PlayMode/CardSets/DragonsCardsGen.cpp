@@ -1903,7 +1903,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                     Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
                                        randTarget, chooseOneIdx);
 
-                    while (player->choice != nullptr)
+                    while (player->choice)
                     {
                         const auto choiceIdx = Random::get<std::size_t>(
                             0, player->choice->choices.size());

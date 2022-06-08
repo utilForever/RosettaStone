@@ -11,7 +11,7 @@
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 CORE | CORE_AT_021 | Tiny Knight of Evil | O
-CORE | CORE_AT_029 | Buccaneer |  
+CORE | CORE_AT_029 | Buccaneer | O
 CORE | CORE_AT_037 | Living Roots | O
 CORE | CORE_AT_055 | Flash Heal | O
 CORE | CORE_AT_064 | Bash |  
@@ -74,7 +74,7 @@ CORE | CORE_CS2_222 | Stormwind Champion | O
 CORE | CORE_CS2_235 | Northshire Cleric | O
 CORE | CORE_DAL_086 | Sunreaver Spy | O
 CORE | CORE_DAL_371 | Marked Shot | O
-CORE | CORE_DAL_416 | Hench-Clan Burglar |  
+CORE | CORE_DAL_416 | Hench-Clan Burglar | O
 CORE | CORE_DAL_609 | Kalecgos | O
 CORE | CORE_DRG_090 | Murozond the Infinite | O
 CORE | CORE_DRG_226 | Amber Watcher | O
@@ -168,7 +168,7 @@ CORE | CORE_FP1_020 | Avenge | O
 CORE | CORE_GIL_124 | Mossy Horror |  
 CORE | CORE_GIL_191 | Fiendish Circle | O
 CORE | CORE_GIL_547 | Darius Crowley |  
-CORE | CORE_GIL_598 | Tess Greymane |  
+CORE | CORE_GIL_598 | Tess Greymane | O
 CORE | CORE_GIL_622 | Lifedrinker |  
 CORE | CORE_GIL_650 | Houndmaster Shaw | O
 CORE | CORE_GIL_801 | Snap Freeze | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 80% (202 of 250 Cards)
+- Progress: 82% (205 of 250 Cards)
 
 ## Forged in the Barrens
 

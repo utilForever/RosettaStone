@@ -3,9 +3,19 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
+#include <Rosetta/PlayMode/Actions/CastSpell.hpp>
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Actions/PlayCard.hpp>
+#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -764,6 +774,8 @@ void GilneasCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void GilneasCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - ROGUE
     // [GIL_506] Cheap Shot - COST:2
     // - Set: Gilneas, Rarity: Common
@@ -817,6 +829,109 @@ void GilneasCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::DECK, 3));
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+
+            std::vector<Card*> playedCards;
+            playedCards.reserve(30);
+
+            for (auto& history : player->playHistory)
+            {
+                if (!history.sourceCard->IsCardClass(CardClass::NEUTRAL) &&
+                    !history.sourceCard->IsCardClass(
+                        player->GetHero()->card->GetCardClass()))
+                {
+                    playedCards.emplace_back(history.sourceCard);
+                }
+            }
+
+            Random::shuffle(playedCards);
+
+            for (auto& card : playedCards)
+            {
+                auto validTargets = card->GetValidPlayTargets(player);
+                if (card->mustHaveToTargetToPlay && validTargets.empty())
+                {
+                    continue;
+                }
+
+                const auto targetIdx =
+                    Random::get<std::size_t>(0, validTargets.size() - 1);
+                const auto randTarget =
+                    validTargets.empty() ? nullptr : validTargets[targetIdx];
+                const auto chooseOneIdx = Random::get<int>(1, 2);
+
+                Entity* entity = Entity::GetFromCard(player, card);
+
+                switch (card->GetCardType())
+                {
+                    case CardType::HERO:
+                    {
+                        Generic::PlayHero(player, dynamic_cast<Hero*>(entity),
+                                          randTarget, chooseOneIdx);
+                        break;
+                    }
+                    case CardType::MINION:
+                    {
+                        if (player->GetFieldZone()->IsFull())
+                        {
+                            break;
+                        }
+
+                        Generic::Summon(dynamic_cast<Minion*>(entity), -1,
+                                        player);
+
+                        player->game->ProcessDestroyAndUpdateAura();
+                        break;
+                    }
+                    case CardType::SPELL:
+                    {
+                        Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
+                                           randTarget, chooseOneIdx);
+
+                        while (player->choice)
+                        {
+                            const auto choiceIdx = Random::get<std::size_t>(
+                                0, player->choice->choices.size());
+                            Generic::ChoicePick(player,
+                                                static_cast<int>(choiceIdx));
+                        }
+
+                        player->game->ProcessDestroyAndUpdateAura();
+                        break;
+                    }
+                    case CardType::WEAPON:
+                    {
+                        auto weapon = dynamic_cast<Weapon*>(entity);
+
+                        if (auto aura = weapon->card->power.GetAura(); aura)
+                        {
+                            aura->Activate(weapon);
+                        }
+
+                        if (auto trigger = weapon->card->power.GetTrigger();
+                            trigger)
+                        {
+                            trigger->Activate(weapon);
+                        }
+
+                        player->GetHero()->AddWeapon(*weapon);
+                        break;
+                    }
+                    default:
+                        throw std::invalid_argument(
+                            "Tess Greymane (GIL_598) - Invalid card "
+                            "type!");
+                }
+            }
+
+            return 0;
+        }));
+    cards.emplace("GIL_598", cardDef);
 
     // ----------------------------------------- WEAPON - ROGUE
     // [GIL_672] Spectral Cutlass - COST:4 [ATK:2/HP:0]
