@@ -717,7 +717,7 @@ TGT | AT_025 | Dark Bargain |
 TGT | AT_026 | Wrathguard |  
 TGT | AT_027 | Wilfred Fizzlebang |  
 TGT | AT_028 | Shado-Pan Rider |  
-TGT | AT_029 | Buccaneer |  
+TGT | AT_029 | Buccaneer | O
 TGT | AT_030 | Undercity Valiant |  
 TGT | AT_031 | Cutpurse |  
 TGT | AT_032 | Shady Dealer |  
@@ -822,7 +822,7 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 6% (9 of 132 Cards)
+- Progress: 7% (10 of 132 Cards)
 
 ## The League of Explorers
 
@@ -1704,7 +1704,7 @@ GILNEAS | GIL_583 | Totem Cruncher |
 GILNEAS | GIL_584 | Witchwood Piper |  
 GILNEAS | GIL_586 | Earthen Might |  
 GILNEAS | GIL_596 | Silver Sword |  
-GILNEAS | GIL_598 | Tess Greymane |  
+GILNEAS | GIL_598 | Tess Greymane | O
 GILNEAS | GIL_600 | Zap! |  
 GILNEAS | GIL_601 | Scaleworm |  
 GILNEAS | GIL_607 | Toxmonger |  
@@ -1774,7 +1774,7 @@ GILNEAS | GIL_902 | Cutthroat Buccaneer |
 GILNEAS | GIL_903 | Hidden Wisdom |  
 GILNEAS | GIL_905 | Carrion Drake |  
 
-- Progress: 2% (4 of 135 Cards)
+- Progress: 3% (5 of 135 Cards)
 
 ## The Boomsday Project
 
