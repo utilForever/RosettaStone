@@ -146,6 +146,7 @@
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/InternalCardLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>
+#include <Rosetta/PlayMode/Logs/PlayHistory.hpp>
 #include <Rosetta/PlayMode/Managers/CostManager.hpp>
 #include <Rosetta/PlayMode/Managers/GameManager.hpp>
 #include <Rosetta/PlayMode/Managers/TriggerEvent.hpp>
