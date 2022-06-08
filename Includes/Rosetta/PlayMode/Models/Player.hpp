@@ -9,6 +9,7 @@
 
 #include <Rosetta/Common/Enums/GameEnums.hpp>
 #include <Rosetta/PlayMode/Enchants/PlayerAuraEffects.hpp>
+#include <Rosetta/PlayMode/Logs/PlayHistory.hpp>
 #include <Rosetta/PlayMode/Models/Choice.hpp>
 #include <Rosetta/PlayMode/Models/Entity.hpp>
 #include <Rosetta/PlayMode/Models/Hero.hpp>
@@ -350,6 +351,7 @@ class Player : public Entity
 
     PlayerAuraEffects playerAuraEffects;
     std::vector<Card*> cardsPlayedThisTurn;
+    std::vector<PlayHistory> playHistory;
 
  private:
     Hero* m_hero = nullptr;
