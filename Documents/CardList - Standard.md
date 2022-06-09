@@ -47,8 +47,8 @@ CORE | CORE_CS2_029 | Fireball | O
 CORE | CORE_CS2_032 | Flamestrike | O
 CORE | CORE_CS2_042 | Fire Elemental | O
 CORE | CORE_CS2_045 | Rockbiter Weapon | O
-CORE | CORE_CS2_046 | Bloodlust |  
-CORE | CORE_CS2_053 | Far Sight |  
+CORE | CORE_CS2_046 | Bloodlust | O
+CORE | CORE_CS2_053 | Far Sight | O
 CORE | CORE_CS2_062 | Hellfire | O
 CORE | CORE_CS2_065 | Voidwalker |  
 CORE | CORE_CS2_072 | Backstab | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 82% (205 of 250 Cards)
+- Progress: 82% (207 of 250 Cards)
 
 ## Forged in the Barrens
 

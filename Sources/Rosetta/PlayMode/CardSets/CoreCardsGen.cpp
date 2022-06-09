@@ -2279,6 +2279,10 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your minions +3 Attack this turn.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_046e", EntityType::MINIONS));
+    cards.emplace("CORE_CS2_046", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_CS2_053] Far Sight - COST:3
@@ -2286,6 +2290,11 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a card. That card costs (3) less.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_053e", EntityType::STACK));
+    cards.emplace("CORE_CS2_053", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_EX1_238] Lightning Bolt - COST:1
