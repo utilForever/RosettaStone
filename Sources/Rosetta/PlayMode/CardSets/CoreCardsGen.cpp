@@ -2279,6 +2279,10 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Give your minions +3 Attack this turn.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("CS2_046e", EntityType::MINIONS));
+    cards.emplace("CORE_CS2_046", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_CS2_053] Far Sight - COST:3
