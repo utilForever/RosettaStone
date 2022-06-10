@@ -6654,6 +6654,62 @@ TEST_CASE("[Shaman : Minion] - CORE_EX1_575 : Mana Tide Totem")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [CORE_KAR_073] Maelstrom Portal - COST:2
+// - Set: CORE, Rarity: Rare
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Deal 1 damage to all enemy minions.
+//       Summon a random 1-Cost minion.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - CORE_KAR_073 : Maelstrom Portal")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Maelstrom Portal"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 11);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [CORE_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
 // - Race: Elemental, Set: CORE, Rarity: Legendary

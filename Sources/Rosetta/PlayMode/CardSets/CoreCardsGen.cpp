@@ -2426,6 +2426,13 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to all enemy minions.
     //       Summon a random 1-Cost minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("CORE_KAR_073", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
