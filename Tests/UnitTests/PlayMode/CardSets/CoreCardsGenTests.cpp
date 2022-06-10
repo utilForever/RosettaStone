@@ -6446,6 +6446,120 @@ TEST_CASE("[Shaman : Spell] - CORE_EX1_259 : Lightning Storm")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [CORE_EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:2]
+// - Race: Totem, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Adjacent minions have +2 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - ADJACENT_BUFF = 1
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - CORE_EX1_565 : Flametongue Totem")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flametongue Totem"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flametongue Totem"));
+    const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flametongue Totem"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Flametongue Totem"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Boulderfist Ogre"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card7 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card8 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField[1]->GetAttack(), 8);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 10);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
+    CHECK_EQ(curField[2]->GetAttack(), 0);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField[3]->GetAttack(), 3);
+    CHECK_EQ(curField[3]->GetHealth(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[3]->GetAttack(), 5);
+    CHECK_EQ(curField[3]->GetHealth(), 4);
+    CHECK_EQ(curField[4]->GetAttack(), 0);
+    CHECK_EQ(curField[4]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card7));
+    CHECK_EQ(curField[5]->GetAttack(), 5);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField[5]->GetAttack(), 7);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[6]->GetAttack(), 0);
+    CHECK_EQ(curField[6]->GetHealth(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card8));
+    game.Process(opPlayer, AttackTask(card8, card7));
+
+    CHECK_EQ(curField[4]->GetAttack(), 2);
+    CHECK_EQ(curField[4]->GetHealth(), 2);
+    CHECK_EQ(curField[5]->GetAttack(), 2);
+    CHECK_EQ(curField[5]->GetHealth(), 2);
+}
+
 // ---------------------------------------- WEAPON - SHAMAN
 // [CORE_EX1_567] Doomhammer - COST:5
 // - Set: CORE, Rarity: Epic
@@ -6540,6 +6654,62 @@ TEST_CASE("[Shaman : Minion] - CORE_EX1_575 : Mana Tide Totem")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [CORE_KAR_073] Maelstrom Portal - COST:2
+// - Set: CORE, Rarity: Rare
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: Deal 1 damage to all enemy minions.
+//       Summon a random 1-Cost minion.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - CORE_KAR_073 : Maelstrom Portal")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Maelstrom Portal"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 11);
+}
+
 // ---------------------------------------- MINION - SHAMAN
 // [CORE_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
 // - Race: Elemental, Set: CORE, Rarity: Legendary
@@ -6556,6 +6726,82 @@ TEST_CASE("[Shaman : Minion] - CORE_EX1_575 : Mana Tide Totem")
 TEST_CASE("[Shaman : Minion] - CORE_NEW1_010 : Al'Akir the Windlord")
 {
     // Do nothing
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [CORE_TRL_345] Krag'wa, the Frog - COST:6 [ATK:4/HP:6]
+// - Race: Beast, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Return all spells you played
+//       last turn to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - CORE_TRL_345 : Krag'wa, the Frog")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Krag'wa, the Frog"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Krag'wa, the Frog"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Doomhammer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card4, curPlayer->GetHero()));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curHand[2]->card->name, "Fireball");
+
+    curPlayer->SetUsedMana(0);
+    game.Process(curPlayer, PlayCardTask::Weapon(card5));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 1);
 }
 
 // ----------------------------------------- SPELL - SHAMAN

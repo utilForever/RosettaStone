@@ -12,6 +12,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 
 namespace RosettaStone::PlayMode
 {
+using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
@@ -344,6 +345,8 @@ void KaraCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - SHAMAN
     // [KAR_021] Wicked Witchdoctor - COST:4 [ATK:3/HP:4]
     // - Set: Kara, Rarity: Common
@@ -371,6 +374,13 @@ void KaraCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to all enemy minions.
     //       Summon a random 1-Cost minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("KAR_073", cardDef);
 }
 
 void KaraCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)

@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/CardSets/TrollCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1039,6 +1040,8 @@ void TrollCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [TRL_012] Totemic Smash - COST:1
     // - Set: Troll, Rarity: Common
@@ -1132,6 +1135,39 @@ void TrollCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+            int turn = playable->game->GetTurn();
+
+            std::vector<Card*> playedSpells;
+            playedSpells.reserve(10);
+
+            for (auto& history : player->playHistory)
+            {
+                if (history.sourceCard->GetCardType() == CardType::SPELL &&
+                    history.turn == turn - 2)
+                {
+                    playedSpells.emplace_back(history.sourceCard);
+                }
+            }
+
+            const int space = player->GetHandZone()->GetFreeSpace();
+            for (const auto& playedSpell : playedSpells)
+            {
+                Playable* spell = Entity::GetFromCard(player, playedSpell);
+                player->GetHandZone()->Add(spell);
+
+                if (player->GetHandZone()->IsFull())
+                {
+                    break;
+                }
+            }
+
+            return 0;
+        }));
+    cards.emplace("TRL_345", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [TRL_351] Rain of Toads - COST:6

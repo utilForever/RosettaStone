@@ -149,7 +149,7 @@ CORE | CORE_EX1_534 | Savannah Highmane | O
 CORE | CORE_EX1_543 | King Krush | O
 CORE | CORE_EX1_554 | Snake Trap | O
 CORE | CORE_EX1_564 | Faceless Manipulator | O
-CORE | CORE_EX1_565 | Flametongue Totem |  
+CORE | CORE_EX1_565 | Flametongue Totem | O
 CORE | CORE_EX1_567 | Doomhammer | O
 CORE | CORE_EX1_571 | Force of Nature | O
 CORE | CORE_EX1_573 | Cenarius | O
@@ -185,7 +185,7 @@ CORE | CORE_ICC_809 | Plague Scientist | O
 CORE | CORE_KAR_006 | Cloaked Huntress | O
 CORE | CORE_KAR_009 | Babbling Book | O
 CORE | CORE_KAR_069 | Swashburglar | O
-CORE | CORE_KAR_073 | Maelstrom Portal |  
+CORE | CORE_KAR_073 | Maelstrom Portal | O
 CORE | CORE_LOE_003 | Ethereal Conjurer | O
 CORE | CORE_LOE_011 | Reno Jackson |  
 CORE | CORE_LOE_012 | Tomb Pillager | O
@@ -220,7 +220,7 @@ CORE | CORE_TRL_243 | Pounce | O
 CORE | CORE_TRL_252 | High Priestess Jeklik |  
 CORE | CORE_TRL_307 | Flash of Light | O
 CORE | CORE_TRL_315 | Pyromaniac | O
-CORE | CORE_TRL_345 | Krag'wa, the Frog |  
+CORE | CORE_TRL_345 | Krag'wa, the Frog | O
 CORE | CORE_TRL_348 | Springpaw | O
 CORE | CORE_ULD_191 | Beaming Sidekick |  
 CORE | CORE_ULD_209 | Vulpera Scoundrel |  
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 82% (207 of 250 Cards)
+- Progress: 84% (210 of 250 Cards)
 
 ## Forged in the Barrens
 

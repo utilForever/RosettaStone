@@ -2039,8 +2039,6 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<RandomTask>(EntityType::DECK, 3));
-    cardDef.power.AddPowerTask(
         std::make_shared<FuncNumberTask>([](Playable* playable) {
             Player* player = playable->player;
 
@@ -2384,6 +2382,9 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdjacentAura>("EX1_565o"));
+    cards.emplace("CORE_EX1_565", cardDef);
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [CORE_EX1_567] Doomhammer - COST:5
@@ -2423,6 +2424,13 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Deal 1 damage to all enemy minions.
     //       Summon a random 1-Cost minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_MINIONS, 1, true));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("CORE_KAR_073", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [CORE_NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:6]
@@ -2452,6 +2460,39 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+            int turn = playable->game->GetTurn();
+
+            std::vector<Card*> playedSpells;
+            playedSpells.reserve(10);
+
+            for (auto& history : player->playHistory)
+            {
+                if (history.sourceCard->GetCardType() == CardType::SPELL &&
+                    history.turn == turn - 2)
+                {
+                    playedSpells.emplace_back(history.sourceCard);
+                }
+            }
+
+            const int space = player->GetHandZone()->GetFreeSpace();
+            for (const auto& playedSpell : playedSpells)
+            {
+                Playable* spell = Entity::GetFromCard(player, playedSpell);
+                player->GetHandZone()->Add(spell);
+
+                if (player->GetHandZone()->IsFull())
+                {
+                    break;
+                }
+            }
+
+            return 0;
+        }));
+    cards.emplace("CORE_TRL_345", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [CORE_UNG_817] Tidal Surge - COST:3
