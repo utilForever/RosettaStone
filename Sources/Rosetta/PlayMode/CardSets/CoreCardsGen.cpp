@@ -2039,8 +2039,6 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<RandomTask>(EntityType::DECK, 3));
-    cardDef.power.AddPowerTask(
         std::make_shared<FuncNumberTask>([](Playable* playable) {
             Player* player = playable->player;
 
