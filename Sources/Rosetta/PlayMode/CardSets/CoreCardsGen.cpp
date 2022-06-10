@@ -2384,6 +2384,9 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - ADJACENT_BUFF = 1
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdjacentAura>("EX1_565o"));
+    cards.emplace("CORE_EX1_565", cardDef);
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [CORE_EX1_567] Doomhammer - COST:5
