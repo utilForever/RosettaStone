@@ -76,7 +76,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     // Increase the number of cards played this turn
     const int val = player->GetNumCardsPlayedThisTurn();
     player->SetNumCardsPlayedThisTurn(val + 1);
-    player->playHistory.emplace_back(PlayHistory(source, target, chooseOne));
+    player->playHistory.emplace_back(
+        PlayHistory(source, target, player->game->GetTurn(), chooseOne));
 
     // Record played cards for effect of cards
     // (i.e. Obsidian Shard and Lynessa Sunsorrow)
