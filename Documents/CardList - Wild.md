@@ -1047,7 +1047,7 @@ KARA | KAR_063 | Spirit Claws |
 KARA | KAR_065 | Menagerie Warden | O
 KARA | KAR_069 | Swashburglar | O
 KARA | KAR_070 | Ethereal Peddler |  
-KARA | KAR_073 | Maelstrom Portal |  
+KARA | KAR_073 | Maelstrom Portal | O
 KARA | KAR_075 | Moonglade Portal |  
 KARA | KAR_076 | Firelands Portal |  
 KARA | KAR_077 | Silvermoon Portal |  
@@ -1067,7 +1067,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 13% (6 of 45 Cards)
+- Progress: 15% (7 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 
@@ -1997,7 +1997,7 @@ TROLL | TRL_329 | Akali, the Rhino |
 TROLL | TRL_339 | Master's Call |  
 TROLL | TRL_341 | Treespeaker |  
 TROLL | TRL_343 | Wardruid Loti |  
-TROLL | TRL_345 | Krag'wa, the Frog |  
+TROLL | TRL_345 | Krag'wa, the Frog | O
 TROLL | TRL_347 | Baited Arrow |  
 TROLL | TRL_348 | Springpaw | O
 TROLL | TRL_349 | Bloodscalp Strategist |  
@@ -2059,7 +2059,7 @@ TROLL | TRL_570 | Soup Vendor |
 TROLL | TRL_900 | Halazzi, the Lynx |  
 TROLL | TRL_901 | Spirit of the Lynx |  
 
-- Progress: 3% (5 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)
 
 ## Rise of Shadows
 
