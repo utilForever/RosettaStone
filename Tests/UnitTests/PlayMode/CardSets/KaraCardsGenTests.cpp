@@ -229,6 +229,60 @@ TEST_CASE("[Rogue : Minion] - KAR_069 : Swashburglar")
     CHECK(curHand[0]->card->IsCardClass(CardClass::HUNTER));
 }
 
+// ----------------------------------------- SPELL - SHAMAN
+// [KAR_073] Maelstrom Portal - COST:2
+// - Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 1 damage to all enemy minions.
+//       Summon a random 1-Cost minion.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - KAR_073 : Maelstrom Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Maelstrom Portal"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 1);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetHealth(), 11);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
 // - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common
