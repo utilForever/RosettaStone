@@ -306,6 +306,8 @@ void BrmCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [BRM_005] Demonwrath - COST:3
     // - Set: Brm, Rarity: Rare
@@ -322,14 +324,26 @@ void BrmCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever this minion takes damage, summon a 1/1 Imp.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BRM_006t", SummonSide::RIGHT) };
+    cards.emplace("BRM_006", cardDef);
 }
 
 void BrmCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARLOCK
     // [BRM_006t] Imp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Demon, Set: Brm
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_006t", cardDef);
 }
 
 void BrmCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)

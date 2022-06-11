@@ -904,6 +904,8 @@ void GangsCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void GangsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [CFM_094] Felfire Potion - COST:6
     // - Set: GANGS, Rarity: Rare
@@ -982,6 +984,10 @@ void GangsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_NOSOURCE, 3));
+    cards.emplace("CFM_751", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [CFM_900] Unlicensed Apothecary - COST:3 [ATK:5/HP:5]

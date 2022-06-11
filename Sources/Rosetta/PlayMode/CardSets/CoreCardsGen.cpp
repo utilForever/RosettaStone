@@ -2571,6 +2571,13 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BRM_006t", SummonSide::RIGHT) };
+    cards.emplace("CORE_BRM_006", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_CFM_751] Abyssal Enforcer - COST:7 [ATK:6/HP:6]
@@ -2581,6 +2588,10 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_NOSOURCE, 3));
+    cards.emplace("CORE_CFM_751", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_CS2_062] Hellfire - COST:4
@@ -2603,6 +2614,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_065", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_302] Mortal Coil - COST:1
@@ -2754,6 +2768,10 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DiscardTask>(1));
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_OG_109", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_TRL_252] High Priestess Jeklik - COST:4 [ATK:3/HP:5]
@@ -2769,6 +2787,13 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - InvisibleDeathrattle = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    cardDef.power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<CopyTask>(
+        EntityType::SOURCE, ZoneType::HAND, 2) };
+    cards.emplace("CORE_TRL_252", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_UNG_833] Lakkari Felhound - COST:4 [ATK:3/HP:8]
