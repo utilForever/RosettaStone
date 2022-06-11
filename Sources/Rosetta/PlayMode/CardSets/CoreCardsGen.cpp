@@ -2614,6 +2614,9 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("CORE_CS2_065", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_EX1_302] Mortal Coil - COST:1

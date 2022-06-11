@@ -7113,6 +7113,20 @@ TEST_CASE("[Warlock : Spell] - CORE_CS2_062 : Hellfire")
     CHECK_EQ(opField[0]->GetHealth(), 4);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [CORE_CS2_065] Voidwalker - COST:1 [ATK:1/HP:3]
+// - Race: Demon, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - CORE_CS2_065 : Voidwalker")
+{
+    // Do nothing
+}
+
 // ---------------------------------------- SPELL - WARLOCK
 // [CORE_EX1_302] Mortal Coil - COST:1
 // - Set: CORE, Rarity: Common
