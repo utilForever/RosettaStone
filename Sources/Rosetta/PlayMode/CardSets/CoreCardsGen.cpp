@@ -2571,6 +2571,13 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BRM_006t", SummonSide::RIGHT) };
+    cards.emplace("CORE_BRM_006", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_CFM_751] Abyssal Enforcer - COST:7 [ATK:6/HP:6]
