@@ -11,6 +11,7 @@
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -290,6 +291,56 @@ TEST_CASE("[Rogue : Minion] - OG_070 : Bladed Cultist")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[1]->GetAttack(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - WARLOCK
+// [OG_109] Darkshire Librarian - COST:2 [ATK:3/HP:2]
+// - Set: Og, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Discard a random card.
+//       <b>Deathrattle:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - OG_109 : Darkshire Librarian")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Darkshire Librarian"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHand.GetCount(), 4);
 }
 
 // --------------------------------------- MINION - WARLOCK

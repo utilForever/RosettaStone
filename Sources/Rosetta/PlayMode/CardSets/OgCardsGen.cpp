@@ -1063,8 +1063,11 @@ void OgCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // - BATTLECRY = 1
-    // - 890 = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DiscardTask>(1));
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("OG_109", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [OG_113] Darkshire Councilman - COST:3 [ATK:1/HP:5]
