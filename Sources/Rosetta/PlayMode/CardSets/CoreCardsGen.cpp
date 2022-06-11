@@ -2768,6 +2768,10 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DiscardTask>(1));
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_OG_109", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [CORE_TRL_252] High Priestess Jeklik - COST:4 [ATK:3/HP:5]
