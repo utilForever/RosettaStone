@@ -1246,6 +1246,8 @@ void TrollCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void TrollCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [TRL_245] Shriek - COST:1
     // - Set: Troll, Rarity: Rare
@@ -1313,6 +1315,13 @@ void TrollCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - InvisibleDeathrattle = 1
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    cardDef.power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<CopyTask>(
+        EntityType::SOURCE, ZoneType::HAND, 2) };
+    cards.emplace("TRL_252", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [TRL_253] Hir'eek, the Bat - COST:8 [ATK:1/HP:1]

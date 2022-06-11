@@ -346,3 +346,52 @@ TEST_CASE("[Shaman : Minion] - TRL_345 : Krag'wa, the Frog")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curHand.GetCount(), 1);
 }
+
+// --------------------------------------- MINION - WARLOCK
+// [TRL_252] High Priestess Jeklik - COST:4 [ATK:3/HP:5]
+// - Set: Troll, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Taunt</b>, <b>Lifesteal</b>
+//       When you discard this,
+//       add 2 copies of it to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - TAUNT = 1
+// - InvisibleDeathrattle = 1
+// - LIFESTEAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - TRL_252 : High Priestess Jeklik")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("High Priestess Jeklik"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Darkshire Librarian"));
+
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->name, "High Priestess Jeklik");
+    CHECK_EQ(curHand[1]->card->name, "High Priestess Jeklik");
+}
