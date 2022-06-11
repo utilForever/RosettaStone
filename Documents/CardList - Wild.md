@@ -656,7 +656,7 @@ BRM | BRM_002 | Flamewaker |
 BRM | BRM_003 | Dragon's Breath |  
 BRM | BRM_004 | Twilight Whelp |  
 BRM | BRM_005 | Demonwrath |  
-BRM | BRM_006 | Imp Gang Boss |  
+BRM | BRM_006 | Imp Gang Boss | O
 BRM | BRM_007 | Gang Up |  
 BRM | BRM_008 | Dark Iron Skulker |  
 BRM | BRM_009 | Volcanic Lumberer |  
@@ -683,7 +683,7 @@ BRM | BRM_031 | Chromaggus |
 BRM | BRM_033 | Blackwing Technician |  
 BRM | BRM_034 | Blackwing Corruptor |  
 
-- Progress: 3% (1 of 31 Cards)
+- Progress: 6% (2 of 31 Cards)
 
 ## The Grand Tournament
 
@@ -913,7 +913,7 @@ OG | OG_100 | Shadow Word: Horror |
 OG | OG_101 | Forbidden Shaping |  
 OG | OG_102 | Darkspeaker |  
 OG | OG_104 | Embrace the Shadow |  
-OG | OG_109 | Darkshire Librarian |  
+OG | OG_109 | Darkshire Librarian | O
 OG | OG_113 | Darkshire Councilman |  
 OG | OG_114 | Forbidden Ritual |  
 OG | OG_116 | Spreading Madness |  
@@ -1015,7 +1015,7 @@ OG | OG_338 | Nat, the Darkfisher |
 OG | OG_339 | Skeram Cultist |  
 OG | OG_340 | Soggoth the Slitherer |  
 
-- Progress: 4% (6 of 134 Cards)
+- Progress: 5% (7 of 134 Cards)
 
 ## One Night in Karazhan
 
@@ -1177,7 +1177,7 @@ GANGS | CFM_715 | Jade Spirit |
 GANGS | CFM_716 | Sleep with the Fishes |  
 GANGS | CFM_717 | Jade Claws |  
 GANGS | CFM_750 | Krul the Unshackled |  
-GANGS | CFM_751 | Abyssal Enforcer |  
+GANGS | CFM_751 | Abyssal Enforcer | O
 GANGS | CFM_752 | Stolen Goods |  
 GANGS | CFM_753 | Grimestreet Outfitter |  
 GANGS | CFM_754 | Grimy Gadgeteer |  
@@ -1206,7 +1206,7 @@ GANGS | CFM_902 | Aya Blackpaw |
 GANGS | CFM_905 | Small-Time Recruits |  
 GANGS | CFM_940 | I Know a Guy |  
 
-- Progress: 0% (1 of 132 Cards)
+- Progress: 1% (2 of 132 Cards)
 
 ## Journey to Un'Goro
 
@@ -1961,7 +1961,7 @@ TROLL | TRL_246 | Void Contract |
 TROLL | TRL_247 | Soulwarden |  
 TROLL | TRL_249 | Grim Rally |  
 TROLL | TRL_251 | Spirit of the Bat |  
-TROLL | TRL_252 | High Priestess Jeklik |  
+TROLL | TRL_252 | High Priestess Jeklik | O
 TROLL | TRL_253 | Hir'eek, the Bat |  
 TROLL | TRL_254 | Mark of the Loa |  
 TROLL | TRL_255 | Stampeding Roar |  
@@ -2059,7 +2059,7 @@ TROLL | TRL_570 | Soup Vendor |
 TROLL | TRL_900 | Halazzi, the Lynx |  
 TROLL | TRL_901 | Spirit of the Lynx |  
 
-- Progress: 4% (6 of 135 Cards)
+- Progress: 5% (7 of 135 Cards)
 
 ## Rise of Shadows
 

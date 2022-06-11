@@ -18,7 +18,7 @@ CORE | CORE_AT_064 | Bash |
 CORE | CORE_AT_075 | Warhorse Trainer | O
 CORE | CORE_BOT_453 | Shooting Star | O
 CORE | CORE_BOT_533 | Menacing Nimbus | O
-CORE | CORE_BRM_006 | Imp Gang Boss |  
+CORE | CORE_BRM_006 | Imp Gang Boss | O
 CORE | CORE_BRM_013 | Quick Shot | O
 CORE | CORE_BT_035 | Chaos Strike | O
 CORE | CORE_BT_036 | Coordinated Strike | O
@@ -36,7 +36,7 @@ CORE | CORE_BT_801 | Eye Beam | O
 CORE | CORE_BT_921 | Aldrachi Warblades | O
 CORE | CORE_CFM_120 | Mistress of Mixtures |  
 CORE | CORE_CFM_605 | Drakonid Operative | O
-CORE | CORE_CFM_751 | Abyssal Enforcer |  
+CORE | CORE_CFM_751 | Abyssal Enforcer | O
 CORE | CORE_CS1_112 | Holy Nova | O
 CORE | CORE_CS1_130 | Holy Smite | O
 CORE | CORE_CS2_009 | Mark of the Wild | O
@@ -50,7 +50,7 @@ CORE | CORE_CS2_045 | Rockbiter Weapon | O
 CORE | CORE_CS2_046 | Bloodlust | O
 CORE | CORE_CS2_053 | Far Sight | O
 CORE | CORE_CS2_062 | Hellfire | O
-CORE | CORE_CS2_065 | Voidwalker |  
+CORE | CORE_CS2_065 | Voidwalker | O
 CORE | CORE_CS2_072 | Backstab | O
 CORE | CORE_CS2_073 | Cold Blood | O
 CORE | CORE_CS2_074 | Deadly Poison | O
@@ -212,12 +212,12 @@ CORE | CORE_NEW1_027 | Southsea Captain | O
 CORE | CORE_NEW1_031 | Animal Companion | O
 CORE | CORE_OG_044 | Fandral Staghelm | O
 CORE | CORE_OG_047 | Feral Rage | O
-CORE | CORE_OG_109 | Darkshire Librarian |  
+CORE | CORE_OG_109 | Darkshire Librarian | O
 CORE | CORE_OG_218 | Bloodhoof Brave |  
 CORE | CORE_OG_229 | Ragnaros, Lightlord | O
 CORE | CORE_OG_273 | Stand Against Darkness | O
 CORE | CORE_TRL_243 | Pounce | O
-CORE | CORE_TRL_252 | High Priestess Jeklik |  
+CORE | CORE_TRL_252 | High Priestess Jeklik | O
 CORE | CORE_TRL_307 | Flash of Light | O
 CORE | CORE_TRL_315 | Pyromaniac | O
 CORE | CORE_TRL_345 | Krag'wa, the Frog | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 84% (210 of 250 Cards)
+- Progress: 86% (215 of 250 Cards)
 
 ## Forged in the Barrens
 
