@@ -2588,6 +2588,10 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_NOSOURCE, 3));
+    cards.emplace("CORE_CFM_751", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [CORE_CS2_062] Hellfire - COST:4
