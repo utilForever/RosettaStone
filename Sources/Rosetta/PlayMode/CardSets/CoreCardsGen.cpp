@@ -3092,6 +3092,10 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Gain 5 Armor.
     //       Draw a card.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(5));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_EX1_606", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_GIL_547] Darius Crowley - COST:5 [ATK:4/HP:5]

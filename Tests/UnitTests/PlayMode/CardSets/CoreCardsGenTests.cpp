@@ -8374,6 +8374,43 @@ TEST_CASE("[Warrior : Minion] - CORE_EX1_604 : Frothing Berserker")
     CHECK_EQ(curField[0]->GetAttack(), 7);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [CORE_EX1_606] Shield Block - COST:3
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Gain 5 Armor.
+//       Draw a card.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - CORE_EX1_606 : Shield Block")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetArmor(3);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shield Block"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 8);
+}
+
 // --------------------------------------- MINION - WARRIOR
 // [CORE_GVG_053] Shieldmaiden - COST:5 [ATK:5/HP:5]
 // - Set: CORE, Rarity: Rare
