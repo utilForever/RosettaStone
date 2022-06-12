@@ -753,7 +753,7 @@ TGT | AT_061 | Lock and Load | O
 TGT | AT_062 | Ball of Spiders |  
 TGT | AT_063 | Acidmaw |  
 TGT | AT_063t | Dreadscale |  
-TGT | AT_064 | Bash |  
+TGT | AT_064 | Bash | O
 TGT | AT_065 | King's Defender |  
 TGT | AT_066 | Orgrimmar Aspirant |  
 TGT | AT_067 | Magnataur Alpha |  
@@ -822,7 +822,7 @@ TGT | AT_131 | Eydis Darkbane |
 TGT | AT_132 | Justicar Trueheart |  
 TGT | AT_133 | Gadgetzan Jouster |  
 
-- Progress: 7% (10 of 132 Cards)
+- Progress: 8% (11 of 132 Cards)
 
 ## The League of Explorers
 
@@ -953,7 +953,7 @@ OG | OG_207 | Faceless Summoner |
 OG | OG_209 | Hallazeal the Ascended |  
 OG | OG_211 | Call of the Wild |  
 OG | OG_216 | Infested Wolf |  
-OG | OG_218 | Bloodhoof Brave |  
+OG | OG_218 | Bloodhoof Brave | O
 OG | OG_220 | Malkorok |  
 OG | OG_221 | Selfless Hero |  
 OG | OG_222 | Rallying Blade |  
@@ -1015,7 +1015,7 @@ OG | OG_338 | Nat, the Darkfisher |
 OG | OG_339 | Skeram Cultist |  
 OG | OG_340 | Soggoth the Slitherer |  
 
-- Progress: 5% (7 of 134 Cards)
+- Progress: 5% (8 of 134 Cards)
 
 ## One Night in Karazhan
 
@@ -1686,7 +1686,7 @@ GILNEAS | GIL_534 | Hench-Clan Thug |
 GILNEAS | GIL_537 | Deadly Arsenal |  
 GILNEAS | GIL_543 | Dark Possession |  
 GILNEAS | GIL_545 | Ghostly Charger |  
-GILNEAS | GIL_547 | Darius Crowley |  
+GILNEAS | GIL_547 | Darius Crowley | O
 GILNEAS | GIL_548 | Book of Specters |  
 GILNEAS | GIL_549 | Toki, Time-Tinker |  
 GILNEAS | GIL_553 | Wispering Woods |  
@@ -1774,7 +1774,7 @@ GILNEAS | GIL_902 | Cutthroat Buccaneer |
 GILNEAS | GIL_903 | Hidden Wisdom |  
 GILNEAS | GIL_905 | Carrion Drake |  
 
-- Progress: 3% (5 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)
 
 ## The Boomsday Project
 
