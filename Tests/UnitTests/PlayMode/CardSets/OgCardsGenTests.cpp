@@ -390,3 +390,51 @@ TEST_CASE("[Warlock : Minion] - OG_241 : Possessed Villager")
     CHECK_EQ(curField[0]->GetAttack(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 1);
 }
+
+// --------------------------------------- MINION - WARRIOR
+// [OG_218] Bloodhoof Brave - COST:4 [ATK:2/HP:6]
+// - Set: Og, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Has +3 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// - ENRAGED = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - OG_218 : Bloodhoof Brave")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodhoof Brave"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
