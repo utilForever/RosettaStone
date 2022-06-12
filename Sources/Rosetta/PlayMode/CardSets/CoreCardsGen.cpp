@@ -3109,6 +3109,16 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "GIL_547e", EntityType::SOURCE) };
+    cards.emplace("CORE_GIL_547", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_GVG_053] Shieldmaiden - COST:5 [ATK:5/HP:5]
