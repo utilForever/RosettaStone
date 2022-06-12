@@ -17,6 +17,7 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -3144,6 +3145,10 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - ENRAGED = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("OG_218e")));
+    cards.emplace("CORE_OG_218", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]

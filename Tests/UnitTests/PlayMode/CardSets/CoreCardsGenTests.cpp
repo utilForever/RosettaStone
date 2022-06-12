@@ -8518,6 +8518,55 @@ TEST_CASE("[Warrior : Minion] - CORE_GVG_053 : Shieldmaiden")
 }
 
 // --------------------------------------- MINION - WARRIOR
+// [CORE_OG_218] Bloodhoof Brave - COST:4 [ATK:2/HP:6]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       Has +3 Attack while damaged.
+// --------------------------------------------------------
+// GameTag:
+// - ENRAGED = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - CORE_OG_218 : Bloodhoof Brave")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bloodhoof Brave"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, HeroPowerTask(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - WARRIOR
 // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]
 // - Race: Pirate, Set: CORE, Rarity: Common
 // --------------------------------------------------------
