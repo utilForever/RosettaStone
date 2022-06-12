@@ -7719,6 +7719,46 @@ TEST_CASE("[Warlock : Minion] - CS3_003 : Felsoul Jailer")
     CHECK_EQ(opHand[1]->card->name, "Malygos");
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [CORE_AT_064] Bash - COST:3
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage.
+//       Gain 3 Armor.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - CORE_AT_064 : Bash")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Bash"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 3);
+}
+
 // --------------------------------------- WEAPON - WARRIOR
 // [CORE_CS2_106] Fiery War Axe - COST:3
 // - Set: CORE, Rarity: Common
