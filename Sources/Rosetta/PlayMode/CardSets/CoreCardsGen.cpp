@@ -17,6 +17,7 @@
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -2871,6 +2872,15 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage.
     //       Gain 3 Armor.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(3));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("CORE_AT_064", cardDef);
 
     // --------------------------------------- WEAPON - WARRIOR
     // [CORE_CS2_106] Fiery War Axe - COST:3
@@ -3083,6 +3093,10 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Gain 5 Armor.
     //       Draw a card.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(5));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_EX1_606", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_GIL_547] Darius Crowley - COST:5 [ATK:4/HP:5]
@@ -3096,6 +3110,16 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "GIL_547e", EntityType::SOURCE) };
+    cards.emplace("CORE_GIL_547", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [CORE_GVG_053] Shieldmaiden - COST:5 [ATK:5/HP:5]
@@ -3121,6 +3145,10 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - ENRAGED = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("OG_218e")));
+    cards.emplace("CORE_OG_218", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [CS3_008] Bloodsail Deckhand - COST:1 [ATK:2/HP:1]

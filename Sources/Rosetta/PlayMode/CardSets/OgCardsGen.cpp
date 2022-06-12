@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
+#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
 
@@ -1173,6 +1174,8 @@ void OgCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- WEAPON - WARRIOR
     // [OG_033] Tentacles for Arms - COST:5 [ATK:2/HP:0]
     // - Set: Og, Rarity: Epic
@@ -1199,12 +1202,16 @@ void OgCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Set: Og, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
-    //       <b>Enrage:</b> +3 Attack.
+    //       Has +3 Attack while damaged.
     // --------------------------------------------------------
     // GameTag:
     // - TAUNT = 1
     // - ENRAGED = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(Triggers::EnrageTrigger("OG_218e")));
+    cards.emplace("OG_218", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [OG_220] Malkorok - COST:7 [ATK:6/HP:5]
@@ -1873,6 +1880,8 @@ void OgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void OgCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOOT_010e] Shadowy (*) - COST:0
     // - Set: Og
@@ -2027,6 +2036,9 @@ void OgCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ENRAGED = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("OG_218e"));
+    cards.emplace("OG_218e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [OG_223e] Optimism (*) - COST:0

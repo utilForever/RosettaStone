@@ -1280,6 +1280,8 @@ void GilneasCardsGen::AddWarlockNonCollect(
 
 void GilneasCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARRIOR
     // [GIL_113] Rabid Worgen - COST:3 [ATK:3/HP:3]
     // - Set: Gilneas, Rarity: Common
@@ -1329,13 +1331,23 @@ void GilneasCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [GIL_547] Darius Crowley - COST:5 [ATK:4/HP:5]
     // - Set: Gilneas, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: [x]<b>Rush</b>
+    // Text: <b>Rush</b>
     //       After this attacks and kills a minion, gain +2/+2.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDefenderDead())
+    };
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "GIL_547e", EntityType::SOURCE) };
+    cards.emplace("GIL_547", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [GIL_580] Town Crier - COST:1 [ATK:1/HP:2]
@@ -2078,6 +2090,10 @@ void GilneasCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::AttackHealthN(2)));
+    cards.emplace("GIL_547e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [GIL_583e] Crunched (*) - COST:0

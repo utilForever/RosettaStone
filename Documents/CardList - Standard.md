@@ -14,7 +14,7 @@ CORE | CORE_AT_021 | Tiny Knight of Evil | O
 CORE | CORE_AT_029 | Buccaneer | O
 CORE | CORE_AT_037 | Living Roots | O
 CORE | CORE_AT_055 | Flash Heal | O
-CORE | CORE_AT_064 | Bash |  
+CORE | CORE_AT_064 | Bash | O
 CORE | CORE_AT_075 | Warhorse Trainer | O
 CORE | CORE_BOT_453 | Shooting Star | O
 CORE | CORE_BOT_533 | Menacing Nimbus | O
@@ -157,7 +157,7 @@ CORE | CORE_EX1_575 | Mana Tide Totem | O
 CORE | CORE_EX1_586 | Sea Giant |  
 CORE | CORE_EX1_603 | Cruel Taskmaster | O
 CORE | CORE_EX1_604 | Frothing Berserker | O
-CORE | CORE_EX1_606 | Shield Block |  
+CORE | CORE_EX1_606 | Shield Block | O
 CORE | CORE_EX1_610 | Explosive Trap | O
 CORE | CORE_EX1_611 | Freezing Trap | O
 CORE | CORE_EX1_617 | Deadly Shot | O
@@ -167,7 +167,7 @@ CORE | CORE_FP1_007 | Nerubian Egg | O
 CORE | CORE_FP1_020 | Avenge | O
 CORE | CORE_GIL_124 | Mossy Horror |  
 CORE | CORE_GIL_191 | Fiendish Circle | O
-CORE | CORE_GIL_547 | Darius Crowley |  
+CORE | CORE_GIL_547 | Darius Crowley | O
 CORE | CORE_GIL_598 | Tess Greymane | O
 CORE | CORE_GIL_622 | Lifedrinker |  
 CORE | CORE_GIL_650 | Houndmaster Shaw | O
@@ -213,7 +213,7 @@ CORE | CORE_NEW1_031 | Animal Companion | O
 CORE | CORE_OG_044 | Fandral Staghelm | O
 CORE | CORE_OG_047 | Feral Rage | O
 CORE | CORE_OG_109 | Darkshire Librarian | O
-CORE | CORE_OG_218 | Bloodhoof Brave |  
+CORE | CORE_OG_218 | Bloodhoof Brave | O
 CORE | CORE_OG_229 | Ragnaros, Lightlord | O
 CORE | CORE_OG_273 | Stand Against Darkness | O
 CORE | CORE_TRL_243 | Pounce | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 86% (215 of 250 Cards)
+- Progress: 87% (219 of 250 Cards)
 
 ## Forged in the Barrens
 
