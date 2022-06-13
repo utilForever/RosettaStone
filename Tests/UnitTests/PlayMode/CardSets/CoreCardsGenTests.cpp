@@ -8795,6 +8795,78 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_235 : Chaos Nova")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// ----------------------------------- WEAPON - DEMONHUNTER
+// [CORE_BT_271] Flamereaper - COST:7
+// - Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Also damages the minions next to whomever
+//       your hero attacks.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// - DURABILITY = 3
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Weapon] - CORE_BT_271 : Flamereaper")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flamereaper"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 5);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card3));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
 // - Race: Demon, Faction: Horde, Set: CORE, Rarity: Rare

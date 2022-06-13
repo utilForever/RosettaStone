@@ -3239,7 +3239,32 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
+    // - DURABILITY = 3
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            const auto target = dynamic_cast<Minion*>(
+                playable->game->currentEventData->eventTarget);
+            if (target == nullptr)
+            {
+                return 0;
+            }
+
+            auto& taskStack = playable->game->taskStack;
+            for (auto& minion : target->GetAdjacentMinions())
+            {
+                taskStack.playables.emplace_back(minion);
+            }
+
+            return playable->player->GetHero()->GetAttack();
+        }),
+        std::make_shared<DamageNumberTask>(EntityType::STACK)
+    };
+    cards.emplace("CORE_BT_271", cardDef);
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
