@@ -2632,7 +2632,7 @@ BLACK_TEMPLE | BT_321 | Netherwalker | O
 BLACK_TEMPLE | BT_334 | Lady Liadrin |  
 BLACK_TEMPLE | BT_341 | Skeletal Dragon | O
 BLACK_TEMPLE | BT_423 | Ashtongue Battlelord | O
-BLACK_TEMPLE | BT_429 | Metamorphosis |  
+BLACK_TEMPLE | BT_429 | Metamorphosis | O
 BLACK_TEMPLE | BT_430 | Warglaives of Azzinoth | O
 BLACK_TEMPLE | BT_480 | Crimson Sigil Runner | O
 BLACK_TEMPLE | BT_486 | Pit Commander | O
@@ -2675,7 +2675,7 @@ BLACK_TEMPLE | BT_781 | Bulwark of Azzinoth |
 BLACK_TEMPLE | BT_850 | Magtheridon |  
 BLACK_TEMPLE | BT_934 | Imprisoned Antaen | O
 
-- Progress: 60% (81 of 135 Cards)
+- Progress: 60% (82 of 135 Cards)
 
 ## Scholomance Academy
 

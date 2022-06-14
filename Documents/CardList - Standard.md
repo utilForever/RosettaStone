@@ -23,13 +23,13 @@ CORE | CORE_BRM_013 | Quick Shot | O
 CORE | CORE_BT_035 | Chaos Strike | O
 CORE | CORE_BT_036 | Coordinated Strike | O
 CORE | CORE_BT_235 | Chaos Nova | O
-CORE | CORE_BT_271 | Flamereaper |  
+CORE | CORE_BT_271 | Flamereaper | O
 CORE | CORE_BT_323 | Sightless Watcher | O
 CORE | CORE_BT_351 | Battlefiend | O
-CORE | CORE_BT_355 | Wrathscale Naga |  
+CORE | CORE_BT_355 | Wrathscale Naga | O
 CORE | CORE_BT_416 | Raging Felscreamer | O
 CORE | CORE_BT_427 | Feast of Souls | O
-CORE | CORE_BT_429 | Metamorphosis |  
+CORE | CORE_BT_429 | Metamorphosis | O
 CORE | CORE_BT_480 | Crimson Sigil Runner | O
 CORE | CORE_BT_491 | Spectral Sight | O
 CORE | CORE_BT_801 | Eye Beam | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 87% (219 of 250 Cards)
+- Progress: 88% (222 of 250 Cards)
 
 ## Forged in the Barrens
 
