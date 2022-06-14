@@ -3380,6 +3380,19 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+
+            const int dbfID = player->GetHeroPower().card->dbfID;
+            player->SetGameTag(GameTag::HERO_POWER_OLD, dbfID);
+
+            return 0;
+        }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<ChangeHeroPowerTask>("BT_429p"));
+    cards.emplace("CORE_BT_429", cardDef);
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]
