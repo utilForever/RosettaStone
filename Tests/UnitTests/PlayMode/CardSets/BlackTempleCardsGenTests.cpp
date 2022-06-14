@@ -3169,6 +3169,66 @@ TEST_CASE("[Demon Hunter : Minion] - BT_423 : Ashtongue Battlelord")
     // Do nothing
 }
 
+// ------------------------------------ SPELL - DEMONHUNTER
+// [BT_429] Metamorphosis - COST:5
+// - Set: BLACK_TEMPLE, Rarity: Legendary
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Swap your Hero Power to "Deal 4 damage."
+//       After 2 uses, swap it back.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - BT_429 : Metamorphosis")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Metamorphosis"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
+
+    game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->id, "BT_429p");
+
+    game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->id, "BT_429p2");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
+}
+
 // ----------------------------------- WEAPON - DEMONHUNTER
 // [BT_430] Warglaives of Azzinoth - COST:5
 // - Set: BLACK_TEMPLE, Rarity: Epic
