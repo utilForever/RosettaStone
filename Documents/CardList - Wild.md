@@ -1088,7 +1088,7 @@ GANGS | CFM_066 | Kabal Lackey |
 GANGS | CFM_067 | Hozen Healer |  
 GANGS | CFM_094 | Felfire Potion |  
 GANGS | CFM_095 | Weasel Tunneler |  
-GANGS | CFM_120 | Mistress of Mixtures |  
+GANGS | CFM_120 | Mistress of Mixtures | O
 GANGS | CFM_300 | Public Defender |  
 GANGS | CFM_305 | Smuggler's Run |  
 GANGS | CFM_308 | Kun the Forgotten King |  
@@ -1206,7 +1206,7 @@ GANGS | CFM_902 | Aya Blackpaw |
 GANGS | CFM_905 | Small-Time Recruits |  
 GANGS | CFM_940 | I Know a Guy |  
 
-- Progress: 1% (2 of 132 Cards)
+- Progress: 2% (3 of 132 Cards)
 
 ## Journey to Un'Goro
 

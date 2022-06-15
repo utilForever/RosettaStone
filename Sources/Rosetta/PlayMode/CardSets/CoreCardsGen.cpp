@@ -3563,6 +3563,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::HERO, 4));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::ENEMY_HERO, 4));
+    cards.emplace("CORE_CFM_120", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
@@ -3746,6 +3752,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("CORE_EX1_007", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
@@ -3825,12 +3837,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
     // - Race: Dragon, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1 Health for each card
-    //       in your hand.
+    // Text: <b>Battlecry:</b> Gain +1 Health
+    //       for each card in your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_043e", EntityType::SOURCE, true));
+    cards.emplace("CORE_EX1_043", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
@@ -4094,6 +4111,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_EX1_284", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
@@ -4118,6 +4138,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "EX1_507e"));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC));
+    }
+    cards.emplace("CORE_EX1_507", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
@@ -4167,6 +4196,13 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Costs (1) less for each other minion
     //       on the battlefield.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+            return playable->player->GetFieldZone()->GetCount() +
+                   playable->player->opponent->GetFieldZone()->GetCount();
+        }));
+    cards.emplace("CORE_EX1_586", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
