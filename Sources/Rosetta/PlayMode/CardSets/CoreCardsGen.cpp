@@ -4111,6 +4111,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("CORE_EX1_284", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_506] Murloc Tidehunter - COST:2 [ATK:2/HP:1]
