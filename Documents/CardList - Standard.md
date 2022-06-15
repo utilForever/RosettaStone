@@ -34,7 +34,7 @@ CORE | CORE_BT_480 | Crimson Sigil Runner | O
 CORE | CORE_BT_491 | Spectral Sight | O
 CORE | CORE_BT_801 | Eye Beam | O
 CORE | CORE_BT_921 | Aldrachi Warblades | O
-CORE | CORE_CFM_120 | Mistress of Mixtures |  
+CORE | CORE_CFM_120 | Mistress of Mixtures | O
 CORE | CORE_CFM_605 | Drakonid Operative | O
 CORE | CORE_CFM_751 | Abyssal Enforcer | O
 CORE | CORE_CS1_112 | Holy Nova | O
@@ -82,13 +82,13 @@ CORE | CORE_DRG_229 | Bronze Explorer | O
 CORE | CORE_DS1_184 | Tracking | O
 CORE | CORE_DS1_185 | Arcane Shot | O
 CORE | CORE_EX1_005 | Big Game Hunter | O
-CORE | CORE_EX1_007 | Acolyte of Pain |  
+CORE | CORE_EX1_007 | Acolyte of Pain | O
 CORE | CORE_EX1_010 | Worgen Infiltrator | O
 CORE | CORE_EX1_011 | Voodoo Doctor | O
 CORE | CORE_EX1_012 | Bloodmage Thalnos | O
 CORE | CORE_EX1_017 | Jungle Panther | O
 CORE | CORE_EX1_028 | Stranglethorn Tiger | O
-CORE | CORE_EX1_043 | Twilight Drake |  
+CORE | CORE_EX1_043 | Twilight Drake | O
 CORE | CORE_EX1_046 | Dark Iron Dwarf | O
 CORE | CORE_EX1_049 | Youthful Brewmaster | O
 CORE | CORE_EX1_059 | Crazed Alchemist | O
@@ -123,7 +123,7 @@ CORE | CORE_EX1_249 | Baron Geddon | O
 CORE | CORE_EX1_259 | Lightning Storm | O
 CORE | CORE_EX1_275 | Cone of Cold | O
 CORE | CORE_EX1_279 | Pyroblast | O
-CORE | CORE_EX1_284 | Azure Drake |  
+CORE | CORE_EX1_284 | Azure Drake | O
 CORE | CORE_EX1_287 | Counterspell | O
 CORE | CORE_EX1_289 | Ice Barrier | O
 CORE | CORE_EX1_302 | Mortal Coil | O
@@ -143,7 +143,7 @@ CORE | CORE_EX1_410 | Shield Slam | O
 CORE | CORE_EX1_411 | Gorehowl | O
 CORE | CORE_EX1_414 | Grommash Hellscream | O
 CORE | CORE_EX1_506 | Murloc Tidehunter | O
-CORE | CORE_EX1_507 | Murloc Warleader |  
+CORE | CORE_EX1_507 | Murloc Warleader | O
 CORE | CORE_EX1_509 | Murloc Tidecaller | O
 CORE | CORE_EX1_534 | Savannah Highmane | O
 CORE | CORE_EX1_543 | King Krush | O
@@ -154,7 +154,7 @@ CORE | CORE_EX1_567 | Doomhammer | O
 CORE | CORE_EX1_571 | Force of Nature | O
 CORE | CORE_EX1_573 | Cenarius | O
 CORE | CORE_EX1_575 | Mana Tide Totem | O
-CORE | CORE_EX1_586 | Sea Giant |  
+CORE | CORE_EX1_586 | Sea Giant | O
 CORE | CORE_EX1_603 | Cruel Taskmaster | O
 CORE | CORE_EX1_604 | Frothing Berserker | O
 CORE | CORE_EX1_606 | Shield Block | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 88% (222 of 250 Cards)
+- Progress: 91% (228 of 250 Cards)
 
 ## Forged in the Barrens
 
