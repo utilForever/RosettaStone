@@ -4196,6 +4196,13 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Costs (1) less for each other minion
     //       on the battlefield.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+            return playable->player->GetFieldZone()->GetCount() +
+                   playable->player->opponent->GetFieldZone()->GetCount();
+        }));
+    cards.emplace("CORE_EX1_586", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_FP1_007] Nerubian Egg - COST:2 [ATK:0/HP:2]
