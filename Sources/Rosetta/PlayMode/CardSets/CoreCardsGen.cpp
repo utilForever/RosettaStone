@@ -3837,12 +3837,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
     // - Race: Dragon, Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Gain +1 Health for each card
-    //       in your hand.
+    // Text: <b>Battlecry:</b> Gain +1 Health
+    //       for each card in your hand.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CountTask>(EntityType::HAND));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "EX1_043e", EntityType::SOURCE, true));
+    cards.emplace("CORE_EX1_043", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
