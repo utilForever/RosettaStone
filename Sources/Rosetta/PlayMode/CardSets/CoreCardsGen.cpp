@@ -3563,6 +3563,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::HERO, 4));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<HealTask>(EntityType::ENEMY_HERO, 4));
+    cards.emplace("CORE_CFM_120", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_CS2_122] Raid Leader - COST:3 [ATK:2/HP:3]
