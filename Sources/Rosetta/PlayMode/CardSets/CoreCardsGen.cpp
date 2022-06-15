@@ -3239,7 +3239,32 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
+    // - DURABILITY = 3
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            const auto target = dynamic_cast<Minion*>(
+                playable->game->currentEventData->eventTarget);
+            if (target == nullptr)
+            {
+                return 0;
+            }
+
+            auto& taskStack = playable->game->taskStack;
+            for (auto& minion : target->GetAdjacentMinions())
+            {
+                taskStack.playables.emplace_back(minion);
+            }
+
+            return playable->player->GetHero()->GetAttack();
+        }),
+        std::make_shared<DamageNumberTask>(EntityType::STACK)
+    };
+    cards.emplace("CORE_BT_271", cardDef);
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
@@ -3301,6 +3326,14 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DEATH));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+        std::make_shared<DamageTask>(EntityType::STACK, 3)
+    };
+    cards.emplace("CORE_BT_355", cardDef);
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_416] Raging Felscreamer - COST:4 [ATK:4/HP:4]
@@ -3347,6 +3380,19 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+
+            const int dbfID = player->GetHeroPower().card->dbfID;
+            player->SetGameTag(GameTag::HERO_POWER_OLD, dbfID);
+
+            return 0;
+        }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<ChangeHeroPowerTask>("BT_429p"));
+    cards.emplace("CORE_BT_429", cardDef);
 
     // ----------------------------------- MINION - DEMONHUNTER
     // [CORE_BT_480] Crimson Sigil Runner - COST:1 [ATK:1/HP:1]

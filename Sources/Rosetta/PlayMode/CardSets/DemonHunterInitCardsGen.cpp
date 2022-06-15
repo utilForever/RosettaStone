@@ -52,7 +52,8 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     // [BT_271] Flamereaper - COST:7 [ATK:4/HP:0]
     // - Set: Demon Hunter Initiate, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Also damages the minions next to whomever your hero attacks.
+    // Text: Also damages the minions next to whomever
+    //       your hero attacks.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1

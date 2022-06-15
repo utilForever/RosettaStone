@@ -54,7 +54,7 @@ TaskStatus HeroPowerTask::Impl(Player* player)
     }
 
     // Process target trigger
-    if (m_target != nullptr)
+    if (m_target)
     {
         player->game->currentEventData =
             std::make_unique<EventMetaData>(&power, m_target);
@@ -74,7 +74,7 @@ TaskStatus HeroPowerTask::Impl(Player* player)
 
     player->game->ProcessDestroyAndUpdateAura();
 
-    power.SetExhausted(true);
+    player->GetHeroPower().SetExhausted(true);
 
     // Process inspire trigger
     player->game->taskQueue.StartEvent();

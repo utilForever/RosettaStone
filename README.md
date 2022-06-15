@@ -43,7 +43,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
 
 ### Standard Format
 
-  * 87% Core Set (219 of 250 cards)
+  * 88% Core Set (222 of 250 cards)
   * 81% Forged in the Barrens (139 of 170 cards)
   * 35% United in Stormwind (60 of 170 cards)
   * 35% Fractured in Alterac Valley (61 of 170 cards)
@@ -73,7 +73,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
     * Except 'Zephrys the Great' (ULD_003)
   * **100% Descent of Dragons (140 of 140 cards)**
   * 57% Galakrond's Awakening (20 of 35 cards)
-  * 60% Ashes of Outland (81 of 135 cards)
+  * 60% Ashes of Outland (82 of 135 cards)
   * 57% Scholomance Academy (78 of 135 cards)
   * 46% Madness at the Darkmoon Faire (79 of 170 cards)
 

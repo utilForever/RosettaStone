@@ -8795,6 +8795,78 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_235 : Chaos Nova")
     CHECK_EQ(opField.GetCount(), 0);
 }
 
+// ----------------------------------- WEAPON - DEMONHUNTER
+// [CORE_BT_271] Flamereaper - COST:7
+// - Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Also damages the minions next to whomever
+//       your hero attacks.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// - DURABILITY = 3
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Weapon] - CORE_BT_271 : Flamereaper")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flamereaper"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Dalaran Mage"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 4);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+
+    game.Process(curPlayer, HeroPowerTask());
+    CHECK_EQ(curPlayer->GetHero()->GetAttack(), 5);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 25);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card3));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+    CHECK_EQ(opField.GetCount(), 0);
+}
+
 // ----------------------------------- MINION - DEMONHUNTER
 // [CORE_BT_323] Sightless Watcher - COST:2 [ATK:3/HP:2]
 // - Race: Demon, Faction: Horde, Set: CORE, Rarity: Rare
@@ -8920,6 +8992,72 @@ TEST_CASE("[Demon Hunter : Minion] - CORE_BT_351 : Battlefiend")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
+// [CORE_BT_355] Wrathscale Naga - COST:3 [ATK:3/HP:2]
+// - Race: Naga, Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: After a friendly minion dies,
+//       deal 3 damage to a random enemy.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Minion] - CORE_BT_355 : Wrathscale Naga")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DEMONHUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curHero = curPlayer->GetHero();
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wrathscale Naga"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Coordinated Strike"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Spell(card3));
+
+    game.Process(opPlayer, AttackTask(opField[1], card1));
+    int totalHealth = curHero->GetHealth() + curField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 38);
+
+    game.Process(opPlayer, AttackTask(opField[1], card1));
+    totalHealth = curHero->GetHealth() + curField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 34);
+
+    game.Process(opPlayer, AttackTask(opField[1], card1));
+    totalHealth = curField.GetCount() == 0
+                      ? curHero->GetHealth()
+                      : curHero->GetHealth() + curField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 30);
+}
+
+// ----------------------------------- MINION - DEMONHUNTER
 // [CORE_BT_416] Raging Felscreamer - COST:4 [ATK:4/HP:4]
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
@@ -9031,6 +9169,67 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_427 : Feast of Souls")
 
     game.Process(opPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(opHand.GetCount(), 9);
+}
+
+// ------------------------------------ SPELL - DEMONHUNTER
+// [CORE_BT_429] Metamorphosis - COST:5
+// - Set: CORE, Rarity: Legendary
+// - Spell School: Fel
+// --------------------------------------------------------
+// Text: Swap your Hero Power to "Deal 4 damage."
+//       After 2 uses, swap it back.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Demon Hunter : Spell] - CORE_BT_429 : Metamorphosis")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Metamorphosis"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shadowform"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
+
+    game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->id, "BT_429p");
+
+    game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->id, "BT_429p2");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask(opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+    CHECK_EQ(curPlayer->GetHero()->heroPower->card->name, "Mind Spike");
 }
 
 // ----------------------------------- MINION - DEMONHUNTER

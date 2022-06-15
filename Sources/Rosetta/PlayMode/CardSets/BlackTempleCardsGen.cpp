@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
@@ -37,6 +38,16 @@ void BlackTempleCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 4 damage. (Two uses left!)
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, false));
+    cardDef.power.AddPowerTask(
+        std::make_shared<ChangeHeroPowerTask>("BT_429p2"));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("BT_429p", cardDef);
 
     // ------------------------------- HERO_POWER - DEMONHUNTER
     // [BT_429p2] Demonic Blast - COST:1
@@ -44,6 +55,31 @@ void BlackTempleCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b> Deal 4 damage. (Last use!)
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, false));
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+
+            const int dbfID = player->GetGameTag(GameTag::HERO_POWER_OLD);
+            const auto heroPowerCard = Cards::FindCardByDbfID(dbfID);
+
+            const auto& changeHeroPowerTask =
+                std::make_shared<ChangeHeroPowerTask>(heroPowerCard->id);
+            changeHeroPowerTask->SetPlayer(player);
+            changeHeroPowerTask->SetSource(playable);
+            changeHeroPowerTask->SetTarget(nullptr);
+
+            changeHeroPowerTask->Run();
+
+            return 0;
+        }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("BT_429p2", cardDef);
 }
 
 void BlackTempleCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -2209,6 +2245,19 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<FuncNumberTask>([](Playable* playable) {
+            Player* player = playable->player;
+
+            const int dbfID = player->GetHeroPower().card->dbfID;
+            player->SetGameTag(GameTag::HERO_POWER_OLD, dbfID);
+
+            return 0;
+        }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<ChangeHeroPowerTask>("BT_429p"));
+    cards.emplace("BT_429", cardDef);
 
     // ----------------------------------- WEAPON - DEMONHUNTER
     // [BT_430] Warglaives of Azzinoth - COST:5
