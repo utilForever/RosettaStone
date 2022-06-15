@@ -13179,7 +13179,8 @@ TEST_CASE("[Neutral : Minion] - EX1_584 : Ancient Mage")
 // [EX1_586] Sea Giant - COST:10 [ATK:8/HP:8]
 // - Faction: Neutral, Set: Expert1, Rarity: Epic
 // --------------------------------------------------------
-// Text: Costs (1) less for each other minion on the battlefield.
+// Text: Costs (1) less for each other minion
+//       on the battlefield.
 // --------------------------------------------------------
 TEST_CASE("[Neutral : Minion] - EX1_586 : Sea Giant")
 {
