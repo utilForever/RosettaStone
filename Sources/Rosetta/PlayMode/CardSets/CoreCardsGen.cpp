@@ -3752,6 +3752,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("CORE_EX1_007", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
