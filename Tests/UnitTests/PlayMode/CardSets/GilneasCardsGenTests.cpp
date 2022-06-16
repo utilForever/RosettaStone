@@ -464,3 +464,41 @@ TEST_CASE("[Neutral : Minion] - GIL_124 : Mossy Horror")
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->card->name, "Wolfrider");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [GIL_622] Lifedrinker - COST:4 [ATK:3/HP:3]
+// - Race: Beast, Set: Gilneas, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 3 damage to the enemy hero.
+//       Restore 3 Health to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - GIL_622 : Lifedrinker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lifedrinker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 17);
+}

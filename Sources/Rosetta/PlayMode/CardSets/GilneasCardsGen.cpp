@@ -1782,6 +1782,11 @@ void GilneasCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cardDef.power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 3));
+    cards.emplace("GIL_622", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [GIL_623] Witchwood Grizzly - COST:5 [ATK:3/HP:12]
