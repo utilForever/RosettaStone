@@ -4248,6 +4248,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cardDef.power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 3));
+    cards.emplace("CORE_GIL_622", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1]
