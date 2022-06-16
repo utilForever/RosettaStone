@@ -4309,6 +4309,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
+        ComplexTask::GiveBuffToAnotherRandomMinionInField("ICC_029e")
+    };
+    cards.emplace("CORE_ICC_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
