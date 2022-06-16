@@ -1428,6 +1428,8 @@ void GilneasCardsGen::AddWarriorNonCollect(
 
 void GilneasCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - NEUTRAL
     // [GIL_117] Worgen Abomination - COST:7 [ATK:6/HP:6]
     // - Set: Gilneas, Rarity: Epic
@@ -1486,6 +1488,15 @@ void GilneasCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("GIL_124", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [GIL_125] Mad Hatter - COST:4 [ATK:3/HP:2]
