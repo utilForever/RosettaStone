@@ -160,7 +160,7 @@ TEST_CASE("[Warlock : Spell] - ICC_055 : Drain Soul")
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST_CASE("[Warlock : Spell] - ICC_026 : Grim Necromancer")
+TEST_CASE("[Neutral : Minion] - ICC_026 : Grim Necromancer")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;

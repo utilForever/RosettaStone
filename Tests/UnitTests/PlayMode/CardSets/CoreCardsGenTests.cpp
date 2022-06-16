@@ -11867,7 +11867,7 @@ TEST_CASE("[Neutral : Minion] - CORE_GVG_085 : Annoy-o-Tron")
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST_CASE("[Warlock : Spell] - CORE_ICC_026 : Grim Necromancer")
+TEST_CASE("[Neutral : Minion] - CORE_ICC_026 : Grim Necromancer")
 {
     GameConfig config;
     config.formatType = FormatType::STANDARD;
