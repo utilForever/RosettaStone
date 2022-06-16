@@ -4228,6 +4228,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("CORE_GIL_124", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GIL_622] Lifedrinker - COST:4 [ATK:3/HP:3]
