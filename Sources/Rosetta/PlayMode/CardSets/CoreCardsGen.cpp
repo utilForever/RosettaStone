@@ -4326,7 +4326,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
+    // - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<HealFullTask>(EntityType::HERO) }));
+    cards.emplace("CORE_LOE_011", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_039] Gorillabot A-3 - COST:3 [ATK:3/HP:4]
