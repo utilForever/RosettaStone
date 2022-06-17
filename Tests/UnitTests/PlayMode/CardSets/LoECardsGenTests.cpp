@@ -165,6 +165,63 @@ TEST_CASE("[Rogue : Minion] - LOE_012 : Tomb Pillager")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
+// - Set: LoE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your deck has no duplicates,
+//       fully heal your hero.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_011 : Reno Jackson")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 6; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(20);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Reno Jackson"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Reno Jackson"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 10);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
 // - Race: Murloc, Set: LoE, Rarity: Common
 // --------------------------------------------------------
