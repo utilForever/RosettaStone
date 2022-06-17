@@ -4476,11 +4476,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: After you cast a spell, deal 1 damage to ALL minions.
+    // Text: After you cast a spell, deal 1 damage to all minions.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS, 1) };
+    cards.emplace("CORE_NEW1_020", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
