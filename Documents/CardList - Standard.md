@@ -165,11 +165,11 @@ CORE | CORE_EX1_619 | Equality | O
 CORE | CORE_EX1_622 | Shadow Word: Death | O
 CORE | CORE_FP1_007 | Nerubian Egg | O
 CORE | CORE_FP1_020 | Avenge | O
-CORE | CORE_GIL_124 | Mossy Horror |  
+CORE | CORE_GIL_124 | Mossy Horror | O
 CORE | CORE_GIL_191 | Fiendish Circle | O
 CORE | CORE_GIL_547 | Darius Crowley | O
 CORE | CORE_GIL_598 | Tess Greymane | O
-CORE | CORE_GIL_622 | Lifedrinker |  
+CORE | CORE_GIL_622 | Lifedrinker | O
 CORE | CORE_GIL_650 | Houndmaster Shaw | O
 CORE | CORE_GIL_801 | Snap Freeze | O
 CORE | CORE_GIL_828 | Dire Frenzy | O
@@ -178,7 +178,7 @@ CORE | CORE_GVG_053 | Shieldmaiden | O
 CORE | CORE_GVG_076 | Explosive Sheep | O
 CORE | CORE_GVG_085 | Annoy-o-Tron | O
 CORE | CORE_ICC_026 | Grim Necromancer | O
-CORE | CORE_ICC_029 | Cobalt Scalebane |  
+CORE | CORE_ICC_029 | Cobalt Scalebane | O
 CORE | CORE_ICC_038 | Righteous Protector | O
 CORE | CORE_ICC_055 | Drain Soul | O
 CORE | CORE_ICC_809 | Plague Scientist | O
@@ -187,7 +187,7 @@ CORE | CORE_KAR_009 | Babbling Book | O
 CORE | CORE_KAR_069 | Swashburglar | O
 CORE | CORE_KAR_073 | Maelstrom Portal | O
 CORE | CORE_LOE_003 | Ethereal Conjurer | O
-CORE | CORE_LOE_011 | Reno Jackson |  
+CORE | CORE_LOE_011 | Reno Jackson | O
 CORE | CORE_LOE_012 | Tomb Pillager | O
 CORE | CORE_LOE_039 | Gorillabot A-3 |  
 CORE | CORE_LOE_050 | Mounted Raptor | O
@@ -199,14 +199,14 @@ CORE | CORE_LOOT_101 | Explosive Runes | O
 CORE | CORE_LOOT_124 | Lone Champion | O
 CORE | CORE_LOOT_137 | Sleepy Dragon | O
 CORE | CORE_LOOT_222 | Candleshot | O
-CORE | CORE_LOOT_413 | Plated Beetle |  
+CORE | CORE_LOOT_413 | Plated Beetle | O
 CORE | CORE_LOOT_516 | Zola the Gorgon |  
 CORE | CORE_NEW1_008 | Ancient of Lore | O
 CORE | CORE_NEW1_010 | Al'Akir the Windlord | O
 CORE | CORE_NEW1_018 | Bloodsail Raider | O
-CORE | CORE_NEW1_020 | Wild Pyromancer |  
-CORE | CORE_NEW1_021 | Doomsayer |  
-CORE | CORE_NEW1_023 | Faerie Dragon |  
+CORE | CORE_NEW1_020 | Wild Pyromancer | O
+CORE | CORE_NEW1_021 | Doomsayer | O
+CORE | CORE_NEW1_023 | Faerie Dragon | O
 CORE | CORE_NEW1_026 | Violet Teacher | O
 CORE | CORE_NEW1_027 | Southsea Captain | O
 CORE | CORE_NEW1_031 | Animal Companion | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 91% (228 of 250 Cards)
+- Progress: 94% (236 of 250 Cards)
 
 ## Forged in the Barrens
 
