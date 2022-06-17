@@ -4492,11 +4492,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
     // - Set: CORE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: At the start of your turn, destroy ALL minions.
+    // Text: At the start of your turn, destroy all minions.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::ALL_MINIONS) };
+    cards.emplace("CORE_NEW1_021", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
