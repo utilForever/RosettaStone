@@ -4439,6 +4439,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<ArmorTask>(3));
+    cards.emplace("CORE_LOOT_413", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_516] Zola the Gorgon - COST:3 [ATK:2/HP:2]

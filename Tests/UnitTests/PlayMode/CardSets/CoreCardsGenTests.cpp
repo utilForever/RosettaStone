@@ -12089,6 +12089,50 @@ TEST_CASE("[Neutral : Minion] - CORE_LOOT_137 : Sleepy Dragon")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_LOOT_413] Plated Beetle - COST:2 [ATK:2/HP:3]
+// - Race: Beast, Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Gain 3 Armor.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_LOOT_413 : Plated Beetle")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Plated Beetle"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
 // - Race: Pirate, Set: CORE, Rarity: Common
 // --------------------------------------------------------
