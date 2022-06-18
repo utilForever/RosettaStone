@@ -1824,7 +1824,7 @@ TEST_CASE("[Warlock : Minion] - AV_308 : Grave Defiler")
 // - Set: ALTERAC_VALLEY, Rarity: Rare
 // - Spell School: Frost
 // --------------------------------------------------------
-// Text: Deal 5 damage to all minions.
+// Text: Deal 4 damage to all minions.
 //       Costs (1) less for each Armor you have.
 // --------------------------------------------------------
 TEST_CASE("[Warrior : Spell] - AV_108 : Shield Shatter")
@@ -1881,8 +1881,8 @@ TEST_CASE("[Warrior : Spell] - AV_108 : Shield Shatter")
     CHECK_EQ(card1->GetCost(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curField[0]->GetHealth(), 1);
-    CHECK_EQ(opField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 8);
 }
 
 // ---------------------------------------- SPELL - WARRIOR

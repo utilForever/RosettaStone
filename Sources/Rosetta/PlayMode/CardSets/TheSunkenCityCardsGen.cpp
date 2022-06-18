@@ -665,7 +665,7 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ MINION - MAGE
-    // [TSC_620] Spitelash Siren - COST:4 [ATK:2/HP:5]
+    // [TSC_620] Spitelash Siren - COST:5 [ATK:2/HP:6]
     // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Epic
     // --------------------------------------------------------
     // Text: After you play a Naga,
@@ -2240,7 +2240,7 @@ void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [TSC_940] From the Depths - COST:3
+    // [TSC_940] From the Depths - COST:4
     // - Set: THE_SUNKEN_CITY, Rarity: Rare
     // --------------------------------------------------------
     // Text: Reduce the Cost of the bottom five cards
@@ -2321,7 +2321,7 @@ void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [TID_716] Tidal Revenant - COST:8 [ATK:5/HP:8]
     // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 5 damage. Gain 8 Armor.
+    // Text: <b>Battlecry:</b> Deal 5 damage. Gain 5 Armor.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2350,7 +2350,8 @@ void TheSunkenCityCardsGen::AddWarriorNonCollect(
     // - Race: Beast, Set: THE_SUNKEN_CITY
     // --------------------------------------------------------
     // Text: <b><b>Taunt</b>.</b> <b>Deathrattle:</b>
-    //       Add Nellie's Pirate crew to your hand. They cost (1).
+    //       Add Nellie's Pirate crew to your hand.
+    //       They Cost (1) less.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -2837,7 +2838,7 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [TSC_052] School Teacher - COST:4 [ATK:5/HP:4]
+    // [TSC_052] School Teacher - COST:4 [ATK:4/HP:3]
     // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Add a 1/1 Nagaling to your hand.

@@ -3615,7 +3615,7 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [DED_006] Mr. Smite - COST:6 [ATK:6/HP:5]
+    // [DED_006] Mr. Smite - COST:7 [ATK:6/HP:5]
     // - Race: Pirate, Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Your Pirates have <b>Charge</b>.

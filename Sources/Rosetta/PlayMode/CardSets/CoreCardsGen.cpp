@@ -328,7 +328,7 @@ void CoreCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_TRL_243", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
-    // [CORE_UNG_108] Earthen Scales - COST:1
+    // [CORE_UNG_108] Earthen Scales - COST:2
     // - Set: CORE, Rarity: Rare
     // - Spell School: Nature
     // --------------------------------------------------------
