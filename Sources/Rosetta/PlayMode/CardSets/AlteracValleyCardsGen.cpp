@@ -102,7 +102,7 @@ void AlteracValleyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- HERO - PALADIN
-    // [AV_206] Lightforged Cariel - COST:7
+    // [AV_206] Lightforged Cariel - COST:8
     // - Set: ALTERAC_VALLEY, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 2 damage to all enemies.
@@ -1863,7 +1863,7 @@ void AlteracValleyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("AV_201", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
-    // [AV_298] Wildpaw Gnoll - COST:5 [ATK:4/HP:5]
+    // [AV_298] Wildpaw Gnoll - COST:5 [ATK:3/HP:5]
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>
@@ -2590,12 +2590,12 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // - Spell School: Frost
     // --------------------------------------------------------
-    // Text: Deal 5 damage to all minions.
+    // Text: Deal 4 damage to all minions.
     //       Costs (1) less for each Armor you have.
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 5, true));
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
             return playable->player->GetHero()->GetArmor();
@@ -2846,7 +2846,7 @@ void AlteracValleyCardsGen::AddDemonHunter(
     CardDef cardDef;
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [AV_118] Battleworn Vanguard - COST:2 [ATK:2/HP:2]
+    // [AV_118] Battleworn Vanguard - COST:2 [ATK:2/HP:1]
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
     // Text: After your hero attacks, summon two 1/1 Felwings.
@@ -2928,10 +2928,10 @@ void AlteracValleyCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [AV_267] Caria Felsoul - COST:6 [ATK:6/HP:6]
+    // [AV_267] Caria Felsoul - COST:7 [ATK:7/HP:7]
     // - Set: ALTERAC_VALLEY, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Transform into a 6/6 copy
+    // Text: <b>Battlecry:</b> Transform into a 7/7 copy
     //       of a Demon in your deck.
     // --------------------------------------------------------
     // GameTag:
@@ -3043,7 +3043,7 @@ void AlteracValleyCardsGen::AddDemonHunterNonCollect(
     // [AV_267e2] Demonic - COST:0
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
-    // Text: Attack and Health set to 6.
+    // Text: Attack and Health set to 7.
     // --------------------------------------------------------
 
     // ------------------------------ ENCHANTMENT - DEMONHUNTER

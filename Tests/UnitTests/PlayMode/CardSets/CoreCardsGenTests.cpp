@@ -987,7 +987,7 @@ TEST_CASE("[Druid : Spell] - CORE_TRL_243 : Pounce")
 }
 
 // ------------------------------------------ SPELL - DRUID
-// [CORE_UNG_108] Earthen Scales - COST:1
+// [CORE_UNG_108] Earthen Scales - COST:2
 // - Set: CORE, Rarity: Rare
 // - Spell School: Nature
 // --------------------------------------------------------
@@ -1025,16 +1025,16 @@ TEST_CASE("[Druid : Spell] - CORE_UNG_108 : Earthen Scales")
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Earthen Scales"));
     const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField[0]->GetAttack(), 4);
-    CHECK_EQ(curField[0]->GetHealth(), 12);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
-    CHECK_EQ(curField[0]->GetAttack(), 5);
-    CHECK_EQ(curField[0]->GetHealth(), 13);
-    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 5);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 4);
 }
 
 // ----------------------------------------- SPELL - HUNTER

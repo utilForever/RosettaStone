@@ -108,7 +108,7 @@ void UngoroCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------------ SPELL - DRUID
-    // [UNG_108] Earthen Scales - COST:1
+    // [UNG_108] Earthen Scales - COST:2
     // - Faction: Neutral, Set: Ungoro, Rarity: Rare
     // --------------------------------------------------------
     // Text: Give a friendly minion +1/+1,

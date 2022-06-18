@@ -147,7 +147,7 @@ TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
 // - Set: SCHOLOMANCE, Rarity: Common
 // - Spell School: Nature
 // --------------------------------------------------------
-// Text: Gain 2 Mana Crystals this turn only.
+// Text: Refresh 2 Mana Crystals.
 //       <b>Overload:</b> (2)
 // --------------------------------------------------------
 // GameTag:
@@ -179,18 +179,23 @@ TEST_CASE("[Druid : Spell] - SCH_427 : Lightning Bloom")
         curPlayer, Cards::FindCardByName("Dragonling Mechanic"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK_EQ(curPlayer->GetRemainingMana(), 10);
-    CHECK_EQ(curPlayer->GetTemporaryMana(), 2);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 8);
     CHECK_EQ(curPlayer->GetTotalMana(), 8);
     CHECK_EQ(curPlayer->GetUsedMana(), 0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 4);
+    CHECK_EQ(curPlayer->GetTotalMana(), 8);
+    CHECK_EQ(curPlayer->GetUsedMana(), 4);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(curPlayer->GetRemainingMana(), 6);
-    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
     CHECK_EQ(curPlayer->GetTotalMana(), 8);
     CHECK_EQ(curPlayer->GetUsedMana(), 2);
     CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
-    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -198,17 +203,9 @@ TEST_CASE("[Druid : Spell] - SCH_427 : Lightning Bloom")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
-    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 4);
     CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
-
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
-    CHECK_EQ(curPlayer->GetRemainingMana(), 9);
-    CHECK_EQ(curPlayer->GetTemporaryMana(), 2);
-    CHECK_EQ(curPlayer->GetTotalMana(), 9);
-    CHECK_EQ(curPlayer->GetUsedMana(), 0);
-    CHECK_EQ(curPlayer->GetOverloadLocked(), 2);
-    CHECK_EQ(curPlayer->GetOverloadOwed(), 2);
 }
 
 // ------------------------------------------ SPELL - DRUID

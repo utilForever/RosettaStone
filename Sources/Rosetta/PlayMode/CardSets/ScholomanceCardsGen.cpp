@@ -79,14 +79,14 @@ void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Set: SCHOLOMANCE, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------
-    // Text: Gain 2 Mana Crystals this turn only.
+    // Text: Refresh 2 Mana Crystals.
     //       <b>Overload:</b> (2)
     // --------------------------------------------------------
     // GameTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
     cardDef.ClearData();
-    cardDef.power.AddPowerTask(std::make_shared<TempManaTask>(2));
+    cardDef.power.AddPowerTask(std::make_shared<RefreshManaTask>(2));
     cards.emplace("SCH_427", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
