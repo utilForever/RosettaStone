@@ -2215,6 +2215,9 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<ArmorTask>(3));
+    cards.emplace("LOOT_413", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_414] Grand Archivist - COST:8 [ATK:4/HP:7]

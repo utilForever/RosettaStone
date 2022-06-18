@@ -399,3 +399,106 @@ TEST_CASE("[Warrior : Minion] - GIL_547 : Darius Crowley")
     CHECK_EQ(curField[0]->GetAttack(), 6);
     CHECK_EQ(curField[0]->GetHealth(), 3);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [GIL_124] Mossy Horror - COST:6 [ATK:2/HP:7]
+// - Set: Gilneas, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy all other minions
+//       with 2 or less Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - GIL_124 : Mossy Horror")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Mossy Horror"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Wolfrider");
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Wolfrider");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [GIL_622] Lifedrinker - COST:4 [ATK:3/HP:3]
+// - Race: Beast, Set: Gilneas, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 3 damage to the enemy hero.
+//       Restore 3 Health to your hero.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - GIL_622 : Lifedrinker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lifedrinker"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 17);
+}

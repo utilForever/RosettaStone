@@ -4228,6 +4228,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS_NOSOURCE));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsTagValue(GameTag::ATK, 2, RelaSign::LEQ)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::STACK));
+    cards.emplace("CORE_GIL_124", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GIL_622] Lifedrinker - COST:4 [ATK:3/HP:3]
@@ -4239,6 +4248,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 3));
+    cardDef.power.AddPowerTask(std::make_shared<HealTask>(EntityType::HERO, 3));
+    cards.emplace("CORE_GIL_622", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1]
@@ -4295,6 +4309,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
+        ComplexTask::GiveBuffToAnotherRandomMinionInField("ICC_029e")
+    };
+    cards.emplace("CORE_ICC_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
@@ -4306,7 +4326,15 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
+    // - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<HealFullTask>(EntityType::HERO) }));
+    cards.emplace("CORE_LOE_011", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_039] Gorillabot A-3 - COST:3 [ATK:3/HP:4]
@@ -4411,6 +4439,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<ArmorTask>(3));
+    cards.emplace("CORE_LOOT_413", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOOT_516] Zola the Gorgon - COST:3 [ATK:2/HP:2]
@@ -4445,21 +4476,33 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
-    // Text: After you cast a spell, deal 1 damage to ALL minions.
+    // Text: After you cast a spell, deal 1 damage to all minions.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ALL_MINIONS, 1) };
+    cards.emplace("CORE_NEW1_020", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
     // - Set: CORE, Rarity: Epic
     // --------------------------------------------------------
-    // Text: At the start of your turn, destroy ALL minions.
+    // Text: At the start of your turn, destroy all minions.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DestroyTask>(
+        EntityType::ALL_MINIONS) };
+    cards.emplace("CORE_NEW1_021", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
@@ -4471,6 +4514,9 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("CORE_NEW1_023", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]

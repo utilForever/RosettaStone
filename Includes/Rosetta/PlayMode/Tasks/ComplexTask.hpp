@@ -239,6 +239,20 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for giving buff to another random minion
+    //! in field.
+    //! \param enchantmentCardID The ID of enchantment card to give buff.
+    static TaskList GiveBuffToAnotherRandomMinionInField(
+        std::string_view enchantmentCardID)
+    {
+        return TaskList{ std::make_shared<SimpleTasks::IncludeTask>(
+                             EntityType::MINIONS_NOSOURCE),
+                         std::make_shared<SimpleTasks::RandomTask>(
+                             EntityType::STACK, 1),
+                         std::make_shared<SimpleTasks::AddEnchantmentTask>(
+                             enchantmentCardID, EntityType::STACK) };
+    }
+
     //! Returns a list of task for activating a secret card.
     //! \param tasks A list of task of secret card.
     static TaskList ActivateSecret(TaskList tasks)

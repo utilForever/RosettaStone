@@ -11,6 +11,7 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using TagValues = std::vector<TagValue>;
+using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
 
 void LoECardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -508,6 +509,15 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsNoDuplicateInDeck()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<HealFullTask>(EntityType::HERO) }));
+    cards.emplace("LOE_011", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_029] Jeweled Scarab - COST:2 [ATK:1/HP:1]

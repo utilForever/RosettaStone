@@ -160,7 +160,7 @@ TEST_CASE("[Warlock : Spell] - ICC_055 : Drain Soul")
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST_CASE("[Warlock : Spell] - ICC_026 : Grim Necromancer")
+TEST_CASE("[Neutral : Minion] - ICC_026 : Grim Necromancer")
 {
     GameConfig config;
     config.player1Class = CardClass::WARLOCK;
@@ -196,4 +196,53 @@ TEST_CASE("[Warlock : Spell] - ICC_026 : Grim Necromancer")
     CHECK_EQ(curField[2]->card->name, "Skeleton");
     CHECK_EQ(curField[2]->GetAttack(), 1);
     CHECK_EQ(curField[2]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [ICC_029] Cobalt Scalebane - COST:5 [ATK:5/HP:5]
+// - Race: Dragon, Set: Icecrown, Rarity: Common
+// --------------------------------------------------------
+// Text: At the end of your turn,
+//       give another random friendly minion +3 Attack.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - ICC_029 : Cobalt Scalebane")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cobalt Scalebane"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
 }

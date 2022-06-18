@@ -834,7 +834,7 @@ LOE | LOE_006 | Museum Curator |
 LOE | LOE_007 | Curse of Rafaam |  
 LOE | LOE_009 | Obsidian Destroyer |  
 LOE | LOE_010 | Pit Snake |  
-LOE | LOE_011 | Reno Jackson |  
+LOE | LOE_011 | Reno Jackson | O
 LOE | LOE_012 | Tomb Pillager | O
 LOE | LOE_016 | Rumbling Elemental |  
 LOE | LOE_017 | Keeper of Uldaman |  
@@ -874,7 +874,7 @@ LOE | LOE_118 | Cursed Blade |
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 8% (4 of 45 Cards)
+- Progress: 11% (5 of 45 Cards)
 
 ## Whispers of the Old Gods
 
@@ -1362,7 +1362,7 @@ ICECROWN | ICC_025 | Rattling Rascal |
 ICECROWN | ICC_026 | Grim Necromancer | O
 ICECROWN | ICC_027 | Bone Drake |  
 ICECROWN | ICC_028 | Sunborne Val'kyr |  
-ICECROWN | ICC_029 | Cobalt Scalebane |  
+ICECROWN | ICC_029 | Cobalt Scalebane | O
 ICECROWN | ICC_031 | Night Howler |  
 ICECROWN | ICC_032 | Venomancer |  
 ICECROWN | ICC_034 | Arrogant Crusader |  
@@ -1490,7 +1490,7 @@ ICECROWN | ICC_911 | Keening Banshee |
 ICECROWN | ICC_912 | Corpsetaker |  
 ICECROWN | ICC_913 | Tainted Zealot |  
 
-- Progress: 3% (5 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)
 
 ## Kobolds & Catacombs
 
@@ -1602,7 +1602,7 @@ LOOTAPALOOZA | LOOT_394 | Shrieking Shroom |
 LOOTAPALOOZA | LOOT_398 | Benevolent Djinn |  
 LOOTAPALOOZA | LOOT_410 | Duskbreaker |  
 LOOTAPALOOZA | LOOT_412 | Kobold Illusionist |  
-LOOTAPALOOZA | LOOT_413 | Plated Beetle |  
+LOOTAPALOOZA | LOOT_413 | Plated Beetle | O
 LOOTAPALOOZA | LOOT_414 | Grand Archivist |  
 LOOTAPALOOZA | LOOT_415 | Rin, the First Disciple |  
 LOOTAPALOOZA | LOOT_417 | Cataclysm |  
@@ -1632,7 +1632,7 @@ LOOTAPALOOZA | LOOT_540 | Dragonhatcher |
 LOOTAPALOOZA | LOOT_541 | King Togwaggle |  
 LOOTAPALOOZA | LOOT_542 | Kingsbane |  
 
-- Progress: 3% (5 of 135 Cards)
+- Progress: 4% (6 of 135 Cards)
 
 ## The Witchwood
 
@@ -1645,7 +1645,7 @@ GILNEAS | GIL_118 | Deranged Doctor |
 GILNEAS | GIL_119 | Cauldron Elemental |  
 GILNEAS | GIL_120 | Furious Ettin |  
 GILNEAS | GIL_121 | Darkmire Moonkin |  
-GILNEAS | GIL_124 | Mossy Horror |  
+GILNEAS | GIL_124 | Mossy Horror | O
 GILNEAS | GIL_125 | Mad Hatter |  
 GILNEAS | GIL_128 | Emeriss |  
 GILNEAS | GIL_130 | Gloom Stag |  
@@ -1714,7 +1714,7 @@ GILNEAS | GIL_614 | Voodoo Doll |
 GILNEAS | GIL_616 | Splitting Festeroot |  
 GILNEAS | GIL_618 | Glinda Crowskin |  
 GILNEAS | GIL_620 | Dollmaster Dorian |  
-GILNEAS | GIL_622 | Lifedrinker |  
+GILNEAS | GIL_622 | Lifedrinker | O
 GILNEAS | GIL_623 | Witchwood Grizzly |  
 GILNEAS | GIL_624 | Night Prowler |  
 GILNEAS | GIL_634 | Bellringer Sentry |  
@@ -1774,7 +1774,7 @@ GILNEAS | GIL_902 | Cutthroat Buccaneer |
 GILNEAS | GIL_903 | Hidden Wisdom |  
 GILNEAS | GIL_905 | Carrion Drake |  
 
-- Progress: 4% (6 of 135 Cards)
+- Progress: 5% (8 of 135 Cards)
 
 ## The Boomsday Project
 

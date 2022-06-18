@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/CardSets/IcecrownCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
+#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 
 using namespace RosettaStone::PlayMode::SimpleTasks;
@@ -1868,6 +1869,15 @@ void IcecrownCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: At the end of your turn,
     //       give another random friendly minion +3 Attack.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = {
+        ComplexTask::GiveBuffToAnotherRandomMinionInField("ICC_029e")
+    };
+    cards.emplace("ICC_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [ICC_031] Night Howler - COST:4 [ATK:3/HP:4]
@@ -2360,6 +2370,9 @@ void IcecrownCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: Attack increased.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::AttackN(3)));
+    cards.emplace("ICC_029e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [ICC_031e] Awooooo! (*) - COST:0
