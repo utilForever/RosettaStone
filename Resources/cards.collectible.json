@@ -2595,7 +2595,7 @@
         "rarity": "RARE",
         "set": "ALTERAC_VALLEY",
         "spellSchool": "FROST",
-        "text": "[x]Deal $5 damage to all\nminions. Costs (1) less\nfor each Armor you have.",
+        "text": "[x]Deal $4 damage to all\nminions. Costs (1) less\nfor each Armor you have.",
         "type": "SPELL"
     },
     {
@@ -2722,7 +2722,7 @@
         "cost": 2,
         "dbfId": 69577,
         "flavor": "\"Welcome to Dun Baldar Felwings! Do you want 'em mild, spicy, or BURNING Legion?\"",
-        "health": 2,
+        "health": 1,
         "id": "AV_118",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -3367,7 +3367,7 @@
         "artist": "Ursula Dorada",
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 7,
+        "cost": 8,
         "dbfId": 67040,
         "elite": true,
         "flavor": "Her faith, unshakable.\nHer shield, immovable.\nHer enemies, irredeemable.",
@@ -3938,14 +3938,14 @@
     },
     {
         "artist": "James Ryman",
-        "attack": 6,
+        "attack": 7,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 6,
+        "cost": 7,
         "dbfId": 68061,
         "elite": true,
         "flavor": "This is what happens when you keep taking the advice of the little demon on your shoulder.",
-        "health": 6,
+        "health": 7,
         "id": "AV_267",
         "mechanics": [
             "BATTLECRY"
@@ -3953,7 +3953,7 @@
         "name": "Caria Felsoul",
         "rarity": "LEGENDARY",
         "set": "ALTERAC_VALLEY",
-        "text": "<b>Battlecry:</b> Transform into a 6/6 copy of a Demon in your deck.",
+        "text": "<b>Battlecry:</b> Transform into a 7/7 copy of a Demon in your deck.",
         "type": "MINION"
     },
     {
@@ -4243,7 +4243,7 @@
     },
     {
         "artist": "Konstantin Turovec",
-        "attack": 4,
+        "attack": 3,
         "cardClass": "ROGUE",
         "collectible": true,
         "cost": 5,
@@ -22439,7 +22439,7 @@
         "artist": "Mike Azevedo",
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 86234,
         "flavor": "You can make your own Earthen Scales at home. Step 1: Roll around in the dirt. Step 2: Magic.",
         "howToEarn": "Unlocked at level 9.",
@@ -27961,7 +27961,7 @@
         "attack": 6,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 6,
+        "cost": 7,
         "dbfId": 65599,
         "elite": true,
         "flavor": "“Please, Mr. Smite was my father. Call me Yorik.”",
@@ -35185,7 +35185,7 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 4,
+        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your other Murlocs +2 Health.",
         "type": "MINION"
     },
@@ -59321,7 +59321,7 @@
         "rarity": "COMMON",
         "set": "SCHOLOMANCE",
         "spellSchool": "NATURE",
-        "text": "Gain 2 Mana Crystals this turn only.\n<b>Overload:</b> (2)",
+        "text": "Refresh 2 Mana Crystals.\n<b>Overload:</b> (2)",
         "type": "SPELL"
     },
     {
@@ -60481,26 +60481,6 @@
         "rarity": "LEGENDARY",
         "set": "SCHOLOMANCE",
         "text": "[x]Whenever your opponent\n draws a card, add a copy to \n your hand that costs (1).",
-        "type": "MINION"
-    },
-    {
-        "artist": "Konstantin Turovec",
-        "attack": 3,
-        "cardClass": "WARRIOR",
-        "collectible": true,
-        "cost": 4,
-        "dbfId": 92384,
-        "flavor": "Someone got a little too excited inventing a can opener.",
-        "health": 6,
-        "id": "Story_11_RemoteControlPuzzle",
-        "mechanics": [
-            "TRIGGER_VISUAL"
-        ],
-        "name": "Remote-Controlled Golem",
-        "race": "MECHANICAL",
-        "rarity": "EPIC",
-        "set": "STORMWIND",
-        "text": "[x]After this takes damage,\nshuffle two Golem Parts into\nyour deck. When drawn,\n  summon a 2/1 Mech.",
         "type": "MINION"
     },
     {
@@ -63682,7 +63662,7 @@
         "rarity": "COMMON",
         "set": "THE_SUNKEN_CITY",
         "targetingArrowText": "Deal 5 damage.",
-        "text": "<b>Battlecry:</b> Deal 5 damage. Gain 8 Armor.",
+        "text": "<b>Battlecry:</b> Deal 5 damage. Gain 5 Armor.",
         "type": "MINION"
     },
     {
@@ -66681,13 +66661,13 @@
     },
     {
         "artist": "Anton Zemskov",
-        "attack": 5,
+        "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
         "dbfId": 72598,
         "flavor": "She also tutors 3 Piranha Swarmers on her off hours.",
-        "health": 4,
+        "health": 3,
         "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
         "id": "TSC_052",
         "mechanics": [
@@ -67450,10 +67430,10 @@
         "cardClass": "MAGE",
         "collectible": true,
         "collectionText": "[x]After you cast a spell,\nrefresh two Mana Crystals.\n<i>(Then switch to Naga!)</i>",
-        "cost": 4,
+        "cost": 5,
         "dbfId": 71996,
         "flavor": "Refresh the rainbow.",
-        "health": 5,
+        "health": 6,
         "id": "TSC_620",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -68709,7 +68689,7 @@
         "artist": "L. Lullabi & K. Turovec",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 72588,
         "flavor": "\"This is why I'm afraid of the deep end of the pool.\"",
         "id": "TSC_940",
@@ -72756,7 +72736,7 @@
         "artist": "Mike Azevedo",
         "cardClass": "DRUID",
         "collectible": true,
-        "cost": 1,
+        "cost": 2,
         "dbfId": 41081,
         "flavor": "You can make your own Earthen Scales at home. Step 1: Roll around in the dirt. Step 2: Magic.",
         "id": "UNG_108",
