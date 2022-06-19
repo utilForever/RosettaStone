@@ -627,8 +627,9 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Battlecry: Discover</b> a new basic Hero Power.
     // --------------------------------------------------------
-    // Entourage: DS1h_292, CS2_056, CS2_101, CS1h_001, CS2_049,
-    //            CS2_102, CS2_083b, CS2_034, CS2_017
+    // Entourage: HERO_01bp, HERO_02bp, HERO_03bp, HERO_04bp,
+    //            HERO_05bp, HERO_06bp, HERO_07bp, HERO_08bp,
+    //            HERO_09bp, HERO_10bp
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -636,6 +637,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::HERO_POWER));
+    cards.emplace("LOE_076", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_077] Brann Bronzebeard - COST:3 [ATK:2/HP:4]

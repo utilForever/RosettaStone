@@ -274,6 +274,56 @@ TEST_CASE("[Neutral : Minion] - LOE_039 : Gorillabot A-3")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
+// - Race: Murloc, Set: LoE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry: Discover</b> a new basic Hero Power.
+// --------------------------------------------------------
+// Entourage: HERO_01bp, HERO_02bp, HERO_03bp, HERO_04bp,
+//            HERO_05bp, HERO_06bp, HERO_07bp, HERO_08bp,
+//            HERO_09bp, HERO_10bp
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_076 : Sir Finley Mrrgglton")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sir Finley Mrrgglton"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice != nullptr);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::HERO_POWER);
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
 // - Race: Murloc, Set: LoE, Rarity: Common
 // --------------------------------------------------------
