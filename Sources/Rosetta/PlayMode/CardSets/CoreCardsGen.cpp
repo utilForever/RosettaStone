@@ -4346,7 +4346,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // - DISCOVER = 1
+    // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::MINIONS_NOSOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::MECHANICAL)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DiscoverTask>(DiscoverType::MECHANICAL) }));
+    cards.emplace("CORE_LOE_039", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
