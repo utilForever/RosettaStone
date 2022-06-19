@@ -13,6 +13,7 @@ namespace RosettaStone
 enum class DiscoverType
 {
     INVALID,
+    HERO_POWER,
     DECK,
     ENEMY_DECK,
     SPELL_FROM_DECK,
