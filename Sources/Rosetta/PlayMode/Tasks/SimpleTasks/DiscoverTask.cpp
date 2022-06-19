@@ -452,6 +452,16 @@ auto DiscoverTask::Discover(Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::MECHANICAL:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetRace() == Race::MECHANICAL)
+                {
+                    cardsForGeneration.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::LACKEY:
             choiceAction = ChoiceAction::HAND;
             for (const auto& card : Cards::GetAllCards())
