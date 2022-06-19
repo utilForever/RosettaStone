@@ -33,6 +33,7 @@ enum class DiscoverType
     SECRET,
     DEMON,
     DRAGON,
+    MECHANICAL,
     LACKEY,
     HEISTBARON_TOGWAGGLE,
     MADAME_LAZUL,
