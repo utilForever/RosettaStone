@@ -10,7 +10,9 @@
 #include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
@@ -395,6 +397,93 @@ TEST_CASE("[Neutral : Minion] - LOE_077 : Brann Bronzebeard")
     game.Process(curPlayer, PlayCardTask::MinionTarget(card4, card2));
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5]
+// - Set: LoE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Shuffle the
+//       'Map to the Golden Monkey' into your deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_079 : Elise Starseeker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player1Deck[0] = Cards::FindCardByName("Bloodfen Raptor");
+    config.player1Deck[1] = Cards::FindCardByName("Young Dragonhawk");
+    config.player1Deck[2] = Cards::FindCardByName("Faerie Dragon");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elise Starseeker"));
+
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 3);
+    CHECK_EQ(curDeck.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curHand[3]->card->name, "Map to the Golden Monkey");
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[3]));
+    CHECK_EQ(curHand.GetCount(), 4);
+    CHECK_EQ(curHand[3]->card->name, "Golden Monkey");
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    Card* wispCard = Cards::FindCardByName("Wisp");
+    Generic::ShuffleIntoDeck(curPlayer, curPlayer,
+                             Entity::GetFromCard(curPlayer, wispCard));
+    Generic::ShuffleIntoDeck(curPlayer, curPlayer,
+                             Entity::GetFromCard(curPlayer, wispCard));
+    Generic::ShuffleIntoDeck(curPlayer, curPlayer,
+                             Entity::GetFromCard(curPlayer, wispCard));
+    CHECK_EQ(curDeck.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[3]));
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[0]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[1]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curHand[2]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curHand[2]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curDeck[0]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curDeck[0]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curDeck[1]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curDeck[1]->card->GetRarity(), Rarity::LEGENDARY);
+    CHECK_EQ(curDeck[2]->card->GetCardType(), CardType::MINION);
+    CHECK_EQ(curDeck[2]->card->GetRarity(), Rarity::LEGENDARY);
 }
 
 // --------------------------------------- MINION - NEUTRAL

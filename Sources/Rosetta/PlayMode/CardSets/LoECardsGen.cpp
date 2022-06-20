@@ -674,10 +674,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_FRIENDLY_TARGET = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "LOE_019t", 1));
+    cards.emplace("LOE_079", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_086] Summoning Stone - COST:5 [ATK:0/HP:6]
@@ -740,6 +740,8 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - NEUTRAL
     // [LOE_008] Eye of Hakkar (*) - COST:1
     // - Set: LoE
@@ -775,6 +777,11 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Shuffle the Golden Monkey into your deck. Draw a card.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "LOE_019t2", 1));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("LOE_019t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_019t2] Golden Monkey (*) - COST:4 [ATK:6/HP:6]
@@ -788,6 +795,14 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ChangeEntityTask>(
+        EntityType::HAND, CardType::MINION, CardClass::INVALID, Race::INVALID,
+        Rarity::LEGENDARY));
+    cardDef.power.AddPowerTask(std::make_shared<ChangeEntityTask>(
+        EntityType::DECK, CardType::MINION, CardClass::INVALID, Race::INVALID,
+        Rarity::LEGENDARY));
+    cards.emplace("LOE_019t2", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_024t] Rolling Boulder (*) - COST:4 [ATK:0/HP:4]
