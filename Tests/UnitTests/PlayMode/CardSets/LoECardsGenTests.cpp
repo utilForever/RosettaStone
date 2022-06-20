@@ -324,6 +324,80 @@ TEST_CASE("[Neutral : Minion] - LOE_076 : Sir Finley Mrrgglton")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_077] Brann Bronzebeard - COST:3 [ATK:2/HP:4]
+// - Set: LoE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: Your <b>Battlecries</b> trigger twice.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - AURA = 1
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_077 : Brann Bronzebeard")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    opPlayer->GetHero()->SetDamage(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Brann Bronzebeard"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Elven Archer"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Razorfen Hunter"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Abusive Sergeant"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->ExtraBattlecry(), true);
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField.GetCount(), 5);
+    CHECK_EQ(curField[2]->card->name, "Razorfen Hunter");
+    CHECK_EQ(curField[3]->card->name, "Boar");
+    CHECK_EQ(curField[4]->card->name, "Boar");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card5, card1));
+    CHECK_EQ(curPlayer->ExtraBattlecry(), false);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card4, card2));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
 // - Race: Murloc, Set: LoE, Rarity: Common
 // --------------------------------------------------------

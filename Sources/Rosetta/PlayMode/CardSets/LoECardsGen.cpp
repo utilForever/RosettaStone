@@ -13,6 +13,7 @@ namespace RosettaStone::PlayMode
 using TagValues = std::vector<TagValue>;
 using PlayReqs = std::map<PlayReq, int>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void LoECardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -651,13 +652,16 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // - AURA = 1
-    // - 1429 = 58400
-    // - TECH_LEVEL = 5
-    // - IS_BACON_POOL_MINION = 1
     // --------------------------------------------------------
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::EXTRA_BATTLECRIES_BASE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("LOE_077", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5]
