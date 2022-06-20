@@ -4392,6 +4392,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::EXTRA_BATTLECRIES_BASE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("CORE_LOE_077", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5]
