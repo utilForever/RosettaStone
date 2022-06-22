@@ -11,7 +11,9 @@ using namespace RosettaStone::PlayMode::SimpleTasks;
 namespace RosettaStone::PlayMode
 {
 using TagValues = std::vector<TagValue>;
+using PlayReqs = std::map<PlayReq, int>;
 using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
+using EffectList = std::vector<std::shared_ptr<IEffect>>;
 
 void LoECardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
@@ -553,6 +555,15 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::MINIONS_NOSOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::MECHANICAL)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DiscoverTask>(DiscoverType::MECHANICAL) }));
+    cards.emplace("LOE_039", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_046] Huge Toad - COST:2 [ATK:3/HP:2]
@@ -617,8 +628,9 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Battlecry: Discover</b> a new basic Hero Power.
     // --------------------------------------------------------
-    // Entourage: DS1h_292, CS2_056, CS2_101, CS1h_001, CS2_049,
-    //            CS2_102, CS2_083b, CS2_034, CS2_017
+    // Entourage: HERO_01bp, HERO_02bp, HERO_03bp, HERO_04bp,
+    //            HERO_05bp, HERO_06bp, HERO_07bp, HERO_08bp,
+    //            HERO_09bp, HERO_10bp
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -626,6 +638,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::HERO_POWER));
+    cards.emplace("LOE_076", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_077] Brann Bronzebeard - COST:3 [ATK:2/HP:4]
@@ -636,13 +652,16 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // - AURA = 1
-    // - 1429 = 58400
-    // - TECH_LEVEL = 5
-    // - IS_BACON_POOL_MINION = 1
     // --------------------------------------------------------
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::EXTRA_BATTLECRIES_BASE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("LOE_077", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5]
@@ -655,10 +674,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
-    // PlayReq:
-    // - REQ_FRIENDLY_TARGET = 0
-    // - REQ_MINION_TARGET = 0
-    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "LOE_019t", 1));
+    cards.emplace("LOE_079", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_086] Summoning Stone - COST:5 [ATK:0/HP:6]
@@ -721,6 +740,8 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - NEUTRAL
     // [LOE_008] Eye of Hakkar (*) - COST:1
     // - Set: LoE
@@ -756,6 +777,11 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Shuffle the Golden Monkey into your deck. Draw a card.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "LOE_019t2", 1));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cards.emplace("LOE_019t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_019t2] Golden Monkey (*) - COST:4 [ATK:6/HP:6]
@@ -769,6 +795,14 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ChangeEntityTask>(
+        EntityType::HAND, CardType::MINION, CardClass::INVALID, Race::INVALID,
+        Rarity::LEGENDARY));
+    cardDef.power.AddPowerTask(std::make_shared<ChangeEntityTask>(
+        EntityType::DECK, CardType::MINION, CardClass::INVALID, Race::INVALID,
+        Rarity::LEGENDARY));
+    cards.emplace("LOE_019t2", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_024t] Rolling Boulder (*) - COST:4 [ATK:0/HP:4]

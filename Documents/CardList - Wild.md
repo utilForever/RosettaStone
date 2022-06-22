@@ -848,7 +848,7 @@ LOE | LOE_026 | Anyfin Can Happen |
 LOE | LOE_027 | Sacred Trial |  
 LOE | LOE_029 | Jeweled Scarab |  
 LOE | LOE_038 | Naga Sea Witch |  
-LOE | LOE_039 | Gorillabot A-3 |  
+LOE | LOE_039 | Gorillabot A-3 | O
 LOE | LOE_046 | Huge Toad |  
 LOE | LOE_047 | Tomb Spider |  
 LOE | LOE_050 | Mounted Raptor | O
@@ -856,9 +856,9 @@ LOE | LOE_051 | Jungle Moonkin |
 LOE | LOE_053 | Djinni of Zephyrs |  
 LOE | LOE_061 | Anubisath Sentinel |  
 LOE | LOE_073 | Fossilized Devilsaur |  
-LOE | LOE_076 | Sir Finley Mrrgglton |  
-LOE | LOE_077 | Brann Bronzebeard |  
-LOE | LOE_079 | Elise Starseeker |  
+LOE | LOE_076 | Sir Finley Mrrgglton | O
+LOE | LOE_077 | Brann Bronzebeard | O
+LOE | LOE_079 | Elise Starseeker | O
 LOE | LOE_086 | Summoning Stone |  
 LOE | LOE_089 | Wobbling Runts |  
 LOE | LOE_092 | Arch-Thief Rafaam |  
@@ -874,7 +874,7 @@ LOE | LOE_118 | Cursed Blade |
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 11% (5 of 45 Cards)
+- Progress: 20% (9 of 45 Cards)
 
 ## Whispers of the Old Gods
 
@@ -1613,7 +1613,7 @@ LOOTAPALOOZA | LOOT_504 | Unstable Evolution |
 LOOTAPALOOZA | LOOT_506 | The Runespear |  
 LOOTAPALOOZA | LOOT_507 | Lesser Diamond Spellstone |  
 LOOTAPALOOZA | LOOT_511 | Kathrena Winterwisp |  
-LOOTAPALOOZA | LOOT_516 | Zola the Gorgon |  
+LOOTAPALOOZA | LOOT_516 | Zola the Gorgon | O
 LOOTAPALOOZA | LOOT_517 | Murmuring Elemental |  
 LOOTAPALOOZA | LOOT_518 | Windshear Stormcaller |  
 LOOTAPALOOZA | LOOT_519 | Geosculptor Yip |  
@@ -1632,7 +1632,7 @@ LOOTAPALOOZA | LOOT_540 | Dragonhatcher |
 LOOTAPALOOZA | LOOT_541 | King Togwaggle |  
 LOOTAPALOOZA | LOOT_542 | Kingsbane |  
 
-- Progress: 4% (6 of 135 Cards)
+- Progress: 5% (7 of 135 Cards)
 
 ## The Witchwood
 

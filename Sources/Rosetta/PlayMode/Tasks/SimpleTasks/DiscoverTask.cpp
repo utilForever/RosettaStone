@@ -256,6 +256,23 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             }
             break;
         }
+        case DiscoverType::HERO_POWER:
+        {
+            choiceAction = ChoiceAction::CHANGE_HERO_POWER;
+            cardsForGeneration = {
+                Cards::FindCardByID("HERO_01bp"),
+                Cards::FindCardByID("HERO_02bp"),
+                Cards::FindCardByID("HERO_03bp"),
+                Cards::FindCardByID("HERO_04bp"),
+                Cards::FindCardByID("HERO_05bp"),
+                Cards::FindCardByID("HERO_06bp"),
+                Cards::FindCardByID("HERO_07bp"),
+                Cards::FindCardByID("HERO_08bp"),
+                Cards::FindCardByID("HERO_09bp"),
+                Cards::FindCardByID("HERO_10bp"),
+            };
+            break;
+        }
         case DiscoverType::ENEMY_DECK:
         {
             choiceAction = ChoiceAction::HAND_COPY;
@@ -447,6 +464,16 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             for (auto& card : allCards)
             {
                 if (card->GetRace() == Race::DRAGON)
+                {
+                    cardsForGeneration.emplace_back(card);
+                }
+            }
+            break;
+        case DiscoverType::MECHANICAL:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetRace() == Race::MECHANICAL)
                 {
                     cardsForGeneration.emplace_back(card);
                 }

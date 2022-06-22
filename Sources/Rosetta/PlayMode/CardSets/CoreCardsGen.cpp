@@ -4346,7 +4346,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // - DISCOVER = 1
+    // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::MINIONS_NOSOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::MECHANICAL)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DiscoverTask>(DiscoverType::MECHANICAL) }));
+    cards.emplace("CORE_LOE_039", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
@@ -4354,11 +4364,20 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b><b>Battlecry:</b> Discover</b> a new basic Hero Power.
     // --------------------------------------------------------
+    // Entourage: HERO_01bp, HERO_02bp, HERO_03bp, HERO_04bp,
+    //            HERO_05bp, HERO_06bp, HERO_07bp, HERO_08bp,
+    //            HERO_09bp, HERO_10bp
+    // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // - DISCOVER = 1
+    // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::HERO_POWER));
+    cards.emplace("CORE_LOE_076", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_077] Brann Bronzebeard - COST:3 [ATK:2/HP:4]
@@ -4373,18 +4392,28 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::EXTRA_BATTLECRIES_BASE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("CORE_LOE_077", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5]
     // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Shuffle the 'Map to the Golden Monkey'
-    //       into your deck.
+    // Text: <b>Battlecry:</b> Shuffle the
+    //       'Map to the Golden Monkey' into your deck.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "LOE_019t", 1));
+    cards.emplace("CORE_LOE_079", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
@@ -4454,6 +4483,21 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CopyTask>(
+        EntityType::TARGET, ZoneType::HAND, 1, true));
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::PREMIUM, 1));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CORE_LOOT_516", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]

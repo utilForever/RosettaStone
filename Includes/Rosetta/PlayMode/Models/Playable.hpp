@@ -73,6 +73,10 @@ class Playable : public Entity
     //! \param value The flag that indicates whether it is transformed.
     void SetTransformed(bool value);
 
+    //! Returns the flag that indicates whether it is golden card.
+    //! \return The flag that indicates whether it is golden card.
+    bool IsGoldenCard() const;
+
     //! Returns the flag that indicates whether it has combo.
     //! \return The flag that indicates whether it has combo.
     bool HasCombo() const;

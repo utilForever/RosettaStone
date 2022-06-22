@@ -2244,6 +2244,16 @@ void LootapaloozaCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_FRIENDLY_TARGET = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CopyTask>(
+        EntityType::TARGET, ZoneType::HAND, 1, true));
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::PREMIUM, 1));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("LOOT_516", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOOT_521] Master Oakheart - COST:9 [ATK:5/HP:5]

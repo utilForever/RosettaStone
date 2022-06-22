@@ -104,6 +104,11 @@ void Playable::SetTransformed(bool value)
     SetGameTag(GameTag::TRANSFORMED_FROM_CARD, static_cast<int>(value));
 }
 
+bool Playable::IsGoldenCard() const
+{
+    return static_cast<bool>(GetGameTag(GameTag::PREMIUM));
+}
+
 bool Playable::HasCombo() const
 {
     return GetGameTag(GameTag::COMBO) == 1;
