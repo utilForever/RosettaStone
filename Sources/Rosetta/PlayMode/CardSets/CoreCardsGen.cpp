@@ -4483,6 +4483,21 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<CopyTask>(
+        EntityType::TARGET, ZoneType::HAND, 1, true));
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagTask>(
+        EntityType::STACK, GameTag::PREMIUM, 1));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CORE_LOOT_516", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]

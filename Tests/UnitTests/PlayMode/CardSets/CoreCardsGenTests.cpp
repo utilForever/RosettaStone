@@ -12401,6 +12401,57 @@ TEST_CASE("[Neutral : Minion] - CORE_LOOT_413 : Plated Beetle")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_LOOT_516] Zola the Gorgon - COST:3 [ATK:2/HP:2]
+// - Race: Naga, Set: CORE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Choose a friendly minion.
+//       Add a Golden copy of it to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_LOOT_516 : Zola the Gorgon")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Zola the Gorgon"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Wisp");
+    CHECK_EQ(curHand[0]->IsGoldenCard(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
 // - Race: Pirate, Set: CORE, Rarity: Common
 // --------------------------------------------------------
