@@ -189,18 +189,18 @@ CORE | CORE_KAR_073 | Maelstrom Portal | O
 CORE | CORE_LOE_003 | Ethereal Conjurer | O
 CORE | CORE_LOE_011 | Reno Jackson | O
 CORE | CORE_LOE_012 | Tomb Pillager | O
-CORE | CORE_LOE_039 | Gorillabot A-3 |  
+CORE | CORE_LOE_039 | Gorillabot A-3 | O
 CORE | CORE_LOE_050 | Mounted Raptor | O
-CORE | CORE_LOE_076 | Sir Finley Mrrgglton |  
-CORE | CORE_LOE_077 | Brann Bronzebeard |  
-CORE | CORE_LOE_079 | Elise Starseeker |  
+CORE | CORE_LOE_076 | Sir Finley Mrrgglton | O
+CORE | CORE_LOE_077 | Brann Bronzebeard | O
+CORE | CORE_LOE_079 | Elise Starseeker | O
 CORE | CORE_LOEA10_3 | Murloc Tinyfin | O
 CORE | CORE_LOOT_101 | Explosive Runes | O
 CORE | CORE_LOOT_124 | Lone Champion | O
 CORE | CORE_LOOT_137 | Sleepy Dragon | O
 CORE | CORE_LOOT_222 | Candleshot | O
 CORE | CORE_LOOT_413 | Plated Beetle | O
-CORE | CORE_LOOT_516 | Zola the Gorgon |  
+CORE | CORE_LOOT_516 | Zola the Gorgon | O
 CORE | CORE_NEW1_008 | Ancient of Lore | O
 CORE | CORE_NEW1_010 | Al'Akir the Windlord | O
 CORE | CORE_NEW1_018 | Bloodsail Raider | O
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 94% (236 of 250 Cards)
+- Progress: 96% (241 of 250 Cards)
 
 ## Forged in the Barrens
 
