@@ -4403,13 +4403,17 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CORE_LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5]
     // - Set: CORE, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Shuffle the 'Map to the Golden Monkey'
-    //       into your deck.
+    // Text: <b>Battlecry:</b> Shuffle the
+    //       'Map to the Golden Monkey' into your deck.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "LOE_019t", 1));
+    cards.emplace("CORE_LOE_079", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
