@@ -1304,7 +1304,7 @@ UNGORO | UNG_844 | Humongous Razorleaf | O
 UNGORO | UNG_845 | Igneous Elemental |  
 UNGORO | UNG_846 | Shimmering Tempest |  
 UNGORO | UNG_847 | Blazecaller |  
-UNGORO | UNG_848 | Primordial Drake |  
+UNGORO | UNG_848 | Primordial Drake | O
 UNGORO | UNG_851 | Elise the Trailblazer |  
 UNGORO | UNG_852 | Tyrantus |  
 UNGORO | UNG_854 | Free From Amber |  
@@ -1325,7 +1325,7 @@ UNGORO | UNG_923 | Iron Hide |
 UNGORO | UNG_925 | Ornery Direhorn |  
 UNGORO | UNG_926 | Cornered Sentry |  
 UNGORO | UNG_927 | Sudden Genesis |  
-UNGORO | UNG_928 | Tar Creeper |  
+UNGORO | UNG_928 | Tar Creeper | O
 UNGORO | UNG_929 | Molten Blade |  
 UNGORO | UNG_933 | King Mosh |  
 UNGORO | UNG_934 | Fire Plume's Heart |  
@@ -1348,7 +1348,7 @@ UNGORO | UNG_961 | Adaptation |
 UNGORO | UNG_962 | Lightfused Stegodon |  
 UNGORO | UNG_963 | Lyra the Sunshard | O
 
-- Progress: 5% (8 of 135 Cards)
+- Progress: 7% (10 of 135 Cards)
 
 ## Knights of the Frozen Throne
 
@@ -2501,7 +2501,7 @@ YEAR_OF_THE_DRAGON | YOD_001 | Rising Winds | O
 YEAR_OF_THE_DRAGON | YOD_003 | Winged Guardian | O
 YEAR_OF_THE_DRAGON | YOD_004 | Chopshop Copter | O
 YEAR_OF_THE_DRAGON | YOD_005 | Fresh Scent | O
-YEAR_OF_THE_DRAGON | YOD_006 | Escaped Manasaber |  
+YEAR_OF_THE_DRAGON | YOD_006 | Escaped Manasaber | O
 YEAR_OF_THE_DRAGON | YOD_007 | Animated Avalanche | O
 YEAR_OF_THE_DRAGON | YOD_008 | Arcane Amplifier | O
 YEAR_OF_THE_DRAGON | YOD_009 | The Amazing Reno |  
@@ -2533,7 +2533,7 @@ YEAR_OF_THE_DRAGON | YOD_041 | Eye of the Storm | O
 YEAR_OF_THE_DRAGON | YOD_042 | The Fist of Ra-den |  
 YEAR_OF_THE_DRAGON | YOD_043 | Scalelord | O
 
-- Progress: 57% (20 of 35 Cards)
+- Progress: 60% (21 of 35 Cards)
 
 ## Ashes of Outland
 

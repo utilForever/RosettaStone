@@ -222,9 +222,9 @@ CORE | CORE_TRL_307 | Flash of Light | O
 CORE | CORE_TRL_315 | Pyromaniac | O
 CORE | CORE_TRL_345 | Krag'wa, the Frog | O
 CORE | CORE_TRL_348 | Springpaw | O
-CORE | CORE_ULD_191 | Beaming Sidekick |  
-CORE | CORE_ULD_209 | Vulpera Scoundrel |  
-CORE | CORE_ULD_271 | Injured Tol'vir |  
+CORE | CORE_ULD_191 | Beaming Sidekick | O
+CORE | CORE_ULD_209 | Vulpera Scoundrel | O
+CORE | CORE_ULD_271 | Injured Tol'vir | O
 CORE | CORE_UNG_020 | Arcanologist | O
 CORE | CORE_UNG_034 | Radiant Elemental | O
 CORE | CORE_UNG_108 | Earthen Scales | O
@@ -232,10 +232,10 @@ CORE | CORE_UNG_813 | Stormwatcher | O
 CORE | CORE_UNG_817 | Tidal Surge | O
 CORE | CORE_UNG_833 | Lakkari Felhound | O
 CORE | CORE_UNG_844 | Humongous Razorleaf | O
-CORE | CORE_UNG_848 | Primordial Drake |  
-CORE | CORE_UNG_928 | Tar Creeper |  
+CORE | CORE_UNG_848 | Primordial Drake | O
+CORE | CORE_UNG_928 | Tar Creeper | O
 CORE | CORE_UNG_963 | Lyra the Sunshard | O
-CORE | CORE_YOD_006 | Escaped Manasaber |  
+CORE | CORE_YOD_006 | Escaped Manasaber | O
 CORE | CS3_001 | Aegwynn, the Guardian |  
 CORE | CS3_003 | Felsoul Jailer | O
 CORE | CS3_005 | Vanessa VanCleef |  
@@ -261,7 +261,7 @@ CORE | CS3_036 | Deathwing the Destroyer | O
 CORE | CS3_037 | Emerald Skytalon | O
 CORE | CS3_038 | Redgill Razorjaw | O
 
-- Progress: 96% (241 of 250 Cards)
+- Progress: 98% (247 of 250 Cards)
 
 ## Forged in the Barrens
 
