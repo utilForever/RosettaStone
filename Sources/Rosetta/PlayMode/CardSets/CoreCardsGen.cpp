@@ -4692,6 +4692,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 2));
+    cards.emplace("CORE_UNG_848", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_UNG_928] Tar Creeper - COST:3 [ATK:1/HP:5]

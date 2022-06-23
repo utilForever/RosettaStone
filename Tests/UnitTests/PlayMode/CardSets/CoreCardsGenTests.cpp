@@ -13035,6 +13035,65 @@ TEST_CASE("[Neutral : Minion] - CORE_UNG_844 : Humongous Razorleaf")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_UNG_848] Primordial Drake - COST:8 [ATK:4/HP:8]
+// - Race: Dragon, Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Deal 2 damage to all other minions.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_UNG_848 : Primordial Drake")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Primordial Drake"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 12);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 10);
+    CHECK_EQ(opField[0]->GetHealth(), 10);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]
 // - Race: Pirate, Set: CORE, Rarity: Rare
 // --------------------------------------------------------
