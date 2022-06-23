@@ -4727,6 +4727,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<TempManaTask>(1) };
+    cards.emplace("CORE_YOD_006", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]
