@@ -987,6 +987,69 @@ TEST_CASE("[Warrior : Minion] - YOD_024 : Bomb Wrangler")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [YOD_006] Escaped Manasaber - COST:4 [ATK:3/HP:5]
+// - Race: Beast, Faction: Neutral, Set: YoD, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+//       Whenever this attacks,
+//       gain 1 Mana Crystal this turn only.
+// --------------------------------------------------------
+// GameTag:
+// - STEALTH = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - YOD_006 : Escaped Manasaber")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(5);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Escaped Manasaber"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 6);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 6);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+
+    game.Process(curPlayer, AttackTask(card1, opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetTotalMana(), 6);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetTotalMana(), 7);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+    CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [YOD_030] Licensed Adventurer - COST:2 [ATK:2/HP:2]
 // - Faction: Neutral, Set: YoD, Rarity: Rare
 // --------------------------------------------------------
