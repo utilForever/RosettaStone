@@ -12886,6 +12886,86 @@ TEST_CASE("[Neutral : Minion] - CORE_ULD_191 : Beaming Sidekick")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_ULD_209] Vulpera Scoundrel - COST:3 [ATK:2/HP:3]
+// - Set: CORE, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry</b>: <b>Discover</b> a spell
+//       or pick a mystery choice.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_ULD_209 : Vulpera Scoundrel")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+    curPlayer->GetHero()->SetDamage(6);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Vulpera Scoundrel"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Vulpera Scoundrel"));
+
+    SUBCASE("A spell card - Except ULD_209t")
+    {
+        game.Process(curPlayer, PlayCardTask::Spell(card1));
+        CHECK(curPlayer->choice != nullptr);
+
+        auto cards = TestUtils::GetChoiceCards(game);
+        for (std::size_t i = 0; i < 3; ++i)
+        {
+            CHECK_EQ(cards[i]->IsCardClass(CardClass::DRUID), true);
+            CHECK_EQ(cards[i]->GetCardType(), CardType::SPELL);
+        }
+        CHECK_EQ(cards[3]->id, "ULD_209t");
+
+        TestUtils::ChooseNthChoice(game, 1);
+        CHECK_EQ(curHand.GetCount(), 2);
+        CHECK_EQ(curHand[1]->card->IsCardClass(CardClass::DRUID), true);
+        CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+    }
+
+    SUBCASE("Mystery Choice! - ULD_209t")
+    {
+        game.Process(curPlayer, PlayCardTask::Spell(card2));
+        CHECK(curPlayer->choice != nullptr);
+
+        auto cards = TestUtils::GetChoiceCards(game);
+        for (std::size_t i = 0; i < 3; ++i)
+        {
+            CHECK_EQ(cards[i]->IsCardClass(CardClass::DRUID), true);
+            CHECK_EQ(cards[i]->GetCardType(), CardType::SPELL);
+        }
+        CHECK_EQ(cards[3]->id, "ULD_209t");
+
+        TestUtils::ChooseNthChoice(game, 4);
+        CHECK_EQ(curHand.GetCount(), 2);
+        CHECK_EQ(curHand[1]->card->IsCardClass(CardClass::DRUID), true);
+        CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+    }
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
 // - Race: Elemental, Set: CORE, Rarity: Common
 // --------------------------------------------------------

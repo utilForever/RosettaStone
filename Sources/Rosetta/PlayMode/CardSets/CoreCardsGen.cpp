@@ -4632,7 +4632,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // - DISCOVER = 1
+    // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::VULPERA_SCOUNDREL, 4));
+    cards.emplace("CORE_ULD_209", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
