@@ -4707,6 +4707,13 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            return playable->player == playable->game->GetOpponentPlayer() ? 2
+                                                                           : 0;
+        }));
+    cards.emplace("CORE_UNG_928", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_YOD_006] Escaped Manasaber - COST:4 [ATK:3/HP:5]
