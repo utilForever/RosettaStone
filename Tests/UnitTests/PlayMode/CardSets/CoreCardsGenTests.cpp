@@ -12829,6 +12829,63 @@ TEST_CASE("[Neutral : Minion] - CORE_NEW1_027 : Southsea Captain")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_ULD_191] Beaming Sidekick - COST:1 [ATK:1/HP:2]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give a friendly minion +2 Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_ULD_191 : Beaming Sidekick")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Beaming Sidekick"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Beaming Sidekick"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Beaming Sidekick"));
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, nullptr));
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card3, card2));
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 4);
+    CHECK_EQ(curField[2]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
 // - Race: Elemental, Set: CORE, Rarity: Common
 // --------------------------------------------------------

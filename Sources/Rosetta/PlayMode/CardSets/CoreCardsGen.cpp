@@ -4608,6 +4608,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_191e", EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CORE_ULD_191", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_ULD_209] Vulpera Scoundrel - COST:3 [ATK:2/HP:3]
