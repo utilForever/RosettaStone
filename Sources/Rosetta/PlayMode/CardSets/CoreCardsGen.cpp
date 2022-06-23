@@ -4650,6 +4650,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::SOURCE, 3));
+    cards.emplace("CORE_ULD_271", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]

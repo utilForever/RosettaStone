@@ -12966,6 +12966,47 @@ TEST_CASE("[Neutral : Minion] - CORE_ULD_209 : Vulpera Scoundrel")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [CORE_ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
+// - Set: CORE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Battlecry:</b> Deal 3 damage to this minion.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - CORE_ULD_271 : Injured Tol'vir")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Injured Tol'vir"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetDamage(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
 // - Race: Elemental, Set: CORE, Rarity: Common
 // --------------------------------------------------------
