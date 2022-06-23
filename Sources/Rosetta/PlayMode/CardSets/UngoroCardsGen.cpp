@@ -2167,6 +2167,10 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 2));
+    cards.emplace("UNG_848", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_851] Elise the Trailblazer - COST:5 [ATK:5/HP:5]
