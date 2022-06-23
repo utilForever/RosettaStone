@@ -4608,6 +4608,19 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_FRIENDLY_TARGET = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("ULD_191e", EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("CORE_ULD_191", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_ULD_209] Vulpera Scoundrel - COST:3 [ATK:2/HP:3]
@@ -4619,7 +4632,12 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // - DISCOVER = 1
+    // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::VULPERA_SCOUNDREL, 4));
+    cards.emplace("CORE_ULD_209", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
@@ -4632,6 +4650,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::SOURCE, 3));
+    cards.emplace("CORE_ULD_271", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
@@ -4670,6 +4692,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 2));
+    cards.emplace("CORE_UNG_848", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_UNG_928] Tar Creeper - COST:3 [ATK:1/HP:5]
@@ -4681,6 +4707,13 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            return playable->player == playable->game->GetOpponentPlayer() ? 2
+                                                                           : 0;
+        }));
+    cards.emplace("CORE_UNG_928", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CORE_YOD_006] Escaped Manasaber - COST:4 [ATK:3/HP:5]
@@ -4694,6 +4727,11 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - STEALTH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<TempManaTask>(1) };
+    cards.emplace("CORE_YOD_006", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [CS3_022] Fogsail Freebooter - COST:2 [ATK:2/HP:2]

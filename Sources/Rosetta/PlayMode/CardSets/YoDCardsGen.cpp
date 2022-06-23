@@ -723,13 +723,19 @@ void YoDCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [YOD_006] Escaped Manasaber - COST:4 [ATK:3/HP:5]
     // - Race: Beast, Faction: Neutral, Set: YoD, Rarity: Epic
     // --------------------------------------------------------
-    // Text: <b>Stealth</b>Whenever this attacks,
+    // Text: <b>Stealth</b>
+    //       Whenever this attacks,
     //       gain 1 Mana Crystal this turn only.
     // --------------------------------------------------------
     // GameTag:
     // - STEALTH = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<TempManaTask>(1) };
+    cards.emplace("YOD_006", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [YOD_028] Skydiving Instructor - COST:3 [ATK:2/HP:2]

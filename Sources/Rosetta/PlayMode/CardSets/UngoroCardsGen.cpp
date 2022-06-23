@@ -3,6 +3,7 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
+#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/UngoroCardsGen.hpp>
 #include <Rosetta/PlayMode/Enchants/Enchants.hpp>
 #include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
@@ -2167,6 +2168,10 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS_NOSOURCE, 2));
+    cards.emplace("UNG_848", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_851] Elise the Trailblazer - COST:5 [ATK:5/HP:5]
@@ -2218,6 +2223,13 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+            return playable->player == playable->game->GetOpponentPlayer() ? 2
+                                                                           : 0;
+        }));
+    cards.emplace("UNG_928", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_937] Primalfin Lookout - COST:3 [ATK:3/HP:2]
