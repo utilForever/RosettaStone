@@ -117,6 +117,7 @@
 #include <Rosetta/PlayMode/Cards/Card.hpp>
 #include <Rosetta/PlayMode/Cards/CardDef.hpp>
 #include <Rosetta/PlayMode/Cards/CardDefs.hpp>
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 #include <Rosetta/PlayMode/Cards/CardProperty.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
