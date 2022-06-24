@@ -3,38 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
-#include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
-#include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
-#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/VanillaCardsGen.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
-
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using Entourages = std::vector<std::string>;
-using EntityTypeList = std::vector<EntityType>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void VanillaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing

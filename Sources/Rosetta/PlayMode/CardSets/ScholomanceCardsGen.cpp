@@ -3,43 +3,19 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/Common/Utils.hpp>
-#include <Rosetta/PlayMode/Actions/Generic.hpp>
-#include <Rosetta/PlayMode/Actions/Summon.hpp>
-#include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Conditions/RelaCondition.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-#include <algorithm>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using GameTags = std::map<GameTag, int>;
-using TagValues = std::vector<TagValue>;
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using Entourages = std::vector<std::string>;
-using TaskList = std::vector<std::shared_ptr<ITask>>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void ScholomanceCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    // Do nothing
 }
 
 void ScholomanceCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    // Do nothing
 }
 
 void ScholomanceCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
