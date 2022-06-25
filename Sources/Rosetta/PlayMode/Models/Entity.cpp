@@ -19,7 +19,7 @@ namespace RosettaStone::PlayMode
 Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags, int _id)
     : game(_game), card(_card), m_gameTags(std::move(_tags))
 {
-    for (auto& gameTag : _card->gameTags)
+    for (const auto& gameTag : _card->gameTags)
     {
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
@@ -57,7 +57,7 @@ int Entity::GetGameTag(GameTag tag) const
     const auto entityVal = m_gameTags.find(tag);
     if (entityVal == m_gameTags.end())
     {
-        if (card != nullptr)
+        if (card)
         {
             const auto cardVal = card->gameTags.find(tag);
             if (cardVal != card->gameTags.end())
@@ -66,7 +66,7 @@ int Entity::GetGameTag(GameTag tag) const
             }
         }
 
-        if (auraEffects != nullptr)
+        if (auraEffects)
         {
             value += auraEffects->GetGameTag(tag);
         }
@@ -75,7 +75,7 @@ int Entity::GetGameTag(GameTag tag) const
     {
         value += entityVal->second;
 
-        if (auraEffects != nullptr)
+        if (auraEffects)
         {
             value += auraEffects->GetGameTag(tag);
         }
@@ -118,7 +118,7 @@ void Entity::Reset()
 
 Playable* Entity::GetFromCard(Player* player, Card* card,
                               std::optional<std::map<GameTag, int>> cardTags,
-                              IZone* zone, int id)
+                              const IZone* zone, int id)
 {
     std::map<GameTag, int> tags;
     if (cardTags.has_value())
@@ -128,7 +128,7 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
 
     tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] =
-        zone != nullptr ? static_cast<int>(zone->GetType()) : 0;
+        zone ? static_cast<int>(zone->GetType()) : 0;
 
     Playable* result;
 

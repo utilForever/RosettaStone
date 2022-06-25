@@ -55,8 +55,9 @@ TaskStatus QuestProgressTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    auto spell = dynamic_cast<Spell*>(m_source);
-    if (spell == nullptr)
+    const auto spell = dynamic_cast<Spell*>(m_source);
+
+    if (!spell)
     {
         return TaskStatus::STOP;
     }

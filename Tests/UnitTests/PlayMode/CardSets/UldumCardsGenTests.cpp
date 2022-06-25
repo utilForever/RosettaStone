@@ -111,7 +111,7 @@ TEST_CASE("[Druid : Spell] - ULD_131 : Untapped Potential")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    CHECK(curSecret->quest == nullptr);
+    CHECK(!curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 4);
     CHECK_EQ(curPlayer->GetHero()->heroPower->card->id, "ULD_131p");
 
@@ -341,7 +341,7 @@ TEST_CASE("[Druid : Spell] - ULD_136 : Worthy Expedition")
         curPlayer, Cards::FindCardByName("Worthy Expedition"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -1110,7 +1110,7 @@ TEST_CASE("[Shaman : Spell] - ULD_291 : Corrupt the Waters")
     CHECK_EQ(opHero->GetHealth(), 25);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card7, opHero));
-    CHECK(curSecret->quest == nullptr);
+    CHECK(!curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 6);
     CHECK_EQ(curHero->heroPower->card->id, "ULD_291p");
     CHECK_EQ(opHero->GetHealth(), 24);
@@ -1300,7 +1300,7 @@ TEST_CASE("[Warlock : Spell] - ULD_160 : Sinister Deal")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Sinister Deal"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -2472,7 +2472,7 @@ TEST_CASE("[Mage : Minion] - ULD_236 : Tortollan Pilgrim")
         curPlayer, Cards::FindCardByName("Tortollan Pilgrim"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curDeck.GetCount(), 26);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -3189,7 +3189,7 @@ TEST_CASE("[Mage : Spell] - ULD_433 : Raid the Sky Temple")
     CHECK_EQ(quest->GetQuestProgress(), 9);
 
     game.Process(curPlayer, PlayCardTask::Spell(card11));
-    CHECK(curSecret->quest == nullptr);
+    CHECK(!curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 10);
     CHECK_EQ(curHero->heroPower->card->id, "ULD_433p");
     CHECK_EQ(curHand.GetCount(), 0);
@@ -3453,7 +3453,7 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
     CHECK_EQ(quest->GetQuestProgress(), 4);
 
     game.Process(curPlayer, PlayCardTask::Minion(card6));
-    CHECK(curSecret->quest == nullptr);
+    CHECK(!curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 5);
     CHECK_EQ(curHero->heroPower->card->id, "ULD_431p");
 
@@ -3607,7 +3607,7 @@ TEST_CASE("[Paladin : Minion] - ULD_500 : Sir Finley of the Sands")
         curPlayer, Cards::FindCardByName("Sir Finley of the Sands"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3637,7 +3637,7 @@ TEST_CASE("[Paladin : Minion] - ULD_500 : Sir Finley of the Sands")
                                    Cards::FindCardByID("HERO_02bp2"));
 
         game.Process(curPlayer, HeroPowerTask());
-        CHECK(curPlayer->choice != nullptr);
+        CHECK(curPlayer->choice);
 
         auto totemCards = TestUtils::GetChoiceCards(game);
         for (auto& card : totemCards)
@@ -4457,7 +4457,7 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card4));
-    CHECK(curSecret->quest == nullptr);
+    CHECK(!curSecret->quest);
     CHECK_EQ(curHero->GetHealth(), 24);
     CHECK_EQ(quest->GetQuestProgress(), 18);
     CHECK_EQ(curHero->heroPower->card->id, "ULD_724p");
@@ -4904,7 +4904,7 @@ TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
         CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 7);
         CHECK_EQ(quest->GetQuestProgress(), 4);
 
-        CHECK(curSecret->quest == nullptr);
+        CHECK(!curSecret->quest);
         CHECK_EQ(curHero->heroPower->card->id, "ULD_326p");
 
         const int curHealth = curHero->GetHealth();
@@ -5096,7 +5096,7 @@ TEST_CASE("[Warrior : Minion] - ULD_195 : Frightened Flunky")
         curPlayer, Cards::FindCardByName("Frightened Flunky"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -5332,7 +5332,7 @@ TEST_CASE("[Neutral : Minion] - ULD_178 : Siamat")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Siamat"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     TestUtils::ChooseNthChoice(game, 1);
     TestUtils::ChooseNthChoice(game, 1);
@@ -5349,7 +5349,7 @@ TEST_CASE("[Neutral : Minion] - ULD_178 : Siamat")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     TestUtils::ChooseNthChoice(game, 4);
     TestUtils::ChooseNthChoice(game, 3);
@@ -5706,7 +5706,7 @@ TEST_CASE("[Neutral : Minion] - ULD_188 : Golden Scarab")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Golden Scarab"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -6189,7 +6189,7 @@ TEST_CASE("[Neutral : Minion] - ULD_209 : Vulpera Scoundrel")
     SUBCASE("A spell card - Except ULD_209t")
     {
         game.Process(curPlayer, PlayCardTask::Spell(card1));
-        CHECK(curPlayer->choice != nullptr);
+        CHECK(curPlayer->choice);
 
         auto cards = TestUtils::GetChoiceCards(game);
         for (std::size_t i = 0; i < 3; ++i)
@@ -6208,7 +6208,7 @@ TEST_CASE("[Neutral : Minion] - ULD_209 : Vulpera Scoundrel")
     SUBCASE("Mystery Choice! - ULD_209t")
     {
         game.Process(curPlayer, PlayCardTask::Spell(card2));
-        CHECK(curPlayer->choice != nullptr);
+        CHECK(curPlayer->choice);
 
         auto cards = TestUtils::GetChoiceCards(game);
         for (std::size_t i = 0; i < 3; ++i)
@@ -6903,7 +6903,7 @@ TEST_CASE("[Warrior : Spell] - ULD_711 : Hack the System")
 
     game.Process(curPlayer, PlayCardTask::Weapon(card4));
     game.Process(curPlayer, AttackTask(curHero, opHero));
-    CHECK(curSecret->quest == nullptr);
+    CHECK(!curSecret->quest);
     CHECK_EQ(opHero->GetHealth(), 15);
     CHECK_EQ(quest->GetQuestProgress(), 5);
     CHECK_EQ(curHero->heroPower->card->id, "ULD_711p3");
@@ -7320,7 +7320,7 @@ TEST_CASE("[Neutral : Minion] - ULD_309 : Dwarven Archaeologist")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     TestUtils::ChooseNthChoice(game, 1);
     CHECK_EQ(curHand.GetCount(), 1);
@@ -7865,7 +7865,7 @@ TEST_CASE("[Neutral : Minion] - ULD_727 : Body Wrapper")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 1);

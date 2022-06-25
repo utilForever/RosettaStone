@@ -182,9 +182,9 @@ TaskStatus SummonTask::Impl(Player* player)
         {
             if (!m_card.has_value() && !stack.playables.empty())
             {
-                Playable* playable = stack.playables[0];
+                const Playable* playable = stack.playables[0];
 
-                if (playable->zone == nullptr)
+                if (!playable->zone)
                 {
                     playable->player->GetGraveyardZone()->Add(
                         stack.playables[0]);
@@ -211,13 +211,13 @@ TaskStatus SummonTask::Impl(Player* player)
 
             if (m_removeFromStack)
             {
-                EraseIf(stack.playables, [&](Playable* entity) {
+                EraseIf(stack.playables, [&](const Playable* entity) {
                     return entity == summonEntity;
                 });
             }
         }
 
-        if (summonEntity == nullptr)
+        if (!summonEntity)
         {
             return TaskStatus::STOP;
         }

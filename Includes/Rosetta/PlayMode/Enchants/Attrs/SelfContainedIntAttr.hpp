@@ -34,7 +34,7 @@ class SelfContainedIntAttr : public IntAttr<TargetT>
     static std::shared_ptr<GenericEffect<TargetT, SelfT>> Effect(
         EffectOperator effectOp, int value)
     {
-        if (m_singleton == nullptr)
+        if (!m_singleton)
         {
             m_singleton = std::make_shared<SelfT>();
         }

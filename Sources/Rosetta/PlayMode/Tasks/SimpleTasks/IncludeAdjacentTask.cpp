@@ -45,7 +45,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
                 "IncludeAdjacentTask::Impl() - Invalid entity type");
     }
 
-    if (center == nullptr)
+    if (!center)
     {
         return TaskStatus::STOP;
     }

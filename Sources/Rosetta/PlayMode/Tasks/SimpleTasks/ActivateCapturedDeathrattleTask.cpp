@@ -14,7 +14,7 @@ namespace RosettaStone::PlayMode::SimpleTasks
 TaskStatus ActivateCapturedDeathrattleTask::Impl(Player* player)
 {
     const auto enchantment = dynamic_cast<Enchantment*>(m_target);
-    if (enchantment == nullptr)
+    if (!enchantment)
     {
         throw std::invalid_argument(
             "ActivateCapturedDeathrattleTask::Impl() - target is not "
@@ -22,7 +22,7 @@ TaskStatus ActivateCapturedDeathrattleTask::Impl(Player* player)
     }
 
     Card* card = enchantment->GetCapturedCard();
-    if (card == nullptr)
+    if (!card)
     {
         throw std::invalid_argument(
             "ActivateCapturedDeathrattleTask::Impl() - Enchantment doesn't "

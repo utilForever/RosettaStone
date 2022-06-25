@@ -28,9 +28,9 @@ CopyTask::CopyTask(EntityType entityType, ZoneType zoneType, int amount,
 TaskStatus CopyTask::Impl(Player* player)
 {
     Player* owner = m_toOpponent ? player->opponent : player;
-    IZone* targetZone = Generic::GetZone(owner, m_zoneType);
+    const IZone* targetZone = Generic::GetZone(owner, m_zoneType);
 
-    if (targetZone == nullptr || targetZone->IsFull())
+    if (!targetZone || targetZone->IsFull())
     {
         return TaskStatus::STOP;
     }
@@ -44,7 +44,7 @@ TaskStatus CopyTask::Impl(Player* player)
             return TaskStatus::STOP;
         }
 
-        for (auto& entity : player->game->taskStack.playables)
+        for (const auto& entity : player->game->taskStack.playables)
         {
             for (int i = 0; i < m_amount; ++i)
             {
@@ -78,17 +78,16 @@ TaskStatus CopyTask::Impl(Player* player)
             {
                 toBeCopied = dynamic_cast<Playable*>(m_source);
 
-                auto enchantment = dynamic_cast<Enchantment*>(m_target);
+                const auto enchantment = dynamic_cast<Enchantment*>(m_target);
                 deathrattle =
-                    (m_zoneType == ZoneType::PLAY) &&
-                    (enchantment != nullptr) &&
-                    (!enchantment->card->power.GetDeathrattleTask().empty());
+                    m_zoneType == ZoneType::PLAY && enchantment &&
+                    !enchantment->card->power.GetDeathrattleTask().empty();
                 break;
             }
             case EntityType::TARGET:
             {
                 toBeCopied = m_target;
-                if (toBeCopied != nullptr && toBeCopied->zone != nullptr &&
+                if (toBeCopied && toBeCopied->zone &&
                     toBeCopied->zone->GetType() == ZoneType::GRAVEYARD)
                 {
                     deathrattle = true;
@@ -106,7 +105,7 @@ TaskStatus CopyTask::Impl(Player* player)
                     "CopyTask::Impl() - Invalid entity type");
         }
 
-        if (toBeCopied == nullptr)
+        if (!toBeCopied)
         {
             return TaskStatus::STOP;
         }

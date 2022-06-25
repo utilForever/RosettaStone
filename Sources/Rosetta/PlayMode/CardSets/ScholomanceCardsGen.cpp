@@ -2355,7 +2355,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             TaskStack& stack = player->game->taskStack;
             const Playable* result = stack.playables[0];
 
-            if (result != nullptr && result->card->id == "SCH_259t")
+            if (result && result->card->id == "SCH_259t")
             {
                 if (Weapon* weapon = player->GetHero()->weapon; weapon)
                 {

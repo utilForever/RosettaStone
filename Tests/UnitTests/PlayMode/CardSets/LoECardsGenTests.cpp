@@ -105,7 +105,7 @@ TEST_CASE("[Mage : Minion] - LOE_003 : Ethereal Conjurer")
         curPlayer, Cards::FindCardByName("Ethereal Conjurer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -261,10 +261,10 @@ TEST_CASE("[Neutral : Minion] - LOE_039 : Gorillabot A-3")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Gorillabot A-3"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -315,7 +315,7 @@ TEST_CASE("[Neutral : Minion] - LOE_076 : Sir Finley Mrrgglton")
         curPlayer, Cards::FindCardByName("Sir Finley Mrrgglton"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);

@@ -3120,8 +3120,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             if (!randSpellCard->IsPlayableByCardReq(player) ||
                 (randSpellCard->IsSecret() &&
                  player->GetSecretZone()->IsFull()) ||
-                (randSpellCard->IsQuest() &&
-                 player->GetSecretZone()->quest != nullptr))
+                (randSpellCard->IsQuest() && player->GetSecretZone()->quest))
             {
                 return;
             }
@@ -3139,7 +3138,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 randTarget = validTargets[idx];
             }
 
-            if (randSpellCard->mustHaveToTargetToPlay && randTarget == nullptr)
+            if (randSpellCard->mustHaveToTargetToPlay && !randTarget)
             {
                 return;
             }
@@ -3150,7 +3149,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
             Generic::CastSpell(player, spellToCast, randTarget, randChooseOne);
 
-            while (player->choice != nullptr)
+            while (player->choice)
             {
                 idx = Random::get<std::size_t>(
                     0, player->choice->choices.size() - 1);

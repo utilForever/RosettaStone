@@ -87,7 +87,7 @@ void Effect::ApplyTo(PlayerAuraEffects& auraEffects) const
 void Effect::ApplyAuraTo(Entity* entity) const
 {
     AuraEffects* auraEffects = entity->auraEffects;
-    if (auraEffects == nullptr)
+    if (!auraEffects)
     {
         auraEffects = new AuraEffects(entity->card->GetCardType());
         entity->auraEffects = auraEffects;

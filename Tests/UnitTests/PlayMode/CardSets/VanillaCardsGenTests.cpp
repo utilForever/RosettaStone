@@ -2425,7 +2425,7 @@ TEST_CASE("[Hunter : Spell] - VAN_DS1_184 : Tracking")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     TestUtils::ChooseNthChoice(game, 1);

@@ -25,11 +25,6 @@ TaskStatus DrawTask::Impl(Player* player)
         cards.emplace_back(card);
     }
 
-    if (cards.empty() || cards.at(0) == nullptr)
-    {
-        return TaskStatus::COMPLETE;
-    }
-
     if (m_toStack)
     {
         for (auto& card : cards)

@@ -1243,7 +1243,7 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
     CHECK_EQ(curField[0]->GetHealth(), 3);
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -2389,7 +2389,7 @@ TEST_CASE("[Shaman : Minion] - BT_115 : Marshspawn")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
@@ -2401,7 +2401,7 @@ TEST_CASE("[Shaman : Minion] - BT_115 : Marshspawn")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3143,7 +3143,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_321 : Netherwalker")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Netherwalker"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)

@@ -55,11 +55,10 @@ TaskStatus SummonCopyTask::Impl(Player* player)
     int space = MAX_FIELD_SIZE - field->GetCount();
     int alternateCount = 0;
 
-    auto playablesSize = static_cast<int>(playables.size());
+    const auto playablesSize = static_cast<int>(playables.size());
     space = playablesSize > space ? space : playablesSize;
 
-    if (playables[0]->zone == nullptr ||
-        playables[0]->zone->GetType() != ZoneType::PLAY)
+    if (!playables[0]->zone || playables[0]->zone->GetType() != ZoneType::PLAY)
     {
         for (int i = 0; i < space; ++i)
         {
@@ -109,7 +108,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
             if (!minion->appliedEnchantments.empty())
             {
-                for (auto& enchantment : minion->appliedEnchantments)
+                for (const auto& enchantment : minion->appliedEnchantments)
                 {
                     auto instance = Enchantment::GetInstance(
                         minion, enchantment->card, copy);
@@ -138,8 +137,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
                 }
             }
 
-            if (minion->ongoingEffect != nullptr &&
-                copy->ongoingEffect == nullptr)
+            if (minion->ongoingEffect && !copy->ongoingEffect)
             {
                 minion->ongoingEffect->Clone(copy);
             }

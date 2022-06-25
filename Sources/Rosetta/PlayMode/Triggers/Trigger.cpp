@@ -46,7 +46,7 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
     }
 }
 
-Trigger::Trigger(Trigger& prototype, Entity& owner)
+Trigger::Trigger(const Trigger& prototype, Entity& owner)
     : triggerActivation(prototype.triggerActivation),
       triggerSource(prototype.triggerSource),
       tasks(prototype.tasks),
@@ -169,7 +169,7 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
                 }
                 case TriggerSource::SELF:
                 {
-                    auto minion = dynamic_cast<Minion*>(source);
+                    const auto minion = dynamic_cast<Minion*>(source);
                     minion->afterAttackTrigger += instance->handler;
                     break;
                 }
@@ -182,7 +182,7 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
                 case TriggerSource::ENCHANTMENT_TARGET:
                 {
                     const auto enchantment = dynamic_cast<Enchantment*>(source);
-                    auto minion =
+                    const auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->afterAttackTrigger += instance->handler;
                     break;
@@ -202,7 +202,7 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
                 }
                 case TriggerSource::SELF:
                 {
-                    auto minion = dynamic_cast<Minion*>(source);
+                    const auto minion = dynamic_cast<Minion*>(source);
                     minion->afterAttackedTrigger += instance->handler;
                     break;
                 }
@@ -233,14 +233,14 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
                 }
                 case TriggerSource::SELF:
                 {
-                    auto minion = dynamic_cast<Minion*>(source);
+                    const auto minion = dynamic_cast<Minion*>(source);
                     minion->preDamageTrigger += instance->handler;
                     break;
                 }
                 case TriggerSource::ENCHANTMENT_TARGET:
                 {
                     const auto enchantment = dynamic_cast<Enchantment*>(source);
-                    auto minion =
+                    const auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->preDamageTrigger += instance->handler;
                     break;
@@ -352,7 +352,7 @@ void Trigger::Remove()
                 }
                 case TriggerSource::SELF:
                 {
-                    auto minion = dynamic_cast<Minion*>(m_owner);
+                    const auto minion = dynamic_cast<Minion*>(m_owner);
                     minion->afterAttackTrigger -= handler;
                     break;
                 }
@@ -365,7 +365,7 @@ void Trigger::Remove()
                 {
                     const auto enchantment =
                         dynamic_cast<Enchantment*>(m_owner);
-                    auto minion =
+                    const auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->afterAttackTrigger -= handler;
                     break;
@@ -384,7 +384,7 @@ void Trigger::Remove()
                 }
                 case TriggerSource::SELF:
                 {
-                    auto minion = dynamic_cast<Minion*>(m_owner);
+                    const auto minion = dynamic_cast<Minion*>(m_owner);
                     minion->afterAttackedTrigger -= handler;
                     break;
                 }
@@ -414,7 +414,7 @@ void Trigger::Remove()
                 }
                 case TriggerSource::SELF:
                 {
-                    auto minion = dynamic_cast<Minion*>(m_owner);
+                    const auto minion = dynamic_cast<Minion*>(m_owner);
                     minion->preDamageTrigger -= handler;
                     break;
                 }
@@ -422,7 +422,7 @@ void Trigger::Remove()
                 {
                     const auto enchantment =
                         dynamic_cast<Enchantment*>(m_owner);
-                    auto minion =
+                    const auto minion =
                         dynamic_cast<Minion*>(enchantment->GetTarget());
                     minion->preDamageTrigger -= handler;
                     break;
@@ -457,34 +457,37 @@ void Trigger::Remove()
     }
 
     // TODO: Is it correct? :thinking:
-    //if (!isMultiTrigger)
+    // if (!isMultiTrigger)
     //{
     //    m_owner->activatedTrigger = nullptr;
     //}
 
     if (m_sequenceType != SequenceType::NONE)
     {
-        EraseIf(game->triggers, [this](std::shared_ptr<Trigger> trigger) {
-            return trigger.get() == this;
-        });
+        EraseIf(game->triggers,
+                [this](const std::shared_ptr<Trigger>& trigger) {
+                    return trigger.get() == this;
+                });
     }
 
     m_isRemoved = true;
 }
 
-void Trigger::ValidateTriggers(Game* game, Entity* source, SequenceType type)
+void Trigger::ValidateTriggers(const Game* game, Entity* source,
+                               SequenceType type)
 {
     for (auto& trigger : game->triggers)
     {
         // If summoned minion tries to activate trigger, ignore it
-        if (auto minion = dynamic_cast<Minion*>(trigger->m_owner);
+        if (const auto minion = dynamic_cast<Minion*>(trigger->m_owner);
             minion && minion->IsSummoned())
         {
             continue;
         }
 
-        // If casted enchantment tries to activate own trigger, ignore it
-        if (auto enchantment = dynamic_cast<Enchantment*>(trigger->m_owner);
+        // If enchantment tries to activate own trigger, ignore it
+        if (const auto enchantment =
+                dynamic_cast<Enchantment*>(trigger->m_owner);
             enchantment && enchantment->GetOwner() == source)
         {
             continue;
@@ -547,9 +550,9 @@ void Trigger::ProcessInternal(Entity* source)
     m_isValidated = false;
 }
 
-void Trigger::ProcessTasks(Entity* source)
+void Trigger::ProcessTasks(Entity* source) const
 {
-    for (auto& task : tasks)
+    for (const auto& task : tasks)
     {
         if (!m_owner)
         {
@@ -567,14 +570,10 @@ void Trigger::ProcessTasks(Entity* source)
         }
         else
         {
-            const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
-
-            if (enchantment != nullptr)
+            if (const auto enchantment = dynamic_cast<Enchantment*>(m_owner))
             {
-                const auto enchantPlayable =
-                    dynamic_cast<Playable*>(enchantment->GetTarget());
-
-                if (enchantPlayable != nullptr)
+                if (const auto enchantPlayable =
+                        dynamic_cast<Playable*>(enchantment->GetTarget()))
                 {
                     clonedTask->SetTarget(enchantPlayable);
                 }
@@ -627,27 +626,27 @@ void Trigger::Validate(Entity* source)
             }
             break;
         case TriggerSource::HERO:
-            if (dynamic_cast<Hero*>(source) == nullptr ||
+            if (!dynamic_cast<Hero*>(source) ||
                 (source && source->player != m_owner->player))
             {
                 return;
             }
             break;
         case TriggerSource::ALL_MINIONS:
-            if (dynamic_cast<Minion*>(source) == nullptr)
+            if (!dynamic_cast<Minion*>(source))
             {
                 return;
             }
             break;
         case TriggerSource::MINIONS:
-            if (dynamic_cast<Minion*>(source) == nullptr ||
+            if (!dynamic_cast<Minion*>(source) ||
                 (source && source->player != m_owner->player))
             {
                 return;
             }
             break;
         case TriggerSource::MINIONS_EXCEPT_SELF:
-            if (dynamic_cast<Minion*>(source) == nullptr ||
+            if (!dynamic_cast<Minion*>(source) ||
                 (source && source->player != m_owner->player) ||
                 source == m_owner)
             {
@@ -655,7 +654,7 @@ void Trigger::Validate(Entity* source)
             }
             break;
         case TriggerSource::ENEMY_MINIONS:
-            if (dynamic_cast<Minion*>(source) == nullptr ||
+            if (!dynamic_cast<Minion*>(source) ||
                 (source && source->player == m_owner->player))
             {
                 return;
@@ -664,7 +663,7 @@ void Trigger::Validate(Entity* source)
         case TriggerSource::ENCHANTMENT_TARGET:
         {
             const auto enchantment = dynamic_cast<Enchantment*>(m_owner);
-            if (enchantment == nullptr || source == nullptr ||
+            if (!enchantment || !source ||
                 enchantment->GetTarget()->GetGameTag(GameTag::ENTITY_ID) !=
                     source->GetGameTag(GameTag::ENTITY_ID))
             {
@@ -674,7 +673,7 @@ void Trigger::Validate(Entity* source)
         }
         case TriggerSource::SPELLS:
         {
-            if (dynamic_cast<Spell*>(source) == nullptr ||
+            if (!dynamic_cast<Spell*>(source) ||
                 (source && source->player != m_owner->player))
             {
                 return;
@@ -683,9 +682,9 @@ void Trigger::Validate(Entity* source)
         }
         case TriggerSource::SPELLS_CASTED_ON_THIS:
         {
-            if (dynamic_cast<Spell*>(source) == nullptr ||
+            if (!dynamic_cast<Spell*>(source) ||
                 (source && source->player != m_owner->player) ||
-                source->game->currentEventData == nullptr ||
+                !source->game->currentEventData ||
                 source->game->currentEventData->eventTarget != m_owner)
             {
                 return;
@@ -694,7 +693,7 @@ void Trigger::Validate(Entity* source)
         }
         case TriggerSource::ENEMY_SPELLS:
         {
-            if (dynamic_cast<Spell*>(source) == nullptr ||
+            if (!dynamic_cast<Spell*>(source) ||
                 (source && source->player == m_owner->player))
             {
                 return;
@@ -703,8 +702,7 @@ void Trigger::Validate(Entity* source)
         }
         case TriggerSource::FRIENDLY:
         {
-            if (source == nullptr ||
-                (source && source->player != m_owner->player))
+            if (!source || (source && source->player != m_owner->player))
             {
                 return;
             }
@@ -712,8 +710,7 @@ void Trigger::Validate(Entity* source)
         }
         case TriggerSource::FRIENDLY_EVENT_SOURCE:
         {
-            if (source == nullptr || source->game == nullptr ||
-                source->game->currentEventData == nullptr ||
+            if (!source || !source->game || !source->game->currentEventData ||
                 source->game->currentEventData->eventSource->player !=
                     m_owner->player)
             {
@@ -729,8 +726,7 @@ void Trigger::Validate(Entity* source)
     {
         case TriggerType::TURN_START:
         case TriggerType::TURN_END:
-            if (!eitherTurn &&
-                (m_owner == nullptr || source != m_owner->player))
+            if (!eitherTurn && (!m_owner || source != m_owner->player))
             {
                 return;
             }
@@ -748,11 +744,11 @@ void Trigger::Validate(Entity* source)
             break;
     }
 
-    for (auto& condition : conditions)
+    for (const auto& condition : conditions)
     {
         const auto playable = dynamic_cast<Playable*>(source);
-        const bool res = (playable != nullptr) ? condition->Evaluate(playable)
-                                               : condition->Evaluate(m_owner);
+        const bool res = playable ? condition->Evaluate(playable)
+                                  : condition->Evaluate(m_owner);
 
         if (conditionLogic == MultiCondLogic::AND && !res)
         {

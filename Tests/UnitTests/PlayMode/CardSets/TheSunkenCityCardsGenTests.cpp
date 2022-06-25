@@ -207,7 +207,7 @@ TEST_CASE("[Paladin : Minion] - TSC_030 : The Leviathan")
 
     game.Process(curPlayer, AttackTask(card1, card2));
     CHECK_EQ(opField[0]->GetHealth(), 8);
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     auto firstChoice = game.entityList[curPlayer->choice->choices[0]];
@@ -384,7 +384,7 @@ TEST_CASE("[Neutral : Minion] - TSC_909 : Tuskarrrr Trawler")
         curPlayer, Cards::FindCardByName("Tuskarrrr Trawler"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     auto firstChoice = game.entityList[curPlayer->choice->choices[0]];

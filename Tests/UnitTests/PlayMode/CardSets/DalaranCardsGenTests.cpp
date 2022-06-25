@@ -298,7 +298,7 @@ TEST_CASE("[Druid : Spell] - DAL_352 : Crystalsong Portal")
     CHECK_EQ(curHand[3]->card->GetCardClass(), CardClass::DRUID);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -967,7 +967,7 @@ TEST_CASE("[Hunter : Spell] - DAL_377 : Nine Lives")
     CHECK_EQ(curField.GetCount(), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
     CHECK_EQ(curHand.GetCount(), 1);
 
     game.Process(curPlayer, EndTurnTask());
@@ -981,7 +981,7 @@ TEST_CASE("[Hunter : Spell] - DAL_377 : Nine Lives")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 1u);
@@ -1307,7 +1307,7 @@ TEST_CASE("[Mage : Minion] - DAL_163 : Messenger Raven")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Messenger Raven"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -1661,7 +1661,7 @@ TEST_CASE("[Mage : Spell] - DAL_578 : Power of Creation")
         curPlayer, Cards::FindCardByName("Power of Creation"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -1772,7 +1772,7 @@ TEST_CASE("[Mage : Spell] - DAL_608 : Magic Trick")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Magic Trick"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -1826,7 +1826,7 @@ TEST_CASE("[Mage : Minion] - DAL_609 : Kalecgos")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3054,7 +3054,7 @@ TEST_CASE("[Priest : Spell] - DAL_729 : Madame Lazul")
     CHECK_EQ(dynamic_cast<Minion*>(card4)->GetHealth(), 4);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     // NOTE: dbfID of the card 'Wolfrider' is 289
@@ -3343,7 +3343,7 @@ TEST_CASE("[Rogue : Minion] - DAL_416 : Hench-Clan Burglar")
         curPlayer, Cards::FindCardByName("Hench-Clan Burglar"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3405,7 +3405,7 @@ TEST_CASE("[Rogue : Minion] - DAL_417 : Heistbaron Togwaggle")
         curPlayer, Cards::FindCardByName("Heistbaron Togwaggle"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
     curPlayer->SetUsedMana(0);
@@ -3422,28 +3422,28 @@ TEST_CASE("[Rogue : Minion] - DAL_417 : Heistbaron Togwaggle")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Twisting Nether"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     Generic::ChoicePick(curPlayer, 72);
 
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     Generic::ChoicePick(curPlayer, 77);
 
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card5));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     Generic::ChoicePick(curPlayer, 82);
 
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card6));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     Generic::ChoicePick(curPlayer, 87);
 
@@ -3472,7 +3472,7 @@ TEST_CASE("[Rogue : Minion] - DAL_417 : Heistbaron Togwaggle")
 
     // Zarog's Crown (LOOT_998j)
     game.Process(curPlayer, PlayCardTask::Spell(curHand[5]));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -4032,7 +4032,7 @@ TEST_CASE("[Shaman : Minion] - DAL_431 : Swampqueen Hagatha")
         curPlayer, Cards::FindCardByName("Swampqueen Hagatha"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     TestUtils::ChooseNthChoice(game, 1);
     TestUtils::ChooseNthChoice(game, 1);

@@ -1186,7 +1186,7 @@ TEST_CASE("[Hunter : Spell] - CORE_DS1_184 : Tracking")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     TestUtils::ChooseNthChoice(game, 1);
@@ -2086,7 +2086,7 @@ TEST_CASE("[Hunter : Minion] - CS3_015 : Selective Breeder")
     CHECK_EQ(curHand.GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 2u);
 
     TestUtils::ChooseNthChoice(game, 1);
@@ -2432,7 +2432,7 @@ TEST_CASE("[Mage : Minion] - CORE_DAL_609 : Kalecgos")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -2883,7 +2883,7 @@ TEST_CASE("[Mage : Minion] - CORE_LOE_003 : Ethereal Conjurer")
         curPlayer, Cards::FindCardByName("Ethereal Conjurer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -3401,7 +3401,7 @@ TEST_CASE("[Paladin : Minion] - CORE_DRG_229 : Bronze Explorer")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Explorer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -4175,7 +4175,7 @@ TEST_CASE("[Priest : Minion] - CORE_CFM_605 : Drakonid Operative")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -4200,7 +4200,7 @@ TEST_CASE("[Priest : Minion] - CORE_CFM_605 : Drakonid Operative")
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -5080,7 +5080,7 @@ TEST_CASE("[Priest : Spell] - CS3_028 : Thrive in the Shadows")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 2u);
 
     TestUtils::ChooseNthChoice(game, 1);
@@ -5481,7 +5481,7 @@ TEST_CASE("[Rogue : Minion] - CORE_DAL_416 : Hench-Clan Burglar")
         curPlayer, Cards::FindCardByName("Hench-Clan Burglar"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -8916,7 +8916,7 @@ TEST_CASE("[Demon Hunter : Minion] - CORE_BT_323 : Sightless Watcher")
     CHECK_EQ(curDeck.GetCount(), 26);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     auto pickedCardID =
@@ -12054,10 +12054,10 @@ TEST_CASE("[Neutral : Minion] - CORE_LOE_039 : Gorillabot A-3")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Gorillabot A-3"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -12109,7 +12109,7 @@ TEST_CASE("[Neutral : Minion] - CORE_LOE_076 : Sir Finley Mrrgglton")
         curPlayer, Cards::FindCardByName("Sir Finley Mrrgglton"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -12929,7 +12929,7 @@ TEST_CASE("[Neutral : Minion] - CORE_ULD_209 : Vulpera Scoundrel")
     SUBCASE("A spell card - Except ULD_209t")
     {
         game.Process(curPlayer, PlayCardTask::Spell(card1));
-        CHECK(curPlayer->choice != nullptr);
+        CHECK(curPlayer->choice);
 
         auto cards = TestUtils::GetChoiceCards(game);
         for (std::size_t i = 0; i < 3; ++i)
@@ -12948,7 +12948,7 @@ TEST_CASE("[Neutral : Minion] - CORE_ULD_209 : Vulpera Scoundrel")
     SUBCASE("Mystery Choice! - ULD_209t")
     {
         game.Process(curPlayer, PlayCardTask::Spell(card2));
-        CHECK(curPlayer->choice != nullptr);
+        CHECK(curPlayer->choice);
 
         auto cards = TestUtils::GetChoiceCards(game);
         for (std::size_t i = 0; i < 3; ++i)

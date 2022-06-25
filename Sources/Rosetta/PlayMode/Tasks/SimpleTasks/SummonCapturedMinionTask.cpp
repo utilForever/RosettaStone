@@ -16,7 +16,8 @@ namespace RosettaStone::PlayMode::SimpleTasks
 TaskStatus SummonCapturedMinionTask::Impl(Player* player)
 {
     const auto enchantment = dynamic_cast<Enchantment*>(m_target);
-    if (enchantment == nullptr)
+
+    if (!enchantment)
     {
         throw std::invalid_argument(
             "SummonCapturedMinionTask::Impl() - target is not "
@@ -24,7 +25,8 @@ TaskStatus SummonCapturedMinionTask::Impl(Player* player)
     }
 
     Card* card = enchantment->GetCapturedCard();
-    if (card == nullptr)
+
+    if (!card)
     {
         throw std::invalid_argument(
             "SummonCapturedMinionTask::Impl() - Enchantment doesn't "

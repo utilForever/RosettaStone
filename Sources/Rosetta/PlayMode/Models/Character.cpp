@@ -250,7 +250,7 @@ std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
 
 int Character::TakeDamage(Playable* source, int damage)
 {
-    if (source == nullptr)
+    if (!source)
     {
         throw std::invalid_argument(
             "Character::TakeDamage() - source is nullptr");
@@ -259,8 +259,7 @@ int Character::TakeDamage(Playable* source, int damage)
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
 
-    const bool isFatigue = (hero != nullptr) && (this == source);
-    if (isFatigue)
+    if (hero && this == source)
     {
         hero->fatigue = damage;
     }
@@ -271,10 +270,8 @@ int Character::TakeDamage(Playable* source, int damage)
         return 0;
     }
 
-    const int armor = (hero != nullptr) ? hero->GetArmor() : 0;
-    int amount = (hero == nullptr) ? damage
-                 : armor < damage  ? damage - armor
-                                   : 0;
+    const int armor = hero ? hero->GetArmor() : 0;
+    int amount = !hero ? damage : armor < damage ? damage - armor : 0;
 
     game->taskQueue.StartEvent();
     auto tempEventData = std::move(game->currentEventData);
@@ -340,7 +337,7 @@ int Character::TakeDamage(Playable* source, int damage)
         source->player->GetHero()->TakeHeal(source, amount);
     }
 
-    if (hero != nullptr)
+    if (hero)
     {
         hero->damageTakenThisTurn += amount;
     }

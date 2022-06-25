@@ -39,9 +39,9 @@ struct Choice
     void TryPrepare();
 
     //! Tries to pop next choice.
-    //! \param _lastChoice The chosen entity ID of last choice.
+    //! \param lastChoice The chosen entity ID of last choice.
     //! \return The popped next choice.
-    Choice* TryPopNextChoice(int _lastChoice) const;
+    Choice* TryPopNextChoice(int lastChoice) const;
 
     ChoiceType choiceType = ChoiceType::INVALID;
     ChoiceAction choiceAction = ChoiceAction::INVALID;

@@ -128,41 +128,41 @@ void Aura::Remove()
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
             EraseIf(m_owner->player->GetFieldZone()->auras,
-                    [this](Aura* aura) { return aura == this; });
+                    [this](const Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::WEAPON:
         {
             EraseIf(m_owner->player->GetHero()->weaponAuras,
-                    [this](Aura* aura) { return aura == this; });
+                    [this](const Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::HAND:
         {
             EraseIf(m_owner->player->GetHandZone()->auras,
-                    [this](Aura* aura) { return aura == this; });
+                    [this](const Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::ENEMY_HAND:
         {
             EraseIf(m_owner->player->opponent->GetHandZone()->auras,
-                    [this](Aura* aura) { return aura == this; });
+                    [this](const Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::HANDS:
         {
             EraseIf(m_owner->player->GetHandZone()->auras,
-                    [this](Aura* aura) { return aura == this; });
+                    [this](const Aura* aura) { return aura == this; });
             EraseIf(m_owner->player->opponent->GetHandZone()->auras,
-                    [this](Aura* aura) { return aura == this; });
+                    [this](const Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::FIELD_AND_HAND:
         {
             EraseIf(m_owner->player->GetFieldZone()->auras,
-                    [this](Aura* aura) { return aura == this; });
+                    [this](const Aura* aura) { return aura == this; });
             EraseIf(m_owner->player->GetHandZone()->auras,
-                    [this](Aura* aura) { return aura == this; });
+                    [this](const Aura* aura) { return aura == this; });
             break;
         }
         case AuraType::INVALID:
@@ -239,10 +239,9 @@ void Aura::Apply(Playable* entity)
 
 void Aura::Disapply(Playable* entity)
 {
-    const auto iter =
-        std::find(m_appliedEntities.begin(), m_appliedEntities.end(), entity);
-
-    if (iter != m_appliedEntities.end())
+    if (const auto iter = std::find(m_appliedEntities.begin(),
+                                    m_appliedEntities.end(), entity);
+        iter != m_appliedEntities.end())
     {
         m_appliedEntities.erase(iter);
     }
@@ -610,10 +609,10 @@ void Aura::RemoveInternal()
         }
     }
 
-    EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
+    EraseIf(m_owner->game->auras,
+            [this](const IAura* aura) { return aura == this; });
 
-    if (m_enchantmentCard != nullptr &&
-        m_enchantmentCard->power.GetTrigger() != nullptr)
+    if (m_enchantmentCard && m_enchantmentCard->power.GetTrigger())
     {
         for (const auto& entity : m_appliedEntities)
         {

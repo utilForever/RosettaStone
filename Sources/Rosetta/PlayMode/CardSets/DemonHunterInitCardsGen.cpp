@@ -56,7 +56,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         std::make_shared<FuncNumberTask>([](Playable* playable) {
             const auto target = dynamic_cast<Minion*>(
                 playable->game->currentEventData->eventTarget);
-            if (target == nullptr)
+            if (!target)
             {
                 return 0;
             }

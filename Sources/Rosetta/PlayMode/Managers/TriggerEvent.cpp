@@ -65,7 +65,7 @@ void TriggerEvent::NotifyHandlers(Entity* entity)
 
     for (auto& func : m_handlers)
     {
-        if (func != nullptr)
+        if (func)
         {
             (*func)(entity);
         }

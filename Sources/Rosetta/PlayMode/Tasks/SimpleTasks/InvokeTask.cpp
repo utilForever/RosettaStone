@@ -12,7 +12,7 @@ namespace RosettaStone::PlayMode::SimpleTasks
 {
 TaskStatus InvokeTask::Impl(Player* player)
 {
-    if (player->galakrond == nullptr)
+    if (!player->galakrond)
     {
         return TaskStatus::COMPLETE;
     }
@@ -26,12 +26,12 @@ TaskStatus InvokeTask::Impl(Player* player)
     }
 
     // Activate hero power of Galakrond
-    auto heroPower = Cards::FindCardByDbfID(
+    const auto heroPower = Cards::FindCardByDbfID(
         player->galakrond->GetGameTag(GameTag::HERO_POWER));
-    auto heroPowerTasks = heroPower->power.GetPowerTask();
-    for (auto& task : heroPowerTasks)
+    const auto heroPowerTasks = heroPower->power.GetPowerTask();
+    for (const auto& task : heroPowerTasks)
     {
-        std::unique_ptr<ITask> clonedTask = task->Clone();
+        const std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(player);
         clonedTask->SetSource(player);

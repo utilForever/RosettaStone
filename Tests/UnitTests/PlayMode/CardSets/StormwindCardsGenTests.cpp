@@ -206,7 +206,7 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 11);
 
     game.Process(curPlayer, PlayCardTask::Spell(card6));
-    CHECK(curSecret->quest == nullptr);
+    CHECK(!curSecret->quest);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 17);
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 11);
     CHECK_EQ(curHand.GetCount(), 6);

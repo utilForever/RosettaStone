@@ -18,7 +18,7 @@ TaskStatus DamageWeaponTask::Impl(Player* player)
     Weapon* weapon = m_opponent ? player->opponent->GetHero()->weapon
                                 : player->GetHero()->weapon;
 
-    if (weapon == nullptr)
+    if (!weapon)
     {
         return TaskStatus::COMPLETE;
     }

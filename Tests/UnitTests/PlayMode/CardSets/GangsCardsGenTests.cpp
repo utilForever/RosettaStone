@@ -72,7 +72,7 @@ TEST_CASE("[Priest : Minion] - CFM_605 : Drakonid Operative")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -97,7 +97,7 @@ TEST_CASE("[Priest : Minion] - CFM_605 : Drakonid Operative")
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 }
 
 // --------------------------------------- MINION - WARLOCK

@@ -1143,7 +1143,7 @@ TEST_CASE("[Paladin : Minion] - ONY_022 : Battle Vicar")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Battle Vicar"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);

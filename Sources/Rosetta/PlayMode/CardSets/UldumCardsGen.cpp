@@ -1568,8 +1568,8 @@ void UldumCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
-            if (target == nullptr)
+        [](Player* player, Entity* source, const Playable* target) {
+            if (!target)
             {
                 return;
             }

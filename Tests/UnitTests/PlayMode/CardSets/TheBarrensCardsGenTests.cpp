@@ -1414,7 +1414,7 @@ TEST_CASE("[Mage : Spell] - BAR_541 : Runed Orb")
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3278,14 +3278,14 @@ TEST_CASE("[Priest : Minion] - WC_803 : Cleric of An'she")
     curPlayer->GetHero()->SetDamage(10);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 26);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 2u);
 
     TestUtils::ChooseNthChoice(game, 1);
@@ -7165,7 +7165,7 @@ TEST_CASE("[Neutral : Minion] - BAR_065 : Venomous Scorpid")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Venomous Scorpid"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)

@@ -44,7 +44,7 @@ class EnrageEffect : public Aura
     //! Constructs enrage effect with given \p prototype and \p owner.
     //! \param prototype An enrage effect for prototype.
     //! \param owner An owner of adaptive effect.
-    EnrageEffect(EnrageEffect& prototype, Playable& owner);
+    EnrageEffect(const EnrageEffect& prototype, Playable& owner);
 
     Enchantment* m_curInstance = nullptr;
     Playable* m_target = nullptr;

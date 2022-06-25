@@ -12,15 +12,16 @@ namespace RosettaStone::PlayMode::SimpleTasks
 {
 TaskStatus RemoveEnchantmentTask::Impl([[maybe_unused]] Player* player)
 {
-    auto enchantment = dynamic_cast<Enchantment*>(m_source);
-    if (enchantment == nullptr)
+    const auto enchantment = dynamic_cast<Enchantment*>(m_source);
+
+    if (!enchantment)
     {
         return TaskStatus::STOP;
     }
 
-    if (auto enchant = enchantment->card->power.GetEnchant();
-        enchant != nullptr && (!enchantment->IsOneTurnActive() ||
-                               player->game->step != Step::MAIN_CLEANUP))
+    if (const auto enchant = enchantment->card->power.GetEnchant();
+        enchant && (!enchantment->IsOneTurnActive() ||
+                    player->game->step != Step::MAIN_CLEANUP))
     {
         if (enchant->useScriptTag)
         {
@@ -35,7 +36,7 @@ TaskStatus RemoveEnchantmentTask::Impl([[maybe_unused]] Player* player)
 
         if (enchantment->IsOneTurnActive())
         {
-            for (auto& effect : enchant->effects)
+            for (const auto& effect : enchant->effects)
             {
                 EraseIf(player->game->oneTurnEffects,
                         [=](std::pair<Entity*, IEffect*> eff) {

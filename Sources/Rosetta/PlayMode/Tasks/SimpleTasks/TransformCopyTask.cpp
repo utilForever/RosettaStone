@@ -20,7 +20,8 @@ TransformCopyTask::TransformCopyTask(bool toTarget, bool addToStack)
 TaskStatus TransformCopyTask::Impl(Player* player)
 {
     const auto target = dynamic_cast<Minion*>(m_toTarget ? m_source : m_target);
-    if (target == nullptr)
+
+    if (!target)
     {
         return TaskStatus::STOP;
     }
@@ -31,34 +32,35 @@ TaskStatus TransformCopyTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    auto copy = Entity::GetFromCard(player, target->card, {});
+    const auto copiedCard = Entity::GetFromCard(player, target->card, {});
     IAura* aura = target->ongoingEffect;
 
     source->player->GetFieldZone()->Replace(source,
-                                            dynamic_cast<Minion*>(copy));
+                                            dynamic_cast<Minion*>(copiedCard));
 
     if (!target->appliedEnchantments.empty())
     {
-        for (auto& e : target->appliedEnchantments)
+        for (const auto& enchantment : target->appliedEnchantments)
         {
-            auto instance = Enchantment::GetInstance(target, e->card, copy);
-            if (e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) > 0)
+            const auto instance =
+                Enchantment::GetInstance(target, enchantment->card, copiedCard);
+            if (enchantment->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) > 0)
             {
                 instance->SetGameTag(
                     GameTag::TAG_SCRIPT_DATA_NUM_1,
-                    e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+                    enchantment->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
 
-                if (e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2) > 0)
+                if (enchantment->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2) > 0)
                 {
-                    instance->SetGameTag(
-                        GameTag::TAG_SCRIPT_DATA_NUM_2,
-                        e->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2));
+                    instance->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_2,
+                                         enchantment->GetGameTag(
+                                             GameTag::TAG_SCRIPT_DATA_NUM_2));
                 }
             }
         }
     }
 
-    for (auto& tag : target->GetGameTags())
+    for (const auto& tag : target->GetGameTags())
     {
         switch (tag.first)
         {
@@ -67,29 +69,29 @@ TaskStatus TransformCopyTask::Impl(Player* player)
             case GameTag::EXHAUSTED:
                 break;
             default:
-                copy->SetGameTag(tag.first, tag.second);
+                copiedCard->SetGameTag(tag.first, tag.second);
         }
     }
 
-    if (aura != nullptr && copy->ongoingEffect == nullptr)
+    if (aura && !copiedCard->ongoingEffect)
     {
-        aura->Clone(copy);
+        aura->Clone(copiedCard);
     }
 
     if (target->HasCharge())
     {
-        copy->SetExhausted(false);
+        copiedCard->SetExhausted(false);
     }
     else if (target->HasRush())
     {
-        dynamic_cast<Minion*>(copy)->SetAttackableByRush(true);
-        copy->game->rushMinions.emplace_back(
-            copy->GetGameTag(GameTag::ENTITY_ID));
+        dynamic_cast<Minion*>(copiedCard)->SetAttackableByRush(true);
+        copiedCard->game->rushMinions.emplace_back(
+            copiedCard->GetGameTag(GameTag::ENTITY_ID));
     }
 
     if (m_addToStack)
     {
-        player->game->taskStack.AddPlayables({ copy });
+        player->game->taskStack.AddPlayables({ copiedCard });
     }
 
     return TaskStatus::COMPLETE;

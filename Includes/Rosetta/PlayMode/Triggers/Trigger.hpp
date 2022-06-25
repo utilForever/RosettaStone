@@ -37,7 +37,7 @@ class Trigger
     //! Constructs trigger with given \p prototype and \p owner.
     //! \param prototype The trigger for prototype.
     //! \param owner The owner of trigger.
-    Trigger(Trigger& prototype, Entity& owner);
+    Trigger(const Trigger& prototype, Entity& owner);
 
     //! Default virtual destructor.
     virtual ~Trigger() = default;
@@ -61,7 +61,8 @@ class Trigger
     //! \param game The game.
     //! \param source The source entity.
     //! \param type The sequence type.
-    static void ValidateTriggers(Game* game, Entity* source, SequenceType type);
+    static void ValidateTriggers(const Game* game, Entity* source,
+                                 SequenceType type);
 
     TriggerActivation triggerActivation = TriggerActivation::PLAY;
     TriggerSource triggerSource = TriggerSource::NONE;
@@ -96,7 +97,7 @@ class Trigger
 
     //! Processes a list of tasks.
     //! \param source The source of trigger.
-    void ProcessTasks(Entity* source);
+    void ProcessTasks(Entity* source) const;
 
     //! Validates triggers related to the current sequence at once before the
     //! sequence starts.

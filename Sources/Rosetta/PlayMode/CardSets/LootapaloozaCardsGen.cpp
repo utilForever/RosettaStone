@@ -2646,18 +2646,18 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
                 return std::vector<Playable*>{};
             }
 
-            Playable* drawedCard = playables[0];
-            if (drawedCard == nullptr)
+            const Playable* drawnCard = playables[0];
+            if (!drawnCard)
             {
                 return std::vector<Playable*>{};
             }
 
-            const int space = drawedCard->player->GetHandZone()->GetFreeSpace();
+            const int space = drawnCard->player->GetHandZone()->GetFreeSpace();
             for (int i = 0; i < space; ++i)
             {
                 Playable* copiedCard =
-                    Entity::GetFromCard(drawedCard->player, drawedCard->card);
-                drawedCard->player->GetHandZone()->Add(copiedCard);
+                    Entity::GetFromCard(drawnCard->player, drawnCard->card);
+                drawnCard->player->GetHandZone()->Add(copiedCard);
             }
 
             return std::vector<Playable*>{};

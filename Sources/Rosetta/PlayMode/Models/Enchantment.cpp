@@ -119,12 +119,12 @@ void Enchantment::Remove()
         }
     }
 
-    if (ongoingEffect != nullptr)
+    if (ongoingEffect)
     {
         ongoingEffect->Remove();
     }
 
-    if (activatedTrigger != nullptr)
+    if (activatedTrigger)
     {
         activatedTrigger->Remove();
     }

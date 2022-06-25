@@ -244,8 +244,7 @@ bool Playable::IsPlayableByPlayer()
     }
 
     // Check if entity is in hand to be played
-    if (dynamic_cast<HeroPower*>(this) == nullptr &&
-        GetZoneType() != ZoneType::HAND)
+    if (!dynamic_cast<HeroPower*>(this) && GetZoneType() != ZoneType::HAND)
     {
         return false;
     }
@@ -639,17 +638,17 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                 "Playable::ActivateTask() - Invalid power type");
     }
 
-    if (tasks.empty() || tasks[0] == nullptr)
+    for (const auto& task : tasks)
     {
-        return;
-    }
+        if (!task)
+        {
+            continue;
+        }
 
-    for (auto& task : tasks)
-    {
         std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(player);
-        clonedTask->SetSource(chooseBase == nullptr ? this : chooseBase);
+        clonedTask->SetSource(chooseBase ? chooseBase : this);
         clonedTask->SetTarget(target);
 
         game->taskQueue.Enqueue(std::move(clonedTask));

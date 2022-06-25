@@ -2425,7 +2425,7 @@ void VanillaCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         std::make_shared<FuncPlayableTask>(
             [=](const std::vector<Playable*>& playables) {
                 auto target = dynamic_cast<Minion*>(playables[0]);
-                if (target == nullptr)
+                if (!target)
                 {
                     return std::vector<Playable*>{};
                 }

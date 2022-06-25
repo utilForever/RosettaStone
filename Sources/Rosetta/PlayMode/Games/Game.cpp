@@ -64,9 +64,9 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     }
 
     // Set up decks
-    for (auto& card : m_gameConfig.player1Deck)
+    for (const auto& card : m_gameConfig.player1Deck)
     {
-        if (card == nullptr || card->id.empty())
+        if (!card || card->id.empty())
         {
             continue;
         }
@@ -82,9 +82,9 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
         }
     }
 
-    for (auto& card : m_gameConfig.player2Deck)
+    for (const auto& card : m_gameConfig.player2Deck)
     {
-        if (card == nullptr || card->id.empty())
+        if (!card || card->id.empty())
         {
             continue;
         }

@@ -861,7 +861,7 @@ TEST_CASE("[Warlock : Spell] - YOD_025 : Twisted Knowledge")
         curPlayer, Cards::FindCardByName("Twisted Knowledge"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     TestUtils::ChooseNthChoice(game, 1);
     TestUtils::ChooseNthChoice(game, 1);

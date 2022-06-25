@@ -25,10 +25,10 @@ TaskStatus PlayTask::Impl(Player* player)
 {
     if (m_playType == PlayType::SPELL)
     {
-        for (auto& playable : player->game->taskStack.playables)
+        for (const auto& playable : player->game->taskStack.playables)
         {
-            auto spell = dynamic_cast<Spell*>(playable);
-            if (spell == nullptr)
+            const auto spell = dynamic_cast<Spell*>(playable);
+            if (!spell)
             {
                 throw std::runtime_error("PlayTask::Impl() - Spell is nullptr");
             }
@@ -41,9 +41,10 @@ TaskStatus PlayTask::Impl(Player* player)
                 if (spell->card->mustHaveToTargetToPlay)
                 {
                     spellTarget = spell->GetRandomValidTarget();
-                    if (spellTarget == nullptr)
+
+                    if (!spellTarget)
                     {
-                        if (spell->zone != nullptr)
+                        if (spell->zone)
                         {
                             spell->zone->Remove(spell);
                         }
@@ -53,12 +54,12 @@ TaskStatus PlayTask::Impl(Player* player)
                 }
             }
 
-            if (spell->zone == nullptr || spell->zone->Remove(spell) != nullptr)
+            if (!spell->zone || spell->zone->Remove(spell))
             {
                 Generic::CastSpell(spellPlayer, spell, spellTarget, 0);
             }
 
-            while (spellPlayer->choice != nullptr)
+            while (spellPlayer->choice)
             {
                 auto choices = spellPlayer->choice->choices;
                 const auto idx =

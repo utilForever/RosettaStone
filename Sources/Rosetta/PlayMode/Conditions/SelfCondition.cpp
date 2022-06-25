@@ -318,7 +318,7 @@ SelfCondition SelfCondition::IsControllingSecret()
 SelfCondition SelfCondition::IsControllingQuest()
 {
     return SelfCondition([](Playable* playable) {
-        return playable->player->GetSecretZone()->quest != nullptr;
+        return playable->player->GetSecretZone()->quest;
     });
 }
 
@@ -452,16 +452,14 @@ SelfCondition SelfCondition::IsCardID(std::string_view cardID)
 
 SelfCondition SelfCondition::IsMinion()
 {
-    return SelfCondition([](Playable* playable) {
-        return dynamic_cast<Minion*>(playable) != nullptr;
-    });
+    return SelfCondition(
+        [](Playable* playable) { return dynamic_cast<Minion*>(playable); });
 }
 
 SelfCondition SelfCondition::IsSpell()
 {
-    return SelfCondition([](Playable* playable) {
-        return dynamic_cast<Spell*>(playable) != nullptr;
-    });
+    return SelfCondition(
+        [](Playable* playable) { return dynamic_cast<Spell*>(playable); });
 }
 
 SelfCondition SelfCondition::IsNatureSpell()
@@ -531,15 +529,14 @@ SelfCondition SelfCondition::IsFelSpell()
 
 SelfCondition SelfCondition::IsWeapon()
 {
-    return SelfCondition([](Playable* playable) {
-        return dynamic_cast<Weapon*>(playable) != nullptr;
-    });
+    return SelfCondition(
+        [](Playable* playable) { return dynamic_cast<Weapon*>(playable); });
 }
 
 SelfCondition SelfCondition::IsSecret()
 {
     return SelfCondition([](Playable* playable) {
-        return dynamic_cast<Spell*>(playable) != nullptr &&
+        return dynamic_cast<Spell*>(playable) &&
                playable->GetGameTag(GameTag::SECRET) == 1;
     });
 }
@@ -691,7 +688,7 @@ SelfCondition SelfCondition::HasMinionInHand()
     return SelfCondition([](Playable* playable) {
         for (auto& card : playable->player->GetHandZone()->GetAll())
         {
-            if (dynamic_cast<Minion*>(card) != nullptr)
+            if (dynamic_cast<Minion*>(card))
             {
                 return true;
             }

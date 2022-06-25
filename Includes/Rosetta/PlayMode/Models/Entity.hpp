@@ -104,7 +104,7 @@ class Entity
     static Playable* GetFromCard(
         Player* player, Card* card,
         std::optional<std::map<GameTag, int>> cardTags = std::nullopt,
-        IZone* zone = nullptr, int id = -1);
+        const IZone* zone = nullptr, int id = -1);
 
     Game* game = nullptr;
     Player* player = nullptr;

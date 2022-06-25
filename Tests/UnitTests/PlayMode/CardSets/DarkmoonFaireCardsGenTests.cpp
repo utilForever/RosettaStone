@@ -779,7 +779,7 @@ TEST_CASE("[Hunter : Weapon] - DMF_088 : Rinling's Rifle")
 
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -831,7 +831,7 @@ TEST_CASE("[Hunter : Minion] - DMF_122 : Mystery Winner")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Mystery Winner"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
