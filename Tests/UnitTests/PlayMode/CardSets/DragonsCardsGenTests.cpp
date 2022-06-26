@@ -4163,7 +4163,7 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card1));
-    CHECK(opPlayer->choice != nullptr);
+    CHECK(opPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     TestUtils::ChooseNthChoice(game, 1);

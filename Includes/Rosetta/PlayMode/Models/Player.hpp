@@ -323,7 +323,7 @@ class Player : public Entity
     void IncreaseNumCardsPlayedThisGameNotStartInDeck();
 
     //! Upgrades the Galakrond hero card.
-    void UpgradeGalakrond();
+    void UpgradeGalakrond() const;
 
     //! Returns the value of invoke.
     //! \return The value of invoke.

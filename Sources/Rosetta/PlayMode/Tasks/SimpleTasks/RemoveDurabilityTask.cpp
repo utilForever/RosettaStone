@@ -13,7 +13,7 @@ TaskStatus RemoveDurabilityTask::Impl(Player* player)
 {
     if (Weapon* weapon = m_isOpponent ? player->opponent->GetHero()->weapon
                                       : player->GetHero()->weapon;
-        weapon != nullptr)
+        weapon)
     {
         weapon->RemoveDurability(m_amount);
     }

@@ -72,7 +72,7 @@ TEST_CASE("[Druid : Spell] - ULD_131 : Untapped Potential")
     auto quest = dynamic_cast<Spell*>(card1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 0);
     CHECK_EQ(quest->GetQuestProgressTotal(), 4);
 
@@ -1085,7 +1085,7 @@ TEST_CASE("[Shaman : Spell] - ULD_291 : Corrupt the Waters")
     auto quest = dynamic_cast<Spell*>(card1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 0);
     CHECK_EQ(quest->GetQuestProgressTotal(), 6);
 
@@ -3146,7 +3146,7 @@ TEST_CASE("[Mage : Spell] - ULD_433 : Raid the Sky Temple")
     auto quest = dynamic_cast<Spell*>(card1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 0);
     CHECK_EQ(quest->GetQuestProgressTotal(), 10);
 
@@ -3436,7 +3436,7 @@ TEST_CASE("[Paladin : Spell] - ULD_431 : Making Mummies")
     auto quest = dynamic_cast<Spell*>(card1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 0);
     CHECK_EQ(quest->GetQuestProgressTotal(), 5);
 
@@ -3618,7 +3618,7 @@ TEST_CASE("[Paladin : Minion] - ULD_500 : Sir Finley of the Sands")
     TestUtils::ChooseNthChoice(game, 1);
 
     HeroPower* heroPower = curPlayer->GetHero()->heroPower;
-    CHECK(heroPower != nullptr);
+    CHECK(heroPower);
 
     // Warrior
     SUBCASE("Warrior - HERO_01bp2")
@@ -4432,7 +4432,7 @@ TEST_CASE("[Priest : Spell] - ULD_724 : Activate the Obelisk")
     auto quest = dynamic_cast<Spell*>(card1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 0);
     CHECK_EQ(quest->GetQuestProgressTotal(), 15);
 
@@ -4881,7 +4881,7 @@ TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
         auto quest = dynamic_cast<Spell*>(card1);
 
         game.Process(curPlayer, PlayCardTask::Spell(card1));
-        CHECK(curSecret->quest != nullptr);
+        CHECK(curSecret->quest);
         CHECK_EQ(quest->GetQuestProgress(), 0);
         CHECK_EQ(quest->GetQuestProgressTotal(), 4);
 
@@ -4948,7 +4948,7 @@ TEST_CASE("[Rogue : Spell] - ULD_326 : Bazaar Burglary")
         auto quest = dynamic_cast<Spell*>(card1);
 
         game.Process(curPlayer, PlayCardTask::Spell(card1));
-        CHECK(curSecret->quest != nullptr);
+        CHECK(curSecret->quest);
         CHECK_EQ(quest->GetQuestProgress(), 0);
         CHECK_EQ(quest->GetQuestProgressTotal(), 4);
 
@@ -6855,7 +6855,7 @@ TEST_CASE("[Warrior : Spell] - ULD_711 : Hack the System")
     auto quest = dynamic_cast<Spell*>(card1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(quest->GetQuestProgress(), 0);
     CHECK_EQ(quest->GetQuestProgressTotal(), 5);
 

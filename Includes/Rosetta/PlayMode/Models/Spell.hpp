@@ -19,12 +19,13 @@ namespace RosettaStone::PlayMode
 class Spell : public Playable
 {
  public:
-    //! Constructs spell with given \p player, \p card, \p tags and \p id.
-    //! \param player The owner of the card.
-    //! \param card The card.
+    //! Constructs spell with given \p _player, \p _card, \p tags and \p id.
+    //! \param _player The owner of the card.
+    //! \param _card The card.
     //! \param tags The game tags.
     //! \param id The card ID.
-    Spell(Player* player, Card* card, std::map<GameTag, int> tags, int id = -1);
+    Spell(Player* _player, Card* _card, std::map<GameTag, int> tags,
+          int id = -1);
 
     //! Default destructor.
     ~Spell() = default;
@@ -82,10 +83,10 @@ class Spell : public Playable
 
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
-    //! \param card A card to check targeting requirements.
+    //! \param _card A card to check targeting requirements.
     //! \param target The proposed target.
     //! \return true if the proposed target is valid, false otherwise.
-    bool TargetingRequirements(Card* card, Character* target) const override;
+    bool TargetingRequirements(Card* _card, Character* target) const override;
 
     //! Gets a value indicating whether source entity is playable by player.
     //! Dynamic requirements are checked, eg: If a spell costs health instead of

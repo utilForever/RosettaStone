@@ -95,7 +95,7 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
     // Remove old entity
     RemoveAura(oldEntity);
 
-    for (auto& aura : auras)
+    for (const auto& aura : auras)
     {
         aura->NotifyEntityRemoved(oldEntity);
     }
@@ -124,12 +124,12 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
         m_hasUntouchables = true;
     }
 
-    for (auto& aura : auras)
+    for (const auto& aura : auras)
     {
         aura->NotifyEntityAdded(newEntity);
     }
 
-    for (auto& aura : adjacentAuras)
+    for (const auto& aura : adjacentAuras)
     {
         aura->SetIsFieldChanged(true);
     }
@@ -162,9 +162,9 @@ void FieldZone::ActivateAura(Minion* entity)
     }
 }
 
-void FieldZone::RemoveAura(Minion* entity)
+void FieldZone::RemoveAura(const Minion* entity)
 {
-    if (entity->ongoingEffect != nullptr)
+    if (entity->ongoingEffect)
     {
         entity->ongoingEffect->Remove();
     }

@@ -166,7 +166,7 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Pounce"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
     CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 4);
 
@@ -176,7 +176,7 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2, 1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(curSecret->quest->card->name, "Defend the Squirrels");
     CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
     CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 5);
@@ -190,7 +190,7 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curHand.GetCount(), 7);
 
     game.Process(curPlayer, PlayCardTask::Spell(card5));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(curSecret->quest->card->name, "Feral Friendsy");
     CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
     CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 6);

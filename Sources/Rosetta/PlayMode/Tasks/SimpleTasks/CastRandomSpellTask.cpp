@@ -46,7 +46,7 @@ TaskStatus CastRandomSpellTask::Impl(Player* player)
     }
 
     const auto randIdx = Random::get<std::size_t>(0, result.size() - 1);
-    auto spellToCast =
+    const auto spellToCast =
         dynamic_cast<Spell*>(Entity::GetFromCard(player, result[randIdx]));
 
     if (spellToCast->IsSecret() && player->GetSecretZone()->IsFull())
@@ -67,7 +67,7 @@ TaskStatus CastRandomSpellTask::Impl(Player* player)
     player->game->ProcessDestroyAndUpdateAura();
     player->game->taskQueue.EndEvent();
 
-    while (player->choice != nullptr)
+    while (player->choice)
     {
         const auto idx =
             Random::get<std::size_t>(0, player->choice->choices.size() - 1);

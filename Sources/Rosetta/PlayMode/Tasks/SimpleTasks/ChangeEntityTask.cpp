@@ -67,7 +67,7 @@ TaskStatus ChangeEntityTask::Impl(Player* player)
 
     if (m_useRandomCard)
     {
-        auto randCards = RandomCardTask::GetCardList(
+        const auto randCards = RandomCardTask::GetCardList(
             m_source, m_cardType, m_cardClass, m_race, m_rarity);
 
         for (auto& playable : playables)
@@ -84,7 +84,7 @@ TaskStatus ChangeEntityTask::Impl(Player* player)
     Card* card;
     if (m_protoType != EntityType::INVALID)
     {
-        auto playablesForProtoType =
+        const auto playablesForProtoType =
             IncludeTask::GetEntities(m_protoType, player, m_source, m_target);
         card = playablesForProtoType[0]->card;
     }
@@ -105,7 +105,6 @@ std::unique_ptr<ITask> ChangeEntityTask::CloneImpl()
 {
     return std::make_unique<ChangeEntityTask>(
         m_entityType, m_protoType, m_cardType, m_cardClass, m_race, m_rarity,
-        m_card != nullptr ? m_card->id : "", m_removeEnchantments,
-        m_useRandomCard);
+        m_card ? m_card->id : "", m_removeEnchantments, m_useRandomCard);
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks

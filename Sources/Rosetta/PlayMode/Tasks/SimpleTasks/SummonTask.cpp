@@ -117,8 +117,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
         }
         case SummonSide::TARGET:
         {
-            const auto tgt = dynamic_cast<Playable*>(target);
-            if (tgt != nullptr)
+            if (const auto tgt = dynamic_cast<Playable*>(target))
             {
                 summonPos = tgt->GetZonePosition() + 1;
             }

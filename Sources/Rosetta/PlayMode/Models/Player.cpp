@@ -93,7 +93,7 @@ int Player::GetCurrentSpellPower() const
     int value = 0;
 
     m_fieldZone->ForEach([&](Playable* playable) {
-        if (auto minion = dynamic_cast<Minion*>(playable);
+        if (const auto minion = dynamic_cast<Minion*>(playable);
             minion && !minion->IsUntouchable())
         {
             value += minion->GetSpellPower();
@@ -112,7 +112,7 @@ int Player::GetExtraSpellPower(SpellSchool spellSchool) const
     int value = 0;
 
     m_fieldZone->ForEach([&](Playable* playable) {
-        if (auto minion = dynamic_cast<Minion*>(playable);
+        if (const auto minion = dynamic_cast<Minion*>(playable);
             minion && !minion->IsUntouchable())
         {
             switch (spellSchool)
@@ -414,7 +414,7 @@ void Player::IncreaseNumCardsPlayedThisGameNotStartInDeck()
     SetGameTag(GameTag::NUM_CARDS_PLAYED_THIS_GAME_NOT_START_IN_DECK, val + 1);
 }
 
-void Player::UpgradeGalakrond()
+void Player::UpgradeGalakrond() const
 {
     // If the player has already turned into Galakrond, return false.
     if (galakrond->GetZoneType() == ZoneType::PLAY)
@@ -458,12 +458,12 @@ void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
     Weapon* weapon = nullptr;
     AuraEffects* auraEffects = nullptr;
 
-    if (m_hero != nullptr)
+    if (m_hero)
     {
         m_setasideZone->MoveTo(m_hero, m_setasideZone->GetCount());
         m_setasideZone->MoveTo(m_hero->heroPower, m_setasideZone->GetCount());
 
-        if (m_hero->weapon != nullptr)
+        if (m_hero->weapon)
         {
             weapon = m_hero->weapon;
         }

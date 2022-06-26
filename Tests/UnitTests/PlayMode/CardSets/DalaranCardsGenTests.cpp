@@ -732,7 +732,7 @@ TEST_CASE("[Hunter : Spell] - DAL_371 : Marked Shot")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curField[0]->GetHealth(), 8);
-    CHECK(opPlayer->choice != nullptr);
+    CHECK(opPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)

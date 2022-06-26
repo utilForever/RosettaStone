@@ -12,8 +12,8 @@
 
 namespace RosettaStone::PlayMode
 {
-Spell::Spell(Player* player, Card* card, std::map<GameTag, int> tags, int id)
-    : Playable(player, card, std::move(tags), id)
+Spell::Spell(Player* _player, Card* _card, std::map<GameTag, int> tags, int id)
+    : Playable(_player, _card, std::move(tags), id)
 {
     // Do nothing
 }
@@ -69,10 +69,10 @@ bool Spell::IsCountered() const
     return GetGameTag(GameTag::CANT_PLAY) == 1;
 }
 
-bool Spell::TargetingRequirements(Card* card, Character* target) const
+bool Spell::TargetingRequirements(Card* _card, Character* target) const
 {
     return !target->GetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS) &&
-           Playable::TargetingRequirements(card, target);
+           Playable::TargetingRequirements(_card, target);
 }
 
 bool Spell::IsPlayableByPlayer()
@@ -84,7 +84,7 @@ bool Spell::IsPlayableByPlayer()
         return false;
     }
 
-    if (IsQuest() && player->GetSecretZone()->quest != nullptr)
+    if (IsQuest() && player->GetSecretZone()->quest)
     {
         return false;
     }

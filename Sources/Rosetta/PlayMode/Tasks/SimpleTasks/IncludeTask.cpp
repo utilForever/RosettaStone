@@ -27,21 +27,21 @@ IncludeTask::IncludeTask(EntityType entityType,
 }
 
 std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
-                                                Player* player, Entity* source,
-                                                Entity* target)
+                                                const Player* player,
+                                                Entity* source, Entity* target)
 {
     std::vector<Playable*> entities;
 
     switch (entityType)
     {
         case EntityType::SOURCE:
-            if (source != nullptr)
+            if (source)
             {
                 entities.emplace_back(dynamic_cast<Playable*>(source));
             }
             break;
         case EntityType::TARGET:
-            if (target != nullptr)
+            if (target)
             {
                 entities.emplace_back(dynamic_cast<Playable*>(target));
             }
@@ -348,14 +348,14 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 player->game->entityList[player->game->taskStack.num[1]]);
             break;
         case EntityType::EVENT_SOURCE:
-            if (auto eventData = player->game->currentEventData.get();
+            if (const auto eventData = player->game->currentEventData.get();
                 eventData)
             {
                 entities.emplace_back(eventData->eventSource);
             }
             break;
         case EntityType::EVENT_TARGET:
-            if (auto eventData = player->game->currentEventData.get();
+            if (const auto eventData = player->game->currentEventData.get();
                 eventData)
             {
                 entities.emplace_back(eventData->eventTarget);
@@ -376,7 +376,7 @@ TaskStatus IncludeTask::Impl(Player* player)
     if (!m_excludeTypes.empty())
     {
         std::vector<Playable*> exceptEntities;
-        for (auto& excludeType : m_excludeTypes)
+        for (const auto& excludeType : m_excludeTypes)
         {
             auto temp = GetEntities(excludeType, player, m_source, m_target);
             exceptEntities.insert(exceptEntities.end(), temp.begin(),
@@ -384,16 +384,11 @@ TaskStatus IncludeTask::Impl(Player* player)
         }
 
         std::vector<Playable*> result = entities;
-        EraseIf(result, [&](Entity* entity) {
-            for (auto& excludeEntity : exceptEntities)
-            {
-                if (entity == excludeEntity)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+        EraseIf(result, [&](const Entity* entity) {
+            return std::any_of(exceptEntities.begin(), exceptEntities.end(),
+                               [&](const Playable* excludeEntity) {
+                                   return entity == excludeEntity;
+                               });
         });
 
         if (m_addFlag)
