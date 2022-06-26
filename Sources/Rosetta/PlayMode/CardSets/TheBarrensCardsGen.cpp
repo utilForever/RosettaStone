@@ -495,7 +495,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
+        [](const Player* player, Entity* source, Playable* target) {
             if (!target)
             {
                 return;
@@ -505,7 +505,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
             const auto realTarget = dynamic_cast<Character*>(target);
 
             const int targetHealth = realTarget->GetHealth();
-            int realDamage = 6 + source->player->GetCurrentSpellPower();
+            const int realDamage = 6 + source->player->GetCurrentSpellPower();
 
             Generic::TakeDamageToCharacter(realSource, realTarget, realDamage,
                                            true);
@@ -513,6 +513,7 @@ void TheBarrensCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
             if (realTarget->isDestroyed)
             {
                 const int remainDamage = realDamage - targetHealth;
+
                 if (remainDamage > 0)
                 {
                     Generic::TakeDamageToCharacter(realSource,
@@ -924,9 +925,11 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - FREEZE = 1
     // --------------------------------------------------------
     cardDef.ClearData();
-    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
-            auto minions = player->opponent->GetFieldZone()->GetAll();
+    cardDef.power.AddPowerTask(
+        std::make_shared<CustomTask>([](const Player* player, Entity* source,
+                                        [[maybe_unused]] Playable* target) {
+            const auto minions = player->opponent->GetFieldZone()->GetAll();
+
             for (auto& minion : minions)
             {
                 if (minion->IsFrozen())
@@ -1039,8 +1042,9 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-            auto minions = playable->player->opponent->GetFieldZone()->GetAll();
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
+            const auto minions =
+                playable->player->opponent->GetFieldZone()->GetAll();
             int numFrozenEnemies = 0;
 
             for (auto& minion : minions)
@@ -1607,10 +1611,11 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BAR_308e", EntityType::TARGET));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             int numSpellCard = 0;
 
-            for (auto& handCard : playable->player->GetHandZone()->GetAll())
+            for (const auto& handCard :
+                 playable->player->GetHandZone()->GetAll())
             {
                 if (handCard->card->GetCardType() == CardType::SPELL)
                 {
@@ -1757,7 +1762,7 @@ void TheBarrensCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
         true,
         TaskList{
-            std::make_shared<FuncNumberTask>([](Playable* playable) {
+            std::make_shared<FuncNumberTask>([](const Playable* playable) {
                 return playable->player->GetAmountHealedThisTurn();
             }),
             std::make_shared<DamageNumberTask>(EntityType::ENEMY_MINIONS) }));
@@ -2188,9 +2193,10 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     //       Give your Murlocs an extra +1/+1.
     // --------------------------------------------------------
     cardDef.ClearData();
-    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
-            for (auto& minion : player->GetFieldZone()->GetAll())
+    cardDef.power.AddPowerTask(
+        std::make_shared<CustomTask>([](const Player* player, Entity* source,
+                                        [[maybe_unused]] Playable* target) {
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 if (minion->card->GetRace() == Race::MURLOC)
                 {
@@ -2624,7 +2630,7 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (playable->player->GetDeckZone()->GetCount() <= 10)
             {
                 return playable->GetGameTag(GameTag::COST) - 1;
@@ -2676,7 +2682,7 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        []([[maybe_unused]] Player* player, Entity* source, Playable* target) {
+        [](const Player* player, Entity* source, Playable* target) {
             if (!target)
             {
                 return;
@@ -2686,7 +2692,7 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
             const auto realTarget = dynamic_cast<Character*>(target);
 
             const int targetHealth = realTarget->GetHealth();
-            int realDamage = 6 + source->player->GetCurrentSpellPower();
+            const int realDamage = 6 + source->player->GetCurrentSpellPower();
 
             Generic::TakeDamageToCharacter(realSource, realTarget, realDamage,
                                            true);
@@ -2694,6 +2700,7 @@ void TheBarrensCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
             if (realTarget->isDestroyed)
             {
                 const int remainDamage = realDamage - targetHealth;
+
                 if (remainDamage > 0)
                 {
                     Generic::TakeDamageToCharacter(
@@ -2958,19 +2965,20 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
         [](Player* player, Entity* source, Playable* target) {
             int count = 0;
 
-            player->GetFieldZone()->ForEach([&](Playable* minion) {
+            player->GetFieldZone()->ForEach([&](const Playable* minion) {
                 if (minion->isDestroyed)
                 {
                     ++count;
                 }
             });
 
-            player->opponent->GetFieldZone()->ForEach([&](Playable* minion) {
-                if (minion->isDestroyed)
-                {
-                    ++count;
-                }
-            });
+            player->opponent->GetFieldZone()->ForEach(
+                [&](const Playable* minion) {
+                    if (minion->isDestroyed)
+                    {
+                        ++count;
+                    }
+                });
 
             const auto& armorTask = std::make_shared<ArmorTask>(2 * count);
             armorTask->SetPlayer(player);

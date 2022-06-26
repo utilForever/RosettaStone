@@ -53,7 +53,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
     cardDef.power.GetTrigger()->tasks = {
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             const auto target = dynamic_cast<Minion*>(
                 playable->game->currentEventData->eventTarget);
             if (!target)
@@ -348,7 +348,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (playable->GetZonePosition() == 0 ||
                 playable->GetZonePosition() ==
                     playable->player->GetHandZone()->GetCount() - 1)

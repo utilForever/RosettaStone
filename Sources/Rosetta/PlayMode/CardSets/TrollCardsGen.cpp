@@ -1130,9 +1130,9 @@ void TrollCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             Player* player = playable->player;
-            int turn = playable->game->GetTurn();
+            const int turn = playable->game->GetTurn();
 
             std::vector<Card*> playedSpells;
             playedSpells.reserve(10);
@@ -1146,7 +1146,6 @@ void TrollCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
                 }
             }
 
-            const int space = player->GetHandZone()->GetFreeSpace();
             for (const auto& playedSpell : playedSpells)
             {
                 Playable* spell = Entity::GetFromCard(player, playedSpell);

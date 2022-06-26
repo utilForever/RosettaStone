@@ -1136,8 +1136,9 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     cardDef.power.GetTrigger()->eitherTurn = true;
     cardDef.power.GetTrigger()->conditions = SelfCondList{
-        std::make_shared<SelfCondition>([=](Playable* playable) -> bool {
+        std::make_shared<SelfCondition>([=](const Playable* playable) -> bool {
             const auto opPlayer = playable->game->GetCurrentPlayer();
+
             return opPlayer != playable->player &&
                    !opPlayer->cardsPlayedThisTurn.empty();
         })
@@ -1146,12 +1147,13 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
         ComplexTask::ActivateSecret(TaskList{ std::make_shared<CustomTask>(
             [](Player* player, [[maybe_unused]] Entity* source,
                [[maybe_unused]] Playable* target) {
-                for (auto card : player->opponent->cardsPlayedThisTurn)
+                for (const auto card : player->opponent->cardsPlayedThisTurn)
                 {
                     if (player->GetHandZone()->IsFull())
                     {
                         break;
                     }
+
                     Generic::AddCardToHand(player,
                                            Entity::GetFromCard(player, card));
                 }
@@ -2159,12 +2161,13 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         std::make_shared<SummonTask>("SCH_162t", SummonSide::LEFT, true));
     cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("SCH_162t", SummonSide::RIGHT, true));
-    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+    cardDef.power.AddPowerTask(
+        std::make_shared<CustomTask>([](const Player* player, Entity* source,
+                                        [[maybe_unused]] Playable* target) {
             const std::vector<Playable*> whelps =
                 player->game->taskStack.playables;
-
             std::vector<Playable*> minions;
+
             for (const auto& playable : player->GetGraveyardZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::MINION &&
@@ -2175,12 +2178,14 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 }
             }
 
-            std::vector<Playable*> selectedMinions =
+            const std::vector<Playable*> selectedMinions =
                 ChooseNElements(minions, whelps.size());
+
             for (std::size_t i = 0; i < whelps.size(); ++i)
             {
                 const int entityID =
                     selectedMinions[i]->GetGameTag(GameTag::ENTITY_ID);
+
                 Generic::AddEnchantment(Cards::FindCardByID("SCH_162e"),
                                         dynamic_cast<Playable*>(source),
                                         whelps[i], entityID, 0, entityID);
@@ -2327,13 +2332,13 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddTrigger(
         std::make_shared<Trigger>(TriggerType::TURN_START));
     cardDef.power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
-           [[maybe_unused]] Playable* target) {
-            DeckZone* deckZone = player->GetDeckZone();
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            const DeckZone* deckZone = player->GetDeckZone();
 
             if (!deckZone->IsEmpty())
             {
                 TaskStack& stack = player->game->taskStack;
+
                 stack.AddPlayables(
                     { deckZone->GetTopCard(),
                       Entity::GetFromCard(player,
@@ -2349,10 +2354,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             return TaskStatus::COMPLETE;
         }) };
     cardDef.power.AddAfterChooseTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
+        [](const Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
             DeckZone* deckZone = player->GetDeckZone();
-            TaskStack& stack = player->game->taskStack;
+            const TaskStack& stack = player->game->taskStack;
             const Playable* result = stack.playables[0];
 
             if (result && result->card->id == "SCH_259t")
@@ -2501,8 +2506,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
-           [[maybe_unused]] Playable* target) {
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
             const auto& fieldZone = player->GetFieldZone();
 
             if (!fieldZone->IsFull())
@@ -2512,9 +2516,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 const auto SummonMinion = [source](SummonSide side,
                                                    Playable* summonTarget) {
                     int alternateCount = 0;
-                    Minion* minion = dynamic_cast<Minion*>(summonTarget);
+                    const auto minion = dynamic_cast<Minion*>(summonTarget);
                     const int summonPos = SummonTask::GetPosition(
                         source, side, minion, alternateCount);
+
                     Generic::Summon(minion, summonPos, source);
                 };
 
@@ -2533,8 +2538,10 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
                 else
                 {
                     randomMinionTask->Run();
+
                     Playable* left = stack.playables[0];
                     Playable* right;
+
                     do
                     {
                         randomMinionTask->Run();
@@ -2556,9 +2563,8 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DiscoverTask>(DiscoverType::FROM_STACK, 2, 1, false));
     cardDef.power.AddAfterChooseTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
-           [[maybe_unused]] Playable* target) {
-            auto& stack = player->game->taskStack;
+        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+            const auto& stack = player->game->taskStack;
             const auto chosen = stack.playables[0];
             const int leftDbfID =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
@@ -2644,12 +2650,13 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
+        [](const Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
             DeckZone* deckZone = player->GetDeckZone();
             std::vector<Playable*> deckCards = deckZone->GetAll();
+
             std::sort(deckCards.begin(), deckCards.end(),
-                      [](Playable* p1, Playable* p2) {
+                      [](const Playable* p1, const Playable* p2) {
                           return p1->GetCost() < p2->GetCost();
                       });
 
@@ -2784,7 +2791,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (!playable->player->GetHero()->HasWeapon())
             {
                 return 0;

@@ -2465,7 +2465,7 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (playable->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) == 1)
             {
                 return playable->GetGameTag(GameTag::COST);

@@ -375,7 +375,7 @@ void LootapaloozaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         std::make_shared<FlagTask>(
             true,
             ComplexTask::ActivateSecret(TaskList{ std::make_shared<CustomTask>(
-                [](Player* player, Entity* source, Playable* target) {
+                [](const Player* player, Entity* source, Playable* target) {
                     if (!target)
                     {
                         return;

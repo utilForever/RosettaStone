@@ -939,7 +939,7 @@ void CoreCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         std::make_shared<FlagTask>(
             true,
             ComplexTask::ActivateSecret(TaskList{ std::make_shared<CustomTask>(
-                [](Player* player, Entity* source, Playable* target) {
+                [](const Player* player, Entity* source, Playable* target) {
                     if (!target)
                     {
                         return;
@@ -1480,7 +1480,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
             Random::shuffle(cardsOpPlayedLastTurn.begin(),
                             cardsOpPlayedLastTurn.end());
 
-            for (auto& card : cardsOpPlayedLastTurn)
+            for (const auto& card : cardsOpPlayedLastTurn)
             {
                 auto validTargets = card->GetValidPlayTargets(player);
                 if (card->mustHaveToTargetToPlay && validTargets.empty())
@@ -1535,14 +1535,16 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                     }
                     case CardType::WEAPON:
                     {
-                        auto weapon = dynamic_cast<Weapon*>(entity);
+                        const auto weapon = dynamic_cast<Weapon*>(entity);
 
-                        if (auto aura = weapon->card->power.GetAura(); aura)
+                        if (const auto aura = weapon->card->power.GetAura();
+                            aura)
                         {
                             aura->Activate(weapon);
                         }
 
-                        if (auto trigger = weapon->card->power.GetTrigger();
+                        if (const auto trigger =
+                                weapon->card->power.GetTrigger();
                             trigger)
                         {
                             trigger->Activate(weapon);
@@ -1551,7 +1553,18 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                         player->GetHero()->AddWeapon(*weapon);
                         break;
                     }
-                    default:
+                    case CardType::INVALID:
+                    case CardType::GAME:
+                    case CardType::PLAYER:
+                    case CardType::ENCHANTMENT:
+                    case CardType::ITEM:
+                    case CardType::TOKEN:
+                    case CardType::HERO_POWER:
+                    case CardType::BLANK:
+                    case CardType::GAME_MODE_BUTTON:
+                    case CardType::MOVE_MINION_HOVER_TARGET:
+                    case CardType::LETTUCE_ABILITY:
+                    case CardType::BATTLEGROUND_HERO_BUDDY:
                         throw std::invalid_argument(
                             "Murozond the Infinite (CORE_DRG_090) - Invalid "
                             "card type!");
@@ -2017,7 +2030,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             Player* player = playable->player;
 
             std::vector<Card*> playedCards;
@@ -2035,7 +2048,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
             Random::shuffle(playedCards);
 
-            for (auto& card : playedCards)
+            for (const auto& card : playedCards)
             {
                 auto validTargets = card->GetValidPlayTargets(player);
                 if (card->mustHaveToTargetToPlay && validTargets.empty())
@@ -2090,14 +2103,16 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                     }
                     case CardType::WEAPON:
                     {
-                        auto weapon = dynamic_cast<Weapon*>(entity);
+                        const auto weapon = dynamic_cast<Weapon*>(entity);
 
-                        if (auto aura = weapon->card->power.GetAura(); aura)
+                        if (const auto aura = weapon->card->power.GetAura();
+                            aura)
                         {
                             aura->Activate(weapon);
                         }
 
-                        if (auto trigger = weapon->card->power.GetTrigger();
+                        if (const auto trigger =
+                                weapon->card->power.GetTrigger();
                             trigger)
                         {
                             trigger->Activate(weapon);
@@ -2106,7 +2121,18 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                         player->GetHero()->AddWeapon(*weapon);
                         break;
                     }
-                    default:
+                    case CardType::INVALID:
+                    case CardType::GAME:
+                    case CardType::PLAYER:
+                    case CardType::ENCHANTMENT:
+                    case CardType::ITEM:
+                    case CardType::TOKEN:
+                    case CardType::HERO_POWER:
+                    case CardType::BLANK:
+                    case CardType::GAME_MODE_BUTTON:
+                    case CardType::MOVE_MINION_HOVER_TARGET:
+                    case CardType::LETTUCE_ABILITY:
+                    case CardType::BATTLEGROUND_HERO_BUDDY:
                         throw std::invalid_argument(
                             "Tess Greymane (CORE_GIL_598) - Invalid card "
                             "type!");
@@ -2440,9 +2466,9 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             Player* player = playable->player;
-            int turn = playable->game->GetTurn();
+            const int turn = playable->game->GetTurn();
 
             std::vector<Card*> playedSpells;
             playedSpells.reserve(10);
@@ -2456,7 +2482,6 @@ void CoreCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
                 }
             }
 
-            const int space = player->GetHandZone()->GetFreeSpace();
             for (const auto& playedSpell : playedSpells)
             {
                 Playable* spell = Entity::GetFromCard(player, playedSpell);
@@ -2804,7 +2829,8 @@ void CoreCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DiscardTask>(1, DiscardType::ENEMY_MINION, true));
     cardDef.power.AddDeathrattleTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+        [](const Player* player, const Entity* source,
+           [[maybe_unused]] Playable* target) {
             const int entityID =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1);
             if (entityID > 0)
@@ -3223,7 +3249,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
         std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
     cardDef.power.GetTrigger()->tasks = {
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             const auto target = dynamic_cast<Minion*>(
                 playable->game->currentEventData->eventTarget);
             if (!target)
@@ -3258,7 +3284,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
         std::make_shared<RandomTask>(EntityType::DECK, 3));
     cardDef.power.AddPowerTask(
         std::make_shared<FuncNumberTask>([](Playable* playable) {
-            auto playables = playable->game->taskStack.playables;
+            const auto playables = playable->game->taskStack.playables;
 
             std::vector<int> ids;
             ids.reserve(3);
@@ -3359,7 +3385,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             Player* player = playable->player;
 
             const int dbfID = player->GetHeroPower().card->dbfID;
@@ -3419,7 +3445,7 @@ void CoreCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (playable->GetZonePosition() == 0 ||
                 playable->GetZonePosition() ==
                     playable->player->GetHandZone()->GetCount() - 1)
@@ -4175,7 +4201,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
             return playable->player->GetFieldZone()->GetCount() +
                    playable->player->opponent->GetFieldZone()->GetCount();
         }));
@@ -4686,7 +4712,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
             return playable->player == playable->game->GetOpponentPlayer() ? 2
                                                                            : 0;
         }));
@@ -4856,9 +4882,10 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::DECK));
     cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsSpell()) }));
-    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
-            auto& taskStack = source->game->taskStack;
+    cardDef.power.AddPowerTask(
+        std::make_shared<CustomTask>([](Player* player, const Entity* source,
+                                        [[maybe_unused]] Playable* target) {
+            const auto& taskStack = source->game->taskStack;
             if (taskStack.playables.empty())
             {
                 return;

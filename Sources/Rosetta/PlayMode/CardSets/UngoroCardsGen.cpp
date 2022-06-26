@@ -2217,7 +2217,7 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
             return playable->player == playable->game->GetOpponentPlayer() ? 2
                                                                            : 0;
         }));

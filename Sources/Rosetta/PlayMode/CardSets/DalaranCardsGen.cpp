@@ -173,7 +173,7 @@ void DalaranCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     };
     cardDef.power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
-           [[maybe_unused]] Playable* target) {
+           const Playable* target) {
             const std::shared_ptr<IEffect> costEffect =
                 Cost::Effect(EffectOperator::SET, target->card->GetCost());
 
@@ -749,14 +749,13 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cardDef.power.GetTrigger()->triggerSource =
         TriggerSource::FRIENDLY_EVENT_SOURCE;
     cardDef.power.GetTrigger()->conditions = SelfCondList{
-        std::make_shared<SelfCondition>([=](Playable* playable) -> bool {
+        std::make_shared<SelfCondition>([=](const Playable* playable) -> bool {
             return playable->game->currentEventData->eventSource != playable &&
                    playable->GetGameTag(GameTag::COPIED_BY_KHADGAR) != 1;
         })
     };
     cardDef.power.GetTrigger()->tasks = { std::make_shared<CustomTask>(
-        []([[maybe_unused]] Player* player, [[maybe_unused]] Entity* source,
-           Playable* target) {
+        [](const Player* player, Entity* source, const Playable* target) {
             if (target->player->GetFieldZone()->IsFull())
             {
                 return;
@@ -857,10 +856,10 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             int count = 0;
 
-            for (auto& card : playable->player->cardsPlayedThisTurn)
+            for (const auto& card : playable->player->cardsPlayedThisTurn)
             {
                 if (card->GetCardType() == CardType::SPELL)
                 {
@@ -1009,7 +1008,7 @@ void DalaranCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            auto activeSecrets = player->GetSecretZone()->GetAll();
+            const auto activeSecrets = player->GetSecretZone()->GetAll();
 
             auto allCards =
                 player->game->GetFormatType() == FormatType::STANDARD
@@ -1248,7 +1247,7 @@ void DalaranCardsGen::AddPaladinNonCollect(
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            auto activeSecrets = player->GetSecretZone()->GetAll();
+            const auto activeSecrets = player->GetSecretZone()->GetAll();
 
             auto allCards =
                 player->game->GetFormatType() == FormatType::STANDARD
@@ -1262,7 +1261,8 @@ void DalaranCardsGen::AddPaladinNonCollect(
                     card->IsSecret())
                 {
                     bool isExist = false;
-                    for (auto& secret : activeSecrets)
+
+                    for (const auto& secret : activeSecrets)
                     {
                         if (card->id == secret->card->id)
                         {
@@ -2019,8 +2019,9 @@ void DalaranCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
         std::make_shared<DiscoverTask>(DiscoverType::SWAMPQUEEN_HAGATHA, 3, 2));
-    cardDef.power.AddAfterChooseTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+    cardDef.power.AddAfterChooseTask(
+        std::make_shared<CustomTask>([](Player* player, const Entity* source,
+                                        [[maybe_unused]] Playable* target) {
             if (source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_2) > 0)
             {
                 std::map<GameTag, int> tags;
@@ -2126,7 +2127,7 @@ void DalaranCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, Playable* target) {
+        [](Player* player, const Entity* source, Playable* target) {
             const int dbfID1 =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_ENT_1);
             Playable* playable1 =
@@ -3042,7 +3043,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
             return playable->player->GetFieldZone()->GetCount() == 1 ? 2 : 0;
         }));
     cards.emplace("DAL_551", cardDef);
@@ -3126,8 +3127,9 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             }
 
             Character* randTarget;
-            std::vector<Character*> validTargets =
+            const std::vector<Character*> validTargets =
                 randSpellCard->GetValidPlayTargets(player);
+
             if (validTargets.empty())
             {
                 randTarget = nullptr;
@@ -3171,7 +3173,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             return 2 * (playable->player->GetFieldZone()->GetCount() - 1);
         }));
     cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(

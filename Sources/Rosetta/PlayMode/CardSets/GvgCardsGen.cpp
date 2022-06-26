@@ -1123,8 +1123,8 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
-            auto minions = playable->player->GetFieldZone()->GetAll();
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+            const auto minions = playable->player->GetFieldZone()->GetAll();
 
             for (auto& minion : minions)
             {
@@ -1676,7 +1676,7 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->opponent->GetHandZone()->GetCount();
         }));
     cards.emplace("GVG_121", cardDef);

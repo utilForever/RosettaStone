@@ -2588,7 +2588,7 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetHero()->GetArmor();
         }));
     cards.emplace("AV_108", cardDef);
@@ -3391,7 +3391,7 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetGameTag(
                 GameTag::NUM_CARDS_PLAYED_THIS_TURN);
         }));

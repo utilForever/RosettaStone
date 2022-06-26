@@ -516,8 +516,8 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-            auto minions = playable->player->GetFieldZone()->GetAll();
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
+            const auto minions = playable->player->GetFieldZone()->GetAll();
             int numTreants = 0;
 
             for (auto& minion : minions)
@@ -546,9 +546,10 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
         std::make_shared<SelfCondition>(SelfCondition::IsMinion()) }));
     cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("DRG_315e", EntityType::STACK));
-    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
-            auto deckCards = player->GetDeckZone()->GetAll();
+    cardDef.power.AddPowerTask(
+        std::make_shared<CustomTask>([](const Player* player, Entity* source,
+                                        [[maybe_unused]] Playable* target) {
+            const auto deckCards = player->GetDeckZone()->GetAll();
 
             for (auto& deckCard : deckCards)
             {
@@ -981,7 +982,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // --------------------------------------------------------
     cardDef.ClearData();
-    auto trigger1 = std::make_shared<Trigger>(TriggerType::CAST_SPELL);
+    const auto trigger1 = std::make_shared<Trigger>(TriggerType::CAST_SPELL);
     trigger1->triggerSource = TriggerSource::SPELLS;
     trigger1->tasks = {
         std::make_shared<GetGameTagTask>(EntityType::SOURCE,
@@ -1001,7 +1002,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                 std::make_shared<SetGameTagTask>(
                     EntityType::SOURCE, GameTag::CUSTOM_KEYWORD_EFFECT, 0) })
     };
-    auto trigger2 = std::make_shared<Trigger>(TriggerType::TURN_END);
+    const auto trigger2 = std::make_shared<Trigger>(TriggerType::TURN_END);
     trigger2->tasks = {
         std::make_shared<SetGameTagTask>(EntityType::SOURCE,
                                          GameTag::TAG_SCRIPT_DATA_NUM_1, 0),
@@ -1064,7 +1065,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
             return playable->player->GetNumCardsPlayedThisGameNotStartInDeck();
         }));
     cards.emplace("DRG_109", cardDef);
@@ -1163,7 +1164,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
             const auto realTarget = dynamic_cast<Character*>(target);
 
             const int targetHealth = realTarget->GetHealth();
-            int realDamage = 8 + source->player->GetCurrentSpellPower();
+            const int realDamage = 8 + source->player->GetCurrentSpellPower();
 
             Generic::TakeDamageToCharacter(realSource, realTarget, realDamage,
                                            true);
@@ -1299,7 +1300,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - SIDEQUEST = 1
     // --------------------------------------------------------
     cardDef.ClearData();
-    auto trigger3 = std::make_shared<Trigger>(TriggerType::PLAY_MINION);
+    const auto trigger3 = std::make_shared<Trigger>(TriggerType::PLAY_MINION);
     trigger3->conditions = SelfCondList{ std::make_shared<SelfCondition>(
         SelfCondition::IsRace(Race::ELEMENTAL)) };
     trigger3->tasks = { std::make_shared<QuestProgressTask>(
@@ -1310,13 +1311,14 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
             std::make_shared<RandomTask>(EntityType::STACK, 3),
             std::make_shared<DrawStackTask>() },
         ProgressType::PLAY_ELEMENTAL_MINONS) };
-    auto trigger4 = std::make_shared<Trigger>(TriggerType::TURN_END);
+    const auto trigger4 = std::make_shared<Trigger>(TriggerType::TURN_END);
     trigger4->conditions = SelfCondList{ std::make_shared<SelfCondition>(
         SelfCondition::IsNotPlayElementalMinionThisTurn()) };
     trigger4->tasks = { std::make_shared<IncludeTask>(EntityType::SOURCE),
                         std::make_shared<FuncPlayableTask>(
                             [=](const std::vector<Playable*>& playables) {
-                                auto spell = dynamic_cast<Spell*>(playables[0]);
+                                const auto spell =
+                                    dynamic_cast<Spell*>(playables[0]);
                                 spell->SetGameTag(GameTag::QUEST_PROGRESS, 0);
                                 return std::vector<Playable*>{};
                             }) };
@@ -1828,7 +1830,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
         Random::shuffle(cardsOpPlayedLastTurn.begin(),
                         cardsOpPlayedLastTurn.end());
 
-        for (auto& card : cardsOpPlayedLastTurn)
+        for (const auto& card : cardsOpPlayedLastTurn)
         {
             auto validTargets = card->GetValidPlayTargets(player);
             if (card->mustHaveToTargetToPlay && validTargets.empty())
@@ -1882,14 +1884,14 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                 }
                 case CardType::WEAPON:
                 {
-                    auto weapon = dynamic_cast<Weapon*>(entity);
+                    const auto weapon = dynamic_cast<Weapon*>(entity);
 
-                    if (auto aura = weapon->card->power.GetAura(); aura)
+                    if (const auto aura = weapon->card->power.GetAura(); aura)
                     {
                         aura->Activate(weapon);
                     }
 
-                    if (auto trigger = weapon->card->power.GetTrigger();
+                    if (const auto trigger = weapon->card->power.GetTrigger();
                         trigger)
                     {
                         trigger->Activate(weapon);
@@ -1898,7 +1900,18 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                     player->GetHero()->AddWeapon(*weapon);
                     break;
                 }
-                default:
+                case CardType::INVALID:
+                case CardType::GAME:
+                case CardType::PLAYER:
+                case CardType::ENCHANTMENT:
+                case CardType::ITEM:
+                case CardType::TOKEN:
+                case CardType::HERO_POWER:
+                case CardType::BLANK:
+                case CardType::GAME_MODE_BUTTON:
+                case CardType::MOVE_MINION_HOVER_TARGET:
+                case CardType::LETTUCE_ABILITY:
+                case CardType::BATTLEGROUND_HERO_BUDDY:
                     throw std::invalid_argument(
                         "Murozond the Infinite (DRG_090) - Invalid card type!");
             }
@@ -2034,7 +2047,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
             // Envoy of Lazul attempts to show three cards: one card in the
             // opponent's hand, and two cards that are in the opponent's current
             // deck but not in the opponent's hand.
-            auto opHandCards = player->opponent->GetHandZone()->GetAll();
+            const auto opHandCards = player->opponent->GetHandZone()->GetAll();
 
             // If the opponent has no cards in hand,
             // Envoy of Lazul's Battlecry does nothing.
@@ -2055,7 +2068,9 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
             // For the two cards not in the opponent's hand:
             std::vector<Card*> opDeckCards;
-            for (auto& deckCard : player->opponent->GetDeckZone()->GetAll())
+
+            for (const auto& deckCard :
+                 player->opponent->GetDeckZone()->GetAll())
             {
                 // Pass if it exists in hand zone
                 bool existInHand = false;
@@ -2075,7 +2090,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
                 // Pass if it exists in opponent deck cards
                 bool existInDeck = false;
-                for (auto& opDeckCard : opDeckCards)
+                for (const auto& opDeckCard : opDeckCards)
                 {
                     if (opDeckCard->id == deckCard->card->id)
                     {
@@ -2300,10 +2315,10 @@ void DragonsCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<DrawTask>(3));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
-            auto hands = playable->player->GetHandZone()->GetAll();
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
+            const auto hands = playable->player->GetHandZone()->GetAll();
 
-            for (auto& card : hands)
+            for (const auto& card : hands)
             {
                 if (card->card->GetRace() == Race::DRAGON)
                 {
@@ -2564,7 +2579,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
             return (playable->player->GetOverloadLocked() > 0 ||
                     playable->player->GetOverloadOwed() > 0)
                        ? 1
@@ -2984,9 +2999,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         std::make_shared<SummonTask>("DRG_207t", SummonSide::RIGHT, true));
     cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
         [=](const std::vector<Playable*>& playables) {
-            auto minion = dynamic_cast<Minion*>(playables[0]);
-
-            if (minion)
+            if (const auto minion = dynamic_cast<Minion*>(playables[0]))
             {
                 const auto count = minion->player->GetHandZone()->GetCount();
                 minion->SetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1, count);
@@ -3013,7 +3026,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
+        [](const Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
             player->GetHandZone()->Expand(12);
         }));
@@ -3261,7 +3274,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
+        [](const Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
             auto enemyMinions = player->opponent->GetFieldZone()->GetAll();
             Random::shuffle(enemyMinions.begin(), enemyMinions.end());
@@ -3269,7 +3282,8 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
             auto& curField = *(player->GetFieldZone());
             const auto deathwing =
                 curField[player->GetFieldZone()->GetCount() - 1];
-            for (auto& minion : enemyMinions)
+
+            for (const auto& minion : enemyMinions)
             {
                 Generic::Attack(player, deathwing, minion, true);
 
@@ -3466,10 +3480,10 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
             int numDragon = 0;
 
-            for (auto& card : playable->player->GetHandZone()->GetAll())
+            for (const auto& card : playable->player->GetHandZone()->GetAll())
             {
                 if (card->card->GetRace() == Race::DRAGON)
                 {
@@ -3551,11 +3565,11 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            auto legendaryCards = RandomCardTask::GetCardList(
+            const auto legendaryCards = RandomCardTask::GetCardList(
                 player->GetHero(), CardType::INVALID, CardClass::PLAYER_CLASS);
-            auto deck = player->GetDeckZone();
+            const auto deck = player->GetDeckZone();
 
-            for (auto& card : deck->GetAll())
+            for (const auto& card : deck->GetAll())
             {
                 if (card->card->GetCardClass() != CardClass::NEUTRAL)
                 {
@@ -3981,10 +3995,10 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
             int numDreadRaven = 0;
 
-            for (auto& card : playable->player->GetFieldZone()->GetAll())
+            for (const auto& card : playable->player->GetFieldZone()->GetAll())
             {
                 if (card->card->id == "DRG_088")
                 {

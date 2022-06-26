@@ -334,7 +334,8 @@ void UldumCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
         true, TaskList{ std::make_shared<CustomTask>(
                   [](Player* player, [[maybe_unused]] Entity* source,
                      [[maybe_unused]] Playable* target) {
-                      for (auto& handCard : player->GetHandZone()->GetAll())
+                      for (const auto& handCard :
+                           player->GetHandZone()->GetAll())
                       {
                           if (player->GetHandZone()->IsFull())
                           {
@@ -1718,16 +1719,18 @@ void UldumCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // - CASTSWHENDRAWN = 1
     // --------------------------------------------------------
     cardDef.ClearData();
-    cardDef.power.AddTopdeckTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+    cardDef.power.AddTopdeckTask(
+        std::make_shared<CustomTask>([](Player* player, const Entity* source,
+                                        [[maybe_unused]] Playable* target) {
             const int dbfID =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
             Playable* minion =
                 Entity::GetFromCard(player, Cards::FindCardByDbfID(dbfID));
             Generic::Summon(dynamic_cast<Minion*>(minion), -1, player);
         }));
-    cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, Entity* source, [[maybe_unused]] Playable* target) {
+    cardDef.power.AddPowerTask(
+        std::make_shared<CustomTask>([](Player* player, const Entity* source,
+                                        [[maybe_unused]] Playable* target) {
             const int dbfID =
                 source->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
             Playable* minion =
@@ -1812,7 +1815,7 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
             return playable->player->GetFieldZone()->GetCount() +
                    playable->player->opponent->GetFieldZone()->GetCount();
         }));
@@ -2225,7 +2228,7 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](Player* player, [[maybe_unused]] Entity* source,
+        [](const Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
             player->game->taskStack.num[0] = player->GetFieldZone()->GetCount();
         }));

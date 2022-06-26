@@ -2843,7 +2843,7 @@ void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetNumCardsDrawnThisTurn();
         }));
     cards.emplace("SW_037", cardDef);
@@ -3511,10 +3511,10 @@ void StormwindCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
     cardDef.ClearData();
-    auto trigger1 = std::make_shared<Trigger>(TriggerType::TURN_START);
+    const auto trigger1 = std::make_shared<Trigger>(TriggerType::TURN_START);
     trigger1->eitherTurn = true;
     trigger1->tasks = { std::make_shared<DrawTask>(1) };
-    auto trigger2 = std::make_shared<Trigger>(TriggerType::TURN_END);
+    const auto trigger2 = std::make_shared<Trigger>(TriggerType::TURN_END);
     trigger2->eitherTurn = true;
     trigger2->tasks = { std::make_shared<DrawTask>(1) };
     cardDef.power.AddTrigger(std::make_shared<MultiTrigger>(

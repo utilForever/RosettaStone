@@ -161,8 +161,8 @@ void LegacyCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
-            auto minions = playable->player->GetFieldZone()->GetAll();
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
+            const auto minions = playable->player->GetFieldZone()->GetAll();
             std::vector<Card*> totemCards;
             totemCards.reserve(4);
 
@@ -2759,7 +2759,7 @@ void LegacyCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
         std::make_shared<RandomTask>(EntityType::DECK, 3));
     cardDef.power.AddPowerTask(
         std::make_shared<FuncNumberTask>([](Playable* playable) {
-            auto playables = playable->game->taskStack.playables;
+            const auto playables = playable->game->taskStack.playables;
 
             std::vector<int> ids;
             ids.reserve(3);
@@ -3455,7 +3455,7 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             int addAttackAmount = 0;
             const auto& myMinions = playable->player->GetFieldZone()->GetAll();
             const auto& opMinions =

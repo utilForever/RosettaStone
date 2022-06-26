@@ -1550,7 +1550,7 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 8, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (playable->player->GetNumSpellsCastLastTurn() > 0)
             {
                 return 3;
@@ -1930,7 +1930,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
                 damageTask->Run();
 
-                for (auto& minion : minions)
+                for (const auto& minion : minions)
                 {
                     flag = flag && condition->Evaluate(minion);
                 }
@@ -2042,12 +2042,12 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             FieldZone* curField = playable->player->GetFieldZone();
             FieldZone* opField = playable->player->opponent->GetFieldZone();
             int count = 0;
 
-            for (auto& minion : curField->GetAll())
+            for (const auto& minion : curField->GetAll())
             {
                 if (minion->GetDamage() > 0)
                 {
@@ -2055,7 +2055,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                 }
             }
 
-            for (auto& minion : opField->GetAll())
+            for (const auto& minion : opField->GetAll())
             {
                 if (minion->GetDamage() > 0)
                 {
@@ -2232,7 +2232,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             Player* player = playable->player;
 
             const int dbfID = player->GetHeroPower().card->dbfID;
