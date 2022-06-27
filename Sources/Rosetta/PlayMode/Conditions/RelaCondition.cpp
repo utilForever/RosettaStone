@@ -18,16 +18,19 @@ RelaCondition::RelaCondition(std::function<bool(Playable*, Playable*)> func)
 
 RelaCondition RelaCondition::IsFriendly()
 {
-    return RelaCondition([=](Playable* me, Playable* other) -> bool {
-        return me->player == other->player;
-    });
+    return RelaCondition(
+        [=](const Playable* self, const Playable* other) -> bool {
+            return self->player == other->player;
+        });
 }
 
 RelaCondition RelaCondition::IsSideBySide()
 {
-    return RelaCondition([=](Playable* me, Playable* other) -> bool {
-        return me->GetZoneType() == other->GetZoneType() &&
-               std::abs(me->GetZonePosition() - other->GetZonePosition()) == 1;
+    return RelaCondition([=](const Playable* self,
+                             const Playable* other) -> bool {
+        return self->GetZoneType() == other->GetZoneType() &&
+               std::abs(self->GetZonePosition() - other->GetZonePosition()) ==
+                   1;
     });
 }
 
