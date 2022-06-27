@@ -4,20 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Actions/Generic.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------------- MINION - DRUID
 // [LOE_050] Mounted Raptor - COST:3 [ATK:3/HP:2]

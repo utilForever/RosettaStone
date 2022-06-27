@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------------- HERO - WARLOCK
 // [DRG_600] Galakrond, the Wretched - COST:7 [ATK:0/HP:30]
