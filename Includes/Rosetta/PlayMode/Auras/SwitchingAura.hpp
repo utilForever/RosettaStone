@@ -53,7 +53,7 @@ class SwitchingAura : public Aura
     //! Constructs switching aura with given \p prototype, \p owner.
     //! \param prototype An enrage effect for prototype.
     //! \param owner An owner of adaptive effect.
-    SwitchingAura(SwitchingAura& prototype, Playable& owner);
+    SwitchingAura(const SwitchingAura& prototype, Playable& owner);
 
     //! Internal method of Remove().
     void RemoveInternal() override;

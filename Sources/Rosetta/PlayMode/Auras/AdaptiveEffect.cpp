@@ -94,7 +94,7 @@ void AdaptiveEffect::Update()
         }
 
         EraseIf(m_owner->game->auras,
-                [this](IAura* aura) { return aura == this; });
+                [this](const IAura* aura) { return aura == this; });
     }
 }
 

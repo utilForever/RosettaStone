@@ -100,7 +100,7 @@ class Aura : public IAura
     //! Adds aura to the game.
     //! \param owner An owner of aura.
     //! \param aura The dynamically allocated Aura instance.
-    void AddToGame(Playable& owner, Aura& aura);
+    static void AddToGame(Playable& owner, Aura& aura);
 
     AuraType m_type = AuraType::INVALID;
     Playable* m_owner = nullptr;

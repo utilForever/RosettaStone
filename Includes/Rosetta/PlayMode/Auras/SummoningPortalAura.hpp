@@ -46,7 +46,7 @@ class SummoningPortalAura : public Aura
     //! Constructs switching aura with given \p prototype, \p owner.
     //! \param prototype An enrage effect for prototype.
     //! \param owner An owner of adaptive effect.
-    SummoningPortalAura(SummoningPortalAura& prototype, Playable& owner);
+    SummoningPortalAura(const SummoningPortalAura& prototype, Playable& owner);
 
     //! Applies this aura to all entities.
     void AddAll();

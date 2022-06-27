@@ -40,7 +40,7 @@ void AdjacentAura::Update()
 
         m_owner->ongoingEffect = nullptr;
         EraseIf(m_owner->game->auras,
-                [this](IAura* aura) { return aura == this; });
+                [this](const IAura* aura) { return aura == this; });
 
         return;
     }
