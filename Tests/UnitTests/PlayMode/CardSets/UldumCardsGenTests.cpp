@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -343,7 +341,7 @@ TEST_CASE("[Druid : Spell] - ULD_136 : Worthy Expedition")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK(curPlayer->choice);
 
-    auto cards = TestUtils::GetChoiceCards(game);
+    const auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
     {
         CHECK_EQ(card->HasGameTag(GameTag::CHOOSE_ONE), true);
@@ -933,7 +931,7 @@ TEST_CASE("[Shaman : Spell] - ULD_181 : Earthquake")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Earthquake"));
@@ -1625,7 +1623,7 @@ TEST_CASE("[Paladin : Minion] - ULD_144 : Brazen Zealot")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    const int brazenZealotCardCount = 3;
+    constexpr int brazenZealotCardCount = 3;
     const std::array<Playable*, brazenZealotCardCount> brazenZealotCards = {
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Brazen Zealot")),
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Brazen Zealot")),
@@ -4356,8 +4354,8 @@ TEST_CASE("[Priest : Spell] - ULD_718 : Plague of Death")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Plague of Death"));

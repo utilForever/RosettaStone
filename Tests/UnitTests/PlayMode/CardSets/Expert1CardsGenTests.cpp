@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
@@ -3527,12 +3525,12 @@ TEST_CASE("[Paladin : Spell] - EX1_354 : Lay on Hands")
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Lay on Hands"));
 
-    auto p1HandCount = curPlayer->GetHandZone()->GetCount();
+    const auto curHandCount = curPlayer->GetHandZone()->GetCount();
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
 
-    CHECK_EQ(p1HandCount + 2, curPlayer->GetHandZone()->GetCount());
+    CHECK_EQ(curHandCount + 2, curPlayer->GetHandZone()->GetCount());
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
 }
 
@@ -6401,8 +6399,8 @@ TEST_CASE("[Shaman : Spell] - CS2_053 : Far Sight")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 5);
 
-    Playable* drawCard = curHand[curHand.GetCount() - 1];
-    int cost = drawCard->card->gameTags[GameTag::COST] - 3;
+    const Playable* drawCard = curHand[curHand.GetCount() - 1];
+    const int cost = drawCard->card->gameTags[GameTag::COST] - 3;
     CHECK_EQ(cost < 0 ? 0 : cost, drawCard->GetCost());
 }
 
@@ -6566,8 +6564,8 @@ TEST_CASE("[Shaman : Spell] - EX1_245 : Earth Shock")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Bloodmage Thalnos"));
@@ -12644,7 +12642,7 @@ TEST_CASE("[Neutral : Minion] - EX1_557 : Nat Pagle")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Nat Pagle"));

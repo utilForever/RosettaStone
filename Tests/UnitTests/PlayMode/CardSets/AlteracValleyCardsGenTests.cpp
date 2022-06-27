@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -295,8 +293,6 @@ TEST_CASE("[Druid : Spell] - ONY_021 : Scale of Onyxia")
     auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scale of Onyxia"));
-    const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Scale of Onyxia"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
@@ -2463,7 +2459,6 @@ TEST_CASE("[Demon Hunter : Spell] - AV_661 : Field of Strife")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Field of Strife"));
@@ -2600,7 +2595,7 @@ TEST_CASE("[Neutral : Minion] - AV_102 : Popsicooler")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Popsicooler"));
@@ -2876,8 +2871,6 @@ TEST_CASE("[Neutral : Minion] - AV_123 : Sneaky Scout")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-
-    auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Sneaky Scout"));

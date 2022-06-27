@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -464,7 +462,7 @@ TEST_CASE("[Druid : Minion] - SCH_616 : Twilight Runner")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Twilight Runner"));
@@ -550,7 +548,7 @@ TEST_CASE("[Hunter : Minion] - SCH_239 : Krolusk Barkstripper")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Krolusk Barkstripper"));
@@ -3799,7 +3797,7 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
 
     const std::string INNKEEPER_EXPERT_WARLOCK =
         "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
-    auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
+    const auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
 
     for (size_t j = 0; j < deck.size(); ++j)
     {
@@ -3817,7 +3815,7 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curDeck = *(curPlayer->GetDeckZone());
+    const auto& curDeck = *(curPlayer->GetDeckZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Lorekeeper Polkelt"));

@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -306,8 +304,6 @@ TEST_CASE("[Druid : Minion] - SW_431 : Park Panther")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Park Panther"));
@@ -2027,9 +2023,6 @@ TEST_CASE("[Warrior : Spell] - SW_027 : Shiver Their Timbers!")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto curHero = curPlayer->GetHero();
-    auto opHero = opPlayer->GetHero();
-
     auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
@@ -2527,9 +2520,6 @@ TEST_CASE("[Demon Hunter : Spell] - SW_452 : Chaos Leech")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-
-    auto curHero = curPlayer->GetHero();
-    auto opHero = opPlayer->GetHero();
 
     auto& opField = *(opPlayer->GetFieldZone());
 

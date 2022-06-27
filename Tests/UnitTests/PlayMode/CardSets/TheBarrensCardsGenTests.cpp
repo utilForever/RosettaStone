@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -1316,7 +1314,7 @@ TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
     auto NumFrozenMinions = [&](FieldZone& field) -> int {
         int count = 0;
 
-        for (auto& minion : field.GetAll())
+        for (const auto& minion : field.GetAll())
         {
             if (minion->IsFrozen())
             {
@@ -3383,7 +3381,7 @@ TEST_CASE("[Rogue : Spell] - BAR_318 : Silverleaf Poison")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Silverleaf Poison"));
@@ -5529,7 +5527,7 @@ TEST_CASE("[Warrior : Minion] - BAR_896 : Stonemaul Anchorman")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Stonemaul Anchorman"));

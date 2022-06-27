@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -532,7 +530,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_427 : Feast of Souls")
     opPlayer->SetUsedMana(0);
 
     auto& opField = *(opPlayer->GetFieldZone());
-    auto& opHand = *(opPlayer->GetHandZone());
+    const auto& opHand = *(opPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));

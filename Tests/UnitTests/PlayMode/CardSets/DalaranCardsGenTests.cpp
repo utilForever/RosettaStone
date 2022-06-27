@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -656,7 +654,7 @@ TEST_CASE("[Druid : Minion] - DAL_799 : Crystal Stag")
     opPlayer->SetUsedMana(0);
     curPlayer->GetHero()->SetDamage(10);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Crystal Stag"));
@@ -4705,7 +4703,7 @@ TEST_CASE("[Warlock : Spell] - DAL_602 : Plot Twist")
     opPlayer->SetUsedMana(0);
     curPlayer->GetHero()->SetDamage(25);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Plot Twist"));
@@ -6128,8 +6126,8 @@ TEST_CASE("[Neutral : Minion] - DAL_538 : Unseen Saboteur")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     [[maybe_unused]] const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
@@ -6632,8 +6630,8 @@ TEST_CASE("[Neutral : Minion] - DAL_558 : Archmage Vargoth")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto curHero = curPlayer->GetHero();
-    auto opHero = opPlayer->GetHero();
+    const auto curHero = curPlayer->GetHero();
+    const auto opHero = opPlayer->GetHero();
     auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
@@ -7062,7 +7060,7 @@ TEST_CASE("[Neutral : Minion] - DAL_736 : Archivist Elysiana")
     CHECK_EQ(curDeck.GetCount(), 10);
 
     std::vector<int> deckCards;
-    for (auto& deckCard : curDeck.GetAll())
+    for (const auto& deckCard : curDeck.GetAll())
     {
         deckCards.emplace_back(deckCard->card->dbfID);
     }

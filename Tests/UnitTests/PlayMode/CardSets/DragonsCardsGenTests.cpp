@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -4169,7 +4167,7 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     TestUtils::ChooseNthChoice(game, 1);
 
     int dbfTotal = 0;
-    for (auto& handCard : opHand.GetAll())
+    for (const auto& handCard : opHand.GetAll())
     {
         dbfTotal += handCard->card->dbfID;
     }
@@ -5646,7 +5644,7 @@ TEST_CASE("[Warlock : Minion] - DRG_203 : Veiled Worshipper")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Veiled Worshipper"));
@@ -6235,7 +6233,7 @@ TEST_CASE("[Warrior : Spell] - DRG_022 : Ramming Speed")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
@@ -6736,7 +6734,7 @@ TEST_CASE("[Neutral : Minion] - DRG_054 : Big Ol' Whelp")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Big Ol' Whelp"));
@@ -7122,7 +7120,7 @@ TEST_CASE("[Neutral : Minion] - DRG_062 : Wyrmrest Purifier")
         curPlayer, Cards::FindCardByName("Wyrmrest Purifier"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    for (auto& card : curPlayer->GetDeckZone()->GetAll())
+    for (const auto& card : curPlayer->GetDeckZone()->GetAll())
     {
         CHECK_EQ(card->card->GetCardClass(), CardClass::MAGE);
     }
@@ -8098,7 +8096,7 @@ TEST_CASE("[Neutral : Minion] - DRG_081 : Scalerider")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto opHero = opPlayer->GetHero();
+    const auto opHero = opPlayer->GetHero();
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Scalerider"));

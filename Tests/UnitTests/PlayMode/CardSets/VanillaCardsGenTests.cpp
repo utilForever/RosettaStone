@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -122,8 +120,8 @@ TEST_CASE("[Shaman : Hero Power] - VAN_HERO_02bp : Totemic Call")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     game.Process(curPlayer, HeroPowerTask());
     game.Process(curPlayer, EndTurnTask());
@@ -3784,7 +3782,7 @@ TEST_CASE("[Mage : Spell] - VAN_CS2_023 : Arcane Intellect")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer,
@@ -5442,8 +5440,6 @@ TEST_CASE("[Paladin : Minion] - VAN_CS2_088 : Guardian of Kings")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-
     const auto card1 = Generic::DrawCard(
         curPlayer,
         Cards::FindCardByName("Guardian of Kings", FormatType::CLASSIC));
@@ -5996,12 +5992,12 @@ TEST_CASE("[Paladin : Spell] - VAN_EX1_354 : Lay on Hands")
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Lay on Hands", FormatType::CLASSIC));
 
-    auto p1HandCount = curPlayer->GetHandZone()->GetCount();
+    const auto curHandCount = curPlayer->GetHandZone()->GetCount();
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
 
-    CHECK_EQ(p1HandCount + 2, curPlayer->GetHandZone()->GetCount());
+    CHECK_EQ(curHandCount + 2, curPlayer->GetHandZone()->GetCount());
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 29);
 }
 
@@ -7031,7 +7027,7 @@ TEST_CASE("[Priest : Spell] - VAN_CS2_003 : Mind Vision")
     const auto gainedCard = curHand[4];
 
     bool flag = false;
-    for (auto& handCard : opPlayer->GetHandZone()->GetAll())
+    for (const auto& handCard : opPlayer->GetHandZone()->GetAll())
     {
         if (handCard->card->id == gainedCard->card->id)
         {
@@ -10305,8 +10301,8 @@ TEST_CASE("[Shaman : Spell] - VAN_CS2_053 : Far Sight")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 5);
 
-    Playable* drawCard = curHand[curHand.GetCount() - 1];
-    int cost = drawCard->card->gameTags[GameTag::COST] - 3;
+    const Playable* drawCard = curHand[curHand.GetCount() - 1];
+    const int cost = drawCard->card->gameTags[GameTag::COST] - 3;
     CHECK_EQ(cost < 0 ? 0 : cost, drawCard->GetCost());
 }
 
@@ -10526,8 +10522,8 @@ TEST_CASE("[Shaman : Spell] - VAN_EX1_245 : Earth Shock")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer,
@@ -12922,7 +12918,7 @@ TEST_CASE("[Warrior : Spell] - VAN_CS2_108 : Execute")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Execute", FormatType::CLASSIC));
@@ -19025,7 +19021,7 @@ TEST_CASE("[Neutral : Minion] - VAN_EX1_557 : Nat Pagle")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Nat Pagle", FormatType::CLASSIC));

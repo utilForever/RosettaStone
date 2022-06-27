@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
@@ -383,7 +381,7 @@ TEST_CASE("[Warlock : Minion] - TRL_252 : High Priestess Jeklik")
 
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card1 = Generic::DrawCard(
+    [[maybe_unused]] const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("High Priestess Jeklik"));
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Darkshire Librarian"));

@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -6174,8 +6172,8 @@ TEST_CASE("[Shaman : Spell] - CORE_CS2_053 : Far Sight")
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curHand.GetCount(), 5);
 
-    Playable* drawCard = curHand[curHand.GetCount() - 1];
-    int cost = drawCard->card->gameTags[GameTag::COST] - 3;
+    const Playable* drawCard = curHand[curHand.GetCount() - 1];
+    const int cost = drawCard->card->gameTags[GameTag::COST] - 3;
     CHECK_EQ(cost < 0 ? 0 : cost, drawCard->GetCost());
 }
 
@@ -7596,7 +7594,7 @@ TEST_CASE("[Warlock : Minion] - CORE_TRL_252 : High Priestess Jeklik")
 
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card1 = Generic::DrawCard(
+    [[maybe_unused]] const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("High Priestess Jeklik"));
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Darkshire Librarian"));
@@ -7805,7 +7803,7 @@ TEST_CASE("[Warrior : Spell] - CORE_CS2_108 : Execute")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Execute"));
@@ -9147,7 +9145,7 @@ TEST_CASE("[Demon Hunter : Spell] - CORE_BT_427 : Feast of Souls")
     opPlayer->SetUsedMana(0);
 
     auto& opField = *(opPlayer->GetFieldZone());
-    auto& opHand = *(opPlayer->GetHandZone());
+    const auto& opHand = *(opPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
@@ -13244,7 +13242,7 @@ TEST_CASE("[Neutral : Minion] - CS3_022 : Fogsail Freebooter")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto opHero = opPlayer->GetHero();
+    const auto opHero = opPlayer->GetHero();
 
     const auto card1 = Generic::DrawCard(
         curPlayer,

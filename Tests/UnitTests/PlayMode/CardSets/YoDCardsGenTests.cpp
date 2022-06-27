@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 #include <Utils/TestUtils.hpp>
 
@@ -454,7 +452,7 @@ TEST_CASE("[Mage : Minion] - YOD_008 : Arcane Amplifier")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto opHero = opPlayer->GetHero();
+    const auto opHero = opPlayer->GetHero();
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Amplifier"));

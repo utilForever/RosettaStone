@@ -4,8 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
 #include <Utils/CardSetUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
@@ -118,9 +116,6 @@ TEST_CASE("[Hunter : Minion] - KAR_006 : Cloaked Huntress")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-
-    auto& curHand = *(curPlayer->GetHandZone());
-    auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Cloaked Huntress"));
