@@ -39,7 +39,7 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
 {
     if (!useScriptTag)
     {
-        for (auto& effect : effects)
+        for (const auto& effect : effects)
         {
             effect->ApplyTo(entity, isOneTurnEffect);
         }
@@ -64,15 +64,15 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
     }
 }
 
-void Enchant::RemoveEffect(Entity* target)
+void Enchant::RemoveEffect(Entity* target) const
 {
-    for (auto& effect : effects)
+    for (const auto& effect : effects)
     {
         effect->RemoveFrom(target);
     }
 }
 
-void Enchant::RemoveEffect(Entity* target, int num1, int num2)
+void Enchant::RemoveEffect(Entity* target, int num1, int num2) const
 {
     effects[0]->ChangeValue(num1)->RemoveFrom(target);
 

@@ -70,7 +70,7 @@ int AuraEffects::GetGameTag(GameTag tag) const
     }
 }
 
-void AuraEffects::SetGameTag(GameTag tag, int value)
+void AuraEffects::SetGameTag(GameTag tag, int value) const
 {
     switch (tag)
     {
@@ -131,7 +131,7 @@ int AuraEffects::GetImmune() const
     return 0;
 }
 
-void AuraEffects::SetImmune(int value)
+void AuraEffects::SetImmune(int value) const
 {
     if (m_type == CardType::WEAPON)
     {
@@ -153,7 +153,7 @@ int AuraEffects::GetCantBeTargetedBySpells() const
     return m_data[0];
 }
 
-void AuraEffects::SetCantBeTargetedBySpells(int value)
+void AuraEffects::SetCantBeTargetedBySpells(int value) const
 {
     m_data[0] = value;
 }
@@ -163,7 +163,7 @@ int AuraEffects::GetAttack() const
     return m_data[1];
 }
 
-void AuraEffects::SetAttack(int value)
+void AuraEffects::SetAttack(int value) const
 {
     m_data[1] = value;
 }
@@ -173,7 +173,7 @@ int AuraEffects::GetCannotAttackHeroes() const
     return m_data[2];
 }
 
-void AuraEffects::SetCannotAttackHeroes(int value)
+void AuraEffects::SetCannotAttackHeroes(int value) const
 {
     m_data[2] = value;
 }
@@ -183,7 +183,7 @@ int AuraEffects::GetHeroPowerDamage() const
     return m_data[4];
 }
 
-void AuraEffects::SetHeroPowerDamage(int value)
+void AuraEffects::SetHeroPowerDamage(int value) const
 {
     m_data[4] = value;
 }
@@ -193,7 +193,7 @@ int AuraEffects::GetHealth() const
     return m_data[2];
 }
 
-void AuraEffects::SetHealth(int value)
+void AuraEffects::SetHealth(int value) const
 {
     m_data[2] = value;
 }
@@ -203,7 +203,7 @@ int AuraEffects::GetWindfury() const
     return m_data[3];
 }
 
-void AuraEffects::SetWindfury(int value)
+void AuraEffects::SetWindfury(int value) const
 {
     m_data[3] = value;
 }
@@ -213,7 +213,7 @@ int AuraEffects::GetTaunt() const
     return m_data[4];
 }
 
-void AuraEffects::SetTaunt(int value)
+void AuraEffects::SetTaunt(int value) const
 {
     m_data[4] = value;
 }
@@ -223,7 +223,7 @@ int AuraEffects::GetCharge() const
     return m_data[5];
 }
 
-void AuraEffects::SetCharge(int value)
+void AuraEffects::SetCharge(int value) const
 {
     m_data[5] = value;
 }
@@ -233,7 +233,7 @@ int AuraEffects::GetRush() const
     return m_data[6];
 }
 
-void AuraEffects::SetRush(int value)
+void AuraEffects::SetRush(int value) const
 {
     m_data[6] = value;
 }
@@ -243,7 +243,7 @@ int AuraEffects::GetLifesteal() const
     return m_data[7];
 }
 
-void AuraEffects::SetLifesteal(int value)
+void AuraEffects::SetLifesteal(int value) const
 {
     m_data[7] = value;
 }
@@ -253,7 +253,7 @@ int AuraEffects::GetCantAttack() const
     return m_data[8];
 }
 
-void AuraEffects::SetCantAttack(int value)
+void AuraEffects::SetCantAttack(int value) const
 {
     m_data[8] = value;
 }

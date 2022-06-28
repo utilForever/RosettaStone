@@ -52,7 +52,8 @@ void OngoingEnchant::Update()
 void OngoingEnchant::Remove()
 {
     target->ongoingEffect = nullptr;
-    EraseIf(target->game->auras, [this](IAura* aura) { return aura == this; });
+    EraseIf(target->game->auras,
+            [this](const IAura* aura) { return aura == this; });
 }
 
 void OngoingEnchant::Clone(Playable* clone)

@@ -31,15 +31,15 @@ class Power
 {
  public:
     //! Returns aura.
-    IAura* GetAura();
+    IAura* GetAura() const;
 
     //! Returns enchant.
     //! \return A reference to enchant.
-    Enchant* GetEnchant();
+    Enchant* GetEnchant() const;
 
     //! Returns trigger.
     //! \return A reference to trigger.
-    Trigger* GetTrigger();
+    Trigger* GetTrigger() const;
 
     //! Returns a list of power tasks.
     //! \return A list of power tasks.
@@ -94,7 +94,7 @@ class Power
 
     //! Adds power task.
     //! \param task A pointer to power task.
-    void AddPowerTask(std::shared_ptr<ITask> task);
+    void AddPowerTask(const std::shared_ptr<ITask>& task);
 
     //! Adds a list of power task.
     //! \param tasks A list of power task.
@@ -102,7 +102,7 @@ class Power
 
     //! Adds deathrattle task.
     //! \param task A pointer to deathrattle task.
-    void AddDeathrattleTask(std::shared_ptr<ITask> task);
+    void AddDeathrattleTask(const std::shared_ptr<ITask>& task);
 
     //! Adds a list of deathrattle task.
     //! \param tasks A list of deathrattle task.
@@ -110,23 +110,23 @@ class Power
 
     //! Adds combo task.
     //! \param task A pointer to combo task.
-    void AddComboTask(std::shared_ptr<ITask> task);
+    void AddComboTask(const std::shared_ptr<ITask>& task);
 
     //! Adds topdeck task.
     //! \param task A pointer to topdeck task.
-    void AddTopdeckTask(std::shared_ptr<ITask> task);
+    void AddTopdeckTask(const std::shared_ptr<ITask>& task);
 
     //! Adds after choose task.
     //! \param task A pointer to after choose task.
-    void AddAfterChooseTask(std::shared_ptr<ITask> task);
+    void AddAfterChooseTask(const std::shared_ptr<ITask>& task);
 
     //! Adds outcast task.
     //! \param task A pointer to outcast task.
-    void AddOutcastTask(std::shared_ptr<ITask> task);
+    void AddOutcastTask(const std::shared_ptr<ITask>& task);
 
     //! Adds spellburst task.
     //! \param task A pointer to spellburst task.
-    void AddSpellburstTask(std::shared_ptr<ITask> task);
+    void AddSpellburstTask(const std::shared_ptr<ITask>& task);
 
     //! Adds a list of spellburst task.
     //! \param tasks A list of spellburst task.
@@ -134,7 +134,7 @@ class Power
 
     //! Adds frenzy task.
     //! \param task A pointer to frenzy task.
-    void AddFrenzyTask(std::shared_ptr<ITask> task);
+    void AddFrenzyTask(const std::shared_ptr<ITask>& task);
 
     //! Adds a list of frenzy task.
     //! \param tasks A list of frenzy task.
@@ -142,7 +142,7 @@ class Power
 
     //! Adds honorable kill task.
     //! \param task A pointer to honorable kill task.
-    void AddHonorableKillTask(std::shared_ptr<ITask> task);
+    void AddHonorableKillTask(const std::shared_ptr<ITask>& task);
 
     //! Adds a list of honorable kill task.
     //! \param tasks A list of honorable kill task.
