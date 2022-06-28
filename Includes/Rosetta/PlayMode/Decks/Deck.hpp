@@ -78,7 +78,7 @@ class Deck
 
     //! Returns a list of card IDs.
     //! \return A list of card IDs.
-    std::vector<std::string> GetCardIDs();
+    std::vector<std::string> GetCardIDs() const;
 
  private:
     FormatType m_formatType = FormatType::UNKNOWN;
