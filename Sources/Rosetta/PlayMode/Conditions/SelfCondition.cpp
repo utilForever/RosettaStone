@@ -279,31 +279,24 @@ SelfCondition SelfCondition::IsNotRace(Race race)
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
     return SelfCondition([race](const Playable* playable) {
-        for (auto& minion : playable->player->GetFieldZone()->GetAll())
-        {
-            if (minion->card->GetRace() == race)
-            {
-                return true;
-            }
-        }
+        auto minions = playable->player->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(minions.begin(), minions.end(),
+                           [&](const Minion* minion) {
+                               return minion->card->GetRace() == race;
+                           });
     });
 }
 
 SelfCondition SelfCondition::IsOpControllingRace(Race race)
 {
     return SelfCondition([race](const Playable* playable) {
-        for (auto& minion :
-             playable->player->opponent->GetFieldZone()->GetAll())
-        {
-            if (minion->card->GetRace() == race)
-            {
-                return true;
-            }
-        }
+        auto minions = playable->player->opponent->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(minions.begin(), minions.end(),
+                           [&](const Minion* minion) {
+                               return minion->card->GetRace() == race;
+                           });
     });
 }
 
@@ -324,92 +317,72 @@ SelfCondition SelfCondition::IsControllingQuest()
 SelfCondition SelfCondition::IsControllingStealthedMinion()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& minion : playable->player->GetFieldZone()->GetAll())
-        {
-            if (minion->HasStealth() == true)
-            {
-                return true;
-            }
-        }
+        auto minions = playable->player->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            minions.begin(), minions.end(),
+            [&](const Minion* minion) { return minion->HasStealth(); });
     });
 }
 
 SelfCondition SelfCondition::IsControllingLackey()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& minion : playable->player->GetFieldZone()->GetAll())
-        {
-            if (minion->card->IsLackey())
-            {
-                return true;
-            }
-        }
+        auto minions = playable->player->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            minions.begin(), minions.end(),
+            [&](const Minion* minion) { return minion->card->IsLackey(); });
     });
 }
 
 SelfCondition SelfCondition::IsControllingColaqueShell()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& minion : playable->player->GetFieldZone()->GetAll())
-        {
-            if (minion->card->id == "TSC_026t")
-            {
-                return true;
-            }
-        }
+        auto minions = playable->player->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(minions.begin(), minions.end(),
+                           [&](const Minion* minion) {
+                               return minion->card->id == "TSC_026t";
+                           });
     });
 }
 
 SelfCondition SelfCondition::IsHoldingSecret()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->IsSecret() == true)
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(cards.begin(), cards.end(),
+                           [&](const Playable* handCard) {
+                               return handCard->card->IsSecret();
+                           });
     });
 }
 
 SelfCondition SelfCondition::IsHoldingRace(Race race)
 {
     return SelfCondition([race](const Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->GetCardType() == CardType::MINION &&
-                handCard->card->GetRace() == race)
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::MINION &&
+                       handCard->card->GetRace() == race;
+            });
     });
 }
 
 SelfCondition SelfCondition::IsHoldingSpell(SpellSchool spellSchool)
 {
     return SelfCondition([spellSchool](const Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->GetCardType() == CardType::SPELL &&
-                handCard->card->GetSpellSchool() == spellSchool)
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::SPELL &&
+                       handCard->card->GetSpellSchool() == spellSchool;
+            });
     });
 }
 
@@ -429,17 +402,14 @@ SelfCondition SelfCondition::IsAnotherClassCard()
 SelfCondition SelfCondition::IsHoldingAnotherClassCard()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->GetCardClass() != CardClass::NEUTRAL &&
-                handCard->card->GetCardClass() !=
-                    playable->player->GetHero()->card->GetCardClass())
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardClass() != CardClass::NEUTRAL &&
+                       handCard->card->GetCardClass() !=
+                           playable->player->GetHero()->card->GetCardClass();
+            });
     });
 }
 
@@ -676,15 +646,12 @@ SelfCondition SelfCondition::HasInvokedTwice()
 SelfCondition SelfCondition::HasMinionInHand()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& card : playable->player->GetHandZone()->GetAll())
-        {
-            if (dynamic_cast<Minion*>(card))
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::MINION;
+            });
     });
 }
 
@@ -1079,15 +1046,10 @@ SelfCondition SelfCondition::IsNoDuplicateInDeck()
             cards.begin(), cards.end(),
             [&result](const Playable* val) { result[val->card->id]++; });
 
-        for (auto& res : result)
-        {
-            if (res.second >= 2)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return std::none_of(result.begin(), result.end(),
+                            [&](const std::pair<const std::string, int>& ret) {
+                                return ret.second >= 2;
+                            });
     });
 }
 
@@ -1096,15 +1058,10 @@ SelfCondition SelfCondition::HasNoMinionsInDeck()
     return SelfCondition([](const Playable* playable) {
         auto cards = playable->player->GetDeckZone()->GetAll();
 
-        for (auto& card : cards)
-        {
-            if (card->card->GetCardType() == CardType::MINION)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return std::none_of(
+            cards.begin(), cards.end(), [&](const Playable* deckCard) {
+                return deckCard->card->GetCardType() == CardType::MINION;
+            });
     });
 }
 
@@ -1120,15 +1077,10 @@ SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
     return SelfCondition([](const Playable* playable) {
         auto cards = playable->player->GetDeckZone()->GetAll();
 
-        for (auto& card : cards)
-        {
-            if (card->card->GetCardClass() == CardClass::NEUTRAL)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return std::none_of(
+            cards.begin(), cards.end(), [&](const Playable* deckCard) {
+                return deckCard->card->GetCardClass() == CardClass::NEUTRAL;
+            });
     });
 }
 
@@ -1157,66 +1109,51 @@ SelfCondition SelfCondition::HasNotSpellDamageOnHero()
 SelfCondition SelfCondition::Has5MoreCostSpellInHand()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->GetCardType() == CardType::SPELL &&
-                handCard->GetCost() >= 5)
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::SPELL &&
+                       handCard->GetCost() >= 5;
+            });
     });
 }
 
 SelfCondition SelfCondition::Has5MoreCostDemonInHand()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (auto minion = dynamic_cast<Minion*>(handCard); minion)
-            {
-                if (minion->card->GetRace() == Race::DEMON &&
-                    minion->GetCost() >= 5)
-                {
-                    return true;
-                }
-            }
-        }
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::MINION &&
+                       handCard->card->GetRace() == Race::DEMON &&
+                       handCard->GetCost() >= 5;
+            });
     });
 }
 
 SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& card : playable->player->cardsPlayedThisTurn)
-        {
-            if (card->GetCardType() == CardType::SPELL && card->GetCost() >= 5)
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->cardsPlayedThisTurn;
 
-        return false;
+        return std::any_of(cards.begin(), cards.end(), [&](const Card* card) {
+            return card->GetCardType() == CardType::SPELL &&
+                   card->GetCost() >= 5;
+        });
     });
 }
 
 SelfCondition SelfCondition::CastFelSpellInThisTurn()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& card : playable->player->cardsPlayedThisTurn)
-        {
-            if (card->GetCardType() == CardType::SPELL &&
-                card->GetSpellSchool() == SpellSchool::FEL)
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->cardsPlayedThisTurn;
 
-        return false;
+        return std::any_of(cards.begin(), cards.end(), [&](const Card* card) {
+            return card->GetCardType() == CardType::SPELL &&
+                   card->GetSpellSchool() >= SpellSchool::FEL;
+        });
     });
 }
 
@@ -1225,7 +1162,7 @@ SelfCondition SelfCondition::ControlThisCard(int num)
     return SelfCondition([num](const Playable* playable) {
         int count = 0;
 
-        for (auto& deckCard : playable->player->GetFieldZone()->GetAll())
+        for (const auto& deckCard : playable->player->GetFieldZone()->GetAll())
         {
             if (playable->card->dbfID == deckCard->card->dbfID)
             {
@@ -1240,30 +1177,24 @@ SelfCondition SelfCondition::ControlThisCard(int num)
 SelfCondition SelfCondition::HasSoulFragmentInDeck()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& deckCard : playable->player->GetDeckZone()->GetAll())
-        {
-            if (deckCard->card->dbfID == 59723)
-            {
-                return true;
-            }
-        }
+        auto cards = playable->player->GetDeckZone()->GetAll();
 
-        return false;
+        return std::any_of(cards.begin(), cards.end(),
+                           [&](const Playable* deckCard) {
+                               return deckCard->card->dbfID == 59723;
+                           });
     });
 }
 
 SelfCondition SelfCondition::NotExistInSecretZone()
 {
     return SelfCondition([](const Playable* playable) {
-        for (auto& secretCard : playable->player->GetSecretZone()->GetAll())
-        {
-            if (playable->card->dbfID == secretCard->card->dbfID)
-            {
-                return false;
-            }
-        }
+        auto secrets = playable->player->GetSecretZone()->GetAll();
 
-        return true;
+        return std::none_of(
+            secrets.begin(), secrets.end(), [&](const Spell* secretCard) {
+                return secretCard->card->dbfID == playable->card->dbfID;
+            });
     });
 }
 
