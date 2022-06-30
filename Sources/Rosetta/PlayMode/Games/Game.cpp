@@ -159,7 +159,7 @@ void Game::Initialize()
     }
 }
 
-std::array<Card*, START_DECK_SIZE> Game::GetPlayerDeck(PlayerType type)
+std::array<Card*, START_DECK_SIZE> Game::GetPlayerDeck(PlayerType type) const
 {
     return type == PlayerType::PLAYER1 ? m_gameConfig.player1Deck
                                        : m_gameConfig.player2Deck;
@@ -291,11 +291,12 @@ void Game::BeginMulligan()
 
     // Collect cards that can redraw
     std::vector<int> p1HandIDs, p2HandIDs;
-    for (auto& entity : GetPlayer1()->GetHandZone()->GetAll())
+
+    for (const auto& entity : GetPlayer1()->GetHandZone()->GetAll())
     {
         p1HandIDs.emplace_back(entity->GetGameTag(GameTag::ENTITY_ID));
     }
-    for (auto& entity : GetPlayer2()->GetHandZone()->GetAll())
+    for (const auto& entity : GetPlayer2()->GetHandZone()->GetAll())
     {
         p2HandIDs.emplace_back(entity->GetGameTag(GameTag::ENTITY_ID));
     }
@@ -334,7 +335,7 @@ void Game::MainReady()
         player.GetHero()->SetNumAttacksThisTurn(0);
 
         // Field
-        for (auto& minion : player.GetFieldZone()->GetAll())
+        for (const auto& minion : player.GetFieldZone()->GetAll())
         {
             minion->SetNumAttacksThisTurn(0);
         }
@@ -363,9 +364,9 @@ void Game::MainReady()
     }
 
     // Field
-    for (auto& m : curPlayer->GetFieldZone()->GetAll())
+    for (const auto& minion : curPlayer->GetFieldZone()->GetAll())
     {
-        m->SetExhausted(false);
+        minion->SetExhausted(false);
     }
 
     // Player
@@ -516,10 +517,10 @@ void Game::MainCleanUp()
         }
     }
 
-    for (auto& effectPair : oneTurnEffects)
+    for (const auto& effectPair : oneTurnEffects)
     {
         Entity* entity = effectPair.first;
-        IEffect* effect = effectPair.second;
+        const IEffect* effect = effectPair.second;
 
         effect->RemoveFrom(entity);
     }
@@ -527,14 +528,16 @@ void Game::MainCleanUp()
 
     // Unfreeze all characters they control that are Frozen, don't have
     // summoning sickness (or do have Charge) and have not attacked that turn
+
     // Hero
     if (curPlayer->GetHero()->IsFrozen() &&
         curPlayer->GetHero()->GetNumAttacksThisTurn() == 0)
     {
         curPlayer->GetHero()->SetGameTag(GameTag::FROZEN, 0);
     }
+
     // Field
-    for (auto& minion : curPlayer->GetFieldZone()->GetAll())
+    for (const auto& minion : curPlayer->GetFieldZone()->GetAll())
     {
         if (minion->IsFrozen() && minion->GetNumAttacksThisTurn() == 0 &&
             !minion->IsExhausted())
@@ -563,6 +566,7 @@ void Game::MainNext()
 
     // Set next step
     nextStep = Step::MAIN_READY;
+
     if (m_gameConfig.autoRun)
     {
         GameManager::ProcessNextStep(*this, nextStep);
@@ -584,6 +588,7 @@ void Game::FinalWrapUp()
 
     // Set next step
     nextStep = Step::FINAL_GAMEOVER;
+
     GameManager::ProcessNextStep(*this, nextStep);
 }
 
@@ -597,6 +602,7 @@ void Game::Start()
 {
     // Set next step
     nextStep = Step::BEGIN_FIRST;
+
     if (m_gameConfig.autoRun)
     {
         GameManager::ProcessNextStep(*this, nextStep);
@@ -617,7 +623,7 @@ void Game::ProcessDestroyAndUpdateAura()
 
     // Process summoned minions
     taskQueue.StartEvent();
-    for (auto& minion : summonedMinions)
+    for (const auto& minion : summonedMinions)
     {
         triggerManager.OnSummonTrigger(minion);
     }
@@ -700,7 +706,7 @@ void Game::ProcessReborn()
 {
     if (!rebornMinions.empty())
     {
-        for (auto& rebornMinion : rebornMinions)
+        for (const auto& rebornMinion : rebornMinions)
         {
             Generic::SummonReborn(rebornMinion.second);
         }
@@ -709,7 +715,7 @@ void Game::ProcessReborn()
     }
 }
 
-void Game::UpdateAura()
+void Game::UpdateAura() const
 {
     const int auraSize = static_cast<int>(auras.size());
     if (auraSize == 0)

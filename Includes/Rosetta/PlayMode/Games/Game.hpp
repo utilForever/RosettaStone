@@ -57,7 +57,7 @@ class Game
 
     //! Gets player's deck.
     //! \param type The player type to get deck.
-    std::array<Card*, START_DECK_SIZE> GetPlayerDeck(PlayerType type);
+    std::array<Card*, START_DECK_SIZE> GetPlayerDeck(PlayerType type) const;
 
     //! Returns the format type of the game.
     //! \return The format type of the game.
@@ -163,7 +163,7 @@ class Game
     void ProcessReborn();
 
     //! Updates aura.
-    void UpdateAura();
+    void UpdateAura() const;
 
     //! Process the specified task.
     //! \param player A player to run task.
