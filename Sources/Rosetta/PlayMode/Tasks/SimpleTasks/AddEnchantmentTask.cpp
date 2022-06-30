@@ -49,7 +49,8 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
 
     if (m_entityType == EntityType::PLAYER)
     {
-        Generic::AddEnchantment(m_enchantmentCard, source, player, num1, num2, entityID);
+        Generic::AddEnchantment(m_enchantmentCard, source, player, num1, num2,
+                                entityID);
         return TaskStatus::COMPLETE;
     }
 
@@ -60,7 +61,7 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
         return TaskStatus::COMPLETE;
     }
 
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
@@ -70,8 +71,8 @@ TaskStatus AddEnchantmentTask::Impl(Player* player)
             continue;
         }
 
-        Generic::AddEnchantment(m_enchantmentCard, source, playable, num1,
-                                num2, entityID);
+        Generic::AddEnchantment(m_enchantmentCard, source, playable, num1, num2,
+                                entityID);
     }
 
     return TaskStatus::COMPLETE;

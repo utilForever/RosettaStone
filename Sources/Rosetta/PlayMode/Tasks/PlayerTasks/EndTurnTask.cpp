@@ -12,7 +12,7 @@ namespace RosettaStone::PlayMode::PlayerTasks
 {
 TaskStatus EndTurnTask::Impl(Player* player)
 {
-    auto game = player->game;
+    Game* game = player->game;
 
     game->nextStep = Step::MAIN_END;
     GameManager::ProcessNextStep(*game, game->nextStep);
