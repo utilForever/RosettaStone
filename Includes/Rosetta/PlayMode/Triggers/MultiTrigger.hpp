@@ -28,7 +28,7 @@ class MultiTrigger : public Trigger
     //! \param prototype The multi trigger for prototype.
     //! \param owner The owner of multi trigger.
     MultiTrigger(std::vector<std::shared_ptr<Trigger>> triggers,
-                 MultiTrigger& prototype, Entity& owner);
+                 const MultiTrigger& prototype, Entity& owner);
 
     //! Creates a new instance of MultiTrigger object in source's game.
     //! \param source The source of trigger.

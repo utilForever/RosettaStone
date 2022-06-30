@@ -17,7 +17,7 @@ MultiTrigger::MultiTrigger(std::vector<std::shared_ptr<Trigger>> triggers)
 }
 
 MultiTrigger::MultiTrigger(std::vector<std::shared_ptr<Trigger>> triggers,
-                           MultiTrigger& prototype, Entity& owner)
+                           const MultiTrigger& prototype, Entity& owner)
     : Trigger(prototype, owner), m_triggers(std::move(triggers))
 {
     // Do nothing
@@ -32,7 +32,7 @@ std::shared_ptr<Trigger> MultiTrigger::Activate(Playable* source,
 
     bool flag = false;
 
-    for (auto& trigger : m_triggers)
+    for (const auto& trigger : m_triggers)
     {
         if (auto trig = trigger->Activate(source, activation, cloning, true);
             trig)
@@ -59,7 +59,7 @@ std::shared_ptr<Trigger> MultiTrigger::Activate(Playable* source,
 
 void MultiTrigger::Remove()
 {
-    for (auto& trigger : m_triggers)
+    for (const auto& trigger : m_triggers)
     {
         trigger->Remove();
     }

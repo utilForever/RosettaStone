@@ -718,8 +718,6 @@ void Trigger::Validate(Entity* source)
             }
             break;
         }
-        default:
-            break;
     }
 
     switch (m_triggerType)
