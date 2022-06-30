@@ -67,7 +67,7 @@ class DeckZone : public LimitedZone<Playable>
     //! Both entities must be contained by this zone.
     //! \param entity1 The one entity.
     //! \param entity2 The other entity.
-    void Swap(Playable* entity1, Playable* entity2) const;
+    void Swap(const Playable* entity1, const Playable* entity2) const;
 };
 }  // namespace RosettaStone::PlayMode
 

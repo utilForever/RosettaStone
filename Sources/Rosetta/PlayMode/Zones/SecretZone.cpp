@@ -47,7 +47,7 @@ void SecretZone::ChangeEntity([[maybe_unused]] Playable* oldEntity,
     throw std::logic_error("SecretZone::ChangeEntity() - Not implemented!");
 }
 
-bool SecretZone::Exist(Playable* entity) const
+bool SecretZone::Exist(const Playable* entity) const
 {
     for (int i = 0; i < m_count; ++i)
     {
