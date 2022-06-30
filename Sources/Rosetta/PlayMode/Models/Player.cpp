@@ -35,6 +35,7 @@ Player::~Player()
     {
         delete m_hero->heroPower;
     }
+
     delete m_hero;
 }
 

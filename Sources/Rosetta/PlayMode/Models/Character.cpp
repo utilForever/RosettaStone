@@ -16,9 +16,9 @@
 
 namespace RosettaStone::PlayMode
 {
-Character::Character(Player* player, Card* card, std::map<GameTag, int> tags,
+Character::Character(Player* _player, Card* _card, std::map<GameTag, int> tags,
                      int id)
-    : Playable(player, card, std::move(tags), id)
+    : Playable(_player, _card, std::move(tags), id)
 {
     // Do nothing
 }
@@ -185,7 +185,8 @@ bool Character::CantAttackHeroes() const
     return static_cast<bool>(GetGameTag(GameTag::CANNOT_ATTACK_HEROES));
 }
 
-bool Character::IsValidAttackTarget(Player* opponent, Character* target) const
+bool Character::IsValidAttackTarget(const Player* opponent,
+                                    Character* target) const
 {
     auto targets = GetValidAttackTargets(opponent);
     if (std::find(targets.begin(), targets.end(), target) == targets.end())
@@ -210,7 +211,8 @@ bool Character::IsValidAttackTarget(Player* opponent, Character* target) const
     return true;
 }
 
-std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
+std::vector<Character*> Character::GetValidAttackTargets(
+    const Player* opponent) const
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;

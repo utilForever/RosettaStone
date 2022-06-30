@@ -21,12 +21,12 @@ namespace RosettaStone::PlayMode
 class Weapon : public Playable
 {
  public:
-    //! Constructs weapon with given \p player, \p card, \p tags and \p id.
-    //! \param player The owner of the card.
-    //! \param card The card.
+    //! Constructs weapon with given \p _player, \p _card, \p tags and \p id.
+    //! \param _player The owner of the card.
+    //! \param _card The card.
     //! \param tags The game tags.
     //! \param id The ID.
-    Weapon(Player* player, Card* card, std::map<GameTag, int> tags,
+    Weapon(Player* _player, Card* _card, std::map<GameTag, int> tags,
            int id = -1);
 
     //! Destructor.

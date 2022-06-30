@@ -11,16 +11,16 @@
 
 namespace RosettaStone::PlayMode
 {
-HeroPower::HeroPower(Player* player, Card* card, std::map<GameTag, int> tags,
+HeroPower::HeroPower(Player* _player, Card* _card, std::map<GameTag, int> tags,
                      int id)
-    : Playable(player, card, std::move(tags), id)
+    : Playable(_player, _card, std::move(tags), id)
 {
     // Do nothing
 }
 
-bool HeroPower::TargetingRequirements(Card* card, Character* target) const
+bool HeroPower::TargetingRequirements(Card* _card, Character* target) const
 {
     return !target->GetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS) &&
-           Playable::TargetingRequirements(card, target);
+           Playable::TargetingRequirements(_card, target);
 }
 }  // namespace RosettaStone::PlayMode

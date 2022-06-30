@@ -13,10 +13,10 @@
 
 namespace RosettaStone::PlayMode
 {
-Enchantment::Enchantment(Player* player, Card* card,
+Enchantment::Enchantment(Player* _player, Card* _card,
                          std::map<GameTag, int> tags, Playable* owner,
                          Entity* target, int id)
-    : Playable(player, card, std::move(tags), id),
+    : Playable(_player, _card, std::move(tags), id),
       m_owner(owner),
       m_target(target)
 {
@@ -24,7 +24,7 @@ Enchantment::Enchantment(Player* player, Card* card,
 }
 
 std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
-                                                      Card* card,
+                                                      Card* _card,
                                                       Entity* target, int num1,
                                                       int num2)
 {
@@ -45,12 +45,12 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
         }
     }
 
-    auto instance = std::make_shared<Enchantment>(owner->player, card, tags,
+    auto instance = std::make_shared<Enchantment>(owner->player, _card, tags,
                                                   owner, target, id);
 
     target->appliedEnchantments.emplace_back(instance);
 
-    if (card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] == 1)
+    if (_card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] == 1)
     {
         instance->m_isOneTurnActive = true;
         owner->game->oneTurnEffectEnchantments.emplace_back(instance);
@@ -58,7 +58,7 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
 
     instance->orderOfPlay = owner->game->GetNextOOP();
 
-    if (!card->power.GetDeathrattleTask().empty())
+    if (!_card->power.GetDeathrattleTask().empty())
     {
         dynamic_cast<Playable*>(target)->SetGameTag(GameTag::DEATHRATTLE, 1);
     }
@@ -96,9 +96,9 @@ Card* Enchantment::GetCapturedCard() const
     return m_capturedCard;
 }
 
-void Enchantment::SetCapturedCard(Card* card)
+void Enchantment::SetCapturedCard(Card* _card)
 {
-    m_capturedCard = card;
+    m_capturedCard = _card;
 }
 
 void Enchantment::Remove()
@@ -107,7 +107,7 @@ void Enchantment::Remove()
         !deathrattleTask.empty() &&
         m_target->zone->GetType() == ZoneType::GRAVEYARD)
     {
-        for (auto& power : card->power.GetDeathrattleTask())
+        for (const auto& power : card->power.GetDeathrattleTask())
         {
             std::unique_ptr<ITask> clonedPower = power->Clone();
 

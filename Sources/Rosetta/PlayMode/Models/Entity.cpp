@@ -4,7 +4,6 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Entity.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
