@@ -8,60 +8,73 @@
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
+#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 #include <stdexcept>
-
-#include "Rosetta/PlayMode/Zones/DeckZone.hpp"
 
 namespace RosettaStone::PlayMode
 {
 TargetingPredicate TargetingPredicates::ReqMurlocTarget()
 {
-    return [](Character* character) { return character->IsRace(Race::MURLOC); };
+    return [](const Character* character) {
+        return character->IsRace(Race::MURLOC);
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqDemonTarget()
 {
-    return [](Character* character) { return character->IsRace(Race::DEMON); };
+    return [](const Character* character) {
+        return character->IsRace(Race::DEMON);
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqMechanicalTarget()
 {
-    return [](Character* character) {
+    return [](const Character* character) {
         return character->IsRace(Race::MECHANICAL);
     };
 }
 
 TargetingPredicate TargetingPredicates::ReqElementalTarget()
 {
-    return
-        [](Character* character) { return character->IsRace(Race::ELEMENTAL); };
+    return [](const Character* character) {
+        return character->IsRace(Race::ELEMENTAL);
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqBeastTarget()
 {
-    return [](Character* character) { return character->IsRace(Race::BEAST); };
+    return [](const Character* character) {
+        return character->IsRace(Race::BEAST);
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqTotemTarget()
 {
-    return [](Character* character) { return character->IsRace(Race::TOTEM); };
+    return [](const Character* character) {
+        return character->IsRace(Race::TOTEM);
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqPirateTarget()
 {
-    return [](Character* character) { return character->IsRace(Race::PIRATE); };
+    return [](const Character* character) {
+        return character->IsRace(Race::PIRATE);
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqDragonTarget()
 {
-    return [](Character* character) { return character->IsRace(Race::DRAGON); };
+    return [](const Character* character) {
+        return character->IsRace(Race::DRAGON);
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqLackeyTarget()
 {
-    return [](Character* character) { return character->card->IsLackey(); };
+    return
+        [](const Character* character) { return character->card->IsLackey(); };
 }
 
 TargetingPredicate TargetingPredicates::ReqTargetWithRace(Race race)
@@ -96,24 +109,26 @@ TargetingPredicate TargetingPredicates::ReqTargetWithRace(Race race)
 
 TargetingPredicate TargetingPredicates::ReqTargetWithDeathrattle()
 {
-    return [](Character* character) { return character->HasDeathrattle(); };
+    return
+        [](const Character* character) { return character->HasDeathrattle(); };
 }
 
 TargetingPredicate TargetingPredicates::ReqLegendaryTarget()
 {
-    return [](Character* character) {
+    return [](const Character* character) {
         return character->card->GetRarity() == Rarity::LEGENDARY;
     };
 }
 
 TargetingPredicate TargetingPredicates::ReqDamagedTarget()
 {
-    return [](Character* character) { return character->GetDamage() > 0; };
+    return
+        [](const Character* character) { return character->GetDamage() > 0; };
 }
 
 TargetingPredicate TargetingPredicates::ReqDamagedTargetUnlessCombo()
 {
-    return [](Character* character) {
+    return [](const Character* character) {
         if (character->game->GetCurrentPlayer()->IsComboActive())
         {
             return true;
@@ -125,24 +140,27 @@ TargetingPredicate TargetingPredicates::ReqDamagedTargetUnlessCombo()
 
 TargetingPredicate TargetingPredicates::ReqUndamagedTarget()
 {
-    return [](Character* character) { return character->GetDamage() == 0; };
+    return
+        [](const Character* character) { return character->GetDamage() == 0; };
 }
 
 TargetingPredicate TargetingPredicates::ReqTargetMaxAttack(int value)
 {
-    return
-        [=](Character* character) { return character->GetAttack() <= value; };
+    return [=](const Character* character) {
+        return character->GetAttack() <= value;
+    };
 }
 
 TargetingPredicate TargetingPredicates::ReqTargetMinAttack(int value)
 {
-    return
-        [=](Character* character) { return character->GetAttack() >= value; };
+    return [=](const Character* character) {
+        return character->GetAttack() >= value;
+    };
 }
 
 AvailabilityPredicate TargetingPredicates::ReqTargetForCombo()
 {
-    return [](Player* player, [[maybe_unused]] Card* card) {
+    return [](const Player* player, [[maybe_unused]] Card* card) {
         return player->IsComboActive();
     };
 }
@@ -157,21 +175,21 @@ TargetingPredicate TargetingPredicates::ReqMustTargetTaunter()
 
 AvailabilityPredicate TargetingPredicates::MinimumFriendlySecrets(int value)
 {
-    return [=](Player* player, [[maybe_unused]] Card* card) {
+    return [=](const Player* player, [[maybe_unused]] Card* card) {
         return player->GetSecretZone()->GetCount() >= value;
     };
 }
 
 AvailabilityPredicate TargetingPredicates::ElementalPlayedLastTurn()
 {
-    return [=](Player* player, [[maybe_unused]] Card* card) {
+    return [=](const Player* player, [[maybe_unused]] Card* card) {
         return player->GetNumElementalPlayedLastTurn() > 0;
     };
 }
 
 AvailabilityPredicate TargetingPredicates::MaximumCardsInDeck(int value)
 {
-    return [=](Player* player, [[maybe_unused]] Card* card) {
+    return [=](const Player* player, [[maybe_unused]] Card* card) {
         return player->GetDeckZone()->GetCount() <= value;
     };
 }

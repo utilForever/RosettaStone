@@ -10,9 +10,9 @@
 
 namespace RosettaStone::PlayMode
 {
-void InternalCardLoader::Load(std::vector<Card*>& cards)
+void InternalCardLoader::Load(const std::vector<Card*>& cards)
 {
-    for (auto& card : cards)
+    for (const auto& card : cards)
     {
         const auto cardDef = CardDefs::GetInstance().FindCardDefByID(card->id);
 
