@@ -24,7 +24,7 @@ void CostManager::QueueUpdate()
 
 int CostManager::EntityChanged(int newCardCost)
 {
-    for (auto& enchantment : m_costEnchantments)
+    for (const auto& enchantment : m_costEnchantments)
     {
         switch (enchantment.first)
         {
