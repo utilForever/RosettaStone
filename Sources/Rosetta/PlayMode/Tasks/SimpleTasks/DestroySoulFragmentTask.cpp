@@ -12,7 +12,7 @@ namespace RosettaStone::PlayMode::SimpleTasks
 {
 TaskStatus DestroySoulFragmentTask::Impl(Player* player)
 {
-    for (auto& deckCard : player->GetDeckZone()->GetAll())
+    for (const auto& deckCard : player->GetDeckZone()->GetAll())
     {
         if (deckCard->card->dbfID == 59723)
         {

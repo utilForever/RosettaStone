@@ -44,8 +44,9 @@ TaskStatus CountTask::Impl(Player* player)
     {
         if (m_zoneType == ZoneType::PLAY)
         {
-            FieldZone* zone = m_opponent ? player->opponent->GetFieldZone()
-                                         : player->GetFieldZone();
+            const FieldZone* zone = m_opponent
+                                        ? player->opponent->GetFieldZone()
+                                        : player->GetFieldZone();
             player->game->taskStack.num[0] =
                 m_getFreeSpace ? zone->GetFreeSpace() : zone->GetCount();
         }

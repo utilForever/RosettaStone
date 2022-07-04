@@ -19,7 +19,7 @@ ControlTask::ControlTask(EntityType entityType, bool opposite)
 
 TaskStatus ControlTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)

@@ -19,12 +19,12 @@ ApplyEffectTask::ApplyEffectTask(EntityType entityType,
 
 TaskStatus ApplyEffectTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
     {
-        for (auto& effect : m_effects)
+        for (const auto& effect : m_effects)
         {
             effect->ApplyTo(playable);
         }
