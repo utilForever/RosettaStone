@@ -17,6 +17,7 @@ DrawStackTask::DrawStackTask(bool addToStack) : m_addToStack(addToStack)
 TaskStatus DrawStackTask::Impl(Player* player)
 {
     std::vector<Playable*>& playables = player->game->taskStack.playables;
+
     for (const auto& card : playables)
     {
         Generic::Draw(player, card);

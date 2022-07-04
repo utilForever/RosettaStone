@@ -16,6 +16,7 @@ GetPlayerGameTagTask::GetPlayerGameTagTask(GameTag tag) : m_gameTag(tag)
 TaskStatus GetPlayerGameTagTask::Impl(Player* player)
 {
     player->game->taskStack.num[0] = player->GetGameTag(m_gameTag);
+
     return TaskStatus::COMPLETE;
 }
 

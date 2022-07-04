@@ -56,13 +56,13 @@ TaskStatus DrawSpellTask::Impl(Player* player)
 
     auto deckCards = player->GetDeckZone()->GetAll();
 
-    EraseIf(deckCards, [=](Playable* playable) {
+    EraseIf(deckCards, [=](const Playable* playable) {
         return playable->card->GetCardType() != CardType::SPELL;
     });
 
     if (m_spellSchool != SpellSchool::NONE)
     {
-        EraseIf(deckCards, [=](Playable* playable) {
+        EraseIf(deckCards, [=](const Playable* playable) {
             return playable->card->GetSpellSchool() != m_spellSchool;
         });
     }
