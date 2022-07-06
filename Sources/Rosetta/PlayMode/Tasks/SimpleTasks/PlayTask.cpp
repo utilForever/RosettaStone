@@ -28,6 +28,7 @@ TaskStatus PlayTask::Impl(Player* player)
         for (const auto& playable : player->game->taskStack.playables)
         {
             const auto spell = dynamic_cast<Spell*>(playable);
+
             if (!spell)
             {
                 throw std::runtime_error("PlayTask::Impl() - Spell is nullptr");
@@ -64,6 +65,7 @@ TaskStatus PlayTask::Impl(Player* player)
                 auto choices = spellPlayer->choice->choices;
                 const auto idx =
                     Random::get<std::size_t>(0, choices.size() - 1);
+
                 Generic::ChoicePick(spellPlayer, choices[idx]);
             }
         }

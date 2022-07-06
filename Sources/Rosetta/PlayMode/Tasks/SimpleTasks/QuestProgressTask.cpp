@@ -72,6 +72,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
         {
             const auto source = player->game->currentEventData->eventSource;
             const auto cost = source->GetCost();
+
             for (int i = 0; i < cost; ++i)
             {
                 spell->IncreaseQuestProgress();
@@ -87,6 +88,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
         case ProgressType::RESTORE_HEALTH:
         case ProgressType::GAIN_ATTACK:
             const int amount = player->game->currentEventData->eventNumber;
+
             for (int i = 0; i < amount; ++i)
             {
                 spell->IncreaseQuestProgress();

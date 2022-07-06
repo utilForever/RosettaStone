@@ -29,6 +29,7 @@ TaskStatus InvokeTask::Impl(Player* player)
     const auto heroPower = Cards::FindCardByDbfID(
         player->galakrond->GetGameTag(GameTag::HERO_POWER));
     const auto heroPowerTasks = heroPower->power.GetPowerTask();
+    
     for (const auto& task : heroPowerTasks)
     {
         const std::unique_ptr<ITask> clonedTask = task->Clone();

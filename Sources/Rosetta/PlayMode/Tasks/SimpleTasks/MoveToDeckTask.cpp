@@ -17,7 +17,7 @@ MoveToDeckTask::MoveToDeckTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus MoveToDeckTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
