@@ -84,10 +84,10 @@ TaskStatus RandomSpellTask::Impl(Player* player)
                !result.empty())
         {
             const auto idx = Random::get<std::size_t>(0, list.size() - 1);
-            auto card = Entity::GetFromCard(
+            const auto card = Entity::GetFromCard(
                 m_opposite ? player->opponent : player, list.at(idx));
 
-            list.erase(list.begin() + idx);
+            list.erase(list.begin() + static_cast<std::ptrdiff_t>(idx));
 
             randomSpells.emplace_back(card);
         }
@@ -95,8 +95,9 @@ TaskStatus RandomSpellTask::Impl(Player* player)
     else
     {
         const auto idx = Random::get<std::size_t>(0, result.size() - 1);
-        auto card = Entity::GetFromCard(m_opposite ? player->opponent : player,
-                                        result.at(idx));
+        const auto card = Entity::GetFromCard(
+            m_opposite ? player->opponent : player, result.at(idx));
+
         randomSpells.emplace_back(card);
     }
 
