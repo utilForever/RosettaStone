@@ -18,12 +18,12 @@ ReturnHandTask::ReturnHandTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus ReturnHandTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
     {
-        if (playable->player->GetHandZone()->IsFull()) 
+        if (playable->player->GetHandZone()->IsFull())
         {
             playable->Destroy();
         }
@@ -31,6 +31,7 @@ TaskStatus ReturnHandTask::Impl(Player* player)
         {
             playable->zone->Remove(playable);
             playable->Reset();
+
             Generic::AddCardToHand(playable->player, playable);
         }
     }
