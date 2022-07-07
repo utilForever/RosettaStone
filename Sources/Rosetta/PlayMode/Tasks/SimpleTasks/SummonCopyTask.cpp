@@ -55,8 +55,8 @@ TaskStatus SummonCopyTask::Impl(Player* player)
     int space = MAX_FIELD_SIZE - field->GetCount();
     int alternateCount = 0;
 
-    const auto playablesSize = static_cast<int>(playables.size());
-    space = playablesSize > space ? space : playablesSize;
+    const auto size = static_cast<int>(playables.size());
+    space = std::min(space, size);
 
     if (!playables[0]->zone || playables[0]->zone->GetType() != ZoneType::PLAY)
     {
@@ -69,11 +69,10 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
             const auto minion = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, playables[i]->card));
+            const int pos = SummonTask::GetPosition(m_source, m_side, m_target,
+                                                    alternateCount);
 
-            Generic::Summon(minion,
-                            SummonTask::GetPosition(m_source, m_side, m_target,
-                                                    alternateCount),
-                            m_source);
+            Generic::Summon(minion, pos, m_source);
 
             if (m_addToStack)
             {
@@ -83,7 +82,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
     }
     else
     {
-        for (int i = 0; i < playablesSize; ++i)
+        for (int i = 0; i < size; ++i)
         {
             if (field->IsFull())
             {
@@ -97,13 +96,13 @@ TaskStatus SummonCopyTask::Impl(Player* player)
                 minion->SetGameTag(GameTag::CONTROLLER, player->playerID);
             }
 
-            const int zonePos = SummonTask::GetPosition(
-                m_source, m_side, m_target, alternateCount);
-
+            const int pos = SummonTask::GetPosition(m_source, m_side, m_target,
+                                                    alternateCount);
             const auto copy = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, minion->card, minion->GetGameTags(),
                                     player->GetFieldZone()));
-            Generic::Summon(copy, zonePos, m_source);
+
+            Generic::Summon(copy, pos, m_source);
             minion->CopyInternalAttributes(copy);
 
             if (!minion->appliedEnchantments.empty())

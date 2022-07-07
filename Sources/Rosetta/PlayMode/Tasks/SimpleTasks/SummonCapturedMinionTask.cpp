@@ -24,9 +24,9 @@ TaskStatus SummonCapturedMinionTask::Impl(Player* player)
             "Enchantment!");
     }
 
-    Card* card = enchantment->GetCapturedCard();
+    Card* capturedCard = enchantment->GetCapturedCard();
 
-    if (!card)
+    if (!capturedCard)
     {
         throw std::invalid_argument(
             "SummonCapturedMinionTask::Impl() - Enchantment doesn't "
@@ -34,7 +34,7 @@ TaskStatus SummonCapturedMinionTask::Impl(Player* player)
     }
 
     const auto minion =
-        dynamic_cast<Minion*>(Entity::GetFromCard(player, card));
+        dynamic_cast<Minion*>(Entity::GetFromCard(player, capturedCard));
     int alternateCount = 0;
     const int summonPos = SummonTask::GetPosition(
         m_source, SummonSide::DEATHRATTLE, m_target, alternateCount);

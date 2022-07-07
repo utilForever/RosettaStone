@@ -86,13 +86,12 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
         }
         case SummonSide::DEATHRATTLE:
         {
-            if (const auto minion = dynamic_cast<Minion*>(source); minion)
+            if (const auto minion = dynamic_cast<Minion*>(source))
             {
                 summonPos = minion->GetLastBoardPos();
             }
             else if (const auto enchantment =
-                         dynamic_cast<Enchantment*>(source);
-                     enchantment)
+                         dynamic_cast<Enchantment*>(source))
             {
                 const auto enchantmentTarget =
                     dynamic_cast<Minion*>(enchantment->GetTarget());
@@ -117,9 +116,9 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
         }
         case SummonSide::TARGET:
         {
-            if (const auto tgt = dynamic_cast<Playable*>(target))
+            if (const auto _target = dynamic_cast<Playable*>(target))
             {
-                summonPos = tgt->GetZonePosition() + 1;
+                summonPos = _target->GetZonePosition() + 1;
             }
             else
             {
@@ -131,6 +130,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
         case SummonSide::ALTERNATE_FRIENDLY:
         {
             const auto src = dynamic_cast<Playable*>(source);
+
             if (alternateCount % 2 == 0)
             {
                 summonPos = src->GetZonePosition() - alternateCount / 2;
@@ -139,6 +139,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
             {
                 summonPos = src->GetZonePosition() + alternateCount / 2 + 1;
             }
+
             alternateCount++;
             break;
         }
@@ -153,6 +154,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
                 summonPos =
                     source->player->opponent->GetFieldZone()->GetCount();
             }
+
             alternateCount++;
             break;
         }
@@ -194,6 +196,7 @@ TaskStatus SummonTask::Impl(Player* player)
         }
 
         Minion* summonEntity = nullptr;
+
         if (m_card.has_value())
         {
             summonEntity = dynamic_cast<Minion*>(
@@ -221,11 +224,8 @@ TaskStatus SummonTask::Impl(Player* player)
             return TaskStatus::STOP;
         }
 
-        int summonPos = GetPosition(m_source, m_side, m_target, alternateCount);
-        if (summonPos > player->GetFieldZone()->GetCount())
-        {
-            summonPos = player->GetFieldZone()->GetCount();
-        }
+        const int pos = GetPosition(m_source, m_side, m_target, alternateCount);
+        const int summonPos = std::min(pos, player->GetFieldZone()->GetCount());
 
         if (summonEntity->IsUntouchable())
         {
