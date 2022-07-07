@@ -47,7 +47,7 @@ SummonTask::SummonTask(const std::string& cardID, int amount, SummonSide side,
 int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
                             int& alternateCount)
 {
-    int summonPos;
+    int summonPos = -1;
 
     switch (side)
     {
@@ -158,9 +158,6 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
             alternateCount++;
             break;
         }
-        default:
-            throw std::invalid_argument(
-                "SummonTask::Impl() - Invalid summon side");
     }
 
     return summonPos;
