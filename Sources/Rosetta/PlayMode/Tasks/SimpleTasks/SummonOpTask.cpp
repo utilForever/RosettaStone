@@ -27,7 +27,7 @@ SummonOpTask::SummonOpTask(const std::string& cardID, int amount,
 
 TaskStatus SummonOpTask::Impl(Player* player)
 {
-    TaskStack stack = player->game->taskStack;
+    const TaskStack stack = player->game->taskStack;
 
     if (!m_card.has_value() && stack.playables.empty())
     {

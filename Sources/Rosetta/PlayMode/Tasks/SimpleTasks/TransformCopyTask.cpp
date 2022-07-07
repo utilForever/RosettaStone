@@ -27,6 +27,7 @@ TaskStatus TransformCopyTask::Impl(Player* player)
     }
 
     const auto source = dynamic_cast<Minion*>(m_toTarget ? m_target : m_source);
+
     if (source->GetZoneType() != ZoneType::PLAY)
     {
         return TaskStatus::STOP;

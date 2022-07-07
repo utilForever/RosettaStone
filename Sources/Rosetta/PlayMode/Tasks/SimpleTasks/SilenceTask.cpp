@@ -21,7 +21,7 @@ TaskStatus SilenceTask::Impl(Player* player)
 
     for (auto& playable : playables)
     {
-        if (auto minion = dynamic_cast<Minion*>(playable))
+        if (const auto minion = dynamic_cast<Minion*>(playable))
         {
             minion->Silence();
         }

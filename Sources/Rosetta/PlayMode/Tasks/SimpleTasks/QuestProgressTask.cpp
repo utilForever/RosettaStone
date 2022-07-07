@@ -138,9 +138,9 @@ TaskStatus QuestProgressTask::Impl(Player* player)
 
         if (!m_tasks.empty())
         {
-            for (auto& task : m_tasks)
+            for (const auto& task : m_tasks)
             {
-                std::unique_ptr<ITask> clonedTask = task->Clone();
+                const std::unique_ptr<ITask> clonedTask = task->Clone();
 
                 clonedTask->SetPlayer(player);
                 clonedTask->SetSource(m_source);

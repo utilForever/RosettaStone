@@ -10,6 +10,7 @@ namespace RosettaStone::PlayMode::SimpleTasks
 TaskStatus SwapHeroPowerTask::Impl(Player* player)
 {
     const auto temp = player->GetHero()->heroPower;
+
     player->GetHero()->heroPower = player->opponent->GetHero()->heroPower;
     player->opponent->GetHero()->heroPower = temp;
 

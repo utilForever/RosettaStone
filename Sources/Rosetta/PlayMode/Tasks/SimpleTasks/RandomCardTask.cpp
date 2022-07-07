@@ -45,7 +45,7 @@ RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
 }
 
 std::vector<Card*> RandomCardTask::GetCardList(
-    Entity* source, CardType cardType, CardClass cardClass, Race race,
+    const Entity* source, CardType cardType, CardClass cardClass, Race race,
     Rarity rarity, const std::map<GameTag, int>& tags)
 {
     const auto cards = GetCardList(source, cardClass);
@@ -88,7 +88,7 @@ std::vector<Card*> RandomCardTask::GetCardList(
     return result;
 }
 
-const std::vector<Card*>& RandomCardTask::GetCardList(Entity* source,
+const std::vector<Card*>& RandomCardTask::GetCardList(const Entity* source,
                                                       CardClass cardClass)
 {
     if (cardClass == CardClass::INVALID ||
@@ -135,7 +135,7 @@ TaskStatus RandomCardTask::Impl(Player* player)
                 "RandomCardTask::Impl() - Invalid entity type");
     }
 
-    auto cardsList =
+    const auto cardsList =
         GetCardList(m_source, m_cardType, cardClass, m_race, m_rarity, m_tags);
 
     if (cardsList.empty())
