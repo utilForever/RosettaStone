@@ -19,7 +19,7 @@ SummonNumberTask::SummonNumberTask(const std::string& cardID, bool opponent,
 
 TaskStatus SummonNumberTask::Impl(Player* player)
 {
-    TaskStack stack = player->game->taskStack;
+    const TaskStack stack = player->game->taskStack;
     std::unique_ptr<ITask> task;
 
     if (m_opponent)
