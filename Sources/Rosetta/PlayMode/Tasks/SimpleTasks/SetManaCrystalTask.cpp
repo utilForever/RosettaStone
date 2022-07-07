@@ -3,7 +3,6 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SetManaCrystalTask.hpp>
 
 namespace RosettaStone::PlayMode::SimpleTasks
