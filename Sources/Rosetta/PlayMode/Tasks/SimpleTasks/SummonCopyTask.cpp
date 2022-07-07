@@ -12,9 +12,9 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
-#include <algorithm>
-#include <chrono>
-#include <random>
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
@@ -45,10 +45,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
     if (m_randomFlag)
     {
-        const unsigned int seed =
-            std::chrono::system_clock::now().time_since_epoch().count();
-        std::default_random_engine rng(seed);
-        std::shuffle(std::begin(playables), std::end(playables), rng);
+        Random::shuffle(playables.begin(), playables.end());
     }
 
     const auto field = player->GetFieldZone();
