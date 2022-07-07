@@ -18,7 +18,7 @@
 
 namespace RosettaStone::PlayMode
 {
-Player::Player() : playerID(USER_INVALID)
+Player::Player() : playerID(-1)
 {
     m_deckZone = std::make_unique<DeckZone>(this);
     m_fieldZone = std::make_unique<FieldZone>(this);

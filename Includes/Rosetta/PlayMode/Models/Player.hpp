@@ -37,8 +37,6 @@ class SetasideZone;
 class Player : public Entity
 {
  public:
-    static constexpr std::size_t USER_INVALID = 255;
-
     //! Default constructor.
     Player();
 
@@ -339,7 +337,7 @@ class Player : public Entity
 
     std::string nickname;
     PlayerType playerType = PlayerType::PLAYER1;
-    std::size_t playerID = 0;
+    int playerID = 0;
 
     CardClass baseClass = CardClass::INVALID;
     PlayState playState = PlayState::INVALID;
