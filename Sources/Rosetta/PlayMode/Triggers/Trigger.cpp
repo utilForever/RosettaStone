@@ -702,7 +702,7 @@ void Trigger::Validate(Entity* source)
         }
         case TriggerSource::FRIENDLY:
         {
-            if (!source || (source && source->player != m_owner->player))
+            if (!source || source->player != m_owner->player)
             {
                 return;
             }
