@@ -7,6 +7,7 @@
 #ifndef ROSETTASTONE_UNIT_TESTS_CARD_SET_HEADERS_HPP
 #define ROSETTASTONE_UNIT_TESTS_CARD_SET_HEADERS_HPP
 
+#include <iostream>
 #include <doctest.h>
 #include <Utils/TestUtils.hpp>
 
