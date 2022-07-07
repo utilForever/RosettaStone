@@ -215,12 +215,12 @@ void Game::SetTurn(int turn)
     m_turn = turn;
 }
 
-std::size_t Game::GetNextID()
+int Game::GetNextID()
 {
     return m_entityID++;
 }
 
-std::size_t Game::GetNextOOP()
+int Game::GetNextOOP()
 {
     return m_oopIndex++;
 }

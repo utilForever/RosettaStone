@@ -41,7 +41,7 @@ void Battle::Initialize()
     }
     else
     {
-        m_turn = static_cast<Turn>(Random::get<std::size_t>(0, 1));
+        m_turn = static_cast<Turn>(Random::get<int>(0, 1));
     }
 
     m_p1NextAttackerIdx = 0;

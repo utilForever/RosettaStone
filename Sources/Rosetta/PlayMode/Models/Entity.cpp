@@ -23,8 +23,7 @@ Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags, int _id)
         Entity::SetGameTag(gameTag.first, gameTag.second);
     }
 
-    Entity::SetGameTag(GameTag::ENTITY_ID,
-                       _id < 0 ? static_cast<int>(game->GetNextID()) : _id);
+    Entity::SetGameTag(GameTag::ENTITY_ID, _id < 0 ? game->GetNextID() : _id);
 }
 
 Entity::~Entity()
@@ -126,8 +125,7 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
     }
 
     tags[GameTag::CONTROLLER] = player->playerID;
-    tags[GameTag::ZONE] =
-        zone ? static_cast<int>(zone->GetType()) : 0;
+    tags[GameTag::ZONE] = zone ? static_cast<int>(zone->GetType()) : 0;
 
     Playable* result;
 

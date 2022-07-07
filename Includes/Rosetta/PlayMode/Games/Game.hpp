@@ -93,11 +93,11 @@ class Game
 
     //! Gets the next entity identifier.
     //! \return The next entity ID.
-    std::size_t GetNextID();
+    int GetNextID();
 
     //! Gets the next order of play index.
     //! \return The next order of play index.
-    std::size_t GetNextOOP();
+    int GetNextOOP();
 
     //! Part of the game state.
     void BeginFirst();
@@ -212,10 +212,9 @@ class Game
     GameConfig m_gameConfig;
 
     std::array<Player, 2> m_players;
-    std::size_t m_turn = 0;
-
-    std::size_t m_entityID = 0;
-    std::size_t m_oopIndex = 0;
+    int m_turn = 0;
+    int m_entityID = 0;
+    int m_oopIndex = 0;
 
     PlayerType m_currentPlayer = PlayerType::INVALID;
 };
