@@ -24,13 +24,13 @@ void HandZone::Add(Playable* entity, int zonePos)
 
     if (const auto aura = entity->card->power.GetAura(); aura)
     {
-        if (auto effect = dynamic_cast<AdaptiveCostEffect*>(aura); effect)
+        if (const auto effect = dynamic_cast<AdaptiveCostEffect*>(aura); effect)
         {
             effect->Activate(entity);
         }
     }
 
-    if (auto trigger = entity->card->power.GetTrigger(); trigger)
+    if (const auto trigger = entity->card->power.GetTrigger(); trigger)
     {
         trigger->Activate(entity, TriggerActivation::HAND);
     }
@@ -44,7 +44,7 @@ Playable* HandZone::Remove(Playable* entity)
 
     for (const auto& enchant : entity->appliedEnchantments)
     {
-        if (enchant->activatedTrigger != nullptr)
+        if (enchant->activatedTrigger)
         {
             enchant->activatedTrigger->Remove();
         }
@@ -63,7 +63,7 @@ void HandZone::Expand(int newSize)
 {
     const auto entities = new Playable*[newSize];
 
-    for (int i = 0; i < m_count; ++i)
+    for (int i = 0; i < std::min(m_count, newSize); ++i)
     {
         entities[i] = m_entities[i];
     }

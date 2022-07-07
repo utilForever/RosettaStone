@@ -54,7 +54,7 @@ class AuraEffects
     //! Sets game tag to the card.
     //! \param tag The game tag to indicate ability or condition.
     //! \param value The value to set for game tag.
-    void SetGameTag(GameTag tag, int value);
+    void SetGameTag(GameTag tag, int value) const;
 
     //! Returns the value of GameTag::IMMUNE.
     //! \return The value of GameTag::IMMUNE.
@@ -62,7 +62,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::IMMUNE.
     //! \param value The value of GameTag::IMMUNE to set.
-    void SetImmune(int value);
+    void SetImmune(int value) const;
 
     //! Returns the value of GameTag::CANT_BE_TARGETED_BY_SPELLS and
     //! GameTag::CANT_BE_TARGETED_BY_HERO_POWERS.
@@ -74,7 +74,7 @@ class AuraEffects
     //! GameTag::CANT_BE_TARGETED_BY_HERO_POWERS.
     //! \param value The value of GameTag::CANT_BE_TARGETED_BY_SPELLS and
     //! GameTag::CANT_BE_TARGETED_BY_HERO_POWERS to set.
-    void SetCantBeTargetedBySpells(int value);
+    void SetCantBeTargetedBySpells(int value) const;
 
     //! Returns the value of GameTag::ATK.
     //! \return The value of GameTag::ATK.
@@ -82,7 +82,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::ATK.
     //! \param value The value of GameTag::ATK to set.
-    void SetAttack(int value);
+    void SetAttack(int value) const;
 
     //! Returns the value of GameTag::CANNOT_ATTACK_HEROES.
     //! \return The value of GameTag::CANNOT_ATTACK_HEROES.
@@ -90,7 +90,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::CANNOT_ATTACK_HEROES.
     //! \param value The value of GameTag::CANNOT_ATTACK_HEROES to set.
-    void SetCannotAttackHeroes(int value);
+    void SetCannotAttackHeroes(int value) const;
 
     //! Returns the value of GameTag::HEROPOWER_DAMAGE.
     //! \return The value of GameTag::HEROPOWER_DAMAGE.
@@ -98,7 +98,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::HEROPOWER_DAMAGE.
     //! \param value The value of GameTag::HEROPOWER_DAMAGE to set.
-    void SetHeroPowerDamage(int value);
+    void SetHeroPowerDamage(int value) const;
 
     //! Returns the value of GameTag::HEALTH.
     //! \return The value of GameTag::HEALTH.
@@ -106,7 +106,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::HEALTH.
     //! \param value The value of GameTag::HEALTH to set.
-    void SetHealth(int value);
+    void SetHealth(int value) const;
 
     //! Returns the value of GameTag::WINDFURY.
     //! \return The value of GameTag::WINDFURY.
@@ -114,7 +114,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::WINDFURY.
     //! \param value The value of GameTag::WINDFURY to set.
-    void SetWindfury(int value);
+    void SetWindfury(int value) const;
 
     //! Returns the value of GameTag::TAUNT.
     //! \return The value of GameTag::TAUNT.
@@ -122,7 +122,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::TAUNT.
     //! \param value The value of GameTag::TAUNT to set.
-    void SetTaunt(int value);
+    void SetTaunt(int value) const;
 
     //! Returns the value of GameTag::CHARGE.
     //! \return The value of GameTag::CHARGE.
@@ -130,7 +130,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::CHARGE.
     //! \param value The value of GameTag::CHARGE to set.
-    void SetCharge(int value);
+    void SetCharge(int value) const;
 
     //! Returns the value of GameTag::RUSH.
     //! \return The value of GameTag::RUSH.
@@ -138,7 +138,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::RUSH.
     //! \param value The value of GameTag::RUSH to set.
-    void SetRush(int value);
+    void SetRush(int value) const;
 
     //! Returns the value of GameTag::LIFESTEAL.
     //! \return The value of GameTag::LIFESTEAL.
@@ -146,7 +146,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::LIFESTEAL.
     //! \param value The value of GameTag::LIFESTEAL to set.
-    void SetLifesteal(int value);
+    void SetLifesteal(int value) const;
 
     //! Returns the value of GameTag::CANT_ATTACK.
     //! \return The value of GameTag::CANT_ATTACK.
@@ -154,7 +154,7 @@ class AuraEffects
 
     //! Sets the value of GameTag::CANT_ATTACK.
     //! \param value The value of GameTag::CANT_ATTACK to set.
-    void SetCantAttack(int value);
+    void SetCantAttack(int value) const;
 
  private:
     CardType m_type = CardType::INVALID;

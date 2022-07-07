@@ -4,7 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include <Utils/CardSetUtils.hpp>
+#include <Utils/CardSetHeaders.hpp>
 
 TEST_CASE("[Placeholder202204CardsGen] - Temp")
 {

@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ---------------------------------------- MINION - PRIEST
 // [CFM_605] Drakonid Operative - COST:5 [ATK:5/HP:6]
@@ -72,7 +57,7 @@ TEST_CASE("[Priest : Minion] - CFM_605 : Drakonid Operative")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -97,7 +82,7 @@ TEST_CASE("[Priest : Minion] - CFM_605 : Drakonid Operative")
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 }
 
 // --------------------------------------- MINION - WARLOCK

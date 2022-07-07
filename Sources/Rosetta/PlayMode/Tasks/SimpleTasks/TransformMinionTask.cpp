@@ -36,12 +36,11 @@ TransformMinionTask::TransformMinionTask(EntityType entityType, int costChange)
 
 TaskStatus TransformMinionTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
-
     const FormatType format = player->game->GetFormatType();
-
     std::vector<Card*> minionCards;
+
     if (format == FormatType::STANDARD)
     {
         for (auto& card : Cards::GetAllStandardCards())
@@ -86,8 +85,8 @@ TaskStatus TransformMinionTask::Impl(Player* player)
 
     for (auto& playable : playables)
     {
-        std::vector<Card*> cards;
         int newCost = playable->card->GetCost() + m_costChange;
+        std::vector<Card*> cards;
 
         while (true)
         {

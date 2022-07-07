@@ -5,7 +5,6 @@
 // property of any third parties.
 
 #include <Rosetta/Common/Utils.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
@@ -16,8 +15,9 @@
 
 namespace RosettaStone::PlayMode
 {
-Minion::Minion(Player* player, Card* card, std::map<GameTag, int> tags, int id)
-    : Character(player, card, std::move(tags), id)
+Minion::Minion(Player* _player, Card* _card, std::map<GameTag, int> tags,
+               int id)
+    : Character(_player, _card, std::move(tags), id)
 {
     // Do nothing
 }
@@ -173,7 +173,7 @@ void Minion::Silence()
     SetGameTag(GameTag::SPELLPOWER_SHADOW, 0);
     SetGameTag(GameTag::SPELLPOWER_FEL, 0);
 
-    if (ongoingEffect != nullptr)
+    if (ongoingEffect)
     {
         ongoingEffect->Remove();
     }
@@ -183,7 +183,7 @@ void Minion::Silence()
                GetGameTag(GameTag::ENTITY_ID);
     });
 
-    if (activatedTrigger != nullptr)
+    if (activatedTrigger)
     {
         activatedTrigger->Remove();
     }
@@ -193,7 +193,7 @@ void Minion::Silence()
         const auto size = static_cast<int>(appliedEnchantments.size());
         for (int i = size - 1; i >= 0; --i)
         {
-            if (appliedEnchantments[i]->card->power.GetAura() != nullptr)
+            if (appliedEnchantments[i]->card->power.GetAura())
             {
                 appliedEnchantments[i]->Remove();
             }
@@ -257,15 +257,15 @@ void Minion::Reset()
 {
     Entity::Reset();
 
-    if (ongoingEffect != nullptr)
+    if (ongoingEffect)
     {
         ongoingEffect->Remove();
     }
 
     if (isDestroyed)
     {
-        auto iter = game->deadMinions.find(orderOfPlay);
-        if (iter != game->deadMinions.end())
+        if (const auto iter = game->deadMinions.find(orderOfPlay);
+            iter != game->deadMinions.end())
         {
             game->deadMinions.erase(iter);
         }

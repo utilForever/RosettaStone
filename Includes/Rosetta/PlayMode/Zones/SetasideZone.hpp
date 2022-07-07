@@ -30,7 +30,7 @@ class SetasideZone : public UnlimitedZone
     //! Returns The entity that has ID.
     //! \param id The ID of entity.
     //! \return The entity.
-    Playable* GetEntity(int id);
+    Playable* GetEntity(int id) const;
 };
 }  // namespace RosettaStone::PlayMode
 

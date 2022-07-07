@@ -10,17 +10,17 @@
 
 namespace RosettaStone::PlayMode
 {
-IAura* Power::GetAura()
+IAura* Power::GetAura() const
 {
     return m_aura.get();
 }
 
-Enchant* Power::GetEnchant()
+Enchant* Power::GetEnchant() const
 {
     return m_enchant.get();
 }
 
-Trigger* Power::GetTrigger()
+Trigger* Power::GetTrigger() const
 {
     return m_trigger.get();
 }
@@ -102,7 +102,7 @@ void Power::AddTrigger(std::shared_ptr<Trigger> trigger)
     m_trigger = std::move(trigger);
 }
 
-void Power::AddPowerTask(std::shared_ptr<ITask> task)
+void Power::AddPowerTask(const std::shared_ptr<ITask>& task)
 {
     m_powerTask.emplace_back(task);
 }
@@ -112,7 +112,7 @@ void Power::AddPowerTask(TaskList tasks)
     m_powerTask.insert(m_powerTask.end(), tasks.begin(), tasks.end());
 }
 
-void Power::AddDeathrattleTask(std::shared_ptr<ITask> task)
+void Power::AddDeathrattleTask(const std::shared_ptr<ITask>& task)
 {
     m_deathrattleTask.emplace_back(task);
 }
@@ -123,27 +123,27 @@ void Power::AddDeathrattleTask(TaskList tasks)
                              tasks.end());
 }
 
-void Power::AddComboTask(std::shared_ptr<ITask> task)
+void Power::AddComboTask(const std::shared_ptr<ITask>& task)
 {
     m_comboTask.emplace_back(task);
 }
 
-void Power::AddTopdeckTask(std::shared_ptr<ITask> task)
+void Power::AddTopdeckTask(const std::shared_ptr<ITask>& task)
 {
     m_topdeckTask.emplace_back(task);
 }
 
-void Power::AddAfterChooseTask(std::shared_ptr<ITask> task)
+void Power::AddAfterChooseTask(const std::shared_ptr<ITask>& task)
 {
     m_afterChooseTask.emplace_back(task);
 }
 
-void Power::AddOutcastTask(std::shared_ptr<ITask> task)
+void Power::AddOutcastTask(const std::shared_ptr<ITask>& task)
 {
     m_outcastTask.emplace_back(task);
 }
 
-void Power::AddSpellburstTask(std::shared_ptr<ITask> task)
+void Power::AddSpellburstTask(const std::shared_ptr<ITask>& task)
 {
     m_spellburstTask.emplace_back(task);
 }
@@ -153,7 +153,7 @@ void Power::AddSpellburstTask(TaskList tasks)
     m_spellburstTask.insert(m_spellburstTask.end(), tasks.begin(), tasks.end());
 }
 
-void Power::AddFrenzyTask(std::shared_ptr<ITask> task)
+void Power::AddFrenzyTask(const std::shared_ptr<ITask>& task)
 {
     m_frenzyTask.emplace_back(task);
 }
@@ -163,7 +163,7 @@ void Power::AddFrenzyTask(TaskList tasks)
     m_frenzyTask.insert(m_frenzyTask.end(), tasks.begin(), tasks.end());
 }
 
-void Power::AddHonorableKillTask(std::shared_ptr<ITask> task)
+void Power::AddHonorableKillTask(const std::shared_ptr<ITask>& task)
 {
     m_honorableKillTask.emplace_back(task);
 }

@@ -3,34 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
-#include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/CardSets/LegacyCardsGen.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
-#include <Rosetta/PlayMode/Enchants/Effects.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using Entourages = std::vector<std::string>;
-using TaskList = std::vector<std::shared_ptr<ITask>>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void LegacyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     CardDef cardDef;
@@ -184,8 +161,8 @@ void LegacyCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
-            auto minions = playable->player->GetFieldZone()->GetAll();
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
+            const auto minions = playable->player->GetFieldZone()->GetAll();
             std::vector<Card*> totemCards;
             totemCards.reserve(4);
 
@@ -2370,7 +2347,7 @@ void LegacyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         std::make_shared<FuncNumberTask>([](Playable* playable) {
             const auto target = dynamic_cast<Minion*>(
                 playable->game->currentEventData->eventTarget);
-            if (target == nullptr)
+            if (!target)
             {
                 return 0;
             }
@@ -2782,7 +2759,7 @@ void LegacyCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
         std::make_shared<RandomTask>(EntityType::DECK, 3));
     cardDef.power.AddPowerTask(
         std::make_shared<FuncNumberTask>([](Playable* playable) {
-            auto playables = playable->game->taskStack.playables;
+            const auto playables = playable->game->taskStack.playables;
 
             std::vector<int> ids;
             ids.reserve(3);
@@ -3478,7 +3455,7 @@ void LegacyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             int addAttackAmount = 0;
             const auto& myMinions = playable->player->GetFieldZone()->GetAll();
             const auto& opMinions =

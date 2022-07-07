@@ -34,7 +34,7 @@ void EnrageEffect::Update()
     if (!m_turnOn)
     {
         EraseIf(m_owner->game->auras,
-                [this](IAura* aura) { return aura == this; });
+                [this](const IAura* aura) { return aura == this; });
 
         if (!m_enraged)
         {
@@ -60,7 +60,7 @@ void EnrageEffect::Update()
             effect->RemoveFrom(m_target);
         }
 
-        if (m_curInstance != nullptr)
+        if (m_curInstance)
         {
             m_curInstance->Remove();
         }
@@ -123,7 +123,7 @@ void EnrageEffect::Clone(Playable* clone)
     Activate(clone, true);
 }
 
-EnrageEffect::EnrageEffect(EnrageEffect& prototype, Playable& owner)
+EnrageEffect::EnrageEffect(const EnrageEffect& prototype, Playable& owner)
     : Aura(prototype, owner), m_enraged(prototype.m_enraged)
 {
     restless = true;

@@ -39,7 +39,7 @@ class PriorityQueue
         const Node* rhsNode = rhs.m_head;
         Node* curNode = nullptr;
 
-        if (rhsNode != nullptr)
+        if (rhsNode)
         {
             m_head = new Node(rhsNode->value, rhsNode->priority);
             curNode = m_head;
@@ -47,7 +47,7 @@ class PriorityQueue
             rhsNode = rhsNode->next;
         }
 
-        while (rhsNode != nullptr)
+        while (rhsNode)
         {
             Node* newNode = new Node(rhsNode->value, rhsNode->priority);
             curNode->next = newNode;
@@ -63,7 +63,7 @@ class PriorityQueue
         const Node* rhsNode = rhs.m_head;
         Node* curNode = nullptr;
 
-        if (rhsNode != nullptr)
+        if (rhsNode)
         {
             m_head = new Node(rhsNode->value, rhsNode->priority);
             curNode = m_head;
@@ -71,7 +71,7 @@ class PriorityQueue
             rhsNode = rhsNode->next;
         }
 
-        while (rhsNode != nullptr)
+        while (rhsNode)
         {
             Node* newNode = new Node(rhsNode->value, rhsNode->priority);
             curNode->next = newNode;
@@ -111,7 +111,7 @@ class PriorityQueue
     {
         Node* node = m_head;
 
-        while (node->next != nullptr)
+        while (node->next)
         {
             if (node->next->priority <= priority)
             {
@@ -149,7 +149,7 @@ class PriorityQueue
     {
         Node* node = m_head->next;
 
-        while (node != nullptr)
+        while (node)
         {
             if (node->value == value)
             {

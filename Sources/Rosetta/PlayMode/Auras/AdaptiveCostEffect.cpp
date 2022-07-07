@@ -79,7 +79,8 @@ void AdaptiveCostEffect::Remove()
 {
     m_owner->ongoingEffect = nullptr;
 
-    EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
+    EraseIf(m_owner->game->auras,
+            [this](const IAura* aura) { return aura == this; });
 
     if (const auto costManager = m_owner->costManager; costManager)
     {

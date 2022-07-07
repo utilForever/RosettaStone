@@ -3,27 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Actions/CastSpell.hpp>
-#include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Actions/Generic.hpp>
-#include <Rosetta/PlayMode/Actions/PlayCard.hpp>
-#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/CardSets/GilneasCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-
-#include <effolkronium/random.hpp>
-
-using Random = effolkronium::random_static;
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-
 void GilneasCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ HERO - SHAMAN
@@ -831,7 +815,7 @@ void GilneasCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             Player* player = playable->player;
 
             std::vector<Card*> playedCards;
@@ -849,7 +833,7 @@ void GilneasCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
             Random::shuffle(playedCards);
 
-            for (auto& card : playedCards)
+            for (const auto& card : playedCards)
             {
                 auto validTargets = card->GetValidPlayTargets(player);
                 if (card->mustHaveToTargetToPlay && validTargets.empty())
@@ -904,14 +888,16 @@ void GilneasCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                     }
                     case CardType::WEAPON:
                     {
-                        auto weapon = dynamic_cast<Weapon*>(entity);
+                        const auto weapon = dynamic_cast<Weapon*>(entity);
 
-                        if (auto aura = weapon->card->power.GetAura(); aura)
+                        if (const auto aura = weapon->card->power.GetAura();
+                            aura)
                         {
                             aura->Activate(weapon);
                         }
 
-                        if (auto trigger = weapon->card->power.GetTrigger();
+                        if (const auto trigger =
+                                weapon->card->power.GetTrigger();
                             trigger)
                         {
                             trigger->Activate(weapon);
@@ -920,7 +906,18 @@ void GilneasCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                         player->GetHero()->AddWeapon(*weapon);
                         break;
                     }
-                    default:
+                    case CardType::INVALID:
+                    case CardType::GAME:
+                    case CardType::PLAYER:
+                    case CardType::ENCHANTMENT:
+                    case CardType::ITEM:
+                    case CardType::TOKEN:
+                    case CardType::HERO_POWER:
+                    case CardType::BLANK:
+                    case CardType::GAME_MODE_BUTTON:
+                    case CardType::MOVE_MINION_HOVER_TARGET:
+                    case CardType::LETTUCE_ABILITY:
+                    case CardType::BATTLEGROUND_HERO_BUDDY:
                         throw std::invalid_argument(
                             "Tess Greymane (GIL_598) - Invalid card "
                             "type!");

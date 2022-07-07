@@ -147,7 +147,7 @@ Playable* ChooseNthChoice(Game& game, std::size_t n)
 
 std::vector<Card*> GetChoiceCards(Game& game)
 {
-    if (game.GetCurrentPlayer()->choice == nullptr)
+    if (!game.GetCurrentPlayer()->choice)
     {
         throw std::logic_error("There is no active choices.");
     }

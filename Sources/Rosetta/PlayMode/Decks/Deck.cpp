@@ -8,7 +8,6 @@
 #include <Rosetta/PlayMode/Decks/Deck.hpp>
 
 #include <algorithm>
-#include <iostream>
 
 namespace RosettaStone::PlayMode
 {
@@ -80,7 +79,7 @@ std::array<Card*, START_DECK_SIZE> Deck::GetCards() const
 
 bool Deck::AddCard(std::string cardID, std::size_t numCardToAdd)
 {
-    Card* card = Cards::GetInstance().FindCardByID(cardID);
+    const Card* card = Cards::GetInstance().FindCardByID(cardID);
 
     const CardClass cardClass = card->GetCardClass();
     if ((cardClass != GetClass() && cardClass != CardClass::NEUTRAL) ||
@@ -142,7 +141,7 @@ bool Deck::DeleteCard(std::string cardID, std::size_t numCardToDelete)
     return false;
 }
 
-std::vector<std::string> Deck::GetCardIDs()
+std::vector<std::string> Deck::GetCardIDs() const
 {
     std::vector<std::string> ret;
     ret.reserve(m_numOfCards);

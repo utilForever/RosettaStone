@@ -115,11 +115,11 @@ void SwitchingAura::RemoveInternal()
     if (m_isRemoved)
     {
         EraseIf(m_owner->game->auras,
-                [this](IAura* aura) { return aura == this; });
+                [this](const IAura* aura) { return aura == this; });
     }
 }
 
-SwitchingAura::SwitchingAura(SwitchingAura& prototype, Playable& owner)
+SwitchingAura::SwitchingAura(const SwitchingAura& prototype, Playable& owner)
     : Aura(prototype, owner),
       m_activateCondition(prototype.m_activateCondition),
       m_offTrigger(prototype.m_offTrigger)

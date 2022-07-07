@@ -25,7 +25,7 @@ class InternalCardLoader
     //! Loads internal card data from card data generators.
     //! \param cards The data storage to store added cards with power
     //! and play requirements.
-    static void Load(std::vector<Card*>& cards);
+    static void Load(const std::vector<Card*>& cards);
 };
 }  // namespace RosettaStone::PlayMode
 

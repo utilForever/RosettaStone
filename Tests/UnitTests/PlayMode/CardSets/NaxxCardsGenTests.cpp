@@ -4,20 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ------------------------------------------ SPELL - DRUID
 // [FP1_019] Poison Seeds - COST:4
@@ -1611,7 +1598,7 @@ TEST_CASE("[Neutral : Minion] - FP1_029 : Dancing Swords")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opHand = *(opPlayer->GetHandZone());
+    const auto& opHand = *(opPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Dancing Swords"));

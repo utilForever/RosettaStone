@@ -3,22 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using TagValues = std::vector<TagValue>;
-using PlayReqs = std::map<PlayReq, int>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void NaxxCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing

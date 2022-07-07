@@ -36,7 +36,7 @@ class IncludeTask : public ITask
     //! \param target The target that indicates target entity.
     //! \return A list of entities based on the type of entity.
     static std::vector<Playable*> GetEntities(EntityType entityType,
-                                              Player* player,
+                                              const Player* player,
                                               Entity* source = nullptr,
                                               Entity* target = nullptr);
 

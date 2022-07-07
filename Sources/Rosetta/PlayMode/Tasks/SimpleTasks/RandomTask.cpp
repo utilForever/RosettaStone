@@ -23,8 +23,7 @@ RandomTask::RandomTask(EntityType entityType, int amount)
 TaskStatus RandomTask::Impl(Player* player)
 {
     auto& stackPlayables = player->game->taskStack.playables;
-
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     if (playables.empty())

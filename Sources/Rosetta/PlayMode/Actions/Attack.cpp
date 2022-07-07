@@ -139,7 +139,7 @@ void Attack(const Player* player, Character* source, Character* target,
             tasks = source->card->power.GetHonorableKillTask();
         }
 
-        for (auto& task : tasks)
+        for (const auto& task : tasks)
         {
             std::unique_ptr<ITask> clonedTask = task->Clone();
 

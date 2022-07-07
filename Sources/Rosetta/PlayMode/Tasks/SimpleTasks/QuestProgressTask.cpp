@@ -55,8 +55,9 @@ TaskStatus QuestProgressTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    auto spell = dynamic_cast<Spell*>(m_source);
-    if (spell == nullptr)
+    const auto spell = dynamic_cast<Spell*>(m_source);
+
+    if (!spell)
     {
         return TaskStatus::STOP;
     }
@@ -71,6 +72,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
         {
             const auto source = player->game->currentEventData->eventSource;
             const auto cost = source->GetCost();
+
             for (int i = 0; i < cost; ++i)
             {
                 spell->IncreaseQuestProgress();
@@ -86,6 +88,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
         case ProgressType::RESTORE_HEALTH:
         case ProgressType::GAIN_ATTACK:
             const int amount = player->game->currentEventData->eventNumber;
+
             for (int i = 0; i < amount; ++i)
             {
                 spell->IncreaseQuestProgress();
@@ -135,9 +138,9 @@ TaskStatus QuestProgressTask::Impl(Player* player)
 
         if (!m_tasks.empty())
         {
-            for (auto& task : m_tasks)
+            for (const auto& task : m_tasks)
             {
-                std::unique_ptr<ITask> clonedTask = task->Clone();
+                const std::unique_ptr<ITask> clonedTask = task->Clone();
 
                 clonedTask->SetPlayer(player);
                 clonedTask->SetSource(m_source);

@@ -35,7 +35,7 @@ TaskStatus EnqueueTask::Impl(Player* player)
 
     for (int i = 0; i < times; ++i)
     {
-        for (auto& task : m_tasks)
+        for (const auto& task : m_tasks)
         {
             std::unique_ptr<ITask> clonedTask = task->Clone();
 

@@ -4,28 +4,13 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Enchants/Effects.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using TagValues = std::vector<TagValue>;
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using Entourages = std::vector<std::string>;
-using TaskList = std::vector<std::shared_ptr<ITask>>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void BlackTempleCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    // Do nothing
 }
 
 void BlackTempleCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
@@ -1565,7 +1550,7 @@ void BlackTempleCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 8, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (playable->player->GetNumSpellsCastLastTurn() > 0)
             {
                 return 3;
@@ -1945,7 +1930,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
                 damageTask->Run();
 
-                for (auto& minion : minions)
+                for (const auto& minion : minions)
                 {
                     flag = flag && condition->Evaluate(minion);
                 }
@@ -2057,12 +2042,12 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             FieldZone* curField = playable->player->GetFieldZone();
             FieldZone* opField = playable->player->opponent->GetFieldZone();
             int count = 0;
 
-            for (auto& minion : curField->GetAll())
+            for (const auto& minion : curField->GetAll())
             {
                 if (minion->GetDamage() > 0)
                 {
@@ -2070,7 +2055,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                 }
             }
 
-            for (auto& minion : opField->GetAll())
+            for (const auto& minion : opField->GetAll())
             {
                 if (minion->GetDamage() > 0)
                 {
@@ -2247,7 +2232,7 @@ void BlackTempleCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             Player* player = playable->player;
 
             const int dbfID = player->GetHeroPower().card->dbfID;

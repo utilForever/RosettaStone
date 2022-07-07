@@ -57,7 +57,7 @@ int Playable::GetCost() const
     const int value =
         GetGameTag(GameTag::COST) < 0 ? 0 : GetGameTag(GameTag::COST);
 
-    if (costManager != nullptr)
+    if (costManager)
     {
         return costManager->GetCost(value);
     }
@@ -213,7 +213,7 @@ void Playable::ResetCost()
     }
 
     if (const auto effect = dynamic_cast<AdaptiveCostEffect*>(ongoingEffect);
-        effect != nullptr)
+        effect)
     {
         effect->Remove();
     }
@@ -244,8 +244,7 @@ bool Playable::IsPlayableByPlayer()
     }
 
     // Check if entity is in hand to be played
-    if (dynamic_cast<HeroPower*>(this) == nullptr &&
-        GetZoneType() != ZoneType::HAND)
+    if (!dynamic_cast<HeroPower*>(this) && GetZoneType() != ZoneType::HAND)
     {
         return false;
     }
@@ -323,7 +322,7 @@ std::vector<Character*> Playable::GetValidPlayTargets() const
 
 Character* Playable::GetRandomValidTarget()
 {
-    std::vector<Character*> validTargets = GetValidPlayTargets();
+    const std::vector<Character*> validTargets = GetValidPlayTargets();
     if (validTargets.empty())
     {
         return nullptr;
@@ -454,7 +453,7 @@ bool Playable::HasAnyValidPlayTargets(Card* _card) const
 
     if (friendlyMinions)
     {
-        for (auto& minion : player->GetFieldZone()->GetAll())
+        for (const auto& minion : player->GetFieldZone()->GetAll())
         {
             if (TargetingRequirements(_card, minion))
             {
@@ -465,7 +464,7 @@ bool Playable::HasAnyValidPlayTargets(Card* _card) const
 
     if (enemyMinions)
     {
-        for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+        for (const auto& minion : player->opponent->GetFieldZone()->GetAll())
         {
             if (TargetingRequirements(_card, minion))
             {
@@ -487,7 +486,7 @@ bool Playable::HasAnyValidPlayTargets(Card* _card) const
     return false;
 }
 
-bool Playable::CheckTargetingType(Card* _card, Character* target) const
+bool Playable::CheckTargetingType(const Card* _card, Character* target) const
 {
     switch (_card->targetingType)
     {
@@ -521,21 +520,21 @@ bool Playable::CheckTargetingType(Card* _card, Character* target) const
             }
             break;
         case TargetingType::FRIENDLY_MINIONS:
-            if (dynamic_cast<Hero*>(target) != nullptr ||
+            if (dynamic_cast<Hero*>(target) ||
                 (target && target->player != player))
             {
                 return false;
             }
             break;
         case TargetingType::ENEMY_MINIONS:
-            if (dynamic_cast<Hero*>(target) != nullptr ||
+            if (dynamic_cast<Hero*>(target) ||
                 (target && target->player == player))
             {
                 return false;
             }
             break;
         case TargetingType::HEROES:
-            if (dynamic_cast<Minion*>(target) != nullptr)
+            if (dynamic_cast<Minion*>(target))
             {
                 return false;
             }
@@ -639,17 +638,17 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                 "Playable::ActivateTask() - Invalid power type");
     }
 
-    if (tasks.empty() || tasks[0] == nullptr)
+    for (const auto& task : tasks)
     {
-        return;
-    }
+        if (!task)
+        {
+            continue;
+        }
 
-    for (auto& task : tasks)
-    {
         std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(player);
-        clonedTask->SetSource(chooseBase == nullptr ? this : chooseBase);
+        clonedTask->SetSource(chooseBase ? chooseBase : this);
         clonedTask->SetTarget(target);
 
         game->taskQueue.Enqueue(std::move(clonedTask));

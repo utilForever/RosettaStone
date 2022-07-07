@@ -20,6 +20,7 @@ MathRandTask::MathRandTask(int min, int max) : m_min(min), m_max(max)
 TaskStatus MathRandTask::Impl(Player* player)
 {
     player->game->taskStack.num[0] = Random::get<int>(m_min, m_max);
+
     return TaskStatus::COMPLETE;
 }
 

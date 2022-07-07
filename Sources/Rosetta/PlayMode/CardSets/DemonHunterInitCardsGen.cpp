@@ -3,22 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/CardSets/DemonHunterInitCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Models/Minion.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone::PlayMode;
-using namespace SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void DemonHunterInitCardsGen::AddDemonHunter(
     std::map<std::string, CardDef>& cards)
 {
@@ -64,10 +53,10 @@ void DemonHunterInitCardsGen::AddDemonHunter(
         std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
     cardDef.power.GetTrigger()->tasks = {
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             const auto target = dynamic_cast<Minion*>(
                 playable->game->currentEventData->eventTarget);
-            if (target == nullptr)
+            if (!target)
             {
                 return 0;
             }
@@ -359,7 +348,7 @@ void DemonHunterInitCardsGen::AddDemonHunter(
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (playable->GetZonePosition() == 0 ||
                 playable->GetZonePosition() ==
                     playable->player->GetHandZone()->GetCount() - 1)

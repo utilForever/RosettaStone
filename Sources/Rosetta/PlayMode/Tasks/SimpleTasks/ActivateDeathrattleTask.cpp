@@ -25,10 +25,11 @@ TaskStatus ActivateDeathrattleTask::Impl(Player* player)
     {
         playable->ActivateTask(PowerType::DEATHRATTLE);
 
-        for (auto& enchantment : playable->appliedEnchantments)
+        for (const auto& enchantment : playable->appliedEnchantments)
         {
             auto tasks = enchantment->card->power.GetDeathrattleTask();
-            for (auto& task : tasks)
+
+            for (const auto& task : tasks)
             {
                 std::unique_ptr<ITask> clonedTask = task->Clone();
 

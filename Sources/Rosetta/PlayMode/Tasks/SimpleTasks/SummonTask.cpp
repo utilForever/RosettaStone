@@ -47,7 +47,7 @@ SummonTask::SummonTask(const std::string& cardID, int amount, SummonSide side,
 int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
                             int& alternateCount)
 {
-    int summonPos;
+    int summonPos = -1;
 
     switch (side)
     {
@@ -86,13 +86,12 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
         }
         case SummonSide::DEATHRATTLE:
         {
-            if (const auto minion = dynamic_cast<Minion*>(source); minion)
+            if (const auto minion = dynamic_cast<Minion*>(source))
             {
                 summonPos = minion->GetLastBoardPos();
             }
             else if (const auto enchantment =
-                         dynamic_cast<Enchantment*>(source);
-                     enchantment)
+                         dynamic_cast<Enchantment*>(source))
             {
                 const auto enchantmentTarget =
                     dynamic_cast<Minion*>(enchantment->GetTarget());
@@ -117,10 +116,9 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
         }
         case SummonSide::TARGET:
         {
-            const auto tgt = dynamic_cast<Playable*>(target);
-            if (tgt != nullptr)
+            if (const auto _target = dynamic_cast<Playable*>(target))
             {
-                summonPos = tgt->GetZonePosition() + 1;
+                summonPos = _target->GetZonePosition() + 1;
             }
             else
             {
@@ -132,6 +130,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
         case SummonSide::ALTERNATE_FRIENDLY:
         {
             const auto src = dynamic_cast<Playable*>(source);
+
             if (alternateCount % 2 == 0)
             {
                 summonPos = src->GetZonePosition() - alternateCount / 2;
@@ -140,6 +139,7 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
             {
                 summonPos = src->GetZonePosition() + alternateCount / 2 + 1;
             }
+
             alternateCount++;
             break;
         }
@@ -154,12 +154,10 @@ int SummonTask::GetPosition(Entity* source, SummonSide side, Entity* target,
                 summonPos =
                     source->player->opponent->GetFieldZone()->GetCount();
             }
+
             alternateCount++;
             break;
         }
-        default:
-            throw std::invalid_argument(
-                "SummonTask::Impl() - Invalid summon side");
     }
 
     return summonPos;
@@ -182,9 +180,9 @@ TaskStatus SummonTask::Impl(Player* player)
         {
             if (!m_card.has_value() && !stack.playables.empty())
             {
-                Playable* playable = stack.playables[0];
+                const Playable* playable = stack.playables[0];
 
-                if (playable->zone == nullptr)
+                if (!playable->zone)
                 {
                     playable->player->GetGraveyardZone()->Add(
                         stack.playables[0]);
@@ -195,6 +193,7 @@ TaskStatus SummonTask::Impl(Player* player)
         }
 
         Minion* summonEntity = nullptr;
+
         if (m_card.has_value())
         {
             summonEntity = dynamic_cast<Minion*>(
@@ -211,22 +210,19 @@ TaskStatus SummonTask::Impl(Player* player)
 
             if (m_removeFromStack)
             {
-                EraseIf(stack.playables, [&](Playable* entity) {
+                EraseIf(stack.playables, [&](const Playable* entity) {
                     return entity == summonEntity;
                 });
             }
         }
 
-        if (summonEntity == nullptr)
+        if (!summonEntity)
         {
             return TaskStatus::STOP;
         }
 
-        int summonPos = GetPosition(m_source, m_side, m_target, alternateCount);
-        if (summonPos > player->GetFieldZone()->GetCount())
-        {
-            summonPos = player->GetFieldZone()->GetCount();
-        }
+        const int pos = GetPosition(m_source, m_side, m_target, alternateCount);
+        const int summonPos = std::min(pos, player->GetFieldZone()->GetCount());
 
         if (summonEntity->IsUntouchable())
         {

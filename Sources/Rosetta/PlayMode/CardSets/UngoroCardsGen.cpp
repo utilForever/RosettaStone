@@ -3,19 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/UngoroCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void UngoroCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -2225,7 +2217,7 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
             return playable->player == playable->game->GetOpponentPlayer() ? 2
                                                                            : 0;
         }));

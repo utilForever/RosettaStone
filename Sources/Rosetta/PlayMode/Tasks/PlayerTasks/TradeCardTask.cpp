@@ -23,8 +23,7 @@ TaskStatus TradeCardTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    auto tradeCard = dynamic_cast<Playable*>(m_source);
-    if (tradeCard)
+    if (const auto tradeCard = dynamic_cast<Playable*>(m_source))
     {
         player->SetUsedMana(player->GetUsedMana() + 1);
 
@@ -46,7 +45,7 @@ std::unique_ptr<ITask> TradeCardTask::CloneImpl()
 
 bool TradeCardTask::CanTradeCard() const
 {
-    if (auto playable = dynamic_cast<Playable*>(m_source);
+    if (const auto playable = dynamic_cast<Playable*>(m_source);
         !playable || !playable->HasTradeable())
     {
         return false;

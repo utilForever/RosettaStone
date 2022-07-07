@@ -23,7 +23,7 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
     // Check 'Watch Post'
     if (minion->card->IsWatchPost())
     {
-        int val = minion->player->GetNumWatchPostSummonedThisGame();
+        const int val = minion->player->GetNumWatchPostSummonedThisGame();
         minion->player->SetNumWatchPostSummonedThisGame(val + 1);
     }
 
@@ -43,7 +43,7 @@ void Summon(Minion* minion, int fieldPos, Entity* summoner)
     // Process after summon trigger
     game->taskQueue.StartEvent();
     auto tempEventData = std::move(game->currentEventData);
-    if (summoner != nullptr)
+    if (summoner)
     {
         game->currentEventData = std::make_unique<EventMetaData>(
             dynamic_cast<Playable*>(summoner), minion);

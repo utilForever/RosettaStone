@@ -32,6 +32,7 @@ TaskStatus RandomMinionTask::Impl(Player* player)
                            : Cards::GetAllWildCards();
 
     std::vector<Card*> cardsList;
+
     for (const auto& card : cards)
     {
         if (m_excludeSelf && card->id == m_source->card->id)
@@ -44,6 +45,7 @@ TaskStatus RandomMinionTask::Impl(Player* player)
         for (auto& tagValue : m_tagValues)
         {
             auto& [gameTag, value, relaSign] = tagValue;
+
             if (gameTag == GameTag::CARDRACE && relaSign == RelaSign::EQ)
             {
                 if (card->GetCardType() != CardType::MINION ||
@@ -91,10 +93,10 @@ TaskStatus RandomMinionTask::Impl(Player* player)
                !cardsList.empty())
         {
             const auto idx = Random::get<std::size_t>(0, list.size() - 1);
-            auto card = Entity::GetFromCard(
+            const auto card = Entity::GetFromCard(
                 m_opposite ? player->opponent : player, list.at(idx));
 
-            list.erase(list.begin() + idx);
+            list.erase(list.begin() + static_cast<std::ptrdiff_t>(idx));
 
             randomMinions.emplace_back(card);
         }
@@ -102,8 +104,9 @@ TaskStatus RandomMinionTask::Impl(Player* player)
     else
     {
         const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
-        auto card = Entity::GetFromCard(m_opposite ? player->opponent : player,
-                                        cardsList.at(idx));
+        const auto card = Entity::GetFromCard(
+            m_opposite ? player->opponent : player, cardsList.at(idx));
+
         randomMinions.emplace_back(card);
     }
 

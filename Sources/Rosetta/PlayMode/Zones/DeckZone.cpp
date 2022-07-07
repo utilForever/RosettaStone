@@ -103,7 +103,7 @@ void DeckZone::SetEntity(int index, Playable* newEntity)
     newEntity->zone = this;
 }
 
-void DeckZone::Swap(Playable* entity1, Playable* entity2) const
+void DeckZone::Swap(const Playable* entity1, const Playable* entity2) const
 {
     if (entity1->zone->GetType() != entity2->zone->GetType())
     {

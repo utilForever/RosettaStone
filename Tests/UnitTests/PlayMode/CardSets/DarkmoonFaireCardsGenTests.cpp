@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ------------------------------------------ SPELL - DRUID
 // [DMF_057] Lunar Eclipse - COST:2
@@ -714,7 +699,7 @@ TEST_CASE("[Hunter : Minion] - DMF_085 : Darkmoon Tonk")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opHero = *(opPlayer->GetHero());
+    const auto& opHero = *(opPlayer->GetHero());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Darkmoon Tonk"));
@@ -779,7 +764,7 @@ TEST_CASE("[Hunter : Weapon] - DMF_088 : Rinling's Rifle")
 
     game.Process(curPlayer,
                  AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -831,7 +816,7 @@ TEST_CASE("[Hunter : Minion] - DMF_122 : Mystery Winner")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Mystery Winner"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);

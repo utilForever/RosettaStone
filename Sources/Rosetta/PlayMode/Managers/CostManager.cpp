@@ -24,7 +24,7 @@ void CostManager::QueueUpdate()
 
 int CostManager::EntityChanged(int newCardCost)
 {
-    for (auto& enchantment : m_costEnchantments)
+    for (const auto& enchantment : m_costEnchantments)
     {
         switch (enchantment.first)
         {
@@ -161,7 +161,7 @@ int CostManager::GetCostInternal(int cost)
     }
 
     // 3. Lastly apply Adaptive Cost Effect (e.g. Giants)
-    if (m_adaptiveCostEffect != nullptr)
+    if (m_adaptiveCostEffect)
     {
         cost = m_adaptiveCostEffect->Apply(cost);
     }

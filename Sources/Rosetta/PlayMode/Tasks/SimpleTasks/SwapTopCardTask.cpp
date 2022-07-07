@@ -10,22 +10,22 @@ namespace RosettaStone::PlayMode::SimpleTasks
 {
 TaskStatus SwapTopCardTask::Impl(Player* player)
 {
-    DeckZone* deck = player->GetDeckZone();
+    DeckZone* curDeck = player->GetDeckZone();
     DeckZone* opDeck = player->opponent->GetDeckZone();
 
-    Playable* topCard = deck->Remove(deck->GetTopCard());
+    Playable* curTopCard = curDeck->Remove(curDeck->GetTopCard());
     Playable* opTopCard = opDeck->Remove(opDeck->GetTopCard());
 
-    if (opTopCard != nullptr)
+    if (curTopCard)
     {
-        opTopCard->player = player;
-        deck->Add(opTopCard);
+        curTopCard->player = player->opponent;
+        opDeck->Add(curTopCard);
     }
 
-    if (topCard != nullptr)
+    if (opTopCard)
     {
-        topCard->player = player->opponent;
-        opDeck->Add(topCard);
+        opTopCard->player = player;
+        curDeck->Add(opTopCard);
     }
 
     return TaskStatus::COMPLETE;

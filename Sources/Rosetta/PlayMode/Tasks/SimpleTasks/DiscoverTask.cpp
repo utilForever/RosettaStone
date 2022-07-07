@@ -28,7 +28,7 @@ DiscoverCriteria::DiscoverCriteria(CardType _cardType, CardClass _cardClass,
     // Do nothing
 }
 
-bool DiscoverCriteria::Evaluate(Card* card) const
+bool DiscoverCriteria::Evaluate(const Card* card) const
 {
     return (cardType == CardType::INVALID || cardType == card->GetCardType()) &&
            (race == Race::INVALID || race == card->GetRace()) &&
@@ -86,7 +86,7 @@ DiscoverTask::DiscoverTask(std::vector<Card*> cards, DiscoverType discoverType,
     // Do nothing
 }
 
-std::vector<int> DiscoverTask::GetChoices(Entity* source,
+std::vector<int> DiscoverTask::GetChoices(const Entity* source,
                                           std::vector<Card*> cardsForGeneration,
                                           std::vector<int> cardsForOtherEffect,
                                           int numberOfChoices, bool doShuffle)
@@ -116,7 +116,7 @@ std::vector<int> DiscoverTask::GetChoices(Entity* source,
             }
         }
 
-        for (auto& card : selectedCards)
+        for (const auto& card : selectedCards)
         {
             std::map<GameTag, int> cardTags;
             cardTags.emplace(GameTag::CREATOR,
@@ -206,7 +206,7 @@ TaskStatus DiscoverTask::Impl(Player* player)
 
         for (int i = 1; i < m_repeat; ++i)
         {
-            auto choice = new Choice(player, cardsForGeneration);
+            const auto choice = new Choice(player, cardsForGeneration);
             choice->choiceType = ChoiceType::GENERAL;
             choice->choiceAction = m_choiceAction;
             choice->source = m_source;
@@ -229,7 +229,7 @@ std::unique_ptr<ITask> DiscoverTask::CloneImpl()
         m_doShuffle, m_repeat, m_keepAll);
 }
 
-auto DiscoverTask::Discover(Game* game, Player* player,
+auto DiscoverTask::Discover(const Game* game, Player* player,
                             DiscoverType discoverType,
                             ChoiceAction& choiceAction) const
     -> std::tuple<std::vector<Card*>, std::vector<int>>
@@ -249,7 +249,7 @@ auto DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::DECK:
         {
             choiceAction = ChoiceAction::DRAW_FROM_DECK;
-            for (auto& playable : player->GetDeckZone()->GetAll())
+            for (const auto& playable : player->GetDeckZone()->GetAll())
             {
                 cardsForOtherEffect.emplace_back(
                     playable->GetGameTag(GameTag::ENTITY_ID));
@@ -276,7 +276,8 @@ auto DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::ENEMY_DECK:
         {
             choiceAction = ChoiceAction::HAND_COPY;
-            for (auto& playable : player->opponent->GetDeckZone()->GetAll())
+            for (const auto& playable :
+                 player->opponent->GetDeckZone()->GetAll())
             {
                 cardsForOtherEffect.emplace_back(
                     playable->GetGameTag(GameTag::ENTITY_ID));
@@ -286,7 +287,7 @@ auto DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::SPELL_FROM_DECK:
         {
             choiceAction = ChoiceAction::DRAW_FROM_DECK;
-            for (auto& playable : player->GetDeckZone()->GetAll())
+            for (const auto& playable : player->GetDeckZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::SPELL)
                 {
@@ -398,7 +399,7 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             break;
         case DiscoverType::DEATHRATTLE_MINION_DIED:
             choiceAction = ChoiceAction::HAND_AND_STACK;
-            for (auto& playable : player->GetGraveyardZone()->GetAll())
+            for (const auto& playable : player->GetGraveyardZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::MINION &&
                     playable->HasDeathrattle() && playable->isDestroyed)
@@ -498,7 +499,8 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             break;
         case DiscoverType::MADAME_LAZUL:
             choiceAction = ChoiceAction::MADAME_LAZUL;
-            for (auto& playable : player->opponent->GetHandZone()->GetAll())
+            for (const auto& playable :
+                 player->opponent->GetHandZone()->GetAll())
             {
                 cardsForOtherEffect.emplace_back(
                     playable->GetGameTag(GameTag::ENTITY_ID));
@@ -518,7 +520,7 @@ auto DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::TORTOLLAN_PILGRIM:
         {
             choiceAction = ChoiceAction::TORTOLLAN_PILGRIM;
-            for (auto& playable : player->GetDeckZone()->GetAll())
+            for (const auto& playable : player->GetDeckZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::SPELL)
                 {
@@ -531,7 +533,7 @@ auto DiscoverTask::Discover(Game* game, Player* player,
         case DiscoverType::FROM_STACK:
         {
             choiceAction = ChoiceAction::STACK;
-            for (auto& playable : game->taskStack.playables)
+            for (const auto& playable : game->taskStack.playables)
             {
                 cardsForGeneration.emplace_back(playable->card);
             }
@@ -575,7 +577,7 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             break;
         case DiscoverType::BODY_WRAPPER:
             choiceAction = ChoiceAction::DECK;
-            for (auto& playable : player->GetGraveyardZone()->GetAll())
+            for (const auto& playable : player->GetGraveyardZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::MINION &&
                     playable->isDestroyed)
@@ -596,7 +598,7 @@ auto DiscoverTask::Discover(Game* game, Player* player,
             break;
         case DiscoverType::SELECTIVE_BREEDER:
             choiceAction = ChoiceAction::HAND_COPY;
-            for (auto& playable : player->GetDeckZone()->GetAll())
+            for (const auto& playable : player->GetDeckZone()->GetAll())
             {
                 if (playable->card->GetCardType() == CardType::MINION &&
                     playable->card->GetRace() == Race::BEAST)
@@ -612,17 +614,21 @@ auto DiscoverTask::Discover(Game* game, Player* player,
     {
         std::sort(cardsForOtherEffect.begin(), cardsForOtherEffect.end(),
                   [&player](const int& a, const int& b) {
-                      Playable* playableA = player->game->entityList[a];
-                      Playable* playableB = player->game->entityList[b];
+                      const Playable* playableA = player->game->entityList[a];
+                      const Playable* playableB = player->game->entityList[b];
+
                       return playableA->card->dbfID < playableB->card->dbfID;
                   });
+
         const auto last = std::unique(
             cardsForOtherEffect.begin(), cardsForOtherEffect.end(),
             [&player](const int& a, const int& b) {
-                Playable* playableA = player->game->entityList[a];
-                Playable* playableB = player->game->entityList[b];
+                const Playable* playableA = player->game->entityList[a];
+                const Playable* playableB = player->game->entityList[b];
+
                 return playableA->card->dbfID == playableB->card->dbfID;
             });
+
         cardsForOtherEffect.erase(last, cardsForOtherEffect.end());
         Random::shuffle(cardsForOtherEffect.begin(), cardsForOtherEffect.end());
     }
@@ -630,7 +636,8 @@ auto DiscoverTask::Discover(Game* game, Player* player,
     return std::make_tuple(cardsForGeneration, cardsForOtherEffect);
 }
 
-std::vector<Card*> DiscoverTask::Discover(Game* game, Player* player,
+std::vector<Card*> DiscoverTask::Discover(const Game* game,
+                                          const Player* player,
                                           DiscoverCriteria criteria) const
 {
     const FormatType format = game->GetFormatType();

@@ -4,18 +4,10 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/KaraCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Effects.hpp>
-#include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using TagValues = std::vector<TagValue>;
-using PlayReqs = std::map<PlayReq, int>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void KaraCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing

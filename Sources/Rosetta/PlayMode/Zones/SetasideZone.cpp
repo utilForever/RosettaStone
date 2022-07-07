@@ -14,7 +14,7 @@ SetasideZone::SetasideZone(Player* player)
     // Do nothing
 }
 
-Playable* SetasideZone::GetEntity(int id)
+Playable* SetasideZone::GetEntity(int id) const
 {
     for (auto& entity : m_entities)
     {

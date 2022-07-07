@@ -16,12 +16,12 @@ RevealStealthTask::RevealStealthTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus RevealStealthTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
     {
-        if (auto minion = dynamic_cast<Minion*>(playable); minion)
+        if (const auto minion = dynamic_cast<Minion*>(playable); minion)
         {
             minion->SetGameTag(GameTag::STEALTH, 0);
         }

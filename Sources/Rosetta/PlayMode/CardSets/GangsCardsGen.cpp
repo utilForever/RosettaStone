@@ -4,14 +4,10 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/GangsCardsGen.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-
 void GangsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing

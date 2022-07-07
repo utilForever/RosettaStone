@@ -20,7 +20,7 @@ SwapAttackHealthTask::SwapAttackHealthTask(EntityType entityType,
 
 TaskStatus SwapAttackHealthTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)

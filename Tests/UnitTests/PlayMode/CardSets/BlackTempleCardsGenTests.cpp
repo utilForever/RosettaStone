@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------------- MINION - DRUID
 // [BT_127] Imprisoned Satyr - COST:3 [ATK:3/HP:3]
@@ -1243,7 +1228,7 @@ TEST_CASE("[Preist : Spell] - BT_252 : Renew")
                  PlayCardTask::SpellTarget(card1, curPlayer->GetHero()));
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 28);
     CHECK_EQ(curField[0]->GetHealth(), 3);
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -2389,7 +2374,7 @@ TEST_CASE("[Shaman : Minion] - BT_115 : Marshspawn")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
@@ -2401,7 +2386,7 @@ TEST_CASE("[Shaman : Minion] - BT_115 : Marshspawn")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3143,7 +3128,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_321 : Netherwalker")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Netherwalker"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)

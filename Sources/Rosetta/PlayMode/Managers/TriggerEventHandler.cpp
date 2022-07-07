@@ -31,7 +31,7 @@ TriggerEventHandler& TriggerEventHandler::operator=(
         return *this;
     }
 
-    if (m_func == nullptr)
+    if (!m_func)
     {
         m_func = handler;
         id = ++counter;
@@ -48,7 +48,7 @@ TriggerEventHandler& TriggerEventHandler::operator=(
         return *this;
     }
 
-    if (m_func == nullptr)
+    if (!m_func)
     {
         m_func = handler;
         id = ++counter;

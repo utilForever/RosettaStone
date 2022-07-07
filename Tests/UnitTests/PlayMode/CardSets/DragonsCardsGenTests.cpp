@@ -4,24 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------------- HERO - WARLOCK
 // [DRG_600] Galakrond, the Wretched - COST:7 [ATK:0/HP:30]
@@ -1244,7 +1227,7 @@ TEST_CASE("[Druid : Minion] - DRG_313 : Emerald Explorer")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Emerald Explorer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -2171,7 +2154,7 @@ TEST_CASE("[Hunter : Minion] - DRG_254 : Primordial Explorer")
         curPlayer, Cards::FindCardByName("Primordial Explorer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -2351,7 +2334,7 @@ TEST_CASE("[Mage : Minion] - DRG_102 : Azure Explorer")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Azure Explorer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -2506,7 +2489,7 @@ TEST_CASE("[Mage : Spell] - DRG_106 : Arcane Breath")
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
     CHECK_EQ(opField[0]->GetHealth(), 10);
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -2520,7 +2503,7 @@ TEST_CASE("[Mage : Spell] - DRG_106 : Arcane Breath")
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card4));
     CHECK_EQ(opField[0]->GetHealth(), 8);
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 }
 
 // ------------------------------------------ MINION - MAGE
@@ -2666,7 +2649,7 @@ TEST_CASE("[Mage : Minion] - DRG_270 : Malygos, Aspect of Magic")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Herald"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -2685,7 +2668,7 @@ TEST_CASE("[Mage : Minion] - DRG_270 : Malygos, Aspect of Magic")
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 }
 
 // ------------------------------------------- SPELL - MAGE
@@ -3271,7 +3254,7 @@ TEST_CASE("[Paladin : Minion] - DRG_229 : Bronze Explorer")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Bronze Explorer"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -4163,13 +4146,13 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Minion(card1));
-    CHECK(opPlayer->choice != nullptr);
+    CHECK(opPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     TestUtils::ChooseNthChoice(game, 1);
 
     int dbfTotal = 0;
-    for (auto& handCard : opHand.GetAll())
+    for (const auto& handCard : opHand.GetAll())
     {
         dbfTotal += handCard->card->dbfID;
     }
@@ -4412,7 +4395,7 @@ TEST_CASE("[Rogue : Spell] - DRG_028 : Dragon's Hoard")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Dragon's Hoard"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -5646,7 +5629,7 @@ TEST_CASE("[Warlock : Minion] - DRG_203 : Veiled Worshipper")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Veiled Worshipper"));
@@ -6235,7 +6218,7 @@ TEST_CASE("[Warrior : Spell] - DRG_022 : Ramming Speed")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
@@ -6736,7 +6719,7 @@ TEST_CASE("[Neutral : Minion] - DRG_054 : Big Ol' Whelp")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Big Ol' Whelp"));
@@ -7122,7 +7105,7 @@ TEST_CASE("[Neutral : Minion] - DRG_062 : Wyrmrest Purifier")
         curPlayer, Cards::FindCardByName("Wyrmrest Purifier"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    for (auto& card : curPlayer->GetDeckZone()->GetAll())
+    for (const auto& card : curPlayer->GetDeckZone()->GetAll())
     {
         CHECK_EQ(card->card->GetCardClass(), CardClass::MAGE);
     }
@@ -8098,7 +8081,7 @@ TEST_CASE("[Neutral : Minion] - DRG_081 : Scalerider")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto opHero = opPlayer->GetHero();
+    const auto opHero = opPlayer->GetHero();
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Scalerider"));
@@ -8270,7 +8253,7 @@ TEST_CASE("[Neutral : Minion] - DRG_086 : Chromatic Egg")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -8609,7 +8592,7 @@ TEST_CASE("[Shaman : Minion] - DRG_099 : Kronx Dragonhoof")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Kronx Dragonhoof"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
     CHECK_EQ(curHand.GetCount(), 9);
     CHECK_EQ(curHand[8]->card->name, "Galakrond, the Unspeakable");
 
@@ -8633,7 +8616,7 @@ TEST_CASE("[Shaman : Minion] - DRG_099 : Kronx Dragonhoof")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     Generic::ChoicePick(curPlayer, 71);
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
@@ -8642,7 +8625,7 @@ TEST_CASE("[Shaman : Minion] - DRG_099 : Kronx Dragonhoof")
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     Generic::ChoicePick(curPlayer, 76);
     CHECK_EQ(curField.GetCount(), 4);
@@ -8653,7 +8636,7 @@ TEST_CASE("[Shaman : Minion] - DRG_099 : Kronx Dragonhoof")
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card4));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     Generic::ChoicePick(curPlayer, 82);
     CHECK_EQ(curField[0]->GetAttack(), 8);
@@ -8670,7 +8653,7 @@ TEST_CASE("[Shaman : Minion] - DRG_099 : Kronx Dragonhoof")
     curPlayer->SetUsedMana(0);
 
     game.Process(curPlayer, PlayCardTask::Minion(card5));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     Generic::ChoicePick(curPlayer, 87);
     CHECK_EQ(curField[0]->GetHealth(), 3);

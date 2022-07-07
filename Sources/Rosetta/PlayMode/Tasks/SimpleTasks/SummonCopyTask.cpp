@@ -12,9 +12,9 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
-#include <algorithm>
-#include <chrono>
-#include <random>
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
@@ -45,21 +45,17 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
     if (m_randomFlag)
     {
-        const unsigned int seed =
-            std::chrono::system_clock::now().time_since_epoch().count();
-        std::default_random_engine rng(seed);
-        std::shuffle(std::begin(playables), std::end(playables), rng);
+        Random::shuffle(playables.begin(), playables.end());
     }
 
     const auto field = player->GetFieldZone();
     int space = MAX_FIELD_SIZE - field->GetCount();
     int alternateCount = 0;
 
-    auto playablesSize = static_cast<int>(playables.size());
-    space = playablesSize > space ? space : playablesSize;
+    const auto size = static_cast<int>(playables.size());
+    space = std::min(space, size);
 
-    if (playables[0]->zone == nullptr ||
-        playables[0]->zone->GetType() != ZoneType::PLAY)
+    if (!playables[0]->zone || playables[0]->zone->GetType() != ZoneType::PLAY)
     {
         for (int i = 0; i < space; ++i)
         {
@@ -70,11 +66,10 @@ TaskStatus SummonCopyTask::Impl(Player* player)
 
             const auto minion = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, playables[i]->card));
+            const int pos = SummonTask::GetPosition(m_source, m_side, m_target,
+                                                    alternateCount);
 
-            Generic::Summon(minion,
-                            SummonTask::GetPosition(m_source, m_side, m_target,
-                                                    alternateCount),
-                            m_source);
+            Generic::Summon(minion, pos, m_source);
 
             if (m_addToStack)
             {
@@ -84,7 +79,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
     }
     else
     {
-        for (int i = 0; i < playablesSize; ++i)
+        for (int i = 0; i < size; ++i)
         {
             if (field->IsFull())
             {
@@ -98,18 +93,18 @@ TaskStatus SummonCopyTask::Impl(Player* player)
                 minion->SetGameTag(GameTag::CONTROLLER, player->playerID);
             }
 
-            const int zonePos = SummonTask::GetPosition(
-                m_source, m_side, m_target, alternateCount);
-
+            const int pos = SummonTask::GetPosition(m_source, m_side, m_target,
+                                                    alternateCount);
             const auto copy = dynamic_cast<Minion*>(
                 Entity::GetFromCard(player, minion->card, minion->GetGameTags(),
                                     player->GetFieldZone()));
-            Generic::Summon(copy, zonePos, m_source);
+
+            Generic::Summon(copy, pos, m_source);
             minion->CopyInternalAttributes(copy);
 
             if (!minion->appliedEnchantments.empty())
             {
-                for (auto& enchantment : minion->appliedEnchantments)
+                for (const auto& enchantment : minion->appliedEnchantments)
                 {
                     auto instance = Enchantment::GetInstance(
                         minion, enchantment->card, copy);
@@ -138,8 +133,7 @@ TaskStatus SummonCopyTask::Impl(Player* player)
                 }
             }
 
-            if (minion->ongoingEffect != nullptr &&
-                copy->ongoingEffect == nullptr)
+            if (minion->ongoingEffect && !copy->ongoingEffect)
             {
                 minion->ongoingEffect->Clone(copy);
             }

@@ -37,10 +37,10 @@ void Choice::TryPrepare()
 
     if (choiceAction == ChoiceAction::SWAMPQUEEN_HAGATHA)
     {
-        Playable* playable = player->game->entityList[lastChoice];
+        const Playable* playable = player->game->entityList[lastChoice];
         bool isTargetingCard = false;
 
-        for (auto& playReq : playable->card->playRequirements)
+        for (const auto& playReq : playable->card->playRequirements)
         {
             if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
                 playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
@@ -63,7 +63,8 @@ void Choice::TryPrepare()
                 }
 
                 bool isValid = true;
-                for (auto& playReq : card->playRequirements)
+
+                for (const auto& playReq : card->playRequirements)
                 {
                     if (playReq.first == PlayReq::REQ_TARGET_TO_PLAY ||
                         playReq.first == PlayReq::REQ_TARGET_IF_AVAILABLE)
@@ -84,25 +85,24 @@ void Choice::TryPrepare()
     }
     else if (choiceAction == ChoiceAction::SIAMAT)
     {
-        Playable* effect = player->game->entityList[lastChoice];
+        const Playable* effect = player->game->entityList[lastChoice];
+
         EraseIf(cardSets,
-                [=](Card* card) { return effect->card->id == card->id; });
+                [=](const Card* card) { return effect->card->id == card->id; });
     }
 
     choices = SimpleTasks::DiscoverTask::GetChoices(source, cardSets,
                                                     std::vector<int>{}, 3);
 }
 
-Choice* Choice::TryPopNextChoice(int _lastChoice) const
+Choice* Choice::TryPopNextChoice(const int _lastChoice) const
 {
-    if (nextChoice == nullptr)
+    if (nextChoice)
     {
-        return nullptr;
+        nextChoice->lastChoice = _lastChoice;
+        nextChoice->TryPrepare();
+        nextChoice->entityStack = entityStack;
     }
-
-    nextChoice->lastChoice = _lastChoice;
-    nextChoice->TryPrepare();
-    nextChoice->entityStack = entityStack;
 
     return nextChoice;
 }

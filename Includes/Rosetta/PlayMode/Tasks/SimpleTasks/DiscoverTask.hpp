@@ -19,7 +19,7 @@ class DiscoverCriteria
     explicit DiscoverCriteria(CardType _cardType, CardClass _cardClass,
                               Race _race, Rarity _rarity);
 
-    bool Evaluate(Card* card) const;
+    bool Evaluate(const Card* card) const;
 
     CardType cardType = CardType::INVALID;
     CardClass cardClass = CardClass::INVALID;
@@ -95,7 +95,7 @@ class DiscoverTask : public ITask
     //! \param cardsForOtherEffect A list of cards for other effect.
     //! \param numberOfChoices The number of choices.
     //! \param doShuffle The flag that indicates it does shuffle.
-    static std::vector<int> GetChoices(Entity* source,
+    static std::vector<int> GetChoices(const Entity* source,
                                        std::vector<Card*> cardsForGeneration,
                                        std::vector<int> cardsForOtherEffect,
                                        int numberOfChoices,
@@ -117,7 +117,7 @@ class DiscoverTask : public ITask
     //! \param discoverType The type of discover.
     //! \param choiceAction The choice action of discover effect.
     //! \return A list of cards to discover.
-    auto Discover(Game* game, Player* player, DiscoverType discoverType,
+    auto Discover(const Game* game, Player* player, DiscoverType discoverType,
                   ChoiceAction& choiceAction) const
         -> std::tuple<std::vector<Card*>, std::vector<int>>;
 
@@ -126,7 +126,7 @@ class DiscoverTask : public ITask
     //! \param player The player context.
     //! \param criteria The discover criteria.
     //! \return A list of cards to discover.
-    std::vector<Card*> Discover(Game* game, Player* player,
+    std::vector<Card*> Discover(const Game* game, const Player* player,
                                 DiscoverCriteria criteria) const;
 
     std::vector<Card*> m_cards;

@@ -22,12 +22,13 @@ class Player;
 class Character : public Playable
 {
  public:
-    //! Constructs character with given \p player, \p card, \p tags and \p id.
-    //! \param player The owner of the card.
-    //! \param card The card.
+    //! Constructs character with given \p _player, \p _card, \p tags and \p id.
+    //! \param _player The owner of the card.
+    //! \param _card The card.
     //! \param tags The game tags.
     //! \param id The ID.
-    Character(Player* player, Card* card, std::map<GameTag, int> tags, int id);
+    Character(Player* _player, Card* _card, std::map<GameTag, int> tags,
+              int id);
 
     //! Default destructor.
     ~Character() = default;
@@ -144,12 +145,12 @@ class Character : public Playable
     //! \param opponent The opponent player.
     //! \param target A pointer to the target.
     //! \return true if the target is valid, and false otherwise.
-    bool IsValidAttackTarget(Player* opponent, Character* target) const;
+    bool IsValidAttackTarget(const Player* opponent, Character* target) const;
 
     //! Returns a list of valid target in attack.
     //! \param opponent The opponent player.
     //! \return A list of pointer to valid target.
-    std::vector<Character*> GetValidAttackTargets(Player* opponent) const;
+    std::vector<Character*> GetValidAttackTargets(const Player* opponent) const;
 
     //! Takes damage from a certain other entity.
     //! \param source An entity to give damage.

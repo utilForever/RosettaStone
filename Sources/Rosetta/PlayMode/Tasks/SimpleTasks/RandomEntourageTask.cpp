@@ -23,7 +23,7 @@ TaskStatus RandomEntourageTask::Impl(Player* player)
 {
     std::vector<Playable*> list;
 
-    if (m_source == nullptr || m_source->card->entourages.empty())
+    if (!m_source || m_source->card->entourages.empty())
     {
         return TaskStatus::STOP;
     }

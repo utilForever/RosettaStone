@@ -22,7 +22,7 @@ TaskStatus AddStackToTask::Impl(Player* player)
     {
         case EntityType::HAND:
         {
-            for (auto& entity : player->game->taskStack.playables)
+            for (const auto& entity : player->game->taskStack.playables)
             {
                 Generic::AddCardToHand(entity->player, entity);
             }
@@ -30,7 +30,7 @@ TaskStatus AddStackToTask::Impl(Player* player)
         }
         case EntityType::ENEMY_HAND:
         {
-            for (auto& entity : player->game->taskStack.playables)
+            for (const auto& entity : player->game->taskStack.playables)
             {
                 Generic::AddCardToHand(entity->player->opponent, entity);
             }

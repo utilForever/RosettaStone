@@ -24,7 +24,7 @@ SelfCondition::SelfCondition(std::function<bool(Playable*)> func)
 
 SelfCondition SelfCondition::IsFriendly()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         const auto iter =
             playable->game->entityList.find(playable->GetCardTarget());
         return playable->player == iter->second->player;
@@ -33,7 +33,7 @@ SelfCondition SelfCondition::IsFriendly()
 
 SelfCondition SelfCondition::IsNotStartInDeck()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         const auto entityID = playable->GetGameTag(GameTag::ENTITY_ID);
         const auto curDeckCount = playable->player->GetDeckZone()->GetCount();
         const auto opDeckCount =
@@ -44,42 +44,42 @@ SelfCondition SelfCondition::IsNotStartInDeck()
 
 SelfCondition SelfCondition::IsHandEmpty()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetHandZone()->IsEmpty();
     });
 }
 
 SelfCondition SelfCondition::IsHandFull()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetHandZone()->IsFull();
     });
 }
 
 SelfCondition SelfCondition::IsHandNotFull()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return !playable->player->GetHandZone()->IsFull();
     });
 }
 
 SelfCondition SelfCondition::IsDeckEmpty()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetDeckZone()->IsEmpty();
     });
 }
 
 SelfCondition SelfCondition::IsSecretFull()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetSecretZone()->IsFull();
     });
 }
 
 SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
 {
-    return SelfCondition([cardID](Playable* playable) {
+    return SelfCondition([cardID](const Playable* playable) {
         return playable->player->GetHero()->heroPower->card->id == cardID;
     });
 }
@@ -87,32 +87,31 @@ SelfCondition SelfCondition::IsHeroPowerCard(const std::string& cardID)
 SelfCondition SelfCondition::IsBattlecryCard()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->HasBattlecry(); });
+        [](const Playable* playable) { return playable->HasBattlecry(); });
 }
 
 SelfCondition SelfCondition::IsDeathrattleCard()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->HasDeathrattle(); });
+        [](const Playable* playable) { return playable->HasDeathrattle(); });
 }
 
 SelfCondition SelfCondition::IsDiscoverCard()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->HasDiscover(); });
+        [](const Playable* playable) { return playable->HasDiscover(); });
 }
 
 SelfCondition SelfCondition::IsGalakrondHero()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->card->IsGalakrond(); });
+        [](const Playable* playable) { return playable->card->IsGalakrond(); });
 }
 
 SelfCondition SelfCondition::IsAwaken()
 {
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (minion)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
         {
             return minion->HasDormant() &&
                    minion->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) ==
@@ -126,37 +125,37 @@ SelfCondition SelfCondition::IsAwaken()
 SelfCondition SelfCondition::IsDead()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->isDestroyed; });
+        [](const Playable* playable) { return playable->isDestroyed; });
 }
 
 SelfCondition SelfCondition::IsNotDead()
 {
     return SelfCondition(
-        [](Playable* playable) { return !playable->isDestroyed; });
+        [](const Playable* playable) { return !playable->isDestroyed; });
 }
 
 SelfCondition SelfCondition::IsNotImmune()
 {
-    return SelfCondition([](Playable* playable) {
-        const auto character = dynamic_cast<Character*>(playable);
-        if (!character)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto character = dynamic_cast<const Character*>(playable))
         {
-            return false;
+            return !character->IsImmune();
         }
 
-        return !character->IsImmune();
+        return false;
     });
 }
 
 SelfCondition SelfCondition::IsNotUntouchable()
 {
-    return SelfCondition(
-        [](Playable* playable) { return !playable->card->IsUntouchable(); });
+    return SelfCondition([](const Playable* playable) {
+        return !playable->card->IsUntouchable();
+    });
 }
 
 SelfCondition SelfCondition::IsFieldCount(int value, RelaSign relaSign)
 {
-    return SelfCondition([value, relaSign](Playable* playable) {
+    return SelfCondition([value, relaSign](const Playable* playable) {
         const int val =
             playable->player->GetFieldZone()->GetCountExceptUntouchables();
 
@@ -168,7 +167,7 @@ SelfCondition SelfCondition::IsFieldCount(int value, RelaSign relaSign)
 
 SelfCondition SelfCondition::IsOpFieldCount(int value, RelaSign relaSign)
 {
-    return SelfCondition([value, relaSign](Playable* playable) {
+    return SelfCondition([value, relaSign](const Playable* playable) {
         const int val = playable->player->opponent->GetFieldZone()
                             ->GetCountExceptUntouchables();
 
@@ -180,243 +179,216 @@ SelfCondition SelfCondition::IsOpFieldCount(int value, RelaSign relaSign)
 
 SelfCondition SelfCondition::IsFieldFull()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetFieldZone()->IsFull();
     });
 }
 
 SelfCondition SelfCondition::IsFieldNotFull()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return !playable->player->GetFieldZone()->IsFull();
     });
 }
 
 SelfCondition SelfCondition::IsOpFieldNotFull()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return !playable->player->opponent->GetFieldZone()->IsFull();
     });
 }
 
 SelfCondition SelfCondition::IsFieldNotEmpty()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return !playable->player->GetFieldZone()->IsEmpty();
     });
 }
 
 SelfCondition SelfCondition::IsDamaged()
 {
-    return SelfCondition([](Playable* playable) {
-        const auto character = dynamic_cast<Character*>(playable);
-        if (!character)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto character = dynamic_cast<const Character*>(playable))
         {
-            return false;
+            return character->GetDamage() > 0;
         }
 
-        return character->GetDamage() > 0;
+        return false;
     });
 }
 
 SelfCondition SelfCondition::IsUndamaged()
 {
-    return SelfCondition([](Playable* playable) {
-        const auto character = dynamic_cast<Character*>(playable);
-        if (!character)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto character = dynamic_cast<const Character*>(playable))
         {
-            return false;
+            return character->GetDamage() == 0;
         }
 
-        return character->GetDamage() == 0;
+        return false;
     });
 }
 
 SelfCondition SelfCondition::IsWeaponEquipped()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetHero()->HasWeapon();
     });
 }
 
 SelfCondition SelfCondition::IsTreant()
 {
-    return SelfCondition(
-        [](Playable* playable) { return playable->card->name == "Treant"; });
+    return SelfCondition([](const Playable* playable) {
+        return playable->card->name == "Treant";
+    });
 }
 
 SelfCondition SelfCondition::IsLackey()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->card->IsLackey(); });
+        [](const Playable* playable) { return playable->card->IsLackey(); });
 }
 
 SelfCondition SelfCondition::IsPoison()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->card->IsPoison(); });
+        [](const Playable* playable) { return playable->card->IsPoison(); });
 }
 
 SelfCondition SelfCondition::IsSilverHandRecruit()
 {
-    return SelfCondition(
-        [](Playable* playable) { return playable->card->id == "CS2_101t"; });
+    return SelfCondition([](const Playable* playable) {
+        return playable->card->id == "CS2_101t";
+    });
 }
 
 SelfCondition SelfCondition::IsRace(Race race)
 {
-    return SelfCondition([race](Playable* playable) {
+    return SelfCondition([race](const Playable* playable) {
         return playable->card->GetRace() == race;
     });
 }
 
 SelfCondition SelfCondition::IsNotRace(Race race)
 {
-    return SelfCondition([race](Playable* playable) {
+    return SelfCondition([race](const Playable* playable) {
         return playable->card->GetRace() != race;
     });
 }
 
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
-    return SelfCondition([race](Playable* playable) {
-        for (auto& minion : playable->player->GetFieldZone()->GetAll())
-        {
-            if (minion->card->GetRace() == race)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([race](const Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(minions.begin(), minions.end(),
+                           [&](const Minion* minion) {
+                               return minion->card->GetRace() == race;
+                           });
     });
 }
 
 SelfCondition SelfCondition::IsOpControllingRace(Race race)
 {
-    return SelfCondition([race](Playable* playable) {
-        for (auto& minion :
-             playable->player->opponent->GetFieldZone()->GetAll())
-        {
-            if (minion->card->GetRace() == race)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([race](const Playable* playable) {
+        auto minions = playable->player->opponent->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(minions.begin(), minions.end(),
+                           [&](const Minion* minion) {
+                               return minion->card->GetRace() == race;
+                           });
     });
 }
 
 SelfCondition SelfCondition::IsControllingSecret()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return !playable->player->GetSecretZone()->IsEmpty();
     });
 }
 
 SelfCondition SelfCondition::IsControllingQuest()
 {
-    return SelfCondition([](Playable* playable) {
-        return playable->player->GetSecretZone()->quest != nullptr;
+    return SelfCondition([](const Playable* playable) {
+        return playable->player->GetSecretZone()->quest;
     });
 }
 
 SelfCondition SelfCondition::IsControllingStealthedMinion()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& minion : playable->player->GetFieldZone()->GetAll())
-        {
-            if (minion->HasStealth() == true)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            minions.begin(), minions.end(),
+            [&](const Minion* minion) { return minion->HasStealth(); });
     });
 }
 
 SelfCondition SelfCondition::IsControllingLackey()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& minion : playable->player->GetFieldZone()->GetAll())
-        {
-            if (minion->card->IsLackey())
-            {
-                return true;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            minions.begin(), minions.end(),
+            [&](const Minion* minion) { return minion->card->IsLackey(); });
     });
 }
 
 SelfCondition SelfCondition::IsControllingColaqueShell()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& minion : playable->player->GetFieldZone()->GetAll())
-        {
-            if (minion->card->id == "TSC_026t")
-            {
-                return true;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto minions = playable->player->GetFieldZone()->GetAll();
 
-        return false;
+        return std::any_of(minions.begin(), minions.end(),
+                           [&](const Minion* minion) {
+                               return minion->card->id == "TSC_026t";
+                           });
     });
 }
 
 SelfCondition SelfCondition::IsHoldingSecret()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->IsSecret() == true)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(cards.begin(), cards.end(),
+                           [&](const Playable* handCard) {
+                               return handCard->card->IsSecret();
+                           });
     });
 }
 
 SelfCondition SelfCondition::IsHoldingRace(Race race)
 {
-    return SelfCondition([race](Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->GetCardType() == CardType::MINION &&
-                handCard->card->GetRace() == race)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([race](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::MINION &&
+                       handCard->card->GetRace() == race;
+            });
     });
 }
 
 SelfCondition SelfCondition::IsHoldingSpell(SpellSchool spellSchool)
 {
-    return SelfCondition([spellSchool](Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->GetCardType() == CardType::SPELL &&
-                handCard->card->GetSpellSchool() == spellSchool)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([spellSchool](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::SPELL &&
+                       handCard->card->GetSpellSchool() == spellSchool;
+            });
     });
 }
 
 SelfCondition SelfCondition::IsAnotherClassCard()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         if (playable->card->GetCardClass() != CardClass::NEUTRAL &&
             playable->card->GetCardClass() !=
                 playable->player->GetHero()->card->GetCardClass())
@@ -429,117 +401,110 @@ SelfCondition SelfCondition::IsAnotherClassCard()
 
 SelfCondition SelfCondition::IsHoldingAnotherClassCard()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
+    return SelfCondition([](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
+
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardClass() != CardClass::NEUTRAL &&
+                       handCard->card->GetCardClass() !=
+                           playable->player->GetHero()->card->GetCardClass();
+            });
+    });
+}
+
+SelfCondition SelfCondition::IsCardID(std::string_view cardID)
+{
+    return SelfCondition([cardID](const Playable* playable) {
+        return playable->card->id == cardID;
+    });
+}
+
+SelfCondition SelfCondition::IsMinion()
+{
+    return SelfCondition([](const Playable* playable) {
+        return dynamic_cast<const Minion*>(playable);
+    });
+}
+
+SelfCondition SelfCondition::IsSpell()
+{
+    return SelfCondition([](const Playable* playable) {
+        return dynamic_cast<const Spell*>(playable);
+    });
+}
+
+SelfCondition SelfCondition::IsNatureSpell()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto spell = dynamic_cast<const Spell*>(playable))
         {
-            if (handCard->card->GetCardClass() != CardClass::NEUTRAL &&
-                handCard->card->GetCardClass() !=
-                    playable->player->GetHero()->card->GetCardClass())
-            {
-                return true;
-            }
+            return spell->GetSpellSchool() == SpellSchool::NATURE;
         }
 
         return false;
     });
 }
 
-SelfCondition SelfCondition::IsCardID(std::string_view cardID)
-{
-    return SelfCondition(
-        [cardID](Playable* playable) { return playable->card->id == cardID; });
-}
-
-SelfCondition SelfCondition::IsMinion()
-{
-    return SelfCondition([](Playable* playable) {
-        return dynamic_cast<Minion*>(playable) != nullptr;
-    });
-}
-
-SelfCondition SelfCondition::IsSpell()
-{
-    return SelfCondition([](Playable* playable) {
-        return dynamic_cast<Spell*>(playable) != nullptr;
-    });
-}
-
-SelfCondition SelfCondition::IsNatureSpell()
-{
-    return SelfCondition([](Playable* playable) {
-        auto spell = dynamic_cast<Spell*>(playable);
-        if (!spell)
-        {
-            return false;
-        }
-
-        return spell->GetSpellSchool() == SpellSchool::NATURE;
-    });
-}
-
 SelfCondition SelfCondition::IsFrostSpell()
 {
-    return SelfCondition([](Playable* playable) {
-        auto spell = dynamic_cast<Spell*>(playable);
-        if (!spell)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto spell = dynamic_cast<const Spell*>(playable))
         {
-            return false;
+            return spell->GetSpellSchool() == SpellSchool::FROST;
         }
 
-        return spell->GetSpellSchool() == SpellSchool::FROST;
+        return false;
     });
 }
 
 SelfCondition SelfCondition::IsHolySpell()
 {
-    return SelfCondition([](Playable* playable) {
-        auto spell = dynamic_cast<Spell*>(playable);
-        if (!spell)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto spell = dynamic_cast<const Spell*>(playable))
         {
-            return false;
+            return spell->GetSpellSchool() == SpellSchool::HOLY;
         }
 
-        return spell->GetSpellSchool() == SpellSchool::HOLY;
+        return false;
     });
 }
 
 SelfCondition SelfCondition::IsShadowSpell()
 {
-    return SelfCondition([](Playable* playable) {
-        auto spell = dynamic_cast<Spell*>(playable);
-        if (!spell)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto spell = dynamic_cast<const Spell*>(playable))
         {
-            return false;
+            return spell->GetSpellSchool() == SpellSchool::SHADOW;
         }
 
-        return spell->GetSpellSchool() == SpellSchool::SHADOW;
+        return false;
     });
 }
 
 SelfCondition SelfCondition::IsFelSpell()
 {
-    return SelfCondition([](Playable* playable) {
-        auto spell = dynamic_cast<Spell*>(playable);
-        if (!spell)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto spell = dynamic_cast<const Spell*>(playable))
         {
-            return false;
+            return spell->GetSpellSchool() == SpellSchool::FEL;
         }
 
-        return spell->GetSpellSchool() == SpellSchool::FEL;
+        return false;
     });
 }
 
 SelfCondition SelfCondition::IsWeapon()
 {
-    return SelfCondition([](Playable* playable) {
-        return dynamic_cast<Weapon*>(playable) != nullptr;
+    return SelfCondition([](const Playable* playable) {
+        return dynamic_cast<const Weapon*>(playable);
     });
 }
 
 SelfCondition SelfCondition::IsSecret()
 {
-    return SelfCondition([](Playable* playable) {
-        return dynamic_cast<Spell*>(playable) != nullptr &&
+    return SelfCondition([](const Playable* playable) {
+        return dynamic_cast<const Spell*>(playable) &&
                playable->GetGameTag(GameTag::SECRET) == 1;
     });
 }
@@ -547,163 +512,152 @@ SelfCondition SelfCondition::IsSecret()
 SelfCondition SelfCondition::IsChooseOneCard()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->HasChooseOne(); });
+        [](const Playable* playable) { return playable->HasChooseOne(); });
 }
 
 SelfCondition SelfCondition::IsOutcastCard()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->HasOutcast(); });
+        [](const Playable* playable) { return playable->HasOutcast(); });
 }
 
 SelfCondition SelfCondition::IsFrozen()
 {
-    return SelfCondition([](Playable* playable) {
-        const auto character = dynamic_cast<Character*>(playable);
-        if (!character)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto character = dynamic_cast<const Character*>(playable))
         {
-            return false;
-        }
-
-        return character->IsFrozen();
-    });
-}
-
-SelfCondition SelfCondition::HasHeroArmor()
-{
-    return SelfCondition([](Playable* playable) {
-        return playable->player->GetHero()->GetArmor() > 0;
-    });
-}
-
-SelfCondition SelfCondition::HasSpellPower()
-{
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
-
-        return minion->GetSpellPower() > 0;
-    });
-}
-
-SelfCondition SelfCondition::HasTaunt()
-{
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
-
-        return minion->HasTaunt();
-    });
-}
-
-SelfCondition SelfCondition::HasRush()
-{
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
-
-        return minion->HasRush();
-    });
-}
-
-SelfCondition SelfCondition::HasDeathrattle()
-{
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
-
-        return minion->HasDeathrattle();
-    });
-}
-
-SelfCondition SelfCondition::HasNotStealth()
-{
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
-
-        return !minion->HasStealth();
-    });
-}
-
-SelfCondition SelfCondition::HasWindfury()
-{
-    return SelfCondition([](Playable* playable) {
-        const auto character = dynamic_cast<Character*>(playable);
-        if (!character)
-        {
-            return false;
-        }
-
-        return character->HasWindfury();
-    });
-}
-
-SelfCondition SelfCondition::HasReborn()
-{
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
-
-        return minion->HasReborn();
-    });
-}
-
-SelfCondition SelfCondition::HasFrenzy()
-{
-    return SelfCondition([](Playable* playable) {
-        const auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
-        {
-            return false;
-        }
-
-        return minion->HasFrenzy();
-    });
-}
-
-SelfCondition SelfCondition::HasInvokedTwice()
-{
-    return SelfCondition(
-        [](Playable* playable) { return playable->player->GetInvoke() >= 2; });
-}
-
-SelfCondition SelfCondition::HasMinionInHand()
-{
-    return SelfCondition([](Playable* playable) {
-        for (auto& card : playable->player->GetHandZone()->GetAll())
-        {
-            if (dynamic_cast<Minion*>(card) != nullptr)
-            {
-                return true;
-            }
+            return character->IsFrozen();
         }
 
         return false;
     });
 }
 
+SelfCondition SelfCondition::HasHeroArmor()
+{
+    return SelfCondition([](const Playable* playable) {
+        return playable->player->GetHero()->GetArmor() > 0;
+    });
+}
+
+SelfCondition SelfCondition::HasSpellPower()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
+        {
+            return minion->GetSpellPower() > 0;
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::HasTaunt()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
+        {
+            return minion->HasTaunt();
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::HasRush()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
+        {
+            return minion->HasRush();
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::HasDeathrattle()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
+        {
+            return minion->HasDeathrattle();
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::HasNotStealth()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
+        {
+            return !minion->HasStealth();
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::HasWindfury()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto character = dynamic_cast<const Character*>(playable))
+        {
+            return character->HasWindfury();
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::HasReborn()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
+        {
+            return minion->HasReborn();
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::HasFrenzy()
+{
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
+        {
+            return minion->HasFrenzy();
+        }
+
+        return false;
+    });
+}
+
+SelfCondition SelfCondition::HasInvokedTwice()
+{
+    return SelfCondition([](const Playable* playable) {
+        return playable->player->GetInvoke() >= 2;
+    });
+}
+
+SelfCondition SelfCondition::HasMinionInHand()
+{
+    return SelfCondition([](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
+
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::MINION;
+            });
+    });
+}
+
 SelfCondition SelfCondition::IsOverloadCard()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         if (playable->GetGameTag(GameTag::OVERLOAD) >= 1)
         {
             return true;
@@ -715,7 +669,7 @@ SelfCondition SelfCondition::IsOverloadCard()
 
 SelfCondition SelfCondition::IsComboCard()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         if (playable->GetGameTag(GameTag::COMBO) == 1)
         {
             return true;
@@ -727,7 +681,7 @@ SelfCondition SelfCondition::IsComboCard()
 
 SelfCondition SelfCondition::IsLowestCostMinion()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         int lowestCost = std::numeric_limits<int>::max();
 
         for (const auto& handCard : playable->player->GetHandZone()->GetAll())
@@ -746,21 +700,21 @@ SelfCondition SelfCondition::IsLowestCostMinion()
 
 SelfCondition SelfCondition::HasPlayerSpellPower()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetCurrentSpellPower() > 0;
     });
 }
 
 SelfCondition SelfCondition::IsAttackThisTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) > 0;
     });
 }
 
 SelfCondition SelfCondition::IsCastSpellLastTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetGameTag(
                    GameTag::NUM_SPELLS_CAST_LAST_TURN) > 0;
     });
@@ -768,56 +722,56 @@ SelfCondition SelfCondition::IsCastSpellLastTurn()
 
 SelfCondition SelfCondition::CardsPlayedThisTurn(int num)
 {
-    return SelfCondition([num](Playable* playable) {
+    return SelfCondition([num](const Playable* playable) {
         return playable->player->GetNumCardsPlayedThisTurn() == num;
     });
 }
 
 SelfCondition SelfCondition::MinionsPlayedThisTurn(int num)
 {
-    return SelfCondition([num](Playable* playable) {
+    return SelfCondition([num](const Playable* playable) {
         return playable->player->GetNumMinionsPlayedThisTurn() == num;
     });
 }
 
 SelfCondition SelfCondition::TauntMinionsPlayedThisTurn(int num)
 {
-    return SelfCondition([num](Playable* playable) {
+    return SelfCondition([num](const Playable* playable) {
         return playable->player->GetNumTauntMinionsPlayedThisTurn() == num;
     });
 }
 
 SelfCondition SelfCondition::SpellsCastThisTurn(int num)
 {
-    return SelfCondition([num](Playable* playable) {
+    return SelfCondition([num](const Playable* playable) {
         return playable->player->GetNumSpellsCastThisTurn() == num;
     });
 }
 
 SelfCondition SelfCondition::HealthRestoredThisTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetAmountHealedThisTurn() > 0;
     });
 }
 
 SelfCondition SelfCondition::IsPlayElementalMinionLastTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetNumElementalPlayedLastTurn() > 0;
     });
 }
 
 SelfCondition SelfCondition::IsNotPlayElementalMinionThisTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetNumElementalPlayedThisTurn() == 0;
     });
 }
 
 SelfCondition SelfCondition::IsCost(int value, RelaSign relaSign)
 {
-    return SelfCondition([value, relaSign](Playable* playable) {
+    return SelfCondition([value, relaSign](const Playable* playable) {
         const int val = playable->GetCost();
 
         return (relaSign == RelaSign::EQ && val == value) ||
@@ -829,7 +783,7 @@ SelfCondition SelfCondition::IsCost(int value, RelaSign relaSign)
 SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
                                         RelaSign relaSign)
 {
-    return SelfCondition([tag, value, relaSign](Playable* playable) {
+    return SelfCondition([tag, value, relaSign](const Playable* playable) {
         return (relaSign == RelaSign::EQ &&
                 playable->GetGameTag(tag) == value) ||
                (relaSign == RelaSign::GEQ &&
@@ -841,15 +795,15 @@ SelfCondition SelfCondition::IsTagValue(GameTag tag, int value,
 
 SelfCondition SelfCondition::IsName(const std::string& name, bool isEqual)
 {
-    return SelfCondition([name, isEqual](Playable* playable) {
+    return SelfCondition([name, isEqual](const Playable* playable) {
         return !((playable->card->name == name) ^ isEqual);
     });
 }
 
 SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
 {
-    return SelfCondition([value, relaSign, index](Playable* playable) {
-        auto& stack = playable->game->taskStack;
+    return SelfCondition([value, relaSign, index](const Playable* playable) {
+        const auto& stack = playable->game->taskStack;
         const auto num = index == 0 ? stack.num[0] : stack.num[1];
 
         return (relaSign == RelaSign::EQ && num == value) ||
@@ -860,8 +814,8 @@ SelfCondition SelfCondition::IsStackNum(int value, RelaSign relaSign, int index)
 
 SelfCondition SelfCondition::IsOddAttackMinion()
 {
-    return SelfCondition([](Playable* playable) {
-        if (auto minion = dynamic_cast<Minion*>(playable); minion)
+    return SelfCondition([](const Playable* playable) {
+        if (const auto minion = dynamic_cast<const Minion*>(playable))
         {
             return minion->GetAttack() % 2 == 1;
         }
@@ -872,9 +826,8 @@ SelfCondition SelfCondition::IsOddAttackMinion()
 
 SelfCondition SelfCondition::IsAttack(int value, RelaSign relaSign)
 {
-    return SelfCondition([value, relaSign](Playable* playable) {
-        if (const auto character = dynamic_cast<Character*>(playable);
-            character)
+    return SelfCondition([value, relaSign](const Playable* playable) {
+        if (const auto character = dynamic_cast<const Character*>(playable))
         {
             return (relaSign == RelaSign::EQ &&
                     character->GetAttack() == value) ||
@@ -890,7 +843,7 @@ SelfCondition SelfCondition::IsAttack(int value, RelaSign relaSign)
 
 SelfCondition SelfCondition::IsEventSourceAttack(int value, RelaSign relaSign)
 {
-    return SelfCondition([value, relaSign](Playable* playable) {
+    return SelfCondition([value, relaSign](const Playable* playable) {
         if (const auto eventData = playable->game->currentEventData.get();
             eventData)
         {
@@ -912,9 +865,8 @@ SelfCondition SelfCondition::IsEventSourceAttack(int value, RelaSign relaSign)
 
 SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 {
-    return SelfCondition([value, relaSign](Playable* playable) {
-        if (const auto character = dynamic_cast<Character*>(playable);
-            character)
+    return SelfCondition([value, relaSign](const Playable* playable) {
+        if (const auto character = dynamic_cast<const Character*>(playable))
         {
             return (relaSign == RelaSign::EQ &&
                     character->GetHealth() == value) ||
@@ -931,7 +883,7 @@ SelfCondition SelfCondition::IsHealth(int value, RelaSign relaSign)
 SelfCondition SelfCondition::HasTarget()
 {
     return SelfCondition(
-        [](Playable* playable) { return playable->GetCardTarget() > 0; });
+        [](const Playable* playable) { return playable->GetCardTarget() > 0; });
 }
 
 SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
@@ -941,7 +893,7 @@ SelfCondition SelfCondition::IsProposedDefender(CardType cardType)
 
 SelfCondition SelfCondition::IsDefenderDead()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         if (const auto eventData = playable->game->currentEventData.get();
             eventData)
         {
@@ -957,7 +909,7 @@ SelfCondition SelfCondition::IsDefenderDead()
 
 SelfCondition SelfCondition::IsHeroFatalPreDamaged()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         if (const auto eventData = playable->game->currentEventData.get();
             eventData)
         {
@@ -971,7 +923,7 @@ SelfCondition SelfCondition::IsHeroFatalPreDamaged()
 
 SelfCondition SelfCondition::IsEventSourceFriendly()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         if (const auto eventData = playable->game->currentEventData.get();
             eventData)
         {
@@ -984,7 +936,7 @@ SelfCondition SelfCondition::IsEventSourceFriendly()
 
 SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
 {
-    return SelfCondition([cardType](Playable* playable) {
+    return SelfCondition([cardType](const Playable* playable) {
         if (const auto eventData = playable->game->currentEventData.get();
             eventData)
         {
@@ -997,7 +949,7 @@ SelfCondition SelfCondition::IsEventTargetIs(CardType cardType)
 
 SelfCondition SelfCondition::IsEventTargetFieldNotFull()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         if (const auto eventData = playable->game->currentEventData.get();
             eventData)
         {
@@ -1010,7 +962,7 @@ SelfCondition SelfCondition::IsEventTargetFieldNotFull()
 
 SelfCondition SelfCondition::IsSpellTargetingMinion()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         const auto iter =
             playable->game->entityList.find(playable->GetCardTarget());
 
@@ -1021,27 +973,28 @@ SelfCondition SelfCondition::IsSpellTargetingMinion()
 
 SelfCondition SelfCondition::IsInZone(ZoneType zone)
 {
-    return SelfCondition(
-        [zone](Playable* playable) { return playable->GetZoneType() == zone; });
+    return SelfCondition([zone](const Playable* playable) {
+        return playable->GetZoneType() == zone;
+    });
 }
 
 SelfCondition SelfCondition::IsMyTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player == playable->game->GetCurrentPlayer();
     });
 }
 
 SelfCondition SelfCondition::IsEnemyTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player != playable->game->GetCurrentPlayer();
     });
 }
 
 SelfCondition SelfCondition::IsMyHeroUndamagedEnemyTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player != playable->game->GetCurrentPlayer() &&
                playable->player->GetHero()->damageTakenThisTurn == 0;
     });
@@ -1049,7 +1002,7 @@ SelfCondition SelfCondition::IsMyHeroUndamagedEnemyTurn()
 
 SelfCondition SelfCondition::IsOverloaded()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetOverloadLocked() > 0 ||
                playable->player->GetOverloadOwed() > 0;
     });
@@ -1057,104 +1010,90 @@ SelfCondition SelfCondition::IsOverloaded()
 
 SelfCondition SelfCondition::HasAtLeastManaCrystal(int num)
 {
-    return SelfCondition([num](Playable* playable) {
+    return SelfCondition([num](const Playable* playable) {
         return playable->player->GetTotalMana() >= num;
     });
 }
 
 SelfCondition SelfCondition::IsManaCrystalFull()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetTotalMana() == 10;
     });
 }
 
 SelfCondition SelfCondition::IsUnspentMana()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetRemainingMana() > 0;
     });
 }
 
 SelfCondition SelfCondition::IsUsedHeroPowerThisTurn()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetHero()->heroPower->IsExhausted();
     });
 }
 
 SelfCondition SelfCondition::IsNoDuplicateInDeck()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         auto cards = playable->player->GetDeckZone()->GetAll();
         std::map<std::string, int> result;
 
-        std::for_each(cards.begin(), cards.end(),
-                      [&result](Playable* val) { result[val->card->id]++; });
+        std::for_each(
+            cards.begin(), cards.end(),
+            [&result](const Playable* val) { result[val->card->id]++; });
 
-        for (auto& res : result)
-        {
-            if (res.second >= 2)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return std::none_of(result.begin(), result.end(),
+                            [&](const std::pair<const std::string, int>& ret) {
+                                return ret.second >= 2;
+                            });
     });
 }
 
 SelfCondition SelfCondition::HasNoMinionsInDeck()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         auto cards = playable->player->GetDeckZone()->GetAll();
 
-        for (auto& card : cards)
-        {
-            if (card->card->GetCardType() == CardType::MINION)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return std::none_of(
+            cards.begin(), cards.end(), [&](const Playable* deckCard) {
+                return deckCard->card->GetCardType() == CardType::MINION;
+            });
     });
 }
 
 SelfCondition SelfCondition::MaximumCardsInDeck(int value)
 {
-    return SelfCondition([value](Playable* playable) {
+    return SelfCondition([value](const Playable* playable) {
         return playable->player->GetDeckZone()->GetCount() <= value;
     });
 }
 
 SelfCondition SelfCondition::HasNoNeutralCardsInDeck()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         auto cards = playable->player->GetDeckZone()->GetAll();
 
-        for (auto& card : cards)
-        {
-            if (card->card->GetCardClass() == CardClass::NEUTRAL)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return std::none_of(
+            cards.begin(), cards.end(), [&](const Playable* deckCard) {
+                return deckCard->card->GetCardClass() == CardClass::NEUTRAL;
+            });
     });
 }
 
 SelfCondition SelfCondition::HasAtLeastCardInHand(int num)
 {
-    return SelfCondition([num](Playable* playable) {
+    return SelfCondition([num](const Playable* playable) {
         return playable->player->GetHandZone()->GetCount() >= num;
     });
 }
 
 SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->GetGameTag(GameTag::LEFT_OR_RIGHT_MOST_CARD_IN_HAND) >
                0;
     });
@@ -1162,83 +1101,68 @@ SelfCondition SelfCondition::IsLeftOrRightMostCardInHand()
 
 SelfCondition SelfCondition::HasNotSpellDamageOnHero()
 {
-    return SelfCondition([](Playable* playable) {
+    return SelfCondition([](const Playable* playable) {
         return playable->player->GetCurrentSpellPower() == 0;
     });
 }
 
 SelfCondition SelfCondition::Has5MoreCostSpellInHand()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (handCard->card->GetCardType() == CardType::SPELL &&
-                handCard->GetCost() >= 5)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::SPELL &&
+                       handCard->GetCost() >= 5;
+            });
     });
 }
 
 SelfCondition SelfCondition::Has5MoreCostDemonInHand()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& handCard : playable->player->GetHandZone()->GetAll())
-        {
-            if (auto minion = dynamic_cast<Minion*>(handCard); minion)
-            {
-                if (minion->card->GetRace() == Race::DEMON &&
-                    minion->GetCost() >= 5)
-                {
-                    return true;
-                }
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
 
-        return false;
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::MINION &&
+                       handCard->card->GetRace() == Race::DEMON &&
+                       handCard->GetCost() >= 5;
+            });
     });
 }
 
 SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& card : playable->player->cardsPlayedThisTurn)
-        {
-            if (card->GetCardType() == CardType::SPELL && card->GetCost() >= 5)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto cards = playable->player->cardsPlayedThisTurn;
 
-        return false;
+        return std::any_of(cards.begin(), cards.end(), [&](const Card* card) {
+            return card->GetCardType() == CardType::SPELL &&
+                   card->GetCost() >= 5;
+        });
     });
 }
 
 SelfCondition SelfCondition::CastFelSpellInThisTurn()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& card : playable->player->cardsPlayedThisTurn)
-        {
-            if (card->GetCardType() == CardType::SPELL &&
-                card->GetSpellSchool() == SpellSchool::FEL)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto cards = playable->player->cardsPlayedThisTurn;
 
-        return false;
+        return std::any_of(cards.begin(), cards.end(), [&](const Card* card) {
+            return card->GetCardType() == CardType::SPELL &&
+                   card->GetSpellSchool() >= SpellSchool::FEL;
+        });
     });
 }
 
 SelfCondition SelfCondition::ControlThisCard(int num)
 {
-    return SelfCondition([num](Playable* playable) {
+    return SelfCondition([num](const Playable* playable) {
         int count = 0;
 
-        for (auto& deckCard : playable->player->GetFieldZone()->GetAll())
+        for (const auto& deckCard : playable->player->GetFieldZone()->GetAll())
         {
             if (playable->card->dbfID == deckCard->card->dbfID)
             {
@@ -1252,37 +1176,31 @@ SelfCondition SelfCondition::ControlThisCard(int num)
 
 SelfCondition SelfCondition::HasSoulFragmentInDeck()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& deckCard : playable->player->GetDeckZone()->GetAll())
-        {
-            if (deckCard->card->dbfID == 59723)
-            {
-                return true;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto cards = playable->player->GetDeckZone()->GetAll();
 
-        return false;
+        return std::any_of(cards.begin(), cards.end(),
+                           [&](const Playable* deckCard) {
+                               return deckCard->card->dbfID == 59723;
+                           });
     });
 }
 
 SelfCondition SelfCondition::NotExistInSecretZone()
 {
-    return SelfCondition([](Playable* playable) {
-        for (auto& secretCard : playable->player->GetSecretZone()->GetAll())
-        {
-            if (playable->card->dbfID == secretCard->card->dbfID)
-            {
-                return false;
-            }
-        }
+    return SelfCondition([](const Playable* playable) {
+        auto secrets = playable->player->GetSecretZone()->GetAll();
 
-        return true;
+        return std::none_of(
+            secrets.begin(), secrets.end(), [&](const Spell* secretCard) {
+                return secretCard->card->dbfID == playable->card->dbfID;
+            });
     });
 }
 
 SelfCondition SelfCondition::CheckThreshold(RelaSign relaSign)
 {
-    return SelfCondition([relaSign](Playable* playable) {
+    return SelfCondition([relaSign](const Playable* playable) {
         const int thresholdTagID =
             playable->GetGameTag(GameTag::PLAYER_TAG_THRESHOLD_TAG_ID);
         const int thresholdValue =

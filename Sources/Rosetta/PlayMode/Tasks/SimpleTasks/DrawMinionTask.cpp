@@ -39,7 +39,7 @@ TaskStatus DrawMinionTask::Impl(Player* player)
 
     auto deckCards = player->GetDeckZone()->GetAll();
 
-    EraseIf(deckCards, [=](Playable* playable) {
+    EraseIf(deckCards, [=](const Playable* playable) {
         return playable->card->GetCardType() != CardType::MINION;
     });
 
@@ -67,7 +67,7 @@ TaskStatus DrawMinionTask::Impl(Player* player)
                       });
             break;
         case DrawMinionType::DEATHRATTLE:
-            EraseIf(deckCards, [=](Playable* playable) {
+            EraseIf(deckCards, [=](const Playable* playable) {
                 return !playable->HasDeathrattle();
             });
             break;

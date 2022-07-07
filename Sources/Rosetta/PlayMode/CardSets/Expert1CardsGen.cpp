@@ -3,37 +3,11 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
-#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
-#include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
-#include <Rosetta/PlayMode/Auras/EnrageEffect.hpp>
-#include <Rosetta/PlayMode/Auras/SummoningPortalAura.hpp>
-#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/Expert1CardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Effects.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Triggers/Triggers.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using TagValues = std::vector<TagValue>;
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using Entourages = std::vector<std::string>;
-using TaskList = std::vector<std::shared_ptr<ITask>>;
-using EntityTypeList = std::vector<EntityType>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using RelaCondList = std::vector<std::shared_ptr<RelaCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void Expert1CardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     CardDef cardDef;
@@ -1779,13 +1753,15 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
         std::make_shared<FuncPlayableTask>(
             [=](const std::vector<Playable*>& playables) {
-                auto target = dynamic_cast<Minion*>(playables[0]);
-                if (target == nullptr)
+                const auto target = dynamic_cast<Minion*>(playables[0]);
+
+                if (!target)
                 {
                     return std::vector<Playable*>{};
                 }
 
                 target->SetDamage(target->GetHealth() - 1);
+
                 return std::vector<Playable*>{ target };
             }) });
     cardDef.power.GetTrigger()->removeAfterTriggered = true;
@@ -1816,10 +1792,11 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             const int diffHands =
                 playable->player->opponent->GetHandZone()->GetCount() -
                 playable->player->GetHandZone()->GetCount();
+
             return diffHands > 0 ? diffHands : 0;
         }));
     cardDef.power.AddPowerTask(std::make_shared<DrawNumberTask>());
@@ -2811,7 +2788,8 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
             TaskList{ std::make_shared<IncludeTask>(EntityType::SOURCE),
                       std::make_shared<FuncPlayableTask>(
                           [=](const std::vector<Playable*>& playables) {
-                              auto source = playables[0];
+                              const auto source = playables[0];
+
                               source->zone->Remove(source);
                               source->SetGameTag(GameTag::HEADCRACK_COMBO, 0);
 
@@ -4271,7 +4249,7 @@ void Expert1CardsGen::AddWarriorNonCollect(
             std::make_shared<IncludeTask>(EntityType::TARGET),
             std::make_shared<FuncPlayableTask>(
                 [=](const std::vector<Playable*>& playables) {
-                    auto minion = dynamic_cast<Minion*>(playables[0]);
+                    const auto minion = dynamic_cast<Minion*>(playables[0]);
                     int& eventNumber =
                         minion->game->currentEventData->eventNumber;
 
@@ -5308,7 +5286,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetHandZone()->GetCount() - 1;
         }));
     cards.emplace("EX1_105", cardDef);
@@ -5894,7 +5872,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
             return playable->player->GetFieldZone()->GetCount() +
                    playable->player->opponent->GetFieldZone()->GetCount();
         }));
@@ -6004,7 +5982,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetHero()->GetDamage();
         }));
     cards.emplace("EX1_620", cardDef);
@@ -6120,7 +6098,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (!playable->player->GetHero()->HasWeapon())
             {
                 return 0;

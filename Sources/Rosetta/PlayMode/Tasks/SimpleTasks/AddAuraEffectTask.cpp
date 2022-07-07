@@ -19,8 +19,9 @@ AddAuraEffectTask::AddAuraEffectTask(std::shared_ptr<IEffect> effect,
 
 TaskStatus AddAuraEffectTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+
     for (auto& playable : playables)
     {
         m_effect->ApplyAuraTo(playable);

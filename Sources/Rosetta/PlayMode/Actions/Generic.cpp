@@ -22,6 +22,11 @@ namespace RosettaStone::PlayMode::Generic
 void TakeDamageToCharacter(Playable* source, Character* target, int amount,
                            bool isSpellDamage)
 {
+    if (!source)
+    {
+        throw std::runtime_error("TakeDamageToCharacter() - source is null!");
+    }
+
     if (isSpellDamage)
     {
         amount += source->player->GetCurrentSpellPower();
@@ -58,7 +63,7 @@ void TakeDamageToCharacter(Playable* source, Character* target, int amount,
     // Check if the source has Honorable Kill
     if (source->HasHonorableKill() && target->GetHealth() == 0)
     {
-        TaskList tasks = source->card->power.GetHonorableKillTask();
+        const TaskList tasks = source->card->power.GetHonorableKillTask();
 
         for (auto& task : tasks)
         {

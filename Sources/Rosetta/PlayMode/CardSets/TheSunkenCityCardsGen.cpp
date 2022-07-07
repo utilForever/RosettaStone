@@ -3,20 +3,11 @@
 // Hearthstone++ is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
 #include <Rosetta/PlayMode/CardSets/TheSunkenCityCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTrigger.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-
 void TheSunkenCityCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -2474,7 +2465,7 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             if (playable->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) == 1)
             {
                 return playable->GetGameTag(GameTag::COST);

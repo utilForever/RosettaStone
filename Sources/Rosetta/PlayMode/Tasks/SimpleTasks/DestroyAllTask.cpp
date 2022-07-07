@@ -19,7 +19,7 @@ DestroyAllTask::DestroyAllTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus DestroyAllTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
@@ -27,7 +27,7 @@ TaskStatus DestroyAllTask::Impl(Player* player)
         std::string name = playable->card->name;
 
         // Field
-        for (auto& minion : player->GetFieldZone()->GetAll())
+        for (const auto& minion : player->GetFieldZone()->GetAll())
         {
             if (minion->card->name == name)
             {
@@ -36,7 +36,7 @@ TaskStatus DestroyAllTask::Impl(Player* player)
         }
 
         // Enemy Field
-        for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+        for (const auto& minion : player->opponent->GetFieldZone()->GetAll())
         {
             if (minion->card->name == name)
             {
@@ -45,7 +45,7 @@ TaskStatus DestroyAllTask::Impl(Player* player)
         }
 
         // Hand
-        for (auto& card : player->GetHandZone()->GetAll())
+        for (const auto& card : player->GetHandZone()->GetAll())
         {
             if (card->card->name == name)
             {
@@ -55,7 +55,7 @@ TaskStatus DestroyAllTask::Impl(Player* player)
         }
 
         // Enemy Hand
-        for (auto& card : player->opponent->GetHandZone()->GetAll())
+        for (const auto& card : player->opponent->GetHandZone()->GetAll())
         {
             if (card->card->name == name)
             {
@@ -65,7 +65,7 @@ TaskStatus DestroyAllTask::Impl(Player* player)
         }
 
         // Deck
-        for (auto& card : player->GetDeckZone()->GetAll())
+        for (const auto& card : player->GetDeckZone()->GetAll())
         {
             if (card->card->name == name)
             {
@@ -75,7 +75,7 @@ TaskStatus DestroyAllTask::Impl(Player* player)
         }
 
         // Enemy Deck
-        for (auto& card : player->opponent->GetDeckZone()->GetAll())
+        for (const auto& card : player->opponent->GetDeckZone()->GetAll())
         {
             if (card->card->name == name)
             {

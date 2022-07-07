@@ -18,9 +18,9 @@ AttackTask::AttackTask(EntityType attacker, EntityType defender, bool force)
 
 TaskStatus AttackTask::Impl(Player* player)
 {
-    auto attackers =
+    const auto attackers =
         IncludeTask::GetEntities(m_attackerType, player, m_source, m_target);
-    auto defenders =
+    const auto defenders =
         IncludeTask::GetEntities(m_defenderType, player, m_source, m_target);
 
     if (defenders.empty())
@@ -30,10 +30,11 @@ TaskStatus AttackTask::Impl(Player* player)
 
     for (auto& attacker : attackers)
     {
-        for (auto defender : defenders)
+        for (const auto defender : defenders)
         {
             const auto realAttacker = dynamic_cast<Character*>(attacker);
             const auto realDefender = dynamic_cast<Character*>(defender);
+
             if (!realAttacker || !realDefender)
             {
                 continue;

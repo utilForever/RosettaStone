@@ -17,6 +17,7 @@ SetPlayerGameTagTask::SetPlayerGameTagTask(GameTag tag, int value)
 TaskStatus SetPlayerGameTagTask::Impl(Player* player)
 {
     player->SetGameTag(m_gameTag, m_value);
+
     return TaskStatus::COMPLETE;
 }
 

@@ -79,7 +79,7 @@ class IntAttr : public Attr<T>
     void ApplyAura(T* entity, EffectOperator effectOp, int value) override
     {
         AuraEffects* auraEffects = entity->auraEffects;
-        if (auraEffects == nullptr)
+        if (!auraEffects)
         {
             auraEffects = new AuraEffects(entity->card->GetCardType());
             entity->auraEffects = auraEffects;

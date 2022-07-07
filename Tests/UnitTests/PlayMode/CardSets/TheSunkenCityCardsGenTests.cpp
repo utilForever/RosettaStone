@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------------- MINION - DRUID
 // [TSC_026] Colaque - COST:7 [ATK:6/HP:5]
@@ -207,7 +192,7 @@ TEST_CASE("[Paladin : Minion] - TSC_030 : The Leviathan")
 
     game.Process(curPlayer, AttackTask(card1, card2));
     CHECK_EQ(opField[0]->GetHealth(), 8);
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     auto firstChoice = game.entityList[curPlayer->choice->choices[0]];
@@ -384,7 +369,7 @@ TEST_CASE("[Neutral : Minion] - TSC_909 : Tuskarrrr Trawler")
         curPlayer, Cards::FindCardByName("Tuskarrrr Trawler"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     auto firstChoice = game.entityList[curPlayer->choice->choices[0]];

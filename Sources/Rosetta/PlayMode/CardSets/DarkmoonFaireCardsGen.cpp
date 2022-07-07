@@ -3,30 +3,19 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2021 Chris Ohk
 
-#include <Rosetta/PlayMode/Auras/SwitchingAura.hpp>
 #include <Rosetta/PlayMode/CardSets/DarkmoonFaireCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-
-using namespace RosettaStone::PlayMode;
-using namespace SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using TagValues = std::vector<TagValue>;
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using TaskList = std::vector<std::shared_ptr<ITask>>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void DarkmoonFaireCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    // Do nothing
 }
 
 void DarkmoonFaireCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    // Do nothing
 }
 
 void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -94,7 +83,7 @@ void DarkmoonFaireCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([](Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetNumSpellsPlayedThisGame();
         }));
     cards.emplace("DMF_060", cardDef);

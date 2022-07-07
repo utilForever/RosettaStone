@@ -21,15 +21,15 @@ class Player;
 class Enchantment : public Playable
 {
  public:
-    //! Constructs enchantment with given \p player, \p card, \p tags,
+    //! Constructs enchantment with given \p _player, \p _card, \p tags,
     //! \p owner and \p target.
-    //! \param player The owner of the card.
-    //! \param card The card.
+    //! \param _player The owner of the card.
+    //! \param _card The card.
     //! \param tags The game tags.
     //! \param owner The owner of enchantment.
     //! \param target A target of enchantment.
     //! \param id The ID.
-    Enchantment(Player* player, Card* card, std::map<GameTag, int> tags,
+    Enchantment(Player* _player, Card* _card, std::map<GameTag, int> tags,
                 Playable* owner, Entity* target, int id);
 
     //! Default destructor.
@@ -49,13 +49,13 @@ class Enchantment : public Playable
 
     //! Creates and adds a new Enchantment to the given player's game.
     //! \param owner The owner of the enchantment.
-    //! \param card The card from which the enchantment must be derived.
+    //! \param _card The card from which the enchantment must be derived.
     //! \param target The entity who is subjected to the enchantment.
     //! \param num1 The number of GameTag::TAG_SCRIPT_DATA_NUM_1.
     //! \param num2 The number of GameTag::TAG_SCRIPT_DATA_NUM_2.
     //! \return The resulting enchantment entity.
-    static std::shared_ptr<Enchantment> GetInstance(Playable* owner, Card* card,
-                                                    Entity* target,
+    static std::shared_ptr<Enchantment> GetInstance(Playable* owner,
+                                                    Card* _card, Entity* target,
                                                     int num1 = 0, int num2 = 0);
 
     //! Returns the owner of enchantment.
@@ -83,8 +83,8 @@ class Enchantment : public Playable
     Card* GetCapturedCard() const;
 
     //! Sets the captured card.
-    //! \param card The captured card to set.
-    void SetCapturedCard(Card* card);
+    //! \param _card The captured card to set.
+    void SetCapturedCard(Card* _card);
 
     //! Removes enchantment.
     void Remove();

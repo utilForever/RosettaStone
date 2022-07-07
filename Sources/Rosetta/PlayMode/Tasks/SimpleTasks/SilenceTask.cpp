@@ -16,18 +16,15 @@ SilenceTask::SilenceTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus SilenceTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
     {
-        auto minion = dynamic_cast<Minion*>(playable);
-        if (!minion)
+        if (const auto minion = dynamic_cast<Minion*>(playable))
         {
-            continue;
+            minion->Silence();
         }
-
-        minion->Silence();
     }
 
     return TaskStatus::COMPLETE;

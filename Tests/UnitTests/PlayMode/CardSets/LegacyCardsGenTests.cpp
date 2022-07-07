@@ -4,21 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------- HERO_POWER - WARRIOR
 // [HERO_01bp] Armor Up! (*) - COST:2
@@ -85,8 +71,8 @@ TEST_CASE("[Shaman : Hero Power] - HERO_02bp : Totemic Call")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     game.Process(curPlayer, HeroPowerTask());
     game.Process(curPlayer, EndTurnTask());
@@ -1451,7 +1437,7 @@ TEST_CASE("[Hunter : Spell] - DS1_184 : Tracking")
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 5);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     TestUtils::ChooseNthChoice(game, 1);
@@ -1767,7 +1753,7 @@ TEST_CASE("[Mage : Spell] - CS2_023 : Arcane Intellect")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Intellect"));
@@ -2976,7 +2962,8 @@ TEST_CASE("[Priest : Spell] - CS2_003 : Mind Vision")
     const auto gainedCard = curHand[4];
 
     bool flag = false;
-    for (auto& handCard : opPlayer->GetHandZone()->GetAll())
+
+    for (const auto& handCard : opPlayer->GetHandZone()->GetAll())
     {
         if (handCard->card->id == gainedCard->card->id)
         {
@@ -5554,7 +5541,7 @@ TEST_CASE("[Warrior : Spell] - CS2_108 : Execute")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Execute"));
@@ -6110,11 +6097,11 @@ TEST_CASE("[Demon Hunter : Minion] - BT_323 : Sightless Watcher")
     config.doFillDecks = false;
     config.autoRun = false;
 
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 30; i += 3)
     {
-        config.player1Deck[i * 3] = Cards::FindCardByName("Magma Rager");
-        config.player1Deck[i * 3 + 1] = Cards::FindCardByName("Wolfrider");
-        config.player1Deck[i * 3 + 2] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i] = Cards::FindCardByName("Magma Rager");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Wolfrider");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
     }
 
     Game game(config);
@@ -6138,7 +6125,7 @@ TEST_CASE("[Demon Hunter : Minion] - BT_323 : Sightless Watcher")
     CHECK_EQ(curDeck.GetCount(), 26);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3u);
 
     auto pickedCardID =
@@ -8115,7 +8102,7 @@ TEST_CASE("[Neutral : Spell] - PRO_001b : Rogues Do It...")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByID("PRO_001b"));

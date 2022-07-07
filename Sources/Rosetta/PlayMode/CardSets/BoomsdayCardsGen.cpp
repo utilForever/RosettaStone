@@ -4,21 +4,10 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/BoomsdayCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using Entourages = std::vector<std::string>;
-using TaskList = std::vector<std::shared_ptr<ITask>>;
-using EntityTypeList = std::vector<EntityType>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void BoomsdayCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ----------------------------------------- HERO - WARRIOR

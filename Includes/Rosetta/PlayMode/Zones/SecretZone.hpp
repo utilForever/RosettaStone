@@ -42,7 +42,7 @@ class SecretZone : public LimitedZone<Spell>
     //! Returns whether the secret card exists in this zone.
     //! \param entity The spell to check whether it exists.
     //! \return The flag that indicates whether the spell exists.
-    bool Exist(Playable* entity) const;
+    bool Exist(const Playable* entity) const;
 
     Spell* quest = nullptr;
 };

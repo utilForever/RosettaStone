@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ------------------------------------------ SPELL - DRUID
 // [BAR_533] Thorngrowth Sentries - COST:2
@@ -1316,7 +1301,7 @@ TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
     auto NumFrozenMinions = [&](FieldZone& field) -> int {
         int count = 0;
 
-        for (auto& minion : field.GetAll())
+        for (const auto& minion : field.GetAll())
         {
             if (minion->IsFrozen())
             {
@@ -1414,7 +1399,7 @@ TEST_CASE("[Mage : Spell] - BAR_541 : Runed Orb")
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3278,14 +3263,14 @@ TEST_CASE("[Priest : Minion] - WC_803 : Cleric of An'she")
     curPlayer->GetHero()->SetDamage(10);
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 26);
     CHECK_EQ(curPlayer->GetHandZone()->GetCount(), 6);
 
     game.Process(curPlayer, PlayCardTask::Spell(card3));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 2u);
 
     TestUtils::ChooseNthChoice(game, 1);
@@ -3383,7 +3368,7 @@ TEST_CASE("[Rogue : Spell] - BAR_318 : Silverleaf Poison")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Silverleaf Poison"));
@@ -5529,7 +5514,7 @@ TEST_CASE("[Warrior : Minion] - BAR_896 : Stonemaul Anchorman")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Stonemaul Anchorman"));
@@ -7165,7 +7150,7 @@ TEST_CASE("[Neutral : Minion] - BAR_065 : Venomous Scorpid")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Venomous Scorpid"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)

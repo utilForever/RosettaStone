@@ -19,12 +19,13 @@ namespace RosettaStone::PlayMode
 class HeroPower : public Playable
 {
  public:
-    //! Constructs hero power with given \p player, \p card, \p tags and \p id.
-    //! \param player The owner of the card.
-    //! \param card The card.
+    //! Constructs hero power with given \p _player, \p _card,
+    //! \p tags and \p id.
+    //! \param _player The owner of the card.
+    //! \param _card The card.
     //! \param tags The game tags.
     //! \param id The ID.
-    HeroPower(Player* player, Card* card, std::map<GameTag, int> tags,
+    HeroPower(Player* _player, Card* _card, std::map<GameTag, int> tags,
               int id = -1);
 
     //! Default destructor.
@@ -44,10 +45,10 @@ class HeroPower : public Playable
 
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
-    //! \param card A card to check targeting requirements.
+    //! \param _card A card to check targeting requirements.
     //! \param target The proposed target.
     //! \return true if the proposed target is valid, false otherwise.
-    bool TargetingRequirements(Card* card, Character* target) const override;
+    bool TargetingRequirements(Card* _card, Character* target) const override;
 };
 }  // namespace RosettaStone::PlayMode
 

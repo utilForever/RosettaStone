@@ -23,13 +23,13 @@ DiscardTask::DiscardTask(int amount, DiscardType discardType, bool saveCard)
 
 TaskStatus DiscardTask::Impl(Player* player)
 {
-    Player* ownerPlayer =
+    const Player* ownerPlayer =
         m_discardType == DiscardType::ENEMY_MINION ? player->opponent : player;
     std::vector<Playable*> handCards = ownerPlayer->GetHandZone()->GetAll();
 
     if (m_discardType == DiscardType::ENEMY_MINION)
     {
-        EraseIf(handCards, [=](Playable* playable) {
+        EraseIf(handCards, [=](const Playable* playable) {
             return playable->card->GetCardType() != CardType::MINION;
         });
     }

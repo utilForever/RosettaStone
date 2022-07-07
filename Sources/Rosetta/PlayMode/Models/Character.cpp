@@ -16,9 +16,9 @@
 
 namespace RosettaStone::PlayMode
 {
-Character::Character(Player* player, Card* card, std::map<GameTag, int> tags,
+Character::Character(Player* _player, Card* _card, std::map<GameTag, int> tags,
                      int id)
-    : Playable(player, card, std::move(tags), id)
+    : Playable(_player, _card, std::move(tags), id)
 {
     // Do nothing
 }
@@ -185,7 +185,8 @@ bool Character::CantAttackHeroes() const
     return static_cast<bool>(GetGameTag(GameTag::CANNOT_ATTACK_HEROES));
 }
 
-bool Character::IsValidAttackTarget(Player* opponent, Character* target) const
+bool Character::IsValidAttackTarget(const Player* opponent,
+                                    Character* target) const
 {
     auto targets = GetValidAttackTargets(opponent);
     if (std::find(targets.begin(), targets.end(), target) == targets.end())
@@ -210,7 +211,8 @@ bool Character::IsValidAttackTarget(Player* opponent, Character* target) const
     return true;
 }
 
-std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
+std::vector<Character*> Character::GetValidAttackTargets(
+    const Player* opponent) const
 {
     bool isExistTauntInField = false;
     std::vector<Character*> targets;
@@ -250,7 +252,7 @@ std::vector<Character*> Character::GetValidAttackTargets(Player* opponent) const
 
 int Character::TakeDamage(Playable* source, int damage)
 {
-    if (source == nullptr)
+    if (!source)
     {
         throw std::invalid_argument(
             "Character::TakeDamage() - source is nullptr");
@@ -259,8 +261,7 @@ int Character::TakeDamage(Playable* source, int damage)
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
 
-    const bool isFatigue = (hero != nullptr) && (this == source);
-    if (isFatigue)
+    if (hero && this == source)
     {
         hero->fatigue = damage;
     }
@@ -271,10 +272,8 @@ int Character::TakeDamage(Playable* source, int damage)
         return 0;
     }
 
-    const int armor = (hero != nullptr) ? hero->GetArmor() : 0;
-    int amount = (hero == nullptr) ? damage
-                 : armor < damage  ? damage - armor
-                                   : 0;
+    const int armor = hero ? hero->GetArmor() : 0;
+    int amount = !hero ? damage : armor < damage ? damage - armor : 0;
 
     game->taskQueue.StartEvent();
     auto tempEventData = std::move(game->currentEventData);
@@ -340,7 +339,7 @@ int Character::TakeDamage(Playable* source, int damage)
         source->player->GetHero()->TakeHeal(source, amount);
     }
 
-    if (hero != nullptr)
+    if (hero)
     {
         hero->damageTakenThisTurn += amount;
     }

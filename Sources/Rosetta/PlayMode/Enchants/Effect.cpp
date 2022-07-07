@@ -32,7 +32,7 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
         case EffectOperator::ADD:
             entity->SetNativeGameTag(m_gameTag, prevValue + m_value);
 
-            if (auto weapon = dynamic_cast<Weapon*>(entity); weapon)
+            if (const auto weapon = dynamic_cast<Weapon*>(entity); weapon)
             {
                 if (m_gameTag == GameTag::DURABILITY && prevValue + m_value > 0)
                 {
@@ -50,9 +50,6 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
         case EffectOperator::SET:
             entity->SetNativeGameTag(m_gameTag, m_value);
             break;
-        default:
-            throw std::invalid_argument(
-                "Effect::ApplyTo() - Invalid effect operator!");
     }
 }
 
@@ -87,7 +84,7 @@ void Effect::ApplyTo(PlayerAuraEffects& auraEffects) const
 void Effect::ApplyAuraTo(Entity* entity) const
 {
     AuraEffects* auraEffects = entity->auraEffects;
-    if (auraEffects == nullptr)
+    if (!auraEffects)
     {
         auraEffects = new AuraEffects(entity->card->GetCardType());
         entity->auraEffects = auraEffects;
@@ -106,7 +103,7 @@ void Effect::ApplyAuraTo(Entity* entity) const
         case EffectOperator::SET:
             auraEffects->SetGameTag(m_gameTag, m_value);
 
-            if (auto minion = dynamic_cast<Minion*>(entity); minion)
+            if (const auto minion = dynamic_cast<Minion*>(entity); minion)
             {
                 if (m_gameTag == GameTag::HEALTH_MINIMUM)
                 {
@@ -172,7 +169,7 @@ void Effect::RemoveFrom(PlayerAuraEffects& auraEffects) const
 
 void Effect::RemoveAuraFrom(Entity* entity) const
 {
-    AuraEffects* auraEffects = entity->auraEffects;
+    const AuraEffects* auraEffects = entity->auraEffects;
     const int prevValue = auraEffects->GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
@@ -186,7 +183,7 @@ void Effect::RemoveAuraFrom(Entity* entity) const
         case EffectOperator::SET:
             auraEffects->SetGameTag(m_gameTag, prevValue - m_value);
 
-            if (auto minion = dynamic_cast<Minion*>(entity); minion)
+            if (const auto minion = dynamic_cast<Minion*>(entity); minion)
             {
                 if (m_gameTag == GameTag::HEALTH_MINIMUM)
                 {

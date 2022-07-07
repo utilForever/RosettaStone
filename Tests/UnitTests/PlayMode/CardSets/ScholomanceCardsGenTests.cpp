@@ -4,25 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Actions/Generic.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Models/Enchantment.hpp>
-#include <Rosetta/PlayMode/Utils/DeckCode.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------------- MINION - DRUID
 // [SCH_242] Gibberling - COST:2 [ATK:1/HP:1]
@@ -112,7 +94,7 @@ TEST_CASE("[Druid : Spell] - SCH_333 : Nature Studies")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Starfall"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -464,7 +446,7 @@ TEST_CASE("[Druid : Minion] - SCH_616 : Twilight Runner")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curHand = *(curPlayer->GetHandZone());
+    const auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Twilight Runner"));
@@ -550,7 +532,7 @@ TEST_CASE("[Hunter : Minion] - SCH_239 : Krolusk Barkstripper")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Krolusk Barkstripper"));
@@ -670,7 +652,7 @@ TEST_CASE("[Hunter : Spell] - SCH_300 : Carrion Studies")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -1319,7 +1301,7 @@ TEST_CASE("[Priest : Spell] - SCH_233 : Draconic Studies")
         curPlayer, Cards::FindCardByName("Savannah Highmane"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -1741,7 +1723,7 @@ TEST_CASE("[Warlock : Spell] - SCH_158 : Demonic Studies")
         curPlayer, Cards::FindCardByName("Savannah Highmane"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -2125,7 +2107,7 @@ TEST_CASE("[Warrior : Spell] - SCH_237 : Athletic Studies")
         curPlayer, Cards::FindCardByName("Savannah Highmane"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -2926,7 +2908,7 @@ TEST_CASE("[Neutral : Minion] - SCH_245 : Steward of Scrolls")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3063,7 +3045,7 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
 
     game.Process(curPlayer, PlayCardTask::Weapon(card1));
     game.Process(curPlayer, HeroPowerTask());
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     std::string topCardID = curDeck.GetTopCard()->card->id;
 
@@ -3073,7 +3055,7 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_RESOURCE);
 
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 2);
@@ -3095,7 +3077,7 @@ TEST_CASE("[Neutral : Weapon] - SCH_259 : Sphere of Sapience")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_RESOURCE);
 
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 2);
@@ -3154,7 +3136,7 @@ TEST_CASE("[Neutral : Spell] - SCH_270 : Primordial Studies")
         curPlayer, Cards::FindCardByName("Savannah Highmane"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3488,10 +3470,10 @@ TEST_CASE("[Neutral : Minion] - SCH_350 : Wand Thief")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wand Thief"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice == nullptr);
+    CHECK(!curPlayer->choice);
 
     game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
     for (auto& card : cards)
@@ -3548,7 +3530,7 @@ TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
         game.Process(curPlayer, PlayCardTask::Minion(card1));
         game.Process(curPlayer, PlayCardTask::Minion(card2));
         game.Process(curPlayer, PlayCardTask::Minion(card3));
-        CHECK(curPlayer->choice != nullptr);
+        CHECK(curPlayer->choice);
 
         const auto& left = curField[2];
         const auto& right = curField[4];
@@ -3570,7 +3552,7 @@ TEST_CASE("[Neutral : Minion] - SCH_351 : Jandice Barov")
 
         curPlayer->SetUsedMana(0);
         game.Process(curPlayer, PlayCardTask::Minion(card4));
-        CHECK(curPlayer->choice == nullptr);
+        CHECK(!curPlayer->choice);
         CHECK_EQ(curField.IsFull(), true);
         CHECK_EQ(curField[5]->card->GetCardType(), CardType::MINION);
         CHECK_EQ(curField[5]->card->GetCost(), 5);
@@ -3799,7 +3781,7 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
 
     const std::string INNKEEPER_EXPERT_WARLOCK =
         "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA";
-    auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
+    const auto deck = DeckCode::Decode(INNKEEPER_EXPERT_WARLOCK).GetCardIDs();
 
     for (size_t j = 0; j < deck.size(); ++j)
     {
@@ -3817,7 +3799,7 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curDeck = *(curPlayer->GetDeckZone());
+    const auto& curDeck = *(curPlayer->GetDeckZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Lorekeeper Polkelt"));

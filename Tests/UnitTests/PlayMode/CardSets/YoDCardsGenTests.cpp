@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Choose.hpp>
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ------------------------------------------ SPELL - DRUID
 // [YOD_001] Rising Winds - COST:2
@@ -454,7 +439,7 @@ TEST_CASE("[Mage : Minion] - YOD_008 : Arcane Amplifier")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto opHero = opPlayer->GetHero();
+    const auto opHero = opPlayer->GetHero();
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Amplifier"));
@@ -861,7 +846,7 @@ TEST_CASE("[Warlock : Spell] - YOD_025 : Twisted Knowledge")
         curPlayer, Cards::FindCardByName("Twisted Knowledge"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
 
     TestUtils::ChooseNthChoice(game, 1);
     TestUtils::ChooseNthChoice(game, 1);

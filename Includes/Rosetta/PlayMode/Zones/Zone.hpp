@@ -135,8 +135,7 @@ class UnlimitedZone : public Zone<Playable>
     //! \param zonePos The zone position of entity.
     void Add(Playable* entity, int zonePos = -1) override
     {
-        if (entity == nullptr || entity->player == nullptr ||
-            entity->player != m_player)
+        if (!entity || !entity->player || entity->player != m_player)
         {
             throw std::logic_error(
                 "Can't add an opponent's entity to own zones");
@@ -150,7 +149,7 @@ class UnlimitedZone : public Zone<Playable>
     //! \return The removed entity.
     Playable* Remove(Playable* entity) override
     {
-        if (entity->zone == nullptr || entity->zone->GetType() != m_type)
+        if (!entity->zone || entity->zone->GetType() != m_type)
         {
             throw std::logic_error("Couldn't remove entity from zone.");
         }
@@ -331,7 +330,7 @@ class LimitedZone : public Zone<T>
 
         entity->zone = nullptr;
 
-        if (entity->activatedTrigger != nullptr)
+        if (entity->activatedTrigger)
         {
             entity->activatedTrigger->Remove();
         }
@@ -404,8 +403,7 @@ class LimitedZone : public Zone<T>
 
         for (int i = 0; i < m_count; ++i)
         {
-            if (m_entities[i] == nullptr ||
-                static_cast<bool>(m_entities[i]->isDestroyed))
+            if (!m_entities[i] || static_cast<bool>(m_entities[i]->isDestroyed))
             {
                 continue;
             }
@@ -425,8 +423,7 @@ class LimitedZone : public Zone<T>
 
         for (int i = 0; i < m_count; ++i)
         {
-            if (m_entities[i] == nullptr ||
-                static_cast<bool>(m_entities[i]->isDestroyed))
+            if (!m_entities[i] || static_cast<bool>(m_entities[i]->isDestroyed))
             {
                 continue;
             }
@@ -519,7 +516,7 @@ class PositioningZone : public LimitedZone<T>
 
         entity->zone = nullptr;
 
-        if (entity->activatedTrigger != nullptr)
+        if (entity->activatedTrigger)
         {
             entity->activatedTrigger->Remove();
         }

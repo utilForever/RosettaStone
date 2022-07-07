@@ -41,7 +41,7 @@ struct Choice
     //! Tries to pop next choice.
     //! \param _lastChoice The chosen entity ID of last choice.
     //! \return The popped next choice.
-    Choice* TryPopNextChoice(int _lastChoice) const;
+    Choice* TryPopNextChoice(const int _lastChoice) const;
 
     ChoiceType choiceType = ChoiceType::INVALID;
     ChoiceAction choiceAction = ChoiceAction::INVALID;

@@ -47,7 +47,7 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
                 IEffect* eff = effects[i].second;
 
                 if (ent != entity ||
-                    dynamic_cast<GenericEffect<Playable, Atk>*>(eff) == nullptr)
+                    !dynamic_cast<GenericEffect<Playable, Atk>*>(eff))
                 {
                     continue;
                 }

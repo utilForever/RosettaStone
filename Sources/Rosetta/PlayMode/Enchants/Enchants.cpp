@@ -18,7 +18,7 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     bool isOneTurn = false;
 
     static std::regex attackHealthRegex(
-        "([\\+\\-][[:digit:]]+)/([\\+\\-][[:digit:]]+)");
+        R"(([\+\-][[:digit:]]+)/([\+\-][[:digit:]]+))");
     static std::regex setAttackHealthRegex("([[:digit:]]+)/([[:digit:]]+)");
     static std::regex attackRegex("([\\+\\-][[:digit:]]+) Attack");
     static std::regex healthRegex("([\\+\\-][[:digit:]]+) Health");
@@ -35,7 +35,8 @@ std::shared_ptr<Enchant> Enchants::GetEnchantFromText(const std::string& cardID)
     else if (std::regex_search(text, values, setAttackHealthRegex))
     {
         effects.emplace_back(Effects::SetAttack(std::stoi(values[1].str())));
-        effects.emplace_back(Effects::SetBaseHealth(std::stoi(values[2].str())));
+        effects.emplace_back(
+            Effects::SetBaseHealth(std::stoi(values[2].str())));
     }
     else if (std::regex_search(text, values, attackRegex))
     {

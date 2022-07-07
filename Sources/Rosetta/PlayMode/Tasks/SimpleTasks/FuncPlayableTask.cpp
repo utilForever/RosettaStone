@@ -19,7 +19,7 @@ FuncPlayableTask::FuncPlayableTask(
 
 TaskStatus FuncPlayableTask::Impl(Player* player)
 {
-    if (m_func != nullptr)
+    if (m_func)
     {
         player->game->taskStack.playables =
             m_func(player->game->taskStack.playables);

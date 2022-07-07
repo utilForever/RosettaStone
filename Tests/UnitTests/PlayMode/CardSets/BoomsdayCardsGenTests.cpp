@@ -4,19 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ------------------------------------------ SPELL - DRUID
 // [BOT_420] Landscaping - COST:3
@@ -133,7 +121,8 @@ TEST_CASE("[Mage : Spell] - BOT_453 : Shooting Star")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));CHECK_EQ(opField.GetCount(), 1);
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card3));
+    CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->GetHealth(), 11);
 }
 

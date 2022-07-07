@@ -40,19 +40,24 @@ ReplaceHeroTask::ReplaceHeroTask(Card* heroCard, Card* heroPowerCard,
 
 TaskStatus ReplaceHeroTask::Impl(Player* player)
 {
-    auto playable = dynamic_cast<Playable*>(m_source);
-    if (playable == nullptr || player == nullptr)
+    if (!player)
     {
         return TaskStatus::STOP;
     }
 
-    playable->player->GetSetasideZone()->Add(playable->zone->Remove(playable));
+    if (const auto playable = dynamic_cast<Playable*>(m_source))
+    {
+        playable->player->GetSetasideZone()->Add(
+            playable->zone->Remove(playable));
+    }
+
     player->AddHeroAndPower(m_heroCard, m_heroPowerCard);
 
-    if (m_weaponCard != nullptr)
+    if (m_weaponCard)
     {
         const auto weapon =
             dynamic_cast<Weapon*>(Entity::GetFromCard(player, m_weaponCard));
+
         player->GetHero()->AddWeapon(*weapon);
     }
 

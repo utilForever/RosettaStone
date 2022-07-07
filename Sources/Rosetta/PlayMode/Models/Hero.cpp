@@ -13,8 +13,8 @@
 
 namespace RosettaStone::PlayMode
 {
-Hero::Hero(Player* player, Card* card, std::map<GameTag, int> tags, int id)
-    : Character(player, card, std::move(tags), id)
+Hero::Hero(Player* _player, Card* _card, std::map<GameTag, int> tags, int id)
+    : Character(_player, _card, std::move(tags), id)
 {
     // Do nothing
 }

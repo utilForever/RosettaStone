@@ -31,8 +31,7 @@ Playable* Draw(Player* player, Playable* cardToDraw)
 
     // Get card to draw
     Playable* playable = player->GetDeckZone()->Remove(
-        cardToDraw != nullptr ? cardToDraw
-                              : player->GetDeckZone()->GetTopCard());
+        cardToDraw ? cardToDraw : player->GetDeckZone()->GetTopCard());
 
     // Increase the number of cards drawn this turn
     const int val = player->GetNumCardsDrawnThisTurn();
@@ -75,7 +74,7 @@ Playable* Draw(Player* player, Playable* cardToDraw)
 
                 // When the player draws a spell card,
                 // find another spell card to draw.
-                if (cardToDraw != nullptr)
+                if (cardToDraw)
                 {
                     cardToDraw = FindAnotherSpellCard(player);
                 }
@@ -84,7 +83,7 @@ Playable* Draw(Player* player, Playable* cardToDraw)
             }
         }
 
-        if (cardToDraw == nullptr)
+        if (!cardToDraw)
         {
             player->game->taskQueue.StartEvent();
             player->game->triggerManager.OnAfterDrawCardTrigger(playable);

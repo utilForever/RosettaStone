@@ -106,7 +106,7 @@ void SummoningPortalAura::Disapply(Playable* playable)
     CalculateCost(playable);
 }
 
-SummoningPortalAura::SummoningPortalAura(SummoningPortalAura& prototype,
+SummoningPortalAura::SummoningPortalAura(const SummoningPortalAura& prototype,
                                          Playable& owner)
     : Aura(prototype, owner)
 {
@@ -124,7 +124,8 @@ void SummoningPortalAura::AddAll()
 
 void SummoningPortalAura::RemoveAll()
 {
-    EraseIf(m_owner->game->auras, [this](IAura* aura) { return aura == this; });
+    EraseIf(m_owner->game->auras,
+            [this](const IAura* aura) { return aura == this; });
 
     for (const auto& entity : m_appliedEntities)
     {

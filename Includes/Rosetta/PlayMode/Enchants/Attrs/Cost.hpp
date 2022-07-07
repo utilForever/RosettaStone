@@ -55,7 +55,7 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
         const auto playable = dynamic_cast<Playable*>(entity);
 
         CostManager* costManager = playable->costManager;
-        if (costManager == nullptr)
+        if (!costManager)
         {
             costManager = new CostManager();
             playable->costManager = costManager;

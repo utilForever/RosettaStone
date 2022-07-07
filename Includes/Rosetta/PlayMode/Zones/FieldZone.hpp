@@ -65,7 +65,7 @@ class FieldZone : public PositioningZone<Minion>
     //! Removes a minion's trigger and aura and
     //! applies it's spell power increment.
     //! \param entity The entity to remove aura.
-    static void RemoveAura(Minion* entity);
+    static void RemoveAura(const Minion* entity);
 
     int m_untouchableCount = 0;
     bool m_hasUntouchables = false;

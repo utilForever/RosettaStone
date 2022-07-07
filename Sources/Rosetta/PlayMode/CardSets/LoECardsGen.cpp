@@ -4,17 +4,10 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/LoECardsGen.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using TagValues = std::vector<TagValue>;
-using PlayReqs = std::map<PlayReq, int>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void LoECardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -516,9 +509,7 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
                                 SelfCondition::IsNoDuplicateInDeck()) }));
     cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
-        true,
-        TaskList{
-            std::make_shared<HealFullTask>(EntityType::HERO) }));
+        true, TaskList{ std::make_shared<HealFullTask>(EntityType::HERO) }));
     cards.emplace("LOE_011", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL

@@ -27,39 +27,40 @@ IncludeTask::IncludeTask(EntityType entityType,
 }
 
 std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
-                                                Player* player, Entity* source,
-                                                Entity* target)
+                                                const Player* player,
+                                                Entity* source, Entity* target)
 {
     std::vector<Playable*> entities;
 
     switch (entityType)
     {
         case EntityType::SOURCE:
-            if (source != nullptr)
+            if (source)
             {
                 entities.emplace_back(dynamic_cast<Playable*>(source));
             }
             break;
         case EntityType::TARGET:
-            if (target != nullptr)
+            if (target)
             {
                 entities.emplace_back(dynamic_cast<Playable*>(target));
             }
             break;
         case EntityType::ALL:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player->GetHero());
-            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+            for (const auto& minion :
+                 player->opponent->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player->opponent->GetHero());
             break;
         case EntityType::ALL_NOSOURCE:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 if (source == minion)
                 {
@@ -68,7 +69,8 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player->GetHero());
-            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+            for (const auto& minion :
+                 player->opponent->GetFieldZone()->GetAll())
             {
                 if (source == minion)
                 {
@@ -79,14 +81,15 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             entities.emplace_back(player->opponent->GetHero());
             break;
         case EntityType::FRIENDS:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player->GetHero());
             break;
         case EntityType::ENEMIES:
-            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+            for (const auto& minion :
+                 player->opponent->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
@@ -95,14 +98,16 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMIES_NOTARGET:
             if (target == player->opponent->GetHero())
             {
-                for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+                for (const auto& minion :
+                     player->opponent->GetFieldZone()->GetAll())
                 {
                     entities.emplace_back(minion);
                 }
             }
             else
             {
-                for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+                for (const auto& minion :
+                     player->opponent->GetFieldZone()->GetAll())
                 {
                     if (target == minion)
                     {
@@ -141,13 +146,13 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::HAND:
-            for (auto& card : player->GetHandZone()->GetAll())
+            for (const auto& card : player->GetHandZone()->GetAll())
             {
                 entities.emplace_back(card);
             }
             break;
         case EntityType::HAND_SPELL:
-            for (auto& card : player->GetHandZone()->GetAll())
+            for (const auto& card : player->GetHandZone()->GetAll())
             {
                 if (card->card->GetCardType() == CardType::SPELL)
                 {
@@ -156,35 +161,37 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ENEMY_HAND:
-            for (auto& card : player->opponent->GetHandZone()->GetAll())
+            for (const auto& card : player->opponent->GetHandZone()->GetAll())
             {
                 entities.emplace_back(card);
             }
             break;
         case EntityType::DECK:
-            for (auto& card : player->GetDeckZone()->GetAll())
+            for (const auto& card : player->GetDeckZone()->GetAll())
             {
                 entities.emplace_back(card);
             }
             break;
         case EntityType::ENEMY_DECK:
-            for (auto& card : player->opponent->GetDeckZone()->GetAll())
+            for (const auto& card : player->opponent->GetDeckZone()->GetAll())
             {
                 entities.emplace_back(card);
             }
             break;
         case EntityType::ALL_MINIONS:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
-            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+
+            for (const auto& minion :
+                 player->opponent->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::ALL_MINIONS_NOSOURCE:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 if (source == minion)
                 {
@@ -193,7 +200,9 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
 
                 entities.emplace_back(minion);
             }
-            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+
+            for (const auto& minion :
+                 player->opponent->GetFieldZone()->GetAll())
             {
                 if (source == minion)
                 {
@@ -204,7 +213,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ALL_MINIONS_NOTARGET:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 if (target == minion)
                 {
@@ -213,7 +222,9 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
 
                 entities.emplace_back(minion);
             }
-            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+
+            for (const auto& minion :
+                 player->opponent->GetFieldZone()->GetAll())
             {
                 if (target == minion)
                 {
@@ -224,7 +235,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ALL_MINIONS_NOEVENTSOURCE:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 if (player->game->currentEventData->eventSource == minion)
                 {
@@ -233,7 +244,9 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
 
                 entities.emplace_back(minion);
             }
-            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+
+            for (const auto& minion :
+                 player->opponent->GetFieldZone()->GetAll())
             {
                 if (player->game->currentEventData->eventSource == minion)
                 {
@@ -244,13 +257,13 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::MINIONS:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::MINIONS_NOSOURCE:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 if (source == minion)
                 {
@@ -261,7 +274,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::MINIONS_NOEVENTSOURCE:
-            for (auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 if (player->game->currentEventData->eventSource == minion)
                 {
@@ -272,7 +285,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::MINIONS_HAND:
-            for (auto& card : player->GetHandZone()->GetAll())
+            for (const auto& card : player->GetHandZone()->GetAll())
             {
                 if (card->card->GetCardType() == CardType::MINION)
                 {
@@ -281,27 +294,30 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::MINIONS_HAND_DECK_FIELD:
-            for (auto& card : player->GetHandZone()->GetAll())
+            for (const auto& card : player->GetHandZone()->GetAll())
             {
                 if (card->card->GetCardType() == CardType::MINION)
                 {
                     entities.emplace_back(card);
                 }
             }
-            for (auto& card : player->GetDeckZone()->GetAll())
+
+            for (const auto& card : player->GetDeckZone()->GetAll())
             {
                 if (card->card->GetCardType() == CardType::MINION)
                 {
                     entities.emplace_back(card);
                 }
             }
-            for (auto& minion : player->GetFieldZone()->GetAll())
+
+            for (const auto& minion : player->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::ENEMY_MINIONS:
-            for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+            for (const auto& minion :
+                 player->opponent->GetFieldZone()->GetAll())
             {
                 entities.emplace_back(minion);
             }
@@ -309,6 +325,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMY_MINIONS_LEFTMOST:
         {
             FieldZone& opField = *(player->opponent->GetFieldZone());
+
             if (!opField.IsEmpty())
             {
                 entities.emplace_back(opField[0]);
@@ -318,6 +335,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         case EntityType::ENEMY_MINIONS_RIGHTMOST:
         {
             FieldZone& opField = *(player->opponent->GetFieldZone());
+
             if (!opField.IsEmpty())
             {
                 entities.emplace_back(opField[opField.GetCount() - 1]);
@@ -325,13 +343,14 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             break;
         }
         case EntityType::ENEMY_SECRETS:
-            for (auto& secret : player->opponent->GetSecretZone()->GetAll())
+            for (const auto& secret :
+                 player->opponent->GetSecretZone()->GetAll())
             {
                 entities.emplace_back(secret);
             }
             break;
         case EntityType::GRAVEYARD:
-            for (auto& entity : player->GetGraveyardZone()->GetAll())
+            for (const auto& entity : player->GetGraveyardZone()->GetAll())
             {
                 entities.emplace_back(entity);
             }
@@ -348,14 +367,14 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 player->game->entityList[player->game->taskStack.num[1]]);
             break;
         case EntityType::EVENT_SOURCE:
-            if (auto eventData = player->game->currentEventData.get();
+            if (const auto eventData = player->game->currentEventData.get();
                 eventData)
             {
                 entities.emplace_back(eventData->eventSource);
             }
             break;
         case EntityType::EVENT_TARGET:
-            if (auto eventData = player->game->currentEventData.get();
+            if (const auto eventData = player->game->currentEventData.get();
                 eventData)
             {
                 entities.emplace_back(eventData->eventTarget);
@@ -376,7 +395,8 @@ TaskStatus IncludeTask::Impl(Player* player)
     if (!m_excludeTypes.empty())
     {
         std::vector<Playable*> exceptEntities;
-        for (auto& excludeType : m_excludeTypes)
+
+        for (const auto& excludeType : m_excludeTypes)
         {
             auto temp = GetEntities(excludeType, player, m_source, m_target);
             exceptEntities.insert(exceptEntities.end(), temp.begin(),
@@ -384,16 +404,12 @@ TaskStatus IncludeTask::Impl(Player* player)
         }
 
         std::vector<Playable*> result = entities;
-        EraseIf(result, [&](Entity* entity) {
-            for (auto& excludeEntity : exceptEntities)
-            {
-                if (entity == excludeEntity)
-                {
-                    return true;
-                }
-            }
 
-            return false;
+        EraseIf(result, [&](const Entity* entity) {
+            return std::any_of(exceptEntities.begin(), exceptEntities.end(),
+                               [&](const Playable* excludeEntity) {
+                                   return entity == excludeEntity;
+                               });
         });
 
         if (m_addFlag)

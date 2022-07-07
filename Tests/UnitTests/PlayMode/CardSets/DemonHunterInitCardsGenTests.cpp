@@ -4,20 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ------------------------------------ SPELL - DEMONHUNTER
 // [BT_173] Command the Illidari - COST:5
@@ -532,7 +519,7 @@ TEST_CASE("[Demon Hunter : Spell] - BT_427 : Feast of Souls")
     opPlayer->SetUsedMana(0);
 
     auto& opField = *(opPlayer->GetFieldZone());
-    auto& opHand = *(opPlayer->GetHandZone());
+    const auto& opHand = *(opPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));

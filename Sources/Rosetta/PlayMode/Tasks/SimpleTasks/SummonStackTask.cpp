@@ -25,7 +25,7 @@ TaskStatus SummonStackTask::Impl(Player* player)
         return TaskStatus::STOP;
     }
 
-    for (auto& playable : stack.playables)
+    for (const auto& playable : stack.playables)
     {
         if (playable->player->GetFieldZone()->IsFull())
         {

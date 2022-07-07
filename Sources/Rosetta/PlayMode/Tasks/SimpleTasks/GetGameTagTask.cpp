@@ -23,8 +23,9 @@ GetGameTagTask::GetGameTagTask(EntityType entityType, GameTag tag,
 
 TaskStatus GetGameTagTask::Impl(Player* player)
 {
-    auto entities =
+    const auto entities =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+
     if (entities.empty() || static_cast<int>(entities.size()) <= m_entityIndex)
     {
         return TaskStatus::STOP;

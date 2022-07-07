@@ -29,8 +29,9 @@ TaskStatus FilterStackTask::Impl(Player* player)
 {
     if (!m_relaConditions.empty())
     {
-        auto entities =
+        const auto entities =
             IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
+
         if (entities.size() != 1)
         {
             return TaskStatus::STOP;
@@ -43,7 +44,7 @@ TaskStatus FilterStackTask::Impl(Player* player)
         {
             bool flag = true;
 
-            for (auto& condition : m_relaConditions)
+            for (const auto& condition : m_relaConditions)
             {
                 flag = flag && condition->Evaluate(entities[0], playable);
             }
@@ -66,7 +67,7 @@ TaskStatus FilterStackTask::Impl(Player* player)
         {
             bool flag = true;
 
-            for (auto& condition : m_selfConditions)
+            for (const auto& condition : m_selfConditions)
             {
                 flag = flag && condition->Evaluate(playable);
             }

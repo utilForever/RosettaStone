@@ -4,24 +4,10 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/LootapaloozaCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Effects.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/ComplexTask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using ChooseCardIDs = std::vector<std::string>;
-using Entourages = std::vector<std::string>;
-using TaskList = std::vector<std::shared_ptr<ITask>>;
-using EntityTypeList = std::vector<EntityType>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-using EffectList = std::vector<std::shared_ptr<IEffect>>;
-
 void LootapaloozaCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // Do nothing
@@ -389,7 +375,7 @@ void LootapaloozaCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         std::make_shared<FlagTask>(
             true,
             ComplexTask::ActivateSecret(TaskList{ std::make_shared<CustomTask>(
-                [](Player* player, Entity* source, Playable* target) {
+                [](const Player* player, Entity* source, Playable* target) {
                     if (!target)
                     {
                         return;
@@ -2660,18 +2646,18 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
                 return std::vector<Playable*>{};
             }
 
-            Playable* drawedCard = playables[0];
-            if (drawedCard == nullptr)
+            const Playable* drawnCard = playables[0];
+            if (!drawnCard)
             {
                 return std::vector<Playable*>{};
             }
 
-            const int space = drawedCard->player->GetHandZone()->GetFreeSpace();
+            const int space = drawnCard->player->GetHandZone()->GetFreeSpace();
             for (int i = 0; i < space; ++i)
             {
                 Playable* copiedCard =
-                    Entity::GetFromCard(drawedCard->player, drawedCard->card);
-                drawedCard->player->GetHandZone()->Add(copiedCard);
+                    Entity::GetFromCard(drawnCard->player, drawnCard->card);
+                drawnCard->player->GetHandZone()->Add(copiedCard);
             }
 
             return std::vector<Playable*>{};

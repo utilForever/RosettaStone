@@ -23,9 +23,9 @@ TaskStatus FlagTask::Impl(Player* player)
         return TaskStatus::COMPLETE;
     }
 
-    for (auto& task : m_toDoTasks)
+    for (const auto& task : m_toDoTasks)
     {
-        std::unique_ptr<ITask> clonedTask = task->Clone();
+        const std::unique_ptr<ITask> clonedTask = task->Clone();
 
         clonedTask->SetPlayer(player);
         clonedTask->SetSource(m_source);

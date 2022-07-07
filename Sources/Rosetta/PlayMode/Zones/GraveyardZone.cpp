@@ -19,7 +19,7 @@ void GraveyardZone::Add(Playable* entity, int zonePos)
 {
     UnlimitedZone::Add(entity, zonePos);
 
-    auto enchantments = entity->appliedEnchantments;
+    const auto enchantments = entity->appliedEnchantments;
     if (enchantments.empty())
     {
         return;

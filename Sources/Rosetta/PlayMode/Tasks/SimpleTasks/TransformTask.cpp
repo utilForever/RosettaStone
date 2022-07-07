@@ -20,15 +20,16 @@ TransformTask::TransformTask(EntityType entityType, std::string cardID)
 
 TaskStatus TransformTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-    for (auto& playable : playables)
+    for (const auto& playable : playables)
     {
         Card* card = Cards::FindCardByID(m_cardID);
 
         auto* minion = dynamic_cast<Minion*>(playable);
-        if (minion == nullptr)
+
+        if (!minion)
         {
             return TaskStatus::STOP;
         }

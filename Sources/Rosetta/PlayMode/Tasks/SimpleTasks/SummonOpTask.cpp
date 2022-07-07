@@ -27,7 +27,7 @@ SummonOpTask::SummonOpTask(const std::string& cardID, int amount,
 
 TaskStatus SummonOpTask::Impl(Player* player)
 {
-    TaskStack stack = player->game->taskStack;
+    const TaskStack stack = player->game->taskStack;
 
     if (!m_card.has_value() && stack.playables.empty())
     {
@@ -54,12 +54,10 @@ TaskStatus SummonOpTask::Impl(Player* player)
                 Entity::GetFromCard(player->opponent, m_card.value()));
         }
 
-        int summonPos =
+        const int pos =
             SummonTask::GetPosition(m_source, m_side, m_target, alternateCount);
-        if (summonPos > player->opponent->GetFieldZone()->GetCount())
-        {
-            summonPos = player->opponent->GetFieldZone()->GetCount();
-        }
+        const int summonPos =
+            std::min(pos, player->opponent->GetFieldZone()->GetCount());
 
         if (summonEntity->IsUntouchable())
         {

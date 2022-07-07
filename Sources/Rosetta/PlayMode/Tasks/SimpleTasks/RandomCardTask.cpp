@@ -44,15 +44,13 @@ RandomCardTask::RandomCardTask(CardType cardType, CardClass cardClass,
     // Do nothing
 }
 
-std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
-                                               CardType cardType,
-                                               CardClass cardClass, Race race,
-                                               Rarity rarity,
-                                               std::map<GameTag, int> tags)
+std::vector<Card*> RandomCardTask::GetCardList(
+    const Entity* source, CardType cardType, CardClass cardClass, Race race,
+    Rarity rarity, const std::map<GameTag, int>& tags)
 {
+    const auto cards = GetCardList(source, cardClass);
     std::vector<Card*> result;
 
-    const auto cards = GetCardList(source, cardClass);
     for (const auto& card : cards)
     {
         if ((cardType == CardType::INVALID ||
@@ -72,9 +70,9 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
                 }
             }
 
-            if (cardClass == CardClass::ANOTHER_CLASS && 
-                (card->GetCardClass() == CardClass::NEUTRAL || 
-                 source->player->GetHero()->card->GetCardClass() == 
+            if (cardClass == CardClass::ANOTHER_CLASS &&
+                (card->GetCardClass() == CardClass::NEUTRAL ||
+                 source->player->GetHero()->card->GetCardClass() ==
                      card->GetCardClass()))
             {
                 check = false;
@@ -90,29 +88,30 @@ std::vector<Card*> RandomCardTask::GetCardList(Entity* source,
     return result;
 }
 
-const std::vector<Card*>& RandomCardTask::GetCardList(
-    Entity* source, CardClass cardClass)
+const std::vector<Card*>& RandomCardTask::GetCardList(const Entity* source,
+                                                      CardClass cardClass)
 {
     if (cardClass == CardClass::INVALID ||
         cardClass == CardClass::ANOTHER_CLASS)
     {
         return source->game->GetFormatType() == FormatType::STANDARD
-           ? Cards::GetAllStandardCards()
-           : Cards::GetAllWildCards();
+                   ? Cards::GetAllStandardCards()
+                   : Cards::GetAllWildCards();
     }
     else if (cardClass == CardClass::PLAYER_CLASS)
     {
         const auto playerClass =
             source->player->GetHero()->card->GetCardClass();
+
         return source->game->GetFormatType() == FormatType::STANDARD
-           ? Cards::GetStandardCards(playerClass)
-           : Cards::GetWildCards(playerClass);
+                   ? Cards::GetStandardCards(playerClass)
+                   : Cards::GetWildCards(playerClass);
     }
     else
     {
         return source->game->GetFormatType() == FormatType::STANDARD
-           ? Cards::GetStandardCards(cardClass)
-           : Cards::GetWildCards(cardClass);
+                   ? Cards::GetStandardCards(cardClass)
+                   : Cards::GetWildCards(cardClass);
     }
 }
 
@@ -136,17 +135,20 @@ TaskStatus RandomCardTask::Impl(Player* player)
                 "RandomCardTask::Impl() - Invalid entity type");
     }
 
-    auto cardsList =
+    const auto cardsList =
         GetCardList(m_source, m_cardType, cardClass, m_race, m_rarity, m_tags);
+
     if (cardsList.empty())
     {
         return TaskStatus::STOP;
     }
 
     player->game->taskStack.playables.clear();
+
     const auto idx = Random::get<std::size_t>(0, cardsList.size() - 1);
     auto card = Entity::GetFromCard(m_opposite ? player->opponent : player,
                                     cardsList.at(idx));
+
     player->game->taskStack.playables.emplace_back(card);
 
     return TaskStatus::COMPLETE;
@@ -156,8 +158,8 @@ std::unique_ptr<ITask> RandomCardTask::CloneImpl()
 {
     auto clonedTask = std::make_unique<RandomCardTask>(
         m_cardType, m_cardClass, m_race, m_rarity, m_tags, m_opposite);
-    clonedTask->m_entityType = m_entityType;
 
+    clonedTask->m_entityType = m_entityType;
     return clonedTask;
 }
 }  // namespace RosettaStone::PlayMode::SimpleTasks

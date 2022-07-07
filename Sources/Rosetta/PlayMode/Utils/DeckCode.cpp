@@ -15,8 +15,8 @@ namespace RosettaStone::PlayMode
 {
 Deck DeckCode::Decode(std::string_view deckCode)
 {
+    const std::vector<unsigned char> code = DecodeBase64(deckCode);
     std::size_t pos = 0;
-    std::vector<unsigned char> code = DecodeBase64(deckCode);
 
     const auto ReadVarint = [&] {
         int shift = 0, result = 0;
@@ -64,7 +64,7 @@ Deck DeckCode::Decode(std::string_view deckCode)
         throw std::runtime_error("Hero count must be 1");
     }
 
-    Card* hero = Cards::FindCardByDbfID(ReadVarint());
+    const Card* hero = Cards::FindCardByDbfID(ReadVarint());
     if (hero->GetCardClass() == CardClass::INVALID)
     {
         throw std::runtime_error("Invalid hero");

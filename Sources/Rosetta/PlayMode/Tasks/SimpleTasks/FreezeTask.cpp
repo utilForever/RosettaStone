@@ -16,12 +16,12 @@ FreezeTask::FreezeTask(EntityType entityType) : ITask(entityType)
 
 TaskStatus FreezeTask::Impl(Player* player)
 {
-    auto playables =
+    const auto playables =
         IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
     for (auto& playable : playables)
     {
-        if (auto character = dynamic_cast<Character*>(playable); character)
+        if (const auto character = dynamic_cast<Character*>(playable))
         {
             character->Freeze();
         }

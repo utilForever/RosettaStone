@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------------- MINION - DRUID
 // [AV_211] Dire Frostwolf - COST:4 [ATK:4/HP:4]
@@ -295,8 +280,6 @@ TEST_CASE("[Druid : Spell] - ONY_021 : Scale of Onyxia")
     auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Scale of Onyxia"));
-    const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Scale of Onyxia"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
@@ -1143,7 +1126,7 @@ TEST_CASE("[Paladin : Minion] - ONY_022 : Battle Vicar")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Battle Vicar"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK(curPlayer->choice != nullptr);
+    CHECK(curPlayer->choice);
     CHECK_EQ(curPlayer->choice->choices.size(), 3);
 
     auto cards = TestUtils::GetChoiceCards(game);
@@ -2463,7 +2446,6 @@ TEST_CASE("[Demon Hunter : Spell] - AV_661 : Field of Strife")
     opPlayer->SetUsedMana(0);
 
     auto& curField = *(curPlayer->GetFieldZone());
-    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Field of Strife"));
@@ -2600,7 +2582,7 @@ TEST_CASE("[Neutral : Minion] - AV_102 : Popsicooler")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Popsicooler"));
@@ -2876,8 +2858,6 @@ TEST_CASE("[Neutral : Minion] - AV_123 : Sneaky Scout")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-
-    auto& curHand = *(curPlayer->GetHandZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Sneaky Scout"));

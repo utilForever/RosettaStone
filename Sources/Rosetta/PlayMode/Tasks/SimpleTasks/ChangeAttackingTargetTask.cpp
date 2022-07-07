@@ -18,8 +18,10 @@ ChangeAttackingTargetTask::ChangeAttackingTargetTask(EntityType typeA,
 
 TaskStatus ChangeAttackingTargetTask::Impl(Player* player)
 {
-    auto typeA = IncludeTask::GetEntities(m_typeA, player, m_source, m_target);
-    auto typeB = IncludeTask::GetEntities(m_typeB, player, m_source, m_target);
+    const auto typeA =
+        IncludeTask::GetEntities(m_typeA, player, m_source, m_target);
+    const auto typeB =
+        IncludeTask::GetEntities(m_typeB, player, m_source, m_target);
 
     if (typeA.size() != 1 || typeB.size() != 1)
     {
@@ -29,7 +31,7 @@ TaskStatus ChangeAttackingTargetTask::Impl(Player* player)
     const auto attacker = dynamic_cast<Character*>(typeA[0]);
     const auto newDefender = dynamic_cast<Character*>(typeB[0]);
 
-    if (attacker == nullptr || newDefender == nullptr)
+    if (!attacker || !newDefender)
     {
         return TaskStatus::STOP;
     }

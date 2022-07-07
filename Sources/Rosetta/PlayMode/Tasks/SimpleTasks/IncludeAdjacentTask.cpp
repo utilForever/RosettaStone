@@ -19,8 +19,6 @@ IncludeAdjacentTask::IncludeAdjacentTask(EntityType entityType,
 
 TaskStatus IncludeAdjacentTask::Impl(Player* player)
 {
-    Minion* left = nullptr;
-    Minion* right = nullptr;
     Minion* center = nullptr;
 
     std::vector<Playable*> minions;
@@ -45,7 +43,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
                 "IncludeAdjacentTask::Impl() - Invalid entity type");
     }
 
-    if (center == nullptr)
+    if (!center)
     {
         return TaskStatus::STOP;
     }
@@ -55,6 +53,9 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
         FieldZone* fieldZone = center->player->GetFieldZone();
         const int pos = center->GetZonePosition();
         int count = m_includeCenter ? 1 : 0;
+
+        Minion* right = nullptr;
+        Minion* left = nullptr;
         bool includeLeft = false, includeRight = false;
 
         if (pos > 0)

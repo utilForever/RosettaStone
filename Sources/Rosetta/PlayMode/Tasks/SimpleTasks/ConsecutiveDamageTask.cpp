@@ -34,7 +34,7 @@ TaskStatus ConsecutiveDamageTask::Impl(Player* player)
         auto playables =
             IncludeTask::GetEntities(m_entityType, player, m_source, m_target);
 
-        for (auto& playable : playables)
+        for (const auto& playable : playables)
         {
             const auto source = dynamic_cast<Playable*>(m_source);
             const auto character = dynamic_cast<Character*>(playable);

@@ -4,22 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-#include <Utils/TestUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/DeckZone.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-#include <Rosetta/PlayMode/Zones/SecretZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ----------------------------------------- MINION - DRUID
 // [SW_419] Oracle of Elune - COST:3 [ATK:2/HP:4]
@@ -166,7 +151,7 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Pounce"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
     CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 4);
 
@@ -176,7 +161,7 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 1);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2, 1));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(curSecret->quest->card->name, "Defend the Squirrels");
     CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
     CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 5);
@@ -190,7 +175,7 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curHand.GetCount(), 7);
 
     game.Process(curPlayer, PlayCardTask::Spell(card5));
-    CHECK(curSecret->quest != nullptr);
+    CHECK(curSecret->quest);
     CHECK_EQ(curSecret->quest->card->name, "Feral Friendsy");
     CHECK_EQ(curSecret->quest->GetQuestProgress(), 0);
     CHECK_EQ(curSecret->quest->GetQuestProgressTotal(), 6);
@@ -206,7 +191,7 @@ TEST_CASE("[Druid : Spell] - SW_428 : Lost in the Park")
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 11);
 
     game.Process(curPlayer, PlayCardTask::Spell(card6));
-    CHECK(curSecret->quest == nullptr);
+    CHECK(!curSecret->quest);
     CHECK_EQ(curPlayer->GetHero()->GetAttack(), 17);
     CHECK_EQ(curPlayer->GetHero()->GetArmor(), 11);
     CHECK_EQ(curHand.GetCount(), 6);
@@ -306,8 +291,6 @@ TEST_CASE("[Druid : Minion] - SW_431 : Park Panther")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-
-    auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Park Panther"));
@@ -2027,9 +2010,6 @@ TEST_CASE("[Warrior : Spell] - SW_027 : Shiver Their Timbers!")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto curHero = curPlayer->GetHero();
-    auto opHero = opPlayer->GetHero();
-
     auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
@@ -2527,9 +2507,6 @@ TEST_CASE("[Demon Hunter : Spell] - SW_452 : Chaos Leech")
     curPlayer->SetUsedMana(0);
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
-
-    auto curHero = curPlayer->GetHero();
-    auto opHero = opPlayer->GetHero();
 
     auto& opField = *(opPlayer->GetFieldZone());
 

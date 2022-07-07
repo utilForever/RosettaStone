@@ -4,19 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#include "doctest_proxy.hpp"
-
-#include <Utils/CardSetUtils.hpp>
-
-#include <Rosetta/PlayMode/Actions/Draw.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone;
-using namespace PlayMode;
-using namespace PlayerTasks;
-using namespace SimpleTasks;
+#include <Utils/CardSetHeaders.hpp>
 
 // ------------------------------------------ SPELL - DRUID
 // [TRL_243] Pounce - COST:0
@@ -383,7 +371,7 @@ TEST_CASE("[Warlock : Minion] - TRL_252 : High Priestess Jeklik")
 
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card1 = Generic::DrawCard(
+    [[maybe_unused]] const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("High Priestess Jeklik"));
     const auto card2 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Darkshire Librarian"));

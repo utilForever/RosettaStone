@@ -194,7 +194,7 @@ class Playable : public Entity
     //! \param _card A card to check the targeting type.
     //! \param target The proposed target.
     //! \return true if the targeting type is valid, false otherwise.
-    bool CheckTargetingType(Card* _card, Character* target) const;
+    bool CheckTargetingType(const Card* _card, Character* target) const;
 
     //! Activates the task.
     //! \param type The type of power.

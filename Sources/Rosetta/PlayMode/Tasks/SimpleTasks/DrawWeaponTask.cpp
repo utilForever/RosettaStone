@@ -28,6 +28,7 @@ TaskStatus DrawWeaponTask::Impl(Player* player)
     }
 
     auto deck = player->GetDeckZone()->GetAll();
+
     if (deck.empty())
     {
         return TaskStatus::STOP;
@@ -73,7 +74,7 @@ TaskStatus DrawWeaponTask::Impl(Player* player)
             }
 
             Generic::Draw(player, cards[pick]);
-            cards.erase(std::begin(cards) + pick);
+            cards.erase(std::begin(cards) + static_cast<std::ptrdiff_t>(pick));
         }
     }
 

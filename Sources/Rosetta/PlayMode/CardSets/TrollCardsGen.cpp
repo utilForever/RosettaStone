@@ -4,17 +4,10 @@
 // Copyright (c) 2017-2021 Chris Ohk
 
 #include <Rosetta/PlayMode/CardSets/TrollCardsGen.hpp>
-#include <Rosetta/PlayMode/Enchants/Enchants.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
-#include <Rosetta/PlayMode/Zones/HandZone.hpp>
-
-using namespace RosettaStone::PlayMode::SimpleTasks;
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
-using PlayReqs = std::map<PlayReq, int>;
-using SelfCondList = std::vector<std::shared_ptr<SelfCondition>>;
-
 void TrollCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
     // ------------------------------------------ HERO - HUNTER
@@ -1137,9 +1130,9 @@ void TrollCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
+        std::make_shared<FuncNumberTask>([](const Playable* playable) {
             Player* player = playable->player;
-            int turn = playable->game->GetTurn();
+            const int turn = playable->game->GetTurn();
 
             std::vector<Card*> playedSpells;
             playedSpells.reserve(10);
@@ -1153,7 +1146,6 @@ void TrollCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
                 }
             }
 
-            const int space = player->GetHandZone()->GetFreeSpace();
             for (const auto& playedSpell : playedSpells)
             {
                 Playable* spell = Entity::GetFromCard(player, playedSpell);
