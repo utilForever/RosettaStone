@@ -5,6 +5,7 @@
 * [United in Stormwind](#united-in-stormwind)
 * [Fractured in Alterac Valley](#fractured-in-alterac-valley)
 * [Voyage to the Sunken City](#voyage-to-the-sunken-city)
+* [Murder at Castle Nathria](#murder-at-castle-nathria)
 
 ## Core
 
@@ -970,3 +971,11 @@ THE_SUNKEN_CITY | TSC_962 | Gigafin |
 THE_SUNKEN_CITY | TSC_963 | Filletfighter |  
 
 - Progress: 3% (6 of 170 Cards)
+
+## Murder at Castle Nathria
+
+Set | ID | Name | Implemented
+:---: | :---: | :---: | :---:
+REVENDRETH | REV_018 | Prince Renathal |  
+
+- Progress: 0% (0 of 1 Cards)
