@@ -103,6 +103,13 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
         card.gameTags[GameTag::ATK] = attack;
         card.gameTags[GameTag::HEALTH] = health;
 
+        // NOTE: The value "isBattlegroundsHero" of Lady Vashj
+        //       (TB_BaconShop_HERO_61) is missing.
+        if (id == "TB_BaconShop_HERO_61")
+        {
+            card.isCurHero = true;
+        }
+
         cards.at(idx) = card;
         ++idx;
     }
