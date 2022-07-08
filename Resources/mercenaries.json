@@ -19541,6 +19541,196 @@
     },
     {
         "collectible": true,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 85970,
+        "equipment": [
+            {
+                "id": 359,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87667,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87668,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87669,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 87670,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 360,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87671,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87673,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87674,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 87675,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 361,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 87677,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 87678,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 87679,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 87680,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 308,
+        "name": "Yogg-Saron",
+        "skinDbfIds": [
+            85972,
+            85971,
+            85970
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 850,
+                        "name": "Lunatic Gaze",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87646,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87649,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87650,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87651,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87652,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 851,
+                        "name": "Mind Yoggle",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87654,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87656,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87657,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87658,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87659,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 852,
+                        "name": "Oh My Yogg",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 87660,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 87662,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 87663,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87665,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 87666,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 366,
+                "name": "Speed Control"
+            }
+        ]
+    },
+    {
+        "collectible": true,
         "craftingCost": 300,
         "defaultSkinDbfId": 86078,
         "equipment": [
@@ -24748,5 +24938,17 @@
                 "name": "Murloc"
             }
         ]
+    },
+    {
+        "collectible": false,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 94438,
+        "equipment": [],
+        "id": 413,
+        "name": "Event Yogg-Saron",
+        "skinDbfIds": [
+            94438
+        ],
+        "specializations": []
     }
 ]
