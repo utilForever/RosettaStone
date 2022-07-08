@@ -38,13 +38,6 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
         }
 
         const std::string id = cardData["id"].get<std::string>();
-        // NOTE: The value "isBattlegroundsPoolMinion" of
-        //       Brann Bronzebeard (CORE_LOE_077) is true, too.
-        //       It's incorrect. Therefore, we ignore it.
-        if (id == "CORE_LOE_077")
-        {
-            continue;
-        }
 
         const int dbfID =
             cardData["dbfId"].is_null() ? 0 : cardData["dbfId"].get<int>();
