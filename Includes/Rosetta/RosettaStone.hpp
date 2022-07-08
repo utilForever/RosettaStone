@@ -104,6 +104,7 @@
 #include <Rosetta/PlayMode/CardSets/NaxxCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/OgCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/Placeholder202204CardsGen.hpp>
+#include <Rosetta/PlayMode/CardSets/RevendrethCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/ScholomanceCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/StormwindCardsGen.hpp>
 #include <Rosetta/PlayMode/CardSets/TgtCardsGen.hpp>
