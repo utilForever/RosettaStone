@@ -107,6 +107,18 @@ void RevendrethCardsGen::AddDemonHunterNonCollect(
 
 void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    // --------------------------------------- MINION - NEUTRAL
+    // [REV_018] Prince Renathal - COST:3 [ATK:3/HP:4]
+    // - Set: REVENDRETH, Rarity: Legendary
+    // --------------------------------------------------------
+    // Text: Your deck size and starting Health are 40.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
+    // RefTag:
+    // - START_OF_GAME = 1
+    // --------------------------------------------------------
 }
 
 void RevendrethCardsGen::AddNeutralNonCollect(
