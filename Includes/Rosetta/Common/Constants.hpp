@@ -24,16 +24,17 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 5> STANDARD_CARD_SETS = {
-    CardSet::CORE,             // Core, 2021
+constexpr std::array<CardSet, 6> STANDARD_CARD_SETS = {
+    CardSet::CORE,             // Core, 2022
     CardSet::THE_BARRENS,      // Forged in the Barrens, 2021
     CardSet::STORMWIND,        // United in Stormwind, 2021
     CardSet::ALTERAC_VALLEY,   // Fractured in Alterac Valley, 2021
     CardSet::THE_SUNKEN_CITY,  // Voyage to the Sunken City, 2022
+    CardSet::REVENDRETH,       // Murder at Castle Nathria, 2022
 };
 
 //! Specifies which card sets combine into the WILD set.
-constexpr std::array<CardSet, 31> WILD_CARD_SETS = {
+constexpr std::array<CardSet, 30> WILD_CARD_SETS = {
     CardSet::EXPERT1,                // Classic, 2014
     CardSet::LEGACY,                 // Legacy, 2021
     CardSet::NAXX,                   // Curse of Naxxramas, 2014
@@ -62,6 +63,7 @@ constexpr std::array<CardSet, 31> WILD_CARD_SETS = {
     CardSet::STORMWIND,              // United in Stormwind, 2021
     CardSet::ALTERAC_VALLEY,         // Fractured in Alterac Valley, 2021
     CardSet::THE_SUNKEN_CITY,        // Voyage to the Sunken City, 2022
+    CardSet::REVENDRETH,             // Murder at Castle Nathria, 2022
     CardSet::PLACEHOLDER_202204,     // Placeholder between 2020.04 and 2022.04
 };
 
