@@ -5194,7 +5194,7 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "THE_BARRENS",
-        "text": "<b>Frenzy:</b> Deal 3 damage to the enemy Hero.",
+        "text": "<b>Frenzy:</b> Deal 3 damage to the enemy hero.",
         "type": "MINION"
     },
     {
@@ -9670,7 +9670,6 @@
         "flavor": "When you need more iron in your diet.",
         "health": 5,
         "id": "BOT_537",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -35054,7 +35053,6 @@
         "flavor": "You wouldn’t think that Argus would need this much defending.  But it does.",
         "health": 3,
         "id": "EX1_093",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -39327,7 +39325,6 @@
         "howToEarn": "Unlocked in The Plague Quarter, in the Naxxramas adventure.",
         "howToEarnGolden": "Crafting unlocked in The Plague Quarter, in the Naxxramas adventure.",
         "id": "FP1_024",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE",
             "TAUNT"
@@ -42620,6 +42617,7 @@
         "flavor": "Mechs like learning from him because he really speaks their language.\n0110100001101001",
         "health": 2,
         "id": "GVG_027",
+        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -43152,7 +43150,6 @@
         "flavor": "If it breaks, just kick it a couple of times while yelling \"Durn thing!\"",
         "health": 5,
         "id": "GVG_055",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -44530,6 +44527,7 @@
         "type": "MINION"
     },
     {
+        "artist": "Wei Wang",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 7,
@@ -44541,6 +44539,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Glenn Rane",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 2828,
@@ -44552,6 +44551,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Slawomir Maniak",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 57751,
@@ -44563,6 +44563,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 58787,
@@ -44574,6 +44575,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Cole Eastburn",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 61595,
@@ -44585,6 +44587,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Jana Schirmer",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 61923,
@@ -44596,6 +44599,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 64739,
@@ -44607,6 +44611,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Ware Lee",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 67521,
@@ -44618,6 +44623,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 71070,
@@ -44629,6 +44635,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Zoltan Boros",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 71071,
@@ -44640,6 +44647,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Zoltan Boros",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 71072,
@@ -44651,6 +44659,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Zoltan Boros",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 71073,
@@ -44662,6 +44671,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 73740,
@@ -44673,6 +44683,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 77250,
@@ -44684,6 +44695,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Konstantin Porubov",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 78174,
@@ -44695,6 +44707,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 77317,
@@ -44706,6 +44719,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 79966,
@@ -44717,6 +44731,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 80190,
@@ -44728,6 +44743,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Décio Júnior",
         "cardClass": "WARRIOR",
         "collectible": true,
         "dbfId": 83405,
@@ -44739,6 +44755,31 @@
         "type": "HERO"
     },
     {
+        "artist": "Leonardo Santanna",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 84146,
+        "health": 30,
+        "id": "HERO_01u",
+        "name": "Roaster Magni",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 84156,
+        "health": 30,
+        "id": "HERO_01v",
+        "name": "Sire Denathrius",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Glenn Rane",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 1066,
@@ -44750,6 +44791,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Tyson Murphy",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 40183,
@@ -44761,6 +44803,7 @@
         "type": "HERO"
     },
     {
+        "artist": "A.J. Nazzaro",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 53237,
@@ -44772,6 +44815,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Cole Eastburn",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 55963,
@@ -44783,6 +44827,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Glenn Rane",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 57753,
@@ -44794,6 +44839,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 60673,
@@ -44805,6 +44851,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 64736,
@@ -44816,6 +44863,7 @@
         "type": "HERO"
     },
     {
+        "artist": "MAR Studio",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 64848,
@@ -44827,6 +44875,7 @@
         "type": "HERO"
     },
     {
+        "artist": "MAR Studio",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 64849,
@@ -44838,6 +44887,7 @@
         "type": "HERO"
     },
     {
+        "artist": "MAR Studio",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 64850,
@@ -44849,6 +44899,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 71058,
@@ -44860,6 +44911,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 71068,
@@ -44871,6 +44923,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 74586,
@@ -44882,6 +44935,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 77248,
@@ -44893,6 +44947,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 77321,
@@ -44904,6 +44959,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 79957,
@@ -44915,6 +44971,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 79958,
@@ -44926,6 +44983,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 79959,
@@ -44937,6 +44995,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 79960,
@@ -44948,6 +45007,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 79976,
@@ -44959,6 +45019,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Tanamaes Leejierasaes",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 80098,
@@ -44970,6 +45031,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 83407,
@@ -44981,6 +45043,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Eva Widermann",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 83411,
@@ -44992,6 +45055,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "SHAMAN",
         "collectible": true,
         "dbfId": 83832,
@@ -45003,6 +45067,19 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 84151,
+        "health": 30,
+        "id": "HERO_02z",
+        "name": "Juggler Morgl",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Glenn Rane",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 930,
@@ -45014,6 +45091,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Chris Rahn",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 40195,
@@ -45025,6 +45103,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Glenn Rane",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 57755,
@@ -45036,6 +45115,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 64734,
@@ -45047,6 +45127,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Agatha Zhou",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 67522,
@@ -45058,6 +45139,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Luke Mancini",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 67846,
@@ -45069,6 +45151,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 71067,
@@ -45080,6 +45163,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Ivan Fomin",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 73742,
@@ -45091,6 +45175,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Ivan Fomin",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 73743,
@@ -45102,6 +45187,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Ivan Fomin",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 73744,
@@ -45113,6 +45199,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 73745,
@@ -45124,6 +45211,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Wayne Reynolds",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 78586,
@@ -45135,6 +45223,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 77316,
@@ -45146,6 +45235,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 79973,
@@ -45157,6 +45247,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 80183,
@@ -45168,6 +45259,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 84090,
@@ -45179,6 +45271,19 @@
         "type": "HERO"
     },
     {
+        "artist": "Tanamaes Leejierasaes",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 84147,
+        "health": 30,
+        "id": "HERO_03t",
+        "name": "Vendor Maiev",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Angelo Bortolini",
         "cardClass": "ROGUE",
         "collectible": true,
         "dbfId": 83401,
@@ -45190,6 +45295,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 671,
@@ -45201,6 +45307,7 @@
         "type": "HERO"
     },
     {
+        "artist": "J. Kindred & A. Konstad",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 2827,
@@ -45212,6 +45319,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Eric Braddock",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 46116,
@@ -45223,6 +45331,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Matt Dixon",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 53187,
@@ -45234,6 +45343,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 57757,
@@ -45245,6 +45355,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 61596,
@@ -45256,6 +45367,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 61886,
@@ -45267,6 +45379,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 64732,
@@ -45278,6 +45391,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Wayne Wu",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 67519,
@@ -45289,6 +45403,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 71065,
@@ -45300,6 +45415,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Matthew McKeown",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 72729,
@@ -45311,6 +45427,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 72682,
@@ -45322,6 +45439,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 77249,
@@ -45333,6 +45451,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 77319,
@@ -45344,6 +45463,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Ursula Dorada",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 79953,
@@ -45355,6 +45475,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Ursula Dorada",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 79954,
@@ -45367,6 +45488,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Ursula Dorada",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 79955,
@@ -45379,6 +45501,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 79956,
@@ -45390,6 +45513,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Arthur Bozonnet",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 79970,
@@ -45401,6 +45525,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Steven Prescott",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 83395,
@@ -45412,6 +45537,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Eva Widermann",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 83402,
@@ -45423,6 +45549,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "PALADIN",
         "collectible": true,
         "dbfId": 83826,
@@ -45434,6 +45561,19 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 84152,
+        "health": 30,
+        "id": "HERO_04x",
+        "name": "Fire Glaive Liadrin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Ben Thompson",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 31,
@@ -45445,6 +45585,7 @@
         "type": "HERO"
     },
     {
+        "artist": "J. Kindred & J. Kang",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 2826,
@@ -45456,6 +45597,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 57759,
@@ -45467,6 +45609,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Glenn Rane",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 60335,
@@ -45478,6 +45621,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Konstantin Turovec",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 61597,
@@ -45489,6 +45633,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 64699,
@@ -45500,6 +45645,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 71063,
@@ -45511,6 +45657,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 71080,
@@ -45522,6 +45669,7 @@
         "type": "HERO"
     },
     {
+        "artist": "MAR Studio",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 73710,
@@ -45533,6 +45681,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Jim Nelson",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 73772,
@@ -45544,6 +45693,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Jim Nelson",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 73773,
@@ -45555,6 +45705,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Jim Nelson",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 77030,
@@ -45566,6 +45717,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 79930,
@@ -45577,6 +45729,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 77247,
@@ -45588,6 +45741,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 77315,
@@ -45599,6 +45753,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Matt Dixon",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 79971,
@@ -45610,6 +45765,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Tanamaes Leejierasaes",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 80100,
@@ -45621,6 +45777,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Kleston Marques",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 80191,
@@ -45632,6 +45789,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Angelina Chernyak",
         "cardClass": "HUNTER",
         "collectible": true,
         "dbfId": 83409,
@@ -45643,6 +45801,19 @@
         "type": "HERO"
     },
     {
+        "artist": "Dave Greco",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 84155,
+        "health": 30,
+        "id": "HERO_05v",
+        "name": "Flameshot Sylvanas",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 274,
@@ -45654,6 +45825,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Luke Mancini",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 50484,
@@ -45665,7 +45837,7 @@
         "type": "HERO"
     },
     {
-        "artist": "Arthur Bozonnet",
+        "artist": "Luke Mancini",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 56358,
@@ -45677,6 +45849,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 57761,
@@ -45688,6 +45861,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Will Murai",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 60375,
@@ -45699,6 +45873,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 64698,
@@ -45710,6 +45885,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Paul Mafayon",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 69988,
@@ -45721,6 +45897,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 71062,
@@ -45732,6 +45909,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 71328,
@@ -45743,6 +45921,7 @@
         "type": "HERO"
     },
     {
+        "artist": "MAR Studio",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 73709,
@@ -45754,6 +45933,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Paul Mafayon",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 73763,
@@ -45765,6 +45945,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Paul Mafayon",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 73764,
@@ -45776,6 +45957,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Paul Mafayon",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 73765,
@@ -45787,6 +45969,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 73766,
@@ -45798,6 +45981,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Andrew Hou",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 77252,
@@ -45809,6 +45993,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Luke Mancini",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 78180,
@@ -45820,6 +46005,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Andrew Hou",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 79974,
@@ -45831,6 +46017,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 80095,
@@ -45842,6 +46029,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Angelina Chernyak",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 80187,
@@ -45853,6 +46041,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 83398,
@@ -45864,6 +46053,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Dave Greco",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 83406,
@@ -45875,6 +46065,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "DRUID",
         "collectible": true,
         "dbfId": 83831,
@@ -45886,6 +46077,19 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 84153,
+        "health": 30,
+        "id": "HERO_06x",
+        "name": "Fireflower Lunara",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 893,
@@ -45897,6 +46101,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Tooth",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 47817,
@@ -45908,6 +46113,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 51834,
@@ -45919,6 +46125,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 57763,
@@ -45930,6 +46137,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 64685,
@@ -45941,6 +46149,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 64738,
@@ -45952,6 +46161,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 71069,
@@ -45963,6 +46173,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 71324,
@@ -45974,6 +46185,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Arthur Gimaldinov",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 73768,
@@ -45985,6 +46197,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Arthur Gimaldinov",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 73769,
@@ -45996,6 +46209,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Arthur Gimaldinov",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 73770,
@@ -46007,6 +46221,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 73771,
@@ -46018,6 +46233,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Konstantin Porubov",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 77254,
@@ -46029,6 +46245,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 77314,
@@ -46040,6 +46257,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Angelica Alieva",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 79969,
@@ -46051,6 +46269,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Tanamaes Leejierasaes",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 80102,
@@ -46062,6 +46281,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Forrest Imel",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 80189,
@@ -46073,6 +46293,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 83404,
@@ -46084,6 +46305,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Ivan Fomin",
         "cardClass": "WARLOCK",
         "collectible": true,
         "dbfId": 84095,
@@ -46095,6 +46317,19 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 84154,
+        "health": 30,
+        "id": "HERO_07u",
+        "name": "Sparkspinner Nemsy",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Glenn Rane",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 637,
@@ -46106,6 +46341,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Raymond Swanland",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 2829,
@@ -46117,6 +46353,19 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 84141,
+        "health": 30,
+        "id": "HERO_08aa",
+        "name": "Kael'thas Sunstrider",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Mooncolony",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 83403,
@@ -46128,6 +46377,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Evgeniy Zagumennyy",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 39117,
@@ -46139,6 +46389,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 57765,
@@ -46150,6 +46401,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Konstantin Turovec",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 60157,
@@ -46162,6 +46414,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 62772,
@@ -46173,6 +46426,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 61598,
@@ -46184,6 +46438,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 64844,
@@ -46195,6 +46450,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 64845,
@@ -46206,6 +46462,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 64846,
@@ -46217,6 +46474,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 64847,
@@ -46228,6 +46486,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 71064,
@@ -46239,6 +46498,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 71723,
@@ -46250,6 +46510,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 77253,
@@ -46261,6 +46522,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 77318,
@@ -46272,6 +46534,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Arthur Bozonnet",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 79949,
@@ -46284,6 +46547,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Arthur Bozonnet",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 79950,
@@ -46296,6 +46560,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Arthur Bozonnet",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 79951,
@@ -46308,6 +46573,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 79952,
@@ -46319,6 +46585,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 79963,
@@ -46330,6 +46597,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Tanamaes Leejierasaes",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 80099,
@@ -46341,6 +46609,7 @@
         "type": "HERO"
     },
     {
+        "artist": "MAR Studio",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 80188,
@@ -46352,6 +46621,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 82519,
@@ -46363,6 +46633,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 83830,
@@ -46374,6 +46645,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Arthur Bozonnet",
         "cardClass": "MAGE",
         "collectible": true,
         "dbfId": 84094,
@@ -46385,6 +46657,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Wayne Reynolds",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 813,
@@ -46396,6 +46669,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Tooth",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 41887,
@@ -46407,6 +46681,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Evgeniy Zagumennyy",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 54816,
@@ -46418,6 +46693,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Wayne Reynolds",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 57767,
@@ -46429,6 +46705,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 64733,
@@ -46440,6 +46717,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Samche Chen",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 67710,
@@ -46451,6 +46729,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Samche Chen",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 67523,
@@ -46462,6 +46741,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 71066,
@@ -46473,6 +46753,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 71074,
@@ -46484,6 +46765,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 71075,
@@ -46495,6 +46777,7 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 71076,
@@ -46506,6 +46789,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 73741,
@@ -46517,6 +46801,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Anton Zemskov",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 77251,
@@ -46528,6 +46813,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & K. Turovec",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 77320,
@@ -46539,6 +46825,7 @@
         "type": "HERO"
     },
     {
+        "artist": "MAR Studio",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 79975,
@@ -46550,6 +46837,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 80182,
@@ -46561,6 +46849,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Angelina Chernyak",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 83408,
@@ -46572,12 +46861,25 @@
         "type": "HERO"
     },
     {
+        "artist": "Angelina Chernyak",
         "cardClass": "PRIEST",
         "collectible": true,
         "dbfId": 84096,
         "health": 30,
         "id": "HERO_09s",
         "name": "Butler Anduin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Sora Kim",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 84145,
+        "health": 30,
+        "id": "HERO_09t",
+        "name": "Torchbearer Tyrande",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -46595,6 +46897,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 60238,
@@ -46606,6 +46909,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Luke Mancini",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 62491,
@@ -46617,6 +46921,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 64697,
@@ -46628,6 +46933,7 @@
         "type": "HERO"
     },
     {
+        "artist": "L. Lullabi & A. Zemskov",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 71061,
@@ -46639,6 +46945,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Zoltan Boros",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 71077,
@@ -46650,6 +46957,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Zoltan Boros",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 71078,
@@ -46661,6 +46969,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Zoltan Boros",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 71079,
@@ -46672,6 +46981,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Alex Horley Orlandelli",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 71331,
@@ -46683,6 +46993,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 73711,
@@ -46694,6 +47005,7 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 77246,
@@ -46705,6 +47017,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Luke Mancini",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 78177,
@@ -46716,6 +47029,7 @@
         "type": "HERO"
     },
     {
+        "artist": "MAR Studio",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 79972,
@@ -46727,6 +47041,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Tanamaes Leejierasaes",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 80101,
@@ -46738,6 +47053,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 80185,
@@ -46749,6 +47065,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 83410,
@@ -46760,6 +47077,7 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 83829,
@@ -46771,12 +47089,25 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "dbfId": 84097,
         "health": 30,
         "id": "HERO_10s",
         "name": "Illhoof Illidan",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Mooncolony",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 84150,
+        "health": 30,
+        "id": "HERO_10t",
+        "name": "Felfirework Aranna",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -57708,6 +58039,27 @@
         "rarity": "LEGENDARY",
         "set": "LEGACY",
         "text": "<b>Battlecry:</b> Give both players the power to ROCK! (with a Power Chord card)",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 79767,
+        "elite": true,
+        "flavor": "A lot of kids go through a rebellious phase, but Prince Renathal's was a bit extreme.",
+        "health": 4,
+        "howToEarnGolden": "Earnable after purchasing the <i>Murder at Castle Nathria</i> Tavern Pass.",
+        "id": "REV_018",
+        "name": "Prince Renathal",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "START_OF_GAME"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]Your deck size and \nstarting Health are 40.",
         "type": "MINION"
     },
     {
