@@ -2758,6 +2758,10 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 4));
+    cards.emplace("TSC_001", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_002] Pufferfist - COST:3 [ATK:3/HP:3]
