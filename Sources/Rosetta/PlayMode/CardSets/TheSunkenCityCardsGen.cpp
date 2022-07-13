@@ -2772,6 +2772,13 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMIES, 1) };
+    cards.emplace("TSC_002", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_007] Gangplank Diver - COST:5 [ATK:6/HP:4]
