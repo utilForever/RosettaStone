@@ -560,6 +560,20 @@ TEST_CASE("[Neutral : Minion] - TSC_053 : Rainbow Glowscale")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [TSC_065] Helmet Hermit - COST:1 [ATK:4/HP:3]
+// - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Rare
+// --------------------------------------------------------
+// Text: Can't attack.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - TSC_065 : Helmet Hermit")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [TSC_909] Tuskarrrr Trawler - COST:2 [ATK:2/HP:3]
 // - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
 // --------------------------------------------------------

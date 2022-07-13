@@ -2918,6 +2918,9 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_065", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_067] Ambassador Faelin - COST:4 [ATK:4/HP:5]
