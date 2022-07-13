@@ -3187,6 +3187,9 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("TSC_938", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_960] Twin-fin Fin Twin - COST:3 [ATK:2/HP:1]
