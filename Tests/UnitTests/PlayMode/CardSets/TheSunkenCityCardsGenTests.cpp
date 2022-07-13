@@ -448,6 +448,20 @@ TEST_CASE("[Neutral : Minion] - TSC_017 : Baba Naga")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [TSC_053] Rainbow Glowscale - COST:2 [ATK:2/HP:3]
+// - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - TSC_053 : Rainbow Glowscale")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [TSC_909] Tuskarrrr Trawler - COST:2 [ATK:2/HP:3]
 // - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
 // --------------------------------------------------------

@@ -2881,6 +2881,9 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_053", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_064] Slithering Deathscale - COST:7 [ATK:5/HP:9]
