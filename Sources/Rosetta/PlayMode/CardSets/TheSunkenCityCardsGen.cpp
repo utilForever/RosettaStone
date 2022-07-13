@@ -389,6 +389,12 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a Naga and a spell.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::NAGA)) }));
+    cardDef.power.AddPowerTask(std::make_shared<DrawSpellTask>(1));
+    cards.emplace("TSC_072", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [TSC_073] Raj Naz'jan - COST:2 [ATK:2/HP:3]
