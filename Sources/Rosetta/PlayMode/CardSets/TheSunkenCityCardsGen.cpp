@@ -60,6 +60,10 @@ void TheSunkenCityCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "TSC_650a", "TSC_650d" };
+    cards.emplace("TSC_650", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [TSC_651] Seaweed Strike - COST:3
@@ -214,6 +218,15 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_650t", SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("TSC_650a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [TSC_650d] Romp of Otters - COST:5
@@ -225,6 +238,12 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_650t4", 6, SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("TSC_650d", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [TSC_650t] Orca - COST:6 [ATK:6/HP:6]
@@ -235,6 +254,9 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_650t", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [TSC_650t4] Otter - COST:1 [ATK:1/HP:1]
@@ -245,6 +267,9 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_650t4", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [TSC_651e] Explosive - COST:0
