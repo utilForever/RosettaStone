@@ -60,6 +60,10 @@ void TheSunkenCityCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - RUSH = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "TSC_650a", "TSC_650d" };
+    cards.emplace("TSC_650", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [TSC_651] Seaweed Strike - COST:3
@@ -214,6 +218,15 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_650t", SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("TSC_650a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [TSC_650d] Romp of Otters - COST:5
@@ -225,6 +238,12 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_650t4", 6, SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("TSC_650d", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [TSC_650t] Orca - COST:6 [ATK:6/HP:6]
@@ -235,6 +254,9 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_650t", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [TSC_650t4] Otter - COST:1 [ATK:1/HP:1]
@@ -245,6 +267,9 @@ void TheSunkenCityCardsGen::AddDruidNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_650t4", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [TSC_651e] Explosive - COST:0
@@ -364,6 +389,12 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Draw a Naga and a spell.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::NAGA)) }));
+    cardDef.power.AddPowerTask(std::make_shared<DrawSpellTask>(1));
+    cards.emplace("TSC_072", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [TSC_073] Raj Naz'jan - COST:2 [ATK:2/HP:3]
@@ -1318,6 +1349,8 @@ void TheSunkenCityCardsGen::AddPriestNonCollect(
 
 void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - ROGUE
     // [TSC_085] Cutlass Courier - COST:3 [ATK:2/HP:5]
     // - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
@@ -1432,6 +1465,17 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 } };
+    cards.emplace("TSC_963", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [TID_078] Shattershambler - COST:1 [ATK:1/HP:3]
@@ -2727,6 +2771,10 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::ENEMY_HERO, 4));
+    cards.emplace("TSC_001", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_002] Pufferfist - COST:3 [ATK:3/HP:3]
@@ -2737,6 +2785,13 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMIES, 1) };
+    cards.emplace("TSC_002", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_007] Gangplank Diver - COST:5 [ATK:6/HP:4]
@@ -2850,6 +2905,9 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_053", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_064] Slithering Deathscale - COST:7 [ATK:5/HP:9]
@@ -2873,6 +2931,9 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CANT_ATTACK = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_065", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_067] Ambassador Faelin - COST:4 [ATK:4/HP:5]
@@ -3139,6 +3200,9 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("TSC_938", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [TSC_960] Twin-fin Fin Twin - COST:3 [ATK:2/HP:1]

@@ -61,6 +61,131 @@ TEST_CASE("[Druid : Minion] - TSC_026 : Colaque")
     CHECK_EQ(curField[0]->IsImmune(), false);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [TSC_650] Flipper Friends - COST:5
+// - Set: THE_SUNKEN_CITY, Rarity: Common
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: <b>Choose One</b> -
+//       Summon a 6/6 Orca with <b>Taunt</b>;
+//       or six 1/1 Otters with <b>Rush</b>.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - TSC_650 : Flipper Friends")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flipper Friends"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flipper Friends"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Orca");
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK_EQ(curField.GetCount(), 7);
+    CHECK_EQ(curField[1]->card->name, "Otter");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->HasRush(), true);
+    CHECK_EQ(curField[2]->card->name, "Otter");
+    CHECK_EQ(curField[2]->GetAttack(), 1);
+    CHECK_EQ(curField[2]->GetHealth(), 1);
+    CHECK_EQ(curField[2]->HasRush(), true);
+    CHECK_EQ(curField[3]->card->name, "Otter");
+    CHECK_EQ(curField[3]->GetAttack(), 1);
+    CHECK_EQ(curField[3]->GetHealth(), 1);
+    CHECK_EQ(curField[3]->HasRush(), true);
+    CHECK_EQ(curField[4]->card->name, "Otter");
+    CHECK_EQ(curField[4]->GetAttack(), 1);
+    CHECK_EQ(curField[4]->GetHealth(), 1);
+    CHECK_EQ(curField[4]->HasRush(), true);
+    CHECK_EQ(curField[5]->card->name, "Otter");
+    CHECK_EQ(curField[5]->GetAttack(), 1);
+    CHECK_EQ(curField[5]->GetHealth(), 1);
+    CHECK_EQ(curField[5]->HasRush(), true);
+    CHECK_EQ(curField[6]->card->name, "Otter");
+    CHECK_EQ(curField[6]->GetAttack(), 1);
+    CHECK_EQ(curField[6]->GetHealth(), 1);
+    CHECK_EQ(curField[6]->HasRush(), true);
+}
+
+// ----------------------------------------- SPELL - HUNTER
+// [TSC_072] Conch's Call - COST:3
+// - Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw a Naga and a spell.
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - TSC_072 : Conch's Call")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Bloodfen Raptor");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Rainbow Glowscale");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Conch's Call"));
+
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(curHand[4]->card->name, "Rainbow Glowscale");
+    CHECK_EQ(curHand[5]->card->name, "Fireball");
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [TSC_947] Naga's Pride - COST:3
 // - Set: THE_SUNKEN_CITY, Rarity: Rare
@@ -211,6 +336,60 @@ TEST_CASE("[Paladin : Minion] - TSC_030 : The Leviathan")
     CHECK_EQ(curHand[5]->card->name, "Pyroblast");
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [TSC_963] Filletfighter - COST:1 [ATK:3/HP:1]
+// - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 1 damage.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_NONSELF_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - TSC_963 : Filletfighter")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Filletfighter"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Acidic Swamp Ooze"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 2);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+}
+
 // ------------------------------------ SPELL - DEMONHUNTER
 // [TSC_058] Predation - COST:3
 // - Set: THE_SUNKEN_CITY, Rarity: Rare
@@ -269,6 +448,104 @@ TEST_CASE("[Demon Hunter : Spell] - TSC_058 : Predation")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [TSC_001] Naval Mine - COST:2 [ATK:0/HP:2]
+// - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Deal 4 damage to the enemy hero.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - TSC_001 : Naval Mine")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Naval Mine"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [TSC_002] Pufferfist - COST:3 [ATK:3/HP:3]
+// - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: After your hero attacks, deal 1 damage to all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - TSC_002 : Pufferfist")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pufferfist"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, HeroPowerTask());
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(opField[0]->GetHealth(), 11);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [TSC_017] Baba Naga - COST:4 [ATK:4/HP:4]
 // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
 // --------------------------------------------------------
@@ -320,6 +597,34 @@ TEST_CASE("[Neutral : Minion] - TSC_017 : Baba Naga")
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 24);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [TSC_053] Rainbow Glowscale - COST:2 [ATK:2/HP:3]
+// - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Spell Damage +1</b>
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - TSC_053 : Rainbow Glowscale")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [TSC_065] Helmet Hermit - COST:1 [ATK:4/HP:3]
+// - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Rare
+// --------------------------------------------------------
+// Text: Can't attack.
+// --------------------------------------------------------
+// GameTag:
+// - CANT_ATTACK = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - TSC_065 : Helmet Hermit")
+{
+    // Do nothing
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -390,4 +695,53 @@ TEST_CASE("[Neutral : Minion] - TSC_909 : Tuskarrrr Trawler")
 
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Pyroblast");
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [TSC_938] Treasure Guard - COST:3 [ATK:1/HP:5]
+// - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+//       <b>Deathrattle:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - TSC_938 : Treasure Guard")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Treasure Guard"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHand.GetCount(), 5);
 }
