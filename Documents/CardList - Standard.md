@@ -834,8 +834,8 @@ THE_SUNKEN_CITY | TID_744 | Coilfang Constrictor |
 THE_SUNKEN_CITY | TID_920 | Drown |  
 THE_SUNKEN_CITY | TID_931 | Jackpot! |  
 THE_SUNKEN_CITY | TID_949 | Front Lines |  
-THE_SUNKEN_CITY | TSC_001 | Naval Mine |  
-THE_SUNKEN_CITY | TSC_002 | Pufferfist |  
+THE_SUNKEN_CITY | TSC_001 | Naval Mine | O
+THE_SUNKEN_CITY | TSC_002 | Pufferfist | O
 THE_SUNKEN_CITY | TSC_006 | Multi-Strike |  
 THE_SUNKEN_CITY | TSC_007 | Gangplank Diver |  
 THE_SUNKEN_CITY | TSC_013 | Slimescale Diver |  
@@ -849,7 +849,7 @@ THE_SUNKEN_CITY | TSC_032 | Blademaster Okani |
 THE_SUNKEN_CITY | TSC_034 | Gorloc Ravager |  
 THE_SUNKEN_CITY | TSC_039 | Azsharan Scavenger |  
 THE_SUNKEN_CITY | TSC_052 | School Teacher |  
-THE_SUNKEN_CITY | TSC_053 | Rainbow Glowscale |  
+THE_SUNKEN_CITY | TSC_053 | Rainbow Glowscale | O
 THE_SUNKEN_CITY | TSC_054 | Mecha-Shark |  
 THE_SUNKEN_CITY | TSC_055 | Seafloor Gateway |  
 THE_SUNKEN_CITY | TSC_056 | Volcanomancy |  
@@ -859,12 +859,12 @@ THE_SUNKEN_CITY | TSC_059 | Bubblebot |
 THE_SUNKEN_CITY | TSC_060 | Shimmering Sunfish |  
 THE_SUNKEN_CITY | TSC_061 | The Garden's Grace |  
 THE_SUNKEN_CITY | TSC_064 | Slithering Deathscale |  
-THE_SUNKEN_CITY | TSC_065 | Helmet Hermit |  
+THE_SUNKEN_CITY | TSC_065 | Helmet Hermit | O
 THE_SUNKEN_CITY | TSC_067 | Ambassador Faelin |  
 THE_SUNKEN_CITY | TSC_069 | Amalgam of the Deep |  
 THE_SUNKEN_CITY | TSC_070 | Harpoon Gun |  
 THE_SUNKEN_CITY | TSC_071 | Twinbow Terrorcoil |  
-THE_SUNKEN_CITY | TSC_072 | Conch's Call |  
+THE_SUNKEN_CITY | TSC_072 | Conch's Call | O
 THE_SUNKEN_CITY | TSC_073 | Raj Naz'jan |  
 THE_SUNKEN_CITY | TSC_074 | Kotori Lightblade |  
 THE_SUNKEN_CITY | TSC_076 | Immortalized in Stone |  
@@ -906,7 +906,7 @@ THE_SUNKEN_CITY | TSC_646 | Seascout Operator |
 THE_SUNKEN_CITY | TSC_647 | Pelican Diver |  
 THE_SUNKEN_CITY | TSC_648 | Coral Keeper |  
 THE_SUNKEN_CITY | TSC_649 | Ini Stormcoil |  
-THE_SUNKEN_CITY | TSC_650 | Flipper Friends |  
+THE_SUNKEN_CITY | TSC_650 | Flipper Friends | O
 THE_SUNKEN_CITY | TSC_651 | Seaweed Strike |  
 THE_SUNKEN_CITY | TSC_652 | Green-Thumb Gardener |  
 THE_SUNKEN_CITY | TSC_653 | Bottomfeeder |  
@@ -949,7 +949,7 @@ THE_SUNKEN_CITY | TSC_934 | Pirate Admiral Hooktusk |
 THE_SUNKEN_CITY | TSC_935 | Selfish Shellfish |  
 THE_SUNKEN_CITY | TSC_936 | Swiftscale Trickster |  
 THE_SUNKEN_CITY | TSC_937 | Crabatoa |  
-THE_SUNKEN_CITY | TSC_938 | Treasure Guard |  
+THE_SUNKEN_CITY | TSC_938 | Treasure Guard | O
 THE_SUNKEN_CITY | TSC_939 | Forged in Flame |  
 THE_SUNKEN_CITY | TSC_940 | From the Depths |  
 THE_SUNKEN_CITY | TSC_941 | Guard the City |  
@@ -968,9 +968,9 @@ THE_SUNKEN_CITY | TSC_957 | Chum Bucket |
 THE_SUNKEN_CITY | TSC_959 | Za'qul |  
 THE_SUNKEN_CITY | TSC_960 | Twin-fin Fin Twin |  
 THE_SUNKEN_CITY | TSC_962 | Gigafin |  
-THE_SUNKEN_CITY | TSC_963 | Filletfighter |  
+THE_SUNKEN_CITY | TSC_963 | Filletfighter | O
 
-- Progress: 3% (6 of 170 Cards)
+- Progress: 8% (14 of 170 Cards)
 
 ## Murder at Castle Nathria
 
