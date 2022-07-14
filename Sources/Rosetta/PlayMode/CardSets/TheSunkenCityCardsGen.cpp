@@ -1349,6 +1349,8 @@ void TheSunkenCityCardsGen::AddPriestNonCollect(
 
 void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - ROGUE
     // [TSC_085] Cutlass Courier - COST:3 [ATK:2/HP:5]
     // - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
@@ -1463,6 +1465,17 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_NONSELF_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_NONSELF_TARGET, 0 } };
+    cards.emplace("TSC_963", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [TID_078] Shattershambler - COST:1 [ATK:1/HP:3]
