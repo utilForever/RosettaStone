@@ -367,6 +367,57 @@ TEST_CASE("[Mage : Minion] - TSC_054 : Mecha-Shark")
     CHECK_EQ(totalHealth, 39);
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [TSC_055] Seafloor Gateway - COST:3
+// - Set: THE_SUNKEN_CITY, Rarity: Rare
+// --------------------------------------------------------
+// Text: Draw a Mech.
+//       Reduce the Cost of Mechs in your hand by (1).
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - TSC_055 : Seafloor Gateway")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Bloodfen Raptor");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Naval Mine");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Seafloor Gateway"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Naval Mine"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(card2->GetCost(), 1);
+    CHECK_EQ(card3->GetCost(), 9);
+    CHECK_EQ(curHand[6]->card->name, "Naval Mine");
+    CHECK_EQ(curHand[6]->GetCost(), 1);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [TSC_030] The Leviathan - COST:7 [ATK:4/HP:5]
 // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary

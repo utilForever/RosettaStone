@@ -691,6 +691,16 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Draw a Mech.
     //       Reduce the Cost of Mechs in your hand by (1).
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DrawRaceMinionTask>(Race::MECHANICAL, 1, false));
+    cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MECHANICAL)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("TSC_055e", EntityType::STACK));
+    cards.emplace("TSC_055", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [TSC_056] Volcanomancy - COST:2
@@ -845,6 +855,9 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("TSC_055e", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [TSC_056e] Explosive - COST:0
