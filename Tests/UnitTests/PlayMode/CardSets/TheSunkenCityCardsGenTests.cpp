@@ -247,6 +247,69 @@ TEST_CASE("[Hunter : Spell] - TSC_947 : Naga's Pride")
     CHECK_EQ(curField[4]->GetHealth(), 3);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [TSC_029] Gaia, the Techtonic - COST:8 [ATK:5/HP:7]
+// - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Colossal +2</b>
+//       After a friendly Mech attacks,
+//       deal 1 damage to all enemies.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - COLOSSAL = 1
+// - TRIGGER_VISUAL = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - TSC_029 : Gaia, the Techtonic")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Gaia, the Techtonic"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+
+    game.Process(curPlayer, AttackTask(curField[0], card2));
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
+
+    game.Process(curPlayer, AttackTask(curField[1], card2));
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [TSC_030] The Leviathan - COST:7 [ATK:4/HP:5]
 // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary

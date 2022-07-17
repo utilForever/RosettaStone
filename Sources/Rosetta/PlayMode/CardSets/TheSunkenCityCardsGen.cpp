@@ -630,6 +630,8 @@ void TheSunkenCityCardsGen::AddHunterNonCollect(
 
 void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ MINION - MAGE
     // [TSC_029] Gaia, the Techtonic - COST:8 [ATK:5/HP:7]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary
@@ -643,6 +645,18 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - COLOSSAL = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MECHANICAL))
+    };
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMIES, 1) };
+    cardDef.property.appendages = { { "TSC_029t", SummonSide::LEFT },
+                                    { "TSC_029t2", SummonSide::RIGHT } };
+    cards.emplace("TSC_029", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [TSC_054] Mecha-Shark - COST:3 [ATK:4/HP:3]
@@ -782,6 +796,8 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ MINION - MAGE
     // [TSC_029t] Gaia's Drill - COST:3 [ATK:2/HP:3]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY
@@ -791,6 +807,9 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_029t", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [TSC_029t2] Gaia's Drill - COST:3 [ATK:2/HP:3]
@@ -801,6 +820,9 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_029t2", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [TSC_055e] Mechanical Marvel - COST:0
