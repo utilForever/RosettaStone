@@ -1037,9 +1037,22 @@ void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a 1/2, 2/4 and 4/8 Elemental with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_076t", SummonSide::SPELL));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_076t2", SummonSide::SPELL));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_076t3", SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("TSC_076", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [TSC_079] Radar Detector - COST:2
@@ -1165,6 +1178,9 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_076t", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TSC_076t2] Living Statue - COST:3 [ATK:2/HP:4]
@@ -1175,6 +1191,9 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_076t2", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TSC_076t3] Pristine Statue - COST:5 [ATK:4/HP:8]
@@ -1185,6 +1204,9 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_076t3", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TSC_644t] Sunken Mooncatcher - COST:3 [ATK:4/HP:2]
