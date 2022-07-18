@@ -93,6 +93,15 @@ enum class SummonSide
                          //!< alternately for opponent.
 };
 
+//! \brief An enumerator for identifying the position of putting card(s)
+//! on the deck.
+enum class DeckPosition
+{
+    RANDOM,  //! Putting card(s) on the random position.
+    TOP,     //! Putting card(s) on the top position.
+    BOTTOM,  //! Putting card(s) on the bottom position.
+};
+
 //! \brief An enumerator for evaluating the relation between primitive values
 //! during game simulation.
 enum class RelaSign
