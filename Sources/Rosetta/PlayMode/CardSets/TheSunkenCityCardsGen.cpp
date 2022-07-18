@@ -772,6 +772,10 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<PutCardDeckTask>("TSC_776t", DeckPosition::BOTTOM));
+    cards.emplace("TSC_776", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [TSC_948] Gifts of Azshara - COST:2
@@ -875,6 +879,13 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(
+                      CardType::MINION, CardClass::INVALID, Race::MECHANICAL),
+                  std::make_shared<AddStackToTask>(EntityType::HAND) },
+        3));
+    cards.emplace("TSC_776t", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [TID_707e] Submerged - COST:0

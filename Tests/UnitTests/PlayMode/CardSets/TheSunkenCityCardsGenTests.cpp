@@ -418,6 +418,64 @@ TEST_CASE("[Mage : Spell] - TSC_055 : Seafloor Gateway")
     CHECK_EQ(curHand[6]->GetCost(), 1);
 }
 
+// ------------------------------------------ MINION - MAGE
+// [TSC_776] Azsharan Sweeper - COST:3 [ATK:3/HP:4]
+// - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b>
+//       Put a 'Sunken Sweeper' on the bottom of your deck.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - TSC_776 : Azsharan Sweeper")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Bloodfen Raptor");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Naval Mine");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Azsharan Sweeper"));
+    // Sunken Sweeper (TSC_776t)
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("TSC_776t"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curDeck.GetCount(), 27);
+    CHECK_EQ(curDeck.GetBottomCard()->card->name, "Sunken Sweeper");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curHand[4]->card->GetRace(), Race::MECHANICAL);
+    CHECK_EQ(curHand[5]->card->GetRace(), Race::MECHANICAL);
+    CHECK_EQ(curHand[6]->card->GetRace(), Race::MECHANICAL);
+}
+
 // --------------------------------------- MINION - PALADIN
 // [TSC_030] The Leviathan - COST:7 [ATK:4/HP:5]
 // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary
