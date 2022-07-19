@@ -346,6 +346,12 @@ bool ChoicePick(Player* player, int choice)
 
                 clonedTask->Run();
             }
+
+            // Set combo active to true
+            if (!player->IsComboActive())
+            {
+                player->SetComboActive(true);
+            }
         }
 
         // NOTE: Temporary code for 'Dwarven Archaeologist' (ULD_309)
