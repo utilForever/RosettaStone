@@ -318,8 +318,11 @@ bool ChoicePick(Player* player, int choice)
         // Process after choose tasks
         if (choiceVal->source)
         {
+            const auto card = choiceVal->source->card;
             const auto tasks =
-                choiceVal->source->card->power.GetAfterChooseTask();
+                player->IsComboActive() && card->HasGameTag(GameTag::COMBO)
+                    ? card->power.GetAfterChooseForComboTask()
+                    : card->power.GetAfterChooseTask();
 
             if (!choiceVal->entityStack.empty())
             {
