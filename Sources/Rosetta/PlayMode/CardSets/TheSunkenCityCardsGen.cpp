@@ -1479,6 +1479,11 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - COMBO = 1
     // - DREDGE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DredgeTask>());
+    cardDef.power.AddComboTask(std::make_shared<DredgeTask>());
+    cardDef.power.AddAfterChooseForComboTask(std::make_shared<DrawTask>(1));
+    cards.emplace("TSC_916", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [TSC_932] Blood in the Water - COST:6

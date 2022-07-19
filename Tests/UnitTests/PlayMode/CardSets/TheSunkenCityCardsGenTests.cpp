@@ -617,6 +617,87 @@ TEST_CASE("[Paladin : Spell] - TSC_076 : Immortalized in Stone")
     CHECK_EQ(curField[2]->HasTaunt(), true);
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [TSC_916] Gone Fishin' - COST:1
+// - Set: THE_SUNKEN_CITY, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Dredge</b>.
+//       <b>Combo:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - COMBO = 1
+// - DREDGE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - TSC_916 : Gone Fishin'")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doShuffle = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 5)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Frostbolt");
+        config.player1Deck[i + 3] = Cards::FindCardByName("Wisp");
+        config.player1Deck[i + 4] = Cards::FindCardByName("Pyroblast");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gone Fishin'"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gone Fishin'"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+
+    auto firstChoice = game.entityList[curPlayer->choice->choices[0]];
+    auto secondChoice = game.entityList[curPlayer->choice->choices[1]];
+    auto thirdChoice = game.entityList[curPlayer->choice->choices[2]];
+    CHECK_EQ(firstChoice->card->name, "Pyroblast");
+    CHECK_EQ(secondChoice->card->name, "Wisp");
+    CHECK_EQ(thirdChoice->card->name, "Frostbolt");
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curDeck.GetTopCard()->card->name, "Pyroblast");
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+
+    firstChoice = game.entityList[curPlayer->choice->choices[0]];
+    secondChoice = game.entityList[curPlayer->choice->choices[1]];
+    thirdChoice = game.entityList[curPlayer->choice->choices[2]];
+    CHECK_EQ(firstChoice->card->name, "Wisp");
+    CHECK_EQ(secondChoice->card->name, "Frostbolt");
+    CHECK_EQ(thirdChoice->card->name, "Malygos");
+
+    TestUtils::ChooseNthChoice(game, 3);
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Malygos");
+    CHECK_EQ(curDeck.GetTopCard()->card->name, "Pyroblast");
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [TSC_963] Filletfighter - COST:1 [ATK:3/HP:1]
 // - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common
