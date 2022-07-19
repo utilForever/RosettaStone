@@ -50,6 +50,11 @@ std::vector<std::shared_ptr<ITask>>& Power::GetAfterChooseTask()
     return m_afterChooseTask;
 }
 
+std::vector<std::shared_ptr<ITask>>& Power::GetAfterChooseForComboTask()
+{
+    return m_afterChooseForComboTask;
+}
+
 std::vector<std::shared_ptr<ITask>>& Power::GetOutcastTask()
 {
     return m_outcastTask;

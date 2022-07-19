@@ -61,6 +61,10 @@ class Power
     //! \return A list of after choose tasks.
     std::vector<std::shared_ptr<ITask>>& GetAfterChooseTask();
 
+    //! Returns a list of after choose tasks for combo.
+    //! \return A list of after choose tasks for combo.
+    std::vector<std::shared_ptr<ITask>>& GetAfterChooseForComboTask();
+
     //! Returns a list of outcast tasks.
     //! \return A list of outcast tasks.
     std::vector<std::shared_ptr<ITask>>& GetOutcastTask();
