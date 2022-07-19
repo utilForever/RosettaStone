@@ -158,6 +158,7 @@ class Power
     std::vector<std::shared_ptr<ITask>> m_comboTask;
     std::vector<std::shared_ptr<ITask>> m_topdeckTask;
     std::vector<std::shared_ptr<ITask>> m_afterChooseTask;
+    std::vector<std::shared_ptr<ITask>> m_afterChooseForComboTask;
     std::vector<std::shared_ptr<ITask>> m_outcastTask;
     std::vector<std::shared_ptr<ITask>> m_spellburstTask;
     std::vector<std::shared_ptr<ITask>> m_frenzyTask;
