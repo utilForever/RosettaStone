@@ -185,7 +185,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Set combo active to true
-    if (!player->IsComboActive())
+    if (!player->IsComboActive() && !player->choice)
     {
         player->SetComboActive(true);
     }
