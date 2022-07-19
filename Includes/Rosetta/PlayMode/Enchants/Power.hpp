@@ -124,6 +124,10 @@ class Power
     //! \param task A pointer to after choose task.
     void AddAfterChooseTask(const std::shared_ptr<ITask>& task);
 
+    //! Adds after choose task for combo task.
+    //! \param task A pointer to after choose task for combo task.
+    void AddAfterChooseForComboTask(const std::shared_ptr<ITask>& task);
+
     //! Adds outcast task.
     //! \param task A pointer to outcast task.
     void AddOutcastTask(const std::shared_ptr<ITask>& task);

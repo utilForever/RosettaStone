@@ -143,6 +143,11 @@ void Power::AddAfterChooseTask(const std::shared_ptr<ITask>& task)
     m_afterChooseTask.emplace_back(task);
 }
 
+void Power::AddAfterChooseForComboTask(const std::shared_ptr<ITask>& task)
+{
+    m_afterChooseForComboTask.emplace_back(task);
+}
+
 void Power::AddOutcastTask(const std::shared_ptr<ITask>& task)
 {
     m_outcastTask.emplace_back(task);
