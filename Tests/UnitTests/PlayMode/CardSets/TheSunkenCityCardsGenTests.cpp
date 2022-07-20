@@ -802,6 +802,51 @@ TEST_CASE("[Rogue : Minion] - TSC_963 : Filletfighter")
     CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [TSC_941] Guard the City - COST:2
+// - Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: Gain 3 Armor.
+//       Summon a 2/3 Naga with <b>Taunt</b>.
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - TSC_941 : Guard the City")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Guard the City"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 3);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Naga Centaur");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[0]->HasTaunt(), true);
+}
+
 // ------------------------------------ SPELL - DEMONHUNTER
 // [TSC_058] Predation - COST:3
 // - Set: THE_SUNKEN_CITY, Rarity: Rare

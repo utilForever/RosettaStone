@@ -2319,6 +2319,8 @@ void TheSunkenCityCardsGen::AddWarlockNonCollect(
 
 void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARRIOR
     // [TSC_659] Trenchstalker - COST:9 [ATK:8/HP:9]
     // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Epic
@@ -2397,6 +2399,11 @@ void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(3));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_941t", SummonSide::SPELL));
+    cards.emplace("TSC_941", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [TSC_942] Obsidiansmith - COST:2 [ATK:3/HP:2]
@@ -2471,6 +2478,8 @@ void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [TSC_660e] Mercenary's Fee - COST:0
     // - Set: THE_SUNKEN_CITY
@@ -2536,6 +2545,9 @@ void TheSunkenCityCardsGen::AddWarriorNonCollect(
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_941t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [TSC_942e] Flameforged - COST:0
