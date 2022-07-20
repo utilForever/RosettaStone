@@ -698,6 +698,56 @@ TEST_CASE("[Rogue : Spell] - TSC_916 : Gone Fishin'")
     CHECK_EQ(curDeck.GetTopCard()->card->name, "Pyroblast");
 }
 
+// ------------------------------------------ SPELL - ROGUE
+// [TSC_932] Blood in the Water - COST:6
+// - Set: THE_SUNKEN_CITY, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage to an enemy.
+//       Summon a 5/5 Shark with <b>Rush</b>.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_ENEMY_TARGET = 0
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+// RefTag:
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - TSC_932 : Blood in the Water")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Blood in the Water"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Tiger Shark");
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+    CHECK_EQ(curField[0]->HasRush(), true);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [TSC_963] Filletfighter - COST:1 [ATK:3/HP:1]
 // - Race: Pirate, Set: THE_SUNKEN_CITY, Rarity: Common

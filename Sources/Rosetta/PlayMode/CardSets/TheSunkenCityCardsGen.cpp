@@ -1492,9 +1492,21 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to an enemy.
     //       Summon a 5/5 Shark with <b>Rush</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_932t", SummonSide::SPELL));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("TSC_932", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [TSC_933] Bootstrap Sunkeneer - COST:5 [ATK:4/HP:4]
@@ -1606,6 +1618,8 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [TSC_086e] Sharp Point - COST:0
     // - Set: THE_SUNKEN_CITY
@@ -1656,6 +1670,9 @@ void TheSunkenCityCardsGen::AddRogueNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_932t", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [TSC_934t] Take their Supplies! - COST:0
