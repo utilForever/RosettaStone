@@ -843,15 +843,15 @@ THE_SUNKEN_CITY | TSC_017 | Baba Naga | O
 THE_SUNKEN_CITY | TSC_020 | Barbaric Sorceress |  
 THE_SUNKEN_CITY | TSC_023 | Barbed Nets |  
 THE_SUNKEN_CITY | TSC_026 | Colaque | O
-THE_SUNKEN_CITY | TSC_029 | Gaia, the Techtonic |  
+THE_SUNKEN_CITY | TSC_029 | Gaia, the Techtonic | O
 THE_SUNKEN_CITY | TSC_030 | The Leviathan | O
 THE_SUNKEN_CITY | TSC_032 | Blademaster Okani |  
 THE_SUNKEN_CITY | TSC_034 | Gorloc Ravager |  
 THE_SUNKEN_CITY | TSC_039 | Azsharan Scavenger |  
 THE_SUNKEN_CITY | TSC_052 | School Teacher |  
 THE_SUNKEN_CITY | TSC_053 | Rainbow Glowscale | O
-THE_SUNKEN_CITY | TSC_054 | Mecha-Shark |  
-THE_SUNKEN_CITY | TSC_055 | Seafloor Gateway |  
+THE_SUNKEN_CITY | TSC_054 | Mecha-Shark | O
+THE_SUNKEN_CITY | TSC_055 | Seafloor Gateway | O
 THE_SUNKEN_CITY | TSC_056 | Volcanomancy |  
 THE_SUNKEN_CITY | TSC_057 | Azsharan Defector |  
 THE_SUNKEN_CITY | TSC_058 | Predation | O
@@ -867,7 +867,7 @@ THE_SUNKEN_CITY | TSC_071 | Twinbow Terrorcoil |
 THE_SUNKEN_CITY | TSC_072 | Conch's Call | O
 THE_SUNKEN_CITY | TSC_073 | Raj Naz'jan |  
 THE_SUNKEN_CITY | TSC_074 | Kotori Lightblade |  
-THE_SUNKEN_CITY | TSC_076 | Immortalized in Stone |  
+THE_SUNKEN_CITY | TSC_076 | Immortalized in Stone | O
 THE_SUNKEN_CITY | TSC_079 | Radar Detector |  
 THE_SUNKEN_CITY | TSC_083 | Seafloor Savior |  
 THE_SUNKEN_CITY | TSC_085 | Cutlass Courier |  
@@ -920,7 +920,7 @@ THE_SUNKEN_CITY | TSC_702 | Switcheroo |
 THE_SUNKEN_CITY | TSC_753 | Bloodscent Vilefin |  
 THE_SUNKEN_CITY | TSC_772 | Azsharan Scroll |  
 THE_SUNKEN_CITY | TSC_775 | Azsharan Ritual |  
-THE_SUNKEN_CITY | TSC_776 | Azsharan Sweeper |  
+THE_SUNKEN_CITY | TSC_776 | Azsharan Sweeper | O
 THE_SUNKEN_CITY | TSC_823 | Murkwater Scribe |  
 THE_SUNKEN_CITY | TSC_826 | Crushclaw Enforcer |  
 THE_SUNKEN_CITY | TSC_827 | Vicious Slitherspear |  
@@ -932,7 +932,7 @@ THE_SUNKEN_CITY | TSC_911 | Excavation Specialist |
 THE_SUNKEN_CITY | TSC_912 | Azsharan Vessel |  
 THE_SUNKEN_CITY | TSC_913 | Azsharan Trident |  
 THE_SUNKEN_CITY | TSC_915 | Bone Glaive |  
-THE_SUNKEN_CITY | TSC_916 | Gone Fishin' |  
+THE_SUNKEN_CITY | TSC_916 | Gone Fishin' | O
 THE_SUNKEN_CITY | TSC_917 | Blackscale Brute |  
 THE_SUNKEN_CITY | TSC_919 | Azsharan Sentinel |  
 THE_SUNKEN_CITY | TSC_922 | Anchored Totem |  
@@ -943,7 +943,7 @@ THE_SUNKEN_CITY | TSC_926 | Smothering Starfish |
 THE_SUNKEN_CITY | TSC_927 | Azsharan Gardens |  
 THE_SUNKEN_CITY | TSC_928 | Security Automaton |  
 THE_SUNKEN_CITY | TSC_929 | Emergency Maneuvers |  
-THE_SUNKEN_CITY | TSC_932 | Blood in the Water |  
+THE_SUNKEN_CITY | TSC_932 | Blood in the Water | O
 THE_SUNKEN_CITY | TSC_933 | Bootstrap Sunkeneer |  
 THE_SUNKEN_CITY | TSC_934 | Pirate Admiral Hooktusk |  
 THE_SUNKEN_CITY | TSC_935 | Selfish Shellfish |  
@@ -952,7 +952,7 @@ THE_SUNKEN_CITY | TSC_937 | Crabatoa |
 THE_SUNKEN_CITY | TSC_938 | Treasure Guard | O
 THE_SUNKEN_CITY | TSC_939 | Forged in Flame |  
 THE_SUNKEN_CITY | TSC_940 | From the Depths |  
-THE_SUNKEN_CITY | TSC_941 | Guard the City |  
+THE_SUNKEN_CITY | TSC_941 | Guard the City | O
 THE_SUNKEN_CITY | TSC_942 | Obsidiansmith |  
 THE_SUNKEN_CITY | TSC_943 | Lady Ashvane |  
 THE_SUNKEN_CITY | TSC_944 | The Fires of Zin-Azshari |  
@@ -970,7 +970,7 @@ THE_SUNKEN_CITY | TSC_960 | Twin-fin Fin Twin |
 THE_SUNKEN_CITY | TSC_962 | Gigafin |  
 THE_SUNKEN_CITY | TSC_963 | Filletfighter | O
 
-- Progress: 8% (14 of 170 Cards)
+- Progress: 12% (22 of 170 Cards)
 
 ## Murder at Castle Nathria
 
