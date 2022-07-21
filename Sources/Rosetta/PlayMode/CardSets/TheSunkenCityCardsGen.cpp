@@ -630,6 +630,8 @@ void TheSunkenCityCardsGen::AddHunterNonCollect(
 
 void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ MINION - MAGE
     // [TSC_029] Gaia, the Techtonic - COST:8 [ATK:5/HP:7]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY, Rarity: Legendary
@@ -643,6 +645,18 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - COLOSSAL = 1
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::MINIONS;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MECHANICAL))
+    };
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMIES, 1) };
+    cardDef.property.appendages = { { "TSC_029t", SummonSide::LEFT },
+                                    { "TSC_029t2", SummonSide::RIGHT } };
+    cards.emplace("TSC_029", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [TSC_054] Mecha-Shark - COST:3 [ATK:4/HP:3]
@@ -654,6 +668,21 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TRIGGER_VISUAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_SUMMON));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsRace(Race::MECHANICAL))
+    };
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        TaskList{
+            std::make_shared<FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+            std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        3) };
+    cards.emplace("TSC_054", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [TSC_055] Seafloor Gateway - COST:3
@@ -662,6 +691,16 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: Draw a Mech.
     //       Reduce the Cost of Mechs in your hand by (1).
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DrawRaceMinionTask>(Race::MECHANICAL, 1, false));
+    cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(EntityType::HAND));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MECHANICAL)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("TSC_055e", EntityType::STACK));
+    cards.emplace("TSC_055", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [TSC_056] Volcanomancy - COST:2
@@ -733,6 +772,10 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<PutCardDeckTask>("TSC_776t", DeckPosition::BOTTOM));
+    cards.emplace("TSC_776", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [TSC_948] Gifts of Azshara - COST:2
@@ -782,6 +825,8 @@ void TheSunkenCityCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddMageNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ MINION - MAGE
     // [TSC_029t] Gaia's Drill - COST:3 [ATK:2/HP:3]
     // - Race: Mechanical, Set: THE_SUNKEN_CITY
@@ -791,6 +836,9 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_029t", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [TSC_029t2] Gaia's Drill - COST:3 [ATK:2/HP:3]
@@ -801,6 +849,9 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_029t2", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [TSC_055e] Mechanical Marvel - COST:0
@@ -808,6 +859,9 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("TSC_055e", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [TSC_056e] Explosive - COST:0
@@ -825,6 +879,13 @@ void TheSunkenCityCardsGen::AddMageNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(
+                      CardType::MINION, CardClass::INVALID, Race::MECHANICAL),
+                  std::make_shared<AddStackToTask>(EntityType::HAND) },
+        3));
+    cards.emplace("TSC_776t", cardDef);
 
     // ------------------------------------- ENCHANTMENT - MAGE
     // [TID_707e] Submerged - COST:0
@@ -976,9 +1037,22 @@ void TheSunkenCityCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon a 1/2, 2/4 and 4/8 Elemental with <b>Taunt</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_076t", SummonSide::SPELL));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_076t2", SummonSide::SPELL));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_076t3", SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("TSC_076", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [TSC_079] Radar Detector - COST:2
@@ -1104,6 +1178,9 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_076t", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TSC_076t2] Living Statue - COST:3 [ATK:2/HP:4]
@@ -1114,6 +1191,9 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_076t2", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TSC_076t3] Pristine Statue - COST:5 [ATK:4/HP:8]
@@ -1124,6 +1204,9 @@ void TheSunkenCityCardsGen::AddPaladinNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_076t3", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [TSC_644t] Sunken Mooncatcher - COST:3 [ATK:4/HP:2]
@@ -1396,6 +1479,11 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - COMBO = 1
     // - DREDGE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DredgeTask>());
+    cardDef.power.AddComboTask(std::make_shared<DredgeTask>());
+    cardDef.power.AddAfterChooseForComboTask(std::make_shared<DrawTask>(1));
+    cards.emplace("TSC_916", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [TSC_932] Blood in the Water - COST:6
@@ -1404,9 +1492,21 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to an enemy.
     //       Summon a 5/5 Shark with <b>Rush</b>.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
     // RefTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_932t", SummonSide::SPELL));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("TSC_932", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [TSC_933] Bootstrap Sunkeneer - COST:5 [ATK:4/HP:4]
@@ -1518,6 +1618,8 @@ void TheSunkenCityCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddRogueNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [TSC_086e] Sharp Point - COST:0
     // - Set: THE_SUNKEN_CITY
@@ -1568,6 +1670,9 @@ void TheSunkenCityCardsGen::AddRogueNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_932t", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [TSC_934t] Take their Supplies! - COST:0
@@ -2214,6 +2319,8 @@ void TheSunkenCityCardsGen::AddWarlockNonCollect(
 
 void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARRIOR
     // [TSC_659] Trenchstalker - COST:9 [ATK:8/HP:9]
     // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Epic
@@ -2292,6 +2399,11 @@ void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(3));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("TSC_941t", SummonSide::SPELL));
+    cards.emplace("TSC_941", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [TSC_942] Obsidiansmith - COST:2 [ATK:3/HP:2]
@@ -2366,6 +2478,8 @@ void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 void TheSunkenCityCardsGen::AddWarriorNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [TSC_660e] Mercenary's Fee - COST:0
     // - Set: THE_SUNKEN_CITY
@@ -2431,6 +2545,9 @@ void TheSunkenCityCardsGen::AddWarriorNonCollect(
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("TSC_941t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [TSC_942e] Flameforged - COST:0

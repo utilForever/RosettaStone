@@ -61,6 +61,10 @@ class Power
     //! \return A list of after choose tasks.
     std::vector<std::shared_ptr<ITask>>& GetAfterChooseTask();
 
+    //! Returns a list of after choose tasks for combo.
+    //! \return A list of after choose tasks for combo.
+    std::vector<std::shared_ptr<ITask>>& GetAfterChooseForComboTask();
+
     //! Returns a list of outcast tasks.
     //! \return A list of outcast tasks.
     std::vector<std::shared_ptr<ITask>>& GetOutcastTask();
@@ -120,6 +124,10 @@ class Power
     //! \param task A pointer to after choose task.
     void AddAfterChooseTask(const std::shared_ptr<ITask>& task);
 
+    //! Adds after choose task for combo task.
+    //! \param task A pointer to after choose task for combo task.
+    void AddAfterChooseForComboTask(const std::shared_ptr<ITask>& task);
+
     //! Adds outcast task.
     //! \param task A pointer to outcast task.
     void AddOutcastTask(const std::shared_ptr<ITask>& task);
@@ -158,6 +166,7 @@ class Power
     std::vector<std::shared_ptr<ITask>> m_comboTask;
     std::vector<std::shared_ptr<ITask>> m_topdeckTask;
     std::vector<std::shared_ptr<ITask>> m_afterChooseTask;
+    std::vector<std::shared_ptr<ITask>> m_afterChooseForComboTask;
     std::vector<std::shared_ptr<ITask>> m_outcastTask;
     std::vector<std::shared_ptr<ITask>> m_spellburstTask;
     std::vector<std::shared_ptr<ITask>> m_frenzyTask;

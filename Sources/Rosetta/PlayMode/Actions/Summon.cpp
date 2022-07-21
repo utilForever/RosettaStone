@@ -88,7 +88,7 @@ void SummonAppendages(
             std::nullopt, summoner->player->GetFieldZone()));
         int alternateCount = 0;
         const int summonPos = SummonTask::GetPosition(
-            summoner, SummonSide::RIGHT, appendageMinion, alternateCount);
+            summoner, std::get<1>(appendage), appendageMinion, alternateCount);
 
         Summon(appendageMinion, summonPos, summoner);
     }

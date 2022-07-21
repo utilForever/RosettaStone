@@ -20,8 +20,6 @@ AddCardTask::AddCardTask(EntityType entityType, std::string cardID, int amount)
 
 TaskStatus AddCardTask::Impl(Player* player)
 {
-    std::vector<Entity*> entities;
-
     switch (m_entityType)
     {
         case EntityType::HAND:

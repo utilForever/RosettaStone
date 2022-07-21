@@ -76,6 +76,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/MoveToSetasideTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/NumberConditionTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/PlayTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/PutCardDeckTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/QuestProgressTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RandomEntourageTask.hpp>
