@@ -3332,18 +3332,7 @@ void Expert1CardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // Text: One of your cards costs (3) less.
     // --------------------------------------------------------
     cardDef.ClearData();
-    cardDef.power.AddEnchant(
-        std::make_shared<Enchant>(std::vector<std::shared_ptr<IEffect>>{
-            Effects::ReduceCost(3),
-            std::make_shared<Effect>(GameTag::DISPLAYED_CREATOR,
-                                     EffectOperator::SET, 1) }));
-    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
-    cardDef.power.GetTrigger()->triggerSource =
-        TriggerSource::ENCHANTMENT_TARGET;
-    cardDef.power.GetTrigger()->tasks = {
-        std::make_shared<RemoveEnchantmentTask>()
-    };
-    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::ReduceCost(3)));
     cards.emplace("CS2_053e", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
