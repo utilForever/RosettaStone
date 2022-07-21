@@ -11,26 +11,46 @@ jobs:
     strategy:
       matrix:
         include:
-          # macOS 10.15 + Xcode 11.7
-          - name: "macOS 10.15 + Xcode 11.7"
-            os: macos-10.15
+          # macOS 12.4 + Xcode 13.4.1
+          - name: "macOS 12.4 + Xcode 13.4.1"
+            os: macos-12
+            compiler: xcode
+            version: "13.4.1"
+          # macOS 11.6 + Xcode 13.2.1
+          - name: "macOS 11.6 + Xcode 13.2.1"
+            os: macos-11
+            compiler: xcode
+            version: "13.2.1"
+          # macOS 11.6 + Xcode 12.5.1
+          - name: "macOS 11.6 + Xcode 12.5.1"
+            os: macos-11
+            compiler: xcode
+            version: "12.5.1"
+          # macOS 11.6 + Xcode 11.7
+          - name: "macOS 11.6 + Xcode 11.7"
+            os: macos-11
             compiler: xcode
             version: "11.7"
-          # macOS 10.15 + Xcode 12.2
-          - name: "macOS 10.15 + Xcode 12.2"
-            os: macos-10.15
-            compiler: xcode
-            version: "12.2"
-          # macOS 10.15 + gcc-9
-          - name: "macOS 10.15 + gcc-9"
-            os: macos-10.15
+          # macOS 12.4 + gcc-11
+          - name: "macOS 12.4 + gcc-11"
+            os: macos-12
             compiler: gcc
-            version: "9"
-          # macOS 10.15 + gcc-10
-          - name: "macOS 10.15 + gcc-10"
-            os: macos-10.15
+            version: "11"
+          # macOS 11.6 + gcc-11
+          - name: "macOS 11.6 + gcc-11"
+            os: macos-11
+            compiler: gcc
+            version: "11"
+          # macOS 11.6 + gcc-10
+          - name: "macOS 11.6 + gcc-10"
+            os: macos-11
             compiler: gcc
             version: "10"
+          # macOS 11.6 + gcc-9
+          - name: "macOS 11.6 + gcc-9"
+            os: macos-11
+            compiler: gcc
+            version: "9"
 
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.name }}
