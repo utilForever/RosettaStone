@@ -164,16 +164,29 @@ void BrmCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHandEmpty()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BRM_014e", EntityType::SOURCE) }));
+    cards.emplace("BRM_014", cardDef);
 }
 
 void BrmCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [BRM_014e] Power Rager (*) - COST:0
     // - Set: Brm
     // --------------------------------------------------------
     // Text: +3/+3
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("BRM_014e"));
+    cards.emplace("BRM_014e", cardDef);
 }
 
 void BrmCardsGen::AddMage(std::map<std::string, CardDef>& cards)
