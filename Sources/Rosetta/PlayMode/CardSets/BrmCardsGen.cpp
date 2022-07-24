@@ -40,6 +40,8 @@ void BrmCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - DRUID
     // [BRM_009] Volcanic Lumberer - COST:9 [ATK:7/HP:8]
     // - Set: Brm, Rarity: Rare
@@ -50,6 +52,12 @@ void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumFriendlyMinionsDiedThisTurn();
+        }));
+    cards.emplace("BRM_009", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [BRM_010] Druid of the Flame - COST:3 [ATK:2/HP:2]
