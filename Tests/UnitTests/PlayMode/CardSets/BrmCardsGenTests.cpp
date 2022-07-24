@@ -221,10 +221,10 @@ TEST_CASE("[Warlock : Minion] - BRM_006 : Imp Gang Boss")
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST_CASE("[Warlock : Minion] - BRM_014 : Core Rager")
+TEST_CASE("[Hunter : Minion] - BRM_014 : Core Rager")
 {
     GameConfig config;
-    config.player1Class = CardClass::WARLOCK;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
@@ -255,4 +255,58 @@ TEST_CASE("[Warlock : Minion] - BRM_014 : Core Rager")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField[1]->GetAttack(), 7);
     CHECK_EQ(curField[1]->GetHealth(), 7);
+}
+
+// ------------------------------------------ MINION - MAGE
+// [BRM_002] Flamewaker - COST:3 [ATK:2/HP:4]
+// - Set: Brm, Rarity: Rare
+// --------------------------------------------------------
+// Text: After you cast a spell,
+//       deal 2 damage randomly split among all enemies.
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - BRM_002 : Flamewaker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Flamewaker"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Intellect"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+
+    const int totalHealth =
+        opPlayer->GetHero()->GetHealth() + opField[0]->GetHealth();
+    CHECK_EQ(totalHealth, 40);
 }

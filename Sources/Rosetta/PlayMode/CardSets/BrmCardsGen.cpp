@@ -191,6 +191,8 @@ void BrmCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ MINION - MAGE
     // [BRM_002] Flamewaker - COST:3 [ATK:2/HP:4]
     // - Set: Brm, Rarity: Rare
@@ -198,6 +200,13 @@ void BrmCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: After you cast a spell,
     //       deal 2 damage randomly split among all enemies.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 1), 2) };
+    cards.emplace("BRM_002", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [BRM_003] Dragon's Breath - COST:5
