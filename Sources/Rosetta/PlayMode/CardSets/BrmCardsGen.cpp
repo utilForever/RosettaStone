@@ -218,6 +218,15 @@ void BrmCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumFriendlyMinionsDiedThisTurn();
+        }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("BRM_003", cardDef);
 }
 
 void BrmCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
