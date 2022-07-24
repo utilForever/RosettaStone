@@ -69,16 +69,27 @@ void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "OG_044b"));
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "BRM_010a", "BRM_010b" };
+    cards.emplace("BRM_010", cardDef);
 }
 
 void BrmCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - DRUID
     // [BRM_010a] Firecat Form (*) - COST:0
     // - Set: Brm
     // --------------------------------------------------------
     // Text: Transform into a 5/2 minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "BRM_010t"));
+    cards.emplace("BRM_010a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [BRM_010b] Fire Hawk Form (*) - COST:0
@@ -86,21 +97,34 @@ void BrmCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform into a 2/5 minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "BRM_010t2"));
+    cards.emplace("BRM_010b", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [BRM_010t] Druid of the Flame (*) - COST:3 [ATK:5/HP:2]
     // - Race: Beast, Set: Brm, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_010t", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [BRM_010t2] Druid of the Flame (*) - COST:3 [ATK:2/HP:5]
     // - Race: Beast, Set: Brm, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_010t2", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [OG_044b] Druid of the Flame (*) - COST:3 [ATK:5/HP:5]
     // - Race: Beast, Set: Brm, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("OG_044b", cardDef);
 }
 
 void BrmCardsGen::AddHunter(std::map<std::string, CardDef>& cards)

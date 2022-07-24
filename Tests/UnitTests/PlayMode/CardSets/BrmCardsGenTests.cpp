@@ -73,6 +73,52 @@ TEST_CASE("[Druid : Minion] - BRM_009 : Volcanic Lumberer")
     CHECK_EQ(card1->GetCost(), 9);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [BRM_010] Druid of the Flame - COST:3 [ATK:2/HP:2]
+// - Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b> Transform into a 5/2 minion;
+//       or a 2/5 minion.
+// --------------------------------------------------------
+// GameTag:
+// - CHOOSE_ONE = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - BRM_010 : Druid of the Flame")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Druid of the Flame"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Druid of the Flame"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1, 1));
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2, 2));
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 5);
+}
+
 // ----------------------------------------- SPELL - HUNTER
 // [BRM_013] Quick Shot - COST:2
 // - Set: Brm, Rarity: Common
