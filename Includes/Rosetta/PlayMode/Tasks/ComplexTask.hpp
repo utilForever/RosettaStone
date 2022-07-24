@@ -335,6 +335,23 @@ class ComplexTask
                          std::make_shared<SimpleTasks::CopyTask>(
                              EntityType::STACK, ZoneType::HAND) };
     }
+
+    //! Returns a list of task for dealing damage to random target(s).
+    //! \param entityType The type of entity.
+    //! \param numTarget The number of target(s).
+    //! \param damage A value indicating how much to deal.
+    //! \param isSpellDamage true if it is spell damage, and false otherwise.
+    static TaskList DamageRandomTargets(EntityType entityType, int numTarget, 
+                                        int damage, bool isSpellDamage = false)
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsNotDead()) }),
+            std::make_shared<SimpleTasks::RandomTask>(entityType, numTarget),
+            std::make_shared<SimpleTasks::DamageTask>(EntityType::STACK, damage,
+                                                      isSpellDamage)
+        };
+    }
 };
 }  // namespace RosettaStone::PlayMode
 

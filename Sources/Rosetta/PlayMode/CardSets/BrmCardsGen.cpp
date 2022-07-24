@@ -40,6 +40,8 @@ void BrmCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - DRUID
     // [BRM_009] Volcanic Lumberer - COST:9 [ATK:7/HP:8]
     // - Set: Brm, Rarity: Rare
@@ -50,6 +52,12 @@ void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumFriendlyMinionsDiedThisTurn();
+        }));
+    cards.emplace("BRM_009", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [BRM_010] Druid of the Flame - COST:3 [ATK:2/HP:2]
@@ -61,16 +69,27 @@ void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - CHOOSE_ONE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "OG_044b"));
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "BRM_010a", "BRM_010b" };
+    cards.emplace("BRM_010", cardDef);
 }
 
 void BrmCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - DRUID
     // [BRM_010a] Firecat Form (*) - COST:0
     // - Set: Brm
     // --------------------------------------------------------
     // Text: Transform into a 5/2 minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "BRM_010t"));
+    cards.emplace("BRM_010a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [BRM_010b] Fire Hawk Form (*) - COST:0
@@ -78,21 +97,34 @@ void BrmCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Transform into a 2/5 minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<TransformTask>(EntityType::SOURCE, "BRM_010t2"));
+    cards.emplace("BRM_010b", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [BRM_010t] Druid of the Flame (*) - COST:3 [ATK:5/HP:2]
     // - Race: Beast, Set: Brm, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_010t", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [BRM_010t2] Druid of the Flame (*) - COST:3 [ATK:2/HP:5]
     // - Race: Beast, Set: Brm, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_010t2", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [OG_044b] Druid of the Flame (*) - COST:3 [ATK:5/HP:5]
     // - Race: Beast, Set: Brm, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("OG_044b", cardDef);
 }
 
 void BrmCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
@@ -132,20 +164,35 @@ void BrmCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHandEmpty()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BRM_014e", EntityType::SOURCE) }));
+    cards.emplace("BRM_014", cardDef);
 }
 
 void BrmCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [BRM_014e] Power Rager (*) - COST:0
     // - Set: Brm
     // --------------------------------------------------------
     // Text: +3/+3
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("BRM_014e"));
+    cards.emplace("BRM_014e", cardDef);
 }
 
 void BrmCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ MINION - MAGE
     // [BRM_002] Flamewaker - COST:3 [ATK:2/HP:4]
     // - Set: Brm, Rarity: Rare
@@ -153,6 +200,13 @@ void BrmCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // Text: After you cast a spell,
     //       deal 2 damage randomly split among all enemies.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<EnqueueTask>(
+        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 1), 2) };
+    cards.emplace("BRM_002", cardDef);
 
     // ------------------------------------------- SPELL - MAGE
     // [BRM_003] Dragon's Breath - COST:5
@@ -164,6 +218,15 @@ void BrmCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumFriendlyMinionsDiedThisTurn();
+        }));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("BRM_003", cardDef);
 }
 
 void BrmCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
