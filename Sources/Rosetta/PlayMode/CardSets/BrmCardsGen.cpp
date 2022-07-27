@@ -326,6 +326,19 @@ void BrmCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_NUM_MINION_SLOTS = 1
     // - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    cardDef.power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 0 },
+                  { PlayReq::REQ_FRIENDLY_MINION_DIED_THIS_GAME, 0 } };
+    cards.emplace("BRM_017", cardDef);
 }
 
 void BrmCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
