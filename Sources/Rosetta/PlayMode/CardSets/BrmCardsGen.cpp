@@ -372,12 +372,20 @@ void BrmCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [BRM_008] Dark Iron Skulker - COST:5 [ATK:4/HP:3]
     // - Set: Brm, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 2 damage to all undamaged
-    //       enemy minions.
+    // Text: <b>Battlecry:</b> Deal 2 damage
+    //       to all undamaged enemy minions.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsUndamaged()) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2));
+    cards.emplace("BRM_008", cardDef);
 }
 
 void BrmCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
