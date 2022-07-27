@@ -443,3 +443,58 @@ TEST_CASE("[Paladin : Spell] - BRM_001 : Solemn Vigil")
     CHECK_EQ(curHand.GetCount(), 7);
     CHECK_EQ(curPlayer->GetRemainingMana(), 7);
 }
+
+// --------------------------------------- MINION - PALADIN
+// [BRM_018] Dragon Consort - COST:5 [ATK:5/HP:5]
+// - Race: Dragon, Set:Bbrm, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> The next Dragon
+//       you play costs (2) less.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - BRM_018 : Dragon Consort")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dragon Consort"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Azure Drake"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Twilight Whelp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Glaivebound Adept"));
+
+    CHECK_EQ(card2->GetCost(), 5);
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(card2->GetCost(), 5);
+    CHECK_EQ(card4->GetCost(), 5);
+}

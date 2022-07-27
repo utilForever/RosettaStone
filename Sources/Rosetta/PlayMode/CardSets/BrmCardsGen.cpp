@@ -257,22 +257,40 @@ void BrmCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [BRM_018] Dragon Consort - COST:5 [ATK:5/HP:5]
     // - Race: Dragon, Set:Bbrm, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> The next Dragon you play costs
-    //       (2) less.
+    // Text: <b>Battlecry:</b> The next Dragon
+    //       you play costs (2) less.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BRM_018e", EntityType::SOURCE));
+    cards.emplace("BRM_018", cardDef);
 }
 
 void BrmCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BRM_018e] Unchained! (*) - COST:0
     // - Set: Brm
     // --------------------------------------------------------
     // Text: Your next Dragon costs (2) less.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::ReduceCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON));
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsRace(Race::DRAGON)) };
+    }
+    cards.emplace("BRM_018e", cardDef);
 }
 
 void BrmCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
