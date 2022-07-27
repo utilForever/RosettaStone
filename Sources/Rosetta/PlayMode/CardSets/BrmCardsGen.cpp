@@ -295,6 +295,8 @@ void BrmCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - PRIEST
     // [BRM_004] Twilight Whelp - COST:1 [ATK:2/HP:1]
     // - Race: Dragon, Set: Brm, Rarity: Common
@@ -305,6 +307,14 @@ void BrmCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BRM_004e", EntityType::SOURCE) }));
+    cards.emplace("BRM_004", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [BRM_017] Resurrect - COST:2
@@ -602,12 +612,17 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BRM_004e] Twilight Endurance (*) - COST:0
     // - Set: Brm
     // --------------------------------------------------------
     // Text: Increased Health.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(2)));
+    cards.emplace("BRM_004e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_004t] Whelp (*) - COST:1 [ATK:1/HP:1]
