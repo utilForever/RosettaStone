@@ -601,3 +601,51 @@ TEST_CASE("[Priest : Spell] - BRM_017 : Resurrect")
     CHECK_EQ(curField[0]->GetAttack(), 4);
     CHECK_EQ(curField[0]->GetHealth(), 7);
 }
+
+// ------------------------------------------ SPELL - ROGUE
+// [BRM_007] Gang Up - COST:2
+// - Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: Choose a minion.
+//       Shuffle 3 copies of it into your deck.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BRM_007 : Gang Up")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gang Up"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curDeck.GetCount(), 3);
+    CHECK_EQ(curDeck[0]->card->name, "Injured Blademaster");
+    CHECK_EQ(curDeck[1]->card->name, "Injured Blademaster");
+    CHECK_EQ(curDeck[2]->card->name, "Injured Blademaster");
+}

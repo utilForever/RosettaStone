@@ -348,6 +348,8 @@ void BrmCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - ROGUE
     // [BRM_007] Gang Up - COST:2
     // - Set: Brm, Rarity: Common
@@ -359,6 +361,12 @@ void BrmCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::DECK, 3));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("BRM_007", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [BRM_008] Dark Iron Skulker - COST:5 [ATK:4/HP:3]
