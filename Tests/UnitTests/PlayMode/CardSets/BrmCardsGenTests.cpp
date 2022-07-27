@@ -377,3 +377,69 @@ TEST_CASE("[Mage : Spell] - BRM_003 : Dragon's Breath")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
     CHECK_EQ(curPlayer->GetRemainingMana(), 7);
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [BRM_001] Solemn Vigil - COST:5
+// - Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 2 cards.
+//       Costs (1) less for each minion that died this turn.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BRM_001 : Solemn Vigil")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Solemn Vigil"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(card1->GetCost(), 5);
+
+    game.Process(curPlayer, AttackTask(card2, card4));
+    CHECK_EQ(card1->GetCost(), 4);
+
+    game.Process(curPlayer, AttackTask(card3, card5));
+    CHECK_EQ(card1->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+}

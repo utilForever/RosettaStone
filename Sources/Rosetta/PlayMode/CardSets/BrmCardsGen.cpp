@@ -236,6 +236,8 @@ void BrmCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - PALADIN
     // [BRM_001] Solemn Vigil - COST:5
     // - Set: Brm, Rarity: Common
@@ -243,6 +245,13 @@ void BrmCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Draw 2 cards.
     //       Costs (1) less for each minion that died this turn.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumFriendlyMinionsDiedThisTurn();
+        }));
+    cards.emplace("BRM_001", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [BRM_018] Dragon Consort - COST:5 [ATK:5/HP:5]
