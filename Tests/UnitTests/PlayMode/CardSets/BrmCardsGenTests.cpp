@@ -377,3 +377,330 @@ TEST_CASE("[Mage : Spell] - BRM_003 : Dragon's Breath")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
     CHECK_EQ(curPlayer->GetRemainingMana(), 7);
 }
+
+// ---------------------------------------- SPELL - PALADIN
+// [BRM_001] Solemn Vigil - COST:5
+// - Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: Draw 2 cards.
+//       Costs (1) less for each minion that died this turn.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - BRM_001 : Solemn Vigil")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Solemn Vigil"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 6);
+    CHECK_EQ(card1->GetCost(), 5);
+
+    game.Process(curPlayer, AttackTask(card2, card4));
+    CHECK_EQ(card1->GetCost(), 4);
+
+    game.Process(curPlayer, AttackTask(card3, card5));
+    CHECK_EQ(card1->GetCost(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curHand.GetCount(), 7);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 7);
+}
+
+// --------------------------------------- MINION - PALADIN
+// [BRM_018] Dragon Consort - COST:5 [ATK:5/HP:5]
+// - Race: Dragon, Set:Bbrm, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> The next Dragon
+//       you play costs (2) less.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - BRM_018 : Dragon Consort")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dragon Consort"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Azure Drake"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Twilight Whelp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Glaivebound Adept"));
+
+    CHECK_EQ(card2->GetCost(), 5);
+    CHECK_EQ(card3->GetCost(), 1);
+    CHECK_EQ(card4->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(card2->GetCost(), 3);
+    CHECK_EQ(card3->GetCost(), 0);
+    CHECK_EQ(card4->GetCost(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curPlayer->GetRemainingMana(), 5);
+    CHECK_EQ(card2->GetCost(), 5);
+    CHECK_EQ(card4->GetCost(), 5);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [BRM_004] Twilight Whelp - COST:1 [ATK:2/HP:1]
+// - Race: Dragon, Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       gain +2 Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - BRM_004 : Twilight Whelp")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Twilight Whelp"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Twilight Whelp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [BRM_017] Resurrect - COST:2
+// - Set: Brm, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon a random friendly minion that died this game.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - BRM_017 : Resurrect")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Resurrect"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 7);
+}
+
+// ------------------------------------------ SPELL - ROGUE
+// [BRM_007] Gang Up - COST:2
+// - Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: Choose a minion.
+//       Shuffle 3 copies of it into your deck.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BRM_007 : Gang Up")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Gang Up"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Injured Blademaster"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curDeck.GetCount(), 3);
+    CHECK_EQ(curDeck[0]->card->name, "Injured Blademaster");
+    CHECK_EQ(curDeck[1]->card->name, "Injured Blademaster");
+    CHECK_EQ(curDeck[2]->card->name, "Injured Blademaster");
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [BRM_008] Dark Iron Skulker - COST:5 [ATK:4/HP:3]
+// - Set: Brm, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Deal 2 damage
+//       to all undamaged enemy minions.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Spell] - BRM_007 : Gang Up")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Dark Iron Skulker"));
+    const auto card2 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Injured Blademaster"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Azure Drake"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[1]->GetHealth(), 5);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+    CHECK_EQ(opField[1]->GetHealth(), 3);
+}

@@ -236,6 +236,8 @@ void BrmCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - PALADIN
     // [BRM_001] Solemn Vigil - COST:5
     // - Set: Brm, Rarity: Common
@@ -243,31 +245,58 @@ void BrmCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // Text: Draw 2 cards.
     //       Costs (1) less for each minion that died this turn.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumFriendlyMinionsDiedThisTurn();
+        }));
+    cards.emplace("BRM_001", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [BRM_018] Dragon Consort - COST:5 [ATK:5/HP:5]
     // - Race: Dragon, Set:Bbrm, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> The next Dragon you play costs
-    //       (2) less.
+    // Text: <b>Battlecry:</b> The next Dragon
+    //       you play costs (2) less.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("BRM_018e", EntityType::SOURCE));
+    cards.emplace("BRM_018", cardDef);
 }
 
 void BrmCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [BRM_018e] Unchained! (*) - COST:0
     // - Set: Brm
     // --------------------------------------------------------
     // Text: Your next Dragon costs (2) less.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::ReduceCost(2) }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition = std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::DRAGON));
+        aura->removeTrigger = { TriggerType::PLAY_MINION,
+                                std::make_shared<SelfCondition>(
+                                    SelfCondition::IsRace(Race::DRAGON)) };
+    }
+    cards.emplace("BRM_018e", cardDef);
 }
 
 void BrmCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - PRIEST
     // [BRM_004] Twilight Whelp - COST:1 [ATK:2/HP:1]
     // - Race: Dragon, Set: Brm, Rarity: Common
@@ -278,6 +307,14 @@ void BrmCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BRM_004e", EntityType::SOURCE) }));
+    cards.emplace("BRM_004", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [BRM_017] Resurrect - COST:2
@@ -289,6 +326,19 @@ void BrmCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_NUM_MINION_SLOTS = 1
     // - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    cardDef.power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 0 },
+                  { PlayReq::REQ_FRIENDLY_MINION_DIED_THIS_GAME, 0 } };
+    cards.emplace("BRM_017", cardDef);
 }
 
 void BrmCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
@@ -298,6 +348,8 @@ void BrmCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - ROGUE
     // [BRM_007] Gang Up - COST:2
     // - Set: Brm, Rarity: Common
@@ -309,17 +361,31 @@ void BrmCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::DECK, 3));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("BRM_007", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [BRM_008] Dark Iron Skulker - COST:5 [ATK:4/HP:3]
     // - Set: Brm, Rarity: Rare
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 2 damage to all undamaged
-    //       enemy minions.
+    // Text: <b>Battlecry:</b> Deal 2 damage
+    //       to all undamaged enemy minions.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsUndamaged()) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2));
+    cards.emplace("BRM_008", cardDef);
 }
 
 void BrmCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
@@ -575,12 +641,17 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BRM_004e] Twilight Endurance (*) - COST:0
     // - Set: Brm
     // --------------------------------------------------------
     // Text: Increased Health.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_shared<Enchant>(Effects::HealthN(2)));
+    cards.emplace("BRM_004e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_004t] Whelp (*) - COST:1 [ATK:1/HP:1]
