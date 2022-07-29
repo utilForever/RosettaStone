@@ -395,6 +395,8 @@ void BrmCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [BRM_011] Lava Shock - COST:2
     // - Set: Brm, Rarity: Rare
@@ -408,6 +410,15 @@ void BrmCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SetPlayerGameTagTask>(GameTag::OVERLOAD_LOCKED, 0));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SetPlayerGameTagTask>(GameTag::OVERLOAD_OWED, 0));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("BRM_011", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [BRM_012] Fireguard Destroyer - COST:4 [ATK:3/HP:6]
@@ -421,6 +432,11 @@ void BrmCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<MathRandTask>(1, 4));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BRM_012e", EntityType::SOURCE, true));
+    cards.emplace("BRM_012", cardDef);
 }
 
 void BrmCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
@@ -441,6 +457,15 @@ void BrmCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsNotRace(Race::DEMON)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace("BRM_005", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [BRM_006] Imp Gang Boss - COST:3 [ATK:2/HP:4]
@@ -472,6 +497,8 @@ void BrmCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [BRM_015] Revenge - COST:2
     // - Set: Brm, Rarity: Rare
@@ -480,6 +507,17 @@ void BrmCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     //       If you have 12 or less Health,
     //       deal 3 damage instead.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 3,
+                                                     true) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<DamageTask>(EntityType::ALL_MINIONS,
+                                                      1, true) }));
+    cards.emplace("BRM_015", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [BRM_016] Axe Flinger - COST:4 [ATK:2/HP:5]
@@ -488,6 +526,13 @@ void BrmCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Whenever this minion takes damage,
     //       deal 2 damage to the enemy hero.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMY_HERO, 2) };
+    cards.emplace("BRM_016", cardDef);
 }
 
 void BrmCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
@@ -664,6 +709,10 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("BRM_012e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BRM_020e] Draconic Power (*) - COST:0

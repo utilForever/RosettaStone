@@ -655,18 +655,18 @@ BRM | BRM_001 | Solemn Vigil | O
 BRM | BRM_002 | Flamewaker | O
 BRM | BRM_003 | Dragon's Breath | O
 BRM | BRM_004 | Twilight Whelp | O
-BRM | BRM_005 | Demonwrath |  
+BRM | BRM_005 | Demonwrath | O
 BRM | BRM_006 | Imp Gang Boss | O
 BRM | BRM_007 | Gang Up | O
 BRM | BRM_008 | Dark Iron Skulker | O
 BRM | BRM_009 | Volcanic Lumberer | O
 BRM | BRM_010 | Druid of the Flame | O
-BRM | BRM_011 | Lava Shock |  
-BRM | BRM_012 | Fireguard Destroyer |  
+BRM | BRM_011 | Lava Shock | O
+BRM | BRM_012 | Fireguard Destroyer | O
 BRM | BRM_013 | Quick Shot | O
 BRM | BRM_014 | Core Rager | O
-BRM | BRM_015 | Revenge |  
-BRM | BRM_016 | Axe Flinger |  
+BRM | BRM_015 | Revenge | O
+BRM | BRM_016 | Axe Flinger | O
 BRM | BRM_017 | Resurrect | O
 BRM | BRM_018 | Dragon Consort | O
 BRM | BRM_019 | Grim Patron |  
@@ -683,7 +683,7 @@ BRM | BRM_031 | Chromaggus |
 BRM | BRM_033 | Blackwing Technician |  
 BRM | BRM_034 | Blackwing Corruptor |  
 
-- Progress: 41% (13 of 31 Cards)
+- Progress: 58% (18 of 31 Cards)
 
 ## The Grand Tournament
 
