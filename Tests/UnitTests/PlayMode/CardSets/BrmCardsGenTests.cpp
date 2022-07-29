@@ -704,3 +704,75 @@ TEST_CASE("[Rogue : Spell] - BRM_007 : Gang Up")
     CHECK_EQ(opField[0]->GetHealth(), 3);
     CHECK_EQ(opField[1]->GetHealth(), 3);
 }
+
+// ----------------------------------------- SPELL - SHAMAN
+// [BRM_011] Lava Shock - COST:2
+// - Set: Brm, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 2 damage.
+//       Unlock your <b>Overloaded</b> Mana Crystals.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - BRM_011 : Lava Shock")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lava Shock"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Lava Shock"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Spirit"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Feral Spirit"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 1);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
+}

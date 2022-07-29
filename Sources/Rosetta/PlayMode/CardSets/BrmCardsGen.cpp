@@ -395,6 +395,8 @@ void BrmCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - SHAMAN
     // [BRM_011] Lava Shock - COST:2
     // - Set: Brm, Rarity: Rare
@@ -408,6 +410,15 @@ void BrmCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SetPlayerGameTagTask>(GameTag::OVERLOAD_LOCKED, 0));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SetPlayerGameTagTask>(GameTag::OVERLOAD_OWED, 0));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("BRM_011", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [BRM_012] Fireguard Destroyer - COST:4 [ATK:3/HP:6]
