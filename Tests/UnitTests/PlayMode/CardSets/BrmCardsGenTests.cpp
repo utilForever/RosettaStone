@@ -776,3 +776,46 @@ TEST_CASE("[Shaman : Spell] - BRM_011 : Lava Shock")
     CHECK_EQ(curPlayer->GetOverloadLocked(), 0);
     CHECK_EQ(curPlayer->GetOverloadOwed(), 0);
 }
+
+// ---------------------------------------- MINION - SHAMAN
+// [BRM_012] Fireguard Destroyer - COST:4 [ATK:3/HP:6]
+// - Race: Elemental, Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Gain 1-4 Attack.
+//       <b>Overload:</b> (1)
+// --------------------------------------------------------
+// GameTag:
+// - OVERLOAD = 1
+// - BATTLECRY = 1
+// - OVERLOAD_OWED = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - BRM_012 : Fireguard Destroyer")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fireguard Destroyer"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_GE(curField[0]->GetAttack(), 4);
+    CHECK_LE(curField[0]->GetAttack(), 7);
+    CHECK_EQ(curPlayer->GetOverloadOwed(), 1);
+}

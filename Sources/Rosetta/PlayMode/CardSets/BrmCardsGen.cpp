@@ -432,6 +432,11 @@ void BrmCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - OVERLOAD_OWED = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<MathRandTask>(1, 4));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "BRM_012e", EntityType::SOURCE, true));
+    cards.emplace("BRM_012", cardDef);
 }
 
 void BrmCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
@@ -675,6 +680,10 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("BRM_012e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BRM_020e] Draconic Power (*) - COST:0
