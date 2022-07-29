@@ -457,6 +457,15 @@ void BrmCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AFFECTED_BY_SPELL_POWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::ALL_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsNotRace(Race::DEMON)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 2, true));
+    cards.emplace("BRM_005", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [BRM_006] Imp Gang Boss - COST:3 [ATK:2/HP:4]
