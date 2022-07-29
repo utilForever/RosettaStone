@@ -1009,3 +1009,49 @@ TEST_CASE("[Warrior : Spell] - BRM_015 : Revenge")
     CHECK_EQ(curField[0]->GetHealth(), 8);
     CHECK_EQ(opField[0]->GetHealth(), 8);
 }
+
+// --------------------------------------- MINION - WARRIOR
+// [BRM_016] Axe Flinger - COST:4 [ATK:2/HP:5]
+// - Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever this minion takes damage,
+//       deal 2 damage to the enemy hero.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - BRM_016 : Axe Flinger")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Axe Flinger"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Sleepy Dragon"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(card1, card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}

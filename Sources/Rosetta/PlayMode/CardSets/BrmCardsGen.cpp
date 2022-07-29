@@ -526,6 +526,13 @@ void BrmCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // Text: Whenever this minion takes damage,
     //       deal 2 damage to the enemy hero.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DamageTask>(
+        EntityType::ENEMY_HERO, 2) };
+    cards.emplace("BRM_016", cardDef);
 }
 
 void BrmCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
