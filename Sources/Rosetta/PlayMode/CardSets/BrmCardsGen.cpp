@@ -497,6 +497,8 @@ void BrmCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [BRM_015] Revenge - COST:2
     // - Set: Brm, Rarity: Rare
@@ -505,6 +507,17 @@ void BrmCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     //       If you have 12 or less Health,
     //       deal 3 damage instead.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsHealth(12, RelaSign::LEQ)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 3,
+                                                     true) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        false, TaskList{ std::make_shared<DamageTask>(EntityType::ALL_MINIONS,
+                                                      1, true) }));
+    cards.emplace("BRM_015", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [BRM_016] Axe Flinger - COST:4 [ATK:2/HP:5]
