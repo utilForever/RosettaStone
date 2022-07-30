@@ -10,6 +10,8 @@ namespace RosettaStone::PlayMode
 {
 void BrmCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- HERO - NEUTRAL
     // [BRM_027h] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:8]
     // - Set: Brm
@@ -17,10 +19,15 @@ void BrmCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HERO_POWER = 2319
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_027h", cardDef);
 }
 
 void BrmCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- HERO_POWER - NEUTRAL
     // [BRM_027p] DIE, INSECT! (*) - COST:2
     // - Set: Brm
@@ -28,6 +35,10 @@ void BrmCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // Text: <b>Hero Power</b>
     //       Deal 8 damage to a random enemy.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 8));
+    cards.emplace("BRM_027p", cardDef);
 
     // ----------------------------------- HERO_POWER - NEUTRAL
     // [BRM_027pH] DIE, INSECTS! (*) - COST:2
@@ -36,6 +47,11 @@ void BrmCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // Text: <b>Hero Power</b>
     //       Deal 8 damage to a random enemy. TWICE.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 8) },
+        2));
+    cards.emplace("BRM_027pH", cardDef);
 }
 
 void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -655,6 +671,10 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<ReplaceHeroTask>("BRM_027h", "BRM_027p"));
+    cards.emplace("BRM_027", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_028] Emperor Thaurissan - COST:6 [ATK:5/HP:5]
