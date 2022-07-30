@@ -606,6 +606,14 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsHealth(15, RelaSign::LEQ)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BRM_024e", EntityType::SOURCE) }));
+    cards.emplace("BRM_024", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_025] Volcanic Drake - COST:6 [ATK:6/HP:4]
@@ -769,6 +777,9 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("BRM_024e"));
+    cards.emplace("BRM_024e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BRM_028e] Imperial Favor (*) - COST:0

@@ -1210,3 +1210,52 @@ TEST_CASE("[Neutral : Minion] - BRM_022 : Dragon Egg")
     CHECK_EQ(curField[1]->GetAttack(), 2);
     CHECK_EQ(curField[1]->GetHealth(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BRM_024] Drakonid Crusher - COST:6 [ATK:6/HP:6]
+// - Race: Dragon, Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If your opponent has 15 or
+//       less Health, gain +3/+3.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BRM_024 : Drakonid Crusher")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Drakonid Crusher"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Drakonid Crusher"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 6);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+
+    curPlayer->GetHero()->SetDamage(15);
+    curPlayer->SetUsedMana(0);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 9);
+    CHECK_EQ(curField[1]->GetHealth(), 9);
+}
