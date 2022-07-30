@@ -638,6 +638,11 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }, 1, true));
+    cardDef.power.AddPowerTask(std::make_shared<SummonOpTask>());
+    cards.emplace("BRM_026", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_027] Majordomo Executus - COST:9 [ATK:9/HP:7]

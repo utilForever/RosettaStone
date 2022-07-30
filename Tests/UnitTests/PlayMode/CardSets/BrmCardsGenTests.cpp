@@ -1322,3 +1322,43 @@ TEST_CASE("[Neutral : Minion] - BRM_025 : Volcanic Drake")
 
     CHECK_EQ(card1->GetCost(), 6);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BRM_026] Hungry Dragon - COST:4 [ATK:5/HP:6]
+// - Race: Dragon, Set: Brm, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a random 1-Cost minion
+//       for your opponent.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BRM_026 : Hungry Dragon")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Hungry Dragon"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->GetCost(), 1);
+}
