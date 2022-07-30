@@ -542,6 +542,8 @@ void BrmCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_019] Grim Patron - COST:5 [ATK:3/HP:3]
     // - Set: Brm, Rarity: Rare
@@ -549,6 +551,16 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: After this minion survives damage,
     //       summon another Grim Patron.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNotDead())
+    };
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BRM_019", SummonSide::RIGHT) };
+    cards.emplace("BRM_019", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_020] Dragonkin Sorcerer - COST:4 [ATK:3/HP:5]
