@@ -621,6 +621,12 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each minion that died this turn.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumFriendlyMinionsDiedThisTurn();
+        }));
+    cards.emplace("BRM_025", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_026] Hungry Dragon - COST:4 [ATK:5/HP:6]
