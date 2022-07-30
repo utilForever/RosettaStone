@@ -569,6 +569,14 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever <b>you</b> target this minion with a spell,
     //       gain +1/+1.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::SPELLS_CASTED_ON_THIS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BRM_020e", EntityType::SOURCE) };
+    cards.emplace("BRM_020", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_022] Dragon Egg - COST:1 [ATK:0/HP:2]
@@ -732,6 +740,10 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::AttackHealthN(1)));
+    cards.emplace("BRM_020e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_022t] Black Whelp (*) - COST:1 [ATK:2/HP:1]
