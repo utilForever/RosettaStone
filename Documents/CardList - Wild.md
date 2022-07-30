@@ -669,21 +669,21 @@ BRM | BRM_015 | Revenge | O
 BRM | BRM_016 | Axe Flinger | O
 BRM | BRM_017 | Resurrect | O
 BRM | BRM_018 | Dragon Consort | O
-BRM | BRM_019 | Grim Patron |  
-BRM | BRM_020 | Dragonkin Sorcerer |  
-BRM | BRM_022 | Dragon Egg |  
-BRM | BRM_024 | Drakonid Crusher |  
-BRM | BRM_025 | Volcanic Drake |  
-BRM | BRM_026 | Hungry Dragon |  
-BRM | BRM_027 | Majordomo Executus |  
-BRM | BRM_028 | Emperor Thaurissan |  
+BRM | BRM_019 | Grim Patron | O
+BRM | BRM_020 | Dragonkin Sorcerer | O
+BRM | BRM_022 | Dragon Egg | O
+BRM | BRM_024 | Drakonid Crusher | O
+BRM | BRM_025 | Volcanic Drake | O
+BRM | BRM_026 | Hungry Dragon | O
+BRM | BRM_027 | Majordomo Executus | O
+BRM | BRM_028 | Emperor Thaurissan | O
 BRM | BRM_029 | Rend Blackhand |  
 BRM | BRM_030 | Nefarian |  
 BRM | BRM_031 | Chromaggus |  
 BRM | BRM_033 | Blackwing Technician |  
 BRM | BRM_034 | Blackwing Corruptor |  
 
-- Progress: 58% (18 of 31 Cards)
+- Progress: 83% (26 of 31 Cards)
 
 ## The Grand Tournament
 

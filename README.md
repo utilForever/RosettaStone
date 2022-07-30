@@ -57,7 +57,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * **100% Demon Hunter Initiate (20 of 20 Cards)**
   * **100% Curse of Naxxramas (30 of 30 Cards)**
   * 6% Goblins vs Gnomes (8 of 123 Cards)
-  * 58% Blackrock Mountain (18 of 31 Cards)
+  * 83% Blackrock Mountain (26 of 31 Cards)
   * 8% The Grand Tournament (11 of 132 Cards)
   * 20% The League of Explorers (9 of 45 Cards)
   * 5% Whispers of the Old Gods (8 of 134 Cards)

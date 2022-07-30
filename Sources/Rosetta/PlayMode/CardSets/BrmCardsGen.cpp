@@ -10,6 +10,8 @@ namespace RosettaStone::PlayMode
 {
 void BrmCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- HERO - NEUTRAL
     // [BRM_027h] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:8]
     // - Set: Brm
@@ -17,10 +19,15 @@ void BrmCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - HERO_POWER = 2319
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_027h", cardDef);
 }
 
 void BrmCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- HERO_POWER - NEUTRAL
     // [BRM_027p] DIE, INSECT! (*) - COST:2
     // - Set: Brm
@@ -28,6 +35,10 @@ void BrmCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // Text: <b>Hero Power</b>
     //       Deal 8 damage to a random enemy.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 8));
+    cards.emplace("BRM_027p", cardDef);
 
     // ----------------------------------- HERO_POWER - NEUTRAL
     // [BRM_027pH] DIE, INSECTS! (*) - COST:2
@@ -36,6 +47,11 @@ void BrmCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // Text: <b>Hero Power</b>
     //       Deal 8 damage to a random enemy. TWICE.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 8) },
+        2));
+    cards.emplace("BRM_027pH", cardDef);
 }
 
 void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
@@ -542,6 +558,8 @@ void BrmCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 
 void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_019] Grim Patron - COST:5 [ATK:3/HP:3]
     // - Set: Brm, Rarity: Rare
@@ -549,6 +567,16 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: After this minion survives damage,
     //       summon another Grim Patron.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsNotDead())
+    };
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BRM_019", SummonSide::RIGHT) };
+    cards.emplace("BRM_019", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_020] Dragonkin Sorcerer - COST:4 [ATK:3/HP:5]
@@ -557,6 +585,14 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever <b>you</b> target this minion with a spell,
     //       gain +1/+1.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::SPELLS_CASTED_ON_THIS;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BRM_020e", EntityType::SOURCE) };
+    cards.emplace("BRM_020", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_022] Dragon Egg - COST:1 [ATK:0/HP:2]
@@ -565,6 +601,16 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever this minion takes damage,
     //       summon a 2/1 Whelp.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BRM_022t", SummonSide::RIGHT) };
+    cards.emplace("BRM_022", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_024] Drakonid Crusher - COST:6 [ATK:6/HP:6]
@@ -576,6 +622,14 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::HERO, SelfCondList{ std::make_shared<SelfCondition>(
+                              SelfCondition::IsHealth(15, RelaSign::LEQ)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BRM_024e", EntityType::SOURCE) }));
+    cards.emplace("BRM_024", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_025] Volcanic Drake - COST:6 [ATK:6/HP:4]
@@ -583,6 +637,12 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each minion that died this turn.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumFriendlyMinionsDiedThisTurn();
+        }));
+    cards.emplace("BRM_025", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_026] Hungry Dragon - COST:4 [ATK:5/HP:6]
@@ -594,6 +654,11 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 1, RelaSign::EQ } }, 1, true));
+    cardDef.power.AddPowerTask(std::make_shared<SummonOpTask>());
+    cards.emplace("BRM_026", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_027] Majordomo Executus - COST:9 [ATK:9/HP:7]
@@ -606,6 +671,10 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<ReplaceHeroTask>("BRM_027h", "BRM_027p"));
+    cards.emplace("BRM_027", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_028] Emperor Thaurissan - COST:6 [ATK:5/HP:5]
@@ -617,6 +686,11 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<AddEnchantmentTask>(
+        "BRM_028e", EntityType::HAND) };
+    cards.emplace("BRM_028", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_029] Rend Blackhand - COST:7 [ATK:8/HP:4]
@@ -720,11 +794,18 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Increased stats.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::AttackHealthN(1)));
+    cards.emplace("BRM_020e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_022t] Black Whelp (*) - COST:1 [ATK:2/HP:1]
     // - Race: Dragon, Set: Brm, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_022t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BRM_024e] Large Talons (*) - COST:0
@@ -732,6 +813,9 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("BRM_024e"));
+    cards.emplace("BRM_024e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BRM_028e] Imperial Favor (*) - COST:0
@@ -739,6 +823,9 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(1)));
+    cards.emplace("BRM_028e", cardDef);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [BRM_030t] Tail Swipe (*) - COST:4
