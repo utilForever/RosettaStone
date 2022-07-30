@@ -585,6 +585,16 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever this minion takes damage,
     //       summon a 2/1 Whelp.
     // --------------------------------------------------------
+    // GameTag:
+    // - TRIGGER_VISUAL = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TAKE_DAMAGE));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "BRM_022t", SummonSide::RIGHT) };
+    cards.emplace("BRM_022", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_024] Drakonid Crusher - COST:6 [ATK:6/HP:6]
@@ -749,6 +759,9 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [BRM_022t] Black Whelp (*) - COST:1 [ATK:2/HP:1]
     // - Race: Dragon, Set: Brm, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("BRM_022t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [BRM_024e] Large Talons (*) - COST:0
