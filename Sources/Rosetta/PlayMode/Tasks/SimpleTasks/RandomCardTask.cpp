@@ -107,6 +107,15 @@ const std::vector<Card*>& RandomCardTask::GetCardList(const Entity* source,
                    ? Cards::GetStandardCards(playerClass)
                    : Cards::GetWildCards(playerClass);
     }
+    else if (cardClass == CardClass::OPPONENT_CLASS)
+    {
+        const auto opponentClass =
+            source->player->opponent->GetHero()->card->GetCardClass();
+
+        return source->game->GetFormatType() == FormatType::STANDARD
+                   ? Cards::GetStandardCards(opponentClass)
+                   : Cards::GetWildCards(opponentClass);
+    }
     else
     {
         return source->game->GetFormatType() == FormatType::STANDARD
