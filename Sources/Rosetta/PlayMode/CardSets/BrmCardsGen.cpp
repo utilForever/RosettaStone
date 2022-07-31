@@ -746,6 +746,12 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<CopyTask>(
+        EntityType::TARGET, ZoneType::HAND) };
+    cards.emplace("BRM_031", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_033] Blackwing Technician - COST:3 [ATK:2/HP:4]
