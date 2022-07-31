@@ -785,6 +785,12 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND, 0 } };
+    cards.emplace("BRM_034", cardDef);
 }
 
 void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
