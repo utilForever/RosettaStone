@@ -728,6 +728,13 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(CardType::SPELL,
+                                                   CardClass::OPPONENT_CLASS),
+                  std::make_shared<AddStackToTask>(EntityType::HAND) },
+        2));
+    cards.emplace("BRM_030", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_031] Chromaggus - COST:8 [ATK:6/HP:8]

@@ -1592,3 +1592,47 @@ TEST_CASE("[Neutral : Minion] - BRM_029 : Rend Blackhand")
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card4));
     CHECK_EQ(opField.GetCount(), 1);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [BRM_030] Nefarian - COST:9 [ATK:8/HP:8]
+// - Race: Dragon, Set: Brm, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Add 2 random spells to your hand
+//       <i>(from your opponent's class)</i>.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - BRM_030 : Nefarian")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Nefarian"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[0]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[0]->card->GetCardClass(), CardClass::WARRIOR);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+    CHECK_EQ(curHand[1]->card->GetCardClass(), CardClass::WARRIOR);
+}
