@@ -9,6 +9,7 @@
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
 #include <stdexcept>
@@ -191,6 +192,19 @@ AvailabilityPredicate TargetingPredicates::MaximumCardsInDeck(int value)
 {
     return [=](const Player* player, [[maybe_unused]] Card* card) {
         return player->GetDeckZone()->GetCount() <= value;
+    };
+}
+
+AvailabilityPredicate TargetingPredicates::DragonInHand()
+{
+    return [=](const Player* player, [[maybe_unused]] Card* card) {
+        auto cards = player->GetHandZone()->GetAll();
+
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardType() == CardType::MINION &&
+                       handCard->card->GetRace() == Race::DRAGON;
+            });
     };
 }
 }  // namespace RosettaStone::PlayMode

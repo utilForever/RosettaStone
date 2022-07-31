@@ -708,6 +708,14 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_LEGENDARY_TARGET = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND, 0 },
+                  { PlayReq::REQ_LEGENDARY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("BRM_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_030] Nefarian - COST:9 [ATK:8/HP:8]
@@ -720,6 +728,13 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomCardTask>(CardType::SPELL,
+                                                   CardClass::OPPONENT_CLASS),
+                  std::make_shared<AddStackToTask>(EntityType::HAND) },
+        2));
+    cards.emplace("BRM_030", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_031] Chromaggus - COST:8 [ATK:6/HP:8]
@@ -731,6 +746,12 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DRAW_CARD));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<CopyTask>(
+        EntityType::TARGET, ZoneType::HAND) };
+    cards.emplace("BRM_031", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_033] Blackwing Technician - COST:3 [ATK:2/HP:4]
@@ -742,6 +763,14 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BRM_033e", EntityType::SOURCE) }));
+    cards.emplace("BRM_033", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_034] Blackwing Corruptor - COST:5 [ATK:5/HP:4]
@@ -756,6 +785,12 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND, 0 } };
+    cards.emplace("BRM_034", cardDef);
 }
 
 void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
@@ -843,6 +878,9 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("BRM_033e"));
+    cards.emplace("BRM_033e", cardDef);
 }
 
 void BrmCardsGen::AddAll(std::map<std::string, CardDef>& cards)
