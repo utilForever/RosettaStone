@@ -51,6 +51,11 @@ void Card::Initialize()
             case PlayReq::REQ_MINION_OR_ENEMY_HERO:
                 characterType = CharacterType::CHARACTERS_EXCEPT_HERO;
                 break;
+            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::DragonInHand());
+                break;
             case PlayReq::REQ_LEGENDARY_TARGET:
                 targetingPredicate.emplace_back(
                     TargetingPredicates::ReqLegendaryTarget());
