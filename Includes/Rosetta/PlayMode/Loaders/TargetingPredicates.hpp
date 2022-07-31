@@ -124,17 +124,22 @@ class TargetingPredicates
 
     //! Predicate wrapper for checking the player has at least \p value secrets.
     //! \param value The number of minimum secrets.
-    //! \return Generated TargetingPredicate for intended purpose.
+    //! \return Generated AvailabilityPredicate for intended purpose.
     static AvailabilityPredicate MinimumFriendlySecrets(int value);
 
     //! Predicate wrapper for checking the player played an Elemental last turn.
-    //! \return Generated TargetingPredicate for intended purpose.
+    //! \return Generated AvailabilityPredicate for intended purpose.
     static AvailabilityPredicate ElementalPlayedLastTurn();
 
     //! Predicate wrapper for checking the deck contains \p value cards at most.
     //! \param value The number of maximum cards in deck.
-    //! \return Generated TargetingPredicate for intended purpose.
+    //! \return Generated AvailabilityPredicate for intended purpose.
     static AvailabilityPredicate MaximumCardsInDeck(int value);
+
+    //! Predicate wrapper for checking the target requires that
+    //! the player holds a Dragon in hand.
+    //! \return Generated AvailabilityPredicate for intended purpose.
+    static AvailabilityPredicate DragonInHand();
 };
 }  // namespace RosettaStone::PlayMode
 
