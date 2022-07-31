@@ -763,6 +763,14 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "BRM_033e", EntityType::SOURCE) }));
+    cards.emplace("BRM_033", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_034] Blackwing Corruptor - COST:5 [ATK:5/HP:4]
@@ -864,6 +872,9 @@ void BrmCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("BRM_033e"));
+    cards.emplace("BRM_033e", cardDef);
 }
 
 void BrmCardsGen::AddAll(std::map<std::string, CardDef>& cards)
