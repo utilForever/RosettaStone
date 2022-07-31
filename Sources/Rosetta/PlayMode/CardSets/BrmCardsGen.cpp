@@ -708,6 +708,14 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_LEGENDARY_TARGET = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND, 0 },
+                  { PlayReq::REQ_LEGENDARY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("BRM_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [BRM_030] Nefarian - COST:9 [ATK:8/HP:8]
