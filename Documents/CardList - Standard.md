@@ -976,6 +976,140 @@ THE_SUNKEN_CITY | TSC_963 | Filletfighter | O
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
+REVENDRETH | REV_000 | Suspicious Alchemist |  
+REVENDRETH | REV_002 | Suspicious Usher |  
+REVENDRETH | REV_006 | Suspicious Pirate |  
+REVENDRETH | REV_011 | The Harvester of Envy |  
+REVENDRETH | REV_012 | Bog Beast |  
+REVENDRETH | REV_013 | Stoneborn Accuser |  
+REVENDRETH | REV_014 | Red Herring |  
+REVENDRETH | REV_015 | Masked Reveler |  
+REVENDRETH | REV_016 | Crooked Cook |  
+REVENDRETH | REV_017 | Insatiable Devourer |  
 REVENDRETH | REV_018 | Prince Renathal |  
+REVENDRETH | REV_019 | Famished Fool |  
+REVENDRETH | REV_020 | Dinner Performer |  
+REVENDRETH | REV_021 | Kael'thas Sinstrider |  
+REVENDRETH | REV_022 | Murloc Holmes |  
+REVENDRETH | REV_023 | Demolition Renovator |  
+REVENDRETH | REV_238 | Theotar, the Mad Duke |  
+REVENDRETH | REV_239 | Suffocating Shadows |  
+REVENDRETH | REV_240 | Tome Tampering |  
+REVENDRETH | REV_242 | Flustered Librarian |  
+REVENDRETH | REV_244 | Mischievous Imp |  
+REVENDRETH | REV_245 | Impending Catastrophe |  
+REVENDRETH | REV_246 | Mysterious Visitor |  
+REVENDRETH | REV_247 | Partner in Crime |  
+REVENDRETH | REV_248 | Boon of the Ascended |  
+REVENDRETH | REV_249 | The Light! It Burns! |  
+REVENDRETH | REV_250 | Pelagos |  
+REVENDRETH | REV_251 | Sinrunner |  
+REVENDRETH | REV_252 | Clean the Scene |  
+REVENDRETH | REV_253 | Identity Theft |  
+REVENDRETH | REV_290 | Cathedral of Atonement |  
+REVENDRETH | REV_307 | Natural Causes |  
+REVENDRETH | REV_308 | Maze Guide |  
+REVENDRETH | REV_310 | Death Blossom Whomper |  
+REVENDRETH | REV_311 | Nightshade Bud |  
+REVENDRETH | REV_313 | Planted Evidence |  
+REVENDRETH | REV_314 | Topior the Shrubbagazzor |  
+REVENDRETH | REV_316 | Remornia, Living Blade |  
+REVENDRETH | REV_318 | Widowbloom Seedsman |  
+REVENDRETH | REV_319 | Sesselie of the Fae Court |  
+REVENDRETH | REV_332 | Anima Extractor |  
+REVENDRETH | REV_333 | Hedge Maze |  
+REVENDRETH | REV_334 | Burden of Pride |  
+REVENDRETH | REV_336 | Plot of Sin |  
+REVENDRETH | REV_337 | Riot! |  
+REVENDRETH | REV_338 | Dredger Staff |  
+REVENDRETH | REV_350 | Frenzied Fangs |  
+REVENDRETH | REV_351 | Roosting Gargoyle |  
+REVENDRETH | REV_352 | Stonebound Gargon |  
+REVENDRETH | REV_353 | Huntsman Altimor |  
+REVENDRETH | REV_356 | Batty Guest |  
+REVENDRETH | REV_360 | Spirit Poacher |  
+REVENDRETH | REV_361 | Wild Spirits |  
+REVENDRETH | REV_362 | Castle Kennels |  
+REVENDRETH | REV_363 | Ara'lon |  
+REVENDRETH | REV_364 | Stag Charge |  
+REVENDRETH | REV_365 | Convoke the Spirits |  
+REVENDRETH | REV_369 | Collateral Damage |  
+REVENDRETH | REV_370 | Party Crasher |  
+REVENDRETH | REV_371 | Vile Library |  
+REVENDRETH | REV_372 | Shadow Waltz |  
+REVENDRETH | REV_373 | Lady Darkvein |  
+REVENDRETH | REV_374 | Shadowborn |  
+REVENDRETH | REV_375 | Stoneborn General |  
+REVENDRETH | REV_377 | Invitation Courier |  
+REVENDRETH | REV_378 | Forensic Duster |  
+REVENDRETH | REV_504 | Solid Alibi |  
+REVENDRETH | REV_505 | Cold Case |  
+REVENDRETH | REV_506 | Sinful Brand |  
+REVENDRETH | REV_507 | Dispose of Evidence |  
+REVENDRETH | REV_508 | Relic of Dimensions |  
+REVENDRETH | REV_509 | Magnifying Glaive |  
+REVENDRETH | REV_510 | Kryxis the Voracious |  
+REVENDRETH | REV_511 | Bibliomite |  
+REVENDRETH | REV_513 | Chatty Bartender |  
+REVENDRETH | REV_514 | Kel'Thuzad, the Inevitable |  
+REVENDRETH | REV_515 | Orion, Mansion Manager |  
+REVENDRETH | REV_516 | Vengeful Visage |  
+REVENDRETH | REV_517 | Criminal Lineup |  
+REVENDRETH | REV_601 | Frozen Touch |  
+REVENDRETH | REV_602 | Nightcloak Sanctum |  
+REVENDRETH | REV_750 | Sinstone Graveyard |  
+REVENDRETH | REV_825 | Double Cross |  
+REVENDRETH | REV_826 | Private Eye |  
+REVENDRETH | REV_827 | Sticky Situation |  
+REVENDRETH | REV_828 | Kidnap |  
+REVENDRETH | REV_829 | Halkias |  
+REVENDRETH | REV_834 | Relic of Extinction |  
+REVENDRETH | REV_835 | Imp King Rafaam |  
+REVENDRETH | REV_837 | Muck Plumber |  
+REVENDRETH | REV_838 | Gigantotem |  
+REVENDRETH | REV_839 | Sinstone Totem |  
+REVENDRETH | REV_840 | Deathborne |  
+REVENDRETH | REV_841 | Anonymous Informant |  
+REVENDRETH | REV_842 | Promotion |  
+REVENDRETH | REV_843 | Sinfueled Golem |  
+REVENDRETH | REV_845 | Volatile Skeleton |  
+REVENDRETH | REV_900 | Scuttlebutt Ghoul |  
+REVENDRETH | REV_901 | Dispossessed Soul |  
+REVENDRETH | REV_906 | Sire Denathrius |  
+REVENDRETH | REV_916 | Creepy Painting |  
+REVENDRETH | REV_917 | Carving Chisel |  
+REVENDRETH | REV_920 | Convincing Disguise |  
+REVENDRETH | REV_921 | The Stonewright |  
+REVENDRETH | REV_923 | Muck Pools |  
+REVENDRETH | REV_924 | Primordial Wave |  
+REVENDRETH | REV_925 | Baroness Vashj |  
+REVENDRETH | REV_930 | Crazed Wretch |  
+REVENDRETH | REV_931 | Conqueror's Banner |  
+REVENDRETH | REV_933 | Imbued Axe |  
+REVENDRETH | REV_934 | Decimator Olgra |  
+REVENDRETH | REV_935 | Party Favor Totem |  
+REVENDRETH | REV_936 | Crud Caretaker |  
+REVENDRETH | REV_937 | Artificer Xy'mox |  
+REVENDRETH | REV_938 | Door of Shadows |  
+REVENDRETH | REV_939 | Serrated Bone Spike |  
+REVENDRETH | REV_940 | Necrolord Draka |  
+REVENDRETH | REV_942 | Relic Vault |  
+REVENDRETH | REV_943 | Relic of Phantasms |  
+REVENDRETH | REV_945 | Sketchy Stranger |  
+REVENDRETH | REV_946 | Steamcleaner |  
+REVENDRETH | REV_947 | Muckborn Servant |  
+REVENDRETH | REV_948 | Service Bell |  
+REVENDRETH | REV_950 | Divine Toll |  
+REVENDRETH | REV_951 | The Countess |  
+REVENDRETH | REV_952 | Sinful Sous Chef |  
+REVENDRETH | REV_955 | Stewart the Steward |  
+REVENDRETH | REV_956 | Priest of the Deceased |  
+REVENDRETH | REV_957 | Murlocula |  
+REVENDRETH | REV_958 | Buffet Biggun |  
+REVENDRETH | REV_959 | Ghastly Gravedigger |  
+REVENDRETH | REV_960 | Ashen Elemental |  
+REVENDRETH | REV_961 | Elitist Snob |  
+REVENDRETH | REV_983 | Great Hall |  
+REVENDRETH | REV_990 | Sanguine Depths |  
 
-- Progress: 0% (0 of 1 Cards)
+- Progress: 0% (0 of 135 Cards)
