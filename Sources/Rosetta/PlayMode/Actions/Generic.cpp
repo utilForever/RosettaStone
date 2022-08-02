@@ -221,6 +221,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
                     new Hero(player, newCard, playable->card->gameTags, id);
                 break;
             case CardType::MINION:
+            case CardType::LOCATION:
                 entity =
                     new Minion(player, newCard, playable->card->gameTags, id);
                 break;

@@ -115,6 +115,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             break;
         }
         case CardType::MINION:
+        case CardType::LOCATION:
         {
             const auto minion = dynamic_cast<Minion*>(source);
             PlayMinion(player, minion, target, fieldPos, chooseOne);

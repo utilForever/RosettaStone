@@ -73,10 +73,10 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 };
 
 //! The number of Play mode cards.
-constexpr int NUM_PLAY_MODE_CARDS = 15090;
+constexpr int NUM_PLAY_MODE_CARDS = 15397;
 
 //! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 16682;
+constexpr int NUM_BATTLEGROUNDS_CARDS = 16997;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -114,7 +114,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 84;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 85;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -141,7 +141,7 @@ constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 constexpr int NUM_TIER1_MINIONS = 22;
 
 //! The number of tier 2 minions in Battlegrounds.
-constexpr int NUM_TIER2_MINIONS = 29;
+constexpr int NUM_TIER2_MINIONS = 30;
 
 //! The number of tier 3 minions in Battlegrounds.
 constexpr int NUM_TIER3_MINIONS = 34;

@@ -139,6 +139,7 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
             result = new HeroPower(player, card, tags, id);
             break;
         case CardType::MINION:
+        case CardType::LOCATION:
             result = new Minion(player, card, tags, id);
             break;
         case CardType::SPELL:

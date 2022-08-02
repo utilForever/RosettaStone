@@ -44779,6 +44779,29 @@
         "type": "HERO"
     },
     {
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 89927,
+        "health": 30,
+        "id": "HERO_01w",
+        "name": "Prince Renathal",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Angelo Bortolini",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "dbfId": 89934,
+        "health": 30,
+        "id": "HERO_01x",
+        "name": "Garrosh the Chained",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Glenn Rane",
         "cardClass": "SHAMAN",
         "collectible": true,
@@ -44799,6 +44822,30 @@
         "id": "HERO_02a",
         "name": "Morgl the Oracle",
         "rarity": "EPIC",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 89932,
+        "health": 30,
+        "id": "HERO_02aa",
+        "name": "Baroness Vashj",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 89933,
+        "health": 30,
+        "id": "HERO_02ab",
+        "name": "Morgl Holmes",
+        "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
     },
@@ -45295,6 +45342,18 @@
         "type": "HERO"
     },
     {
+        "artist": "BOSi Studio",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 89941,
+        "health": 30,
+        "id": "HERO_03x",
+        "name": "Suspect Maiev",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "James Ryman",
         "cardClass": "PALADIN",
         "collectible": true,
@@ -45573,6 +45632,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Zoltan Boros",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 89938,
+        "health": 30,
+        "id": "HERO_04y",
+        "name": "Venthyr Liadrin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Ben Thompson",
         "cardClass": "HUNTER",
         "collectible": true,
@@ -45808,6 +45879,18 @@
         "health": 30,
         "id": "HERO_05v",
         "name": "Flameshot Sylvanas",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Sora Kim",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 89942,
+        "health": 30,
+        "id": "HERO_05w",
+        "name": "Sanguine Sylvanas",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -46089,6 +46172,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Caroline Gariba",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 93491,
+        "health": 30,
+        "id": "HERO_06y",
+        "name": "Ardenweald Lunara",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "WARLOCK",
         "collectible": true,
@@ -46329,6 +46424,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Ivan Fomin",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 89935,
+        "health": 30,
+        "id": "HERO_07v",
+        "name": "Scullery Nemsy",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Glenn Rane",
         "cardClass": "MAGE",
         "collectible": true,
@@ -46372,6 +46479,30 @@
         "health": 30,
         "id": "HERO_08ab",
         "name": "Navigator Khadgar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Caroline Gariba",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 89931,
+        "health": 30,
+        "id": "HERO_08ac",
+        "name": "Reveler Kael'thas",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 93490,
+        "health": 30,
+        "id": "HERO_08ag",
+        "name": "Kel'Thuzad, the Inevitable",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -46885,6 +47016,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 89937,
+        "health": 30,
+        "id": "HERO_09u",
+        "name": "Kyrian Tyrande",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
@@ -47108,6 +47251,18 @@
         "health": 30,
         "id": "HERO_10t",
         "name": "Felfirework Aranna",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "dbfId": 89939,
+        "health": 30,
+        "id": "HERO_10u",
+        "name": "Songstress Aranna",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -58042,6 +58197,214 @@
         "type": "MINION"
     },
     {
+        "artist": "Jakub Kasper",
+        "attack": 1,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 75866,
+        "flavor": "Side effects may include feeling totally fine! Don't even worry about it.",
+        "health": 3,
+        "id": "REV_000",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Suspicious Alchemist",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> <b>Discover</b> a\nspell. If your opponent\nguesses your choice,\nthey get a copy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 75922,
+        "flavor": "\"Oh please, let me take your jacket, luggage, and absurdly large shoulder pads.\"",
+        "health": 3,
+        "id": "REV_002",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Suspicious Usher",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> <b>Discover</b> a\n<b>Legendary</b> minion. If your\nopponent guesses your\n  choice, they get a copy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Caroline Gariba",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 75910,
+        "flavor": "EVERY party should be a costume party.",
+        "health": 4,
+        "id": "REV_006",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Suspicious Pirate",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a weapon. If your opponent guesses your choice, they get a copy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78405,
+        "elite": true,
+        "flavor": "\"Ah, permission shmermission! You can borrow anything you want, anytime, as long as if you give it back before it's missed. Everyone knows that! Right?\"",
+        "health": 3,
+        "id": "REV_011",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "The Harvester of Envy",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "After you play a card copied from the opponent, steal the original.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 79557,
+        "flavor": "I'm sure at least one of those bones is from an actual beast.",
+        "health": 6,
+        "id": "REV_012",
+        "mechanics": [
+            "DEATHRATTLE",
+            "TAUNT"
+        ],
+        "name": "Bog Beast",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b><b>Taunt</b></b> \n<b>Deathrattle:</b> Summon a 2/4 \nMuckmare with <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 79559,
+        "flavor": "\"I SAW THEM VENT, I SWEAR!\"",
+        "health": 5,
+        "id": "REV_013",
+        "mechanics": [
+            "INFUSE"
+        ],
+        "name": "Stoneborn Accuser",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Infuse (5):</b> Gain\n\"<b>Battlecry:</b> Deal 5\ndamage.\"",
+        "type": "MINION"
+    },
+    {
+        "artist": "Adam Byrne",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 79562,
+        "flavor": "He's got gill-ty written all over him!",
+        "health": 12,
+        "id": "REV_014",
+        "mechanics": [
+            "AURA",
+            "TAUNT"
+        ],
+        "name": "Red Herring",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Taunt</b>\nYour non-Red Herring\nminions have <b>Stealth</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Angelina Chernyak",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 79563,
+        "flavor": "\"It's party time! P-A-R-T-Why? Because I gotta!\"",
+        "health": 4,
+        "id": "REV_015",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Masked Reveler",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Rush</b>\n<b>Deathrattle:</b> Summon\na 2/2 copy of another\nminion in your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 79581,
+        "flavor": "There are many things not called poison which can kill a man. But in this case, it is poison.",
+        "health": 4,
+        "id": "REV_016",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Crooked Cook",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "[x]At the end of your turn, \nif you dealt 3 or more \ndamage to the enemy \nhero, draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 79584,
+        "flavor": "You're not you when you're anima-starved.",
+        "health": 4,
+        "howToEarnGolden": "Earnable after purchasing the <i>Murder at Castle Nathria</i> Tavern Pass.",
+        "id": "REV_017",
+        "mechanics": [
+            "BATTLECRY",
+            "INFUSE"
+        ],
+        "name": "Insatiable Devourer",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "targetingArrowText": "Devour an enemy minion and gain its stats.",
+        "text": "[x]<b>Battlecry:</b> Devour an enemy \nminion and gain its stats. \n <b>Infuse (5):</b> And its neighbors.",
+        "type": "MINION"
+    },
+    {
         "artist": "James Ryman",
         "attack": 3,
         "cardClass": "NEUTRAL",
@@ -58055,12 +58418,2335 @@
         "id": "REV_018",
         "name": "Prince Renathal",
         "rarity": "LEGENDARY",
-        "referencedTags": [
-            "START_OF_GAME"
-        ],
         "set": "REVENDRETH",
         "text": "[x]Your deck size and \nstarting Health are 40.",
         "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 79932,
+        "flavor": "He's not hungry for food, he's starving for attention!",
+        "health": 5,
+        "howToEarnGolden": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "id": "REV_019",
+        "mechanics": [
+            "BATTLECRY",
+            "INFUSE"
+        ],
+        "name": "Famished Fool",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> Draw a card.\n<b>Infuse (4):</b> Draw 3 instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 79992,
+        "flavor": "BANG!",
+        "health": 3,
+        "id": "REV_020",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Dinner Performer",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Summon a\nrandom minion from\nyour deck that you\ncan afford to play.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 79934,
+        "elite": true,
+        "flavor": "You heard about Kael'thas? That's messed up, right?",
+        "health": 7,
+        "id": "REV_021",
+        "mechanics": [
+            "AURA",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Kael'thas Sinstrider",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "Every third minion you play each turn costs (0).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 79935,
+        "elite": true,
+        "flavor": "When you have eliminated the imfroggable, whatever remains, however uncroakable, must be the truth.",
+        "hasDiamondSkin": true,
+        "health": 4,
+        "id": "REV_022",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Murloc Holmes",
+        "race": "MURLOC",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Solve 3 Clues \nabout your opponent's cards \nto get copies of them.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 79990,
+        "flavor": "\"Look, the Sire said he wanted something more open concept...\"",
+        "health": 4,
+        "howToEarnGolden": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "id": "REV_023",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Demolition Renovator",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "targetingArrowText": "Destroy a <b>location</b>.",
+        "text": "<b>Battlecry:</b> Destroy \nan enemy location.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76984,
+        "elite": true,
+        "flavor": "\"I'm afraid you've gone mad! You're entirely bonkers. But I'll tell you a secret. All the best souls are.\"",
+        "health": 3,
+        "id": "REV_238",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Theotar, the Mad Duke",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a\ncard in each player's hand and swap them.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76922,
+        "flavor": "\"Reading is good for you,\" they said.",
+        "id": "REV_239",
+        "mechanics": [
+            "InvisibleDeathrattle"
+        ],
+        "name": "Suffocating Shadows",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "spellSchool": "SHADOW",
+        "text": "[x]When you play or \ndiscard this, destroy a \nrandom enemy minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76921,
+        "flavor": "An overdue book calls for a do-over.",
+        "id": "REV_240",
+        "name": "Tome Tampering",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "[x]Shuffle 1-Cost \ncopies of cards in your \nhand into your deck, \nthen discard your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 1,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 77057,
+        "flavor": "A fairly sIMPle card.",
+        "health": 3,
+        "id": "REV_242",
+        "name": "Flustered Librarian",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "Has +1 Attack for each\nImp you control.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77056,
+        "flavor": "Why is it when something happens, it is always you three?",
+        "health": 3,
+        "id": "REV_244",
+        "mechanics": [
+            "BATTLECRY",
+            "INFUSE"
+        ],
+        "name": "Mischievous Imp",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> Summon a copy of this. <b>Infuse (3):</b> Summon two copies instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77055,
+        "flavor": "The imps end you, and the cats... well, they astrophe.",
+        "id": "REV_245",
+        "name": "Impending Catastrophe",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "spellSchool": "SHADOW",
+        "text": "Draw a card. Repeat for each Imp you control.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77298,
+        "flavor": "Dave, we can tell this letter is fake - it's in your handwriting. And take off that stupid hood, you're embarrassing us.",
+        "health": 3,
+        "id": "REV_246",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Mysterious Visitor",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> Reduce the Cost of cards copied from your opponent by (2).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Adam Byrne",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77299,
+        "flavor": "\"You know what we need? Some rope.\" \"That's stupid. Name one thing you'd need a rope for.\"",
+        "health": 5,
+        "id": "REV_247",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Partner in Crime",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Summon a \ncopy of this minion at \nthe end of your turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77300,
+        "flavor": "Ascension is not some external power granted to you, it is the power you find within yourself.",
+        "id": "REV_248",
+        "name": "Boon of the Ascended",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "REVENDRETH",
+        "spellSchool": "HOLY",
+        "text": "Give a minion +2 Health. Summon a Kyrian with its stats and <b>Taunt</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Grace Liu",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 77305,
+        "flavor": "Wait, if you're over there, then who's messing with the lights?!",
+        "id": "REV_249",
+        "name": "The Light! It Burns!",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "spellSchool": "HOLY",
+        "text": "[x]Deal damage to a minion\n equal to its Attack.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 1,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77306,
+        "elite": true,
+        "flavor": "He's a great judge of character.",
+        "health": 6,
+        "id": "REV_250",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Pelagos",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]After you cast a spell \non a friendly minion, set \nits Attack and Health to \nthe higher of the two.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Eva Widermann",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 77308,
+        "flavor": "Blanchy was said to be an affectionate and well-behaved horse in life. How she ended up in Revendreth? We're too afraid to ask.",
+        "health": 5,
+        "id": "REV_251",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Sinrunner",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Deathrattle:</b> Destroy a random enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Daniil Kudriavtsev",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 77370,
+        "flavor": "Not even the holy Light can get anima out of white silk.",
+        "id": "REV_252",
+        "mechanics": [
+            "INFUSE"
+        ],
+        "name": "Clean the Scene",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "spellSchool": "HOLY",
+        "text": "Destroy all minions with 3 or less Attack. <b>Infuse (3):</b> 6 or less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77368,
+        "flavor": "Identity theft is not a joke, Jim!",
+        "id": "REV_253",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Identity Theft",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "spellSchool": "SHADOW",
+        "text": "<b>Discover</b> a copy of a card from your opponent's hand and deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 82310,
+        "flavor": "You'll actually find more than one tonement here.",
+        "health": 3,
+        "id": "REV_290",
+        "name": "Cathedral of Atonement",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "Give a minion +2/+1 and draw a card.",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77490,
+        "flavor": "What if the suspect was framed? What if the murder weapon was... a plant?",
+        "id": "REV_307",
+        "name": "Natural Causes",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "spellSchool": "NATURE",
+        "text": "Deal $2 damage. Summon a 2/2 Treant.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ishmael Hoover",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77491,
+        "flavor": "\"And if you look to your left, you'll see an even larger statue of Sire Denathrius!\"",
+        "health": 1,
+        "howToEarnGolden": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "id": "REV_308",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Maze Guide",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry</b>: Summon a random 2-Cost minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 7,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 77525,
+        "flavor": "We call her Audrey II. She was named after her mother.",
+        "health": 6,
+        "id": "REV_310",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Death Blossom Whomper",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> Draw a <b>Deathrattle</b> minion and gain its <b>Deathrattle.</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Michaela Nienaber",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 77562,
+        "flavor": "It actually thrives in partial sunlight.",
+        "id": "REV_311",
+        "mechanics": [
+            "CHOOSE_ONE",
+            "DISCOVER"
+        ],
+        "name": "Nightshade Bud",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "spellSchool": "NATURE",
+        "text": "<b>Choose One - </b><b>Discover</b> a minion from your deck to summon;\nor a spell to cast.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Ramzy Kamen",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 77654,
+        "flavor": "So you're telling me this wasn't Natural Causes?",
+        "id": "REV_313",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Planted Evidence",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "spellSchool": "NATURE",
+        "text": "<b>Discover</b> a spell. It costs (2) less this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Kleston Marques",
+        "attack": 5,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 77679,
+        "elite": true,
+        "flavor": "They got a dragon that burns 1000 gallons of anima a week.",
+        "health": 5,
+        "id": "REV_314",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Topior the Shrubbagazzor",
+        "race": "DRAGON",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> For the rest of\nthe game, after you cast a\nNature spell, summon a\n3/3 Whelp with <b>Rush</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Daniil Kudriavtsev",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 77704,
+        "elite": true,
+        "flavor": "Was it the lead pipe... the candlestick... or the unhinged, sentient, bloodthirsty sword?",
+        "health": 10,
+        "id": "REV_316",
+        "mechanics": [
+            "RUSH",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Remornia, Living Blade",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "<b>Rush</b>\nAfter this attacks, equip it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77761,
+        "flavor": "Sometimes a blue thumb is better than a green one.",
+        "health": 2,
+        "id": "REV_318",
+        "name": "Widowbloom Seedsman",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "BATTLECRY"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Draw a Nature\nspell. Gain an empty\n Mana Crystal.",
+        "type": "MINION"
+    },
+    {
+        "artist": "MAR Studio",
+        "attack": 8,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 78383,
+        "elite": true,
+        "flavor": "They claim they're from the Fae Court, but that might be a Fae Kout.",
+        "health": 8,
+        "id": "REV_319",
+        "mechanics": [
+            "TAUNT"
+        ],
+        "name": "Sesselie of the Fae Court",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Taunt</b>\n<b>Deathrattle</b>: Draw a minion.\nReduce its Cost by (8).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78142,
+        "flavor": "After we are done you're welcome to help yourself to cookies and apple juice. Thank you for your donation!",
+        "health": 4,
+        "id": "REV_332",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Anima Extractor",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]Whenever a friendly\nminion takes damage,\ngive a random minion in\nyour hand +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Michaela Nienaber",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78202,
+        "flavor": "If you keep seeing a statue of the Sire, you’re not going in circles. There’s just so many of them.",
+        "health": 2,
+        "id": "REV_333",
+        "name": "Hedge Maze",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "REVENDRETH",
+        "text": "Trigger a friendly minion's <b>Deathrattle</b>.",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Vlad Botos",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 78222,
+        "flavor": "A group of burdens is called a pride.",
+        "id": "REV_334",
+        "name": "Burden of Pride",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]Summon three 1/3\nJailers with <b>Taunt</b>. If you\nhave 20 or less Health,\ngive them +1/+1.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Grace Liu",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78261,
+        "flavor": "It's a great plot, but it's riddled with holes.",
+        "id": "REV_336",
+        "mechanics": [
+            "INFUSE"
+        ],
+        "name": "Plot of Sin",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "spellSchool": "NATURE",
+        "text": "[x]Summon two 2/2 \nTreants. <b>Infuse (5):</b> Two \n5/5 Ancients instead.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78262,
+        "flavor": "No, Blizzard!",
+        "id": "REV_337",
+        "name": "Riot!",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "[x]Your minions can't be \nreduced below 1 Health \nthis turn. They each attack \na random enemy minion.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 78373,
+        "flavor": "The dredger staff held the dredger knife and said, \"Dredger bow before the Sire!\"",
+        "health": 2,
+        "id": "REV_338",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Dredger Staff",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Give minions \nin your hand +1 Health.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ivan Fomin",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78264,
+        "flavor": "That's one stylish bat.",
+        "id": "REV_350",
+        "mechanics": [
+            "INFUSE"
+        ],
+        "name": "Frenzied Fangs",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "Summon two 2/1 Bats.\n<b>Infuse (3):</b> Give them +1/+2.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78267,
+        "flavor": "Jalapeñas!",
+        "health": 3,
+        "id": "REV_351",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Roosting Gargoyle",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "targetingArrowText": "Give a friendly Beast +2 Attack.",
+        "text": "<b>Battlecry:</b> Give a friendly Beast +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Patrik Bjorkstrom",
+        "attack": 3,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 78268,
+        "flavor": "Really good at \"stay.\"",
+        "health": 5,
+        "id": "REV_352",
+        "mechanics": [
+            "INFUSE",
+            "RUSH"
+        ],
+        "name": "Stonebound Gargon",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Rush</b>\n<b>Infuse (3):</b> Also damages\nthe minions next to\n  whomever this attacks.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 78270,
+        "elite": true,
+        "flavor": "He loves all his Gargons equally. (Hecutis is his favorite and it's not close.)",
+        "health": 4,
+        "id": "REV_353",
+        "mechanics": [
+            "BATTLECRY",
+            "INFUSE"
+        ],
+        "name": "Huntsman Altimor",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Summon a\nGargon Companion.\n<b>Infuse ({0}):</b> Summon another.\n <b>Infuse ({1}):</b> And another!",
+        "type": "MINION"
+    },
+    {
+        "artist": "A.J. Nazzaro",
+        "attack": 1,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 78273,
+        "flavor": "His favorite food is chocolate cereal.",
+        "health": 1,
+        "id": "REV_356",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Batty Guest",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Deathrattle:</b> Summon a 2/1 Bat.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Angelina Chernyak",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78412,
+        "flavor": "Always poach from your local spirit shelter.",
+        "health": 2,
+        "id": "REV_360",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Spirit Poacher",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> Summon a random <b>Dormant</b> Wildseed.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78416,
+        "flavor": "Wait, this card just released! It should be Standard Spirits!",
+        "id": "REV_361",
+        "name": "Wild Spirits",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "spellSchool": "NATURE",
+        "text": "[x]Summon two different \n<b>Dormant</b> Wildseeds. \nMake your Wildseeds \nawaken 1 turn sooner.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mooncolony",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78418,
+        "flavor": "Play dead! Oh…",
+        "health": 3,
+        "id": "REV_362",
+        "name": "Castle Kennels",
+        "rarity": "RARE",
+        "referencedTags": [
+            "RUSH"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]Give a friendly minion \n+2 Attack. If it's a \nBeast, give it <b>Rush</b>.",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Melvin Chan",
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 78419,
+        "elite": true,
+        "flavor": "If I had a nickel for every time a Hunter Legendary minion in Castle Nathria summoned three different companions, I'd have two nickels - which isn't a lot, but it's weird that it happened twice.",
+        "health": 5,
+        "id": "REV_363",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ara'lon",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> Summon one of each <b>Dormant</b> Wildseed.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Eva Widermann",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78420,
+        "flavor": "Stag! You’re it!",
+        "id": "REV_364",
+        "name": "Stag Charge",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "Deal $3 damage. Summon a random <b>Dormant</b> Wildseed.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 78509,
+        "flavor": "The spirits prefer to convoke when there's some hot gossip to discuss.",
+        "id": "REV_365",
+        "name": "Convoke the Spirits",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "spellSchool": "NATURE",
+        "text": "[x]Cast 8 random\nDruid spells <i>(targets\nchosen randomly)</i>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 84345,
+        "flavor": "1 + 2 + 2 + 1",
+        "id": "REV_369",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Collateral Damage",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "[x]Deal $6 damage to three \nrandom enemy minions. \nExcess damage hits \nthe enemy hero.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 7,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 78547,
+        "flavor": "\"Do you ever wonder why you don't get invited anywhere?\" \"… no, not really.\"",
+        "health": 9,
+        "id": "REV_370",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Party Crasher",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "targetingArrowText": "Choose an enemy minion. Throw a random minion from your hand at it.",
+        "text": "[x]<b>Battlecry:</b> Choose an\nenemy minion. Throw a\nrandom minion from\nyour hand at it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 79147,
+        "flavor": "What type of vial library has 0 vials in it!?",
+        "health": 2,
+        "id": "REV_371",
+        "name": "Vile Library",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "Give a friendly minion +1/+1. Repeat for each Imp you control.",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Dave Greco",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 79108,
+        "flavor": "They're dancing to one of Rin's demonic symphonies. Her music might not be famous now, but just you wait!",
+        "id": "REV_372",
+        "name": "Shadow Waltz",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "REVENDRETH",
+        "spellSchool": "SHADOW",
+        "text": "Summon a 3/5 Shadow with <b>Taunt</b>. If a minion died this turn, summon another.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 79111,
+        "elite": true,
+        "flavor": "You're so vein. I bet you think this flavor text is about you.",
+        "health": 6,
+        "id": "REV_373",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lady Darkvein",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Summon two\n2/1 Shades. Each gains\na <b>Deathrattle</b> to cast your \nlast Shadow spell.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mauricio Herrera",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 79142,
+        "flavor": "You merely adopted the shadows; I was born in them!",
+        "health": 3,
+        "id": "REV_374",
+        "isMiniSet": true,
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Shadowborn",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Deathrattle:</b> Reduce the Cost of the highest Cost Shadow spell in your hand by (3).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 79532,
+        "flavor": "Leads with an iron fist and a stony demeanor.",
+        "health": 8,
+        "howToEarnGolden": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "id": "REV_375",
+        "mechanics": [
+            "DEATHRATTLE",
+            "RUSH"
+        ],
+        "name": "Stoneborn General",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Rush</b> \n  <b>Deathrattle:</b> Summon an \n   8/8 Gravewing with <b>Rush</b>. ",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 79535,
+        "flavor": "Sending mail via steward is soooo old school.",
+        "health": 4,
+        "id": "REV_377",
+        "name": "Invitation Courier",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "After a card is added to your hand from another class, copy it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Grace Liu",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 79784,
+        "flavor": "He had plenty of experience with dusting things from his time as a butler, so when a murder was committed he saw a real job opportunity!",
+        "health": 4,
+        "id": "REV_378",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Forensic Duster",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Your \nopponent's minions \ncost (1) more next turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77642,
+        "flavor": "That pillow knows too much…",
+        "id": "REV_504",
+        "name": "Solid Alibi",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "spellSchool": "FROST",
+        "text": "Until your next turn, your hero can only take 1 damage at a time.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77659,
+        "flavor": "And that's why you keep your skeletons in your closet instead of your freezer.",
+        "id": "REV_505",
+        "name": "Cold Case",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "spellSchool": "FROST",
+        "text": "Summon two 2/2 Volatile Skeletons. Gain 4 Armor.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Juan Calle",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 78111,
+        "flavor": "My brand!",
+        "id": "REV_506",
+        "name": "Sinful Brand",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "[x]Brand an enemy minion.\nWhenever it takes\ndamage, deal 2 damage\nto the enemy hero.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jason Kang",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 78117,
+        "flavor": "Just because you did it doesn't mean you have to be guilty.",
+        "id": "REV_507",
+        "name": "Dispose of Evidence",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "Give your hero +3 Attack this turn. Choose a card in your hand to shuffle into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 78122,
+        "flavor": "A glaive is a glaive, but a mystery box could be anything! It could even be a glaive!",
+        "id": "REV_508",
+        "name": "Relic of Dimensions",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "[x]Draw two cards \nand reduce their Cost \nby (1). Improve your \nfuture Relics.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Chris Hayes",
+        "attack": 2,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78123,
+        "durability": 2,
+        "flavor": "Vengeance!_______________________________________________________________________________________________",
+        "id": "REV_509",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Magnifying Glaive",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]After your hero attacks,\ndraw until you have\n3 cards.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Juan Calle",
+        "attack": 7,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 78125,
+        "elite": true,
+        "flavor": "Tried intermittent fasting. It didn't stick.",
+        "health": 7,
+        "id": "REV_510",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Kryxis the Voracious",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry</b>: Discard\nyour hand. <b>Deathrattle:</b>\nDraw 3 cards.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 4,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78150,
+        "flavor": "He did NOT want to cast a spell.",
+        "health": 4,
+        "id": "REV_511",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Bibliomite",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry</b>: Choose a card\n in your hand to shuffle\n into your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vika Yarova",
+        "attack": 4,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 78371,
+        "flavor": "\"So a Venthyr, an Old God, and a Tauren walk into a bar…\"",
+        "health": 4,
+        "id": "REV_513",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Chatty Bartender",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]At the end of your turn,\nif you control a <b>Secret</b>,\ndeal 2 damage to\nall enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 6,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 78394,
+        "elite": true,
+        "flavor": "Looks like Kel'Thuzad is borrowing some of Mr. Bigglesworth's nine lives.",
+        "health": 8,
+        "id": "REV_514",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Kel'Thuzad, the Inevitable",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Resurrect your \nVolatile Skeletons. Any that \ncan't fit on the battlefield \ninstantly explode! 0",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 78397,
+        "elite": true,
+        "flavor": "The secrets of the universe are vast... and will be revealed sometime later this game.",
+        "health": 5,
+        "id": "REV_515",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Orion, Mansion Manager",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "REVENDRETH",
+        "text": "After a friendly <b>Secret</b> is revealed, cast a different Mage <b>Secret</b> and gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mooncolony",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78508,
+        "flavor": "The mirror shows us nothing less than the deepest, darkest desire of our hearts: to go face.",
+        "id": "REV_516",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Vengeful Visage",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Secret:</b> After an enemy\nminion attacks your hero,\nsummon a copy of it to\nattack the enemy hero.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Sergey Tsvelykh",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 79531,
+        "flavor": "Number 1, could you please sing the opening to \"I Want It That Way\"?",
+        "id": "REV_517",
+        "mechanics": [
+            "OVERLOAD"
+        ],
+        "name": "Criminal Lineup",
+        "overload": 2,
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]Choose a friendly minion.\nSummon 3 copies of it.\n<b>Overload:</b> (2)",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Melvin Chan",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 84354,
+        "flavor": "Is this what Bob was talking about when he said he served a drink to a Death Knight once?",
+        "id": "REV_601",
+        "mechanics": [
+            "INFUSE"
+        ],
+        "name": "Frozen Touch",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "spellSchool": "FROST",
+        "text": "Deal $3 damage.\n<b>Infuse (3):</b> Add a Frozen Touch to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 84356,
+        "flavor": "For VIPs only. (Very Infused Person)",
+        "health": 3,
+        "id": "REV_602",
+        "name": "Nightcloak Sanctum",
+        "rarity": "RARE",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "REVENDRETH",
+        "text": "<b>Freeze</b> a minion. Summon a 2/2 Volatile Skeleton.",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Chris Hayes",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 82369,
+        "flavor": "A graveyard in the realm of the dead; a bit redundant, don't you think?",
+        "health": 2,
+        "id": "REV_750",
+        "name": "Sinstone Graveyard",
+        "rarity": "RARE",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]Summon a 1/1\n<b>Stealthed</b> Ghost.\n<i>(Has +1/+1 for each other\ncard you played this turn!)</i>",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Mooncolony",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77148,
+        "flavor": "Valeera revealed herself to be a double agent. At which point Maiev felt comfortable revealing that she also was a double agent. And then Scabbs announced to everybody that - get this - he was a double agent.",
+        "id": "REV_825",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Double Cross",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Secret:</b> When your opponent spends all their Mana, draw two cards.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77149,
+        "flavor": "Eye see what you did there.",
+        "health": 4,
+        "id": "REV_826",
+        "mechanics": [
+            "BATTLECRY",
+            "COMBO"
+        ],
+        "name": "Private Eye",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Cast a <b>Secret</b>\nfrom your deck.\n <b>Combo:</b> Cast 2 instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77150,
+        "flavor": "\"Now this is what I'd call...\" \"...just shut up.\"",
+        "id": "REV_827",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Sticky Situation",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "REVENDRETH",
+        "text": "<b>Secret:</b> After your opponent casts a spell, summon a 3/4 Spider with <b>Stealth</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Stone",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77151,
+        "flavor": "Check your coat, but don't check the coat closet.",
+        "id": "REV_828",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Kidnap",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "<b>Secret:</b> After your opponent plays a minion, stuff it in a 0/4 Sack.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 5,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77152,
+        "elite": true,
+        "flavor": "Everybody tough until the sinstones start walking.",
+        "health": 4,
+        "id": "REV_829",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Halkias",
+        "race": "ELEMENTAL",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Deathrattle:</b> If you control a \n<b>Secret</b>, store Halkias' soul \n  inside of it. It resummons \n   Halkias when triggered.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78469,
+        "flavor": "Faster than an asteroid, and just as effective.",
+        "id": "REV_834",
+        "name": "Relic of Extinction",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "Deal $1 damage to a random enemy minion, twice. Improve your future Relics.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 6,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 78363,
+        "elite": true,
+        "flavor": "Not even death can stop Rafaam from pursuing a life of crime.",
+        "health": 6,
+        "id": "REV_835",
+        "mechanics": [
+            "BATTLECRY",
+            "INFUSE"
+        ],
+        "name": "Imp King Rafaam",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> Resurrect\nfour friendly Imps.\n<b>Infuse (5):</b> Give your\nImps +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 78133,
+        "flavor": "If you drink muck, you go to the Maw before you die.",
+        "health": 5,
+        "id": "REV_837",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Muck Plumber",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "ALL minions cost (2) more.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Luca Zontini",
+        "attack": 8,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 78525,
+        "flavor": "Totem Golem's uncle, gone too soon.",
+        "health": 8,
+        "id": "REV_838",
+        "name": "Gigantotem",
+        "race": "TOTEM",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "Costs (1) less for each Totem you've summoned this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ramzy Kamen",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 78532,
+        "flavor": "This one's heavier than the wooden totems. Mostly from the weight of your sins.",
+        "health": 3,
+        "id": "REV_839",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Sinstone Totem",
+        "race": "TOTEM",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "At the end of your turn, gain +1 Health.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 79482,
+        "flavor": "Kel'Thuzad thinks adding a silent 'e' at the end of words makes them sound cooler.",
+        "id": "REV_840",
+        "name": "Deathborne",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "spellSchool": "FROST",
+        "text": "Deal $2 damage to all minions. Summon a 2/2 Volatile Skeleton \nfor each killed.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 79486,
+        "flavor": "It turns out she wasn't so great at keeping secrets after all.",
+        "health": 3,
+        "id": "REV_841",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Anonymous Informant",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> The next <b>Secret</b> you play costs (0).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 79741,
+        "flavor": "And with the new title of 'Golden Hand Recruit', you also get a pay raise!",
+        "id": "REV_842",
+        "name": "Promotion",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "Give a Silver Hand Recruit +3/+3.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Porubov",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 79928,
+        "flavor": "That poor golem is going to be stuck as a guard forever. He can never get a head!",
+        "health": 2,
+        "id": "REV_843",
+        "mechanics": [
+            "INFUSE"
+        ],
+        "name": "Sinfueled Golem",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "<b>Infuse (3):</b> Gain stats equal to the Attack of the minions that <b>Infused</b> this.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jason Kang",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 84169,
+        "flavor": "These ice sculpures look so realistic!",
+        "health": 2,
+        "id": "REV_845",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Volatile Skeleton",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Deathrattle:</b> Deal 2 damage to a random enemy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vlad Botos",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 75868,
+        "flavor": "No 'if's, 'and's, or 'scuttlebutt's'!",
+        "health": 5,
+        "id": "REV_900",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Scuttlebutt Ghoul",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Taunt</b>.\n <b>Battlecry:</b> If you control \na <b>Secret</b>, summon a \ncopy of this.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Angelica Alieva",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 75876,
+        "flavor": "I'm afraid it came as a great shock to her when she died.",
+        "health": 5,
+        "howToEarnGolden": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "id": "REV_901",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Dispossessed Soul",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> If you control a location, <b>Discover</b> a copy of a card in your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 10,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 75881,
+        "elite": true,
+        "flavor": "History has a way of altering villains so that we can no longer see ourselves in them. Unfortunately for the Venthyr, they all look like Sire Denathrius.",
+        "health": 10,
+        "howToEarn": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "howToEarnGolden": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "id": "REV_906",
+        "mechanics": [
+            "BATTLECRY",
+            "INFUSE",
+            "LIFESTEAL"
+        ],
+        "name": "Sire Denathrius",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "<b><b>Lifesteal</b>.</b> <b>Battlecry:</b> Deal 5 damage amongst enemies. <b>Endlessly Infuse (1):</b> Deal 1 more.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 0,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76968,
+        "flavor": "I do not like this painting, Harth. Its smug aura mocks me.",
+        "health": 6,
+        "id": "REV_916",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Creepy Painting",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "After another minion dies, become a copy of it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sergey Tsvelykh",
+        "attack": 1,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 76970,
+        "durability": 3,
+        "flavor": "Look at your stone. Visualize the totem within. Then gently...",
+        "id": "REV_917",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Carving Chisel",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "After your hero attacks, summon a random basic Totem.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Caroline Gariba",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76975,
+        "flavor": "Okay gang, let's see who's really under the mask… *gasp* Old Man Bru'kan!?",
+        "id": "REV_920",
+        "mechanics": [
+            "INFUSE"
+        ],
+        "name": "Convincing Disguise",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "[x]Transform a friendly minion\ninto one that costs (2) more.\n<b>Infuse (4):</b> Transform all\nfriendly minions instead.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Sergey Tsvelykh",
+        "attack": 5,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76977,
+        "elite": true,
+        "flavor": "She wrights stone better than she reads it.",
+        "health": 4,
+        "id": "REV_921",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "The Stonewright",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> For the rest of the game, your Totems have +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 76981,
+        "flavor": "Making a dredger is easier than you'd think. You don't need to worry about mucking it up!",
+        "health": 3,
+        "id": "REV_923",
+        "name": "Muck Pools",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "Transform a friendly minion into one that costs (1) more.",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 76982,
+        "flavor": "A primordial hello to you too!",
+        "id": "REV_924",
+        "name": "Primordial Wave",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "spellSchool": "NATURE",
+        "text": "[x]Transform enemy minions \ninto ones that cost (1) less \nand friendly minions into \nones that cost (1) more.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 3,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 76985,
+        "elite": true,
+        "flavor": "Vashj was supposed to make an appearance in \"The Sunken City,\" but after a freak accident in \"Ashes of Outland,\" she ended up here.",
+        "health": 6,
+        "id": "REV_925",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Baroness Vashj",
+        "race": "NAGA",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]If this would transform\ninto a minion, summon\nthat minion instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77244,
+        "flavor": "Enrage is all the rage.",
+        "health": 4,
+        "id": "REV_930",
+        "mechanics": [
+            "ENRAGED"
+        ],
+        "name": "Crazed Wretch",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "CHARGE"
+        ],
+        "set": "REVENDRETH",
+        "text": "Has +2 Attack and <b>Charge</b> while damaged.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77296,
+        "flavor": "Olgra, I love your new tapestry! Where did you get it?",
+        "id": "REV_931",
+        "name": "Conqueror's Banner",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "Reveal a card from each player's deck, three times. Draw any of yours that cost more.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Tanamaes Leejierasaes",
+        "attack": 2,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77311,
+        "durability": 3,
+        "flavor": "Technically it's a Yet-to-be-Imbued Axe.",
+        "id": "REV_933",
+        "mechanics": [
+            "INFUSE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Imbued Axe",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "[x]After your hero attacks,\ngive your damaged minions\n+1/+1. <b>Infuse (3):</b>\n+2/+2 instead.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 77313,
+        "elite": true,
+        "flavor": "FOUND HER!",
+        "hasDiamondSkin": true,
+        "health": 7,
+        "id": "REV_934",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Decimator Olgra",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Gain +1/+1\nfor each damaged minion,\n then attack all enemies.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 0,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77366,
+        "flavor": "It's the gift (totem) that keeps on giving (totems)!",
+        "health": 3,
+        "id": "REV_935",
+        "mechanics": [
+            "INFUSE",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Party Favor Totem",
+        "race": "TOTEM",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "[x]At the end of your turn, \nsummon a random basic \nTotem. <b>Infuse (2):</b> \nSummon two instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77428,
+        "flavor": "All it takes is a little love and a LOT of junk!",
+        "health": 1,
+        "id": "REV_936",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Crud Caretaker",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry</b>: Summon a 3/5 Elemental with <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 8,
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 77482,
+        "elite": true,
+        "flavor": "\"The anticipation to use this relic is killing me! Though, it will more likely kill you.\"",
+        "health": 8,
+        "id": "REV_937",
+        "mechanics": [
+            "BATTLECRY",
+            "INFUSE"
+        ],
+        "name": "Artificer Xy'mox",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "DISCOVER"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> <b>Discover</b> and \ncast a Relic. <b>Infuse (5):</b> \nCast all three instead.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 77556,
+        "flavor": "Upon arrival, please ring the doorbell of shadows, and wipe your shoes on the doormat of shadows before entering.",
+        "id": "REV_938",
+        "mechanics": [
+            "INFUSE"
+        ],
+        "name": "Door of Shadows",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "spellSchool": "SHADOW",
+        "text": "Draw a spell. <b>Infuse (2):</b> Add a temporary copy of it to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Stone",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77557,
+        "flavor": "Draka, in an attempt to help, threw them a bone.",
+        "id": "REV_939",
+        "name": "Serrated Bone Spike",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "[x]Deal $3 damage to a \nminion. If it dies, your \nnext card this turn \ncosts (2) less.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Trent Kaniuga",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 77558,
+        "elite": true,
+        "flavor": "We originally planned on giving Rogue a Legendary minion called \"The Moon\", but SOMEONE jumped in the frame.",
+        "health": 4,
+        "id": "REV_940",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Necrolord Draka",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Equip a 1/3 Dagger. \n<i>(+1 Attack for each other \ncard you played this turn!)</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77615,
+        "flavor": "Holds Sire Denathrius' most prized possession - his teddy bear, Jeremy Bearimy.",
+        "health": 2,
+        "id": "REV_942",
+        "name": "Relic Vault",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "The next Relic you play this turn casts twice.",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "cardClass": "DEMONHUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 77616,
+        "flavor": "Xy'mox chuckled. \"You mean the Chaos Emerald?\"",
+        "id": "REV_943",
+        "name": "Relic of Phantasms",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "Summon two 1/1\nSpirits. Improve your future Relics.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Angelina Chernyak",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 77714,
+        "flavor": "More of a 'Painted Stranger' if you ask me.",
+        "health": 2,
+        "id": "REV_945",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Sketchy Stranger",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a <b>Secret</b> from another class.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Daniil Kudriavtsev",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 78079,
+        "flavor": "Business is slow since the anima shortage began. Things just don't get stained like they used to!",
+        "health": 5,
+        "howToEarnGolden": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "id": "REV_946",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Steamcleaner",
+        "race": "MECHANICAL",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "<b>Battlecry:</b> Destroy ALL cards in both players' decks that didn't start there.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78080,
+        "flavor": "Party guests never tip as well as the patrons in Bob's tavern.",
+        "health": 4,
+        "id": "REV_947",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER",
+            "TAUNT"
+        ],
+        "name": "Muckborn Servant",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Taunt</b>\n<b>Battlecry:</b> <b>Discover</b> a Paladin card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Vika Yarova",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78081,
+        "flavor": "The bell tolls for us! Waiter, we need more water!",
+        "id": "REV_948",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Service Bell",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "<b>Discover</b> a Class card from your deck and draw all copies of it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 78085,
+        "flavor": "Never send to know for whom the bell tolls.",
+        "id": "REV_950",
+        "name": "Divine Toll",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "spellSchool": "HOLY",
+        "text": "[x]Shoot 5 rays at random\nminions. They give friendly\nminions +2/+2, and deal $2\ndamage to enemy minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 7,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 78086,
+        "elite": true,
+        "flavor": "3 Legendary Invitations, AH AH AH!",
+        "health": 7,
+        "id": "REV_951",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "The Countess",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> If your deck \nhas no Neutral cards, add \n3 <b>Legendary </b>Invitations \nto your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 78143,
+        "flavor": "If this dinner party goes well, she thinks she has a good shot at being on Fel's Kitchen.",
+        "health": 1,
+        "id": "REV_952",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Sinful Sous Chef",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Deathrattle:</b> Add 2\nSilver Hand Recruits\nto your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78146,
+        "elite": true,
+        "flavor": "How many bites does it take to get the center of an hors d'oeuvre?",
+        "health": 3,
+        "id": "REV_955",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Stewart the Steward",
+        "rarity": "LEGENDARY",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Deathrattle:</b> Give the next\nSilver Hand Recruit you\nsummon +3/+3 and\nthis <b>Deathrattle</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 78153,
+        "flavor": "\"Funnel cakes? I haven't had those in years…\"",
+        "health": 3,
+        "id": "REV_956",
+        "mechanics": [
+            "INFUSE",
+            "TAUNT"
+        ],
+        "name": "Priest of the Deceased",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Taunt</b>\n<b>Infuse (3):</b> Gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 78155,
+        "flavor": "The best part of Murlocula is when he said \"IT'S MRRGLIN' TIME\" and totally mrrgled those guys.",
+        "health": 4,
+        "howToEarnGolden": "Earnable on the <i>Murder at Castle Nathria</i> Reward Track.",
+        "id": "REV_957",
+        "mechanics": [
+            "INFUSE",
+            "LIFESTEAL"
+        ],
+        "name": "Murlocula",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "REVENDRETH",
+        "text": "<b>Lifesteal</b>\n<b>Infuse (4):</b> This costs (0).",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jakub Kasper",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 78156,
+        "flavor": "\"Look, I just want to know what kind of monster put raisins in this.\"",
+        "health": 4,
+        "id": "REV_958",
+        "mechanics": [
+            "BATTLECRY",
+            "INFUSE"
+        ],
+        "name": "Buffet Biggun",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Summon two Silver \nHand Recruits. <b>Infuse (3):</b> \nGive them +2 Attack \nand <b>Divine Shield</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78275,
+        "flavor": "Some people take their secrets to the grave.",
+        "health": 3,
+        "id": "REV_959",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ghastly Gravedigger",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> If you control a\n<b>Secret</b>, choose a card in\nyour opponent's hand to\n shuffle into their deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 78375,
+        "flavor": "\"The castle was nice but the fireplaces were too small - 2/5 stars\"",
+        "health": 4,
+        "id": "REV_960",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ashen Elemental",
+        "race": "ELEMENTAL",
+        "rarity": "EPIC",
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> Whenever your\nopponent draws a card next\nturn, they take 2 damage.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anzka Nguyen",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 78393,
+        "flavor": "\"I heard the Sire invited a Murloc! How dreadful!\"",
+        "health": 4,
+        "id": "REV_961",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Elitist Snob",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "LIFESTEAL",
+            "RUSH",
+            "TAUNT"
+        ],
+        "set": "REVENDRETH",
+        "text": "[x]<b>Battlecry:</b> For each Paladin\ncard in your hand, randomly \ngain <b>Divine Shield</b>, <b>Lifesteal</b>, \n<b>Rush</b>, or <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 82316,
+        "flavor": "It's fabulous! It's grand! It's, well it's really very nice.",
+        "health": 3,
+        "id": "REV_983",
+        "name": "Great Hall",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "Set a minion's Attack and Health to 3.",
+        "type": "LOCATION"
+    },
+    {
+        "artist": "Mooncolony",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 82313,
+        "flavor": "There may not be any skeletons in the closets at Castle Nathria, but there sure are souls in the basement.",
+        "health": 3,
+        "id": "REV_990",
+        "name": "Sanguine Depths",
+        "rarity": "RARE",
+        "set": "REVENDRETH",
+        "text": "[x]Deal 1 damage to a \nminion and give it \n+1 Attack.",
+        "type": "LOCATION"
     },
     {
         "artist": "Slawomir Maniak",
@@ -66831,7 +69517,7 @@
         "dbfId": 71701,
         "flavor": "A folktale told to Naga children to scare them from swimming too close to the surface.",
         "health": 4,
-        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Just an Old Fish Tale\" Achievement.",
         "id": "TSC_017",
         "mechanics": [
             "BATTLECRY"
@@ -66967,6 +69653,9 @@
         ],
         "name": "Blademaster Okani",
         "rarity": "LEGENDARY",
+        "referencedTags": [
+            "COUNTER"
+        ],
         "set": "THE_SUNKEN_CITY",
         "text": "[x]<b>Battlecry:</b> <b>Secretly</b> choose to\n<b>Counter</b> the next minion or\nspell your opponent plays\nwhile this is alive.",
         "type": "MINION"
@@ -67020,7 +69709,7 @@
         "dbfId": 72598,
         "flavor": "She also tutors 3 Piranha Swarmers on her off hours.",
         "health": 3,
-        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Shale University\" Achievement.",
         "id": "TSC_052",
         "mechanics": [
             "BATTLECRY",
@@ -67255,6 +69944,7 @@
         "elite": true,
         "flavor": "For thousands of years, Faelin has longed to return to his homeland. Will Zin-Azshari be as he hopes, or are the secrets of the deep better left forgotten?",
         "health": 5,
+        "howToEarn": "Unlocked with \"What Lurks Below\" Achievement.",
         "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
         "id": "TSC_067",
         "mechanics": [
@@ -68070,7 +70760,7 @@
         "dbfId": 72931,
         "flavor": "Has been known to abduct sea cows and leave kelp circles.",
         "health": 4,
-        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "howToEarnGolden": "Unlocked with \"All Your Mechs are Belong to Us\" Achievement.",
         "id": "TSC_645",
         "mechanics": [
             "DEATHRATTLE",
@@ -68482,7 +71172,7 @@
         "dbfId": 71940,
         "flavor": "Yet another case of carcinization.",
         "health": 4,
-        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Army of Azshara\" Achievement.",
         "id": "TSC_826",
         "mechanics": [
             "BATTLECRY"
@@ -68503,7 +71193,7 @@
         "dbfId": 71944,
         "flavor": "He goes by ‘Fun-Loving Slitherspear’ on his dating profile.",
         "health": 3,
-        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Seven-Sided Strike\" Achievement.",
         "id": "TSC_827",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -68585,7 +71275,7 @@
         "dbfId": 72105,
         "flavor": "\"Fish scales? Junk. A gravestone? Junk. This weird looking puzzle box? Junk. AHA! An Ancharrr!\"",
         "health": 3,
-        "howToEarnGolden": "Earnable on the Voyage to the Sunken City Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Seashells by the Seafloor\" Achievement.",
         "id": "TSC_909",
         "mechanics": [
             "BATTLECRY",
@@ -69009,7 +71699,7 @@
         "dbfId": 72583,
         "flavor": "The real treasure was the Naga we met along the way.",
         "health": 5,
-        "howToEarnGolden": "Earnable on the <i>Voyage to the Sunken City</i> Reward Track.",
+        "howToEarnGolden": "Unlocked with \"Shiny Hunting\" Achievement.",
         "id": "TSC_938",
         "mechanics": [
             "DEATHRATTLE",
