@@ -21,8 +21,10 @@ TaskStatus DrawTask::Impl(Player* player)
 
     for (int i = 0; i < m_amount; ++i)
     {
-        Playable* card = Generic::Draw(player, nullptr);
-        cards.emplace_back(card);
+        if (Playable* card = Generic::Draw(player, nullptr))
+        {
+            cards.emplace_back(card);
+        }
     }
 
     if (m_toStack)
