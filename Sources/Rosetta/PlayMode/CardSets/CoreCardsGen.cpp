@@ -1505,6 +1505,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                         break;
                     }
                     case CardType::MINION:
+                    case CardType::LOCATION:
                     {
                         if (player->GetFieldZone()->IsFull())
                         {
@@ -2073,6 +2074,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                         break;
                     }
                     case CardType::MINION:
+                    case CardType::LOCATION:
                     {
                         if (player->GetFieldZone()->IsFull())
                         {
