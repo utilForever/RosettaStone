@@ -33,6 +33,7 @@ struct CardProperty
         infusedCardID.clear();
         questProgressTotal = 0;
         heroPowerDbfID = 0;
+        numMinionsToInfuse = 0;
     }
 
     std::map<PlayReq, int> playReqs;
@@ -43,6 +44,7 @@ struct CardProperty
     std::string infusedCardID;
     int questProgressTotal = 0;
     int heroPowerDbfID = 0;
+    int numMinionsToInfuse = 0;
 };
 }  // namespace RosettaStone::PlayMode
 
