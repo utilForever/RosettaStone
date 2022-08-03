@@ -61,6 +61,9 @@ class Playable : public Entity
     //! \return The number of infuse.
     int GetNumInfuse() const;
 
+    //! Increases the number of infuse.
+    void IncreaseNumInfuse();
+
     //! Returns the flag that indicates whether it is exhausted.
     //! \return The flag that indicates whether it is exhausted.
     bool IsExhausted() const;

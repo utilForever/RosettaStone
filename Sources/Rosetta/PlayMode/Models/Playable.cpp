@@ -75,6 +75,12 @@ int Playable::GetNumInfuse() const
     return GetGameTag(GameTag::INFUSE_COUNTER);
 }
 
+void Playable::IncreaseNumInfuse()
+{
+    const int val = GetGameTag(GameTag::INFUSE_COUNTER);
+    SetGameTag(GameTag::INFUSE_COUNTER, val + 1);
+}
+
 bool Playable::IsExhausted() const
 {
     // Consider windfury
