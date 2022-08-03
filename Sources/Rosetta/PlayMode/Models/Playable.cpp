@@ -184,6 +184,11 @@ bool Playable::HasHonorableKill() const
     return GetGameTag(GameTag::HONORABLEKILL) == 1;
 }
 
+bool Playable::HasInfuse() const
+{
+    return GetGameTag(GameTag::INFUSE) == 1;
+}
+
 bool Playable::CanActivateSpellburst() const
 {
     if (!HasSpellburst())
