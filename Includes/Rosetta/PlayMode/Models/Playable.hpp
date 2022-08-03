@@ -57,6 +57,10 @@ class Playable : public Entity
     //! \param cost The value of cost.
     void SetCost(int cost);
 
+    //! Returns the number of infuse.
+    //! \return The number of infuse.
+    int GetNumInfuse() const;
+
     //! Returns the flag that indicates whether it is exhausted.
     //! \return The flag that indicates whether it is exhausted.
     bool IsExhausted() const;

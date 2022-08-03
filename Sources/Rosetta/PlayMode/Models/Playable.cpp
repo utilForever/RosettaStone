@@ -70,6 +70,11 @@ void Playable::SetCost(int cost)
     SetGameTag(GameTag::COST, cost);
 }
 
+int Playable::GetNumInfuse() const
+{
+    return GetGameTag(GameTag::INFUSE_COUNTER);
+}
+
 bool Playable::IsExhausted() const
 {
     // Consider windfury
