@@ -30,6 +30,7 @@ struct CardProperty
         entourages.clear();
         appendages.clear();
         corruptCardID.clear();
+        infusedCardID.clear();
         questProgressTotal = 0;
         heroPowerDbfID = 0;
     }
@@ -39,6 +40,7 @@ struct CardProperty
     std::vector<std::string> entourages;
     std::vector<std::tuple<std::string, SummonSide>> appendages;
     std::string corruptCardID;
+    std::string infusedCardID;
     int questProgressTotal = 0;
     int heroPowerDbfID = 0;
 };
