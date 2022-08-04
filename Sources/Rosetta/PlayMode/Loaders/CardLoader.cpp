@@ -33,6 +33,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
     std::regex dormantTurnRegex("for ([[:digit:]]) turns");
     std::regex tradeableRegex("<b>Tradeable[.]*</b>");
     std::regex questlineRegex("<b>Questline:[ ]*</b>");
+    std::regex infusedRegex("<b>Infused[ ]*</b>");
     std::smatch values;
 
     for (auto& cardData : j)
@@ -232,6 +233,10 @@ void CardLoader::Load(std::vector<Card*>& cards)
         if (std::regex_search(text, values, questlineRegex))
         {
             card->gameTags[GameTag::QUESTLINE] = 1;
+        }
+        if (std::regex_search(text, values, infusedRegex))
+        {
+            card->gameTags[GameTag::INFUSED] = 1;
         }
 
         // NOTE: Runic Carvings (SCH_612) has GameTag::OVERLOAD
