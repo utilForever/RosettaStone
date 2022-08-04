@@ -26,6 +26,8 @@ void InternalCardLoader::Load(const std::vector<Card*>& cards)
         card->gameTags[GameTag::HERO_POWER] = cardDef.property.heroPowerDbfID;
         card->gameTags[GameTag::CORRUPTEDCARD] =
             Cards::FindCardByID(cardDef.property.corruptCardID)->dbfID;
+        card->gameTags[GameTag::NUM_MINIONS_TO_INFUSE] =
+            cardDef.property.numMinionsToInfuse;
         card->gameTags[GameTag::INFUSEDCARD] =
             Cards::FindCardByID(cardDef.property.infusedCardID)->dbfID;
 
