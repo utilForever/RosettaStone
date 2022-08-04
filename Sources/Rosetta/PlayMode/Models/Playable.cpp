@@ -70,6 +70,17 @@ void Playable::SetCost(int cost)
     SetGameTag(GameTag::COST, cost);
 }
 
+int Playable::GetNumInfuse() const
+{
+    return GetGameTag(GameTag::INFUSE_COUNTER);
+}
+
+void Playable::IncreaseNumInfuse()
+{
+    const int val = GetGameTag(GameTag::INFUSE_COUNTER);
+    SetGameTag(GameTag::INFUSE_COUNTER, val + 1);
+}
+
 bool Playable::IsExhausted() const
 {
     // Consider windfury
@@ -182,6 +193,16 @@ bool Playable::HasTradeable() const
 bool Playable::HasHonorableKill() const
 {
     return GetGameTag(GameTag::HONORABLEKILL) == 1;
+}
+
+bool Playable::HasInfuse() const
+{
+    return GetGameTag(GameTag::INFUSE) == 1;
+}
+
+bool Playable::IsInfused() const
+{
+    return GetGameTag(GameTag::INFUSED) == 1;
 }
 
 bool Playable::CanActivateSpellburst() const

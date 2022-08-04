@@ -667,6 +667,27 @@ void Game::ProcessGraveyard()
             // Death event created
             triggerManager.OnDeathTrigger(minion);
 
+            // Process keyword 'Infuse'
+            for (const auto& playable : minion->player->GetHandZone()->GetAll())
+            {
+                if (playable->HasInfuse())
+                {
+                    playable->IncreaseNumInfuse();
+
+                    if (playable->GetNumInfuse() ==
+                        playable->GetGameTag(GameTag::NUM_MINIONS_TO_INFUSE))
+                    {
+                        Card* newCard = Cards::FindCardByDbfID(
+                            playable->GetGameTag(GameTag::INFUSEDCARD));
+                        if (newCard && !newCard->name.empty())
+                        {
+                            Generic::ChangeEntity(minion->player, playable,
+                                                  newCard, true);
+                        }
+                    }
+                }
+            }
+
             // Remove minion from battlefield
             minion->SetLastBoardPos(minion->GetZonePosition());
             minion->zone->Remove(minion);

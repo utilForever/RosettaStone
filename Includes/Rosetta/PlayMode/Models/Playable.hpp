@@ -57,6 +57,13 @@ class Playable : public Entity
     //! \param cost The value of cost.
     void SetCost(int cost);
 
+    //! Returns the number of infuse.
+    //! \return The number of infuse.
+    int GetNumInfuse() const;
+
+    //! Increases the number of infuse.
+    void IncreaseNumInfuse();
+
     //! Returns the flag that indicates whether it is exhausted.
     //! \return The flag that indicates whether it is exhausted.
     bool IsExhausted() const;
@@ -136,6 +143,14 @@ class Playable : public Entity
     //! Returns the flag that indicates whether it has honorable kill.
     //! \return The flag that indicates whether it has honorable kill.
     virtual bool HasHonorableKill() const;
+
+    //! Returns the flag that indicates whether it has infuse.
+    //! \return The flag that indicates whether it has infuse.
+    bool HasInfuse() const;
+
+    //! Returns the flag that indicates whether it is infused.
+    //! \return The flag that indicates whether it is infused.
+    bool IsInfused() const;
 
     //! Returns the flag that indicates it can activate 'Spellbrust'.
     //! \return The flag that indicates it can activate 'Spellbrust'.

@@ -2068,6 +2068,8 @@ void RevendrethCardsGen::AddDemonHunterNonCollect(
 
 void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - NEUTRAL
     // [REV_012] Bog Beast - COST:6 [ATK:3/HP:6]
     // - Set: REVENDRETH, Rarity: Common
@@ -2459,6 +2461,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - INFUSE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.numMinionsToInfuse = 3;
+    cardDef.property.infusedCardID = "REV_956t";
+    cards.emplace("REV_956", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_957] Murlocula - COST:4 [ATK:3/HP:4]
@@ -2471,6 +2478,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - INFUSE = 1
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.numMinionsToInfuse = 4;
+    cardDef.property.infusedCardID = "REV_957t";
+    cards.emplace("REV_957", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_960] Ashen Elemental - COST:3 [ATK:2/HP:4]
@@ -2487,6 +2499,8 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 void RevendrethCardsGen::AddNeutralNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - NEUTRAL
     // [REV_012t] Muckmare - COST:3 [ATK:2/HP:4]
     // - Set: REVENDRETH
@@ -2670,17 +2684,22 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_956t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_957t] Murlocula - COST:0 [ATK:3/HP:4]
     // - Race: Murloc, Set: REVENDRETH, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Infused
-    //       Lifesteal</b>
+    // Text: <b>Infused Lifesteal</b>
     // --------------------------------------------------------
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_957t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [REV_960e] Ashy - COST:0
