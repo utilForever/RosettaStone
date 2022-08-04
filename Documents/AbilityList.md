@@ -41,7 +41,7 @@
 * [ ] Frenzy
 * [x] Honorable Kill
 * [x] Immune
-* [ ] Infuse
+* [x] Infuse
 * [ ] Inspire
 * [x] Invoke
 * [ ] Magnetic

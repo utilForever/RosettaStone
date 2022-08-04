@@ -1103,8 +1103,8 @@ REVENDRETH | REV_950 | Divine Toll |
 REVENDRETH | REV_951 | The Countess |  
 REVENDRETH | REV_952 | Sinful Sous Chef |  
 REVENDRETH | REV_955 | Stewart the Steward |  
-REVENDRETH | REV_956 | Priest of the Deceased |  
-REVENDRETH | REV_957 | Murlocula |  
+REVENDRETH | REV_956 | Priest of the Deceased | O
+REVENDRETH | REV_957 | Murlocula | O
 REVENDRETH | REV_958 | Buffet Biggun |  
 REVENDRETH | REV_959 | Ghastly Gravedigger |  
 REVENDRETH | REV_960 | Ashen Elemental |  
@@ -1112,4 +1112,4 @@ REVENDRETH | REV_961 | Elitist Snob |
 REVENDRETH | REV_983 | Great Hall |  
 REVENDRETH | REV_990 | Sanguine Depths |  
 
-- Progress: 0% (0 of 135 Cards)
+- Progress: 1% (2 of 135 Cards)
