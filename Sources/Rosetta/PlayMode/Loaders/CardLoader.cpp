@@ -33,7 +33,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
     std::regex dormantTurnRegex("for ([[:digit:]]) turns");
     std::regex tradeableRegex("<b>Tradeable[.]*</b>");
     std::regex questlineRegex("<b>Questline:[ ]*</b>");
-    std::regex infusedRegex("<b>Infused[ ]*</b>");
+    std::regex infusedRegex("<b>.*Infused.*</b>");
     std::smatch values;
 
     for (auto& cardData : j)
