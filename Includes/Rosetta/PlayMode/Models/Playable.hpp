@@ -148,6 +148,10 @@ class Playable : public Entity
     //! \return The flag that indicates whether it has infuse.
     bool HasInfuse() const;
 
+    //! Returns the flag that indicates whether it is infused.
+    //! \return The flag that indicates whether it is infused.
+    bool IsInfused() const;
+
     //! Returns the flag that indicates it can activate 'Spellbrust'.
     //! \return The flag that indicates it can activate 'Spellbrust'.
     bool CanActivateSpellburst() const;

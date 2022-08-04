@@ -200,6 +200,11 @@ bool Playable::HasInfuse() const
     return GetGameTag(GameTag::INFUSE) == 1;
 }
 
+bool Playable::IsInfused() const
+{
+    return GetGameTag(GameTag::INFUSED) == 1;
+}
+
 bool Playable::CanActivateSpellburst() const
 {
     if (!HasSpellburst())
