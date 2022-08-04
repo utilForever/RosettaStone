@@ -2478,6 +2478,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - INFUSE = 1
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.numMinionsToInfuse = 4;
+    cardDef.property.infusedCardID = "REV_957t";
+    cards.emplace("REV_957", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_960] Ashen Elemental - COST:3 [ATK:2/HP:4]
@@ -2692,6 +2697,9 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - LIFESTEAL = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_957t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [REV_960e] Ashy - COST:0
