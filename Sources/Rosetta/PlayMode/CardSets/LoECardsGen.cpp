@@ -46,6 +46,12 @@ void LoECardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 2
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::ENEMY_PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::SPELLPOWER,
+                                             EffectOperator::ADD, 2) }));
+    cards.emplace("LOE_051", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [LOE_115] Raven Idol - COST:1

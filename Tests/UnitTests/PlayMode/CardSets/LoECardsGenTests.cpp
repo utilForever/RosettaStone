@@ -53,6 +53,58 @@ TEST_CASE("[Druid : Minion] - LOE_050 : Mounted Raptor")
     CHECK_EQ(curField[0]->card->GetCost(), 1);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [LOE_051] Jungle Moonkin - COST:4 [ATK:4/HP:4]
+// - Race: Beast, Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Both players have <b>Spell Damage +2</b>.
+// --------------------------------------------------------
+// GameTag:
+// - SPELLPOWER = 2
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - LOE_051 : Jungle Moonkin")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Jungle Moonkin"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonfire"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 2);
+    CHECK_EQ(opPlayer->GetCurrentSpellPower(), 2);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer,
+                 PlayCardTask::SpellTarget(card3, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:3]
 // - Set: LoE Rarity: Common
