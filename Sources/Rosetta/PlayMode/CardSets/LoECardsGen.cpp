@@ -65,10 +65,16 @@ void LoECardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHOOSE_ONE = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "LOE_115a", "LOE_115b" };
+    cards.emplace("LOE_115", cardDef);
 }
 
 void LoECardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - DRUID
     // [LOE_115a] Break Free (*) - COST:1
     // - Set: LoE
@@ -79,6 +85,10 @@ void LoECardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::MINION));
+    cards.emplace("LOE_115a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [LOE_115b] Awakened (*) - COST:1
@@ -90,6 +100,10 @@ void LoECardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("LOE_115b", cardDef);
 }
 
 void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)

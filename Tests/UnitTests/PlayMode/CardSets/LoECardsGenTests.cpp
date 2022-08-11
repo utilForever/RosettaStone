@@ -105,6 +105,74 @@ TEST_CASE("[Druid : Minion] - LOE_051 : Jungle Moonkin")
     CHECK_EQ(curPlayer->GetHero()->GetHealth(), 25);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [LOE_115] Raven Idol - COST:1
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Choose One -</b>
+//       <b>Discover</b> a minion; or <b>Discover</b> a spell.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// - CHOOSE_ONE = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - LOE_115 : Raven Idol")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Raven Idol"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Raven Idol"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1, 1));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::MINION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card2, 2));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 2);
+    CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:3]
 // - Set: LoE Rarity: Common
