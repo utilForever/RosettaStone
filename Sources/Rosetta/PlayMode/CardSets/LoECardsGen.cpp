@@ -108,6 +108,8 @@ void LoECardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - HUNTER
     // [LOE_020] Desert Camel - COST:3 [ATK:2/HP:4]
     // - Race: Beast, Set: LoE, Rarity: Common
@@ -118,6 +120,10 @@ void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::SummonCostMinionFromDeck(1));
+    cardDef.power.AddPowerTask(ComplexTask::SummonCostOpMinionFromDeck(1));
+    cards.emplace("LOE_020", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [LOE_021] Dart Trap - COST:2

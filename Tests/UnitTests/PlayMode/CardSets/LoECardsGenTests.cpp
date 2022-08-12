@@ -173,6 +173,67 @@ TEST_CASE("[Druid : Spell] - LOE_115 : Raven Idol")
     CHECK_EQ(curHand[1]->card->GetCardType(), CardType::SPELL);
 }
 
+// ---------------------------------------- MINION - HUNTER
+// [LOE_020] Desert Camel - COST:3 [ATK:2/HP:4]
+// - Race: Beast, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Put a 1-Cost minion from each deck
+//       into the battlefield.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - LOE_020 : Desert Camel")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Worgen Infiltrator");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Wisp");
+        config.player2Deck[i] = Cards::FindCardByName("Worgen Infiltrator");
+        config.player2Deck[i + 1] = Cards::FindCardByName("Malygos");
+        config.player2Deck[i + 2] = Cards::FindCardByName("Wisp");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opDeck = *(opPlayer->GetDeckZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desert Camel"));
+
+    CHECK_EQ(curDeck.GetCount(), 26);
+    CHECK_EQ(opDeck.GetCount(), 26);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curDeck.GetCount(), 25);
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Worgen Infiltrator");
+    CHECK_EQ(opDeck.GetCount(), 25);
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Worgen Infiltrator");
+}
+
 // ------------------------------------------ MINION - MAGE
 // [LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:3]
 // - Set: LoE Rarity: Common
