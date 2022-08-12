@@ -156,10 +156,18 @@ void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("LOE_105e", EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("LOE_105", cardDef);
 }
 
 void LoECardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [LOE_105e] Explorer's Hat (*) - COST:0
     // - Set: LoE
@@ -167,6 +175,11 @@ void LoECardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // Text: +1/+1. <b>Deathrattle:</b>
     //       Add an Explorer's Hat to your hand.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_105e"));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "LOE_105"));
+    cards.emplace("LOE_105e", cardDef);
 }
 
 void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
