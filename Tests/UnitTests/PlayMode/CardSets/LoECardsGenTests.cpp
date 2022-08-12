@@ -343,6 +343,59 @@ TEST_CASE("[Hunter : Spell] - LOE_105 : Explorer's Hat")
     CHECK_EQ(curHand[0]->card->name, "Explorer's Hat");
 }
 
+// ------------------------------------------- SPELL - MAGE
+// [LOE_002] Forgotten Torch - COST:3
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: Deal 3 damage. Shuffle a 'Roaring Torch'
+//       into your deck that deals 6 damage.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Mage : Spell] - LOE_002 : Forgotten Torch")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Forgotten Torch"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card1, opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 17);
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curDeck[0]->card->name, "Roaring Torch");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(curHand[0], opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 6);
+}
+
 // ------------------------------------------ MINION - MAGE
 // [LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:3]
 // - Set: LoE Rarity: Common

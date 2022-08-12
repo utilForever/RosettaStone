@@ -196,6 +196,13 @@ void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "LOE_002t"));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("LOE_002", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:3]
@@ -223,6 +230,8 @@ void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------- SPELL - MAGE
     // [LOE_002t] Roaring Torch (*) - COST:3
     // - Set: LoE
@@ -232,6 +241,11 @@ void LoECardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 6, true));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("LOE_002t", cardDef);
 }
 
 void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
