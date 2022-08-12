@@ -135,6 +135,12 @@ void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    cardDef.power.GetTrigger()->eitherTurn = true;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 5, true));
+    cards.emplace("LOE_021", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [LOE_105] Explorer's Hat - COST:2
