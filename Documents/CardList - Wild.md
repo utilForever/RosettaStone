@@ -828,7 +828,7 @@ TGT | AT_133 | Gadgetzan Jouster |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-LOE | LOE_002 | Forgotten Torch |  
+LOE | LOE_002 | Forgotten Torch | O
 LOE | LOE_003 | Ethereal Conjurer | O
 LOE | LOE_006 | Museum Curator |  
 LOE | LOE_007 | Curse of Rafaam |  
@@ -840,8 +840,8 @@ LOE | LOE_016 | Rumbling Elemental |
 LOE | LOE_017 | Keeper of Uldaman |  
 LOE | LOE_018 | Tunnel Trogg |  
 LOE | LOE_019 | Unearthed Raptor |  
-LOE | LOE_020 | Desert Camel |  
-LOE | LOE_021 | Dart Trap |  
+LOE | LOE_020 | Desert Camel | O
+LOE | LOE_021 | Dart Trap | O
 LOE | LOE_022 | Fierce Monkey |  
 LOE | LOE_023 | Dark Peddler |  
 LOE | LOE_026 | Anyfin Can Happen |  
@@ -852,7 +852,7 @@ LOE | LOE_039 | Gorillabot A-3 | O
 LOE | LOE_046 | Huge Toad |  
 LOE | LOE_047 | Tomb Spider |  
 LOE | LOE_050 | Mounted Raptor | O
-LOE | LOE_051 | Jungle Moonkin |  
+LOE | LOE_051 | Jungle Moonkin | O
 LOE | LOE_053 | Djinni of Zephyrs |  
 LOE | LOE_061 | Anubisath Sentinel |  
 LOE | LOE_073 | Fossilized Devilsaur |  
@@ -863,18 +863,18 @@ LOE | LOE_086 | Summoning Stone |
 LOE | LOE_089 | Wobbling Runts |  
 LOE | LOE_092 | Arch-Thief Rafaam |  
 LOE | LOE_104 | Entomb |  
-LOE | LOE_105 | Explorer's Hat |  
+LOE | LOE_105 | Explorer's Hat | O
 LOE | LOE_107 | Eerie Statue |  
 LOE | LOE_110 | Ancient Shade |  
 LOE | LOE_111 | Excavated Evil |  
 LOE | LOE_113 | Everyfin is Awesome |  
-LOE | LOE_115 | Raven Idol |  
+LOE | LOE_115 | Raven Idol | O
 LOE | LOE_116 | Reliquary Seeker |  
 LOE | LOE_118 | Cursed Blade |  
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 20% (9 of 45 Cards)
+- Progress: 33% (15 of 45 Cards)
 
 ## Whispers of the Old Gods
 

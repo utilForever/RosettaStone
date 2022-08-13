@@ -331,6 +331,16 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::MINION:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::MINION)
+                {
+                    cardsForGeneration.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::SIX_COST_MINION_SUMMON:
             choiceAction = ChoiceAction::SUMMON;
             for (auto& card : allCards)

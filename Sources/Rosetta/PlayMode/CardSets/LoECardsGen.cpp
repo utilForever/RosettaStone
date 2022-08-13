@@ -46,6 +46,12 @@ void LoECardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SPELLPOWER = 2
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::ENEMY_PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::SPELLPOWER,
+                                             EffectOperator::ADD, 2) }));
+    cards.emplace("LOE_051", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [LOE_115] Raven Idol - COST:1
@@ -59,10 +65,16 @@ void LoECardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CHOOSE_ONE = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.chooseCardIDs = ChooseCardIDs{ "LOE_115a", "LOE_115b" };
+    cards.emplace("LOE_115", cardDef);
 }
 
 void LoECardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - DRUID
     // [LOE_115a] Break Free (*) - COST:1
     // - Set: LoE
@@ -73,6 +85,10 @@ void LoECardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::MINION));
+    cards.emplace("LOE_115a", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [LOE_115b] Awakened (*) - COST:1
@@ -84,10 +100,16 @@ void LoECardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cards.emplace("LOE_115b", cardDef);
 }
 
 void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - HUNTER
     // [LOE_020] Desert Camel - COST:3 [ATK:2/HP:4]
     // - Race: Beast, Set: LoE, Rarity: Common
@@ -98,6 +120,10 @@ void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::SummonCostMinionFromDeck(1));
+    cardDef.power.AddPowerTask(ComplexTask::SummonCostOpMinionFromDeck(1));
+    cards.emplace("LOE_020", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [LOE_021] Dart Trap - COST:2
@@ -109,6 +135,12 @@ void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::INSPIRE));
+    cardDef.power.GetTrigger()->eitherTurn = true;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 5, true));
+    cards.emplace("LOE_021", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [LOE_105] Explorer's Hat - COST:2
@@ -124,10 +156,18 @@ void LoECardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("LOE_105e", EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("LOE_105", cardDef);
 }
 
 void LoECardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [LOE_105e] Explorer's Hat (*) - COST:0
     // - Set: LoE
@@ -135,6 +175,11 @@ void LoECardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // Text: +1/+1. <b>Deathrattle:</b>
     //       Add an Explorer's Hat to your hand.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_105e"));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "LOE_105"));
+    cards.emplace("LOE_105e", cardDef);
 }
 
 void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
@@ -151,6 +196,13 @@ void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "LOE_002t"));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("LOE_002", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:3]
@@ -178,6 +230,8 @@ void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------- SPELL - MAGE
     // [LOE_002t] Roaring Torch (*) - COST:3
     // - Set: LoE
@@ -187,6 +241,11 @@ void LoECardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 6, true));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("LOE_002t", cardDef);
 }
 
 void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)

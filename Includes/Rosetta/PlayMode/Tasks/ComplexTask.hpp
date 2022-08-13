@@ -102,6 +102,22 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for summoning a \p cost opponent minion
+    //! from opponent deck.
+    //! \param cost The cost of minion(s) to summon.
+    static TaskList SummonCostOpMinionFromDeck(int cost)
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::ENEMY_DECK),
+            std::make_shared<SimpleTasks::FilterStackTask>(SelfCondList{
+                std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+                std::make_shared<SelfCondition>(
+                    SelfCondition::IsCost(cost, RelaSign::EQ)) }),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::SummonStackTask>(true)
+        };
+    }
+
     //! Returns a list of task for summoning a \p race and \p cost minion
     //! from your deck according to \p relaSign.
     //! \param race The race of minion(s) to summon.
