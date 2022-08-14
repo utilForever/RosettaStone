@@ -363,6 +363,13 @@ void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<MoveToDeckTask>(EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } };
+    cards.emplace("LOE_104", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [LOE_111] Excavated Evil - COST:5

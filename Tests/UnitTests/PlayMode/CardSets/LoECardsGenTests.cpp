@@ -681,6 +681,61 @@ TEST_CASE("[Priest : Minion] - LOE_006 : Museum Curator")
     CHECK_EQ(curHand.GetCount(), 1);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [LOE_104] Entomb - COST:6
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: Choose an enemy minion. Shuffle it into your deck.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - LOE_104 : Entomb")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opDeck = *(opPlayer->GetDeckZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Entomb"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opDeck.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opDeck.GetCount(), 1);
+    CHECK_EQ(opDeck[0]->card->name, "Malygos");
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
 // - Set: LoE, Rarity: Common
