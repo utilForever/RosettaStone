@@ -26,8 +26,10 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
             m_sequenceType = SequenceType::PLAY_CARD;
             break;
         case TriggerType::PLAY_MINION:
-        case TriggerType::AFTER_PLAY_MINION:
             m_sequenceType = SequenceType::PLAY_MINION;
+            break;
+        case TriggerType::AFTER_PLAY_MINION:
+            m_sequenceType = SequenceType::AFTER_PLAY_MINION;
             break;
         case TriggerType::CAST_SPELL:
             m_sequenceType = SequenceType::PLAY_SPELL;
