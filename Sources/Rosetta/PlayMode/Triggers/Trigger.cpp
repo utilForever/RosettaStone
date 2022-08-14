@@ -480,6 +480,13 @@ void Trigger::ValidateTriggers(const Game* game, Entity* source,
 {
     for (auto& trigger : game->triggers)
     {
+        // If the owner of the trigger is self, ignore it
+        if (trigger->m_owner == source &&
+            type == SequenceType::AFTER_PLAY_MINION)
+        {
+            continue;
+        }
+
         // If transformed or summoned minion tries to activate trigger,
         // ignore it
         if (const auto minion = dynamic_cast<Minion*>(trigger->m_owner);
