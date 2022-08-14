@@ -96,6 +96,7 @@ enum class SequenceType
     NONE,
     PLAY_CARD,
     PLAY_MINION,
+    AFTER_PLAY_MINION,
     PLAY_SPELL,
     AFTER_PLAY_SPELL,
     TARGET
