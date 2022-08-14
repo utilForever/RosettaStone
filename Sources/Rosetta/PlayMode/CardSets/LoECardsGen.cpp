@@ -279,6 +279,18 @@ void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon 7 Murlocs that died this game.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 7));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonCopyTask>(EntityType::STACK));
+    cards.emplace("LOE_026", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [LOE_027] Sacred Trial - COST:1

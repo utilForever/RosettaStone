@@ -502,6 +502,71 @@ TEST_CASE("[Paladin : Minion] - LOE_017 : Keeper of Uldaman")
     CHECK_EQ(opField[0]->GetHealth(), 3);
 }
 
+// ---------------------------------------- SPELL - PALADIN
+// [LOE_026] Anyfin Can Happen - COST:10
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon 7 Murlocs that died this game.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - LOE_026 : Anyfin Can Happen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Anyfin Can Happen"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Tinyfin"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desk Imp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Snowflipper Penguin"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Tinyfin"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Target Dummy"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card7));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK(curField[0]->IsRace(Race::MURLOC));
+    CHECK(curField[1]->IsRace(Race::MURLOC));
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
 // - Set: LoE, Rarity: Common
