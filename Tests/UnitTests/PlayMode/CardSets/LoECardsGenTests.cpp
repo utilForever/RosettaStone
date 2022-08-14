@@ -598,10 +598,10 @@ TEST_CASE("[Paladin : Spell] - LOE_027 : Sacred Trial")
     opPlayer->SetUsedMana(0);
 
     auto curSecret = curPlayer->GetSecretZone();
-    auto& opField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("AnyfinSacred Trial"));
+        curPlayer, Cards::FindCardByName("Sacred Trial"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
     const auto card3 =
