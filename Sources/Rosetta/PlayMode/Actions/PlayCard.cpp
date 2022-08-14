@@ -368,6 +368,10 @@ void PlayMinion(Player* player, Minion* minion, Character* target, int fieldPos,
 
     player->game->ProcessDestroyAndUpdateAura();
 
+    // Validate after play minion trigger
+    Trigger::ValidateTriggers(player->game, minion,
+                              SequenceType::AFTER_PLAY_MINION);
+
     // Process after play minion trigger
     player->game->taskQueue.StartEvent();
     player->game->triggerManager.OnAfterPlayMinionTrigger(minion);
