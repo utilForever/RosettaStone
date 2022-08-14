@@ -305,9 +305,10 @@ void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddTrigger(
         std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
     cardDef.power.GetTrigger()->conditions =
         SelfCondList{ std::make_shared<SelfCondition>(
-            SelfCondition::IsOpFieldCount(4, RelaSign::GEQ)) };
+            SelfCondition::IsFieldCount(4, RelaSign::GEQ)) };
     cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
         TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) });
     cards.emplace("LOE_027", cardDef);
