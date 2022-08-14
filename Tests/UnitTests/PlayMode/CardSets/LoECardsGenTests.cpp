@@ -712,7 +712,7 @@ TEST_CASE("[Priest : Spell] - LOE_104 : Entomb")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opDeck = *(opPlayer->GetDeckZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
     auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
@@ -725,15 +725,15 @@ TEST_CASE("[Priest : Spell] - LOE_104 : Entomb")
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(opField.GetCount(), 1);
-    CHECK_EQ(opDeck.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 0);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::SpellTarget(card1, card2));
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
     CHECK_EQ(opField.GetCount(), 0);
-    CHECK_EQ(opDeck.GetCount(), 1);
-    CHECK_EQ(opDeck[0]->card->name, "Malygos");
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curDeck[0]->card->name, "Malygos");
 }
 
 // ----------------------------------------- MINION - ROGUE
