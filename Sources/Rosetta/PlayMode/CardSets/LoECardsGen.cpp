@@ -250,6 +250,8 @@ void LoECardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [LOE_017] Keeper of Uldaman - COST:4 [ATK:3/HP:4]
     // - Set: LoE, Rarity: Common
@@ -263,6 +265,13 @@ void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("LOE_017e", EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("LOE_017", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [LOE_026] Anyfin Can Happen - COST:10
@@ -285,12 +294,18 @@ void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [LOE_017e] Watched (*) - COST:0
     // - Set: LoE
     // --------------------------------------------------------
     // Text: Stats changed to 3/3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SetAttackHealth(3)));
+    cards.emplace("LOE_017e", cardDef);
 }
 
 void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
