@@ -331,6 +331,8 @@ void LoECardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - PRIEST
     // [LOE_006] Museum Curator - COST:2 [ATK:1/HP:2]
     // - Set: LoE, Rarity: Common
@@ -345,6 +347,10 @@ void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::DEATHRATTLE_MINION));
+    cards.emplace("LOE_006", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [LOE_104] Entomb - COST:6
