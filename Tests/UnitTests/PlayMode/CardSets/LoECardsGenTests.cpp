@@ -447,6 +447,295 @@ TEST_CASE("[Mage : Minion] - LOE_003 : Ethereal Conjurer")
     CHECK_EQ(curHand.GetCount(), 1);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [LOE_017] Keeper of Uldaman - COST:4 [ATK:3/HP:4]
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Set a minion's Attack and Health to 3.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - LOE_017 : Keeper of Uldaman")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Keeper of Uldaman"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetAttack(), 4);
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField[0]->GetAttack(), 3);
+    CHECK_EQ(opField[0]->GetHealth(), 3);
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [LOE_026] Anyfin Can Happen - COST:10
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Summon 7 Murlocs that died this game.
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - LOE_026 : Anyfin Can Happen")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Anyfin Can Happen"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Tinyfin"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Desk Imp"));
+    const auto card4 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Snowflipper Penguin"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Tinyfin"));
+    const auto card6 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Target Dummy"));
+    const auto card7 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    game.Process(curPlayer, PlayCardTask::Minion(card6));
+    CHECK_EQ(curField.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card7));
+    CHECK_EQ(curField.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK(curField[0]->IsRace(Race::MURLOC));
+    CHECK(curField[1]->IsRace(Race::MURLOC));
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [LOE_027] Sacred Trial - COST:1
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After your opponent has at least
+//       3 minions and plays another, destroy it.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - LOE_027 : Sacred Trial")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto curSecret = curPlayer->GetSecretZone();
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Sacred Trial"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curSecret->GetCount(), 1);
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(opField.GetCount(), 3);
+}
+
+// ---------------------------------------- MINION - PRIEST
+// [LOE_006] Museum Curator - COST:2 [ATK:1/HP:2]
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry: Discover</b> a <b>Deathrattle</b> card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - LOE_006 : Museum Curator")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Museum Curator"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->HasGameTag(GameTag::DEATHRATTLE), true);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+}
+
+// ----------------------------------------- SPELL - PRIEST
+// [LOE_104] Entomb - COST:6
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: Choose an enemy minion. Shuffle it into your deck.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - LOE_104 : Entomb")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Entomb"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(curDeck.GetCount(), 0);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(curDeck.GetCount(), 1);
+    CHECK_EQ(curDeck[0]->card->name, "Malygos");
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
 // - Set: LoE, Rarity: Common

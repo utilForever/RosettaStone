@@ -26,8 +26,10 @@ Trigger::Trigger(TriggerType type) : m_triggerType(type)
             m_sequenceType = SequenceType::PLAY_CARD;
             break;
         case TriggerType::PLAY_MINION:
-        case TriggerType::AFTER_PLAY_MINION:
             m_sequenceType = SequenceType::PLAY_MINION;
+            break;
+        case TriggerType::AFTER_PLAY_MINION:
+            m_sequenceType = SequenceType::AFTER_PLAY_MINION;
             break;
         case TriggerType::CAST_SPELL:
             m_sequenceType = SequenceType::PLAY_SPELL;
@@ -478,6 +480,13 @@ void Trigger::ValidateTriggers(const Game* game, Entity* source,
 {
     for (auto& trigger : game->triggers)
     {
+        // If the owner of the trigger is self, ignore it
+        if (trigger->m_owner == source &&
+            type == SequenceType::AFTER_PLAY_MINION)
+        {
+            continue;
+        }
+
         // If transformed or summoned minion tries to activate trigger,
         // ignore it
         if (const auto minion = dynamic_cast<Minion*>(trigger->m_owner);

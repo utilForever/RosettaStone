@@ -22,7 +22,14 @@ TaskStatus MoveToDeckTask::Impl(Player* player)
 
     for (auto& playable : playables)
     {
-        playable->zone->Remove(playable);
+        Playable* removedMinion = playable->zone->Remove(playable);
+        removedMinion->Reset();
+
+        if (removedMinion->player != player)
+        {
+            removedMinion->player = player;
+            removedMinion->SetGameTag(GameTag::CONTROLLER, player->playerID);
+        }
 
         Generic::ShuffleIntoDeck(player, m_source, playable);
     }

@@ -250,6 +250,8 @@ void LoECardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [LOE_017] Keeper of Uldaman - COST:4 [ATK:3/HP:4]
     // - Set: LoE, Rarity: Common
@@ -263,6 +265,13 @@ void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("LOE_017e", EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("LOE_017", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [LOE_026] Anyfin Can Happen - COST:10
@@ -270,6 +279,18 @@ void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Summon 7 Murlocs that died this game.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsMinion()),
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsRace(Race::MURLOC)) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 7));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonCopyTask>(EntityType::STACK));
+    cards.emplace("LOE_026", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [LOE_027] Sacred Trial - COST:1
@@ -281,20 +302,38 @@ void LoECardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY;
+    cardDef.power.GetTrigger()->conditions =
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(4, RelaSign::GEQ)) };
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
+        TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) });
+    cards.emplace("LOE_027", cardDef);
 }
 
 void LoECardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [LOE_017e] Watched (*) - COST:0
     // - Set: LoE
     // --------------------------------------------------------
     // Text: Stats changed to 3/3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SetAttackHealth(3)));
+    cards.emplace("LOE_017e", cardDef);
 }
 
 void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - PRIEST
     // [LOE_006] Museum Curator - COST:2 [ATK:1/HP:2]
     // - Set: LoE, Rarity: Common
@@ -309,6 +348,10 @@ void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::DEATHRATTLE_MINION));
+    cards.emplace("LOE_006", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [LOE_104] Entomb - COST:6
@@ -321,6 +364,13 @@ void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - REQ_MINION_TARGET = 0
     // - REQ_ENEMY_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<MoveToDeckTask>(EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 } };
+    cards.emplace("LOE_104", cardDef);
 
     // ----------------------------------------- SPELL - PRIEST
     // [LOE_111] Excavated Evil - COST:5

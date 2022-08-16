@@ -830,22 +830,22 @@ Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 LOE | LOE_002 | Forgotten Torch | O
 LOE | LOE_003 | Ethereal Conjurer | O
-LOE | LOE_006 | Museum Curator |  
+LOE | LOE_006 | Museum Curator | O
 LOE | LOE_007 | Curse of Rafaam |  
 LOE | LOE_009 | Obsidian Destroyer |  
 LOE | LOE_010 | Pit Snake |  
 LOE | LOE_011 | Reno Jackson | O
 LOE | LOE_012 | Tomb Pillager | O
 LOE | LOE_016 | Rumbling Elemental |  
-LOE | LOE_017 | Keeper of Uldaman |  
+LOE | LOE_017 | Keeper of Uldaman | O
 LOE | LOE_018 | Tunnel Trogg |  
 LOE | LOE_019 | Unearthed Raptor |  
 LOE | LOE_020 | Desert Camel | O
 LOE | LOE_021 | Dart Trap | O
 LOE | LOE_022 | Fierce Monkey |  
 LOE | LOE_023 | Dark Peddler |  
-LOE | LOE_026 | Anyfin Can Happen |  
-LOE | LOE_027 | Sacred Trial |  
+LOE | LOE_026 | Anyfin Can Happen | O
+LOE | LOE_027 | Sacred Trial | O
 LOE | LOE_029 | Jeweled Scarab |  
 LOE | LOE_038 | Naga Sea Witch |  
 LOE | LOE_039 | Gorillabot A-3 | O
@@ -862,7 +862,7 @@ LOE | LOE_079 | Elise Starseeker | O
 LOE | LOE_086 | Summoning Stone |  
 LOE | LOE_089 | Wobbling Runts |  
 LOE | LOE_092 | Arch-Thief Rafaam |  
-LOE | LOE_104 | Entomb |  
+LOE | LOE_104 | Entomb | O
 LOE | LOE_105 | Explorer's Hat | O
 LOE | LOE_107 | Eerie Statue |  
 LOE | LOE_110 | Ancient Shade |  
@@ -874,7 +874,7 @@ LOE | LOE_118 | Cursed Blade |
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 33% (15 of 45 Cards)
+- Progress: 44% (20 of 45 Cards)
 
 ## Whispers of the Old Gods
 
