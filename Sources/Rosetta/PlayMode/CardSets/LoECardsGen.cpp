@@ -466,7 +466,7 @@ void LoECardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
     CardDef cardDef;
-    
+
     // ---------------------------------------- MINION - SHAMAN
     // [LOE_016] Rumbling Elemental - COST:4 [ATK:2/HP:6]
     // - Race: Elemental, Set: LoE, Rarity: Common
@@ -484,8 +484,8 @@ void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cardDef.power.GetTrigger()->conditions = SelfCondList{
         std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard())
     };
-    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(
-        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 2));
+    cardDef.power.GetTrigger()->tasks =
+        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 2);
     cards.emplace("LOE_016", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
