@@ -855,6 +855,51 @@ TEST_CASE("[Rogue : Minion] - LOE_019 : Unearthed Raptor")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [LOE_016] Rumbling Elemental - COST:4 [ATK:2/HP:6]
+// - Race: Elemental, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: After you play a <b>Battlecry</b> minion,
+//       deal 2 damage to a random enemy.
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - LOE_016 : Rumbling Elemental")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Rumbling Elemental"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Fly"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
 // - Set: LoE, Rarity: Legendary
