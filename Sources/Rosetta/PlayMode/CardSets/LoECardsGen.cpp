@@ -435,16 +435,32 @@ void LoECardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::TARGET, GameTag::ENTITY_ID));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "LOE_019e", EntityType::SOURCE, false, true));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_WITH_DEATHRATTLE, 0 } };
+    cards.emplace("LOE_019", cardDef);
 }
 
 void LoECardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [LOE_019e] Unearthed Raptor (*) - COST:0
     // - Set: LoE
     // --------------------------------------------------------
     // Text: Copied Deathrattle from {0}.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<ActivateCapturedDeathrattleTask>());
+    cards.emplace("LOE_019e", cardDef);
 }
 
 void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)

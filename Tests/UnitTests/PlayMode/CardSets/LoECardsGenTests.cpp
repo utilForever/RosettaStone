@@ -797,6 +797,64 @@ TEST_CASE("[Rogue : Minion] - LOE_012 : Tomb Pillager")
     CHECK_EQ(curHand[0]->card->name, "The Coin");
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [LOE_019] Unearthed Raptor - COST:3 [ATK:3/HP:4]
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Choose a friendly minion.
+//       Gain a copy of its <b>Deathrattle</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_TARGET_WITH_DEATHRATTLE = 0
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - LOE_019 : Unearthed Raptor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unearthed Raptor"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField[1]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
 // - Set: LoE, Rarity: Legendary
