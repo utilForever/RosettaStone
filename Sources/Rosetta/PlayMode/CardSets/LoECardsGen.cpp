@@ -517,6 +517,25 @@ void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Give your minions +2/+2.
     //       Costs (1) less for each Murloc you control.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("LOE_113e", EntityType::MINIONS));
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
+            const auto minions = playable->player->GetFieldZone()->GetAll();
+            int numMurlocs = 0;
+
+            for (auto& minion : minions)
+            {
+                if (minion->IsRace(Race::MURLOC))
+                {
+                    ++numMurlocs;
+                }
+            }
+
+            return numMurlocs;
+        }));
+    cards.emplace("LOE_113", cardDef);
 }
 
 void LoECardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
@@ -1030,6 +1049,9 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_113e"));
+    cards.emplace("LOE_113e", cardDef);
 }
 
 void LoECardsGen::AddAll(std::map<std::string, CardDef>& cards)
