@@ -399,6 +399,9 @@ void LoECardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_010", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]

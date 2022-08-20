@@ -737,6 +737,20 @@ TEST_CASE("[Priest : Spell] - LOE_104 : Entomb")
 }
 
 // ----------------------------------------- MINION - ROGUE
+// [LOE_010] Pit Snake - COST:1 [ATK:2/HP:1]
+// - Race: Beast, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Poisonous</b>
+// --------------------------------------------------------
+// GameTag:
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - LOE_010 : Pit Snake")
+{
+    // Do nothing
+}
+
+// ----------------------------------------- MINION - ROGUE
 // [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
 // - Set: LoE, Rarity: Common
 // --------------------------------------------------------
