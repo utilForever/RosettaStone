@@ -399,6 +399,9 @@ void LoECardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - POISONOUS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_010", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
@@ -432,20 +435,38 @@ void LoECardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::TARGET, GameTag::ENTITY_ID));
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "LOE_019e", EntityType::SOURCE, false, true));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_FRIENDLY_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_WITH_DEATHRATTLE, 0 } };
+    cards.emplace("LOE_019", cardDef);
 }
 
 void LoECardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [LOE_019e] Unearthed Raptor (*) - COST:0
     // - Set: LoE
     // --------------------------------------------------------
     // Text: Copied Deathrattle from {0}.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<ActivateCapturedDeathrattleTask>());
+    cards.emplace("LOE_019e", cardDef);
 }
 
 void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - SHAMAN
     // [LOE_016] Rumbling Elemental - COST:4 [ATK:2/HP:6]
     // - Race: Elemental, Set: LoE, Rarity: Common
@@ -456,6 +477,16 @@ void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_PLAY_MINION));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsBattlecryCard())
+    };
+    cardDef.power.GetTrigger()->tasks =
+        ComplexTask::DamageRandomTargets(EntityType::ENEMIES, 1, 2);
+    cards.emplace("LOE_016", cardDef);
 
     // ---------------------------------------- MINION - SHAMAN
     // [LOE_018] Tunnel Trogg - COST:1 [ATK:1/HP:3]
@@ -467,6 +498,17 @@ void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard())
+    };
+    cardDef.power.GetTrigger()->tasks =
+        TaskList{ std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                   GameTag::OVERLOAD),
+                  std::make_shared<AddEnchantmentTask>(
+                      "LOE_018e", EntityType::SOURCE, true) };
+    cards.emplace("LOE_018", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [LOE_113] Everyfin is Awesome - COST:7
@@ -475,16 +517,41 @@ void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // Text: Give your minions +2/+2.
     //       Costs (1) less for each Murloc you control.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("LOE_113e", EntityType::MINIONS));
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
+            const auto minions = playable->player->GetFieldZone()->GetAll();
+            int numMurlocs = 0;
+
+            for (auto& minion : minions)
+            {
+                if (minion->IsRace(Race::MURLOC))
+                {
+                    ++numMurlocs;
+                }
+            }
+
+            return numMurlocs;
+        }));
+    cards.emplace("LOE_113", cardDef);
 }
 
 void LoECardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [LOE_018e] Trogg No Stupid (*) - COST:0
     // - Set: LoE
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("LOE_018e", cardDef);
 }
 
 void LoECardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
@@ -982,6 +1049,9 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_113e"));
+    cards.emplace("LOE_113e", cardDef);
 }
 
 void LoECardsGen::AddAll(std::map<std::string, CardDef>& cards)

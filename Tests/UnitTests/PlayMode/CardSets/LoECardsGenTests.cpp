@@ -737,6 +737,20 @@ TEST_CASE("[Priest : Spell] - LOE_104 : Entomb")
 }
 
 // ----------------------------------------- MINION - ROGUE
+// [LOE_010] Pit Snake - COST:1 [ATK:2/HP:1]
+// - Race: Beast, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Poisonous</b>
+// --------------------------------------------------------
+// GameTag:
+// - POISONOUS = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - LOE_010 : Pit Snake")
+{
+    // Do nothing
+}
+
+// ----------------------------------------- MINION - ROGUE
 // [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4]
 // - Set: LoE, Rarity: Common
 // --------------------------------------------------------
@@ -781,6 +795,209 @@ TEST_CASE("[Rogue : Minion] - LOE_012 : Tomb Pillager")
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
     CHECK_EQ(curHand.GetCount(), 1);
     CHECK_EQ(curHand[0]->card->name, "The Coin");
+}
+
+// ----------------------------------------- MINION - ROGUE
+// [LOE_019] Unearthed Raptor - COST:3 [ATK:3/HP:4]
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Choose a friendly minion.
+//       Gain a copy of its <b>Deathrattle</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_FRIENDLY_TARGET = 0
+// - REQ_TARGET_WITH_DEATHRATTLE = 0
+// --------------------------------------------------------
+// RefTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - LOE_019 : Unearthed Raptor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Unearthed Raptor"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField[1]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [LOE_016] Rumbling Elemental - COST:4 [ATK:2/HP:6]
+// - Race: Elemental, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: After you play a <b>Battlecry</b> minion,
+//       deal 2 damage to a random enemy.
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - LOE_016 : Rumbling Elemental")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Rumbling Elemental"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Fly"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
+// ---------------------------------------- MINION - SHAMAN
+// [LOE_018] Tunnel Trogg - COST:1 [ATK:1/HP:3]
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you <b>Overload</b>,
+//       gain +1 Attack per locked Mana Crystal.
+// --------------------------------------------------------
+// RefTag:
+// - OVERLOAD = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - LOE_018 : Tunnel Trogg")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tunnel Trogg"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Fly"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dust Devil"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetAttack(), 1);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+}
+
+// ----------------------------------------- SPELL - SHAMAN
+// [LOE_113] Everyfin is Awesome - COST:7
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Give your minions +2/+2.
+//       Costs (1) less for each Murloc you control.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Spell] - LOE_113 : Everyfin is Awesome")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Everyfin is Awesome"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Fly"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Murloc Tinyfin"));
+
+    CHECK_EQ(card1->GetCost(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(card1->GetCost(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(card1->GetCost(), 6);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
 }
 
 // --------------------------------------- MINION - NEUTRAL

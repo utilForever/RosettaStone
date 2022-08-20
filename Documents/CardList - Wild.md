@@ -833,13 +833,13 @@ LOE | LOE_003 | Ethereal Conjurer | O
 LOE | LOE_006 | Museum Curator | O
 LOE | LOE_007 | Curse of Rafaam |  
 LOE | LOE_009 | Obsidian Destroyer |  
-LOE | LOE_010 | Pit Snake |  
+LOE | LOE_010 | Pit Snake | O
 LOE | LOE_011 | Reno Jackson | O
 LOE | LOE_012 | Tomb Pillager | O
-LOE | LOE_016 | Rumbling Elemental |  
+LOE | LOE_016 | Rumbling Elemental | O
 LOE | LOE_017 | Keeper of Uldaman | O
-LOE | LOE_018 | Tunnel Trogg |  
-LOE | LOE_019 | Unearthed Raptor |  
+LOE | LOE_018 | Tunnel Trogg | O
+LOE | LOE_019 | Unearthed Raptor | O
 LOE | LOE_020 | Desert Camel | O
 LOE | LOE_021 | Dart Trap | O
 LOE | LOE_022 | Fierce Monkey |  
@@ -867,14 +867,14 @@ LOE | LOE_105 | Explorer's Hat | O
 LOE | LOE_107 | Eerie Statue |  
 LOE | LOE_110 | Ancient Shade |  
 LOE | LOE_111 | Excavated Evil |  
-LOE | LOE_113 | Everyfin is Awesome |  
+LOE | LOE_113 | Everyfin is Awesome | O
 LOE | LOE_115 | Raven Idol | O
 LOE | LOE_116 | Reliquary Seeker |  
 LOE | LOE_118 | Cursed Blade |  
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 44% (20 of 45 Cards)
+- Progress: 55% (25 of 45 Cards)
 
 ## Whispers of the Old Gods
 
