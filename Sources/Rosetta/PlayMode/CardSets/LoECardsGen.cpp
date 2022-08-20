@@ -498,6 +498,17 @@ void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - OVERLOAD = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::PLAY_CARD));
+    cardDef.power.GetTrigger()->conditions = SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsOverloadCard())
+    };
+    cardDef.power.GetTrigger()->tasks =
+        TaskList{ std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                                   GameTag::OVERLOAD),
+                  std::make_shared<AddEnchantmentTask>(
+                      "LOE_018e", EntityType::SOURCE, true) };
+    cards.emplace("LOE_018", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [LOE_113] Everyfin is Awesome - COST:7
@@ -510,12 +521,18 @@ void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- ENCHANTMENT - SHAMAN
     // [LOE_018e] Trogg No Stupid (*) - COST:0
     // - Set: LoE
     // --------------------------------------------------------
     // Text: Increased Attack.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Enchants::AddAttackScriptTag));
+    cards.emplace("LOE_018e", cardDef);
 }
 
 void LoECardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
