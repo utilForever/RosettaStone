@@ -682,6 +682,12 @@ void LoECardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 3
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::TAKE_DAMAGE_DOUBLE,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("LOE_118", cardDef);
 }
 
 void LoECardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
