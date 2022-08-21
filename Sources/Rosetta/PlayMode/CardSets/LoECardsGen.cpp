@@ -596,18 +596,29 @@ void LoECardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldFull()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "LOE_009e", EntityType::SOURCE) }));
+    cards.emplace("LOE_116", cardDef);
 }
 
 void LoECardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
     CardDef cardDef;
-    
+
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [LOE_009e] Sinister Power (*) - COST:0
     // - Set: LoE
     // --------------------------------------------------------
     // Text: +4/+4.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_009e"));
+    cards.emplace("LOE_009e", cardDef);
 
     // ---------------------------------------- SPELL - WARLOCK
     // [LOE_007t] Cursed! (*) - COST:2
