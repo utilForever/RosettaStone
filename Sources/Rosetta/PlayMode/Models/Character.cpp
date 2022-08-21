@@ -258,6 +258,13 @@ int Character::TakeDamage(Playable* source, int damage)
             "Character::TakeDamage() - source is nullptr");
     }
 
+    if (const auto value =
+            player->playerAuraEffects.GetValue(GameTag::TAKE_DAMAGE_DOUBLE);
+        value > 0)
+    {
+        damage *= 2;
+    }
+
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
 
