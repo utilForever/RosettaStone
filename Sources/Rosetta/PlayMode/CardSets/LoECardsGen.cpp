@@ -642,6 +642,8 @@ void LoECardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARRIOR
     // [LOE_009] Obsidian Destroyer - COST:7 [ATK:7/HP:7]
     // - Set: LoE, Rarity: Common
@@ -652,6 +654,11 @@ void LoECardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "LOE_009t", SummonSide::RIGHT) };
+    cards.emplace("LOE_009", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
     // [LOE_022] Fierce Monkey - COST:3 [ATK:3/HP:4]
@@ -676,6 +683,8 @@ void LoECardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARRIOR
     // [LOE_009t] Scarab (*) - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: LoE
@@ -685,6 +694,9 @@ void LoECardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_009t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - WARRIOR
     // [LOE_118e] Cursed Blade (*) - COST:0
