@@ -1000,6 +1000,59 @@ TEST_CASE("[Shaman : Spell] - LOE_113 : Everyfin is Awesome")
     CHECK_EQ(curField[1]->GetHealth(), 3);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [LOE_007] Curse of Rafaam - COST:2
+// - Set: LoE, Rarity: common
+// --------------------------------------------------------
+// Text: Give your opponent a 'Cursed!' card.
+//       While they hold it, they take 2 damage on their turn.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - LOE_007 : Curse of Rafaam")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opHand = *(opPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Curse of Rafaam"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(opHand.GetCount(), 6);
+    CHECK_EQ(opHand[5]->card->name, "Cursed!");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+
+    game.Process(opPlayer, PlayCardTask::Spell(opHand[5]));
+    CHECK_EQ(opHand.GetCount(), 6);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
 // - Set: LoE, Rarity: Legendary

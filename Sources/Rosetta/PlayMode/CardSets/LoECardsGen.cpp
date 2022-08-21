@@ -556,6 +556,8 @@ void LoECardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [LOE_007] Curse of Rafaam - COST:2
     // - Set: LoE, Rarity: common
@@ -563,6 +565,10 @@ void LoECardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // Text: Give your opponent a 'Cursed!' card.
     //       While they hold it, they take 2 damage on their turn.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_HAND, "LOE_007t"));
+    cards.emplace("LOE_007", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [LOE_023] Dark Peddler - COST:2 [ATK:2/HP:2]
@@ -590,6 +596,8 @@ void LoECardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
 void LoECardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+    
     // ---------------------------------- ENCHANTMENT - WARLOCK
     // [LOE_009e] Sinister Power (*) - COST:0
     // - Set: LoE
@@ -608,6 +616,13 @@ void LoECardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
     // - ImmuneToSpellpower = 1
     // - EVIL_GLOW = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+    cardDef.power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    cardDef.power.GetTrigger()->tasks =
+        TaskList{ std::make_shared<DamageTask>(EntityType::HERO, 2) };
+    cards.emplace("LOE_007t", cardDef);
 }
 
 void LoECardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
