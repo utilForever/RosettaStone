@@ -1214,6 +1214,20 @@ TEST_CASE("[Warrior : Minion] - LOE_009 : Obsidian Destroyer")
     CHECK_EQ(curField[1]->HasTaunt(), true);
 }
 
+// --------------------------------------- MINION - WARRIOR
+// [LOE_022] Fierce Monkey - COST:3 [ATK:3/HP:4]
+// - Race: Beast, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Minion] - LOE_022 : Fierce Monkey")
+{
+    // Do nothing
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
 // - Set: LoE, Rarity: Legendary

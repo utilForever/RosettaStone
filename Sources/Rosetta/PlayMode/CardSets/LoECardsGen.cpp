@@ -669,6 +669,9 @@ void LoECardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_022", cardDef);
 
     // --------------------------------------- WEAPON - WARRIOR
     // [LOE_118] Cursed Blade - COST:1 [ATK:2/HP:0]
