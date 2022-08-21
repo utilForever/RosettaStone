@@ -1053,6 +1053,56 @@ TEST_CASE("[Warlock : Spell] - LOE_007 : Curse of Rafaam")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 28);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [LOE_023] Dark Peddler - COST:2 [ATK:2/HP:2]
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry: Discover</b> a 1-Cost card.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - LOE_023 : Dark Peddler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dark Peddler"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCost(), 1);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6]
 // - Set: LoE, Rarity: Legendary

@@ -581,6 +581,10 @@ void LoECardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::ONE_COST_CARD));
+    cards.emplace("LOE_023", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [LOE_116] Reliquary Seeker - COST:1 [ATK:1/HP:1]
