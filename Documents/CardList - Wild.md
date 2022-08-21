@@ -831,8 +831,8 @@ Set | ID | Name | Implemented
 LOE | LOE_002 | Forgotten Torch | O
 LOE | LOE_003 | Ethereal Conjurer | O
 LOE | LOE_006 | Museum Curator | O
-LOE | LOE_007 | Curse of Rafaam |  
-LOE | LOE_009 | Obsidian Destroyer |  
+LOE | LOE_007 | Curse of Rafaam | O
+LOE | LOE_009 | Obsidian Destroyer | O
 LOE | LOE_010 | Pit Snake | O
 LOE | LOE_011 | Reno Jackson | O
 LOE | LOE_012 | Tomb Pillager | O
@@ -842,8 +842,8 @@ LOE | LOE_018 | Tunnel Trogg | O
 LOE | LOE_019 | Unearthed Raptor | O
 LOE | LOE_020 | Desert Camel | O
 LOE | LOE_021 | Dart Trap | O
-LOE | LOE_022 | Fierce Monkey |  
-LOE | LOE_023 | Dark Peddler |  
+LOE | LOE_022 | Fierce Monkey | O
+LOE | LOE_023 | Dark Peddler | O
 LOE | LOE_026 | Anyfin Can Happen | O
 LOE | LOE_027 | Sacred Trial | O
 LOE | LOE_029 | Jeweled Scarab |  
@@ -869,12 +869,12 @@ LOE | LOE_110 | Ancient Shade |
 LOE | LOE_111 | Excavated Evil |  
 LOE | LOE_113 | Everyfin is Awesome | O
 LOE | LOE_115 | Raven Idol | O
-LOE | LOE_116 | Reliquary Seeker |  
-LOE | LOE_118 | Cursed Blade |  
+LOE | LOE_116 | Reliquary Seeker | O
+LOE | LOE_118 | Cursed Blade | O
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 55% (25 of 45 Cards)
+- Progress: 68% (31 of 45 Cards)
 
 ## Whispers of the Old Gods
 
