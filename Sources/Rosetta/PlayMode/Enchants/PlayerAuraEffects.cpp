@@ -42,6 +42,8 @@ int PlayerAuraEffects::GetValue(GameTag tag) const
             return m_chooseBoth;
         case GameTag::HEROPOWER_DAMAGE:
             return m_heroPowerDamage;
+        case GameTag::TAKE_DAMAGE_DOUBLE:
+            return m_takeDamageDouble;
         default:
             throw std::invalid_argument(
                 "PlayerAuraEffects::GetValue() - Invalid game tag!");
@@ -94,6 +96,9 @@ void PlayerAuraEffects::SetValue(GameTag tag, int value)
             break;
         case GameTag::HEROPOWER_DAMAGE:
             m_heroPowerDamage = value;
+            break;
+        case GameTag::TAKE_DAMAGE_DOUBLE:
+            m_takeDamageDouble = value;
             break;
         default:
             throw std::invalid_argument(

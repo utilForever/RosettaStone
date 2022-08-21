@@ -62,6 +62,7 @@ class PlayerAuraEffects
     int m_megaWindfury = 0;
     int m_chooseBoth = 0;
     int m_heroPowerDamage = 0;
+    int m_takeDamageDouble = 0;
 };
 }  // namespace RosettaStone::PlayMode
 
