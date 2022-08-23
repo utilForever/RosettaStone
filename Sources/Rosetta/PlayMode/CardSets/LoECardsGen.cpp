@@ -750,6 +750,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::THREE_COST_CARD));
+    cards.emplace("LOE_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_038] Naga Sea Witch - COST:8 [ATK:5/HP:5]
