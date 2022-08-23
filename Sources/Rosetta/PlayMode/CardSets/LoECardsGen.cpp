@@ -764,6 +764,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::SetCost(5) }));
+    cards.emplace("LOE_038", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_039] Gorillabot A-3 - COST:3 [ATK:3/HP:4]

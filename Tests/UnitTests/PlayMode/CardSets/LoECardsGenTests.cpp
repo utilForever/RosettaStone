@@ -1393,6 +1393,59 @@ TEST_CASE("[Neutral : Minion] - LOE_029 : Jeweled Scarab")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_038] Naga Sea Witch - COST:8 [ATK:5/HP:5]
+// - Set: LoE, Rarity: Epic
+// --------------------------------------------------------
+// Text: Your cards cost (5).
+// --------------------------------------------------------
+// GameTag:
+// - AURA = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_038 : Naga Sea Witch")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Naga Sea Witch"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malygos"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 5);
+    CHECK_EQ(card3->GetCost(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card4, card1));
+    CHECK_EQ(card2->GetCost(), 0);
+    CHECK_EQ(card3->GetCost(), 9);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOE_039] Gorillabot A-3 - COST:3 [ATK:3/HP:4]
 // - Race: Mechanical, Set: LoE, Rarity: Common
 // --------------------------------------------------------
