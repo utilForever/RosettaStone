@@ -21,6 +21,7 @@ enum class DiscoverType
     BASIC_TOTEM_CLASSIC,
     CHOOSE_ONE,
     ONE_COST_CARD,
+    THREE_COST_CARD,
     FOUR_COST_CARD,
     MINION,
     SIX_COST_MINION_SUMMON,

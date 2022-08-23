@@ -331,6 +331,16 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::THREE_COST_CARD:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetCost() == 3)
+                {
+                    cardsForGeneration.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::FOUR_COST_CARD:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)
