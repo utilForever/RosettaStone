@@ -480,6 +480,16 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::BEAST:
+            choiceAction = ChoiceAction::HAND;
+            for (auto& card : allCards)
+            {
+                if (card->GetRace() == Race::BEAST)
+                {
+                    cardsForGeneration.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::DEMON:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)

@@ -1548,6 +1548,57 @@ TEST_CASE("[Neutral : Minion] - LOE_046 : Huge Toad")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_047] Tomb Spider - COST:4 [ATK:3/HP:3]
+// - Race: Beast, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry: Discover</b> a Beast.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Mage : Minion] - LOE_047 : Tomb Spider")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tomb Spider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::MINION);
+        CHECK_EQ(card->GetRace(), Race::BEAST);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
 // - Race: Murloc, Set: LoE, Rarity: Legendary
 // --------------------------------------------------------
