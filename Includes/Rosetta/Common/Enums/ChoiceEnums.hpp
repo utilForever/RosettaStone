@@ -35,6 +35,7 @@ enum class DiscoverType
     HOLY_SPELL,
     SPELL_THREE_COST_OR_LESS,
     SECRET,
+    BEAST,
     DEMON,
     DRAGON,
     MECHANICAL,

@@ -818,6 +818,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::BEAST));
+    cards.emplace("LOE_047", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_053] Djinni of Zephyrs - COST:5 [ATK:4/HP:6]
