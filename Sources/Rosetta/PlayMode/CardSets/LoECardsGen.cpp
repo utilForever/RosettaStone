@@ -928,6 +928,14 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("LOE_089t", SummonSide::DEATHRATTLE));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("LOE_089t2", SummonSide::DEATHRATTLE));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("LOE_089t3", SummonSide::DEATHRATTLE));
+    cards.emplace("LOE_089", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_092] Arch-Thief Rafaam - COST:9 [ATK:7/HP:8]
@@ -1082,16 +1090,25 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [LOE_089t] Rascally Runt (*) - COST:2 [ATK:2/HP:2]
     // - Set: LoE
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_089t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_089t2] Wily Runt (*) - COST:2 [ATK:2/HP:2]
     // - Set: LoE
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_089t2", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_089t3] Grumbly Runt (*) - COST:2 [ATK:2/HP:2]
     // - Set: LoE
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_089t3", cardDef);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [LOE_110t] Ancient Curse (*) - COST:4
