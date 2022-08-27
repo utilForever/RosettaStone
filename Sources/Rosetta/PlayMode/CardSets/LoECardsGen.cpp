@@ -800,6 +800,12 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 1));
+    cards.emplace("LOE_046", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_047] Tomb Spider - COST:4 [ATK:3/HP:3]

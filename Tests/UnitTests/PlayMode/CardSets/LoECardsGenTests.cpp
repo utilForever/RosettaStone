@@ -1498,6 +1498,56 @@ TEST_CASE("[Neutral : Minion] - LOE_039 : Gorillabot A-3")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_046] Huge Toad - COST:2 [ATK:3/HP:2]
+// - Race: Beast, Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Deal 1 damage to a random enemy.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_046 : Huge Toad")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Huge Toad"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Shieldbearer"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth() + opField[0]->GetHealth(), 34);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth() + opField[0]->GetHealth(), 33);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
 // - Race: Murloc, Set: LoE, Rarity: Legendary
 // --------------------------------------------------------
