@@ -24,6 +24,7 @@
 * ApplyEffectTask
 * ArmorTask
 * AttackTask
+* CastCopyTask
 * CastRandomSpellTask
 * CastSpellStackTask
 * ChanceTask

@@ -59,7 +59,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * 6% Goblins vs Gnomes (8 of 123 Cards)
   * **100% Blackrock Mountain (31 of 31 Cards)**
   * 8% The Grand Tournament (11 of 132 Cards)
-  * 68% The League of Explorers (31 of 45 Cards)
+  * 82% The League of Explorers (37 of 45 Cards)
   * 5% Whispers of the Old Gods (8 of 134 Cards)
   * 15% One Night in Karazhan (7 of 45 Cards)
   * 2% Mean Streets of Gadgetzan (3 of 132 Cards)

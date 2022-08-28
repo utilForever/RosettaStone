@@ -750,6 +750,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::THREE_COST_CARD));
+    cards.emplace("LOE_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_038] Naga Sea Witch - COST:8 [ATK:5/HP:5]
@@ -760,6 +764,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HAND, EffectList{ Effects::SetCost(5) }));
+    cards.emplace("LOE_038", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_039] Gorillabot A-3 - COST:3 [ATK:3/HP:4]
@@ -792,6 +800,12 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<RandomTask>(EntityType::ENEMIES, 1));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<DamageTask>(EntityType::STACK, 1));
+    cards.emplace("LOE_046", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_047] Tomb Spider - COST:4 [ATK:3/HP:3]
@@ -804,6 +818,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::BEAST));
+    cards.emplace("LOE_047", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_053] Djinni of Zephyrs - COST:5 [ATK:4/HP:6]
@@ -815,6 +833,14 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - 1059 = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::SPELLS_CASTED_ON_ANOTHER_FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<CastCopyTask>(
+        EntityType::EVENT_SOURCE) };
+    cards.emplace("LOE_053", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_061] Anubisath Sentinel - COST:5 [ATK:4/HP:4]
@@ -914,6 +940,14 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("LOE_089t", SummonSide::DEATHRATTLE));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("LOE_089t2", SummonSide::DEATHRATTLE));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("LOE_089t3", SummonSide::DEATHRATTLE));
+    cards.emplace("LOE_089", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_092] Arch-Thief Rafaam - COST:9 [ATK:7/HP:8]
@@ -1068,16 +1102,25 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [LOE_089t] Rascally Runt (*) - COST:2 [ATK:2/HP:2]
     // - Set: LoE
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_089t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_089t2] Wily Runt (*) - COST:2 [ATK:2/HP:2]
     // - Set: LoE
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_089t2", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_089t3] Grumbly Runt (*) - COST:2 [ATK:2/HP:2]
     // - Set: LoE
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOE_089t3", cardDef);
 
     // ---------------------------------------- SPELL - NEUTRAL
     // [LOE_110t] Ancient Curse (*) - COST:4

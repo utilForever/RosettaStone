@@ -7,12 +7,11 @@
 #define ROSETTASTONE_PLAYMODE_SUMMON_COPY_TASK_HPP
 
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
-#include <Rosetta/PlayMode/Tasks/SimpleTasks/SummonTask.hpp>
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 //!
-//! \brief SummonOpTask class.
+//! \brief SummonCopyTask class.
 //!
 //! This class represents the task for summoning a copy of one
 //! (or more) existing entity.
