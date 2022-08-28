@@ -833,6 +833,14 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - 1059 = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource =
+        TriggerSource::SPELLS_CASTED_ON_ANOTHER_FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<CastCopyTask>(
+        EntityType::EVENT_SOURCE) };
+    cards.emplace("LOE_053", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_061] Anubisath Sentinel - COST:5 [ATK:4/HP:4]

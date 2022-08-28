@@ -1558,7 +1558,7 @@ TEST_CASE("[Neutral : Minion] - LOE_046 : Huge Toad")
 // - DISCOVER = 1
 // - USE_DISCOVER_VISUALS = 1
 // --------------------------------------------------------
-TEST_CASE("[Mage : Minion] - LOE_047 : Tomb Spider")
+TEST_CASE("[Neutral : Minion] - LOE_047 : Tomb Spider")
 {
     GameConfig config;
     config.player1Class = CardClass::HUNTER;
@@ -1596,6 +1596,53 @@ TEST_CASE("[Mage : Minion] - LOE_047 : Tomb Spider")
 
     TestUtils::ChooseNthChoice(game, 1);
     CHECK_EQ(curHand.GetCount(), 1);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [LOE_053] Djinni of Zephyrs - COST:5 [ATK:4/HP:6]
+// - Race: Elemental, Set: LoE, Rarity: Epic
+// --------------------------------------------------------
+// Text: After you cast a spell on another friendly minion,
+//       cast a copy of it on this one.
+// --------------------------------------------------------
+// GameTag:
+// - 1059 = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_053 : Djinni of Zephyrs")
+{
+    GameConfig config;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Djinni of Zephyrs"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curField.GetCount(), 0);
 }
 
 // --------------------------------------- MINION - NEUTRAL
