@@ -846,21 +846,21 @@ LOE | LOE_022 | Fierce Monkey | O
 LOE | LOE_023 | Dark Peddler | O
 LOE | LOE_026 | Anyfin Can Happen | O
 LOE | LOE_027 | Sacred Trial | O
-LOE | LOE_029 | Jeweled Scarab |  
-LOE | LOE_038 | Naga Sea Witch |  
+LOE | LOE_029 | Jeweled Scarab | O
+LOE | LOE_038 | Naga Sea Witch | O
 LOE | LOE_039 | Gorillabot A-3 | O
-LOE | LOE_046 | Huge Toad |  
-LOE | LOE_047 | Tomb Spider |  
+LOE | LOE_046 | Huge Toad | O
+LOE | LOE_047 | Tomb Spider | O
 LOE | LOE_050 | Mounted Raptor | O
 LOE | LOE_051 | Jungle Moonkin | O
-LOE | LOE_053 | Djinni of Zephyrs |  
+LOE | LOE_053 | Djinni of Zephyrs | O
 LOE | LOE_061 | Anubisath Sentinel |  
 LOE | LOE_073 | Fossilized Devilsaur |  
 LOE | LOE_076 | Sir Finley Mrrgglton | O
 LOE | LOE_077 | Brann Bronzebeard | O
 LOE | LOE_079 | Elise Starseeker | O
 LOE | LOE_086 | Summoning Stone |  
-LOE | LOE_089 | Wobbling Runts |  
+LOE | LOE_089 | Wobbling Runts | O
 LOE | LOE_092 | Arch-Thief Rafaam |  
 LOE | LOE_104 | Entomb | O
 LOE | LOE_105 | Explorer's Hat | O
@@ -874,7 +874,7 @@ LOE | LOE_118 | Cursed Blade | O
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 68% (31 of 45 Cards)
+- Progress: 82% (37 of 45 Cards)
 
 ## Whispers of the Old Gods
 
