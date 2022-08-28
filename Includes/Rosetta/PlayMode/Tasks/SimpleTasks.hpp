@@ -17,6 +17,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ArmorTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AttackTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/CastCopyTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CastRandomSpellTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CastSpellStackTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChanceTask.hpp>
