@@ -701,6 +701,17 @@ void Trigger::Validate(Entity* source)
             }
             break;
         }
+        case TriggerSource::SPELLS_CASTED_ON_ANOTHER_FRIENDLY:
+        {
+            if (!dynamic_cast<Spell*>(source) ||
+                (source && source->player != m_owner->player) ||
+                !source->game->currentEventData ||
+                source->game->currentEventData->eventTarget == m_owner)
+            {
+                return;
+            }
+            break;
+        }
         case TriggerSource::ENEMY_SPELLS:
         {
             if (!dynamic_cast<Spell*>(source) ||
