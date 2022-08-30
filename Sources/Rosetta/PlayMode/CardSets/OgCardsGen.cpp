@@ -556,7 +556,7 @@ void OgCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("OG_229", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
-    // [OG_273] Stand Against Darkness - COST:5
+    // [OG_273] Stand Against Darkness - COST:4
     // - Set: Og, Rarity: Common
     // --------------------------------------------------------
     // Text: Summon five 1/1 Silver Hand Recruits.

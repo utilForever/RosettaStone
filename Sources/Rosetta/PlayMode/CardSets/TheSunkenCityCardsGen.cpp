@@ -2468,7 +2468,7 @@ void TheSunkenCityCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [TID_716] Tidal Revenant - COST:8 [ATK:5/HP:8]
     // - Race: Elemental, Set: THE_SUNKEN_CITY, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Deal 5 damage. Gain 5 Armor.
+    // Text: <b>Battlecry:</b> Deal 5 damage. Gain 8 Armor.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2680,7 +2680,7 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     // --------------------------------------------------------
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [TSC_608] Abyssal Depths - COST:4
+    // [TSC_608] Abyssal Depths - COST:3
     // - Set: THE_SUNKEN_CITY, Rarity: Common
     // - Spell School: Shadow
     // --------------------------------------------------------

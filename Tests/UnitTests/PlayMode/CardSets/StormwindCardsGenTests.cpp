@@ -2323,7 +2323,7 @@ TEST_CASE("[Warrior : Minion] - DED_519 : Defias Cannoneer")
 }
 
 // ----------------------------------- MINION - DEMONHUNTER
-// [SW_037] Irebound Brute - COST:8 [ATK:6/HP:7]
+// [SW_037] Irebound Brute - COST:7 [ATK:6/HP:7]
 // - Race: Demon, Set: STORMWIND, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Taunt</b>
@@ -2357,10 +2357,10 @@ TEST_CASE("[Demon Hunter : Minion] - SW_037 : Irebound Brute")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Chaos Strike"));
 
-    CHECK_EQ(card1->GetCost(), 7);
+    CHECK_EQ(card1->GetCost(), 6);
 
     game.Process(curPlayer, PlayCardTask::Spell(card2));
-    CHECK_EQ(card1->GetCost(), 6);
+    CHECK_EQ(card1->GetCost(), 5);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -2368,7 +2368,7 @@ TEST_CASE("[Demon Hunter : Minion] - SW_037 : Irebound Brute")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    CHECK_EQ(card1->GetCost(), 7);
+    CHECK_EQ(card1->GetCost(), 6);
 }
 
 // ----------------------------------- MINION - DEMONHUNTER

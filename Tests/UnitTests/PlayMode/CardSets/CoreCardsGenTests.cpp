@@ -3084,7 +3084,7 @@ TEST_CASE("[Mage : Minion] - CORE_UNG_020 : Arcanologist")
 // [CORE_AT_075] Warhorse Trainer - COST:3 [ATK:3/HP:4]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
-// Text: Your Silver Hand Recruits have +1 Attack.
+// Text: Your Silver Hand Recruits have +2 Attack and <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - AURA = 1
@@ -3128,7 +3128,8 @@ TEST_CASE("[Paladin : Minion] - CORE_AT_075 : Warhorse Trainer")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -3137,6 +3138,7 @@ TEST_CASE("[Paladin : Minion] - CORE_AT_075 : Warhorse Trainer")
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
 }
 
 // ---------------------------------------- SPELL - PALADIN
@@ -3887,7 +3889,7 @@ TEST_CASE("[Paladin : Minion] - CORE_OG_229 : Ragnaros, Lightlord")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [CORE_OG_273] Stand Against Darkness - COST:5
+// [CORE_OG_273] Stand Against Darkness - COST:4
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
 // Text: Summon five 1/1 Silver Hand Recruits.
@@ -5383,7 +5385,7 @@ TEST_CASE("[Rogue : Spell] - CORE_CS2_076 : Assassinate")
 }
 
 // ------------------------------------------ SPELL - ROGUE
-// [CORE_CS2_077] Sprint - COST:6
+// [CORE_CS2_077] Sprint - COST:5
 // - Set: CORE, Rarity: Rare
 // --------------------------------------------------------
 // Text: Draw 4 cards.
@@ -7705,7 +7707,7 @@ TEST_CASE("[Warlock : Minion] - CS3_003 : Felsoul Jailer")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [CORE_AT_064] Bash - COST:3
+// [CORE_AT_064] Bash - COST:2
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
 // Text: Deal 3 damage.
@@ -7817,7 +7819,7 @@ TEST_CASE("[Warrior : Spell] - CORE_CS2_108 : Execute")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [CORE_EX1_391] Slam - COST:2
+// [CORE_EX1_391] Slam - COST:1
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
 // Text: Deal 2 damage to a minion. If it survives, draw a card.
@@ -8240,7 +8242,7 @@ TEST_CASE("[Warrior : Minion] - CORE_EX1_414 : Grommash Hellscream")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [CORE_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+// [CORE_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:3]
 // - Set: CORE, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 1 damage to a minion
@@ -8284,13 +8286,13 @@ TEST_CASE("[Warrior : Minion] - CORE_EX1_603 : Cruel Taskmaster")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
     CHECK_EQ(curField[0]->GetAttack(), 4);
-    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(curField[1]->GetAttack(), 2);
-    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
 }
 
 // --------------------------------------- MINION - WARRIOR
