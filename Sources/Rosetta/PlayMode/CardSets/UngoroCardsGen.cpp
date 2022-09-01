@@ -2015,6 +2015,11 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
 
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "UNG_809t1", 1));
+    cards.emplace("UNG_809", cardDef);
+
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_810] Stegodon - COST:4 [ATK:2/HP:6]
     // - Race: Beast, Faction: Neutral, Set: Ungoro, Rarity: Common
@@ -2256,6 +2261,7 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
     // --------------------------------------- MINION - NEUTRAL
     // [ICC_828t2] Stubborn Gastropod (*) - COST:2 [ATK:1/HP:2]
     // - Race: Beast, Faction: Neutral, Set: Ungoro, Rarity: Common
@@ -2354,6 +2360,9 @@ void UngoroCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [UNG_809t1] Flame Elemental (*) - COST:1 [ATK:1/HP:2]
     // - Race: Elemental, Faction: Alliance, Set: Ungoro
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("UNG_809t1", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [UNG_823e] Envenomed (*) - COST:0
