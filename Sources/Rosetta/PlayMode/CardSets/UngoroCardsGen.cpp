@@ -2014,7 +2014,6 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "UNG_809t1", 1));
