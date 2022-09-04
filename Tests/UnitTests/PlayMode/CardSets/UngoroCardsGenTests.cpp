@@ -362,9 +362,6 @@ TEST_CASE("[Neutral : Minion] - UNG_083 : Devilsaur Egg")
     CHECK_EQ(curField[0]->card->name, "Devilsaur");
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 5);
-    CHECK_EQ(opField[0]->card->name, "Wolfrider");
-    CHECK_EQ(opField[0]->GetAttack(), 3);
-    CHECK_EQ(opField[0]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
