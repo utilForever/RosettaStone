@@ -1850,6 +1850,10 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("UNG_083t1", SummonSide::DEATHRATTLE));
+    cards.emplace("UNG_083", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_084] Fire Plume Phoenix - COST:4 [ATK:3/HP:3]
@@ -2014,7 +2018,6 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
-
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
         std::make_shared<AddCardTask>(EntityType::HAND, "UNG_809t1", 1));
@@ -2329,6 +2332,9 @@ void UngoroCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [UNG_083t1] Devilsaur (*) - COST:5 [ATK:5/HP:5]
     // - Race: Beast, Set: Ungoro
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("UNG_083t1", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [UNG_113e] Scouted (*) - COST:0

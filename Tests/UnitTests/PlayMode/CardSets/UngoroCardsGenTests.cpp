@@ -312,6 +312,98 @@ TEST_CASE("[Warlock : Minion] - UNG_833 : Lakkari Felhound")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [UNG_083] Devilsaur Egg - COST:3 [ATK:0/HP:3]
+// - Set: Ungoro, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 5/5 Devilsaur.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - UNG_083 : Devilsaur Egg")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Devilsaur Egg"));
+    const auto card2 = 
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->card->name, "Devilsaur Egg");
+    CHECK_EQ(curField[0]->GetAttack(), 0);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    game.Process(opPlayer, AttackTask(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Devilsaur");
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [UNG_809] Fire Fly - COST:1 [ATK:1/HP:2]
+// - Race: Elemental, Faction: Alliance, Set: Ungoro, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry</b>: Add a 1/2 Elemental to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - UNG_809 : Fire Fly")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Fly"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->name, "Flame Elemental");
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [UNG_813] Stormwatcher - COST:7 [ATK:4/HP:8]
 // - Race: Elemental, Set: Ungoro, Rarity: Common
 // --------------------------------------------------------
@@ -447,45 +539,4 @@ TEST_CASE("[Neutral : Minion] - UNG_928 : Tar Creeper")
 
     CHECK_EQ(curField[0]->GetAttack(), 1);
     CHECK_EQ(curField[0]->GetHealth(), 5);
-}
-
-// --------------------------------------- MINION - NEUTRAL
-// [UNG_809] Fire Fly - COST:1 [ATK:1/HP:2]
-// - Race: Elemental, Faction: Alliance, Set: Ungoro, Rarity: Common
-// --------------------------------------------------------
-// Text: <b>Battlecry</b>: Add a 1/2 Elemental to your hand.
-// --------------------------------------------------------
-// GameTag:
-// - BATTLECRY = 1
-// --------------------------------------------------------
-
-TEST_CASE("[Neutral : Minion] - UNG_809 : Fire Fly")
-{
-    GameConfig config;
-    config.player1Class = CardClass::WARRIOR;
-    config.player2Class = CardClass::ROGUE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doFillDecks = true;
-    config.autoRun = false;
-
-    Game game(config);
-    game.Start();
-    game.ProcessUntil(Step::MAIN_ACTION);
-
-    Player* curPlayer = game.GetCurrentPlayer();
-    Player* opPlayer = game.GetOpponentPlayer();
-    curPlayer->SetTotalMana(10);
-    curPlayer->SetUsedMana(0);
-    opPlayer->SetTotalMana(10);
-    opPlayer->SetUsedMana(0);
-
-    auto& curHand = *(curPlayer->GetHandZone());
-
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Fire Fly"));
-
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    
-    CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(curHand[4]->card->name, "Flame Elemental");
 }
