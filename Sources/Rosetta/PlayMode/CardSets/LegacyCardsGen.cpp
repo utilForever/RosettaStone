@@ -1735,7 +1735,7 @@ void LegacyCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_076", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CS2_077] Sprint - COST:6
+    // [CS2_077] Sprint - COST:5
     // - Faction: Neutral, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
     // Text: Draw 4 cards.

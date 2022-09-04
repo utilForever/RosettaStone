@@ -1176,7 +1176,7 @@
         "artist": "Dany Orizio",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 2729,
         "flavor": "You might think bashing doesn't take a lot of practice.  It doesn't.",
         "id": "AT_064",
@@ -1397,7 +1397,7 @@
         "name": "Warhorse Trainer",
         "rarity": "COMMON",
         "set": "TGT",
-        "text": "Your Silver Hand Recruits have +1 Attack.",
+        "text": "Your Silver Hand Recruits have +2 Attack and <b>Taunt</b>.",
         "type": "MINION"
     },
     {
@@ -2595,7 +2595,7 @@
         "rarity": "RARE",
         "set": "ALTERAC_VALLEY",
         "spellSchool": "FROST",
-        "text": "[x]Deal $4 damage to all\nminions. Costs (1) less\nfor each Armor you have.",
+        "text": "[x]Deal $5 damage to all\nminions. Costs (1) less\nfor each Armor you have.",
         "type": "SPELL"
     },
     {
@@ -2722,7 +2722,7 @@
         "cost": 2,
         "dbfId": 69577,
         "flavor": "\"Welcome to Dun Baldar Felwings! Do you want 'em mild, spicy, or BURNING Legion?\"",
-        "health": 1,
+        "health": 2,
         "id": "AV_118",
         "mechanics": [
             "TRIGGER_VISUAL"
@@ -3724,13 +3724,13 @@
     },
     {
         "artist": "Jakub Kasper",
-        "attack": 3,
+        "attack": 5,
         "cardClass": "SHAMAN",
         "collectible": true,
         "cost": 6,
         "dbfId": 67769,
         "flavor": "You’re finally awake! That fall looked really bad. Demon Hunters? Mercenaries? What are you talking about? Come on, I just unpacked a Golden Moorabi, let’s go build a Freeze Shaman deck.",
-        "health": 3,
+        "health": 5,
         "id": "AV_255",
         "mechanics": [
             "BATTLECRY"
@@ -3742,7 +3742,7 @@
             "FREEZE"
         ],
         "set": "ALTERAC_VALLEY",
-        "text": "<b>Battlecry:</b> <b>Freeze</b> all other minions. Gain +1/+1 for each <b>Frozen</b> minion.",
+        "text": "[x]<b>Battlecry:</b> <b>Freeze</b> all\nother minions.",
         "type": "MINION"
     },
     {
@@ -6216,7 +6216,7 @@
         "artist": "Alex Horley Orlandelli",
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 62889,
         "flavor": "Kazakus has taken to a more direct approach in recent times.",
         "id": "BAR_318",
@@ -6653,7 +6653,7 @@
         "rarity": "EPIC",
         "set": "THE_BARRENS",
         "spellSchool": "ARCANE",
-        "text": "Set each player to 0 Mana Crystals. Set the Cost of cards in all hands and decks to (1).",
+        "text": "Set your Mana Crystals to 0. Set the Cost of cards in your hand and deck to (1).",
         "type": "SPELL"
     },
     {
@@ -16926,7 +16926,7 @@
         "artist": "Dany Orizio",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 76304,
         "flavor": "You might think bashing doesn't take a lot of practice.  It doesn't.",
         "howToEarn": "Unlocked at level 7.",
@@ -16956,7 +16956,7 @@
         "name": "Warhorse Trainer",
         "rarity": "COMMON",
         "set": "CORE",
-        "text": "Your Silver Hand Recruits have +1 Attack.",
+        "text": "Your Silver Hand Recruits have +2 Attack and <b>Taunt</b>.",
         "type": "MINION"
     },
     {
@@ -17890,7 +17890,7 @@
         "artist": "James Zhang",
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 69526,
         "flavor": "Rogues are not good joggers.",
         "howToEarn": "Unlocked at level 1.",
@@ -20081,7 +20081,7 @@
         "artist": "E. M. Gist",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 69638,
         "flavor": "\"Dun da dun, dun da dun\": if you've heard an ogre sing this, it's too late.",
         "howToEarn": "Unlocked at level 1.",
@@ -20562,7 +20562,7 @@
         "cost": 2,
         "dbfId": 69644,
         "flavor": "\"I'm going to need you to come in on Sunday.\" - Cruel Taskmaster",
-        "health": 2,
+        "health": 3,
         "howToEarn": "Unlocked at level 1.",
         "howToEarnGolden": "Unlocked after winning 50 games as Warrior.",
         "id": "CORE_EX1_603",
@@ -22144,7 +22144,7 @@
         "artist": "Ralph Horsley",
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 5,
+        "cost": 4,
         "dbfId": 69706,
         "flavor": "Or if you're too tired, you can just kind of lean against the darkness.",
         "howToEarn": "Unlocked at level 1.",
@@ -23382,7 +23382,7 @@
         "artist": "James Zhang",
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 6,
+        "cost": 5,
         "dbfId": 630,
         "flavor": "Rogues are not good joggers.",
         "id": "CS2_077",
@@ -28244,14 +28244,14 @@
     },
     {
         "artist": "Zoltan Boros",
-        "attack": 4,
+        "attack": 3,
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 65645,
         "elite": true,
         "flavor": "He’s not going to tear down the walls of Stormwind sitting around in the Hall of Fame.",
-        "health": 4,
+        "health": 3,
         "id": "DED_510",
         "isMiniSet": true,
         "mechanics": [
@@ -37283,7 +37283,7 @@
         "artist": "E. M. Gist",
         "cardClass": "WARRIOR",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 1074,
         "flavor": "\"Dun da dun, dun da dun\": if you've heard an ogre sing this, it's too late.",
         "id": "EX1_391",
@@ -38476,7 +38476,7 @@
         "cost": 2,
         "dbfId": 285,
         "flavor": "\"I'm going to need you to come in on Sunday.\" - Cruel Taskmaster",
-        "health": 2,
+        "health": 3,
         "id": "EX1_603",
         "mechanics": [
             "BATTLECRY"
@@ -53782,7 +53782,7 @@
         "attack": 3,
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 4,
+        "cost": 5,
         "dbfId": 45936,
         "faction": "ALLIANCE",
         "flavor": "He can make ANYTHING look like a candle.",
@@ -56647,7 +56647,7 @@
         "artist": "Ralph Horsley",
         "cardClass": "PALADIN",
         "collectible": true,
-        "cost": 5,
+        "cost": 4,
         "dbfId": 38843,
         "flavor": "Or if you're too tired, you can just kind of lean against the darkness.",
         "id": "OG_273",
@@ -59324,7 +59324,7 @@
         "name": "Vile Library",
         "rarity": "RARE",
         "set": "REVENDRETH",
-        "text": "Give a friendly minion +1/+1. Repeat for each Imp you control.",
+        "text": "Give a friendly minion +1/+1 for each Imp you control.",
         "type": "LOCATION"
     },
     {
@@ -59519,7 +59519,7 @@
     },
     {
         "artist": "Chris Hayes",
-        "attack": 2,
+        "attack": 3,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 3,
@@ -59559,7 +59559,7 @@
     },
     {
         "artist": "Vladimir Kafanov",
-        "attack": 4,
+        "attack": 5,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
         "cost": 2,
@@ -59819,7 +59819,8 @@
         "health": 4,
         "id": "REV_829",
         "mechanics": [
-            "DEATHRATTLE"
+            "DEATHRATTLE",
+            "STEALTH"
         ],
         "name": "Halkias",
         "race": "ELEMENTAL",
@@ -59828,14 +59829,14 @@
             "SECRET"
         ],
         "set": "REVENDRETH",
-        "text": "[x]<b>Deathrattle:</b> If you control a \n<b>Secret</b>, store Halkias' soul \n  inside of it. It resummons \n   Halkias when triggered.",
+        "text": "[x]<b>Stealth</b>. <b>Deathrattle:</b> Store\nHalkias's soul inside of a\nfriendly <b>Secret</b>. It resummons\nHalkias when triggered.",
         "type": "MINION"
     },
     {
         "artist": "Slawomir Maniak",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 2,
+        "cost": 1,
         "dbfId": 78469,
         "flavor": "Faster than an asteroid, and just as effective.",
         "id": "REV_834",
@@ -59970,7 +59971,7 @@
         "name": "Promotion",
         "rarity": "EPIC",
         "set": "REVENDRETH",
-        "text": "Give a Silver Hand Recruit +3/+3.",
+        "text": "[x]Give a Silver Hand\nRecruit +3/+3\nand <b>Taunt</b>.",
         "type": "SPELL"
     },
     {
@@ -60258,7 +60259,7 @@
         "name": "Imbued Axe",
         "rarity": "COMMON",
         "set": "REVENDRETH",
-        "text": "[x]After your hero attacks,\ngive your damaged minions\n+1/+1. <b>Infuse (3):</b>\n+2/+2 instead.",
+        "text": "[x]After your hero attacks,\ngive your damaged minions\n+1/+2. <b>Infuse (2):</b>\n+2/+2 instead.",
         "type": "WEAPON"
     },
     {
@@ -60405,7 +60406,7 @@
         "artist": "L. Lullabi & K. Turovec",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 3,
+        "cost": 2,
         "dbfId": 77615,
         "flavor": "Holds Sire Denathrius' most prized possession - his teddy bear, Jeremy Bearimy.",
         "health": 2,
@@ -60745,7 +60746,7 @@
         "name": "Sanguine Depths",
         "rarity": "RARE",
         "set": "REVENDRETH",
-        "text": "[x]Deal 1 damage to a \nminion and give it \n+1 Attack.",
+        "text": "[x]Deal 1 damage to a \nminion and give it \n+2 Attack.",
         "type": "LOCATION"
     },
     {
@@ -63886,7 +63887,7 @@
         "attack": 6,
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 8,
+        "cost": 7,
         "dbfId": 64373,
         "flavor": "\"You don't understand… ogres are an untapped market for vengeance and hatred!\"",
         "health": 7,
@@ -66700,7 +66701,7 @@
         "rarity": "COMMON",
         "set": "THE_SUNKEN_CITY",
         "targetingArrowText": "Deal 5 damage.",
-        "text": "<b>Battlecry:</b> Deal 5 damage. Gain 5 Armor.",
+        "text": "<b>Battlecry:</b> Deal 5 damage. Gain 8 Armor.",
         "type": "MINION"
     },
     {
@@ -70393,7 +70394,7 @@
         "artist": "BOSi Studio",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
-        "cost": 4,
+        "cost": 3,
         "dbfId": 71922,
         "flavor": "*Happy Wisp noises*",
         "id": "TSC_608",

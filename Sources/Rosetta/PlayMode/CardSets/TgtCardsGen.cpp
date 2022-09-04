@@ -675,7 +675,7 @@ void TgtCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [AT_075] Warhorse Trainer - COST:3 [ATK:2/HP:4]
     // - Set: Tgt, Rarity: Common
     // --------------------------------------------------------
-    // Text: Your Silver Hand Recruits have +1 Attack.
+    // Text: Your Silver Hand Recruits have +2 Attack and <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
@@ -772,7 +772,7 @@ void TgtCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
     // [AT_075e] Might of the Hostler (*) - COST:0
     // - Set: Tgt
     // --------------------------------------------------------
-    // Text: Warhorse Trainer is granting this minion +1 Attack.
+    // Text: Warhorse Trainer is granting +2 Attack and <b>Taunt</b>.
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AT_075e"));
@@ -1380,7 +1380,7 @@ void TgtCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     CardDef cardDef;
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [AT_064] Bash - COST:3
+    // [AT_064] Bash - COST:2
     // - Set: Tgt, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 3 damage.

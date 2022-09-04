@@ -2100,11 +2100,10 @@ void AlteracValleyCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - SHAMAN
-    // [AV_255] Snowfall Guardian - COST:6 [ATK:3/HP:3]
+    // [AV_255] Snowfall Guardian - COST:6 [ATK:5/HP:5]
     // - Race: Elemental, Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Freeze</b> all other minions.
-    //       Gain +1/+1 for each <b>Frozen</b> minion.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -2581,12 +2580,12 @@ void AlteracValleyCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Set: ALTERAC_VALLEY, Rarity: Rare
     // - Spell School: Frost
     // --------------------------------------------------------
-    // Text: Deal 4 damage to all minions.
+    // Text: Deal 5 damage to all minions.
     //       Costs (1) less for each Armor you have.
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
-        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 4, true));
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 5, true));
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetHero()->GetArmor();
@@ -2837,7 +2836,7 @@ void AlteracValleyCardsGen::AddDemonHunter(
     CardDef cardDef;
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [AV_118] Battleworn Vanguard - COST:2 [ATK:2/HP:1]
+    // [AV_118] Battleworn Vanguard - COST:2 [ATK:2/HP:2]
     // - Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
     // Text: After your hero attacks, summon two 1/1 Felwings.

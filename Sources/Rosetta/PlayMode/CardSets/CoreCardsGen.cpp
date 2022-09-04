@@ -1042,7 +1042,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [CORE_AT_075] Warhorse Trainer - COST:3 [ATK:3/HP:4]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
-    // Text: Your Silver Hand Recruits have +1 Attack.
+    // Text: Your Silver Hand Recruits have +2 Attack and <b>Taunt</b>.
     // --------------------------------------------------------
     // GameTag:
     // - AURA = 1
@@ -1300,7 +1300,7 @@ void CoreCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_OG_229", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
-    // [CORE_OG_273] Stand Against Darkness - COST:5
+    // [CORE_OG_273] Stand Against Darkness - COST:4
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Summon five 1/1 Silver Hand Recruits.
@@ -1928,7 +1928,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_076", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
-    // [CORE_CS2_077] Sprint - COST:6
+    // [CORE_CS2_077] Sprint - COST:5
     // - Set: CORE, Rarity: Rare
     // --------------------------------------------------------
     // Text: Draw 4 cards.
@@ -2871,7 +2871,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     CardDef cardDef;
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [CORE_AT_064] Bash - COST:3
+    // [CORE_AT_064] Bash - COST:2
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 3 damage.
@@ -2920,7 +2920,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_CS2_108", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [CORE_EX1_391] Slam - COST:2
+    // [CORE_EX1_391] Slam - COST:1
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion. If it survives, draw a card.
@@ -3049,7 +3049,7 @@ void CoreCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("CORE_EX1_414", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
-    // [CORE_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+    // [CORE_EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:3]
     // - Set: CORE, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage to a minion

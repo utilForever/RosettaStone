@@ -187,7 +187,7 @@ TEST_CASE("[Paladin : Minion] - OG_229 : Ragnaros, Lightlord")
 }
 
 // ---------------------------------------- SPELL - PALADIN
-// [OG_273] Stand Against Darkness - COST:5
+// [OG_273] Stand Against Darkness - COST:4
 // - Set: Og, Rarity: Common
 // --------------------------------------------------------
 // Text: Summon five 1/1 Silver Hand Recruits.
