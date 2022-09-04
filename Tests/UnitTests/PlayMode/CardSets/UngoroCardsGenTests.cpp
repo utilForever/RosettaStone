@@ -345,8 +345,8 @@ TEST_CASE("[Neutral : Minion] - UNG_083 : Devilsaur Egg")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Devilsaur Egg"));
-    const auto card2 = Generic::DrawCard(
-        opPlayer, Cards::FindCardByName("Wolfrider", FormatType::CLASSIC));
+    const auto card2 = 
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->card->name, "Devilsaur Egg");
