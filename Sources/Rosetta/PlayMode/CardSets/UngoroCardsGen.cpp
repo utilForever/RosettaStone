@@ -1852,7 +1852,7 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddDeathrattleTask(
-        std::make_shared<SummonTask>("UNG_083t1", SummonSide::DEFAULT));
+        std::make_shared<SummonTask>("UNG_083t1", SummonSide::DEATHRATTLE));
     cards.emplace("UNG_083", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
