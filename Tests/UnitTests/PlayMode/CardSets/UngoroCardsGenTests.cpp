@@ -358,12 +358,10 @@ TEST_CASE("[Neutral : Minion] - UNG_083 : Devilsaur Egg")
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     game.Process(opPlayer, AttackTask(card2, card1));
-
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(curField[0]->card->name, "Devilsaur");
     CHECK_EQ(curField[0]->GetAttack(), 5);
     CHECK_EQ(curField[0]->GetHealth(), 5);
-
     CHECK_EQ(opField[0]->card->name, "Wolfrider");
     CHECK_EQ(opField[0]->GetAttack(), 3);
     CHECK_EQ(opField[0]->GetHealth(), 1);
@@ -404,7 +402,6 @@ TEST_CASE("[Neutral : Minion] - UNG_809 : Fire Fly")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fire Fly"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Flame Elemental");
 }
