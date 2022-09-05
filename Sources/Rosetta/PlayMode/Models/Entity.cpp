@@ -127,7 +127,7 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
     tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] = zone ? static_cast<int>(zone->GetType()) : 0;
 
-    Playable* result;
+    Playable* result = nullptr;
 
     switch (card->GetCardType())
     {
