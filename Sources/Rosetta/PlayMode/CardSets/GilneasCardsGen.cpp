@@ -919,6 +919,7 @@ void GilneasCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
                     case CardType::MOVE_MINION_HOVER_TARGET:
                     case CardType::LETTUCE_ABILITY:
                     case CardType::BATTLEGROUND_HERO_BUDDY:
+                    case CardType::BATTLEGROUND_QUEST_REWARD:
                         throw std::invalid_argument(
                             "Tess Greymane (GIL_598) - Invalid card "
                             "type!");

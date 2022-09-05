@@ -145,6 +145,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         case CardType::MOVE_MINION_HOVER_TARGET:
         case CardType::LETTUCE_ABILITY:
         case CardType::BATTLEGROUND_HERO_BUDDY:
+        case CardType::BATTLEGROUND_QUEST_REWARD:
             throw std::invalid_argument(
                 "Generic::PlayCard() - Invalid card type!");
     }
