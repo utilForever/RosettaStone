@@ -6258,7 +6258,7 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "THE_BARRENS",
-        "text": "<b>Frenzy:</b> Reduce the cost of cards in your hand by (1).",
+        "text": "<b>Frenzy:</b> Reduce the Cost of cards in your hand by (1).",
         "type": "MINION"
     },
     {
@@ -8858,7 +8858,6 @@
         "flavor": "It's a car!\n*Whomp whomp whomp*\nIt's a robot!\n*Whomp whom-CRUNCH*\nIt's… three.. smaller robots!",
         "health": 1,
         "id": "BOT_312",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE",
             "MODULAR"
@@ -10151,7 +10150,6 @@
     {
         "artist": "Tyler West Studio",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58369,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -10159,7 +10157,6 @@
         "flavor": "More Boom for your buck.",
         "health": 2,
         "id": "BOT_606",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -10167,7 +10164,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "BOOMSDAY",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Deal 4 damage to a random enemy minion.",
         "type": "MINION"
     },
@@ -10290,7 +10286,6 @@
     {
         "artist": "Matt Dixon",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 60327,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 4,
@@ -10298,7 +10293,6 @@
         "flavor": "Every ten seconds it asks if you want to update.",
         "health": 4,
         "id": "BOT_911",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DIVINE_SHIELD",
             "MODULAR",
@@ -10308,7 +10302,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "BOOMSDAY",
-        "techLevel": 4,
         "text": "<b>Magnetic</b>\n<b>Divine Shield</b>\n<b>Taunt</b>",
         "type": "MINION"
     },
@@ -11113,7 +11106,6 @@
     {
         "artist": "Andrew Hou",
         "attack": 4,
-        "battlegroundsPremiumDbfId": 61934,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -11121,7 +11113,6 @@
         "flavor": "Return my fishes to me, and I myself shall carry you to the gates of Mrrhalla!",
         "health": 4,
         "id": "BT_010",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -11129,7 +11120,6 @@
         "race": "MURLOC",
         "rarity": "COMMON",
         "set": "BLACK_TEMPLE",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your other Murlocs +1/+1.",
         "type": "MINION"
     },
@@ -14565,7 +14555,6 @@
     {
         "artist": "Anton Zemskov",
         "attack": 1,
-        "battlegroundsPremiumDbfId": 60053,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 1,
@@ -14573,7 +14562,6 @@
         "flavor": "To be a cool cat in Gadgetzan, you gotta have bling.",
         "health": 1,
         "id": "CFM_315",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -14581,14 +14569,12 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "GANGS",
-        "techLevel": 1,
         "text": "<b>Battlecry:</b> Summon a 1/1 Cat.",
         "type": "MINION"
     },
     {
         "artist": "Ozhill Studio",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58367,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -14596,7 +14582,6 @@
         "flavor": "He's gonna do it his way.",
         "health": 2,
         "id": "CFM_316",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -14604,7 +14589,6 @@
         "race": "BEAST",
         "rarity": "EPIC",
         "set": "GANGS",
-        "techLevel": 3,
         "text": "[x]<b>Deathrattle:</b> Summon a\nnumber of 1/1 Rats equal\n to this minion's Attack.",
         "type": "MINION"
     },
@@ -21185,7 +21169,6 @@
     {
         "artist": "Jim Nelson",
         "attack": 5,
-        "battlegroundsPremiumDbfId": 61442,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 5,
@@ -23300,7 +23283,6 @@
         "race": "DEMON",
         "rarity": "FREE",
         "set": "LEGACY",
-        "techLevel": 1,
         "text": "<b>Taunt</b>",
         "type": "MINION"
     },
@@ -25601,7 +25583,6 @@
     {
         "artist": "Anton Zemskov",
         "attack": 1,
-        "battlegroundsPremiumDbfId": 63796,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 1,
@@ -25620,7 +25601,6 @@
         ],
         "set": "DALARAN",
         "targetingArrowText": "Give a friendly Murloc Poisonous.",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.",
         "type": "MINION"
     },
@@ -26856,7 +26836,6 @@
     {
         "artist": "Evgeniy Zagumennyy",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58380,
         "cardClass": "MAGE",
         "collectible": true,
         "cost": 2,
@@ -26865,14 +26844,12 @@
         "flavor": "\"What do you call two minions summoned at once? Twinions, haha! Wait... where are you going?\"",
         "health": 2,
         "id": "DAL_575",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
         "name": "Khadgar",
         "rarity": "LEGENDARY",
         "set": "DALARAN",
-        "techLevel": 3,
         "text": "Your cards that summon minions summon twice as many.",
         "type": "MINION"
     },
@@ -27937,7 +27914,7 @@
         "name": "Blackwater Cutlass",
         "rarity": "COMMON",
         "set": "STORMWIND",
-        "text": "[x]<b>Tradeable</b>\nAfter you <b>Trade</b> this,\nreduce the cost of a spell\nin your hand by (1).",
+        "text": "[x]<b>Tradeable</b>\nAfter you <b>Trade</b> this,\nreduce the Cost of a spell\nin your hand by (1).",
         "type": "WEAPON"
     },
     {
@@ -29714,7 +29691,7 @@
         "name": "Nazmani Bloodweaver",
         "rarity": "RARE",
         "set": "DARKMOON_FAIRE",
-        "text": "[x]After you cast a spell,\nreduce the cost of a random\ncard in your hand by (1).",
+        "text": "[x]After you cast a spell,\nreduce the Cost of a random\ncard in your hand by (1).",
         "type": "MINION"
     },
     {
@@ -30551,7 +30528,7 @@
         ],
         "set": "DARKMOON_FAIRE",
         "spellSchool": "SHADOW",
-        "text": "Give your hero <b>Stealth</b> for 1 turn.",
+        "text": "Give your hero <b>Stealth</b> until your next turn.",
         "type": "SPELL"
     },
     {
@@ -30934,7 +30911,6 @@
     {
         "artist": "James Ryman",
         "attack": 6,
-        "battlegroundsPremiumDbfId": 67728,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 6,
@@ -30942,7 +30918,6 @@
         "flavor": "But where does she keep them?",
         "health": 4,
         "id": "DMF_533",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE",
             "TAUNT"
@@ -30951,7 +30926,6 @@
         "race": "DEMON",
         "rarity": "COMMON",
         "set": "DARKMOON_FAIRE",
-        "techLevel": 4,
         "text": "[x]<b>Taunt</b>\n<b>Deathrattle:</b> Summon\ntwo 3/2 Imps.",
         "type": "MINION"
     },
@@ -33945,7 +33919,6 @@
     {
         "artist": "Dan Brereton",
         "attack": 4,
-        "battlegroundsPremiumDbfId": 59499,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 4,
@@ -33953,7 +33926,6 @@
         "flavor": "\"Who let the dogs out?\" he asks.  It's rhetorical.",
         "health": 3,
         "id": "DS1_070",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -33964,7 +33936,6 @@
         ],
         "set": "LEGACY",
         "targetingArrowText": "Give a Beast +2/+2 and Taunt.",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give a friendly Beast +2/+2 and <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -35167,7 +35138,6 @@
     {
         "artist": "Arthur Gimaldinov",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 59491,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -35175,7 +35145,6 @@
         "flavor": "The Coldlight murlocs reside in the darkest pits of the Abyssal Depths.  So no, there's no getting away from murlocs.",
         "health": 3,
         "id": "EX1_103",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -35183,7 +35152,6 @@
         "race": "MURLOC",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 3,
         "text": "<b>Battlecry:</b> Give your other Murlocs +2 Health.",
         "type": "MINION"
     },
@@ -37578,7 +37546,6 @@
     {
         "artist": "Tim McBurnie",
         "attack": 3,
-        "battlegroundsPremiumDbfId": 57403,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -37586,7 +37553,6 @@
         "flavor": "Do Murlocs ever get tired of making the same old sound?  Nope!  Mrglglrglglglglglglgl!",
         "health": 3,
         "id": "EX1_507",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -37594,7 +37560,6 @@
         "race": "MURLOC",
         "rarity": "EPIC",
         "set": "EXPERT1",
-        "techLevel": 2,
         "text": "Your other Murlocs have +2 Attack.",
         "type": "MINION"
     },
@@ -37663,7 +37628,6 @@
     {
         "artist": "Jim Nelson",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58395,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 2,
@@ -37671,7 +37635,6 @@
         "flavor": "Hyenas prefer the bones of kodos or windserpents, but they'll eat pretty much anything.  Even Brussels sprouts.",
         "health": 2,
         "id": "EX1_531",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -37679,7 +37642,6 @@
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "techLevel": 1,
         "text": "Whenever a friendly Beast dies, gain +2/+1.",
         "type": "MINION"
     },
@@ -37703,7 +37665,6 @@
     {
         "artist": "Milivoj Ceran",
         "attack": 6,
-        "battlegroundsPremiumDbfId": 58409,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 6,
@@ -37711,7 +37672,6 @@
         "flavor": "In the jungle, the mighty jungle, the lion gets slowly consumed by hyenas.",
         "health": 5,
         "id": "EX1_534",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -37719,7 +37679,6 @@
         "race": "BEAST",
         "rarity": "RARE",
         "set": "EXPERT1",
-        "techLevel": 4,
         "text": "<b>Deathrattle:</b> Summon two 2/2 Hyenas.",
         "type": "MINION"
     },
@@ -37867,7 +37826,6 @@
     {
         "artist": "Brian Despain",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 57401,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -37875,7 +37833,6 @@
         "flavor": "\"Overheat threshold exceeded. System failure. Wheat clog in port two. Shutting down.\"",
         "health": 3,
         "id": "EX1_556",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -37883,7 +37840,6 @@
         "race": "MECHANICAL",
         "rarity": "COMMON",
         "set": "EXPERT1",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Summon a 2/1 Damaged Golem.",
         "type": "MINION"
     },
@@ -39466,7 +39422,6 @@
     {
         "artist": "Ralph Horsley",
         "attack": 1,
-        "battlegroundsPremiumDbfId": 58421,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 4,
@@ -39477,7 +39432,6 @@
         "howToEarn": "Unlocked in The Military Quarter, in the Naxxramas adventure.",
         "howToEarnGolden": "Crafting unlocked in The Military Quarter, in the Naxxramas adventure.",
         "id": "FP1_031",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -39487,7 +39441,6 @@
             "DEATHRATTLE"
         ],
         "set": "NAXX",
-        "techLevel": 5,
         "text": "Your minions trigger their <b>Deathrattles</b> twice.",
         "type": "MINION"
     },
@@ -41451,7 +41404,6 @@
     {
         "artist": "Andrew Hou",
         "attack": 3,
-        "battlegroundsPremiumDbfId": 91216,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -41459,12 +41411,10 @@
         "flavor": "Be all that you can be.",
         "health": 4,
         "id": "GIL_681",
-        "isBattlegroundsPoolMinion": true,
         "name": "Nightmare Amalgam",
         "race": "ALL",
         "rarity": "EPIC",
         "set": "GILNEAS",
-        "techLevel": 3,
         "text": "<i>This has all minion types.</i>",
         "type": "MINION"
     },
@@ -42609,7 +42559,6 @@
     {
         "artist": "Brian Despain",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58397,
         "cardClass": "ROGUE",
         "collectible": true,
         "cost": 3,
@@ -42617,7 +42566,6 @@
         "flavor": "Mechs like learning from him because he really speaks their language.\n0110100001101001",
         "health": 2,
         "id": "GVG_027",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -42625,7 +42573,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "GVG",
-        "techLevel": 3,
         "text": "At the end of your turn, give another friendly Mech +2/+2.",
         "type": "MINION"
     },
@@ -43012,7 +42959,6 @@
     {
         "artist": "Hideaki Takamura",
         "attack": 3,
-        "battlegroundsPremiumDbfId": 59495,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -43020,7 +42966,6 @@
         "flavor": "Don't leave them out in the rain. In Un'Goro Crater there is a whole colony of rust-tooth leapers.",
         "health": 3,
         "id": "GVG_048",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -43028,7 +42973,6 @@
         "race": "MECHANICAL",
         "rarity": "RARE",
         "set": "GVG",
-        "techLevel": 2,
         "text": "<b>Battlecry:</b> Give your other Mechs +2 Attack.",
         "type": "MINION"
     },
@@ -44301,7 +44245,6 @@
     {
         "artist": "James Ryman",
         "attack": 6,
-        "battlegroundsPremiumDbfId": 63776,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 8,
@@ -44310,12 +44253,10 @@
         "flavor": "Foe reaping is really not so different from harvest reaping, at the end of the day.",
         "health": 9,
         "id": "GVG_113",
-        "isBattlegroundsPoolMinion": true,
         "name": "Foe Reaper 4000",
         "race": "MECHANICAL",
         "rarity": "LEGENDARY",
         "set": "GVG",
-        "techLevel": 6,
         "text": "Also damages the minions next to whomever it attacks.",
         "type": "MINION"
     },
@@ -45644,6 +45585,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Jongsup Kim",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "dbfId": 93971,
+        "health": 30,
+        "id": "HERO_04z",
+        "name": "Bold Guardian Liadrin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Ben Thompson",
         "cardClass": "HUNTER",
         "collectible": true,
@@ -46184,6 +46137,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "dbfId": 93966,
+        "health": 30,
+        "id": "HERO_06z",
+        "name": "Magical Guardian Elise",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "WARLOCK",
         "collectible": true,
@@ -46436,6 +46401,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Jongsup Kim",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 93969,
+        "health": 30,
+        "id": "HERO_07w",
+        "name": "Sparkle Guardian Nemsy",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Glenn Rane",
         "cardClass": "MAGE",
         "collectible": true,
@@ -46491,6 +46468,18 @@
         "health": 30,
         "id": "HERO_08ac",
         "name": "Reveler Kael'thas",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Mooncolony",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 93972,
+        "health": 30,
+        "id": "HERO_08ad",
+        "name": "Wicked Prince Kael'thas",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -47028,6 +47017,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Mooncolony",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 93970,
+        "health": 30,
+        "id": "HERO_09v",
+        "name": "Love Guardian Tyrande",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "DEMONHUNTER",
         "collectible": true,
@@ -47431,7 +47432,6 @@
         "flavor": "You get a sword! And you get a sword! Everybody gets a sword!",
         "health": 5,
         "id": "ICC_029",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "TRIGGER_VISUAL"
         ],
@@ -49075,7 +49075,6 @@
     {
         "artist": "James Ryman",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 59508,
         "cardClass": "DRUID",
         "collectible": true,
         "cost": 4,
@@ -49083,7 +49082,6 @@
         "flavor": "It isn't \"grave robbing\" when there's no grave. It's just scavenging…",
         "health": 3,
         "id": "ICC_807",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -49093,7 +49091,6 @@
             "TAUNT"
         ],
         "set": "ICECROWN",
-        "techLevel": 4,
         "text": "<b>Battlecry:</b> Give your <b>Taunt</b> minions +2/+2.",
         "type": "MINION"
     },
@@ -51501,7 +51498,6 @@
     {
         "artist": "Sam Nielson",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58400,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -51512,7 +51508,6 @@
         "howToEarn": "Unlocked in Uldaman, in the League of Explorers adventure.",
         "howToEarnGolden": "Crafting unlocked in Uldaman, in the League of Explorers adventure.",
         "id": "LOE_077",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -51522,7 +51517,6 @@
             "BATTLECRY"
         ],
         "set": "LOE",
-        "techLevel": 5,
         "text": "Your <b>Battlecries</b> trigger twice.",
         "type": "MINION"
     },
@@ -52178,7 +52172,6 @@
     {
         "artist": "Peter Stapleton",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 63794,
         "cardClass": "HUNTER",
         "collectible": true,
         "cost": 3,
@@ -52186,12 +52179,10 @@
         "flavor": "Can be upgraded into a Cave Lurker.",
         "health": 4,
         "id": "LOOT_078",
-        "isBattlegroundsPoolMinion": true,
         "name": "Cave Hydra",
         "race": "BEAST",
         "rarity": "COMMON",
         "set": "LOOTAPALOOZA",
-        "techLevel": 4,
         "text": "Also damages the minions next to whomever\nthis attacks.",
         "type": "MINION"
     },
@@ -53523,7 +53514,6 @@
     {
         "artist": "Jerry Mascho",
         "attack": 3,
-        "battlegroundsPremiumDbfId": 58427,
         "cardClass": "WARLOCK",
         "collectible": true,
         "cost": 9,
@@ -53531,7 +53521,6 @@
         "flavor": "Never let it hold your checkbook.",
         "health": 9,
         "id": "LOOT_368",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE",
             "TAUNT"
@@ -53540,7 +53529,6 @@
         "race": "DEMON",
         "rarity": "EPIC",
         "set": "LOOTAPALOOZA",
-        "techLevel": 5,
         "text": "[x]<b>Taunt</b>\n <b>Deathrattle:</b> Summon three\n1/3 Demons with <b>Taunt</b>.",
         "type": "MINION"
     },
@@ -54766,7 +54754,6 @@
     {
         "artist": "Ken Steacy",
         "attack": 3,
-        "battlegroundsPremiumDbfId": 62237,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -54774,7 +54761,6 @@
         "flavor": "When he saves enough plunder, he's going to commission an enormous captain's hat.  He has hat envy.",
         "health": 3,
         "id": "NEW1_027",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "AURA"
         ],
@@ -54782,7 +54768,6 @@
         "race": "PIRATE",
         "rarity": "EPIC",
         "set": "EXPERT1",
-        "techLevel": 2,
         "text": "Your other Pirates have +1/+1.",
         "type": "MINION"
     },
@@ -56332,7 +56317,6 @@
     {
         "artist": "Rafael Zanchetin",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58143,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 1,
@@ -56340,7 +56324,6 @@
         "flavor": "\"Don't worry about me… I'll just be here... under these tentacles.\"",
         "health": 1,
         "id": "OG_221",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
@@ -56350,7 +56333,6 @@
             "DIVINE_SHIELD"
         ],
         "set": "OG",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Give a random friendly minion <b>Divine Shield</b>.",
         "type": "MINION"
     },
@@ -56565,7 +56547,6 @@
     {
         "artist": "Peter Stapleton",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 58168,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 3,
@@ -56573,14 +56554,12 @@
         "flavor": "Who's a cute widdle N'Zoth? You are! Yes you are! Yes you're the cutest widdle N'Zoth in the whole world!!!",
         "health": 2,
         "id": "OG_256",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "DEATHRATTLE"
         ],
         "name": "Spawn of N'Zoth",
         "rarity": "COMMON",
         "set": "OG",
-        "techLevel": 2,
         "text": "<b>Deathrattle:</b> Give your minions +1/+1.",
         "type": "MINION"
     },
@@ -58904,6 +58883,9 @@
         "name": "Topior the Shrubbagazzor",
         "race": "DRAGON",
         "rarity": "LEGENDARY",
+        "referencedTags": [
+            "RUSH"
+        ],
         "set": "REVENDRETH",
         "text": "[x]<b>Battlecry:</b> For the rest of\nthe game, after you cast a\nNature spell, summon a\n3/3 Whelp with <b>Rush</b>.",
         "type": "MINION"
@@ -59420,6 +59402,9 @@
         "flavor": "Sending mail via steward is soooo old school.",
         "health": 4,
         "id": "REV_377",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
         "name": "Invitation Courier",
         "rarity": "RARE",
         "set": "REVENDRETH",
@@ -60032,7 +60017,7 @@
             "SECRET"
         ],
         "set": "REVENDRETH",
-        "text": "[x]<b>Taunt</b>.\n <b>Battlecry:</b> If you control \na <b>Secret</b>, summon a \ncopy of this.",
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> If you control\na <b>Secret</b>, summon a\ncopy of this.",
         "type": "MINION"
     },
     {
@@ -60339,13 +60324,11 @@
         "id": "REV_937",
         "mechanics": [
             "BATTLECRY",
+            "DISCOVER",
             "INFUSE"
         ],
         "name": "Artificer Xy'mox",
         "rarity": "LEGENDARY",
-        "referencedTags": [
-            "DISCOVER"
-        ],
         "set": "REVENDRETH",
         "text": "[x]<b>Battlecry:</b> <b>Discover</b> and \ncast a Relic. <b>Infuse (5):</b> \nCast all three instead.",
         "type": "MINION"
@@ -63538,7 +63521,7 @@
         "name": "Celestial Ink Set",
         "rarity": "RARE",
         "set": "STORMWIND",
-        "text": "[x]After you spend 5 Mana on\nspells, reduce the cost of a\nspell in your hand by (5).\nLose 1 Durability.",
+        "text": "[x]After you spend 5 Mana on\nspells, reduce the Cost of a\nspell in your hand by (5).\nLose 1 Durability.",
         "type": "WEAPON"
     },
     {
@@ -63803,7 +63786,7 @@
         "race": "ELEMENTAL",
         "rarity": "RARE",
         "set": "STORMWIND",
-        "text": "<b>Battlecry:</b> Reduce the cost of Elementals in your hand and deck by (1).",
+        "text": "<b>Battlecry:</b> Reduce the Cost of Elementals in your hand and deck by (1).",
         "type": "MINION"
     },
     {
@@ -64260,7 +64243,7 @@
         "name": "Florist",
         "rarity": "COMMON",
         "set": "STORMWIND",
-        "text": "[x]At the end of your turn,\nreduce the cost of a Nature\n spell in your hand by (1).",
+        "text": "[x]At the end of your turn,\nreduce the Cost of a Nature\n spell in your hand by (1).",
         "type": "MINION"
     },
     {
@@ -70092,7 +70075,7 @@
         ],
         "set": "THE_SUNKEN_CITY",
         "spellSchool": "HOLY",
-        "text": "Summon a 1/2, 2/4 and 4/8 Elemental with <b>Taunt</b>.",
+        "text": "Summon a 1/2, 2/4, and 4/8 Elemental with <b>Taunt</b>.",
         "type": "SPELL"
     },
     {
@@ -71605,6 +71588,7 @@
         "race": "PIRATE",
         "rarity": "EPIC",
         "set": "THE_SUNKEN_CITY",
+        "targetingArrowText": "Put an enemy minion on bottom of deck.",
         "text": "[x]<b>Combo:</b> Put an enemy\nminion on the bottom of\n your opponent's deck.",
         "type": "MINION"
     },
@@ -71738,6 +71722,9 @@
         "id": "TSC_940",
         "name": "From the Depths",
         "rarity": "RARE",
+        "referencedTags": [
+            "DREDGE"
+        ],
         "set": "THE_SUNKEN_CITY",
         "text": "[x]Reduce the Cost of the\nbottom five cards in your\n deck by (3), then <b>Dredge</b>.",
         "type": "SPELL"
@@ -73300,7 +73287,6 @@
     {
         "artist": "Matt Dixon",
         "attack": 1,
-        "battlegroundsPremiumDbfId": 64343,
         "cardClass": "PALADIN",
         "collectible": true,
         "cost": 2,
@@ -73308,7 +73294,6 @@
         "flavor": "The dramatically detailed terrifically trimmed replica of the real thing!",
         "health": 2,
         "id": "ULD_217",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "REBORN",
             "TRIGGER_VISUAL"
@@ -73317,7 +73302,6 @@
         "race": "MECHANICAL",
         "rarity": "EPIC",
         "set": "ULDUM",
-        "techLevel": 1,
         "text": "[x]<b>Reborn</b>\nAt the end of your turn, give\nanother random friendly\nminion +1 Attack.",
         "type": "MINION"
     },
@@ -75418,7 +75402,6 @@
     {
         "artist": "Alex Horley Orlandelli",
         "attack": 2,
-        "battlegroundsPremiumDbfId": 59485,
         "cardClass": "NEUTRAL",
         "collectible": true,
         "cost": 2,
@@ -75426,7 +75409,6 @@
         "flavor": "Loves crab meat. Fears crabs.",
         "health": 3,
         "id": "UNG_073",
-        "isBattlegroundsPoolMinion": true,
         "mechanics": [
             "BATTLECRY"
         ],
@@ -75435,7 +75417,6 @@
         "rarity": "COMMON",
         "set": "UNGORO",
         "targetingArrowText": "Give +1/+1.",
-        "techLevel": 1,
         "text": "<b>Battlecry:</b> Give a friendly Murloc +1/+1.",
         "type": "MINION"
     },

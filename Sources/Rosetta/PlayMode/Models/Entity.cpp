@@ -127,7 +127,7 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
     tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] = zone ? static_cast<int>(zone->GetType()) : 0;
 
-    Playable* result;
+    Playable* result = nullptr;
 
     switch (card->GetCardType())
     {
@@ -148,7 +148,18 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
         case CardType::WEAPON:
             result = new Weapon(player, card, tags, id);
             break;
-        default:
+        case CardType::INVALID:
+        case CardType::GAME:
+        case CardType::PLAYER:
+        case CardType::ENCHANTMENT:
+        case CardType::ITEM:
+        case CardType::TOKEN:
+        case CardType::BLANK:
+        case CardType::GAME_MODE_BUTTON:
+        case CardType::MOVE_MINION_HOVER_TARGET:
+        case CardType::LETTUCE_ABILITY:
+        case CardType::BATTLEGROUND_HERO_BUDDY:
+        case CardType::BATTLEGROUND_QUEST_REWARD:
             throw std::invalid_argument(
                 "Generic::DrawCard() - Invalid card type!");
     }
