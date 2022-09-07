@@ -1981,6 +1981,9 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [UNG_806] Ultrasaur - COST:10 [ATK:7/HP:14]
     // - Race: Beast, Faction: Neutral, Set: Ungoro, Rarity: Common
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("UNG_806", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [UNG_807] Golakka Crawler - COST:2 [ATK:2/HP:3]
