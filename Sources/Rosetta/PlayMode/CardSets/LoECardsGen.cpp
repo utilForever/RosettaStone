@@ -869,6 +869,15 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::MINIONS,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::BEAST)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "LOE_073e", EntityType::SOURCE) }));
+    cards.emplace("LOE_073", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
@@ -1097,6 +1106,9 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Has <b>Taunt</b>.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_073e"));
+    cards.emplace("LOE_073e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOE_077e] Bronzebeard Battlecry (*) - COST:0

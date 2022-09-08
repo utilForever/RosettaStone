@@ -1697,6 +1697,62 @@ TEST_CASE("[Neutral : Minion] - LOE_061 : Anubisath Sentinel")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_073] Fossilized Devilsaur - COST:8 [ATK:8/HP:8]
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a Beast,
+//       gain <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_073 : Fossilized Devilsaur")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fossilized Devilsaur"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fossilized Devilsaur"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dire Wolf Alpha"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[2]->HasTaunt(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
 // - Race: Murloc, Set: LoE, Rarity: Legendary
 // --------------------------------------------------------
