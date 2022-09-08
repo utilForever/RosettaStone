@@ -1964,6 +1964,60 @@ TEST_CASE("[Neutral : Minion] - LOE_079 : Elise Starseeker")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_086] Summoning Stone - COST:5 [ATK:0/HP:6]
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       summon a random minion of the same Cost.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_089 : Wobbling Runts")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Summoning Stone"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetCost(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->GetCost(), 10);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOE_089] Wobbling Runts - COST:6 [ATK:2/HP:6]
 // - Set: LoE, Rarity: Rare
 // --------------------------------------------------------

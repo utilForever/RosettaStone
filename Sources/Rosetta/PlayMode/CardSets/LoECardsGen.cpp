@@ -943,6 +943,17 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever you cast a spell,
     //       summon a random minion of the same Cost.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::EVENT_SOURCE,
+                                         GameTag::COST),
+        std::make_shared<RandomMinionNumberTask>(GameTag::COST),
+        std::make_shared<SummonTask>()
+    };
+    cards.emplace("LOE_086", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_089] Wobbling Runts - COST:6 [ATK:2/HP:6]
