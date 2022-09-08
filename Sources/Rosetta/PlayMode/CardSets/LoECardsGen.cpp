@@ -851,6 +851,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        ComplexTask::GiveBuffToRandomMinionInField("LOE_061e"));
+    cards.emplace("LOE_061", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_073] Fossilized Devilsaur - COST:8 [ATK:8/HP:8]
@@ -1083,6 +1087,9 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_061e"));
+    cards.emplace("LOE_061e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOE_073e] Fossilized (*) - COST:0
