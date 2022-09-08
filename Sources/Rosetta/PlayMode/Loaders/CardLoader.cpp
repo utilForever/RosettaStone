@@ -114,7 +114,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
         // NOTE: Lantern of Power (LOEA16_3, LOEA16_3e), Timepiece of Horror
         // (LOEA16_4), Mirror of Doom(LOEA16_5), Mummy Zombie(LOEA16_5t) are
-        // discovered cards by Arch-Thief Rafaam (LOEA_092)
+        // discovered cards by Arch-Thief Rafaam (LOE_092)
         if (dbfID == 19614 || dbfID == 36450 || dbfID == 19615 ||
             dbfID == 19616 || dbfID == 36452)
         {
