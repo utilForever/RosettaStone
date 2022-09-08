@@ -1970,7 +1970,7 @@ TEST_CASE("[Neutral : Minion] - LOE_079 : Elise Starseeker")
 // Text: Whenever you cast a spell,
 //       summon a random minion of the same Cost.
 // --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - LOE_089 : Wobbling Runts")
+TEST_CASE("[Neutral : Minion] - LOE_086 : Summoning Stone")
 {
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
@@ -2069,6 +2069,109 @@ TEST_CASE("[Neutral : Minion] - LOE_089 : Wobbling Runts")
     CHECK_EQ(curField[2]->card->name, "Rascally Runt");
     CHECK_EQ(curField[2]->GetAttack(), 2);
     CHECK_EQ(curField[2]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [LOE_092] Arch-Thief Rafaam - COST:9 [ATK:7/HP:8]
+// - Set: LoE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry: Discover</b> a powerful Artifact.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_092 : Arch-Thief Rafaam")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Arch-Thief Rafaam"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    CHECK_EQ(cards[0]->name, "Lantern of Power");
+    CHECK_EQ(cards[1]->name, "Mirror of Doom");
+    CHECK_EQ(cards[2]->name, "Timepiece of Horror");
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    SUBCASE("Arch-Thief Rafaam - LOEA16_3")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("LOEA16_3"));
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card, card1));
+        CHECK_EQ(curField[0]->GetAttack(), 17);
+        CHECK_EQ(curField[0]->GetHealth(), 18);
+    }
+
+    SUBCASE("Arch-Thief Rafaam - LOEA16_4")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("LOEA16_4"));
+
+        game.Process(curPlayer, PlayCardTask::Spell(card));
+        CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+    }
+
+    SUBCASE("Arch-Thief Rafaam - LOEA16_5")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("LOEA16_5"));
+
+        game.Process(curPlayer, PlayCardTask::Spell(card));
+        CHECK_EQ(curField.GetCount(), 7);
+        CHECK_EQ(curField[1]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[1]->GetAttack(), 3);
+        CHECK_EQ(curField[1]->GetHealth(), 3);
+        CHECK_EQ(curField[2]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[2]->GetAttack(), 3);
+        CHECK_EQ(curField[2]->GetHealth(), 3);
+        CHECK_EQ(curField[3]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[3]->GetAttack(), 3);
+        CHECK_EQ(curField[3]->GetHealth(), 3);
+        CHECK_EQ(curField[4]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[4]->GetAttack(), 3);
+        CHECK_EQ(curField[4]->GetHealth(), 3);
+        CHECK_EQ(curField[5]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[5]->GetAttack(), 3);
+        CHECK_EQ(curField[5]->GetHealth(), 3);
+        CHECK_EQ(curField[6]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[6]->GetAttack(), 3);
+        CHECK_EQ(curField[6]->GetHealth(), 3);
+    }
 }
 
 // --------------------------------------- MINION - NEUTRAL
