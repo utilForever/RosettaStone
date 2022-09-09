@@ -854,14 +854,14 @@ LOE | LOE_047 | Tomb Spider | O
 LOE | LOE_050 | Mounted Raptor | O
 LOE | LOE_051 | Jungle Moonkin | O
 LOE | LOE_053 | Djinni of Zephyrs | O
-LOE | LOE_061 | Anubisath Sentinel |  
-LOE | LOE_073 | Fossilized Devilsaur |  
+LOE | LOE_061 | Anubisath Sentinel | O
+LOE | LOE_073 | Fossilized Devilsaur | O
 LOE | LOE_076 | Sir Finley Mrrgglton | O
 LOE | LOE_077 | Brann Bronzebeard | O
 LOE | LOE_079 | Elise Starseeker | O
-LOE | LOE_086 | Summoning Stone |  
+LOE | LOE_086 | Summoning Stone | O
 LOE | LOE_089 | Wobbling Runts | O
-LOE | LOE_092 | Arch-Thief Rafaam |  
+LOE | LOE_092 | Arch-Thief Rafaam | O
 LOE | LOE_104 | Entomb | O
 LOE | LOE_105 | Explorer's Hat | O
 LOE | LOE_107 | Eerie Statue |  
@@ -874,7 +874,7 @@ LOE | LOE_118 | Cursed Blade | O
 LOE | LOE_119 | Animated Armor |  
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 82% (37 of 45 Cards)
+- Progress: 91% (41 of 45 Cards)
 
 ## Whispers of the Old Gods
 

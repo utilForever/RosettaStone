@@ -851,6 +851,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        ComplexTask::GiveBuffToRandomMinionInField("LOE_061e"));
+    cards.emplace("LOE_061", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_073] Fossilized Devilsaur - COST:8 [ATK:8/HP:8]
@@ -865,6 +869,15 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::MINIONS,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsControllingRace(Race::BEAST)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "LOE_073e", EntityType::SOURCE) }));
+    cards.emplace("LOE_073", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
@@ -930,6 +943,17 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Whenever you cast a spell,
     //       summon a random minion of the same Cost.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::EVENT_SOURCE,
+                                         GameTag::COST),
+        std::make_shared<RandomMinionNumberTask>(GameTag::COST),
+        std::make_shared<SummonTask>()
+    };
+    cards.emplace("LOE_086", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_089] Wobbling Runts - COST:6 [ATK:2/HP:6]
@@ -961,6 +985,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DISCOVER = 1
     // - USE_DISCOVER_VISUALS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DiscoverTask>(
+        DiscoverType::ARCH_THIEF_RAFAAM, 3, 1, false));
+    cards.emplace("LOE_092", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_107] Eerie Statue - COST:4 [ATK:7/HP:7]
@@ -1083,6 +1111,9 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +3/+3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_061e"));
+    cards.emplace("LOE_061e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOE_073e] Fossilized (*) - COST:0
@@ -1090,6 +1121,9 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Has <b>Taunt</b>.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_073e"));
+    cards.emplace("LOE_073e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOE_077e] Bronzebeard Battlecry (*) - COST:0
@@ -1146,6 +1180,73 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOE_113e"));
     cards.emplace("LOE_113e", cardDef);
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [LOEA16_3] Lantern of Power (*) - COST:10
+    // - Set: LoE
+    // --------------------------------------------------------
+    // Text: Give a minion +10/+10.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_MINION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("LOEA16_3e", EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("LOEA16_3", cardDef);
+
+    // ---------------------------------- ENCHANTMENT - NEUTRAL
+    // [LOEA16_3e] Lantern of Power (*) - COST:0
+    // - Set: LoE
+    // --------------------------------------------------------
+    // Text: +10/+10.
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("LOEA16_3e"));
+    cards.emplace("LOEA16_3e", cardDef);
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [LOEA16_4] Timepiece of Horror (*) - COST:10
+    // - Set: LoE
+    // --------------------------------------------------------
+    // Text: Deal 10 damage randomly split among all enemies.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ImmuneToSpellpower = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueTask>(
+        TaskList{ std::make_shared<RandomTask>(EntityType::ENEMIES, 1),
+                  std::make_shared<DamageTask>(EntityType::STACK, 1) },
+        10, true));
+    cards.emplace("LOEA16_4", cardDef);
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [LOEA16_5] Mirror of Doom (*) - COST:10
+    // - Set: LoE
+    // --------------------------------------------------------
+    // Text: Fill your board with 3/3 Mummy Zombies.
+    // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_NUM_MINION_SLOTS = 1
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("LOEA16_5t", 7, SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("LOEA16_5", cardDef);
+
+    // --------------------------------------- MINION - NEUTRAL
+    // [LOEA16_5t] Mummy Zombie (*) - COST:3 [ATK:3/HP:3]
+    // - Set: LoE
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("LOEA16_5t", cardDef);
 }
 
 void LoECardsGen::AddAll(std::map<std::string, CardDef>& cards)
