@@ -2235,6 +2235,52 @@ TEST_CASE("[Neutral : Minion] - LOE_107 : Eerie Statue")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_110] Ancient Shade - COST:4 [ATK:7/HP:4]
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Shuffle an 'Ancient Curse'
+//       into your deck that deals 7 damage to you when drawn.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_110 : Ancient Shade")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opDeck = *(opPlayer->GetDeckZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ancient Shade"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(opDeck.GetCount(), 1);
+    CHECK_EQ(opDeck[0]->card->name, "Ancient Curse");
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(opDeck.GetCount(), 0);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 8);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
 // - Race: Murloc, Set: LoE, Rarity: Common
 // --------------------------------------------------------

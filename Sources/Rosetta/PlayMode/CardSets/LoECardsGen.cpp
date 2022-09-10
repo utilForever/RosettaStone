@@ -1014,6 +1014,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_DECK, "LOE_110t"));
+    cards.emplace("LOE_110", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
@@ -1176,6 +1180,12 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CASTSWHENDRAWN = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTopdeckTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 7));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 7));
+    cards.emplace("LOE_110t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOE_113e] Mrglllraawrrrglrur! (*) - COST:0
