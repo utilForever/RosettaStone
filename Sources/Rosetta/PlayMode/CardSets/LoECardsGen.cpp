@@ -997,6 +997,12 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Can't attack unless it's the only minion
     //       in the battlefield.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(2, RelaSign::GEQ)),
+        GameTag::CANT_ATTACK));
+    cards.emplace("LOE_107", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_110] Ancient Shade - COST:4 [ATK:7/HP:4]
