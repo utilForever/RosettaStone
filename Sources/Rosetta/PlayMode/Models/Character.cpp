@@ -258,8 +258,9 @@ int Character::TakeDamage(Playable* source, int damage)
             "Character::TakeDamage() - source is nullptr");
     }
 
-    if (const auto value =
-            player->playerAuraEffects.GetValue(GameTag::TAKE_DAMAGE_DOUBLE);
+    const auto& auraEffects = player->playerAuraEffects;
+
+    if (const auto value = auraEffects.GetValue(GameTag::TAKE_DAMAGE_DOUBLE);
         value > 0)
     {
         damage *= 2;
@@ -268,9 +269,19 @@ int Character::TakeDamage(Playable* source, int damage)
     const auto hero = dynamic_cast<Hero*>(this);
     const auto minion = dynamic_cast<Minion*>(this);
 
-    if (hero && this == source)
+    if (hero)
     {
-        hero->fatigue = damage;
+        if (this == source)
+        {
+            hero->fatigue = damage;
+        }
+
+        if (const auto value =
+                auraEffects.GetValue(GameTag::TAKE_ONE_DAMAGE_AT_A_TIME);
+            value > 0)
+        {
+            damage = 1;
+        }
     }
 
     if (minion && GetGameTag(GameTag::DIVINE_SHIELD) == 1)
