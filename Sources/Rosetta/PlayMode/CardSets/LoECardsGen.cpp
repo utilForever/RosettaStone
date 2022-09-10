@@ -379,6 +379,12 @@ void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to all minions.
     //       Shuffle this card into your opponent's deck.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 3, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_DECK, "LOE_111"));
+    cards.emplace("LOE_111", cardDef);
 }
 
 void LoECardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)

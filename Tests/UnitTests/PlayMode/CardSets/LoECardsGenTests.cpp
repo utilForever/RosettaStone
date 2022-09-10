@@ -736,6 +736,63 @@ TEST_CASE("[Priest : Spell] - LOE_104 : Entomb")
     CHECK_EQ(curDeck[0]->card->name, "Malygos");
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [LOE_111] Excavated Evil - COST:5
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Deal 3 damage to all minions.
+//       Shuffle this card into your opponent's deck.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - LOE_111 : Excavated Evil")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opDeck = *(opPlayer->GetDeckZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Excavated Evil"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Upgradeable Framebot"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->GetHealth(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(opDeck.GetCount(), 1);
+    CHECK_EQ(opDeck[0]->card->name, "Excavated Evil");
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [LOE_010] Pit Snake - COST:1 [ATK:2/HP:1]
 // - Race: Beast, Set: LoE, Rarity: Common
