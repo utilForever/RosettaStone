@@ -226,6 +226,12 @@ void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your hero can only take 1 damage at a time.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::TAKE_ONE_DAMAGE_AT_A_TIME,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("LOE_119", cardDef);
 }
 
 void LoECardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
