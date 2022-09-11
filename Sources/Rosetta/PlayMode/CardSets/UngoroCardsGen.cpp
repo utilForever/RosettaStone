@@ -985,6 +985,10 @@ void UngoroCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "UNG_057t1", 1));
+    cards.emplace("UNG_058", cardDef);
 
     // ----------------------------------------- WEAPON - ROGUE
     // [UNG_061] Obsidian Shard - COST:4 [ATK:3/HP:0]
