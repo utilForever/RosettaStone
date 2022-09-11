@@ -973,6 +973,8 @@ void UngoroCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - ROGUE
     // [UNG_058] Razorpetal Lasher - COST:2 [ATK:2/HP:2]
     // - Set: Ungoro, Rarity: Common
@@ -1038,6 +1040,10 @@ void UngoroCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Add two Razorpetals to_your hand that deal 1 damage.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "UNG_057t1", 2));
+    cards.emplace("UNG_057", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
     // [UNG_060] Mimic Pod - COST:3
@@ -1089,6 +1095,8 @@ void UngoroCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - ROGUE
     // [UNG_057t1] Razorpetal (*) - COST:1
     // - Faction: Neutral, Set: Ungoro
@@ -1098,6 +1106,11 @@ void UngoroCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 1, true));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("UNG_057t1", cardDef);
 
     // ------------------------------------ ENCHANTMENT - ROGUE
     // [UNG_063e] Sprout (*) - COST:0
