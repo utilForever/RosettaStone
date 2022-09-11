@@ -8002,7 +8002,7 @@ TEST_CASE("[Warrior : Spell] - CS2_104 : Rampage")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [EX1_391] Slam - COST:2
+// [EX1_391] Slam - COST:1
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: Deal 2 damage to a minion.
@@ -8598,7 +8598,7 @@ TEST_CASE("[Warrior : Minion] - EX1_414 : Grommash Hellscream")
 }
 
 // --------------------------------------- MINION - WARRIOR
-// [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+// [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:3]
 // - Faction: Neutral, Set: Expert1, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Deal 1 damage to a minion
@@ -8641,13 +8641,13 @@ TEST_CASE("[Warrior : Minion] - EX1_603 : Cruel Taskmaster")
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField[0]->GetAttack(), 2);
-    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
 
     game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card1));
     CHECK_EQ(curField[0]->GetAttack(), 4);
-    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
     CHECK_EQ(curField[1]->GetAttack(), 2);
-    CHECK_EQ(curField[1]->GetHealth(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
 }
 
 // --------------------------------------- MINION - WARRIOR

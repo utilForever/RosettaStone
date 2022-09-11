@@ -489,7 +489,7 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // - Race: Beast, Set: REVENDRETH
     // --------------------------------------------------------
     // Text: <b>Dormant</b> for 3 turns.
-    //       When this awakens, equip a 4/2 Greatbow.
+    //       When this awakens, equip a 3/2 Greatbow.
     // --------------------------------------------------------
 
     // ----------------------------------- ENCHANTMENT - HUNTER
@@ -703,7 +703,7 @@ void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // [REV_842] Promotion - COST:1
     // - Set: REVENDRETH, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Give a Silver Hand Recruit +3/+3.
+    // Text: Give a Silver Hand Recruit +3/+3 and <b>Taunt</b>.
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
@@ -849,7 +849,7 @@ void RevendrethCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - PALADIN
-    // [REV_951t] Legendary Invitation - COST:3
+    // [REV_951t] Legendary Invitation - COST:2
     // - Set: REVENDRETH
     // --------------------------------------------------------
     // Text: <b>Discover</b> a <b>Legendary</b> minion
@@ -1162,8 +1162,9 @@ void RevendrethCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // [REV_829] Halkias - COST:4 [ATK:5/HP:4]
     // - Race: Elemental, Set: REVENDRETH, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Deathrattle:</b> If you control a <b>Secret</b>,
-    //       store Halkias' soul inside of it.
+    // Text: <b>Stealth</b>.
+    //       <b>Deathrattle:</b> Store Halkias's soul
+    //       inside of a friendly <b>Secret</b>.
     //       It resummons Halkias when triggered.
     // --------------------------------------------------------
     // GameTag:
@@ -1531,8 +1532,7 @@ void RevendrethCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // [REV_371] Vile Library - COST:2
     // - Set: REVENDRETH, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Give a friendly minion +1/+1.
-    //       Repeat for each Imp you control.
+    // Text: Give a minion +1/+1 for each Imp you control.
     // --------------------------------------------------------
 
     // ---------------------------------------- SPELL - WARLOCK
@@ -1755,8 +1755,8 @@ void RevendrethCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // - Set: REVENDRETH, Rarity: Common
     // --------------------------------------------------------
     // Text: After your hero attacks,
-    //       give your damaged minions +1/+1.
-    //       <b>Infuse (3):</b> +2/+2 instead.
+    //       give your damaged minions +1/+2.
+    //       <b>Infuse (2):</b> +2/+2 instead.
     // --------------------------------------------------------
     // GameTag:
     // - INFUSE = 1
@@ -1779,7 +1779,7 @@ void RevendrethCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // [REV_990] Sanguine Depths - COST:1
     // - Set: REVENDRETH, Rarity: Rare
     // --------------------------------------------------------
-    // Text: Deal 1 damage to a minion and give it +1 Attack.
+    // Text: Deal 1 damage to a minion and give it +2 Attack.
     // --------------------------------------------------------
 }
 
@@ -1956,7 +1956,7 @@ void RevendrethCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [REV_511] Bibliomite - COST:2 [ATK:4/HP:4]
+    // [REV_511] Bibliomite - COST:2 [ATK:5/HP:4]
     // - Set: REVENDRETH, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry</b>: Choose a card in your hand
@@ -1967,7 +1967,7 @@ void RevendrethCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ------------------------------------ SPELL - DEMONHUNTER
-    // [REV_834] Relic of Extinction - COST:2
+    // [REV_834] Relic of Extinction - COST:1
     // - Set: REVENDRETH, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 1 damage to a random enemy minion, twice.
@@ -1991,7 +1991,7 @@ void RevendrethCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------- LOCATION - DEMONHUNTER
-    // [REV_942] Relic Vault - COST:3
+    // [REV_942] Relic Vault - COST:2
     // - Set: REVENDRETH, Rarity: Rare
     // --------------------------------------------------------
     // Text: The next Relic you play this turn casts twice.

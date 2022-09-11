@@ -3701,7 +3701,7 @@ TEST_CASE("[Rogue : Spell] - CS2_076 : Assassinate")
 }
 
 // ------------------------------------------ SPELL - ROGUE
-// [CS2_077] Sprint - COST:6
+// [CS2_077] Sprint - COST:5
 // - Faction: Neutral, Set: Legacy, Rarity: Free
 // --------------------------------------------------------
 // Text: Draw 4 cards.

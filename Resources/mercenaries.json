@@ -11220,6 +11220,7 @@
         ],
         "id": 159,
         "name": "Edwin, Defias Kingpin",
+        "shortName": "Edwin",
         "skinDbfIds": [
             77657,
             77656,
@@ -13604,6 +13605,7 @@
         ],
         "id": 237,
         "name": "Mr. Smite",
+        "shortName": "Smite",
         "skinDbfIds": [
             79824,
             79823,
@@ -13794,6 +13796,7 @@
         ],
         "id": 238,
         "name": "Vanessa VanCleef",
+        "shortName": "Vanessa",
         "skinDbfIds": [
             79830,
             79829,
@@ -14172,6 +14175,7 @@
         ],
         "id": 242,
         "name": "Sky Admiral Rogers",
+        "shortName": "Rogers",
         "skinDbfIds": [
             79827,
             79826,

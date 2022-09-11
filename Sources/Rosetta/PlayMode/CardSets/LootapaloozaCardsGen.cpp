@@ -1065,7 +1065,7 @@ void LootapaloozaCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [LOOT_412] Kobold Illusionist - COST:4 [ATK:3/HP:3]
+    // [LOOT_412] Kobold Illusionist - COST:5 [ATK:3/HP:3]
     // - Faction: Alliance, Set: Lootapalooza, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Deathrattle:</b> Summon a 1/1 copy of a minion

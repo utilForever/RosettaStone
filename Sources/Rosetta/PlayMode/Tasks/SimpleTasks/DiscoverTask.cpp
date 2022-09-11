@@ -648,6 +648,14 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::ARCH_THIEF_RAFAAM:
+            choiceAction = ChoiceAction::HAND;
+            cardsForGeneration = {
+                Cards::FindCardByID("LOEA16_3"),
+                Cards::FindCardByID("LOEA16_5"),
+                Cards::FindCardByID("LOEA16_4"),
+            };
+            break;
     }
 
     if (!cardsForOtherEffect.empty())

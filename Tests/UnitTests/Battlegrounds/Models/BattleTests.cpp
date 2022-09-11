@@ -36,8 +36,8 @@ TEST_CASE("[Battle] - Player 1 win (Player 1 has a minion only)")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 0);
 
     CHECK_EQ(battle.GetResult(), BattleResult::PLAYER1_WIN);
-    CHECK_EQ(player1.hero.health, 55);
-    CHECK_EQ(player2.hero.health, 47);
+    CHECK_EQ(player1.hero.health, 60);
+    CHECK_EQ(player2.hero.health, 52);
 }
 
 TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
@@ -68,8 +68,8 @@ TEST_CASE("[Battle] - Player 2 win (Each player has a minion)")
     CHECK_EQ(p2Field[0].GetHealth(), 1);
 
     CHECK_EQ(battle.GetResult(), BattleResult::PLAYER2_WIN);
-    CHECK_EQ(player1.hero.health, 51);
-    CHECK_EQ(player2.hero.health, 55);
+    CHECK_EQ(player1.hero.health, 56);
+    CHECK_EQ(player2.hero.health, 60);
 }
 
 TEST_CASE("[Battle] - Draw (0 attack minions only)")
@@ -96,8 +96,8 @@ TEST_CASE("[Battle] - Draw (0 attack minions only)")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
 
     CHECK_EQ(battle.GetResult(), BattleResult::DRAW);
-    CHECK_EQ(player1.hero.health, 55);
-    CHECK_EQ(player2.hero.health, 55);
+    CHECK_EQ(player1.hero.health, 60);
+    CHECK_EQ(player2.hero.health, 60);
 }
 
 TEST_CASE("[Battle] - Next Attacker")
