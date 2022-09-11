@@ -577,7 +577,7 @@ void StormwindCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [SW_322] Defend the Dwarven District - COST:1
     // - Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Questline:</b> Deal damage with 2 spells.
+    // Text: <b>Questline:</b> Deal damage with 3 spells.
     //       <b>Reward:</b> Your Hero Power can target minions.
     // --------------------------------------------------------
     // GameTag:
@@ -1217,7 +1217,7 @@ void StormwindCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - PALADIN
-    // [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:1]
+    // [SW_315] Alliance Bannerman - COST:3 [ATK:2/HP:2]
     // - Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a minion.
@@ -1855,7 +1855,7 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DED_510] Edwin, Defias Kingpin - COST:3 [ATK:3/HP:3]
+    // [DED_510] Edwin, Defias Kingpin - COST:4 [ATK:4/HP:4]
     // - Race: Pirate, Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a card.

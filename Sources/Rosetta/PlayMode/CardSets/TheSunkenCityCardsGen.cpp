@@ -3001,7 +3001,7 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [TSC_052] School Teacher - COST:4 [ATK:4/HP:3]
+    // [TSC_052] School Teacher - COST:4 [ATK:4/HP:4]
     // - Race: Naga, Set: THE_SUNKEN_CITY, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Add a 1/1 Nagaling to your hand.
@@ -3274,7 +3274,7 @@ void TheSunkenCityCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [TSC_926] Smothering Starfish - COST:3 [ATK:2/HP:4]
+    // [TSC_926] Smothering Starfish - COST:4 [ATK:2/HP:4]
     // - Race: Beast, Set: THE_SUNKEN_CITY, Rarity: Epic
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Silence</b> ALL other minions.
