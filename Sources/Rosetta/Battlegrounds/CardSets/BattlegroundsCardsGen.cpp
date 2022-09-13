@@ -27,7 +27,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
     Power power;
 
     // --------------------------------- MINION - BATTLEGROUNDS
-    // [CFM_315] Alleycat - TIER:1 [ATK:1/HP:1]
+    // [BG_CFM_315] Alleycat - TIER:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Gangs
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a 1/1 Cat.
@@ -36,11 +36,11 @@ void BattlegroundsCardsGen::AddTier1Minions(
     // - BATTLECRY = 1
     // --------------------------------------------------------
     power.ClearData();
-    power.AddBattlecryTask(SummonTask{ "CFM_315t", 1 });
-    cards.emplace("CFM_315", CardDef{ power });
+    power.AddBattlecryTask(SummonTask{ "BG_CFM_315t", 1 });
+    cards.emplace("BG_CFM_315", CardDef{ power });
 
     // --------------------------------- MINION - BATTLEGROUNDS
-    // [EX1_531] Scavenging Hyena - TIER:1 [ATK:2/HP:2]
+    // [BG_EX1_531] Scavenging Hyena - TIER:1 [ATK:2/HP:2]
     // - Race: Beast, Set: Expert1
     // --------------------------------------------------------
     // Text: Whenever a friendly Beast dies, gain +2/+1.
@@ -52,7 +52,7 @@ void BattlegroundsCardsGen::AddTier1Minions(
         AddEnchantmentTask{ "EX1_531e", EntityType::SOURCE } });
     power.GetTrigger().value().SetCondition(
         SelfCondition{ SelfCondition::IsRace(Race::BEAST) });
-    cards.emplace("EX1_531", CardDef{ power });
+    cards.emplace("BG_EX1_531", CardDef{ power });
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [YOD_026] Fiendish Servant - TIER:1 [ATK:2/HP:1]
@@ -314,11 +314,11 @@ void BattlegroundsCardsGen::AddTokenMinions(
     Power power;
 
     // --------------------------------- MINION - BATTLEGROUNDS
-    // [CFM_315t] Tabbycat (*) - TIER:1 [ATK:1/HP:1]
+    // [BG_CFM_315t] Tabbycat (*) - TIER:1 [ATK:1/HP:1]
     // - Race: Beast, Set: Gangs
     // --------------------------------------------------------
     power.ClearData();
-    cards.emplace("CFM_315t", CardDef{ power });
+    cards.emplace("BG_CFM_315t", CardDef{ power });
 
     // --------------------------------- MINION - BATTLEGROUNDS
     // [BOT_445t] Jo-E Bot (*) - TIER:1 [ATK:1/HP:1]

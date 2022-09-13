@@ -236,7 +236,7 @@ TEST_CASE("[Mage : Minion] - AT_008 : Coldarra Drake")
 // [AT_075] Warhorse Trainer - COST:3 [ATK:2/HP:4]
 // - Set: Tgt, Rarity: Common
 // --------------------------------------------------------
-// Text: Your Silver Hand Recruits have +1 Attack.
+// Text: Your Silver Hand Recruits have +2 Attack and <b>Taunt</b>.
 // --------------------------------------------------------
 // GameTag:
 // - AURA = 1
@@ -279,7 +279,8 @@ TEST_CASE("[Paladin : Minion] - AT_075 : Warhorse Trainer")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curField[0]->GetAttack(), 3);
-    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -288,6 +289,7 @@ TEST_CASE("[Paladin : Minion] - AT_075 : Warhorse Trainer")
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->HasTaunt(), false);
 }
 
 // ----------------------------------------- SPELL - PRIEST
@@ -490,7 +492,7 @@ TEST_CASE("[Warlock : Minion] - AT_021 : Tiny Knight of Evil")
 }
 
 // ---------------------------------------- SPELL - WARRIOR
-// [AT_064] Bash - COST:3
+// [AT_064] Bash - COST:2
 // - Set: Tgt, Rarity: Common
 // --------------------------------------------------------
 // Text: Deal 3 damage.

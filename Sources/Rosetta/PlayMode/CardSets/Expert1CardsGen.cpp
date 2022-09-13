@@ -3800,7 +3800,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("CS2_104", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
-    // [EX1_391] Slam - COST:2
+    // [EX1_391] Slam - COST:1
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: Deal 2 damage to a minion.
@@ -4005,7 +4005,7 @@ void Expert1CardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cards.emplace("EX1_414", cardDef);
 
     // --------------------------------------- MINION - WARRIOR
-    // [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
+    // [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:3]
     // - Faction: Neutral, Set: Expert1, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Deal 1 damage to a minion

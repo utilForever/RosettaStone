@@ -15,7 +15,7 @@ using namespace RosettaStone;
 using namespace Battlegrounds;
 
 // --------------------------------- MINION - BATTLEGROUNDS
-// [CFM_315] Alleycat - TIER:1 [ATK:1/HP:1]
+// [BG_CFM_315] Alleycat - TIER:1 [ATK:1/HP:1]
 // - Race: Beast, Set: Gangs, Rarity: Common
 // --------------------------------------------------------
 // Text: <b>Battlecry:</b> Summon a 1/1 Cat.
@@ -23,7 +23,7 @@ using namespace Battlegrounds;
 // GameTag:
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST_CASE("[Battlegrounds : Minion] - CFM_315 : Alleycat")
+TEST_CASE("[Battlegrounds : Minion] - BG_CFM_315 : Alleycat")
 {
     Game game;
     game.Start();
@@ -178,11 +178,11 @@ TEST_CASE("[Battlegrounds : Minion] - LOOT_013 : Vulgar Homunculus")
 
     game.SetPlayerPair(0, 1);
 
-    CHECK_EQ(player1.hero.health, 55);
+    CHECK_EQ(player1.hero.health, 60);
 
     player1.hand.Add(minion1);
     player1.PlayCard(0, 0);
-    CHECK_EQ(player1.hero.health, 53);
+    CHECK_EQ(player1.hero.health, 58);
 }
 
 // --------------------------------- MINION - BATTLEGROUNDS
@@ -211,17 +211,17 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_004 : Wrath Weaver")
 
     game.SetPlayerPair(0, 1);
 
-    CHECK_EQ(player1.hero.health, 55);
+    CHECK_EQ(player1.hero.health, 60);
 
     player1.hand.Add(minion1);
     player1.PlayCard(0, 0);
-    CHECK_EQ(player1.hero.health, 55);
+    CHECK_EQ(player1.hero.health, 60);
     CHECK_EQ(player1.recruitField[0].GetAttack(), 1);
     CHECK_EQ(player1.recruitField[0].GetHealth(), 3);
 
     player1.hand.Add(minion2);
     player1.PlayCard(0, 1);
-    CHECK_EQ(player1.hero.health, 52);
+    CHECK_EQ(player1.hero.health, 57);
     CHECK_EQ(player1.recruitField[0].GetAttack(), 3);
     CHECK_EQ(player1.recruitField[0].GetHealth(), 5);
 }

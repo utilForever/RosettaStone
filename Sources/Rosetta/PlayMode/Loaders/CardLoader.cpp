@@ -38,10 +38,10 @@ void CardLoader::Load(std::vector<Card*>& cards)
 
     for (auto& cardData : j)
     {
-        const int cardSet = cardData["set"].is_null()
-                                ? 1
-                                : static_cast<int>(StrToEnum<CardSet>(
-                                      cardData["set"].get<std::string>()));
+        int cardSet = cardData["set"].is_null()
+                          ? 1
+                          : static_cast<int>(StrToEnum<CardSet>(
+                                cardData["set"].get<std::string>()));
 
         if (static_cast<CardSet>(cardSet) == CardSet::BATTLEGROUNDS ||
             static_cast<CardSet>(cardSet) == CardSet::LETTUCE ||
@@ -111,6 +111,15 @@ void CardLoader::Load(std::vector<Card*>& cards)
                 ? 0
                 : static_cast<int>(StrToEnum<SpellSchool>(
                       cardData["spellSchool"].get<std::string>()));
+
+        // NOTE: Lantern of Power (LOEA16_3, LOEA16_3e), Timepiece of Horror
+        // (LOEA16_4), Mirror of Doom(LOEA16_5), Mummy Zombie(LOEA16_5t) are
+        // discovered cards by Arch-Thief Rafaam (LOE_092)
+        if (dbfID == 19614 || dbfID == 36450 || dbfID == 19615 ||
+            dbfID == 19616 || dbfID == 36452)
+        {
+            cardSet = static_cast<int>(CardSet::LOE);
+        }
 
         std::map<GameTag, int> gameTags;
         for (auto& mechanic : cardData["mechanics"])

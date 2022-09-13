@@ -364,8 +364,8 @@ TEST_CASE("[Druid : Minion] - BAR_538 : Druid of the Plains")
 // - Set: THE_BARRENS, Rarity: Epic
 // - Spell School: Arcane
 // --------------------------------------------------------
-// Text: Set each player to 0 Mana Crystals.
-//       Set the Cost of cards in all hands and decks to (1).
+// Text: Set your Mana Crystals to 0.
+//       Set the cost of all cards in your hand and deck to (1).
 // --------------------------------------------------------
 TEST_CASE("[Druid : Spell] - BAR_539 : Celestial Alignment")
 {
@@ -381,9 +381,6 @@ TEST_CASE("[Druid : Spell] - BAR_539 : Celestial Alignment")
         config.player1Deck[i] = Cards::FindCardByName("Fireball");
         config.player1Deck[i + 1] = Cards::FindCardByName("Wisp");
         config.player1Deck[i + 2] = Cards::FindCardByName("Doomhammer");
-        config.player2Deck[i] = Cards::FindCardByName("Fireball");
-        config.player2Deck[i + 1] = Cards::FindCardByName("Wisp");
-        config.player2Deck[i + 2] = Cards::FindCardByName("Doomhammer");
     }
 
     Game game(config);
@@ -406,11 +403,9 @@ TEST_CASE("[Druid : Spell] - BAR_539 : Celestial Alignment")
         curPlayer, Cards::FindCardByName("Celestial Alignment"));
 
     CHECK_EQ(curPlayer->GetTotalMana(), 10);
-    CHECK_EQ(opPlayer->GetTotalMana(), 10);
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
     CHECK_EQ(curPlayer->GetTotalMana(), 0);
-    CHECK_EQ(opPlayer->GetTotalMana(), 0);
     for (auto& card : curHand.GetAll())
     {
         CHECK_EQ(card->GetCost(), 1);
@@ -419,26 +414,16 @@ TEST_CASE("[Druid : Spell] - BAR_539 : Celestial Alignment")
     {
         CHECK_EQ(card->GetCost(), 1);
     }
-    for (auto& card : opHand.GetAll())
-    {
-        CHECK_EQ(card->GetCost(), 1);
-    }
-    for (auto& card : opDeck.GetAll())
-    {
-        CHECK_EQ(card->GetCost(), 1);
-    }
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curPlayer->GetTotalMana(), 0);
-    CHECK_EQ(opPlayer->GetTotalMana(), 1);
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curPlayer->GetTotalMana(), 1);
-    CHECK_EQ(opPlayer->GetTotalMana(), 1);
 }
 
 // ----------------------------------------- MINION - DRUID
@@ -3338,7 +3323,7 @@ TEST_CASE("[Rogue : Minion] - BAR_317 : Field Contact")
 }
 
 // ------------------------------------------ SPELL - ROGUE
-// [BAR_318] Silverleaf Poison - COST:2
+// [BAR_318] Silverleaf Poison - COST:1
 // - Set: THE_BARRENS, Rarity: Common
 // - Spell School: Nature
 // --------------------------------------------------------

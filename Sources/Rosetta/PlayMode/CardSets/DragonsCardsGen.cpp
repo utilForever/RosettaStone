@@ -1913,6 +1913,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                 case CardType::MOVE_MINION_HOVER_TARGET:
                 case CardType::LETTUCE_ABILITY:
                 case CardType::BATTLEGROUND_HERO_BUDDY:
+                case CardType::BATTLEGROUND_QUEST_REWARD:
                     throw std::invalid_argument(
                         "Murozond the Infinite (DRG_090) - Invalid card type!");
             }

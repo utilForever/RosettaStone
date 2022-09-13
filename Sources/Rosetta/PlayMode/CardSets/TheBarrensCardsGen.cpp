@@ -137,8 +137,8 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - Set: THE_BARRENS, Rarity: Epic
     // - Spell School: Arcane
     // --------------------------------------------------------
-    // Text: Set each player to 0 Mana Crystals.
-    //       Set the Cost of cards in all hands and decks to (1).
+    // Text: Set your Mana Crystals to 0.
+    //       Set the cost of all cards in your hand and deck to (1).
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<SetManaCrystalTask>(0));
@@ -146,10 +146,6 @@ void TheBarrensCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
         std::make_shared<AddEnchantmentTask>("BAR_539e", EntityType::HAND));
     cardDef.power.AddPowerTask(
         std::make_shared<AddEnchantmentTask>("BAR_539e", EntityType::DECK));
-    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "BAR_539e", EntityType::ENEMY_HAND));
-    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
-        "BAR_539e", EntityType::ENEMY_DECK));
     cards.emplace("BAR_539", cardDef);
 
     // ----------------------------------------- MINION - DRUID
@@ -1909,7 +1905,7 @@ void TheBarrensCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cards.emplace("BAR_317", cardDef);
 
     // ------------------------------------------ SPELL - ROGUE
-    // [BAR_318] Silverleaf Poison - COST:2
+    // [BAR_318] Silverleaf Poison - COST:1
     // - Set: THE_BARRENS, Rarity: Common
     // - Spell School: Nature
     // --------------------------------------------------------

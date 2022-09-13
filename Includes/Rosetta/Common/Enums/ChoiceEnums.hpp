@@ -51,6 +51,7 @@ enum class DiscoverType
     BODY_WRAPPER,
     RINLINGS_RIFLE,
     SELECTIVE_BREEDER,
+    ARCH_THIEF_RAFAAM,
 };
 
 //! The action type of choice.

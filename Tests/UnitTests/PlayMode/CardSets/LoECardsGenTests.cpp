@@ -600,8 +600,8 @@ TEST_CASE("[Paladin : Spell] - LOE_027 : Sacred Trial")
     auto curSecret = curPlayer->GetSecretZone();
     auto& opField = *(opPlayer->GetFieldZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Sacred Trial"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Sacred Trial"));
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
     const auto card3 =
@@ -1646,6 +1646,113 @@ TEST_CASE("[Neutral : Minion] - LOE_053 : Djinni of Zephyrs")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_061] Anubisath Sentinel - COST:5 [ATK:4/HP:4]
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Give a random friendly minion +3/+3.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_061 : Anubisath Sentinel")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Anubisath Sentinel"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 4);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [LOE_073] Fossilized Devilsaur - COST:8 [ATK:8/HP:8]
+// - Set: LoE, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a Beast,
+//       gain <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_073 : Fossilized Devilsaur")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fossilized Devilsaur"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Fossilized Devilsaur"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dire Wolf Alpha"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[2]->HasTaunt(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3]
 // - Race: Murloc, Set: LoE, Rarity: Legendary
 // --------------------------------------------------------
@@ -1857,6 +1964,60 @@ TEST_CASE("[Neutral : Minion] - LOE_079 : Elise Starseeker")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [LOE_086] Summoning Stone - COST:5 [ATK:0/HP:6]
+// - Set: LoE, Rarity: Rare
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       summon a random minion of the same Cost.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_086 : Summoning Stone")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Summoning Stone"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->GetCost(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[2]->GetCost(), 10);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [LOE_089] Wobbling Runts - COST:6 [ATK:2/HP:6]
 // - Set: LoE, Rarity: Rare
 // --------------------------------------------------------
@@ -1908,6 +2069,109 @@ TEST_CASE("[Neutral : Minion] - LOE_089 : Wobbling Runts")
     CHECK_EQ(curField[2]->card->name, "Rascally Runt");
     CHECK_EQ(curField[2]->GetAttack(), 2);
     CHECK_EQ(curField[2]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [LOE_092] Arch-Thief Rafaam - COST:9 [ATK:7/HP:8]
+// - Set: LoE, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry: Discover</b> a powerful Artifact.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// - DISCOVER = 1
+// - USE_DISCOVER_VISUALS = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - LOE_092 : Arch-Thief Rafaam")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Arch-Thief Rafaam"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    CHECK_EQ(cards[0]->name, "Lantern of Power");
+    CHECK_EQ(cards[1]->name, "Mirror of Doom");
+    CHECK_EQ(cards[2]->name, "Timepiece of Horror");
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    SUBCASE("Arch-Thief Rafaam - LOEA16_3")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("LOEA16_3"));
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card, card1));
+        CHECK_EQ(curField[0]->GetAttack(), 17);
+        CHECK_EQ(curField[0]->GetHealth(), 18);
+    }
+
+    SUBCASE("Arch-Thief Rafaam - LOEA16_4")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("LOEA16_4"));
+
+        game.Process(curPlayer, PlayCardTask::Spell(card));
+        CHECK_EQ(opPlayer->GetHero()->GetHealth(), 20);
+    }
+
+    SUBCASE("Arch-Thief Rafaam - LOEA16_5")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("LOEA16_5"));
+
+        game.Process(curPlayer, PlayCardTask::Spell(card));
+        CHECK_EQ(curField.GetCount(), 7);
+        CHECK_EQ(curField[1]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[1]->GetAttack(), 3);
+        CHECK_EQ(curField[1]->GetHealth(), 3);
+        CHECK_EQ(curField[2]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[2]->GetAttack(), 3);
+        CHECK_EQ(curField[2]->GetHealth(), 3);
+        CHECK_EQ(curField[3]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[3]->GetAttack(), 3);
+        CHECK_EQ(curField[3]->GetHealth(), 3);
+        CHECK_EQ(curField[4]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[4]->GetAttack(), 3);
+        CHECK_EQ(curField[4]->GetHealth(), 3);
+        CHECK_EQ(curField[5]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[5]->GetAttack(), 3);
+        CHECK_EQ(curField[5]->GetHealth(), 3);
+        CHECK_EQ(curField[6]->card->name, "Mummy Zombie");
+        CHECK_EQ(curField[6]->GetAttack(), 3);
+        CHECK_EQ(curField[6]->GetHealth(), 3);
+    }
 }
 
 // --------------------------------------- MINION - NEUTRAL

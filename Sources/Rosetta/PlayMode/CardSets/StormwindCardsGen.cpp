@@ -1855,7 +1855,7 @@ void StormwindCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // ----------------------------------------- MINION - ROGUE
-    // [DED_510] Edwin, Defias Kingpin - COST:4 [ATK:4/HP:4]
+    // [DED_510] Edwin, Defias Kingpin - COST:3 [ATK:3/HP:3]
     // - Race: Pirate, Set: STORMWIND, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Draw a card.
@@ -2832,7 +2832,7 @@ void StormwindCardsGen::AddDemonHunter(std::map<std::string, CardDef>& cards)
     CardDef cardDef;
 
     // ----------------------------------- MINION - DEMONHUNTER
-    // [SW_037] Irebound Brute - COST:8 [ATK:6/HP:7]
+    // [SW_037] Irebound Brute - COST:7 [ATK:6/HP:7]
     // - Race: Demon, Set: STORMWIND, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Taunt</b>
