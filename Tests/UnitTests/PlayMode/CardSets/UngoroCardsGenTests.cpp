@@ -283,6 +283,10 @@ TEST_CASE("[Rogue : Spell] - UNG_057 : Razorpetal Volley")
     CHECK_EQ(curHand.GetCount(), 6);
     CHECK_EQ(curHand[4]->card->name, "Razorpetal");
     CHECK_EQ(curHand[5]->card->name, "Razorpetal");
+
+    game.Process(curPlayer,
+        PlayCardTask::SpellTarget(curHand[4], opPlayer->GetHero()));
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
 }
 
 // ----------------------------------------- SPELL - SHAMAN
