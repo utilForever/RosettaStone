@@ -226,6 +226,12 @@ void LoECardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Your hero can only take 1 damage at a time.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::PLAYER,
+        EffectList{ std::make_shared<Effect>(GameTag::TAKE_ONE_DAMAGE_AT_A_TIME,
+                                             EffectOperator::SET, 1) }));
+    cards.emplace("LOE_119", cardDef);
 }
 
 void LoECardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
@@ -379,6 +385,12 @@ void LoECardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Deal 3 damage to all minions.
     //       Shuffle this card into your opponent's deck.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::ALL_MINIONS, 3, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_DECK, "LOE_111"));
+    cards.emplace("LOE_111", cardDef);
 }
 
 void LoECardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
@@ -997,6 +1009,12 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // Text: Can't attack unless it's the only minion
     //       in the battlefield.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
+        std::make_shared<SelfCondition>(
+            SelfCondition::IsFieldCount(2, RelaSign::GEQ)),
+        GameTag::CANT_ATTACK));
+    cards.emplace("LOE_107", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOE_110] Ancient Shade - COST:4 [ATK:7/HP:4]
@@ -1008,6 +1026,10 @@ void LoECardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddCardTask>(EntityType::ENEMY_DECK, "LOE_110t"));
+    cards.emplace("LOE_110", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
@@ -1170,6 +1192,12 @@ void LoECardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - CASTSWHENDRAWN = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTopdeckTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 7));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::HERO, 7));
+    cards.emplace("LOE_110t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [LOE_113e] Mrglllraawrrrglrur! (*) - COST:0

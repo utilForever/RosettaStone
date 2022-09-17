@@ -864,17 +864,17 @@ LOE | LOE_089 | Wobbling Runts | O
 LOE | LOE_092 | Arch-Thief Rafaam | O
 LOE | LOE_104 | Entomb | O
 LOE | LOE_105 | Explorer's Hat | O
-LOE | LOE_107 | Eerie Statue |  
-LOE | LOE_110 | Ancient Shade |  
-LOE | LOE_111 | Excavated Evil |  
+LOE | LOE_107 | Eerie Statue | O
+LOE | LOE_110 | Ancient Shade | O
+LOE | LOE_111 | Excavated Evil | O
 LOE | LOE_113 | Everyfin is Awesome | O
 LOE | LOE_115 | Raven Idol | O
 LOE | LOE_116 | Reliquary Seeker | O
 LOE | LOE_118 | Cursed Blade | O
-LOE | LOE_119 | Animated Armor |  
+LOE | LOE_119 | Animated Armor | O
 LOE | LOEA10_3 | Murloc Tinyfin | O
 
-- Progress: 91% (41 of 45 Cards)
+- Progress: 100% (45 of 45 Cards)
 
 ## Whispers of the Old Gods
 
