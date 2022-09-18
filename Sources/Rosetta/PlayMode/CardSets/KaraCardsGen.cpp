@@ -194,6 +194,14 @@ void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 5, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("KAR_076", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [KAR_092] Medivh's Valet - COST:2 [ATK:2/HP:3]
