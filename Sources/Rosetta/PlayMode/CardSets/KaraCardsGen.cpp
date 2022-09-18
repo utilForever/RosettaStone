@@ -219,6 +219,13 @@ void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    cardDef.property.playReqs = PlayReqs{
+        { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS, 1 }
+    };
+    cards.emplace("KAR_092", cardDef);
 }
 
 void KaraCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
