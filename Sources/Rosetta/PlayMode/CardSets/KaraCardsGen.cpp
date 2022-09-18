@@ -114,6 +114,10 @@ void KaraCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("KAR_005a", SummonSide::DEATHRATTLE));
+    cards.emplace("KAR_005", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4]
@@ -156,6 +160,9 @@ void KaraCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // [KAR_005a] Big Bad Wolf (*) - COST:2 [ATK:3/HP:2]
     // - Race: Beast, Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_005a", cardDef);
 }
 
 void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)

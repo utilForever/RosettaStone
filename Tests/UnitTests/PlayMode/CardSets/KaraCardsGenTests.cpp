@@ -176,6 +176,55 @@ TEST_CASE("[Hunter : Spell] - KAR_004 : Cat Trick")
 }
 
 // ---------------------------------------- MINION - HUNTER
+// [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1]
+// - Race: Beast, Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Summon a 3/2 Big Bad Wolf.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - KAR_005 : Kindly Grandmother")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Kindly Grandmother"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Big Bad Wolf");
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
+// ---------------------------------------- MINION - HUNTER
 // [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4]
 // - Set: Kara, Rarity: Common
 // --------------------------------------------------------
