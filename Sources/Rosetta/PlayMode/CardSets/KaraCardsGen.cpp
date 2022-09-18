@@ -57,6 +57,14 @@ void KaraCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 6));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 6, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("KAR_075", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]

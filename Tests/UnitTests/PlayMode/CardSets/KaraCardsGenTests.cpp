@@ -69,6 +69,47 @@ TEST_CASE("[Druid : Minion] - KAR_065 : Menagerie Warden")
     CHECK_EQ(curField[3]->card->name, "Bloodfen Raptor");
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [KAR_075] Moonglade Portal - COST:6
+// - Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: Restore 6 Health. Summon a random 6-Cost minion.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - KAR_075 : Moonglade Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moonglade Portal"));
+
+    game.Process(curPlayer,
+                 PlayCardTask::MinionTarget(card1, curPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 6);
+}
+
 // ----------------------------------------- MINION - DRUID
 // [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]
 // - Race: Beast, Set: Kara, Rarity: Common
