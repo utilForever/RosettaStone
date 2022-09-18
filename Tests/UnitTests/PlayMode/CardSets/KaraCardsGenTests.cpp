@@ -119,6 +119,62 @@ TEST_CASE("[Druid : Minion] - KAR_300 : Enchanted Raven")
     // Do nothing
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [KAR_004] Cat Trick - COST:2
+// - Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Secret:</b> After your opponent casts a spell,
+//       summon a 4/2 Panther with <b>Stealth</b>.
+// --------------------------------------------------------
+// GameTag:
+// - SECRET = 1
+// --------------------------------------------------------
+// RefTag:
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - KAR_004 : Cat Trick")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto curSecret = curPlayer->GetSecretZone();
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Cat Trick"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Arcane Intellect"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curSecret->GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curSecret->GetCount(), 0);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->name, "Cat in a Hat");
+    CHECK_EQ(curField[0]->GetAttack(), 4);
+    CHECK_EQ(curField[0]->GetHealth(), 2);
+    CHECK_EQ(curField[0]->HasStealth(), true);
+}
+
 // ---------------------------------------- MINION - HUNTER
 // [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4]
 // - Set: Kara, Rarity: Common

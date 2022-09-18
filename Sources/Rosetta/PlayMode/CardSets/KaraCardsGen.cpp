@@ -97,6 +97,13 @@ void KaraCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<SummonTask>("KAR_004a", SummonSide::SPELL) });
+    cards.emplace("KAR_004", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1]
@@ -130,6 +137,8 @@ void KaraCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - HUNTER
     // [KAR_004a] Cat in a Hat (*) - COST:3 [ATK:4/HP:2]
     // - Race: Beast, Faction: Horde, Set: Kara
@@ -139,6 +148,9 @@ void KaraCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_004a", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [KAR_005a] Big Bad Wolf (*) - COST:2 [ATK:3/HP:2]
