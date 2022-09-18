@@ -2187,7 +2187,7 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [REV_021] Kael'thas Sinstrider - COST:6 [ATK:4/HP:7]
+    // [REV_021] Kael'thas Sinstrider - COST:8 [ATK:4/HP:7]
     // - Set: REVENDRETH, Rarity: Legendary
     // --------------------------------------------------------
     // Text: Every third minion you play each turn costs (0).

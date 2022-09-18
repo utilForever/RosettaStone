@@ -3359,7 +3359,7 @@
         "name": "Wildheart Guff",
         "rarity": "LEGENDARY",
         "set": "ALTERAC_VALLEY",
-        "text": "[x]<b>Battlecry:</b> Set your\nmaximum Mana to 20.\nGain a Mana Crystal.\nDraw a card.",
+        "text": "[x]<b>Battlecry:</b> Set your\nmaximum Mana to 20.\nGain an empty Mana\nCrystal. Draw a card.",
         "type": "HERO"
     },
     {
@@ -28221,14 +28221,14 @@
     },
     {
         "artist": "Zoltan Boros",
-        "attack": 3,
+        "attack": 4,
         "cardClass": "ROGUE",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 65645,
         "elite": true,
         "flavor": "He’s not going to tear down the walls of Stormwind sitting around in the Hall of Fame.",
-        "health": 3,
+        "health": 4,
         "id": "DED_510",
         "isMiniSet": true,
         "mechanics": [
@@ -58446,7 +58446,7 @@
         "attack": 4,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 6,
+        "cost": 8,
         "dbfId": 79934,
         "elite": true,
         "flavor": "You heard about Kael'thas? That's messed up, right?",
@@ -59686,7 +59686,7 @@
         "cost": 3,
         "dbfId": 84356,
         "flavor": "For VIPs only. (Very Infused Person)",
-        "health": 3,
+        "health": 2,
         "id": "REV_602",
         "name": "Nightcloak Sanctum",
         "rarity": "RARE",
@@ -65235,7 +65235,7 @@
         "cost": 3,
         "dbfId": 64368,
         "flavor": "Back in my day, we had to carry our inspiration uphill both ways to war.",
-        "health": 1,
+        "health": 2,
         "id": "SW_315",
         "mechanics": [
             "BATTLECRY"
@@ -65343,7 +65343,7 @@
         "name": "Defend the Dwarven District",
         "rarity": "LEGENDARY",
         "set": "STORMWIND",
-        "text": "<b>Questline:</b> Deal damage with 2 spells. <b>Reward:</b> Your Hero Power can target minions.",
+        "text": "<b>Questline:</b> Deal damage with 3 spells. <b>Reward:</b> Your Hero Power can target minions.",
         "type": "SPELL"
     },
     {
@@ -69692,7 +69692,7 @@
         "cost": 4,
         "dbfId": 72598,
         "flavor": "She also tutors 3 Piranha Swarmers on her off hours.",
-        "health": 3,
+        "health": 4,
         "howToEarnGolden": "Unlocked with \"Shale University\" Achievement.",
         "id": "TSC_052",
         "mechanics": [
@@ -71485,7 +71485,7 @@
         "attack": 2,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 3,
+        "cost": 4,
         "dbfId": 72333,
         "flavor": "Is a sucker for small talk.",
         "health": 4,

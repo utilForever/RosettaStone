@@ -85,7 +85,7 @@ void AlteracValleyCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
     // - Set: ALTERAC_VALLEY, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Set your maximum Mana to 20.
-    //       Gain a Mana Crystal. Draw a card.
+    //       Gain an empty Mana Crystal. Draw a card.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -159,7 +159,7 @@ void AlteracValleyCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Hero Power</b>
     //       Deal 2 damage.
-    //       <b>Honorable Kill:</b> Gain +2 damage.
+    //       <b>Honorable Kill:</b> Gain +1 damage.
     // --------------------------------------------------------
     // GameTag:
     // - HONORABLEKILL = 1
