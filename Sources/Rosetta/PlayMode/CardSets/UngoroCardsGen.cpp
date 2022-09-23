@@ -268,6 +268,8 @@ void UngoroCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - HUNTER
     // [UNG_800] Terrorscale Stalker - COST:3 [ATK:3/HP:3]
     // - Faction: Neutral, Set: Ungoro, Rarity: Rare
@@ -308,6 +310,12 @@ void UngoroCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID, Race::BEAST));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddStackToTask>(EntityType::HAND));
+    cards.emplace("UNG_912", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [UNG_913] Tol'vir Warden - COST:5 [ATK:3/HP:5]
