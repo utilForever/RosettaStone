@@ -341,6 +341,10 @@ void UngoroCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "UNG_914t1", 1));
+    cards.emplace("UNG_914", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [UNG_915] Crackling Razormaw - COST:2 [ATK:3/HP:2]
@@ -403,10 +407,15 @@ void UngoroCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void UngoroCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - HUNTER
     // [UNG_914t1] Raptor Patriarch (*) - COST:1 [ATK:4/HP:3]
     // - Race: Beast, Set: Ungoro
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("UNG_914t1", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [UNG_916e] Stampeding (*) - COST:0
