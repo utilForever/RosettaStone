@@ -174,6 +174,9 @@ void UngoroCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - CANT_BE_TARGETED_BY_SPELLS = 1
     // - CANT_BE_TARGETED_BY_HERO_POWERS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("UNG_852", cardDef);
 }
 
 void UngoroCardsGen::AddDruidNonCollect(std::map<std::string, CardDef>& cards)
