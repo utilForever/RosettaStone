@@ -57,6 +57,14 @@ void KaraCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<HealTask>(EntityType::TARGET, 6));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 6, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("KAR_075", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2]
@@ -89,6 +97,13 @@ void KaraCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::ENEMY_SPELLS;
+    cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
+        std::make_shared<SummonTask>("KAR_004a", SummonSide::SPELL) });
+    cards.emplace("KAR_004", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1]
@@ -99,6 +114,10 @@ void KaraCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("KAR_005a", SummonSide::DEATHRATTLE));
+    cards.emplace("KAR_005", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4]
@@ -122,6 +141,8 @@ void KaraCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- MINION - HUNTER
     // [KAR_004a] Cat in a Hat (*) - COST:3 [ATK:4/HP:2]
     // - Race: Beast, Faction: Horde, Set: Kara
@@ -131,11 +152,17 @@ void KaraCardsGen::AddHunterNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - STEALTH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_004a", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [KAR_005a] Big Bad Wolf (*) - COST:2 [ATK:3/HP:2]
     // - Race: Beast, Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_005a", cardDef);
 }
 
 void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
@@ -167,6 +194,14 @@ void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_TARGET_TO_PLAY = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5, true));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 5, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("KAR_076", cardDef);
 
     // ------------------------------------------ MINION - MAGE
     // [KAR_092] Medivh's Valet - COST:2 [ATK:2/HP:3]
@@ -184,6 +219,13 @@ void KaraCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 3));
+    cardDef.property.playReqs = PlayReqs{
+        { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS, 1 }
+    };
+    cards.emplace("KAR_092", cardDef);
 }
 
 void KaraCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)

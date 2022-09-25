@@ -1021,8 +1021,8 @@ OG | OG_340 | Soggoth the Slitherer |
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
-KARA | KAR_004 | Cat Trick |  
-KARA | KAR_005 | Kindly Grandmother |  
+KARA | KAR_004 | Cat Trick | O
+KARA | KAR_005 | Kindly Grandmother | O
 KARA | KAR_006 | Cloaked Huntress | O
 KARA | KAR_009 | Babbling Book | O
 KARA | KAR_010 | Nightbane Templar |  
@@ -1048,12 +1048,12 @@ KARA | KAR_065 | Menagerie Warden | O
 KARA | KAR_069 | Swashburglar | O
 KARA | KAR_070 | Ethereal Peddler |  
 KARA | KAR_073 | Maelstrom Portal | O
-KARA | KAR_075 | Moonglade Portal |  
-KARA | KAR_076 | Firelands Portal |  
+KARA | KAR_075 | Moonglade Portal | O
+KARA | KAR_076 | Firelands Portal | O
 KARA | KAR_077 | Silvermoon Portal |  
 KARA | KAR_089 | Malchezaar's Imp |  
 KARA | KAR_091 | Ironforge Portal |  
-KARA | KAR_092 | Medivh's Valet |  
+KARA | KAR_092 | Medivh's Valet | O
 KARA | KAR_094 | Deadly Fork |  
 KARA | KAR_095 | Zoobot |  
 KARA | KAR_096 | Prince Malchezaar |  
@@ -1067,7 +1067,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 15% (7 of 45 Cards)
+- Progress: 26% (12 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 
