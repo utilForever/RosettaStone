@@ -271,6 +271,14 @@ void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cardDef.power.AddAfterChooseTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::COST));
+    cardDef.power.AddAfterChooseTask(
+        std::make_shared<HealNumberTask>(EntityType::HERO));
+    cards.emplace("KAR_057", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [KAR_077] Silvermoon Portal - COST:4
