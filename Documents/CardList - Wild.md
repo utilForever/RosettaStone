@@ -1025,7 +1025,7 @@ KARA | KAR_004 | Cat Trick | O
 KARA | KAR_005 | Kindly Grandmother | O
 KARA | KAR_006 | Cloaked Huntress | O
 KARA | KAR_009 | Babbling Book | O
-KARA | KAR_010 | Nightbane Templar |  
+KARA | KAR_010 | Nightbane Templar | O
 KARA | KAR_011 | Pompous Thespian |  
 KARA | KAR_013 | Purify |  
 KARA | KAR_021 | Wicked Witchdoctor |  
@@ -1040,7 +1040,7 @@ KARA | KAR_036 | Arcane Anomaly | O
 KARA | KAR_037 | Avian Watcher |  
 KARA | KAR_041 | Moat Lurker |  
 KARA | KAR_044 | Moroes |  
-KARA | KAR_057 | Ivory Knight |  
+KARA | KAR_057 | Ivory Knight | O
 KARA | KAR_061 | The Curator |  
 KARA | KAR_062 | Netherspite Historian |  
 KARA | KAR_063 | Spirit Claws |  
@@ -1050,7 +1050,7 @@ KARA | KAR_070 | Ethereal Peddler |
 KARA | KAR_073 | Maelstrom Portal | O
 KARA | KAR_075 | Moonglade Portal | O
 KARA | KAR_076 | Firelands Portal | O
-KARA | KAR_077 | Silvermoon Portal |  
+KARA | KAR_077 | Silvermoon Portal | O
 KARA | KAR_089 | Malchezaar's Imp |  
 KARA | KAR_091 | Ironforge Portal |  
 KARA | KAR_092 | Medivh's Valet | O
@@ -1067,7 +1067,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 26% (12 of 45 Cards)
+- Progress: 33% (15 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 
