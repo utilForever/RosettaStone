@@ -420,6 +420,55 @@ TEST_CASE("[Mage : Minion] - KAR_092 : Medivh's Valet")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       summon two 1/1 Whelps.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - KAR_010 : Nightbane Templar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nightbane Templar"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nightbane Templar"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faerie Dragon"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Whelp");
+    CHECK_EQ(curField[2]->card->name, "Whelp");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 5);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
 // - Race: Pirate, Faction: Neutral, Set: Kara, Rarity: Common

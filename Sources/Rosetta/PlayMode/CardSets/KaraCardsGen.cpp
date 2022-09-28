@@ -235,6 +235,8 @@ void KaraCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3]
     // - Set: Kara, Rarity: Common
@@ -245,6 +247,16 @@ void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<SummonTask>("KAR_010a", SummonSide::LEFT),
+            std::make_shared<SummonTask>("KAR_010a", SummonSide::RIGHT) }));
+    cards.emplace("KAR_010", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [KAR_057] Ivory Knight - COST:6 [ATK:4/HP:4]
@@ -275,10 +287,15 @@ void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [KAR_010a] Whelp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Dragon, Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_010a", cardDef);
 }
 
 void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
