@@ -291,6 +291,15 @@ void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("KAR_077e", EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 2, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("KAR_077", cardDef);
 }
 
 void KaraCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
@@ -818,6 +827,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("KAR_077e"));
+    cards.emplace("KAR_077e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_095e] Well Fed (*) - COST:0
