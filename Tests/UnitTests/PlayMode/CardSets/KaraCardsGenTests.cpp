@@ -793,6 +793,52 @@ TEST_CASE("[Rogue : Minion] - KAR_070 : Ethereal Peddler")
     CHECK_EQ(card3->GetCost(), 2);
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [KAR_094] Deadly Fork - COST:3 [ATK:3/HP:2]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Add a 3/2 weapon to your hand.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - KAR_094 : Deadly Fork")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Deadly Fork"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHand.GetCount(), 1);
+    CHECK_EQ(curHand[0]->card->name, "Sharp Fork");
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [KAR_073] Maelstrom Portal - COST:2
 // - Set: Kara, Rarity: Rare

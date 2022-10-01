@@ -439,10 +439,16 @@ void KaraCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "KAR_094a"));
+    cards.emplace("KAR_094", cardDef);
 }
 
 void KaraCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- WEAPON - ROGUE
     // [KAR_094a] Sharp Fork (*) - COST:3 [ATK:3/HP:0]
     // - Set: Kara
@@ -450,6 +456,9 @@ void KaraCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 2
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_094a", cardDef);
 }
 
 void KaraCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
