@@ -620,6 +620,43 @@ TEST_CASE("[Priest : Spell] - KAR_013 : Purify")
     CHECK_EQ(curHand.GetCount(), 5);
 }
 
+// ---------------------------------------- MINION - PRIEST
+// [KAR_035] Priest of the Feast - COST:4 [ATK:3/HP:6]
+// - Faction: Neutral, Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       restore 3 Health to your hero.
+// --------------------------------------------------------
+TEST_CASE("[Priest : Minion] - KAR_035 : Priest of the Feast")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Priest of the Feast"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Circle of Healing"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 23);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
 // - Race: Pirate, Faction: Neutral, Set: Kara, Rarity: Common

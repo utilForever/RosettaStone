@@ -349,6 +349,13 @@ void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Whenever you cast a spell,
     //       restore 3 Health to your hero.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<HealTask>(
+        EntityType::HERO, 3) };
+    cards.emplace("KAR_035", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [KAR_204] Onyx Bishop - COST:5 [ATK:3/HP:4]
