@@ -31,6 +31,11 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsFriendly();
 
+    //! SelfCondition wrapper for checking it is not card class.
+    //! \param cardClass The card class for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsNotCardClass(CardClass cardClass);
+
     //! SelfCondition wrapper for checking the entity is not start in deck.
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsNotStartInDeck();

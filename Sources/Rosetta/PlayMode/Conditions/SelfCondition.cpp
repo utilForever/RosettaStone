@@ -31,6 +31,13 @@ SelfCondition SelfCondition::IsFriendly()
     });
 }
 
+SelfCondition SelfCondition::IsNotCardClass(CardClass cardClass)
+{
+    return SelfCondition([cardClass](const Playable* playable) {
+        return playable->card->GetCardClass() != cardClass;
+    });
+}
+
 SelfCondition SelfCondition::IsNotStartInDeck()
 {
     return SelfCondition([](const Playable* playable) {
