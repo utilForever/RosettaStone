@@ -235,6 +235,8 @@ void KaraCardsGen::AddMageNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3]
     // - Set: Kara, Rarity: Common
@@ -245,6 +247,16 @@ void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{
+            std::make_shared<SummonTask>("KAR_010a", SummonSide::LEFT),
+            std::make_shared<SummonTask>("KAR_010a", SummonSide::RIGHT) }));
+    cards.emplace("KAR_010", cardDef);
 
     // --------------------------------------- MINION - PALADIN
     // [KAR_057] Ivory Knight - COST:6 [ATK:4/HP:4]
@@ -259,6 +271,14 @@ void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL));
+    cardDef.power.AddAfterChooseTask(
+        std::make_shared<GetGameTagTask>(EntityType::TARGET, GameTag::COST));
+    cardDef.power.AddAfterChooseTask(
+        std::make_shared<HealNumberTask>(EntityType::HERO));
+    cards.emplace("KAR_057", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [KAR_077] Silvermoon Portal - COST:4
@@ -271,14 +291,28 @@ void KaraCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_TO_PLAY = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("KAR_077e", EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 2, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("KAR_077", cardDef);
 }
 
 void KaraCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - PALADIN
     // [KAR_010a] Whelp (*) - COST:1 [ATK:1/HP:1]
     // - Race: Dragon, Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_010a", cardDef);
 }
 
 void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
@@ -793,6 +827,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("KAR_077e"));
+    cards.emplace("KAR_077e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_095e] Well Fed (*) - COST:0

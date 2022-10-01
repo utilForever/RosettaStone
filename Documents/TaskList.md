@@ -68,6 +68,7 @@
 * GetPlayerGameTagTask
 * GetPlayerManaTask
 * HealFullTask
+* HealNumberTask
 * HealTask
 * IncludeAdjacentTask
 * IncludeTask

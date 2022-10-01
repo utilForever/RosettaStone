@@ -62,6 +62,7 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetPlayerGameTagTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/GetPlayerManaTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealFullTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/HealNumberTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/HealTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeAdjacentTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>

@@ -3,26 +3,24 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
-#ifndef ROSETTASTONE_PLAYMODE_DAMAGE_NUMBER_TASK_HPP
-#define ROSETTASTONE_PLAYMODE_DAMAGE_NUMBER_TASK_HPP
+#ifndef ROSETTASTONE_PLAYMODE_HEAL_NUMBER_TASK_HPP
+#define ROSETTASTONE_PLAYMODE_HEAL_NUMBER_TASK_HPP
 
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
 //!
-//! \brief DamageNumberTask class.
+//! \brief HealNumberTask class.
 //!
-//! This class represents the task for taking damage with stacked number.
+//! This class represents the task for healing with stacked number.
 //!
-class DamageNumberTask : public ITask
+class HealNumberTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType and \p damage.
-    //! \param entityType The entity type of target to take damage.
-    //! \param isSpellDamage true if it is spell damage, and false otherwise.
-    explicit DamageNumberTask(EntityType entityType,
-                              bool isSpellDamage = false);
+    //! Constructs task with given \p entityType.
+    //! \param entityType The entity type of target to heal.
+    explicit HealNumberTask(EntityType entityType);
 
  private:
     //! Processes task logic internally and returns meta data.
@@ -38,4 +36,4 @@ class DamageNumberTask : public ITask
 };
 }  // namespace RosettaStone::PlayMode::SimpleTasks
 
-#endif  // ROSETTASTONE_PLAYMODE_DAMAGE_NUMBER_TASK_HPP
+#endif  // ROSETTASTONE_PLAYMODE_HEAL_NUMBER_TASK_HPP

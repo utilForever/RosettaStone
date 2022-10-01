@@ -420,6 +420,156 @@ TEST_CASE("[Mage : Minion] - KAR_092 : Medivh's Valet")
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 27);
 }
 
+// --------------------------------------- MINION - PALADIN
+// [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       summon two 1/1 Whelps.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - KAR_010 : Nightbane Templar")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nightbane Templar"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Nightbane Templar"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faerie Dragon"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Whelp");
+    CHECK_EQ(curField[2]->card->name, "Whelp");
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 5);
+}
+
+// --------------------------------------- MINION - PALADIN
+// [KAR_057] Ivory Knight - COST:6 [ATK:4/HP:4]
+// - Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> <b>Discover</b> a spell.
+//       Restore Health to your hero equal to its Cost.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Minion] - KAR_057 : Ivory Knight")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ivory Knight"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20);
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK_EQ(card->IsCardClass(CardClass::PALADIN), true);
+    }
+
+    const int cost = cards[0]->GetCost();
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 20 + cost);
+}
+
+// ---------------------------------------- SPELL - PALADIN
+// [KAR_077] Silvermoon Portal - COST:4
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Give a minion +2/+2.
+//       Summon a random 2-Cost minion.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Paladin : Spell] - KAR_077 : Silvermoon Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Silvermoon Portal"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->card->GetCost(), 2);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
 // - Race: Pirate, Faction: Neutral, Set: Kara, Rarity: Common
