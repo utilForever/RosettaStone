@@ -229,6 +229,12 @@ class SelfCondition
     //! \return Generated SelfCondition for intended purpose.
     static SelfCondition IsHoldingAnotherClassCard();
 
+    //! SelfCondition wrapper for checking the player has
+    //! any non \p cardClass class cards.
+    //! \param cardClass The card class for checking.
+    //! \return Generated SelfCondition for intended purpose.
+    static SelfCondition IsHoldingAnyNonClassCard(CardClass cardClass);
+
     //! SelfCondition wrapper for checking it's card ID is \p cardID.
     //! \param cardID The card ID.
     //! \return Generated SelfCondition for intended purpose.

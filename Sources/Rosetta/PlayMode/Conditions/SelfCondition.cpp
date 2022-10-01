@@ -413,6 +413,18 @@ SelfCondition SelfCondition::IsHoldingAnotherClassCard()
     });
 }
 
+SelfCondition SelfCondition::IsHoldingAnyNonClassCard(CardClass cardClass)
+{
+    return SelfCondition([&cardClass](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
+
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardClass() != cardClass;
+            });
+    });
+}
+
 SelfCondition SelfCondition::IsCardID(std::string_view cardID)
 {
     return SelfCondition([cardID](const Playable* playable) {
