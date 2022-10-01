@@ -570,6 +570,56 @@ TEST_CASE("[Paladin : Spell] - KAR_077 : Silvermoon Portal")
     CHECK_EQ(curField[1]->card->GetCost(), 2);
 }
 
+// ----------------------------------------- SPELL - PRIEST
+// [KAR_013] Purify - COST:2
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Silence</b> a friendly minion. Draw a card.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_FRIENDLY_TARGET = 0
+// --------------------------------------------------------
+// RefTag:
+// - SILENCE = 1
+// --------------------------------------------------------
+TEST_CASE("[Priest : Spell] - KAR_013 : Purify")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Purify"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[0]->HasDeathrattle(), true);
+
+    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+    CHECK_EQ(curField[0]->HasDeathrattle(), false);
+    CHECK_EQ(curHand.GetCount(), 5);
+}
+
 // ----------------------------------------- MINION - ROGUE
 // [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1]
 // - Race: Pirate, Faction: Neutral, Set: Kara, Rarity: Common

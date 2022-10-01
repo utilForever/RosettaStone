@@ -317,6 +317,8 @@ void KaraCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - PRIEST
     // [KAR_013] Purify - COST:2
     // - Set: Kara, Rarity: Common
@@ -331,6 +333,14 @@ void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("KAR_013", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [KAR_035] Priest of the Feast - COST:4 [ATK:3/HP:6]
