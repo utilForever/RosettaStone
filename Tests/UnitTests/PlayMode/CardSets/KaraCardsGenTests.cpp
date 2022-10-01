@@ -751,6 +751,48 @@ TEST_CASE("[Rogue : Minion] - KAR_069 : Swashburglar")
     CHECK(curHand[0]->card->IsCardClass(CardClass::HUNTER));
 }
 
+// ----------------------------------------- MINION - ROGUE
+// [KAR_070] Ethereal Peddler - COST:5 [ATK:5/HP:6]
+// - Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding any non-Rogue
+//       class cards, reduce their Cost by (2).
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Rogue : Minion] - KAR_070 : Ethereal Peddler")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ethereal Peddler"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Assassinate"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(card2->GetCost(), 4);
+    CHECK_EQ(card3->GetCost(), 2);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [KAR_073] Maelstrom Portal - COST:2
 // - Set: Kara, Rarity: Rare

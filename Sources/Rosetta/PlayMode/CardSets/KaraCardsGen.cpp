@@ -415,6 +415,20 @@ void KaraCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsHoldingAnyNonClassCard(CardClass::ROGUE)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<IncludeTask>(EntityType::HAND),
+                  std::make_shared<FilterStackTask>(
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsNotCardClass(CardClass::ROGUE)) }),
+                  std::make_shared<AddAuraEffectTask>(Effects::ReduceCost(2),
+                                                      EntityType::STACK) }));
+    cards.emplace("KAR_070", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [KAR_094] Deadly Fork - COST:3 [ATK:3/HP:2]
