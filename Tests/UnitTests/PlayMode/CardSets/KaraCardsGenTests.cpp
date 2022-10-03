@@ -839,6 +839,51 @@ TEST_CASE("[Rogue : Minion] - KAR_094 : Deadly Fork")
     CHECK_EQ(curHand[0]->card->name, "Sharp Fork");
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [KAR_021] Wicked Witchdoctor - COST:4 [ATK:3/HP:4]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       summon a random basic Totem.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - KAR_021 : Wicked Witchdoctor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wicked Witchdoctor"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Totemic Might"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    const bool isBasicTotem = curField[1]->card->id == "CS2_050" ||
+                              curField[1]->card->id == "CS2_051" ||
+                              curField[1]->card->id == "CS2_058" ||
+                              curField[1]->card->id == "NEW1_009";
+    CHECK(isBasicTotem);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [KAR_073] Maelstrom Portal - COST:2
 // - Set: Kara, Rarity: Rare

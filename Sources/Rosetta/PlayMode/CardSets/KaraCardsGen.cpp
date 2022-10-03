@@ -469,8 +469,17 @@ void KaraCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // [KAR_021] Wicked Witchdoctor - COST:4 [ATK:3/HP:4]
     // - Set: Kara, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever you cast a spell, summon a random basic Totem.
+    // Text: Whenever you cast a spell,
+    //       summon a random basic Totem.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        ComplexTask::SummonRandomBasicTotem()
+    };
+    cards.emplace("KAR_021", cardDef);
 
     // ---------------------------------------- WEAPON - SHAMAN
     // [KAR_063] Spirit Claws - COST:2 [ATK:1/HP:0]
