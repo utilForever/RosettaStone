@@ -20,6 +20,7 @@ std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_wildCards;
 std::vector<Card*> Cards::m_allStandardCards;
 std::vector<Card*> Cards::m_allWildCards;
 std::vector<Card*> Cards::m_allClassicCards;
+std::vector<Card*> Cards::m_basicTotems;
 std::vector<Card*> Cards::m_lackeys;
 std::vector<Card*> Cards::m_poisons;
 
