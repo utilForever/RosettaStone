@@ -1027,7 +1027,7 @@ KARA | KAR_006 | Cloaked Huntress | O
 KARA | KAR_009 | Babbling Book | O
 KARA | KAR_010 | Nightbane Templar | O
 KARA | KAR_011 | Pompous Thespian |  
-KARA | KAR_013 | Purify |  
+KARA | KAR_013 | Purify | O
 KARA | KAR_021 | Wicked Witchdoctor |  
 KARA | KAR_025 | Kara Kazham! |  
 KARA | KAR_026 | Protect the King! |  
@@ -1035,7 +1035,7 @@ KARA | KAR_028 | Fool's Bane |
 KARA | KAR_029 | Runic Egg |  
 KARA | KAR_030a | Pantry Spider |  
 KARA | KAR_033 | Book Wyrm |  
-KARA | KAR_035 | Priest of the Feast |  
+KARA | KAR_035 | Priest of the Feast | O
 KARA | KAR_036 | Arcane Anomaly | O
 KARA | KAR_037 | Avian Watcher |  
 KARA | KAR_041 | Moat Lurker |  
@@ -1046,7 +1046,7 @@ KARA | KAR_062 | Netherspite Historian |
 KARA | KAR_063 | Spirit Claws |  
 KARA | KAR_065 | Menagerie Warden | O
 KARA | KAR_069 | Swashburglar | O
-KARA | KAR_070 | Ethereal Peddler |  
+KARA | KAR_070 | Ethereal Peddler | O
 KARA | KAR_073 | Maelstrom Portal | O
 KARA | KAR_075 | Moonglade Portal | O
 KARA | KAR_076 | Firelands Portal | O
@@ -1054,12 +1054,12 @@ KARA | KAR_077 | Silvermoon Portal | O
 KARA | KAR_089 | Malchezaar's Imp |  
 KARA | KAR_091 | Ironforge Portal |  
 KARA | KAR_092 | Medivh's Valet | O
-KARA | KAR_094 | Deadly Fork |  
+KARA | KAR_094 | Deadly Fork | O
 KARA | KAR_095 | Zoobot |  
 KARA | KAR_096 | Prince Malchezaar |  
 KARA | KAR_097 | Medivh, the Guardian |  
 KARA | KAR_114 | Barnes |  
-KARA | KAR_204 | Onyx Bishop |  
+KARA | KAR_204 | Onyx Bishop | O
 KARA | KAR_205 | Silverware Golem |  
 KARA | KAR_300 | Enchanted Raven | O
 KARA | KAR_702 | Menagerie Magician |  
@@ -1067,7 +1067,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 33% (15 of 45 Cards)
+- Progress: 44% (20 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 

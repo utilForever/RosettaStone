@@ -31,6 +31,13 @@ SelfCondition SelfCondition::IsFriendly()
     });
 }
 
+SelfCondition SelfCondition::IsNotCardClass(CardClass cardClass)
+{
+    return SelfCondition([cardClass](const Playable* playable) {
+        return playable->card->GetCardClass() != cardClass;
+    });
+}
+
 SelfCondition SelfCondition::IsNotStartInDeck()
 {
     return SelfCondition([](const Playable* playable) {
@@ -409,6 +416,18 @@ SelfCondition SelfCondition::IsHoldingAnotherClassCard()
                 return handCard->card->GetCardClass() != CardClass::NEUTRAL &&
                        handCard->card->GetCardClass() !=
                            playable->player->GetHero()->card->GetCardClass();
+            });
+    });
+}
+
+SelfCondition SelfCondition::IsHoldingAnyNonClassCard(CardClass cardClass)
+{
+    return SelfCondition([&cardClass](const Playable* playable) {
+        auto cards = playable->player->GetHandZone()->GetAll();
+
+        return std::any_of(
+            cards.begin(), cards.end(), [&](const Playable* handCard) {
+                return handCard->card->GetCardClass() != cardClass;
             });
     });
 }

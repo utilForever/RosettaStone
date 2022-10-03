@@ -317,6 +317,8 @@ void KaraCardsGen::AddPaladinNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - PRIEST
     // [KAR_013] Purify - COST:2
     // - Set: Kara, Rarity: Common
@@ -331,6 +333,14 @@ void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SILENCE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SilenceTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 },
+                                          { PlayReq::REQ_FRIENDLY_TARGET, 0 } };
+    cards.emplace("KAR_013", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [KAR_035] Priest of the Feast - COST:4 [ATK:3/HP:6]
@@ -339,6 +349,13 @@ void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // Text: Whenever you cast a spell,
     //       restore 3 Health to your hero.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::CAST_SPELL));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<HealTask>(
+        EntityType::HERO, 3) };
+    cards.emplace("KAR_035", cardDef);
 
     // ---------------------------------------- MINION - PRIEST
     // [KAR_204] Onyx Bishop - COST:5 [ATK:3/HP:4]
@@ -350,6 +367,16 @@ void KaraCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<IncludeTask>(EntityType::GRAVEYARD));
+    cardDef.power.AddPowerTask(std::make_shared<FilterStackTask>(SelfCondList{
+        std::make_shared<SelfCondition>(SelfCondition::IsDead()) }));
+    cardDef.power.AddPowerTask(
+        std::make_shared<RandomTask>(EntityType::STACK, 1));
+    cardDef.power.AddPowerTask(
+        std::make_shared<CopyTask>(EntityType::STACK, ZoneType::PLAY, 1));
+    cards.emplace("KAR_204", cardDef);
 }
 
 void KaraCardsGen::AddPriestNonCollect(std::map<std::string, CardDef>& cards)
@@ -388,6 +415,20 @@ void KaraCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE,
+        SelfCondList{ std::make_shared<SelfCondition>(
+            SelfCondition::IsHoldingAnyNonClassCard(CardClass::ROGUE)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<IncludeTask>(EntityType::HAND),
+                  std::make_shared<FilterStackTask>(
+                      SelfCondList{ std::make_shared<SelfCondition>(
+                          SelfCondition::IsNotCardClass(CardClass::ROGUE)) }),
+                  std::make_shared<AddAuraEffectTask>(Effects::ReduceCost(2),
+                                                      EntityType::STACK) }));
+    cards.emplace("KAR_070", cardDef);
 
     // ----------------------------------------- MINION - ROGUE
     // [KAR_094] Deadly Fork - COST:3 [ATK:3/HP:2]
@@ -398,10 +439,16 @@ void KaraCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::HAND, "KAR_094a"));
+    cards.emplace("KAR_094", cardDef);
 }
 
 void KaraCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- WEAPON - ROGUE
     // [KAR_094a] Sharp Fork (*) - COST:3 [ATK:3/HP:0]
     // - Set: Kara
@@ -409,6 +456,9 @@ void KaraCardsGen::AddRogueNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 2
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_094a", cardDef);
 }
 
 void KaraCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
