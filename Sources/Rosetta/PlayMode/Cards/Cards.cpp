@@ -167,6 +167,11 @@ const std::vector<Card*> Cards::GetDiscoverCards(CardClass baseClass,
     return result;
 }
 
+std::vector<Card*> Cards::GetBasicTotems()
+{
+    return m_basicTotems;
+}
+
 std::vector<Card*> Cards::GetLackeys()
 {
     return m_lackeys;
