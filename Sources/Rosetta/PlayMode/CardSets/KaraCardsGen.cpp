@@ -493,6 +493,17 @@ void KaraCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - SPELLPOWER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
+        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+            if (playable->player->GetCurrentSpellPower() > 0)
+            {
+                return 2;
+            }
+
+            return 0;
+        }));
+    cards.emplace("KAR_063", cardDef);
 
     // ----------------------------------------- SPELL - SHAMAN
     // [KAR_073] Maelstrom Portal - COST:2
