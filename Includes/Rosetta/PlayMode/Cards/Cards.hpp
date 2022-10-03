@@ -189,6 +189,7 @@ class Cards
     static std::vector<Card*> m_allStandardCards;
     static std::vector<Card*> m_allWildCards;
     static std::vector<Card*> m_allClassicCards;
+    static std::vector<Card*> m_basicTotems;
     static std::vector<Card*> m_lackeys;
     static std::vector<Card*> m_poisons;
 };

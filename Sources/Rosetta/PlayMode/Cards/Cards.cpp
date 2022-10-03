@@ -70,6 +70,11 @@ Cards::Cards()
             }
         }
 
+        if (card->IsBasicTotem())
+        {
+            m_basicTotems.emplace_back(card);
+        }
+
         if (card->IsLackey())
         {
             m_lackeys.emplace_back(card);
