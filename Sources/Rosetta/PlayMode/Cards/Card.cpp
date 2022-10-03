@@ -286,6 +286,19 @@ bool Card::IsQuest() const
     return HasGameTag(GameTag::QUEST);
 }
 
+bool Card::IsBasicTotem() const
+{
+    if (id == "CS2_050" ||  // CS2_050: Searing Totem
+        id == "CS2_051" ||  // CS2_051: Stoneclaw Totem
+        id == "CS2_058" ||  // CS2_058: Strength Totem
+        id == "NEW1_009")   // NEW1_009: Healing Totem
+    {
+        return true;
+    }
+
+    return false;
+}
+
 bool Card::IsLackey() const
 {
     if (id == "DAL_613" ||  // DAL_613: Faceless Lackey
