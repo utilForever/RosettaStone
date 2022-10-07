@@ -570,6 +570,13 @@ void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - InvisibleDeathrattle = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "KAR_205") };
+    cards.emplace("KAR_205", cardDef);
 }
 
 void KaraCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)

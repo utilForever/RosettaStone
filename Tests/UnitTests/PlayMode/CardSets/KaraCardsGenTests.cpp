@@ -1072,6 +1072,47 @@ TEST_CASE("[Warlock : Minion] - KAR_089 : Malchezaar's Imp")
     CHECK_EQ(curHand.GetCount(), 4);
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3]
+// - Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: If you discard this minion, summon it.
+// --------------------------------------------------------
+// GameTag:
+// - InvisibleDeathrattle = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - KAR_205 : Silverware Golem")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    [[maybe_unused]] const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Silverware Golem"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Darkshire Librarian"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Silverware Golem");
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
 // - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common
