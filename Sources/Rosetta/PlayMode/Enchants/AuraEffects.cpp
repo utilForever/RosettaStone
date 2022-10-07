@@ -170,11 +170,21 @@ void AuraEffects::SetAttack(int value) const
 
 int AuraEffects::GetCannotAttackHeroes() const
 {
+    if (m_type != CardType::HERO)
+    {
+        return 0;
+    }
+
     return m_data[2];
 }
 
 void AuraEffects::SetCannotAttackHeroes(int value) const
 {
+    if (m_type != CardType::HERO)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[2] = value;
 }
 
