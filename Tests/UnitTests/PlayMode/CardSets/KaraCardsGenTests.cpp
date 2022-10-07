@@ -991,6 +991,47 @@ TEST_CASE("[Shaman : Spell] - KAR_073 : Maelstrom Portal")
     CHECK_EQ(opField[0]->GetHealth(), 11);
 }
 
+// ---------------------------------------- SPELL - WARLOCK
+// [KAR_025] Kara Kazham! - COST:5
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon a 1/1 Candle, 2/2 Broom, and 3/3 Teapot.
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NUM_MINION_SLOTS = 1
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Spell] - KAR_025 : Kara Kazham!")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kara Kazham!"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Candle");
+    CHECK_EQ(curField[1]->card->name, "Broom");
+    CHECK_EQ(curField[2]->card->name, "Teapot");
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
 // - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common

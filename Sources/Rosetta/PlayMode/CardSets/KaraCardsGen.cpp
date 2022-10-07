@@ -528,6 +528,8 @@ void KaraCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [KAR_025] Kara Kazham! - COST:5
     // - Set: Kara, Rarity: Common
@@ -537,6 +539,16 @@ void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("KAR_025a", SummonSide::SPELL));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("KAR_025b", SummonSide::SPELL));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("KAR_025c", SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("KAR_025", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [KAR_089] Malchezaar's Imp - COST:1 [ATK:1/HP:3]
@@ -558,24 +570,37 @@ void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARLOCK
     // [KAR_025a] Candle (*) - COST:1 [ATK:1/HP:1]
     // - Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_025a", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [KAR_025b] Broom (*) - COST:2 [ATK:2/HP:2]
     // - Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_025b", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [KAR_025c] Teapot (*) - COST:3 [ATK:3/HP:3]
     // - Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_025c", cardDef);
 }
 
 void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [KAR_026] Protect the King! - COST:3
     // - Set: Kara, Rarity: Rare
