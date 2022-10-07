@@ -1017,6 +1017,8 @@ OG | OG_340 | Soggoth the Slitherer |
 
 - Progress: 5% (8 of 134 Cards)
 
+## One Night in Karazhan
+
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 KARA | KAR_004 | Cat Trick | O
@@ -1027,9 +1029,9 @@ KARA | KAR_010 | Nightbane Templar | O
 KARA | KAR_011 | Pompous Thespian |  
 KARA | KAR_013 | Purify | O
 KARA | KAR_021 | Wicked Witchdoctor | O
-KARA | KAR_025 | Kara Kazham! |  
-KARA | KAR_026 | Protect the King! |  
-KARA | KAR_028 | Fool's Bane |  
+KARA | KAR_025 | Kara Kazham! | O
+KARA | KAR_026 | Protect the King! | O
+KARA | KAR_028 | Fool's Bane | O
 KARA | KAR_029 | Runic Egg |  
 KARA | KAR_030a | Pantry Spider |  
 KARA | KAR_033 | Book Wyrm |  
@@ -1049,8 +1051,8 @@ KARA | KAR_073 | Maelstrom Portal | O
 KARA | KAR_075 | Moonglade Portal | O
 KARA | KAR_076 | Firelands Portal | O
 KARA | KAR_077 | Silvermoon Portal | O
-KARA | KAR_089 | Malchezaar's Imp |  
-KARA | KAR_091 | Ironforge Portal |  
+KARA | KAR_089 | Malchezaar's Imp | O
+KARA | KAR_091 | Ironforge Portal | O
 KARA | KAR_092 | Medivh's Valet | O
 KARA | KAR_094 | Deadly Fork | O
 KARA | KAR_095 | Zoobot |  
@@ -1058,14 +1060,14 @@ KARA | KAR_096 | Prince Malchezaar |
 KARA | KAR_097 | Medivh, the Guardian |  
 KARA | KAR_114 | Barnes |  
 KARA | KAR_204 | Onyx Bishop | O
-KARA | KAR_205 | Silverware Golem |  
+KARA | KAR_205 | Silverware Golem | O
 KARA | KAR_300 | Enchanted Raven | O
 KARA | KAR_702 | Menagerie Magician |  
 KARA | KAR_710 | Arcanosmith |  
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 48% (22 of 45 Cards)
+- Progress: 62% (28 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 
