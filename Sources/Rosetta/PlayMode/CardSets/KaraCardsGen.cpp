@@ -663,6 +663,12 @@ void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 4 Armor. Summon a random 4-Cost minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 4, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("KAR_091", cardDef);
 }
 
 void KaraCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)

@@ -1241,6 +1241,43 @@ TEST_CASE("[Warrior : Weapon] - KAR_028 : Fool's Bane")
     CHECK_EQ(curPlayer->GetHero()->IsExhausted(), false);
 }
 
+// ---------------------------------------- SPELL - WARRIOR
+// [KAR_091] Ironforge Portal - COST:5
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Gain 4 Armor. Summon a random 4-Cost minion.
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Spell] - KAR_091 : Ironforge Portal")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Ironforge Portal"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK_EQ(curPlayer->GetHero()->GetArmor(), 4);
+    CHECK_EQ(curField.GetCount(), 1);
+    CHECK_EQ(curField[0]->card->GetCost(), 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
 // - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common
