@@ -1032,6 +1032,46 @@ TEST_CASE("[Warlock : Spell] - KAR_025 : Kara Kazham!")
     CHECK_EQ(curField[2]->card->name, "Teapot");
 }
 
+// --------------------------------------- MINION - WARLOCK
+// [KAR_089] Malchezaar's Imp - COST:1 [ATK:1/HP:3]
+// - Race: Demon, Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you discard a card, draw a card.
+// --------------------------------------------------------
+TEST_CASE("[Warlock : Minion] - KAR_089 : Malchezaar's Imp")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malchezaar's Imp"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Darkshire Librarian"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 4);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
 // - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common

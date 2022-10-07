@@ -556,6 +556,10 @@ void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you discard a card, draw a card.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("KAR_089", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3]
