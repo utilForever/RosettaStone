@@ -645,6 +645,17 @@ void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 4
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HERO,
+        EffectList{ std::make_shared<Effect>(GameTag::CANNOT_ATTACK_HEROES,
+                                             EffectOperator::SET, 1) }));
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::HERO, GameTag::EXHAUSTED, 0) };
+    cards.emplace("KAR_028", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [KAR_091] Ironforge Portal - COST:5

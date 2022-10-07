@@ -1171,6 +1171,76 @@ TEST_CASE("[Warrior : Spell] - KAR_026 : Protect the King!")
     CHECK_EQ(curField[2]->card->name, "Pawn");
 }
 
+// --------------------------------------- WEAPON - WARRIOR
+// [KAR_028] Fool's Bane - COST:5 [ATK:3/HP:0]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Unlimited attacks each turn. Can't attack heroes.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 4
+// --------------------------------------------------------
+TEST_CASE("[Warrior : Weapon] - KAR_028 : Fool's Bane")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fool's Bane"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Sleepy Dragon"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+
+    game.Process(curPlayer,
+                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 30);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 4);
+    CHECK_EQ(curPlayer->GetHero()->IsExhausted(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField[0]->GetHealth(), 12);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 26);
+    CHECK_EQ(opField[0]->GetHealth(), 9);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+    CHECK_EQ(curPlayer->GetHero()->IsExhausted(), false);
+
+    game.Process(curPlayer, AttackTask(curPlayer->GetHero(), card2));
+    CHECK_EQ(curPlayer->GetHero()->GetHealth(), 22);
+    CHECK_EQ(opField[0]->GetHealth(), 6);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 2);
+    CHECK_EQ(curPlayer->GetHero()->IsExhausted(), false);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
 // - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common
