@@ -626,6 +626,15 @@ void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<SummonTask>("KAR_026t", SummonSide::SPELL) }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 0 },
+                  { PlayReq::REQ_NUM_MINION_SLOTS, 0 } };
+    cards.emplace("KAR_026", cardDef);
 
     // --------------------------------------- WEAPON - WARRIOR
     // [KAR_028] Fool's Bane - COST:5 [ATK:3/HP:0]
@@ -647,6 +656,8 @@ void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARRIOR
     // [KAR_026t] Pawn (*) - COST:1 [ATK:1/HP:1]
     // - Set: Kara
@@ -656,6 +667,9 @@ void KaraCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_026t", cardDef);
 }
 
 void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
