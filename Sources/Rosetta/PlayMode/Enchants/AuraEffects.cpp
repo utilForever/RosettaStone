@@ -190,11 +190,21 @@ void AuraEffects::SetHeroPowerDamage(int value) const
 
 int AuraEffects::GetHealth() const
 {
+    if (m_type != CardType::MINION)
+    {
+        return 0;
+    }
+
     return m_data[2];
 }
 
 void AuraEffects::SetHealth(int value) const
 {
+    if (m_type != CardType::MINION)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[2] = value;
 }
 
