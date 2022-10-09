@@ -877,10 +877,9 @@ TEST_CASE("[Shaman : Minion] - KAR_021 : Wicked Witchdoctor")
     game.Process(curPlayer, PlayCardTask::Spell(card2));
     CHECK_EQ(curField.GetCount(), 2);
 
-    const bool isBasicTotem = curField[1]->card->id == "CS2_050" ||
-                              curField[1]->card->id == "CS2_051" ||
-                              curField[1]->card->id == "CS2_058" ||
-                              curField[1]->card->id == "NEW1_009";
+    const bool isBasicTotem =
+        curField[1]->card->dbfID == 537 || curField[1]->card->dbfID == 850 ||
+        curField[1]->card->dbfID == 62320 || curField[1]->card->dbfID == 764;
     CHECK(isBasicTotem);
 }
 
