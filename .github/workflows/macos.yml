@@ -12,10 +12,10 @@ jobs:
       matrix:
         include:
           # macOS 12.4 + Xcode 13.4.1
-          - name: "macOS 12.4 + Xcode 13.4.1"
-            os: macos-12
-            compiler: xcode
-            version: "13.4.1"
+          # - name: "macOS 12.4 + Xcode 13.4.1"
+          #   os: macos-12
+          #   compiler: xcode
+          #   version: "13.4.1"
           # macOS 11.6 + Xcode 13.2.1
           - name: "macOS 11.6 + Xcode 13.2.1"
             os: macos-11
@@ -32,10 +32,10 @@ jobs:
             compiler: xcode
             version: "11.7"
           # macOS 12.4 + gcc-11
-          - name: "macOS 12.4 + gcc-11"
-            os: macos-12
-            compiler: gcc
-            version: "11"
+          # - name: "macOS 12.4 + gcc-11"
+          #   os: macos-12
+          #   compiler: gcc
+          #   version: "11"
           # macOS 11.6 + gcc-11
           - name: "macOS 11.6 + gcc-11"
             os: macos-11
