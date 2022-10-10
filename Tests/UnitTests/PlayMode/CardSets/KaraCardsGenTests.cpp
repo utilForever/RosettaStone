@@ -839,6 +839,104 @@ TEST_CASE("[Rogue : Minion] - KAR_094 : Deadly Fork")
     CHECK_EQ(curHand[0]->card->name, "Sharp Fork");
 }
 
+// ---------------------------------------- MINION - SHAMAN
+// [KAR_021] Wicked Witchdoctor - COST:4 [ATK:3/HP:4]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Whenever you cast a spell,
+//       summon a random basic Totem.
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Minion] - KAR_021 : Wicked Witchdoctor")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Wicked Witchdoctor"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Totemic Might"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Spell(card2));
+    CHECK_EQ(curField.GetCount(), 2);
+
+    const bool isBasicTotem =
+        curField[1]->card->dbfID == 537 || curField[1]->card->dbfID == 850 ||
+        curField[1]->card->dbfID == 62320 || curField[1]->card->dbfID == 764;
+    CHECK(isBasicTotem);
+}
+
+// ---------------------------------------- WEAPON - SHAMAN
+// [KAR_063] Spirit Claws - COST:2 [ATK:1/HP:0]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: Has +2 Attack while you have <b>Spell Damage</b>.
+// --------------------------------------------------------
+// GameTag:
+// - DURABILITY = 3
+// --------------------------------------------------------
+// RefTag:
+// - SPELLPOWER = 1
+// --------------------------------------------------------
+TEST_CASE("[Shaman : Weapon] - KAR_063 : Spirit Claws")
+{
+    GameConfig config;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Spirit Claws"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Kobold Geomancer"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Weapon(card1));
+    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 3);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card2));
+    CHECK_EQ(curPlayer->GetHero()->weapon->GetAttack(), 1);
+}
+
 // ----------------------------------------- SPELL - SHAMAN
 // [KAR_073] Maelstrom Portal - COST:2
 // - Set: Kara, Rarity: Rare

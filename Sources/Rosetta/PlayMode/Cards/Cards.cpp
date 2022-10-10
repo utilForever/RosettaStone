@@ -20,6 +20,7 @@ std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_wildCards;
 std::vector<Card*> Cards::m_allStandardCards;
 std::vector<Card*> Cards::m_allWildCards;
 std::vector<Card*> Cards::m_allClassicCards;
+std::vector<Card*> Cards::m_basicTotems;
 std::vector<Card*> Cards::m_lackeys;
 std::vector<Card*> Cards::m_poisons;
 
@@ -68,6 +69,11 @@ Cards::Cards()
             {
                 m_allClassicCards.emplace_back(card);
             }
+        }
+
+        if (card->IsBasicTotem())
+        {
+            m_basicTotems.emplace_back(card);
         }
 
         if (card->IsLackey())
@@ -160,6 +166,11 @@ const std::vector<Card*> Cards::GetDiscoverCards(CardClass baseClass,
     }
 
     return result;
+}
+
+std::vector<Card*> Cards::GetBasicTotems()
+{
+    return m_basicTotems;
 }
 
 std::vector<Card*> Cards::GetLackeys()

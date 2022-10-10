@@ -2193,7 +2193,8 @@ void LegacyCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
     // [NEW1_009] Healing Totem (*) - COST:1 [ATK:0/HP:2]
     // - Race: Totem, Set: Legacy, Rarity: Free
     // --------------------------------------------------------
-    // Text: At the end of your turn, restore 1 Health to all friendly minions.
+    // Text: At the end of your turn,
+    //       restore 1 Health to all friendly minions.
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));

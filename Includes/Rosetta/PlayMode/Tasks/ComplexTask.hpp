@@ -49,6 +49,23 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for summoning a random basic Totem.
+    static TaskList SummonRandomBasicTotem()
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::SOURCE),
+            std::make_shared<SimpleTasks::FuncPlayableTask>(
+                [=](const std::vector<Playable*>& playables) {
+                    auto basicTotems = Cards::GetBasicTotems();
+                    const auto totem = Entity::GetFromCard(
+                        playables[0]->player, *Random::get(basicTotems));
+
+                    return std::vector<Playable*>{ totem };
+                }),
+            std::make_shared<SimpleTasks::SummonTask>()
+        };
+    }
+
     //! Returns a list of task for summoning a minion from your deck.
     static TaskList SummonMinionFromDeck()
     {

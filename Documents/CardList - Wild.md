@@ -1017,8 +1017,6 @@ OG | OG_340 | Soggoth the Slitherer |
 
 - Progress: 5% (8 of 134 Cards)
 
-## One Night in Karazhan
-
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
 KARA | KAR_004 | Cat Trick | O
@@ -1028,7 +1026,7 @@ KARA | KAR_009 | Babbling Book | O
 KARA | KAR_010 | Nightbane Templar | O
 KARA | KAR_011 | Pompous Thespian |  
 KARA | KAR_013 | Purify | O
-KARA | KAR_021 | Wicked Witchdoctor |  
+KARA | KAR_021 | Wicked Witchdoctor | O
 KARA | KAR_025 | Kara Kazham! |  
 KARA | KAR_026 | Protect the King! |  
 KARA | KAR_028 | Fool's Bane |  
@@ -1043,7 +1041,7 @@ KARA | KAR_044 | Moroes |
 KARA | KAR_057 | Ivory Knight | O
 KARA | KAR_061 | The Curator |  
 KARA | KAR_062 | Netherspite Historian |  
-KARA | KAR_063 | Spirit Claws |  
+KARA | KAR_063 | Spirit Claws | O
 KARA | KAR_065 | Menagerie Warden | O
 KARA | KAR_069 | Swashburglar | O
 KARA | KAR_070 | Ethereal Peddler | O
@@ -1067,7 +1065,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 44% (20 of 45 Cards)
+- Progress: 48% (22 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 
