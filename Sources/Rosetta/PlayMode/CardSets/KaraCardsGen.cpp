@@ -728,6 +728,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("KAR_030"));
+    cards.emplace("KAR_030a", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_033] Book Wyrm - COST:6 [ATK:3/HP:6]
@@ -933,6 +936,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [KAR_030] Cellar Spider (*) - COST:3 [ATK:1/HP:3]
     // - Race: Beast, Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_030", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_036e] Eating (*) - COST:0
