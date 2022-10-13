@@ -702,6 +702,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_011", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_029] Runic Egg - COST:1 [ATK:0/HP:2]

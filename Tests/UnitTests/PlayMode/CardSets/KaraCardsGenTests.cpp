@@ -1279,6 +1279,20 @@ TEST_CASE("[Warrior : Spell] - KAR_091 : Ironforge Portal")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [KAR_011] Pompous Thespian - COST:2 [ATK:3/HP:2]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_011 : Pompous Thespian")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
 // - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common
 // --------------------------------------------------------
