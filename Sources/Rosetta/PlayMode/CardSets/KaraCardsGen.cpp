@@ -715,6 +715,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("KAR_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_030a] Pantry Spider - COST:3 [ATK:1/HP:3]
