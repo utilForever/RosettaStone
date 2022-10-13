@@ -819,6 +819,41 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::TARGET, GameTag::ENTITY_ID));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagNumberTask>(
+        EntityType::SOURCE, GameTag::MOAT_LURKER_MINION));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<IncludeTask>(EntityType::SOURCE));
+    cardDef.power.AddDeathrattleTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            const int entityID =
+                playables[0]->GetGameTag(GameTag::MOAT_LURKER_MINION);
+            if (entityID == 0)
+            {
+                return std::vector<Playable*>{};
+            }
+
+            const Playable* target = playables[0]->game->entityList[entityID];
+            if (target->player->GetFieldZone()->IsFull())
+            {
+                return std::vector<Playable*>{};
+            }
+
+            Entity* entity =
+                Entity::GetFromCard(target->player, target->card, std::nullopt,
+                                    target->player->GetFieldZone());
+            Generic::Summon(dynamic_cast<Minion*>(entity), -1, target->player);
+
+            return std::vector<Playable*>{};
+        }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("KAR_041", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_044] Moroes - COST:3 [ATK:1/HP:1]
