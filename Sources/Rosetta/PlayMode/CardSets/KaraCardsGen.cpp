@@ -795,6 +795,14 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "KAR_037t", EntityType::SOURCE) }));
+    cards.emplace("KAR_037", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_041] Moat Lurker - COST:6 [ATK:3/HP:3]
@@ -970,6 +978,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1 and <b>Taunt</b>.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("KAR_037t"));
+    cards.emplace("KAR_037t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_041e] Moat Lurker (*) - COST:0
