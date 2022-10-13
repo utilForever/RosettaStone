@@ -1026,19 +1026,19 @@ KARA | KAR_005 | Kindly Grandmother | O
 KARA | KAR_006 | Cloaked Huntress | O
 KARA | KAR_009 | Babbling Book | O
 KARA | KAR_010 | Nightbane Templar | O
-KARA | KAR_011 | Pompous Thespian |  
+KARA | KAR_011 | Pompous Thespian | O
 KARA | KAR_013 | Purify | O
 KARA | KAR_021 | Wicked Witchdoctor | O
 KARA | KAR_025 | Kara Kazham! | O
 KARA | KAR_026 | Protect the King! | O
 KARA | KAR_028 | Fool's Bane | O
-KARA | KAR_029 | Runic Egg |  
-KARA | KAR_030a | Pantry Spider |  
-KARA | KAR_033 | Book Wyrm |  
+KARA | KAR_029 | Runic Egg | O
+KARA | KAR_030a | Pantry Spider | O
+KARA | KAR_033 | Book Wyrm | O
 KARA | KAR_035 | Priest of the Feast | O
 KARA | KAR_036 | Arcane Anomaly | O
-KARA | KAR_037 | Avian Watcher |  
-KARA | KAR_041 | Moat Lurker |  
+KARA | KAR_037 | Avian Watcher | O
+KARA | KAR_041 | Moat Lurker | O
 KARA | KAR_044 | Moroes |  
 KARA | KAR_057 | Ivory Knight | O
 KARA | KAR_061 | The Curator |  
@@ -1067,7 +1067,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 62% (28 of 45 Cards)
+- Progress: 75% (34 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 
