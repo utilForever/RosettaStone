@@ -749,6 +749,19 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_MAX_ATTACK = 3
     // - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NONSELF_TARGET, 0 },
+                  { PlayReq::REQ_ENEMY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_MAX_ATTACK, 3 },
+                  { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND, 0 } };
+    cards.emplace("KAR_033", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
