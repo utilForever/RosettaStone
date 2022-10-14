@@ -1623,3 +1623,51 @@ TEST_CASE("[Netural : Minion] - KAR_041 : Moat Lurker")
     CHECK_EQ(opField.GetCount(), 1);
     CHECK_EQ(opField[0]->card->name, "Malygos");
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_044] Moroes - COST:3 [ATK:1/HP:1]
+// - Set: Kara, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Stealth</b>
+//       At the end of your turn, summon a 1/1 Steward.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - STEALTH = 1
+// --------------------------------------------------------
+TEST_CASE("[Netural : Minion] - KAR_044 : Moroes")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moroes"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Steward");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+}

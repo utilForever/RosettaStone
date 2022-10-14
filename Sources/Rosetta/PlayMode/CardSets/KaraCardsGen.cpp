@@ -866,6 +866,11 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - STEALTH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "KAR_044a", SummonSide::RIGHT) };
+    cards.emplace("KAR_044", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_061] The Curator - COST:7 [ATK:4/HP:6]
@@ -1028,6 +1033,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [KAR_044a] Steward (*) - COST:1 [ATK:1/HP:1]
     // - Faction: neutral, Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_044a", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_077e] Silver Might (*) - COST:0
