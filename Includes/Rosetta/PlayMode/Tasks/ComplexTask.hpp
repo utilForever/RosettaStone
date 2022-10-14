@@ -272,6 +272,21 @@ class ComplexTask
         };
     }
 
+    //! Returns a list of task for giving buff to a random minion in field.
+    //! \param list A list of self conditions to filter card(s).
+    //! \param enchantmentCardID The ID of enchantment card to give buff.
+    static TaskList GiveBuffToRandomMinionInField(
+        std::string_view enchantmentCardID, const SelfCondList& list)
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::IncludeTask>(EntityType::MINIONS),
+            std::make_shared<SimpleTasks::FilterStackTask>(list),
+            std::make_shared<SimpleTasks::RandomTask>(EntityType::STACK, 1),
+            std::make_shared<SimpleTasks::AddEnchantmentTask>(enchantmentCardID,
+                                                              EntityType::STACK)
+        };
+    }
+
     //! Returns a list of task for giving buff to another random minion
     //! in field.
     //! \param enchantmentCardID The ID of enchantment card to give buff.
