@@ -36,6 +36,14 @@ TaskStatus AddStackToTask::Impl(Player* player)
             }
             break;
         }
+        case EntityType::DECK:
+        {
+            for (const auto& entity : player->game->taskStack.playables)
+            {
+                Generic::ShuffleIntoDeck(entity->player, m_source, entity);
+            }
+            break;
+        }
         default:
             throw std::invalid_argument(
                 "AddStackToTask::Impl() - Invalid entity type");
