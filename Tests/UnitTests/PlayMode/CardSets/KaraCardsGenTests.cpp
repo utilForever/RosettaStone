@@ -1727,3 +1727,64 @@ TEST_CASE("[Neutral : Minion] - CS3_015 : The Curator")
     CHECK_EQ(curHand[5]->card->GetRace(), Race::DRAGON);
     CHECK_EQ(curHand[6]->card->GetRace(), Race::MURLOC);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_062] Netherspite Historian - COST:2 [ATK:1/HP:3]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       <b>Discover</b> a Dragon.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_062 : Netherspite Historian")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::DRUID;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Netherspite Historian"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Netherspite Historian"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Faerie Dragon"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetRace(), Race::DRAGON);
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK(curPlayer->choice);
+    CHECK_EQ(curPlayer->choice->choices.size(), 3u);
+}

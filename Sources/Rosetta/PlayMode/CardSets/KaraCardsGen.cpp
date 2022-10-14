@@ -909,6 +909,14 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DiscoverTask>(DiscoverType::DRAGON) }));
+    cards.emplace("KAR_062", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_095] Zoobot - COST:3 [ATK:3/HP:3]
