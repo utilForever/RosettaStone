@@ -884,6 +884,17 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::BEAST)) }));
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::MURLOC)) }));
+    cards.emplace("KAR_061", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_062] Netherspite Historian - COST:2 [ATK:1/HP:3]
