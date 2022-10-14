@@ -600,6 +600,9 @@ void Game::FinalGameOver()
 
 void Game::Start()
 {
+    // Trigger 'Start of Game' triggers (but does not process tasks here)
+    triggerManager.OnStartGameTrigger();
+
     // Set next step
     nextStep = Step::BEGIN_FIRST;
 
