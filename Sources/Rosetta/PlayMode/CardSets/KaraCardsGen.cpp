@@ -928,6 +928,17 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_095e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::BEAST)) }));
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_095e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_095e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::MURLOC)) }));
+    cards.emplace("KAR_095", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_096] Prince Malchezaar - COST:5 [ATK:5/HP:6]
@@ -1072,6 +1083,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("KAR_095e"));
+    cards.emplace("KAR_095e", cardDef);
 
     // --------------------------------------- WEAPON - NEUTRAL
     // [KAR_097t] Atiesh (*) - COST:3 [ATK:1/HP:0]
