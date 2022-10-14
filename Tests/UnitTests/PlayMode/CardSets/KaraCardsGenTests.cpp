@@ -1684,7 +1684,7 @@ TEST_CASE("[Netural : Minion] - KAR_044 : Moroes")
 // - TAUNT = 1
 // - BATTLECRY = 1
 // --------------------------------------------------------
-TEST_CASE("[Neutral : Minion] - CS3_015 : The Curator")
+TEST_CASE("[Neutral : Minion] - KAR_061 : The Curator")
 {
     GameConfig config;
     config.formatType = FormatType::STANDARD;
@@ -1858,4 +1858,56 @@ TEST_CASE("[Neutral : Minion] - KAR_095 : Zoobot")
     CHECK_EQ(curField[3]->GetHealth(), 3);
     CHECK_EQ(curField[4]->GetAttack(), 2);
     CHECK_EQ(curField[4]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_096] Prince Malchezaar - COST:5 [ATK:5/HP:6]
+// - Race: Demon, Set: Kara, Rarity: Legendary
+// --------------------------------------------------------
+// Text: When the game starts,
+//       add 5 extra <b>Legendary</b> minions to your deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_096 : Prince Malchezaar")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::SHAMAN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    config.player1Deck[0] = Cards::FindCardByName("Prince Malchezaar");
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curDeck = *(curPlayer->GetDeckZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    CHECK_EQ(curDeck.GetCount(), 4);
+    CHECK_EQ(curHand.GetCount(), 2);
+
+    for (auto& deckCard : curDeck.GetAll())
+    {
+        CHECK_EQ(deckCard->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(deckCard->card->GetRarity(), Rarity::LEGENDARY);
+    }
+
+    for (auto& handCard : curHand.GetAll())
+    {
+        CHECK_EQ(handCard->card->GetCardType(), CardType::MINION);
+        CHECK_EQ(handCard->card->GetRarity(), Rarity::LEGENDARY);
+    }
 }

@@ -950,6 +950,19 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::GAME_START));
+    cardDef.power.GetTrigger()->triggerActivation = TriggerActivation::DECK;
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cardDef.power.GetTrigger()->tasks = TaskList{
+        std::make_shared<RandomMinionTask>(
+            TagValues{ { GameTag::RARITY, static_cast<int>(Rarity::LEGENDARY),
+                         RelaSign::EQ } },
+            5),
+        std::make_shared<AddStackToTask>(EntityType::DECK)
+    };
+    cards.emplace("KAR_096", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7]
