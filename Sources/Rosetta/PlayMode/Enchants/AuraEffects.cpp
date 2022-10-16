@@ -270,11 +270,21 @@ void AuraEffects::SetLifesteal(int value) const
 
 int AuraEffects::GetCantAttack() const
 {
+    if (m_type != CardType::MINION)
+    {
+        return 0;
+    }
+
     return m_data[8];
 }
 
 void AuraEffects::SetCantAttack(int value) const
 {
+    if (m_type != CardType::MINION)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[8] = value;
 }
 }  // namespace RosettaStone::PlayMode
