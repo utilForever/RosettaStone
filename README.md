@@ -61,7 +61,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * 8% The Grand Tournament (11 of 132 Cards)
   * **100% The League of Explorers (45 of 45 Cards)**
   * 5% Whispers of the Old Gods (8 of 134 Cards)
-  * 48% One Night in Karazhan (22 of 45 Cards)
+  * 62% One Night in Karazhan (28 of 45 Cards)
   * 2% Mean Streets of Gadgetzan (3 of 132 Cards)
   * 7% Journey to Un'Goro (10 of 135 Cards)
   * 4% Knights of the Frozen Throne (6 of 135 Cards)

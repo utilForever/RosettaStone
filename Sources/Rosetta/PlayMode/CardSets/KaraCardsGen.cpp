@@ -528,6 +528,8 @@ void KaraCardsGen::AddShamanNonCollect(std::map<std::string, CardDef>& cards)
 
 void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARLOCK
     // [KAR_025] Kara Kazham! - COST:5
     // - Set: Kara, Rarity: Common
@@ -537,6 +539,16 @@ void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // PlayReq:
     // - REQ_NUM_MINION_SLOTS = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("KAR_025a", SummonSide::SPELL));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("KAR_025b", SummonSide::SPELL));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("KAR_025c", SummonSide::SPELL));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NUM_MINION_SLOTS, 1 } };
+    cards.emplace("KAR_025", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [KAR_089] Malchezaar's Imp - COST:1 [ATK:1/HP:3]
@@ -544,6 +556,10 @@ void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Whenever you discard a card, draw a card.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<DrawTask>(1) };
+    cards.emplace("KAR_089", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3]
@@ -554,28 +570,48 @@ void KaraCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - InvisibleDeathrattle = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::DISCARD));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->triggerActivation = TriggerActivation::HAND;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "KAR_205") };
+    cards.emplace("KAR_205", cardDef);
 }
 
 void KaraCardsGen::AddWarlockNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARLOCK
     // [KAR_025a] Candle (*) - COST:1 [ATK:1/HP:1]
     // - Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_025a", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [KAR_025b] Broom (*) - COST:2 [ATK:2/HP:2]
     // - Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_025b", cardDef);
 
     // --------------------------------------- MINION - WARLOCK
     // [KAR_025c] Teapot (*) - COST:3 [ATK:3/HP:3]
     // - Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_025c", cardDef);
 }
 
 void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - WARRIOR
     // [KAR_026] Protect the King! - COST:3
     // - Set: Kara, Rarity: Rare
@@ -590,6 +626,15 @@ void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<CountTask>(EntityType::ENEMY_MINIONS));
+    cardDef.power.AddPowerTask(std::make_shared<EnqueueNumberTask>(TaskList{
+        std::make_shared<SummonTask>("KAR_026t", SummonSide::SPELL) }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_MINIMUM_ENEMY_MINIONS, 0 },
+                  { PlayReq::REQ_NUM_MINION_SLOTS, 0 } };
+    cards.emplace("KAR_026", cardDef);
 
     // --------------------------------------- WEAPON - WARRIOR
     // [KAR_028] Fool's Bane - COST:5 [ATK:3/HP:0]
@@ -600,6 +645,17 @@ void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DURABILITY = 4
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(std::make_shared<Aura>(
+        AuraType::HERO,
+        EffectList{ std::make_shared<Effect>(GameTag::CANNOT_ATTACK_HEROES,
+                                             EffectOperator::SET, 1) }));
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::HERO;
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SetGameTagTask>(
+        EntityType::HERO, GameTag::EXHAUSTED, 0) };
+    cards.emplace("KAR_028", cardDef);
 
     // ---------------------------------------- SPELL - WARRIOR
     // [KAR_091] Ironforge Portal - COST:5
@@ -607,10 +663,18 @@ void KaraCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Gain 4 Armor. Summon a random 4-Cost minion.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ArmorTask>(4));
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 4, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>());
+    cards.emplace("KAR_091", cardDef);
 }
 
 void KaraCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // --------------------------------------- MINION - WARRIOR
     // [KAR_026t] Pawn (*) - COST:1 [ATK:1/HP:1]
     // - Set: Kara
@@ -620,6 +684,9 @@ void KaraCardsGen::AddWarriorNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_026t", cardDef);
 }
 
 void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
