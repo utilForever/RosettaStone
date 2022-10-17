@@ -997,6 +997,17 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_702e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::BEAST)) }));
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_702e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_702e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::MURLOC)) }));
+    cards.emplace("KAR_702", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_710] Arcanosmith - COST:4 [ATK:3/HP:2]
@@ -1126,6 +1137,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("KAR_702e"));
+    cards.emplace("KAR_702e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_710m] Animated Shield (*) - COST:2 [ATK:0/HP:5]
