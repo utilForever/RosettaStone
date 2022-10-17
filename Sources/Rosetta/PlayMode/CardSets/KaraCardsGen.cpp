@@ -1041,6 +1041,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("KAR_710m"));
+    cards.emplace("KAR_710", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_711] Arcane Giant - COST:12 [ATK:8/HP:8]
@@ -1186,6 +1189,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_710m", cardDef);
 }
 
 void KaraCardsGen::AddAll(std::map<std::string, CardDef>& cards)
