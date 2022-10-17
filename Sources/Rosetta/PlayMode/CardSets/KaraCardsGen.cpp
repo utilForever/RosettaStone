@@ -1070,6 +1070,16 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<Aura>(AuraType::HERO, EffectList{ Effects::Immune }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMyTurn());
+        aura->restless = true;
+    }
+    cards.emplace("KAR_712", cardDef);
 }
 
 void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
