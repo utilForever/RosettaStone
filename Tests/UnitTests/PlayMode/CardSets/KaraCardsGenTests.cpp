@@ -1964,6 +1964,56 @@ TEST_CASE("[Neutral : Minion] - KAR_097 : Medivh, the Guardian")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [KAR_114] Barnes - COST:4 [ATK:3/HP:4]
+// - Set: Kara, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 1/1 copy of
+//       a random minion in your deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_114 : Barnes")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::HUNTER;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Malygos");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Barnes"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Malygos");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(curPlayer->GetCurrentSpellPower(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [KAR_702] Menagerie Magician - COST:5 [ATK:4/HP:4]
 // - Faction: Neutral, Set: Kara, Rarity: Common
 // --------------------------------------------------------

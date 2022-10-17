@@ -990,6 +990,22 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldNotFull()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<IncludeTask>(EntityType::DECK),
+                        std::make_shared<FilterStackTask>(
+                            SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsMinion()) }),
+                        std::make_shared<RandomTask>(EntityType::STACK, 1),
+                        std::make_shared<CopyTask>(EntityType::STACK,
+                                                   ZoneType::PLAY, 1, true),
+                        std::make_shared<AddEnchantmentTask>(
+                            "KAR_114e", EntityType::STACK) }));
+    cards.emplace("KAR_114", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_702] Menagerie Magician - COST:5 [ATK:4/HP:4]
@@ -1146,6 +1162,10 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Attack and Health set to 1.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SetAttackHealth(1)));
+    cards.emplace("KAR_114e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_702e] A Simple Trick (*) - COST:0
