@@ -968,12 +968,16 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7]
     // - Set: Kara, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Equip Atiesh, Greatstaff of the Guardian.
+    // Text: <b>Battlecry:</b>
+    //       Equip Atiesh, Greatstaff of the Guardian.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<WeaponTask>("KAR_097t"));
+    cards.emplace("KAR_097", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_114] Barnes - COST:4 [ATK:3/HP:4]
@@ -1123,6 +1127,18 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DURABILITY = 3
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                         GameTag::TAG_LAST_KNOWN_COST_IN_HAND),
+        std::make_shared<RandomMinionNumberTask>(GameTag::COST),
+        std::make_shared<SummonTask>(),
+        std::make_shared<DamageWeaponTask>(false)
+    };
+    cards.emplace("KAR_097t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_114e] Incredible Impression (*) - COST:0
