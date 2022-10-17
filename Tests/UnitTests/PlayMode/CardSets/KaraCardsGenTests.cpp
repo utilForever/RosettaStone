@@ -2129,3 +2129,45 @@ TEST_CASE("[Neutral : Minion] - KAR_710 : Arcanosmith")
     CHECK_EQ(curField[1]->GetHealth(), 5);
     CHECK_EQ(curField[1]->HasTaunt(), true);
 }
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_711] Arcane Giant - COST:12 [ATK:8/HP:8]
+// - Set: Kara, Rarity: Epic
+// --------------------------------------------------------
+// Text: Costs (1) less for each spell you've cast this game.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_711 : Arcane Giant")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Arcane Giant"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Blizzard"));
+
+    CHECK_EQ(card1->GetCost(), 12);
+
+    game.Process(curPlayer,
+                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    CHECK_EQ(card1->GetCost(), 10);
+}

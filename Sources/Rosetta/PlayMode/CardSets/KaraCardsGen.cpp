@@ -1051,6 +1051,12 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each spell you've cast this game.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumSpellsPlayedThisGame();
+        }));
+    cards.emplace("KAR_711", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_712] Violet Illusionist - COST:3 [ATK:4/HP:3]
