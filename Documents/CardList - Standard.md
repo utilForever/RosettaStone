@@ -976,6 +976,41 @@ THE_SUNKEN_CITY | TSC_963 | Filletfighter | O
 
 Set | ID | Name | Implemented
 :---: | :---: | :---: | :---:
+REVENDRETH | MAW_000 | Imp-oster |  
+REVENDRETH | MAW_001 | Arson Accusation |  
+REVENDRETH | MAW_002 | Habeas Corpses |  
+REVENDRETH | MAW_003 | Totemic Evidence |  
+REVENDRETH | MAW_004 | Soul Seeker |  
+REVENDRETH | MAW_005 | Framester |  
+REVENDRETH | MAW_006 | Objection! |  
+REVENDRETH | MAW_008 | Sightless Magistrate |  
+REVENDRETH | MAW_009 | Shadehound |  
+REVENDRETH | MAW_010 | Motion Denied |  
+REVENDRETH | MAW_011 | Defense Attorney Nathanos |  
+REVENDRETH | MAW_012 | All Fel Breaks Loose |  
+REVENDRETH | MAW_013 | Life Sentence |  
+REVENDRETH | MAW_014 | Prosecutor Mel'tranix |  
+REVENDRETH | MAW_015 | Jury Duty |  
+REVENDRETH | MAW_016 | Order in the Court |  
+REVENDRETH | MAW_017 | Class Action Lawyer |  
+REVENDRETH | MAW_018 | Perjury |  
+REVENDRETH | MAW_019 | Murder Accusation |  
+REVENDRETH | MAW_020 | Scribbling Stenographer |  
+REVENDRETH | MAW_021 | Clear Conscience |  
+REVENDRETH | MAW_022 | Incriminating Psychic |  
+REVENDRETH | MAW_023 | Theft Accusation |  
+REVENDRETH | MAW_024 | Dew Process |  
+REVENDRETH | MAW_025 | Attorney-at-Maw |  
+REVENDRETH | MAW_026 | Incarceration |  
+REVENDRETH | MAW_027 | Call to the Stand |  
+REVENDRETH | MAW_028 | Mawsworn Bailiff |  
+REVENDRETH | MAW_029 | Weapons Expert |  
+REVENDRETH | MAW_030 | Torghast Custodian |  
+REVENDRETH | MAW_031 | Afterlife Attendant |  
+REVENDRETH | MAW_032 | Tight-Lipped Witness |  
+REVENDRETH | MAW_033 | Sylvanas, the Accused |  
+REVENDRETH | MAW_034 | The Jailer |  
+REVENDRETH | MAW_101 | Contract Conjurer |  
 REVENDRETH | REV_000 | Suspicious Alchemist |  
 REVENDRETH | REV_002 | Suspicious Usher |  
 REVENDRETH | REV_006 | Suspicious Pirate |  
@@ -1112,4 +1147,4 @@ REVENDRETH | REV_961 | Elitist Snob |
 REVENDRETH | REV_983 | Great Hall |  
 REVENDRETH | REV_990 | Sanguine Depths |  
 
-- Progress: 1% (2 of 135 Cards)
+- Progress: 1% (2 of 170 Cards)
