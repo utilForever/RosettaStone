@@ -79,6 +79,12 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL_AND_STACK));
+    cardDef.power.AddAfterChooseTask(
+        std::make_shared<AddEnchantmentTask>("REV_313e", EntityType::STACK));
+    cards.emplace("REV_313", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_314] Topior the Shrubbagazzor - COST:7 [ATK:5/HP:5]
@@ -227,6 +233,10 @@ void RevendrethCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::ReduceCost(2), false, true));
+    cards.emplace("REV_313e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [REV_314e] Winter Queen's Blessing - COST:0

@@ -50,6 +50,72 @@ TEST_CASE("[Druid : Spell] - REV_307 : Natural Causes")
     CHECK_EQ(curField[0]->GetHealth(), 2);
 }
 
+// ------------------------------------------ SPELL - DRUID
+// [REV_313] Planted Evidence - COST:1
+// - Set: REVENDRETH, Rarity: Common
+// - Spell School: Nature
+// --------------------------------------------------------
+// Text: <b>Discover</b> a spell.
+//       It costs (2) less this turn.
+// --------------------------------------------------------
+// GameTag:
+// - DISCOVER = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Spell] - REV_313 : Planted Evidence")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Planted Evidence"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    CHECK(curPlayer->choice);
+
+    auto cards = TestUtils::GetChoiceCards(game);
+    for (auto& card : cards)
+    {
+        CHECK_EQ(card->GetCardType(), CardType::SPELL);
+        CHECK(card->IsCardClass(CardClass::DRUID));
+    }
+
+    TestUtils::ChooseNthChoice(game, 1);
+
+    auto calculateCostDiff = [](int cost) -> int {
+        if (cost == 0)
+        {
+            return 0;
+        }
+
+        if (cost == 1)
+        {
+            return 1;
+        }
+
+        return 2;
+    };
+
+    const int costDiff = calculateCostDiff(curHand[0]->card->GetCost());
+    CHECK_EQ(curHand[0]->card->GetCost() - curHand[0]->GetCost(), costDiff);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [REV_956] Priest of the Deceased - COST:2 [ATK:2/HP:3]
 // - Set: REVENDRETH, Rarity: Common
