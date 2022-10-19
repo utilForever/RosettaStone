@@ -157,6 +157,12 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - INFUSE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_336t2", 2, SummonSide::SPELL));
+    cardDef.property.numMinionsToInfuse = 5;
+    cardDef.property.infusedCardID = "REV_336t4";
+    cards.emplace("REV_336", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [REV_365] Convoke the Spirits - COST:10
@@ -303,6 +309,9 @@ void RevendrethCardsGen::AddDruidNonCollect(
     // [REV_336t3] Ancient - COST:5 [ATK:5/HP:5]
     // - Set: REVENDRETH
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_336t3", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [REV_336t4] Plot of Sin - COST:3
@@ -312,6 +321,10 @@ void RevendrethCardsGen::AddDruidNonCollect(
     // Text: <b>Infused</b>
     //       Summon two 5/5 Ancients.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_336t3", 2, SummonSide::SPELL));
+    cards.emplace("REV_336t4", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [MAW_024e2] Maw Rules - COST:0
