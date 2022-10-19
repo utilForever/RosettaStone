@@ -130,6 +130,11 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawMinionTask>(1, true));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("REV_319e", EntityType::STACK));
+    cards.emplace("REV_319", cardDef);
 
     // --------------------------------------- LOCATION - DRUID
     // [REV_333] Hedge Maze - COST:3
@@ -282,6 +287,9 @@ void RevendrethCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (8) less.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(8)));
+    cards.emplace("REV_319e", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_336t2] Treant - COST:2 [ATK:2/HP:2]
