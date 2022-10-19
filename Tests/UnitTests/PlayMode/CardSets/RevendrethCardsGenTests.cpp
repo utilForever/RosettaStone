@@ -116,6 +116,55 @@ TEST_CASE("[Druid : Spell] - REV_313 : Planted Evidence")
     CHECK_EQ(curHand[0]->card->GetCost() - curHand[0]->GetCost(), costDiff);
 }
 
+// ----------------------------------------- MINION - DRUID
+// [REV_318] Widowbloom Seedsman - COST:4 [ATK:3/HP:2]
+// - Set: REVENDRETH, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a Nature spell.
+//       Gain an empty Mana Crystal.
+// --------------------------------------------------------
+// RefTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Druid : Minion] - REV_318 : Widowbloom Seedsman")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    for (int i = 0; i < 30; i += 3)
+    {
+        config.player1Deck[i] = Cards::FindCardByName("Lightning Bolt");
+        config.player1Deck[i + 1] = Cards::FindCardByName("Fireball");
+        config.player1Deck[i + 2] = Cards::FindCardByName("Blizzard");
+    }
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(4);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Widowbloom Seedsman"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+    CHECK_EQ(curHand[4]->card->GetSpellSchool(), SpellSchool::NATURE);
+    CHECK_EQ(curPlayer->GetTotalMana(), 5);
+    CHECK_EQ(curPlayer->GetRemainingMana(), 0);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [REV_956] Priest of the Deceased - COST:2 [ATK:2/HP:3]
 // - Set: REVENDRETH, Rarity: Common

@@ -109,6 +109,11 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(SpellSchool::NATURE, 1));
+    cardDef.power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false));
+    cards.emplace("REV_318", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_319] Sesselie of the Fae Court - COST:8 [ATK:8/HP:8]
