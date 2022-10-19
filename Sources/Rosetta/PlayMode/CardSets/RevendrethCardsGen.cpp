@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/RevendrethCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
@@ -19,6 +20,8 @@ void RevendrethCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - DRUID
     // [REV_307] Natural Causes - COST:2
     // - Set: REVENDRETH, Rarity: Common
@@ -26,6 +29,16 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage. Summon a 2/2 Treant.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_336t2", SummonSide::SPELL));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("REV_307", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_310] Death Blossom Whomper - COST:6 [ATK:7/HP:6]
@@ -174,6 +187,8 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void RevendrethCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------ ENCHANTMENT - DRUID
     // [REV_310e] Whomping - COST:0
     // - Set: REVENDRETH
@@ -257,6 +272,9 @@ void RevendrethCardsGen::AddDruidNonCollect(
     // [REV_336t2] Treant - COST:2 [ATK:2/HP:2]
     // - Set: REVENDRETH
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_336t2", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_336t3] Ancient - COST:5 [ATK:5/HP:5]
