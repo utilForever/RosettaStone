@@ -702,6 +702,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_011", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_029] Runic Egg - COST:1 [ATK:0/HP:2]
@@ -712,6 +715,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawTask>(1));
+    cards.emplace("KAR_029", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_030a] Pantry Spider - COST:3 [ATK:1/HP:3]
@@ -722,6 +728,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("KAR_030"));
+    cards.emplace("KAR_030a", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_033] Book Wyrm - COST:6 [ATK:3/HP:6]
@@ -740,6 +749,19 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_MAX_ATTACK = 3
     // - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<DestroyTask>(EntityType::TARGET) }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_NONSELF_TARGET, 0 },
+                  { PlayReq::REQ_ENEMY_TARGET, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 },
+                  { PlayReq::REQ_TARGET_MAX_ATTACK, 3 },
+                  { PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND, 0 } };
+    cards.emplace("KAR_033", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
@@ -773,6 +795,14 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - SECRET = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsControllingSecret()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<AddEnchantmentTask>(
+                  "KAR_037t", EntityType::SOURCE) }));
+    cards.emplace("KAR_037", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_041] Moat Lurker - COST:6 [ATK:3/HP:3]
@@ -789,6 +819,41 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - REQ_TARGET_IF_AVAILABLE = 0
     // - REQ_MINION_TARGET = 0
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<GetGameTagTask>(
+        EntityType::TARGET, GameTag::ENTITY_ID));
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.power.AddPowerTask(std::make_shared<SetGameTagNumberTask>(
+        EntityType::SOURCE, GameTag::MOAT_LURKER_MINION));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<IncludeTask>(EntityType::SOURCE));
+    cardDef.power.AddDeathrattleTask(std::make_shared<FuncPlayableTask>(
+        [=](const std::vector<Playable*>& playables) {
+            const int entityID =
+                playables[0]->GetGameTag(GameTag::MOAT_LURKER_MINION);
+            if (entityID == 0)
+            {
+                return std::vector<Playable*>{};
+            }
+
+            const Playable* target = playables[0]->game->entityList[entityID];
+            if (target->player->GetFieldZone()->IsFull())
+            {
+                return std::vector<Playable*>{};
+            }
+
+            Entity* entity =
+                Entity::GetFromCard(target->player, target->card, std::nullopt,
+                                    target->player->GetFieldZone());
+            Generic::Summon(dynamic_cast<Minion*>(entity), -1, target->player);
+
+            return std::vector<Playable*>{};
+        }));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("KAR_041", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_044] Moroes - COST:3 [ATK:1/HP:1]
@@ -927,6 +992,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [KAR_030] Cellar Spider (*) - COST:3 [ATK:1/HP:3]
     // - Race: Beast, Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_030", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_036e] Eating (*) - COST:0
@@ -945,6 +1013,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1 and <b>Taunt</b>.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("KAR_037t"));
+    cards.emplace("KAR_037t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_041e] Moat Lurker (*) - COST:0

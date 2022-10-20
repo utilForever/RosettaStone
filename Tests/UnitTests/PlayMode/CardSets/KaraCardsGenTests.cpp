@@ -1279,6 +1279,178 @@ TEST_CASE("[Warrior : Spell] - KAR_091 : Ironforge Portal")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [KAR_011] Pompous Thespian - COST:2 [ATK:3/HP:2]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Taunt</b>
+// --------------------------------------------------------
+// GameTag:
+// - TAUNT = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_011 : Pompous Thespian")
+{
+    // Do nothing
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_029] Runic Egg - COST:1 [ATK:0/HP:2]
+// - Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Draw a card.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_029 : Runic Egg")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Runic Egg"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frostbolt"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curHand.GetCount(), 5);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_030a] Pantry Spider - COST:3 [ATK:1/HP:3]
+// - Race: Beast, Set: Kara, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Summon a 1/3 Spider.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_030a : Pantry Spider")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pantry Spider"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->name, "Cellar Spider");
+    CHECK_EQ(curField[1]->GetAttack(), 1);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_033] Book Wyrm - COST:6 [ATK:3/HP:6]
+// - Race: Dragon, Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you're holding a Dragon,
+//       destroy an enemy minion with 3 or less Attack.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_NONSELF_TARGET = 0
+// - REQ_ENEMY_TARGET = 0
+// - REQ_MINION_TARGET = 0
+// - REQ_TARGET_MAX_ATTACK = 3
+// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - KAR_033 : Book Wyrm")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PRIEST;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Book Wyrm"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Book Wyrm"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Ethereal Peddler"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card3));
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card5));
+    CHECK_EQ(opField.GetCount(), 3);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card3));
+    CHECK_EQ(opField.GetCount(), 2);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card2, card4));
+    CHECK_EQ(opField.GetCount(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1]
 // - Race: Elemental, Faction: Neutral, Set: Kara, Rarity: common
 // --------------------------------------------------------
@@ -1325,4 +1497,129 @@ TEST_CASE("[Netural : Minion] - KAR_036 : Arcane Anomaly")
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card3, card2));
     CHECK_EQ(curField[0]->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6]
+// - Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> If you control a <b>Secret</b>,
+//       gain +1/+1 and <b>Taunt</b>.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// RefTag:
+// - TAUNT = 1
+// - SECRET = 1
+// --------------------------------------------------------
+TEST_CASE("[Netural : Minion] - KAR_037 : Avian Watcher")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Avian Watcher"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Avian Watcher"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Noble Sacrifice"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
+    CHECK_EQ(curField[0]->HasTaunt(), false);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curField[1]->GetAttack(), 4);
+    CHECK_EQ(curField[1]->GetHealth(), 7);
+    CHECK_EQ(curField[1]->HasTaunt(), true);
+}
+
+// --------------------------------------- MINION - NEUTRAL
+// [KAR_041] Moat Lurker - COST:6 [ATK:3/HP:3]
+// - Set: Kara, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy a minion.
+//       <b>Deathrattle:</b> Resummon it.
+// --------------------------------------------------------
+// GameTag:
+// - DEATHRATTLE = 1
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_IF_AVAILABLE = 0
+// - REQ_MINION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Netural : Minion] - KAR_041 : Moat Lurker")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PRIEST;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Moat Lurker"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Malygos"));
+    const auto card3 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Holy Smite"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(opField.GetCount(), 1);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
+    CHECK_EQ(opField.GetCount(), 0);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card3, card1));
+    CHECK_EQ(opField.GetCount(), 1);
+    CHECK_EQ(opField[0]->card->name, "Malygos");
 }
