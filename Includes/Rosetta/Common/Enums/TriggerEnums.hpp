@@ -13,6 +13,7 @@ namespace RosettaStone
 enum class TriggerType
 {
     NONE,        //!< The effect has nothing.
+    GAME_START,  //!< The effect will be triggered when a game begins.
     TURN_START,  //!< The effect will be triggered at the start of turn.
     TURN_END,    //!< The effect will be triggered at the end of turn.
     ADD_CARD,    //!< The effect will be triggered when a card is added in hand.

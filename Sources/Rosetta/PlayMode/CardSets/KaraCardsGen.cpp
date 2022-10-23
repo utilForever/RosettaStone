@@ -866,6 +866,11 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - STEALTH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
+    cardDef.power.GetTrigger()->tasks = { std::make_shared<SummonTask>(
+        "KAR_044a", SummonSide::RIGHT) };
+    cards.emplace("KAR_044", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_061] The Curator - COST:7 [ATK:4/HP:6]
@@ -879,6 +884,17 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - TAUNT = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::BEAST)) }));
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(ComplexTask::DrawCardFromDeck(
+        1, SelfCondList{ std::make_shared<SelfCondition>(
+               SelfCondition::IsRace(Race::MURLOC)) }));
+    cards.emplace("KAR_061", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_062] Netherspite Historian - COST:2 [ATK:1/HP:3]
@@ -893,6 +909,14 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsHoldingRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true,
+        TaskList{ std::make_shared<DiscoverTask>(DiscoverType::DRAGON) }));
+    cards.emplace("KAR_062", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_095] Zoobot - COST:3 [ATK:3/HP:3]
@@ -904,6 +928,17 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_095e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::BEAST)) }));
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_095e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_095e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::MURLOC)) }));
+    cards.emplace("KAR_095", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_096] Prince Malchezaar - COST:5 [ATK:5/HP:6]
@@ -915,6 +950,19 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - ELITE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::GAME_START));
+    cardDef.power.GetTrigger()->triggerActivation = TriggerActivation::DECK;
+    cardDef.power.GetTrigger()->removeAfterTriggered = true;
+    cardDef.power.GetTrigger()->tasks = TaskList{
+        std::make_shared<RandomMinionTask>(
+            TagValues{ { GameTag::RARITY, static_cast<int>(Rarity::LEGENDARY),
+                         RelaSign::EQ } },
+            5),
+        std::make_shared<AddStackToTask>(EntityType::DECK)
+    };
+    cards.emplace("KAR_096", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7]
@@ -1028,6 +1076,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // [KAR_044a] Steward (*) - COST:1 [ATK:1/HP:1]
     // - Faction: neutral, Set: Kara
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_044a", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_077e] Silver Might (*) - COST:0
@@ -1045,6 +1096,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +1/+1.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("KAR_095e"));
+    cards.emplace("KAR_095e", cardDef);
 
     // --------------------------------------- WEAPON - NEUTRAL
     // [KAR_097t] Atiesh (*) - COST:3 [ATK:1/HP:0]

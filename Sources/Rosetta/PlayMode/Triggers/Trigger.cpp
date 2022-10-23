@@ -105,6 +105,9 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
 
     switch (m_triggerType)
     {
+        case TriggerType::GAME_START:
+            game->triggerManager.startGameTrigger += instance->handler;
+            break;
         case TriggerType::TURN_START:
             game->triggerManager.startTurnTrigger += instance->handler;
             break;
@@ -290,6 +293,9 @@ void Trigger::Remove()
 
     switch (m_triggerType)
     {
+        case TriggerType::GAME_START:
+            game->triggerManager.startGameTrigger -= handler;
+            break;
         case TriggerType::TURN_START:
             game->triggerManager.startTurnTrigger -= handler;
             break;

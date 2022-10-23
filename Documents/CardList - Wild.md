@@ -1039,10 +1039,10 @@ KARA | KAR_035 | Priest of the Feast | O
 KARA | KAR_036 | Arcane Anomaly | O
 KARA | KAR_037 | Avian Watcher | O
 KARA | KAR_041 | Moat Lurker | O
-KARA | KAR_044 | Moroes |  
+KARA | KAR_044 | Moroes | O
 KARA | KAR_057 | Ivory Knight | O
-KARA | KAR_061 | The Curator |  
-KARA | KAR_062 | Netherspite Historian |  
+KARA | KAR_061 | The Curator | O
+KARA | KAR_062 | Netherspite Historian | O
 KARA | KAR_063 | Spirit Claws | O
 KARA | KAR_065 | Menagerie Warden | O
 KARA | KAR_069 | Swashburglar | O
@@ -1055,8 +1055,8 @@ KARA | KAR_089 | Malchezaar's Imp | O
 KARA | KAR_091 | Ironforge Portal | O
 KARA | KAR_092 | Medivh's Valet | O
 KARA | KAR_094 | Deadly Fork | O
-KARA | KAR_095 | Zoobot |  
-KARA | KAR_096 | Prince Malchezaar |  
+KARA | KAR_095 | Zoobot | O
+KARA | KAR_096 | Prince Malchezaar | O
 KARA | KAR_097 | Medivh, the Guardian |  
 KARA | KAR_114 | Barnes |  
 KARA | KAR_204 | Onyx Bishop | O
@@ -1067,7 +1067,7 @@ KARA | KAR_710 | Arcanosmith |
 KARA | KAR_711 | Arcane Giant |  
 KARA | KAR_712 | Violet Illusionist |  
 
-- Progress: 75% (34 of 45 Cards)
+- Progress: 86% (39 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 
