@@ -2604,7 +2604,7 @@ void TheSunkenCityCardsGen::AddDemonHunter(
     // - Set: THE_SUNKEN_CITY, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Rush</b>. <b>Deathrattle:</b>
-    //       Put a 'Sunken Defector' on the�bottom of your deck.
+    //       Put a 'Sunken Defector' on the bottom of your deck.
     // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1

@@ -168,7 +168,7 @@ void GangsCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // [CFM_315] Alleycat - COST:1 [ATK:1/HP:1]
     // - Race: Beast, Set: GANGS, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 1/1�Cat.
+    // Text: <b>Battlecry:</b> Summon a 1/1 Cat.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -379,7 +379,7 @@ void GangsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // - Set: GANGS, Rarity: Rare
     // --------------------------------------------------------
     // Text: Costs (2) less for each <b>Secret</b>
-    //       you've played this�game.
+    //       you've played this game.
     // --------------------------------------------------------
     // RefTag:
     // - SECRET = 1
@@ -569,7 +569,7 @@ void GangsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // [CFM_606] Mana Geode - COST:2 [ATK:2/HP:3]
     // - Race: Elemental, Set: GANGS, Rarity: Epic
     // --------------------------------------------------------
-    // Text: Whenever this minion is healed, summon a 2/2�Crystal.
+    // Text: Whenever this minion is healed, summon a 2/2 Crystal.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -964,7 +964,7 @@ void GangsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Race: Demon, Set: GANGS, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no duplicates,
-    //       summon all Demons from your hand.�
+    //       summon all Demons from your hand. 
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
@@ -1339,7 +1339,7 @@ void GangsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CFM_648] Big-Time Racketeer - COST:6 [ATK:1/HP:1]
     // - Set: GANGS, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a 6/6�Ogre.
+    // Text: <b>Battlecry:</b> Summon a 6/6 Ogre.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1439,7 +1439,7 @@ void GangsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CFM_659] Gadgetzan Socialite - COST:2 [ATK:2/HP:2]
     // - Set: GANGS, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Restore 2�Health.
+    // Text: <b>Battlecry:</b> Restore 2 Health.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1548,7 +1548,7 @@ void GangsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [CFM_715] Jade Spirit - COST:4 [ATK:2/HP:3]
     // - Race: Elemental, Set: GANGS, Rarity: Common
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Summon a {1}/{0} <b>Jade�Golem</b>.
+    // Text: <b>Battlecry:</b> Summon a {1}/{0} <b>Jade Golem</b>.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
