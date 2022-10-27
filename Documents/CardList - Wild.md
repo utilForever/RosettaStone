@@ -1057,17 +1057,17 @@ KARA | KAR_092 | Medivh's Valet | O
 KARA | KAR_094 | Deadly Fork | O
 KARA | KAR_095 | Zoobot | O
 KARA | KAR_096 | Prince Malchezaar | O
-KARA | KAR_097 | Medivh, the Guardian |  
-KARA | KAR_114 | Barnes |  
+KARA | KAR_097 | Medivh, the Guardian | O
+KARA | KAR_114 | Barnes | O
 KARA | KAR_204 | Onyx Bishop | O
 KARA | KAR_205 | Silverware Golem | O
 KARA | KAR_300 | Enchanted Raven | O
-KARA | KAR_702 | Menagerie Magician |  
-KARA | KAR_710 | Arcanosmith |  
-KARA | KAR_711 | Arcane Giant |  
-KARA | KAR_712 | Violet Illusionist |  
+KARA | KAR_702 | Menagerie Magician | O
+KARA | KAR_710 | Arcanosmith | O
+KARA | KAR_711 | Arcane Giant | O
+KARA | KAR_712 | Violet Illusionist | O
 
-- Progress: 86% (39 of 45 Cards)
+- Progress: 100% (45 of 45 Cards)
 
 ## Mean Streets of Gadgetzan
 

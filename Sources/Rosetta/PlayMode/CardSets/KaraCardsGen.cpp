@@ -968,12 +968,16 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7]
     // - Set: Kara, Rarity: Legendary
     // --------------------------------------------------------
-    // Text: <b>Battlecry:</b> Equip Atiesh, Greatstaff of the Guardian.
+    // Text: <b>Battlecry:</b>
+    //       Equip Atiesh, Greatstaff of the Guardian.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<WeaponTask>("KAR_097t"));
+    cards.emplace("KAR_097", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_114] Barnes - COST:4 [ATK:3/HP:4]
@@ -986,6 +990,22 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<ConditionTask>(
+        EntityType::SOURCE, SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsFieldNotFull()) }));
+    cardDef.power.AddPowerTask(std::make_shared<FlagTask>(
+        true, TaskList{ std::make_shared<IncludeTask>(EntityType::DECK),
+                        std::make_shared<FilterStackTask>(
+                            SelfCondList{ std::make_shared<SelfCondition>(
+                                SelfCondition::IsMinion()) }),
+                        std::make_shared<RandomTask>(EntityType::STACK, 1),
+                        std::make_shared<CopyTask>(EntityType::STACK,
+                                                   ZoneType::PLAY, 1, true),
+                        std::make_shared<AddEnchantmentTask>(
+                            "KAR_114e", EntityType::STACK) }));
+    cards.emplace("KAR_114", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_702] Menagerie Magician - COST:5 [ATK:4/HP:4]
@@ -997,6 +1017,17 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_702e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::BEAST)) }));
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_702e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::DRAGON)) }));
+    cardDef.power.AddPowerTask(ComplexTask::GiveBuffToRandomMinionInField(
+        "KAR_702e", SelfCondList{ std::make_shared<SelfCondition>(
+                        SelfCondition::IsRace(Race::MURLOC)) }));
+    cards.emplace("KAR_702", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_710] Arcanosmith - COST:4 [ATK:3/HP:2]
@@ -1010,6 +1041,9 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>("KAR_710m"));
+    cards.emplace("KAR_710", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_711] Arcane Giant - COST:12 [ATK:8/HP:8]
@@ -1017,6 +1051,12 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Costs (1) less for each spell you've cast this game.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+            return playable->player->GetNumSpellsPlayedThisGame();
+        }));
+    cards.emplace("KAR_711", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_712] Violet Illusionist - COST:3 [ATK:4/HP:3]
@@ -1030,6 +1070,16 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - IMMUNE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<Aura>(AuraType::HERO, EffectList{ Effects::Immune }));
+    {
+        const auto aura = dynamic_cast<Aura*>(cardDef.power.GetAura());
+        aura->condition =
+            std::make_shared<SelfCondition>(SelfCondition::IsMyTurn());
+        aura->restless = true;
+    }
+    cards.emplace("KAR_712", cardDef);
 }
 
 void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
@@ -1112,6 +1162,18 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // - ELITE = 1
     // - DURABILITY = 3
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_CAST));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::FRIENDLY;
+    cardDef.power.GetTrigger()->tasks = {
+        std::make_shared<GetGameTagTask>(EntityType::TARGET,
+                                         GameTag::TAG_LAST_KNOWN_COST_IN_HAND),
+        std::make_shared<RandomMinionNumberTask>(GameTag::COST),
+        std::make_shared<SummonTask>(),
+        std::make_shared<DamageWeaponTask>(false)
+    };
+    cards.emplace("KAR_097t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_114e] Incredible Impression (*) - COST:0
@@ -1119,6 +1181,10 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Attack and Health set to 1.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SetAttackHealth(1)));
+    cards.emplace("KAR_114e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [KAR_702e] A Simple Trick (*) - COST:0
@@ -1126,6 +1192,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: +2/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("KAR_702e"));
+    cards.emplace("KAR_702e", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [KAR_710m] Animated Shield (*) - COST:2 [ATK:0/HP:5]
@@ -1136,6 +1205,9 @@ void KaraCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("KAR_710m", cardDef);
 }
 
 void KaraCardsGen::AddAll(std::map<std::string, CardDef>& cards)

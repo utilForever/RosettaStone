@@ -895,7 +895,7 @@ void ScholomanceCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // - Set: SCHOLOMANCE, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Replace your hand with
-    //       a copy of your opponent��s until end of turn.
+    //       a copy of your opponents until end of turn.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
