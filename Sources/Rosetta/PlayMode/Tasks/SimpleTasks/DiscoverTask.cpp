@@ -448,6 +448,16 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
                 }
             }
             break;
+        case DiscoverType::SPELL_AND_STACK:
+            choiceAction = ChoiceAction::HAND_AND_STACK;
+            for (auto& card : allCards)
+            {
+                if (card->GetCardType() == CardType::SPELL)
+                {
+                    cardsForGeneration.emplace_back(card);
+                }
+            }
+            break;
         case DiscoverType::HOLY_SPELL:
             choiceAction = ChoiceAction::HAND;
             for (auto& card : allCards)

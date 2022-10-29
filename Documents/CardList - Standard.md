@@ -1042,19 +1042,19 @@ REVENDRETH | REV_251 | Sinrunner |
 REVENDRETH | REV_252 | Clean the Scene |  
 REVENDRETH | REV_253 | Identity Theft |  
 REVENDRETH | REV_290 | Cathedral of Atonement |  
-REVENDRETH | REV_307 | Natural Causes |  
+REVENDRETH | REV_307 | Natural Causes | O
 REVENDRETH | REV_308 | Maze Guide |  
 REVENDRETH | REV_310 | Death Blossom Whomper |  
 REVENDRETH | REV_311 | Nightshade Bud |  
-REVENDRETH | REV_313 | Planted Evidence |  
+REVENDRETH | REV_313 | Planted Evidence | O
 REVENDRETH | REV_314 | Topior the Shrubbagazzor |  
 REVENDRETH | REV_316 | Remornia, Living Blade |  
-REVENDRETH | REV_318 | Widowbloom Seedsman |  
-REVENDRETH | REV_319 | Sesselie of the Fae Court |  
+REVENDRETH | REV_318 | Widowbloom Seedsman | O
+REVENDRETH | REV_319 | Sesselie of the Fae Court | O
 REVENDRETH | REV_332 | Anima Extractor |  
 REVENDRETH | REV_333 | Hedge Maze |  
 REVENDRETH | REV_334 | Burden of Pride |  
-REVENDRETH | REV_336 | Plot of Sin |  
+REVENDRETH | REV_336 | Plot of Sin | O
 REVENDRETH | REV_337 | Riot! |  
 REVENDRETH | REV_338 | Dredger Staff |  
 REVENDRETH | REV_350 | Frenzied Fangs |  
@@ -1147,4 +1147,4 @@ REVENDRETH | REV_961 | Elitist Snob |
 REVENDRETH | REV_983 | Great Hall |  
 REVENDRETH | REV_990 | Sanguine Depths |  
 
-- Progress: 1% (2 of 170 Cards)
+- Progress: 4% (7 of 170 Cards)

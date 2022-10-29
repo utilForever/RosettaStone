@@ -136,7 +136,8 @@ void CardLoader::Load(std::vector<Card*>& cards)
             gameTags.emplace(gameTag, 1);
         }
 
-        // NOTE: Skyvateer (YOD_016), Cowardly Grunt (SW_021)
+        // NOTE: Skyvateer (YOD_016), Cowardly Grunt (SW_021),
+        //       Sesselie of the Fae Court (REV_319)
         //       doesn't have GameTag::DEATHRATTLE
         // NOTE: Icehoof Protector (AV_133) doesn't have GameTag::FREEZE
         // NOTE: Patient Assassin (VAN_EX1_522) doesn't have GameTag::POISONOUS
@@ -149,7 +150,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
         //       doesn't have GameTag::TAUNT
         // NOTE: Spring the Trap (AV_224), Axe Berserker (AV_565)
         //       doesn't have GameTag::HONORABLEKILL
-        if (dbfID == 56091 || dbfID == 64196)
+        if (dbfID == 56091 || dbfID == 64196 || dbfID == 78383)
         {
             gameTags.emplace(GameTag::DEATHRATTLE, 1);
         }

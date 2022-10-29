@@ -4,6 +4,7 @@
 // Copyright (c) 2019 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 #include <Rosetta/PlayMode/CardSets/RevendrethCardsGen.hpp>
+#include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
 namespace RosettaStone::PlayMode
 {
@@ -19,6 +20,8 @@ void RevendrethCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------------ SPELL - DRUID
     // [REV_307] Natural Causes - COST:2
     // - Set: REVENDRETH, Rarity: Common
@@ -26,6 +29,16 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Deal 2 damage. Summon a 2/2 Treant.
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 2, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_336t2", SummonSide::SPELL));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("REV_307", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_310] Death Blossom Whomper - COST:6 [ATK:7/HP:6]
@@ -66,6 +79,12 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DISCOVER = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DiscoverTask>(DiscoverType::SPELL_AND_STACK));
+    cardDef.power.AddAfterChooseTask(
+        std::make_shared<AddEnchantmentTask>("REV_313e", EntityType::STACK));
+    cards.emplace("REV_313", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_314] Topior the Shrubbagazzor - COST:7 [ATK:5/HP:5]
@@ -90,6 +109,11 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DrawSpellTask>(SpellSchool::NATURE, 1));
+    cardDef.power.AddPowerTask(std::make_shared<ManaCrystalTask>(1, false));
+    cards.emplace("REV_318", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_319] Sesselie of the Fae Court - COST:8 [ATK:8/HP:8]
@@ -106,6 +130,11 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<DrawMinionTask>(1, true));
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<AddEnchantmentTask>("REV_319e", EntityType::STACK));
+    cards.emplace("REV_319", cardDef);
 
     // --------------------------------------- LOCATION - DRUID
     // [REV_333] Hedge Maze - COST:3
@@ -128,6 +157,12 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - INFUSE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_336t2", 2, SummonSide::SPELL));
+    cardDef.property.numMinionsToInfuse = 5;
+    cardDef.property.infusedCardID = "REV_336t4";
+    cards.emplace("REV_336", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [REV_365] Convoke the Spirits - COST:10
@@ -174,6 +209,8 @@ void RevendrethCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 void RevendrethCardsGen::AddDruidNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ------------------------------------ ENCHANTMENT - DRUID
     // [REV_310e] Whomping - COST:0
     // - Set: REVENDRETH
@@ -212,6 +249,10 @@ void RevendrethCardsGen::AddDruidNonCollect(
     // GameTag:
     // - TAG_ONE_TURN_EFFECT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::ReduceCost(2), false, true));
+    cards.emplace("REV_313e", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [REV_314e] Winter Queen's Blessing - COST:0
@@ -252,16 +293,25 @@ void RevendrethCardsGen::AddDruidNonCollect(
     // --------------------------------------------------------
     // Text: Costs (8) less.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(std::make_unique<Enchant>(Effects::ReduceCost(8)));
+    cards.emplace("REV_319e", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_336t2] Treant - COST:2 [ATK:2/HP:2]
     // - Set: REVENDRETH
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_336t2", cardDef);
 
     // ----------------------------------------- MINION - DRUID
     // [REV_336t3] Ancient - COST:5 [ATK:5/HP:5]
     // - Set: REVENDRETH
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_336t3", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [REV_336t4] Plot of Sin - COST:3
@@ -271,6 +321,10 @@ void RevendrethCardsGen::AddDruidNonCollect(
     // Text: <b>Infused</b>
     //       Summon two 5/5 Ancients.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_336t3", 2, SummonSide::SPELL));
+    cards.emplace("REV_336t4", cardDef);
 
     // ------------------------------------ ENCHANTMENT - DRUID
     // [MAW_024e2] Maw Rules - COST:0
