@@ -59324,7 +59324,7 @@
         "attack": 3,
         "cardClass": "NEUTRAL",
         "collectible": true,
-        "cost": 4,
+        "cost": 5,
         "dbfId": 76984,
         "elite": true,
         "flavor": "\"I'm afraid you've gone mad! You're entirely bonkers. But I'll tell you a secret. All the best souls are.\"",
@@ -70797,7 +70797,7 @@
         "name": "Harpoon Gun",
         "rarity": "RARE",
         "set": "THE_SUNKEN_CITY",
-        "text": "After your hero attacks, <b>Dredge</b>. If it's a Beast, reduce its Cost by (3).",
+        "text": "After your hero attacks, <b>Dredge</b>. If it's a Beast, reduce its Cost by (2).",
         "type": "WEAPON"
     },
     {
