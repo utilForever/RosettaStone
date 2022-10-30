@@ -650,7 +650,7 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [REV_360t1] Bear Spirit Wildseed - COST:2 [ATK:2/HP:5]
+    // [REV_360t1] Bear Spirit Wildseed - COST:2 [ATK:2/HP:4]
     // - Race: Beast, Set: REVENDRETH
     // --------------------------------------------------------
     // Text: <b>Dormant</b> for 2 turns.
@@ -671,7 +671,7 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
 
     // ---------------------------------------- MINION - HUNTER
-    // [REV_360t2] Stag Spirit Wildseed - COST:3 [ATK:5/HP:4]
+    // [REV_360t2] Stag Spirit Wildseed - COST:3 [ATK:4/HP:3]
     // - Race: Beast, Set: REVENDRETH
     // --------------------------------------------------------
     // Text: <b>Dormant</b> for 3 turns.
@@ -2876,7 +2876,7 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [REV_238] Theotar, the Mad Duke - COST:4 [ATK:3/HP:3]
+    // [REV_238] Theotar, the Mad Duke - COST:5 [ATK:3/HP:3]
     // - Set: REVENDRETH, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a card

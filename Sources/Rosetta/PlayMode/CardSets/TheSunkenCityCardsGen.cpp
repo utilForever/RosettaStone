@@ -364,7 +364,7 @@ void TheSunkenCityCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - Set: THE_SUNKEN_CITY, Rarity: Rare
     // --------------------------------------------------------
     // Text: After your hero attacks, <b>Dredge</b>.
-    //       If it's a Beast, reduce its Cost by (3).
+    //       If it's a Beast, reduce its Cost by (2).
     // --------------------------------------------------------
     // GameTag:
     // - DREDGE = 1
