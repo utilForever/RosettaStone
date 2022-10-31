@@ -2345,23 +2345,7 @@ void LegacyCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
         std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
     cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
     cardDef.power.GetTrigger()->tasks = {
-        std::make_shared<FuncNumberTask>([](Playable* playable) {
-            const auto target = dynamic_cast<Minion*>(
-                playable->game->currentEventData->eventTarget);
-            if (!target)
-            {
-                return 0;
-            }
-
-            auto& taskStack = playable->game->taskStack;
-            for (auto& minion : target->GetAdjacentMinions())
-            {
-                taskStack.playables.emplace_back(minion);
-            }
-
-            return dynamic_cast<Minion*>(playable)->GetAttack();
-        }),
-        std::make_shared<DamageNumberTask>(EntityType::STACK)
+        ComplexTask::DamageMinionsNextToAttack()
     };
     cards.emplace("CS3_021", cardDef);
 
