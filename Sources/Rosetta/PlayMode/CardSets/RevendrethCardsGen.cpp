@@ -385,6 +385,8 @@ void RevendrethCardsGen::AddDruidNonCollect(
 
 void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - HUNTER
     // [REV_350] Frenzied Fangs - COST:2
     // - Set: REVENDRETH, Rarity: Common
@@ -395,6 +397,12 @@ void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - INFUSE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_350t", 2, SummonSide::SPELL));
+    cardDef.property.numMinionsToInfuse = 3;
+    cardDef.property.infusedCardID = "REV_350t2";
+    cards.emplace("REV_350", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_352] Stonebound Gargon - COST:4 [ATK:3/HP:5]
@@ -543,17 +551,25 @@ void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 void RevendrethCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [REV_350e] Bloodthirsty - COST:0
     // - Set: REVENDRETH
     // --------------------------------------------------------
     // Text: +1/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("REV_350e"));
+    cards.emplace("REV_350e", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_350t] Thirsty Bat - COST:1 [ATK:2/HP:1]
     // - Race: Beast, Set: REVENDRETH
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_350t", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [REV_350t2] Frenzied Fangs - COST:2
@@ -562,6 +578,12 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // Text: <b>Infused</b>
     //       Summon two 2/1 Bats. Give them +1/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_350t", 2, SummonSide::SPELL, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("REV_350e", EntityType::STACK));
+    cards.emplace("REV_350t2", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_352t] Stonebound Gargon - COST:4 [ATK:3/HP:5]

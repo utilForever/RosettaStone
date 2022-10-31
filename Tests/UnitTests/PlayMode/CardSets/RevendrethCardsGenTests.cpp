@@ -307,6 +307,79 @@ TEST_CASE("[Druid : Spell] - REV_336 : Plot of Sin")
     CHECK_EQ(curField[1]->GetHealth(), 5);
 }
 
+// ----------------------------------------- SPELL - HUNTER
+// [REV_350] Frenzied Fangs - COST:2
+// - Set: REVENDRETH, Rarity: Common
+// --------------------------------------------------------
+// Text: Summon two 2/1 Bats.
+//       <b>Infuse (3):</b> Give them +1/+2.
+// --------------------------------------------------------
+// GameTag:
+// - INFUSE = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Spell] - REV_350 : Frenzied Fangs")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frenzied Fangs"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Frenzied Fangs"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
+
+    game.Process(curPlayer, PlayCardTask::Spell(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(curField.GetCount(), 3);
+    CHECK_EQ(curField[0]->card->name, "Thirsty Bat");
+    CHECK_EQ(curField[0]->GetAttack(), 2);
+    CHECK_EQ(curField[0]->GetHealth(), 1);
+    CHECK_EQ(curField[1]->card->name, "Thirsty Bat");
+    CHECK_EQ(curField[1]->GetAttack(), 2);
+    CHECK_EQ(curField[1]->GetHealth(), 1);
+    CHECK_EQ(card2->HasInfuse(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card4));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curHand[0]->IsInfused(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Spell(curHand[0]));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[0]->card->name, "Thirsty Bat");
+    CHECK_EQ(curField[0]->GetAttack(), 3);
+    CHECK_EQ(curField[0]->GetHealth(), 3);
+    CHECK_EQ(curField[1]->card->name, "Thirsty Bat");
+    CHECK_EQ(curField[1]->GetAttack(), 3);
+    CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
 // --------------------------------------- MINION - NEUTRAL
 // [REV_956] Priest of the Deceased - COST:2 [ATK:2/HP:3]
 // - Set: REVENDRETH, Rarity: Common
