@@ -416,6 +416,11 @@ void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - INFUSE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.numMinionsToInfuse = 3;
+    cardDef.property.infusedCardID = "REV_352t";
+    cards.emplace("REV_352", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_353] Huntsman Altimor - COST:7 [ATK:5/HP:4]
@@ -596,6 +601,14 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = {
+        ComplexTask::DamageMinionsNextToAttack()
+    };
+    cards.emplace("REV_352t", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_353t] Huntsman Altimor - COST:7 [ATK:5/HP:4]

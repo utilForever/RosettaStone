@@ -320,7 +320,7 @@ TEST_CASE("[Druid : Spell] - REV_336 : Plot of Sin")
 TEST_CASE("[Hunter : Spell] - REV_350 : Frenzied Fangs")
 {
     GameConfig config;
-    config.player1Class = CardClass::WARLOCK;
+    config.player1Class = CardClass::HUNTER;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
@@ -350,7 +350,7 @@ TEST_CASE("[Hunter : Spell] - REV_350 : Frenzied Fangs")
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Blizzard"));
 
     game.Process(curPlayer, PlayCardTask::Spell(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(curField.GetCount(), 3);
     CHECK_EQ(curField[0]->card->name, "Thirsty Bat");
     CHECK_EQ(curField[0]->GetAttack(), 2);
@@ -378,6 +378,95 @@ TEST_CASE("[Hunter : Spell] - REV_350 : Frenzied Fangs")
     CHECK_EQ(curField[1]->card->name, "Thirsty Bat");
     CHECK_EQ(curField[1]->GetAttack(), 3);
     CHECK_EQ(curField[1]->GetHealth(), 3);
+}
+
+// ---------------------------------------- MINION - HUNTER
+// [REV_352] Stonebound Gargon - COST:4 [ATK:3/HP:5]
+// - Race: Beast, Set: REVENDRETH, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Rush</b>
+//       <b>Infuse (3):</b> Also damages the minions
+//       next to whomever this attacks.
+// --------------------------------------------------------
+// GameTag:
+// - INFUSE = 1
+// - RUSH = 1
+// --------------------------------------------------------
+TEST_CASE("[Hunter : Minion] - REV_352 : Stonebound Gargon")
+{
+    GameConfig config;
+    config.player1Class = CardClass::HUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stonebound Gargon"));
+    const auto card2 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Stonebound Gargon"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card6 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card7 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Silverback Patriarch"));
+    const auto card8 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Flamestrike"));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Minion(card5));
+    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Minion(card7));
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(card2->HasInfuse(), true);
+
+    game.Process(curPlayer, AttackTask(card1, card6));
+    CHECK_EQ(opField[0]->GetHealth(), 4);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
+    CHECK_EQ(opField[2]->GetHealth(), 4);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card8));
+    CHECK_EQ(curHand[0]->IsInfused(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[0]));
+    game.Process(curPlayer, AttackTask(curField[0], card6));
+    CHECK_EQ(opField.GetCount(), 2);
+    CHECK_EQ(opField[0]->GetHealth(), 1);
+    CHECK_EQ(opField[1]->GetHealth(), 1);
 }
 
 // --------------------------------------- MINION - NEUTRAL
