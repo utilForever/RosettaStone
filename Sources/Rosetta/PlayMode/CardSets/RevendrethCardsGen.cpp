@@ -455,6 +455,9 @@ void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<SummonTask>("REV_350t"));
+    cards.emplace("REV_356", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_360] Spirit Poacher - COST:2 [ATK:2/HP:2]
