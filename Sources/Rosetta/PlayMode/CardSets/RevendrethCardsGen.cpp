@@ -2991,6 +2991,9 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace("REV_251", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_308] Maze Guide - COST:2 [ATK:1/HP:1]
