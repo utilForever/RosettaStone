@@ -2918,6 +2918,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - INFUSE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cardDef.property.numMinionsToInfuse = 4;
+    cardDef.property.infusedCardID = "REV_019t";
+    cards.emplace("REV_019", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_020] Dinner Performer - COST:3 [ATK:2/HP:3]
@@ -3383,6 +3388,9 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(3));
+    cards.emplace("REV_019t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [REV_021e] Sinstrider - COST:0

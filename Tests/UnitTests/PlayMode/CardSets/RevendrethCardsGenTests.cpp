@@ -752,6 +752,80 @@ TEST_CASE("[Neutral : Minion] - REV_013 : Stoneborn Accuser")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [REV_019] Famished Fool - COST:5 [ATK:3/HP:5]
+// - Set: REVENDRETH, Rarity: Rare
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Draw a card.
+//       <b>Infuse (4):</b> Draw 3 instead.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// - INFUSE = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - REV_019 : Famished Fool")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DEMONHUNTER;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Famished Fool"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Famished Fool"));
+    const auto card3 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card4 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card5 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    const auto card6 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Flamestrike"));
+
+    CHECK_EQ(curHand.GetCount(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
+    CHECK_EQ(curHand.GetCount(), 9);
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    game.Process(curPlayer, PlayCardTask::Minion(card4));
+    game.Process(curPlayer, PlayCardTask::Minion(card5));
+    CHECK_EQ(curField.GetCount(), 4);
+    CHECK_EQ(card1->HasInfuse(), true);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Spell(card6));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curHand[4]->IsInfused(), true);
+
+    game.Process(opPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    CHECK_EQ(curHand.GetCount(), 7);
+
+    game.Process(curPlayer, PlayCardTask::Minion(curHand[4]));
+    CHECK_EQ(curHand.GetCount(), 9);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [REV_956] Priest of the Deceased - COST:2 [ATK:2/HP:3]
 // - Set: REVENDRETH, Rarity: Common
 // --------------------------------------------------------
