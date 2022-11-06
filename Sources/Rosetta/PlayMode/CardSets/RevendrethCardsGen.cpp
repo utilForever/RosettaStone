@@ -2817,6 +2817,10 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("REV_012t", SummonSide::DEATHRATTLE));
+    cards.emplace("REV_012", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_013] Stoneborn Accuser - COST:5 [ATK:5/HP:5]
@@ -3308,6 +3312,9 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_012t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_013t] Stoneborn Accuser - COST:5 [ATK:5/HP:5]
