@@ -879,6 +879,45 @@ TEST_CASE("[Neutral : Minion] - REV_251 : Sinrunner")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [REV_308] Maze Guide - COST:2 [ATK:1/HP:1]
+// - Set: REVENDRETH, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry</b>: Summon a random 2-Cost minion.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - REV_308 : Maze Guide")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::SHAMAN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Maze Guide"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 2);
+    CHECK_EQ(curField[1]->card->GetCost(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [REV_956] Priest of the Deceased - COST:2 [ATK:2/HP:3]
 // - Set: REVENDRETH, Rarity: Common
 // --------------------------------------------------------

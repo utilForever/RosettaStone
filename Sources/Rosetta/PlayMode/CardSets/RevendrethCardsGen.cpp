@@ -3004,6 +3004,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 2, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("REV_308", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_338] Dredger Staff - COST:1 [ATK:1/HP:2]
