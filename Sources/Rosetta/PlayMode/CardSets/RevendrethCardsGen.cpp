@@ -2835,6 +2835,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.numMinionsToInfuse = 5;
+    cardDef.property.infusedCardID = "REV_013t";
+    cards.emplace("REV_013", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_014] Red Herring - COST:7 [ATK:3/HP:12]
@@ -3326,6 +3331,14 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("REV_013t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [REV_015t] Masked - COST:0
