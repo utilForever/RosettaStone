@@ -3019,6 +3019,10 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "REV_338e", EntityType::MINIONS_HAND));
+    cards.emplace("REV_338", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_351] Roosting Gargoyle - COST:2 [ATK:2/HP:3]
@@ -3413,6 +3417,9 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Health.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("REV_338e"));
+    cards.emplace("REV_338e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [REV_351e] Invigorated - COST:0

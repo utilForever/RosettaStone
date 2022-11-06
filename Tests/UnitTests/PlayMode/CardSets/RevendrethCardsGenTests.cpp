@@ -918,6 +918,45 @@ TEST_CASE("[Neutral : Minion] - REV_308 : Maze Guide")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [REV_338] Dredger Staff - COST:1 [ATK:1/HP:2]
+// - Set: REVENDRETH, Rarity: Common
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Give minions in your hand +1 Health.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - REV_338 : Dredger Staff")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dredger Staff"));
+    const auto card2 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetAttack(), 1);
+    CHECK_EQ(dynamic_cast<Minion*>(card2)->GetHealth(), 2);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [REV_956] Priest of the Deceased - COST:2 [ATK:2/HP:3]
 // - Set: REVENDRETH, Rarity: Common
 // --------------------------------------------------------
