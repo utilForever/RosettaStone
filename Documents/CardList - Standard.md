@@ -1057,11 +1057,11 @@ REVENDRETH | REV_334 | Burden of Pride |
 REVENDRETH | REV_336 | Plot of Sin | O
 REVENDRETH | REV_337 | Riot! |  
 REVENDRETH | REV_338 | Dredger Staff |  
-REVENDRETH | REV_350 | Frenzied Fangs |  
+REVENDRETH | REV_350 | Frenzied Fangs | O
 REVENDRETH | REV_351 | Roosting Gargoyle |  
-REVENDRETH | REV_352 | Stonebound Gargon |  
-REVENDRETH | REV_353 | Huntsman Altimor |  
-REVENDRETH | REV_356 | Batty Guest |  
+REVENDRETH | REV_352 | Stonebound Gargon | O
+REVENDRETH | REV_353 | Huntsman Altimor | O
+REVENDRETH | REV_356 | Batty Guest | O
 REVENDRETH | REV_360 | Spirit Poacher |  
 REVENDRETH | REV_361 | Wild Spirits |  
 REVENDRETH | REV_362 | Castle Kennels |  
@@ -1147,4 +1147,4 @@ REVENDRETH | REV_961 | Elitist Snob |
 REVENDRETH | REV_983 | Great Hall |  
 REVENDRETH | REV_990 | Sanguine Depths |  
 
-- Progress: 4% (7 of 170 Cards)
+- Progress: 6% (11 of 170 Cards)

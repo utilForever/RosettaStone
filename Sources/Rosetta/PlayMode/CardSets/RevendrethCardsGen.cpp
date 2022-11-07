@@ -385,6 +385,8 @@ void RevendrethCardsGen::AddDruidNonCollect(
 
 void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- SPELL - HUNTER
     // [REV_350] Frenzied Fangs - COST:2
     // - Set: REVENDRETH, Rarity: Common
@@ -395,6 +397,12 @@ void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - INFUSE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_350t", 2, SummonSide::SPELL));
+    cardDef.property.numMinionsToInfuse = 3;
+    cardDef.property.infusedCardID = "REV_350t2";
+    cards.emplace("REV_350", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_352] Stonebound Gargon - COST:4 [ATK:3/HP:5]
@@ -408,20 +416,35 @@ void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - INFUSE = 1
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.numMinionsToInfuse = 3;
+    cardDef.property.infusedCardID = "REV_352t";
+    cards.emplace("REV_352", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_353] Huntsman Altimor - COST:7 [ATK:5/HP:4]
     // - Set: REVENDRETH, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Summon a Gargon Companion.
-    //       <b>Infuse ({0}):</b> Summon another.
-    //       <b>Infuse ({1}):</b> And another!
+    //       <b>Infuse (4):</b> Summon another.
+    //       <b>Infuse (4):</b> And another!
+    // --------------------------------------------------------
+    // Entourage: REV_353t3, REV_353t4, REV_353t5
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // - INFUSE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomEntourageTask>());
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>(SummonSide::RIGHT));
+    cardDef.property.entourages =
+        Entourages{ "REV_353t3", "REV_353t4", "REV_353t5" };
+    cardDef.property.numMinionsToInfuse = 4;
+    cardDef.property.infusedCardID = "REV_353t";
+    cards.emplace("REV_353", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_356] Batty Guest - COST:1 [ATK:1/HP:1]
@@ -432,6 +455,9 @@ void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(std::make_shared<SummonTask>("REV_350t"));
+    cards.emplace("REV_356", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_360] Spirit Poacher - COST:2 [ATK:2/HP:2]
@@ -543,17 +569,25 @@ void RevendrethCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
 void RevendrethCardsGen::AddHunterNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [REV_350e] Bloodthirsty - COST:0
     // - Set: REVENDRETH
     // --------------------------------------------------------
     // Text: +1/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("REV_350e"));
+    cards.emplace("REV_350e", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_350t] Thirsty Bat - COST:1 [ATK:2/HP:1]
     // - Race: Beast, Set: REVENDRETH
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_350t", cardDef);
 
     // ----------------------------------------- SPELL - HUNTER
     // [REV_350t2] Frenzied Fangs - COST:2
@@ -562,6 +596,12 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // Text: <b>Infused</b>
     //       Summon two 2/1 Bats. Give them +1/+2.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_350t", 2, SummonSide::SPELL, true));
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("REV_350e", EntityType::STACK));
+    cards.emplace("REV_350t2", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_352t] Stonebound Gargon - COST:4 [ATK:3/HP:5]
@@ -574,6 +614,14 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // GameTag:
     // - RUSH = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::AFTER_ATTACK));
+    cardDef.power.GetTrigger()->triggerSource = TriggerSource::SELF;
+    cardDef.power.GetTrigger()->tasks = {
+        ComplexTask::DamageMinionsNextToAttack()
+    };
+    cards.emplace("REV_352t", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_353t] Huntsman Altimor - COST:7 [ATK:5/HP:4]
@@ -583,11 +631,22 @@ void RevendrethCardsGen::AddHunterNonCollect(
     //       <b>Battlecry:</b> Summon 2 Gargon Companions.
     //       <b>Infuse (4):</b> Summon all 3!   
     // --------------------------------------------------------
+    // Entourage: REV_353t3, REV_353t4, REV_353t5
+    // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1
     // - BATTLECRY = 1
     // - INFUSE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomEntourageTask>(2));
+    cardDef.power.AddPowerTask(std::make_shared<SummonTask>(
+        SummonSide::RIGHT, std::nullopt, true, false, 2));
+    cardDef.property.entourages =
+        Entourages{ "REV_353t3", "REV_353t4", "REV_353t5" };
+    cardDef.property.numMinionsToInfuse = 4;
+    cardDef.property.infusedCardID = "REV_353t2";
+    cards.emplace("REV_353t", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_353t2] Huntsman Altimor - COST:7 [ATK:5/HP:4]
@@ -600,6 +659,14 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // - ELITE = 1
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_353t5", SummonSide::RIGHT));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_353t4", SummonSide::RIGHT));
+    cardDef.power.AddPowerTask(
+        std::make_shared<SummonTask>("REV_353t3", SummonSide::RIGHT));
+    cards.emplace("REV_353t2", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_353t3] Hecutis - COST:3 [ATK:4/HP:4]
@@ -610,6 +677,9 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_353t3", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_353t4] Barghast - COST:3 [ATK:2/HP:4]
@@ -620,6 +690,10 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // GameTag:
     // - AURA = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddAura(
+        std::make_shared<Aura>(AuraType::FIELD_EXCEPT_SOURCE, "REV_353t4e"));
+    cards.emplace("REV_353t4", cardDef);
 
     // ----------------------------------- ENCHANTMENT - HUNTER
     // [REV_353t4e] Bone from the Stone - COST:0
@@ -627,6 +701,9 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: Barghast is granting this minion +1 Attack.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("REV_353t4e"));
+    cards.emplace("REV_353t4e", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_353t5] Margore - COST:3 [ATK:4/HP:2]
@@ -637,6 +714,9 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // GameTag:
     // - CHARGE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_353t5", cardDef);
 
     // ---------------------------------------- MINION - HUNTER
     // [REV_360t] Fox Spirit Wildseed - COST:1 [ATK:3/HP:1]

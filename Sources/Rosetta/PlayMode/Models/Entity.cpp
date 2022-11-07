@@ -112,6 +112,9 @@ void Entity::Reset()
     m_gameTags.erase(GameTag::STEALTH);
     m_gameTags.erase(GameTag::SPELLBURST);
     m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
+    m_gameTags.erase(GameTag::INFUSE);
+    m_gameTags.erase(GameTag::INFUSED);
+    m_gameTags.erase(GameTag::INFUSE_COUNTER);
 }
 
 Playable* Entity::GetFromCard(Player* player, Card* card,

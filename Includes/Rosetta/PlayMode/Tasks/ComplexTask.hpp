@@ -400,6 +400,32 @@ class ComplexTask
                                                       isSpellDamage)
         };
     }
+
+    //! Returns a list of task for taking damages the minions
+    //! next to whomever this attacks.
+    static TaskList DamageMinionsNextToAttack()
+    {
+        return TaskList{
+            std::make_shared<SimpleTasks::FuncNumberTask>(
+                [](Playable* playable) {
+                    const auto target = dynamic_cast<Minion*>(
+                        playable->game->currentEventData->eventTarget);
+                    if (!target)
+                    {
+                        return 0;
+                    }
+
+                    auto& taskStack = playable->game->taskStack;
+                    for (auto& minion : target->GetAdjacentMinions())
+                    {
+                        taskStack.playables.emplace_back(minion);
+                    }
+
+                    return dynamic_cast<Minion*>(playable)->GetAttack();
+                }),
+            std::make_shared<SimpleTasks::DamageNumberTask>(EntityType::STACK)
+        };
+    }
 };
 }  // namespace RosettaStone::PlayMode
 
