@@ -2817,6 +2817,10 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<SummonTask>("REV_012t", SummonSide::DEATHRATTLE));
+    cards.emplace("REV_012", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_013] Stoneborn Accuser - COST:5 [ATK:5/HP:5]
@@ -2831,6 +2835,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // RefTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cardDef.property.numMinionsToInfuse = 5;
+    cardDef.property.infusedCardID = "REV_013t";
+    cards.emplace("REV_013", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_014] Red Herring - COST:7 [ATK:3/HP:12]
@@ -2909,6 +2918,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // - INFUSE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1));
+    cardDef.property.numMinionsToInfuse = 4;
+    cardDef.property.infusedCardID = "REV_019t";
+    cards.emplace("REV_019", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_020] Dinner Performer - COST:3 [ATK:2/HP:3]
@@ -2977,6 +2991,9 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - DEATHRATTLE = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(ComplexTask::DestroyRandomEnemyMinion(1));
+    cards.emplace("REV_251", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_308] Maze Guide - COST:2 [ATK:1/HP:1]
@@ -2987,6 +3004,11 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<RandomMinionTask>(
+        TagValues{ { GameTag::COST, 2, RelaSign::EQ } }));
+    cardDef.power.AddPowerTask(std::make_shared<SummonStackTask>());
+    cards.emplace("REV_308", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_338] Dredger Staff - COST:1 [ATK:1/HP:2]
@@ -2997,6 +3019,10 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
+        "REV_338e", EntityType::MINIONS_HAND));
+    cards.emplace("REV_338", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_351] Roosting Gargoyle - COST:2 [ATK:2/HP:3]
@@ -3308,6 +3334,9 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - TAUNT = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(nullptr);
+    cards.emplace("REV_012t", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_013t] Stoneborn Accuser - COST:5 [ATK:5/HP:5]
@@ -3319,6 +3348,14 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DamageTask>(EntityType::TARGET, 5));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
+    cards.emplace("REV_013t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [REV_015t] Masked - COST:0
@@ -3363,6 +3400,9 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<DrawTask>(3));
+    cards.emplace("REV_019t", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [REV_021e] Sinstrider - COST:0
@@ -3377,6 +3417,9 @@ void RevendrethCardsGen::AddNeutralNonCollect(
     // --------------------------------------------------------
     // Text: +1 Health.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(Enchants::GetEnchantFromText("REV_338e"));
+    cards.emplace("REV_338e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - NEUTRAL
     // [REV_351e] Invigorated - COST:0

@@ -1015,14 +1015,14 @@ REVENDRETH | REV_000 | Suspicious Alchemist |
 REVENDRETH | REV_002 | Suspicious Usher |  
 REVENDRETH | REV_006 | Suspicious Pirate |  
 REVENDRETH | REV_011 | The Harvester of Envy |  
-REVENDRETH | REV_012 | Bog Beast |  
-REVENDRETH | REV_013 | Stoneborn Accuser |  
+REVENDRETH | REV_012 | Bog Beast | O
+REVENDRETH | REV_013 | Stoneborn Accuser | O
 REVENDRETH | REV_014 | Red Herring |  
 REVENDRETH | REV_015 | Masked Reveler |  
 REVENDRETH | REV_016 | Crooked Cook |  
 REVENDRETH | REV_017 | Insatiable Devourer |  
 REVENDRETH | REV_018 | Prince Renathal |  
-REVENDRETH | REV_019 | Famished Fool |  
+REVENDRETH | REV_019 | Famished Fool | O
 REVENDRETH | REV_020 | Dinner Performer |  
 REVENDRETH | REV_021 | Kael'thas Sinstrider |  
 REVENDRETH | REV_022 | Murloc Holmes |  
@@ -1038,12 +1038,12 @@ REVENDRETH | REV_247 | Partner in Crime |
 REVENDRETH | REV_248 | Boon of the Ascended |  
 REVENDRETH | REV_249 | The Light! It Burns! |  
 REVENDRETH | REV_250 | Pelagos |  
-REVENDRETH | REV_251 | Sinrunner |  
+REVENDRETH | REV_251 | Sinrunner | O
 REVENDRETH | REV_252 | Clean the Scene |  
 REVENDRETH | REV_253 | Identity Theft |  
 REVENDRETH | REV_290 | Cathedral of Atonement |  
 REVENDRETH | REV_307 | Natural Causes | O
-REVENDRETH | REV_308 | Maze Guide |  
+REVENDRETH | REV_308 | Maze Guide | O
 REVENDRETH | REV_310 | Death Blossom Whomper |  
 REVENDRETH | REV_311 | Nightshade Bud |  
 REVENDRETH | REV_313 | Planted Evidence | O
@@ -1056,7 +1056,7 @@ REVENDRETH | REV_333 | Hedge Maze |
 REVENDRETH | REV_334 | Burden of Pride |  
 REVENDRETH | REV_336 | Plot of Sin | O
 REVENDRETH | REV_337 | Riot! |  
-REVENDRETH | REV_338 | Dredger Staff |  
+REVENDRETH | REV_338 | Dredger Staff | O
 REVENDRETH | REV_350 | Frenzied Fangs | O
 REVENDRETH | REV_351 | Roosting Gargoyle |  
 REVENDRETH | REV_352 | Stonebound Gargon | O
@@ -1147,4 +1147,4 @@ REVENDRETH | REV_961 | Elitist Snob |
 REVENDRETH | REV_983 | Great Hall |  
 REVENDRETH | REV_990 | Sanguine Depths |  
 
-- Progress: 6% (11 of 170 Cards)
+- Progress: 10% (17 of 170 Cards)
