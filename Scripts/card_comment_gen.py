@@ -118,6 +118,9 @@ def setCommentGen(target_set, target_id):
         if "collectible" in card.keys() and card["collectible"] == True:
             collectible_cnt += 1
 
+        if not "type" in card.keys():
+            continue
+
         if card["type"] == "HERO":
             data = cardCommentGen(card)
             data = data + "\n" + "\n"
