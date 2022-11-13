@@ -76,7 +76,7 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 constexpr int NUM_PLAY_MODE_CARDS = 15667;
 
 //! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 17402;
+constexpr int NUM_BATTLEGROUNDS_CARDS = 17611;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -114,7 +114,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 88;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 89;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -138,7 +138,7 @@ constexpr int NUM_COPIES_OF_EACH_TIER5_MINIONS = 9;
 constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 
 //! The number of tier 1 minions in Battlegrounds.
-constexpr int NUM_TIER1_MINIONS = 20;
+constexpr int NUM_TIER1_MINIONS = 21;
 
 //! The number of tier 2 minions in Battlegrounds.
 constexpr int NUM_TIER2_MINIONS = 30;
@@ -147,10 +147,10 @@ constexpr int NUM_TIER2_MINIONS = 30;
 constexpr int NUM_TIER3_MINIONS = 33;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 34;
+constexpr int NUM_TIER4_MINIONS = 35;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 28;
+constexpr int NUM_TIER5_MINIONS = 30;
 
 //! The number of tier 6 minions in Battlegrounds.
 constexpr int NUM_TIER6_MINIONS = 22;
