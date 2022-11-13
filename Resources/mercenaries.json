@@ -27132,6 +27132,196 @@
     {
         "collectible": true,
         "craftingCost": 300,
+        "defaultSkinDbfId": 94020,
+        "equipment": [
+            {
+                "id": 450,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 94622,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 94621,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 94620,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 94025,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 449,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 94628,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 94627,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 94626,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 94024,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 448,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 94625,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 94624,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 94623,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 94014,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 410,
+        "name": "Rattlegore",
+        "skinDbfIds": [
+            94021,
+            94013,
+            94020
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 949,
+                        "name": "Rusted Blades",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 95002,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 95001,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 95000,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 94999,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 94015,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 950,
+                        "name": "BONEFLAME!!!",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 94615,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 94614,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 94613,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 94612,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 94018,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 951,
+                        "name": "Confusing Bruising",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 94619,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 94618,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 94617,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 94616,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 94022,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 468,
+                "name": "Shadow"
+            }
+        ]
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
         "defaultSkinDbfId": 94125,
         "equipment": [
             {
@@ -27906,5 +28096,17 @@
                 "name": "Uncategorized"
             }
         ]
+    },
+    {
+        "collectible": false,
+        "craftingCost": 500,
+        "defaultSkinDbfId": 97607,
+        "equipment": [],
+        "id": 440,
+        "name": "Event Rattlegore",
+        "skinDbfIds": [
+            97607
+        ],
+        "specializations": []
     }
 ]
