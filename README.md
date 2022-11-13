@@ -49,6 +49,7 @@ RosettaStone is Hearthstone simulator using C++ with some reinforcement learning
   * 35% Fractured in Alterac Valley (61 of 170 cards)
   * 12% Voyage to the Sunken City (22 of 170 cards)
   * 10% Murder at Castle Nathria (17 of 170 cards)
+  * 0% March of the Lich King (0 of 1 cards)
 
 ### Wild Format
 
