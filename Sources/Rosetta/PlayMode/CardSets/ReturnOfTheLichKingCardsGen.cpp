@@ -119,6 +119,17 @@ void ReturnOfTheLichKingCardsGen::AddDemonHunterNonCollect(
 void ReturnOfTheLichKingCardsGen::AddNeutral(
     std::map<std::string, CardDef>& cards)
 {
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [RLK_590] The Sunwell - COST:9
+    // - Set: RETURN_OF_THE_LICH_KING, Rarity: Legendary
+    // - Spell School: Holy
+    // --------------------------------------------------------
+    // Text: Fill your hand with random spells.
+    //       Costs (1) less for each other card in your hand.
+    // --------------------------------------------------------
+    // GameTag:
+    // - ELITE = 1
+    // --------------------------------------------------------
 }
 
 void ReturnOfTheLichKingCardsGen::AddNeutralNonCollect(
