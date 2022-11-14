@@ -110,13 +110,6 @@ void CardLoader::Load(std::array<Card, NUM_BATTLEGROUNDS_CARDS>& cards)
             card.isCurHero = true;
         }
 
-        // NOTE: The value "isBattlegroundsPoolMinion" of Atramedes
-        //       (BG23_362) is missing.
-        if (id == "BG23_362")
-        {
-            card.isBattlegroundsPoolMinion = true;
-        }
-
         cards.at(idx) = card;
         ++idx;
     }
