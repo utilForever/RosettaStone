@@ -738,13 +738,13 @@ TEST_CASE("[Shaman : Spell] - YOD_020 : Explosive Evolution")
         curPlayer, Cards::FindCardByName("Shattered Rumbler"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card3));
-    CHECK_EQ(curField[0]->GetCost(), 5);
+    CHECK_EQ(curField[0]->card->GetCost(), 5);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card1, curField[0]));
-    CHECK_EQ(curField[0]->GetCost(), 8);
+    CHECK_EQ(curField[0]->card->GetCost(), 8);
 
     game.Process(curPlayer, PlayCardTask::SpellTarget(card2, curField[0]));
-    CHECK_EQ(curField[0]->GetCost(), 10);
+    CHECK_EQ(curField[0]->card->GetCost(), 11);
 }
 
 // ----------------------------------------- SPELL - SHAMAN

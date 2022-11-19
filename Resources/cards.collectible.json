@@ -7173,7 +7173,7 @@
         "name": "Warsong Envoy",
         "rarity": "RARE",
         "set": "THE_BARRENS",
-        "text": "[x]<b>Frenzy:</b> Gain +1  Attack\nfor each damaged\ncharacter.",
+        "text": "[x]<b>Frenzy:</b> Gain +1 Attack\nfor each damaged\ncharacter.",
         "type": "MINION"
     },
     {
@@ -21152,6 +21152,101 @@
         "type": "MINION"
     },
     {
+        "artist": "James Ryman",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95733,
+        "flavor": "There's no such thing as a free boot.",
+        "health": 3,
+        "id": "CORE_ICC_018",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Phantom Freebooter",
+        "race": "PIRATE",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Gain stats equal to your weapon's.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95753,
+        "flavor": "What do you mean there's no such thing as \"Skelemancy?\" But \"Dinomancy\" is ok?",
+        "health": 2,
+        "id": "CORE_ICC_019",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Skelemancer",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b> If it's your opponent's turn, summon an 8/8 Skeleton.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dany Orizio",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95700,
+        "flavor": "We've all been there after a night of one-too-many funnel cakes.",
+        "health": 1,
+        "id": "CORE_ICC_021",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Exploding Bloatbat",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b>\nDeal 2 damage to all enemy minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 0,
+        "dbfId": 95755,
+        "flavor": "On land, a group of penguins is called a \"waddle.\"",
+        "health": 1,
+        "id": "CORE_ICC_023",
+        "name": "Snowflipper Penguin",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "type": "MINION"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95739,
+        "flavor": "Don't give up, skeleton!",
+        "health": 2,
+        "id": "CORE_ICC_025",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Rattling Rascal",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "[x]<b>Battlecry:</b> Summon a\n5/5 Skeleton.\n<b>Deathrattle:</b> Summon one\nfor your opponent.",
+        "type": "MINION"
+    },
+    {
         "artist": "Dave Allsop",
         "attack": 2,
         "cardClass": "NEUTRAL",
@@ -21170,6 +21265,45 @@
         "rarity": "COMMON",
         "set": "CORE",
         "text": "<b>Battlecry:</b> Summon two 1/1 Skeletons.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95648,
+        "flavor": "The bone drake brings all the dragons to the yard. He would teach you, but you have no cards.",
+        "health": 5,
+        "id": "CORE_ICC_027",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Bone Drake",
+        "race": "DRAGON",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b> Add a random Dragon to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95763,
+        "flavor": "Bring valor to Odyn's halls, Champion!",
+        "health": 4,
+        "id": "CORE_ICC_028",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sunborne Val'kyr",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Give adjacent minions +2 Health.",
         "type": "MINION"
     },
     {
@@ -21192,6 +21326,63 @@
         "rarity": "COMMON",
         "set": "CORE",
         "text": "At the end of your turn, give another random friendly minion +3 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Nicola Saviori",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95731,
+        "flavor": "Honestly, he howls during the day, too.",
+        "health": 4,
+        "id": "CORE_ICC_031",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Night Howler",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "Whenever this minion takes\ndamage, gain +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95777,
+        "flavor": "Eight times the death of regular-mancers.",
+        "health": 5,
+        "id": "CORE_ICC_032",
+        "mechanics": [
+            "POISONOUS"
+        ],
+        "name": "Venomancer",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Poisonous</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 5,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95639,
+        "flavor": "To be honest, he was kind of a jerk even BEFORE he was bitten by that ghoul.",
+        "health": 2,
+        "id": "CORE_ICC_034",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Arrogant Crusader",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b> If it's your opponent's turn, summon a 2/2 Ghoul.",
         "type": "MINION"
     },
     {
@@ -21219,6 +21410,152 @@
         "type": "MINION"
     },
     {
+        "artist": "Arthur Gimaldinov",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95681,
+        "flavor": "In his court, Uther is judge, jury, AND executioner…",
+        "id": "CORE_ICC_039",
+        "name": "Dark Conviction",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "Set a minion's Attack and Health to 3.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Dave Allsop",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95688,
+        "flavor": "This spell was originally designed to help warlocks clean up their hard drives.",
+        "id": "CORE_ICC_041",
+        "name": "Defile",
+        "rarity": "RARE",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "Deal $1 damage to all minions. If any die, cast this again.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Dan Scott",
+        "attack": 5,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95702,
+        "flavor": "Her clothing? Pure silk, of course.",
+        "health": 3,
+        "id": "CORE_ICC_047",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Fatespinner",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "CORE",
+        "text": "<b>Choose a Deathrattle (Secretly) -</b> Deal 3 damage to all minions; or Give them +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95769,
+        "flavor": "What doesn't kill you makes you toxic.",
+        "id": "CORE_ICC_049",
+        "name": "Toxic Arrow",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "CORE",
+        "spellSchool": "NATURE",
+        "text": "Deal $2 damage to a minion. If it survives, give it <b>Poisonous</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95781,
+        "flavor": "O, what a tangled web we weave, hoping spiders dodge the cleave.",
+        "id": "CORE_ICC_050",
+        "name": "Webweave",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "Summon two 1/2 <b>Poisonous</b> Spiders.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 1,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95697,
+        "flavor": "The druid awoke from troubling dreams to find herself transformed into a giant spider.",
+        "health": 2,
+        "id": "CORE_ICC_051",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Druid of the Swarm",
+        "rarity": "RARE",
+        "referencedTags": [
+            "POISONOUS",
+            "TAUNT"
+        ],
+        "set": "CORE",
+        "text": "<b>Choose One -</b> Transform into a 1/2 with <b>Poisonous</b>; or a 1/5 with <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Peter Stapleton",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95734,
+        "flavor": "He's a very literal dog.",
+        "id": "CORE_ICC_052",
+        "name": "Play Dead",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "CORE",
+        "text": "Trigger a friendly minion's <b>Deathrattle</b>.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Alexandrov",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95760,
+        "flavor": "In the past, plagues were spread by mice or fleas. These days they're spread by elves.",
+        "id": "CORE_ICC_054",
+        "name": "Spreading Plague",
+        "rarity": "RARE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "CORE",
+        "spellSchool": "NATURE",
+        "text": "Summon a 1/5 Scarab with <b>Taunt</b>. If your opponent has more minions, cast this again.",
+        "type": "SPELL"
+    },
+    {
         "artist": "Kerem Beyit",
         "cardClass": "WARLOCK",
         "collectible": true,
@@ -21239,6 +21576,1119 @@
         "type": "SPELL"
     },
     {
+        "artist": "A. J. Nazzaro",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95679,
+        "flavor": "We'll thaw you out when we find a cure!",
+        "id": "CORE_ICC_056",
+        "name": "Cryostasis",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "CORE",
+        "spellSchool": "FROST",
+        "text": "Give a minion +3/+3 and <b>Freeze</b> it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95652,
+        "flavor": "He may be frozen fish, but he fights fresh!",
+        "health": 2,
+        "id": "CORE_ICC_058",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Brrrloc",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "CORE",
+        "targetingArrowText": "Freeze an enemy.",
+        "text": "<b>Battlecry:</b> <b>Freeze</b> an enemy.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95728,
+        "flavor": "Excuse me. Your mountain is on fire.",
+        "health": 3,
+        "id": "CORE_ICC_062",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Mountainfire Armor",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b> If it's your opponent's turn,\ngain 6 Armor.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Joe Wilson",
+        "attack": 2,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95642,
+        "durability": 2,
+        "flavor": "For the close shave that you've always wanted. Caution: Very sharp.",
+        "id": "CORE_ICC_064",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATHRATTLE"
+        ],
+        "name": "Blood Razor",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Battlecry and Deathrattle:</b>\nDeal 1 damage to all minions.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Brian Despain",
+        "attack": 5,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95647,
+        "flavor": "\"Oil,\" \"Rail,\" and \"Blubber\" were already taken.",
+        "health": 5,
+        "id": "CORE_ICC_065",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Bone Baron",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b> Add two 1/1 Skeletons to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95780,
+        "flavor": "It's pronounced VERY GHOUL. Don't let anyone tell you different.",
+        "health": 1,
+        "id": "CORE_ICC_067",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Vryghoul",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "[x]<b>Deathrattle:</b> If it's your\nopponent's turn,\nsummon a 2/2 Ghoul.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 1,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95719,
+        "flavor": "Ice <i>Walker</i> you say? He doesn't have feet!",
+        "health": 3,
+        "id": "CORE_ICC_068",
+        "name": "Ice Walker",
+        "race": "ELEMENTAL",
+        "rarity": "RARE",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "CORE",
+        "text": "Your Hero Power also <b><b>Freeze</b>s</b> the target.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Paul Mafayon",
+        "attack": 2,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95707,
+        "flavor": "Wearing purple after the holidays? GHASTLY!",
+        "health": 6,
+        "id": "CORE_ICC_069",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Ghastly Conjurer",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Add a 'Mirror Image' spell to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ben Thompson",
+        "attack": 1,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95722,
+        "durability": 4,
+        "flavor": "These sorrows cut deep.",
+        "id": "CORE_ICC_071",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Light's Sorrow",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "CORE",
+        "text": "After a friendly minion loses <b>Divine Shield</b>, gain +1 Attack.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 4,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95690,
+        "flavor": "He's deathspicable.",
+        "health": 5,
+        "id": "CORE_ICC_075",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Despicable Dreadlord",
+        "race": "DEMON",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "At the end of your turn, deal 1 damage to all enemy minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95640,
+        "flavor": "One of our more snowbally cards.",
+        "id": "CORE_ICC_078",
+        "mechanics": [
+            "FREEZE"
+        ],
+        "name": "Avalanche",
+        "rarity": "RARE",
+        "set": "CORE",
+        "spellSchool": "FROST",
+        "text": "<b>Freeze</b> a minion and deal $3 damage to adjacent ones.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Phil Saunders",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95709,
+        "flavor": "It's rude to gnash with your mouth open.",
+        "id": "CORE_ICC_079",
+        "name": "Gnash",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "Give your hero +3 Attack this turn. Gain 3 Armor.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Luca Zontini",
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95695,
+        "flavor": "Sometimes, the best defense is an offensive troll.",
+        "health": 8,
+        "id": "CORE_ICC_081",
+        "mechanics": [
+            "OVERLOAD",
+            "TAUNT"
+        ],
+        "name": "Drakkari Defender",
+        "overload": 3,
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Taunt</b>\n<b>Overload:</b> (3)",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95705,
+        "flavor": "It's like déjà vu, times two.",
+        "id": "CORE_ICC_082",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Frozen Clone",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "spellSchool": "FROST",
+        "text": "<b>Secret:</b> After your opponent plays a minion, add two copies of it to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95692,
+        "flavor": "Jaina was never good at keeping up apprentices.",
+        "health": 2,
+        "id": "CORE_ICC_083",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Doomed Apprentice",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "Your opponent's spells cost (1) more.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 95772,
+        "flavor": "Ghouls in the pipe, five by five.",
+        "id": "CORE_ICC_085",
+        "name": "Ultimate Infestation",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "[x]Deal $5 damage. Draw\n5 cards. Gain 5 Armor.\nSummon a 5/5 Ghoul.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 95708,
+        "flavor": "The secret is in the frosting.",
+        "id": "CORE_ICC_086",
+        "name": "Glacial Mysteries",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "CORE",
+        "spellSchool": "FROST",
+        "text": "Put one of each <b>Secret</b> from your deck into\nthe battlefield.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Sean McNally",
+        "attack": 2,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95779,
+        "flavor": "The Silver Hand recruits shuddered in terror when they saw the dreaded totem of the Hexxer: A tiny little snowman, impaled with pins.",
+        "health": 7,
+        "id": "CORE_ICC_088",
+        "mechanics": [
+            "FREEZE",
+            "TAUNT"
+        ],
+        "name": "Voodoo Hexxer",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Taunt</b>\n<b>Freeze</b> any character damaged by this minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95718,
+        "flavor": "Glow fish, war fish... blow fish, more fish...",
+        "id": "CORE_ICC_089",
+        "name": "Ice Fishing",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "spellSchool": "FROST",
+        "text": "Draw 2 Murlocs from your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Steve Prescott",
+        "attack": 8,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 11,
+        "dbfId": 95756,
+        "flavor": "This minion goes all the way to 11!",
+        "health": 8,
+        "id": "CORE_ICC_090",
+        "name": "Snowfury Giant",
+        "race": "ELEMENTAL",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "OVERLOAD"
+        ],
+        "set": "CORE",
+        "text": "Costs (1) less for each Mana Crystal you've <b><b>Overload</b>ed</b> this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95682,
+        "flavor": "I got two pair, Rags and Armorsmiths. What you got?",
+        "id": "CORE_ICC_091",
+        "name": "Dead Man's Hand",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "Shuffle a copy of your hand into your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Luke Mancini",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95634,
+        "flavor": "This is my Runeblade. There are many like it but this one is mine.",
+        "health": 1,
+        "id": "CORE_ICC_092",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Acherus Veteran",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "targetingArrowText": "Give +1 Attack.",
+        "text": "<b>Battlecry:</b> Give a friendly minion +1 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95771,
+        "flavor": "If you bring him 500 fish, he'll give you this sweet Kalu'ak Fishing Pole.",
+        "health": 3,
+        "id": "CORE_ICC_093",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Tuskarr Fisherman",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "SPELLPOWER"
+        ],
+        "set": "CORE",
+        "targetingArrowText": "Give Spell Damage +1.",
+        "text": "<b>Battlecry:</b> Give a friendly minion <b>Spell Damage +1</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Axer",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95701,
+        "flavor": "It's hard to keep a Shattered Sun Cleric down.",
+        "health": 1,
+        "id": "CORE_ICC_094",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Fallen Sun Cleric",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "targetingArrowText": "Give +1/+1.",
+        "text": "<b>Battlecry:</b> Give a friendly minion +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Steve Prescott",
+        "attack": 6,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95706,
+        "flavor": "Smelts in his mouth, not in your hand.",
+        "health": 6,
+        "id": "CORE_ICC_096",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Furnacefire Colossus",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Discard all weapons from your hand and gain their stats.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Phil Saunders",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95711,
+        "flavor": "I think one of the necromancers got a little carried away.",
+        "health": 4,
+        "id": "CORE_ICC_097",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Grave Shambler",
+        "race": "ELEMENTAL",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "Whenever your weapon is destroyed, gain +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95768,
+        "flavor": "She hangs out in all the tombs, but she rarely posts.",
+        "health": 3,
+        "id": "CORE_ICC_098",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Tomb Lurker",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "CORE",
+        "text": "[x]<b>Battlecry:</b> Add a random\n<b>Deathrattle</b> minion that died\nthis game to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95767,
+        "flavor": "Abomination. Emphasis on the second syllable.",
+        "health": 6,
+        "id": "CORE_ICC_099",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Ticking Abomination",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b> Deal 5 damage to your minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95778,
+        "flavor": "Snakes on a frozen plain.",
+        "id": "CORE_ICC_200",
+        "mechanics": [
+            "SECRET"
+        ],
+        "name": "Venomstrike Trap",
+        "rarity": "RARE",
+        "referencedTags": [
+            "POISONOUS"
+        ],
+        "set": "CORE",
+        "text": "<b>Secret:</b> When one of your minions is attacked, summon a 2/3 <b>Poisonous</b> Cobra.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95740,
+        "flavor": "Call it: Heads or Tailbone…",
+        "id": "CORE_ICC_201",
+        "name": "Roll the Bones",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "CORE",
+        "text": "Draw a card.\nIf it has <b>Deathrattle</b>, cast this again.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mike Sass",
+        "attack": 5,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95738,
+        "elite": true,
+        "flavor": "Among his more notable inventions: A tentacle-groomer, a plague that would wipe out all life on Azeroth, and a fidget spinner.",
+        "health": 4,
+        "id": "CORE_ICC_204",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Professor Putricide",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "SECRET"
+        ],
+        "set": "CORE",
+        "text": "After you play a <b>Secret</b>,\nput a random Hunter <b>Secret</b> into the battlefield.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95770,
+        "flavor": "Never look a gift minion in the mouth.",
+        "id": "CORE_ICC_206",
+        "name": "Treachery",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "Choose a friendly minion and give it to your opponent.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Paul Kwon",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95691,
+        "flavor": "A mind is a terrible thing to waste. Seconds, anyone?",
+        "id": "CORE_ICC_207",
+        "name": "Devour Mind",
+        "rarity": "RARE",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "Copy 3 cards in your opponent's deck and add them to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Paul Kwon",
+        "attack": 2,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95746,
+        "flavor": "When you're at the bottom, there's nowhere to ascend, but up.",
+        "health": 2,
+        "id": "CORE_ICC_210",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Shadow Ascendant",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "[x]At the end of your turn,\ngive another random\nfriendly minion +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Brom",
+        "attack": 3,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95635,
+        "flavor": "It takes many years of practiced study in order to fully master agony.",
+        "health": 3,
+        "id": "CORE_ICC_212",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Acolyte of Agony",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95699,
+        "flavor": "What do you mean I don't get overtime pay for this?!",
+        "id": "CORE_ICC_213",
+        "mechanics": [
+            "DISCOVER"
+        ],
+        "name": "Eternal Servitude",
+        "rarity": "RARE",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "<b>Discover</b> a friendly minion that died this game. Summon it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "A. J. Nazzaro",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 95732,
+        "flavor": "The original artist spent many hours with a fine chisel perfecting the facial expression for maximum tauntiness.",
+        "health": 8,
+        "id": "CORE_ICC_214",
+        "mechanics": [
+            "DEATHRATTLE",
+            "LIFESTEAL",
+            "TAUNT"
+        ],
+        "name": "Obsidian Statue",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "[x]<b>Taunt, Lifesteal</b>\n<b>Deathrattle:</b> Destroy a\n random enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Evgeniy Dlinnov",
+        "attack": 4,
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 95637,
+        "elite": true,
+        "flavor": "Nobody expects the Archbishop's Benediction!",
+        "health": 6,
+        "id": "CORE_ICC_215",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Archbishop Benedictus",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Shuffle a copy of your opponent's deck into your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 3,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95714,
+        "flavor": "The problem is that he carries those cards in his mouth.",
+        "health": 6,
+        "id": "CORE_ICC_218",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Howlfiend",
+        "race": "DEMON",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "Whenever this minion takes damage, discard a random card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95683,
+        "flavor": "His favorite spell is Chum Explosion.",
+        "health": 1,
+        "id": "CORE_ICC_220",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Deadscale Knight",
+        "race": "MURLOC",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ben Thompson",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95721,
+        "flavor": "No actual leeches were harmed in the creation of this card.",
+        "id": "CORE_ICC_221",
+        "name": "Leeching Poison",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "CORE",
+        "spellSchool": "NATURE",
+        "text": "Give your weapon <b>Lifesteal</b> this turn.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95693,
+        "flavor": "Guaranteed to return your weapon directly to your hand! (Wear gloves. Thick ones.)",
+        "id": "CORE_ICC_233",
+        "mechanics": [
+            "ImmuneToSpellpower"
+        ],
+        "name": "Doomerang",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "Throw your weapon at a minion. It deals its damage, then returns to your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matt Dixon",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95747,
+        "flavor": "Difficult to bottle up and sell. But it packs a punch.",
+        "id": "CORE_ICC_235",
+        "name": "Shadow Essence",
+        "rarity": "RARE",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "Summon a 5/5 copy of a random minion in your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 1,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95717,
+        "durability": 3,
+        "flavor": "A great way to end a conversation.",
+        "id": "CORE_ICC_236",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Ice Breaker",
+        "rarity": "RARE",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "CORE",
+        "text": "Destroy any <b>Frozen</b> minion damaged by this.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95636,
+        "flavor": "He'd be a lot easier to animate if he would just stand still.",
+        "health": 3,
+        "id": "CORE_ICC_238",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Animated Berserker",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "After you play a minion, deal 1 damage to it.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Slawomir Maniak",
+        "attack": 5,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95742,
+        "flavor": "Don't worry, he'll keep an eye on that for you.",
+        "health": 3,
+        "id": "CORE_ICC_240",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Runeforge Haunter",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "During your turn, your weapon doesn't lose Durability.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dave Allsop",
+        "attack": 4,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95677,
+        "flavor": "Her marriage survived death, but it decayed pretty quickly after that.",
+        "health": 6,
+        "id": "CORE_ICC_243",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Corpse Widow",
+        "race": "BEAST",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "CORE",
+        "text": "Your <b>Deathrattle</b> cards cost (2) less.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Grace Liu",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95689,
+        "flavor": "They're grateful for the help, but most minions would prefer not dying in the first place.",
+        "id": "CORE_ICC_244",
+        "name": "Desperate Stand",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "CORE",
+        "spellSchool": "HOLY",
+        "text": "Give a minion \"<b>Deathrattle:</b> Return this to life with 1 Health.\"",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95641,
+        "flavor": "\"Did I ever tell you the story of when I single-handedly took down a 29/29 C'thun?\" - Reno Jackson",
+        "health": 9,
+        "id": "CORE_ICC_245",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Blackguard",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "Whenever your hero is healed, deal that much damage to a random enemy minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Andrew Hou",
+        "attack": 3,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95674,
+        "flavor": "He's freezing his bones off!",
+        "health": 4,
+        "id": "CORE_ICC_252",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Coldwraith",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> If an enemy is <b>Frozen</b>, draw a card.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jim Nelson",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95675,
+        "flavor": "He was just minding his business, farming corpses, when you meddling adventurers came along.",
+        "health": 3,
+        "id": "CORE_ICC_257",
+        "mechanics": [
+            "BATTLECRY",
+            "DEATH_KNIGHT"
+        ],
+        "name": "Corpse Raiser",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DEATHRATTLE"
+        ],
+        "set": "CORE",
+        "targetingArrowText": "Give \"Deathrattle: Resummon this minion.\"",
+        "text": "[x]<b>Battlecry:</b> Give a friendly\nminion \"<b>Deathrattle:</b>\n  Resummon this minion.\"",
+        "type": "MINION"
+    },
+    {
+        "artist": "Daria Tuzova",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95703,
+        "flavor": "Powerful weaponry forged by Bronjahm, the Godfather of Souls.",
+        "id": "CORE_ICC_281",
+        "name": "Forge of Souls",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "Draw 2 weapons from your deck.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mike Azevedo",
+        "attack": 4,
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95727,
+        "elite": true,
+        "flavor": "Most disturbing is how Moorabi covers all those frozen minions with flavored syrup.",
+        "health": 4,
+        "id": "CORE_ICC_289",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Moorabi",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "CORE",
+        "text": "Whenever another minion is <b>Frozen</b>, add a copy of it to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Glenn Rane",
+        "attack": 8,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 95765,
+        "elite": true,
+        "flavor": "\"All that I am: anger, cruelty, vengeance, 8 attack - I bestow upon you, my chosen knight.\"",
+        "health": 8,
+        "id": "CORE_ICC_314",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "The Lich King",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "[x]<b>Taunt</b>\nAt the end of your turn,\nadd a random <b>Lich King</b>\ncard to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Anton Zemskov",
+        "attack": 4,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 95741,
+        "elite": true,
+        "flavor": "Daddy! I think I made a Legendary!",
+        "health": 6,
+        "id": "CORE_ICC_405",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Rotface",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "[x]After this minion\nsurvives damage,\nsummon a random\n<b>Legendary</b> minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 2,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95710,
+        "flavor": "She prefers the term \"Glampire.\"",
+        "health": 3,
+        "id": "CORE_ICC_407",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Gnomeferatu",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Remove\nthe top card of your opponent's deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Hideaki Takamura",
+        "attack": 1,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95776,
+        "flavor": "My Ghoul friend is back and you're gonna be in trouble.",
+        "health": 4,
+        "id": "CORE_ICC_408",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Val'kyr Soulclaimer",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "[x]After this minion\nsurvives damage,\nsummon a 2/2 Ghoul.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Steve Prescott",
+        "attack": 2,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95761,
+        "flavor": "He's just exercising his right to bear arms.",
+        "health": 2,
+        "id": "CORE_ICC_415",
+        "mechanics": [
+            "BATTLECRY",
+            "DISCOVER"
+        ],
+        "name": "Stitched Tracker",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> <b>Discover</b> a copy of a minion in your deck.",
+        "type": "MINION"
+    },
+    {
         "artist": "Max Grecke",
         "attack": 4,
         "cardClass": "HUNTER",
@@ -21257,8 +22707,302 @@
         "name": "Bearshark",
         "race": "BEAST",
         "rarity": "COMMON",
-        "set": "PLACEHOLDER_202204",
+        "set": "CORE",
         "text": "Can't be targeted by spells or Hero Powers.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 3,
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95684,
+        "flavor": "How's everyone doing? Hurt? Bleeding? Wounded? ... Excellent.",
+        "health": 3,
+        "id": "CORE_ICC_450",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Death Revenant",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Gain +1/+1 for each damaged minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Daren Bader",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95744,
+        "flavor": "Desperately needs some alone time.",
+        "health": 3,
+        "id": "CORE_ICC_466",
+        "mechanics": [
+            "BATTLECRY",
+            "TAUNT"
+        ],
+        "name": "Saronite Chain Gang",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "[x]<b>Taunt</b>\n<b>Battlecry:</b> Summon a\ncopy of this minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Luca Zontini",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95686,
+        "flavor": "It helps to speak really, really loud.",
+        "health": 4,
+        "id": "CORE_ICC_467",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Deathspeaker",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "CORE",
+        "targetingArrowText": "Give Immune this turn.",
+        "text": "<b>Battlecry:</b> Give a friendly minion <b>Immune</b> this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "J. Axer",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95783,
+        "flavor": "If you ever tried to plow permafrost, you’d be wretched, too.",
+        "health": 1,
+        "id": "CORE_ICC_468",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Wretched Tiller",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "Whenever this minion attacks, deal 2 damage to the enemy hero.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Tyler Walpole",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95773,
+        "flavor": "Stand right... there. Perfect, perfect! Now don't move.",
+        "id": "CORE_ICC_469",
+        "name": "Unwilling Sacrifice",
+        "rarity": "RARE",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "Choose a friendly minion. Destroy it and a random enemy minion.",
+        "type": "SPELL"
+    },
+    {
+        "armor": 5,
+        "artist": "Jerry Mascho",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95766,
+        "elite": true,
+        "flavor": "\"Do not be afraid. Approach. The dead will sleep… for now.\"",
+        "health": 30,
+        "id": "CORE_ICC_481",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Thrall, Deathseer",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Transform your minions into random ones that cost (2) more.",
+        "type": "HERO"
+    },
+    {
+        "artist": "Matt Dixon",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95713,
+        "flavor": "When life gives you snow…",
+        "health": 3,
+        "id": "CORE_ICC_700",
+        "name": "Happy Ghoul",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "Costs (0) if your hero was healed this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Dany Orizio",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95754,
+        "flavor": "It's as though a million Jade Idols cried out, and were suddenly silenced.",
+        "health": 6,
+        "id": "CORE_ICC_701",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Skulking Geist",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Destroy all\n1-Cost spells in both hands and decks.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Izzy Hoover",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95750,
+        "flavor": "It's hard to put them six feet under when you're three feet tall.",
+        "health": 1,
+        "id": "CORE_ICC_702",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Shallow Gravedigger",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b> Add a random <b>Deathrattle</b> minion to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ralph Horsley",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 95649,
+        "flavor": "Attacks her job with unbridled enthusiasm.",
+        "health": 5,
+        "id": "CORE_ICC_705",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Bonemare",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "CORE",
+        "targetingArrowText": "Give +4/+4 and Taunt.",
+        "text": "<b>Battlecry:</b> Give a friendly minion +4/+4 and <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Lars Grant-West",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95730,
+        "flavor": "He loves a good yarn.",
+        "health": 5,
+        "id": "CORE_ICC_706",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Nerubian Unraveler",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "Spells cost (2) more.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Mike Azevedo",
+        "attack": 2,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95715,
+        "flavor": "Enlistment in her battalion comes with several pairs of earplugs.",
+        "health": 2,
+        "id": "CORE_ICC_801",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Howling Commander",
+        "rarity": "RARE",
+        "referencedTags": [
+            "DIVINE_SHIELD"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Draw a <b>Divine Shield</b> minion from your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95759,
+        "flavor": "We've got spirit, yes we do! We've got spirit, stolen from you!",
+        "id": "CORE_ICC_802",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Spirit Lash",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "<b>Lifesteal</b>\nDeal $1 damage to all minions.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 2,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95762,
+        "flavor": "It isn't \"grave robbing\" when there's no grave. It's just scavenging…",
+        "health": 3,
+        "id": "CORE_ICC_807",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Strongshell Scavenger",
+        "rarity": "RARE",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Give your <b>Taunt</b> minions +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Konstantin Turovec",
+        "attack": 1,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95680,
+        "flavor": "The original fifth beetle!",
+        "health": 6,
+        "id": "CORE_ICC_808",
+        "mechanics": [
+            "TAUNT",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Crypt Lord",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "[x]<b>Taunt</b>\nAfter you summon a minion,\n gain +1 Health.",
         "type": "MINION"
     },
     {
@@ -21284,6 +23028,778 @@
         "set": "CORE",
         "targetingArrowText": "Give Poisonous.",
         "text": "<b>Combo:</b> Give a friendly minion <b>Poisonous</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Luca Zontini",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95685,
+        "flavor": "Don't fear the Arcanite Reaper.",
+        "health": 3,
+        "id": "CORE_ICC_810",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Deathaxe Punisher",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Give a random <b>Lifesteal</b> minion in your hand +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Gonzalo Ordonez",
+        "attack": 4,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95723,
+        "elite": true,
+        "flavor": "She doesn't feel pity, or remorse, or fear. And she absolutely will not stop... ever, until all necromancers are dead.",
+        "health": 5,
+        "id": "CORE_ICC_811",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Lilian Voss",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Replace spells in your hand with random spells <i>(from your opponent's class).</i>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Rafael Zanchetin",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95725,
+        "flavor": "Necromancers call it \"Meals on Wheels.\"",
+        "health": 4,
+        "id": "CORE_ICC_812",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Meat Wagon",
+        "race": "MECHANICAL",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "[x]<b>Deathrattle:</b> Summon a\nminion from your deck\nwith less Attack than\nthis minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Kevin Chen",
+        "attack": 3,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95653,
+        "flavor": "It slices, it dices, it vaporizes! The Chillblade will make a Champion out of even the lowliest gnome.",
+        "health": 2,
+        "id": "CORE_ICC_820",
+        "mechanics": [
+            "CHARGE",
+            "LIFESTEAL"
+        ],
+        "name": "Chillblade Champion",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Charge</b>\n<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Raymond Swanland",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95751,
+        "flavor": "It's like déjà vu, times two.",
+        "id": "CORE_ICC_823",
+        "name": "Simulacrum",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "spellSchool": "FROST",
+        "text": "Copy the lowest Cost minion in your hand.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "L. Lullabi & K. Turovec",
+        "attack": 6,
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 95633,
+        "flavor": "Frosty the Bowman... was an angry hateful soul... with a fresh hewn bow and a missing nose...",
+        "health": 7,
+        "id": "CORE_ICC_825",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Abominable Bowman",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "[x]<b>Deathrattle:</b> Summon\na random friendly Beast\nthat died this game.",
+        "type": "MINION"
+    },
+    {
+        "armor": 5,
+        "artist": "James Ryman",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 95775,
+        "elite": true,
+        "flavor": "\"Run away. Hide in your precious keeps, behind your walls and your bodyguards. Night always falls, and shadows will fill your hallowed halls. One day, one of those shadows will be me.\"",
+        "health": 30,
+        "id": "CORE_ICC_827",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Valeera the Hollow",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "STEALTH"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Gain <b>Stealth</b> until your next turn.",
+        "type": "HERO"
+    },
+    {
+        "armor": 5,
+        "artist": "Jomaro Kindred",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95687,
+        "elite": true,
+        "flavor": "\"You were too slow, old friend. The hunt began long ago. And now... it will never end.\"",
+        "health": 30,
+        "id": "CORE_ICC_828",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Deathstalker Rexxar",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "[x]<b>Battlecry:</b> Deal 2 damage\nto all enemy minions.",
+        "type": "HERO"
+    },
+    {
+        "armor": 5,
+        "artist": "James Ryman",
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 95774,
+        "elite": true,
+        "flavor": "\"Step forward. Confess! Once I was a mere servant of the Light. Now I alone stand in judgement.\"",
+        "health": 30,
+        "id": "CORE_ICC_829",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Uther of the Ebon Blade",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Equip a 5/3 <b>Lifesteal</b> weapon.",
+        "type": "HERO"
+    },
+    {
+        "armor": 5,
+        "artist": "Wayne Reynolds",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 95749,
+        "elite": true,
+        "flavor": "\"I will tell you what Velen never taught me. Whosoever stands before the Light… inevitably casts a shadow.\"",
+        "health": 30,
+        "id": "CORE_ICC_830",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shadowreaper Anduin",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Destroy all minions with 5 or more Attack.",
+        "type": "HERO"
+    },
+    {
+        "armor": 5,
+        "artist": "Alex Horley Orlandelli",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 10,
+        "dbfId": 95644,
+        "elite": true,
+        "flavor": "\"Still you refuse to bend your knee? None can escape death, you old fool. And in death… all will serve me…\"",
+        "health": 30,
+        "id": "CORE_ICC_831",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Bloodreaver Gul'dan",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Summon all friendly Demons that died this game.",
+        "type": "HERO"
+    },
+    {
+        "armor": 5,
+        "artist": "Alex Horley Orlandelli",
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 7,
+        "dbfId": 95724,
+        "elite": true,
+        "flavor": "\"Cenarius once taught me about the precarious balance between life and death. I have come to understand: there IS no balance. Death always wins.\"",
+        "health": 30,
+        "id": "CORE_ICC_832",
+        "mechanics": [
+            "CHOOSE_ONE"
+        ],
+        "name": "Malfurion the Pestilent",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "POISONOUS",
+            "TAUNT"
+        ],
+        "set": "CORE",
+        "text": "[x]<b>Choose One -</b>\nSummon 2 <b>Poisonous</b>\nSpiders; or 2 Scarabs\nwith <b>Taunt</b>.",
+        "type": "HERO"
+    },
+    {
+        "armor": 5,
+        "artist": "Glenn Rane",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 95704,
+        "elite": true,
+        "flavor": "\"Arthas was a spoiled child, playing with toys he could neither control nor understand. Come into the cold. I will show you the true power of the Frozen Throne.\"",
+        "health": 30,
+        "id": "CORE_ICC_833",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Frost Lich Jaina",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "LIFESTEAL"
+        ],
+        "set": "CORE",
+        "text": "[x]<b>Battlecry:</b> Summon a\n3/6 Water Elemental.\nYour Elementals have\n<b>Lifesteal</b> this game.",
+        "type": "HERO"
+    },
+    {
+        "armor": 5,
+        "artist": "Greg Staples",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 95745,
+        "elite": true,
+        "flavor": "\"You dare to challenge me? Come! Draw your last breath - and then, you are mine.\"",
+        "health": 30,
+        "id": "CORE_ICC_834",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Scourgelord Garrosh",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "<b>Battlecry</b>: Equip a 4/3 Shadowmourne that also damages adjacent minions.",
+        "type": "HERO"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 3,
+        "cardClass": "DRUID",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 95712,
+        "elite": true,
+        "flavor": "The viziers of Azjol-Nerub released Hadronox as a last-ditch effort to hold back the Lich King. They did so by VERY carefully scooping him up in a LARGE newspaper and releasing him.",
+        "health": 7,
+        "id": "CORE_ICC_835",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Hadronox",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "TAUNT"
+        ],
+        "set": "CORE",
+        "text": "<b>Deathrattle:</b> Summon your <b>Taunt</b> minions that\ndied this game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Eric Braddock",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95650,
+        "flavor": "Is it cold in here or is it just Sindragosa?",
+        "id": "CORE_ICC_836",
+        "name": "Breath of Sindragosa",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "CORE",
+        "spellSchool": "FROST",
+        "text": "Deal $2 damage to a random enemy minion and <b>Freeze</b> it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Mike Azevedo",
+        "cardClass": "WARRIOR",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95651,
+        "flavor": "Brrr, it's cold in here. Let's hope she doesn't have an Auctioneer!",
+        "id": "CORE_ICC_837",
+        "name": "Bring It On!",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "Gain 10 Armor. Reduce the Cost of minions in your opponent's hand by (2).",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Alex Horley Orlandelli",
+        "attack": 8,
+        "cardClass": "MAGE",
+        "collectible": true,
+        "cost": 8,
+        "dbfId": 95752,
+        "elite": true,
+        "flavor": "\"I recognize your effort but I think your magic still has room for improvement.\" - Sindragosa after taking a class on giving constructive feedback.",
+        "health": 8,
+        "id": "CORE_ICC_838",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sindragosa",
+        "race": "DRAGON",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Summon two 0/1 Frozen Champions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Greg Staples",
+        "attack": 1,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95643,
+        "elite": true,
+        "flavor": "As a young blood-princess she learned the proper way for a lady to curtsy, how to address fellow members of royalty, and how to bite them.",
+        "health": 6,
+        "id": "CORE_ICC_841",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Blood-Queen Lana'thel",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "[x]<b>Lifesteal</b>\nHas +1 Attack for each\ncard you've discarded\nthis game.",
+        "type": "MINION"
+    },
+    {
+        "artist": "A. J. Nazzaro",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95698,
+        "flavor": "Once you both get comfortable, darkness is actually pretty snuggly.",
+        "id": "CORE_ICC_849",
+        "name": "Embrace Darkness",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "spellSchool": "SHADOW",
+        "text": "[x]Choose an enemy minion.\nAt the start of your turn,\ngain control of it.",
+        "type": "SPELL"
+    },
+    {
+        "artist": "Matthew O'Connor",
+        "attack": 3,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95748,
+        "durability": 2,
+        "flavor": "It's tacky to call it \"Shadeblade.\"",
+        "id": "CORE_ICC_850",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Shadowblade",
+        "rarity": "RARE",
+        "referencedTags": [
+            "IMMUNE"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Your hero is <b>Immune</b> this turn.",
+        "type": "WEAPON"
+    },
+    {
+        "artist": "Vladimir Kafanov",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95735,
+        "elite": true,
+        "flavor": "Three Princes stand before you. This one wants to buff his brothers.",
+        "health": 2,
+        "id": "CORE_ICC_851",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Prince Keleseth",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> If your deck has no 2-Cost cards, give all minions in your deck +1/+1.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Gimaldinov",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95736,
+        "elite": true,
+        "flavor": "Three Princes stand before you. This one wants to copy others.",
+        "health": 3,
+        "id": "CORE_ICC_852",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Prince Taldaram",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "targetingArrowText": "Transform into a copy.",
+        "text": "<b>Battlecry:</b> If your deck has no 3-Cost cards, transform into a 3/3 copy of a minion.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95737,
+        "elite": true,
+        "flavor": "Three Princes stand before you. This one devours one after another.",
+        "health": 4,
+        "id": "CORE_ICC_853",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Prince Valanar",
+        "rarity": "LEGENDARY",
+        "referencedTags": [
+            "LIFESTEAL",
+            "TAUNT"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> If your deck has no 4-Cost cards, gain <b>Lifesteal</b> and <b>Taunt</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Zoltan Boros",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95638,
+        "elite": true,
+        "flavor": "There must always be a Lick King.",
+        "health": 2,
+        "id": "CORE_ICC_854",
+        "mechanics": [
+            "DEATHRATTLE"
+        ],
+        "name": "Arfus",
+        "race": "BEAST",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "text": "[x]<b>Deathrattle:</b> Add a random\n<b>Lich King</b> card to your hand.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Marcelo Vignali",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95716,
+        "flavor": "Don't be fooled, that polar bear's the one in charge.",
+        "health": 4,
+        "id": "CORE_ICC_855",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Hyldnir Frostrider",
+        "rarity": "COMMON",
+        "referencedTags": [
+            "FREEZE"
+        ],
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> <b>Freeze</b> your other minions.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jaemin Kim",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95758,
+        "flavor": "Spells offer twice the moisture wicking of cotton.",
+        "health": 4,
+        "id": "CORE_ICC_856",
+        "mechanics": [
+            "SPELLPOWER"
+        ],
+        "name": "Spellweaver",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "spellDamage": 2,
+        "text": "<b>Spell Damage +2</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Tooth",
+        "attack": 1,
+        "battlegroundsPremiumDbfId": 58405,
+        "cardClass": "PALADIN",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95646,
+        "elite": true,
+        "flavor": "He's so hot right now.",
+        "health": 7,
+        "id": "CORE_ICC_858",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Bolvar, Fireblood",
+        "rarity": "LEGENDARY",
+        "set": "CORE",
+        "techLevel": 4,
+        "text": "<b>Divine Shield</b>\nAfter a friendly minion loses <b>Divine Shield</b>, gain +2 Attack.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Ian Ameling",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95729,
+        "flavor": "An eye for an eye, and a ghoul for a ghoul.",
+        "health": 3,
+        "id": "CORE_ICC_900",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Necrotic Geist",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "Whenever one of your other minions dies, summon a 2/2 Ghoul.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Steve Prescott",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95696,
+        "flavor": "Drakkari sorceresses have the irritating habit of repeating themselves at the end of every sentence. Every sentence.",
+        "health": 5,
+        "id": "CORE_ICC_901",
+        "mechanics": [
+            "AURA"
+        ],
+        "name": "Drakkari Enchanter",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "text": "Your end of turn effects trigger twice.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Chris Rahn",
+        "attack": 2,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 3,
+        "dbfId": 95726,
+        "flavor": "He's a mind breaker, dream taker, ghoul trainer, don't you mess around with him.",
+        "health": 5,
+        "id": "CORE_ICC_902",
+        "name": "Mindbreaker",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "Hero Powers are disabled.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 1,
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "cost": 1,
+        "dbfId": 95743,
+        "flavor": "Have some! This drink is to die for!",
+        "health": 1,
+        "id": "CORE_ICC_903",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Sanguine Reveler",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "targetingArrowText": "Destroy a friendly minion.",
+        "text": "<b>Battlecry:</b> Destroy a friendly minion and gain +2/+2.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Nicola Saviori",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95782,
+        "flavor": "It's minions like these that give normal, law-abiding skeletons a bad rap.",
+        "health": 1,
+        "id": "CORE_ICC_904",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Wicked Skeleton",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Battlecry:</b> Gain +1/+1 for each minion that died this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Arthur Bozonnet",
+        "attack": 4,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 5,
+        "dbfId": 95645,
+        "flavor": "Queen Lana'thel insists on one of these, fried, every morning for breakfast.",
+        "health": 4,
+        "id": "CORE_ICC_905",
+        "mechanics": [
+            "LIFESTEAL"
+        ],
+        "name": "Bloodworm",
+        "race": "BEAST",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "text": "<b>Lifesteal</b>",
+        "type": "MINION"
+    },
+    {
+        "artist": "Sam Nielson",
+        "attack": 5,
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "cost": 6,
+        "dbfId": 95757,
+        "flavor": "It turns out you CAN take it with you.",
+        "health": 5,
+        "id": "CORE_ICC_910",
+        "mechanics": [
+            "COMBO"
+        ],
+        "name": "Spectral Pillager",
+        "rarity": "EPIC",
+        "set": "CORE",
+        "targetingArrowText": "Deal 1 damage for each other card played this turn.",
+        "text": "[x]<b>Combo:</b> Deal damage equal\nto the number of other cards\nyou've played this turn.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jesper Ejsing",
+        "attack": 5,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95720,
+        "flavor": "\"What are your strengths?\" the interviewer asked. \"Well,\" she replied, \"I'm really good at keening.\"",
+        "health": 5,
+        "id": "CORE_ICC_911",
+        "mechanics": [
+            "TRIGGER_VISUAL"
+        ],
+        "name": "Keening Banshee",
+        "rarity": "RARE",
+        "set": "CORE",
+        "text": "Whenever you play a card, remove the top 3 cards of your deck.",
+        "type": "MINION"
+    },
+    {
+        "artist": "James Ryman",
+        "attack": 3,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 4,
+        "dbfId": 95678,
+        "flavor": "Her extensive collection of corpses includes one of nearly every type.  She'd love for you to join it.",
+        "health": 3,
+        "id": "CORE_ICC_912",
+        "mechanics": [
+            "BATTLECRY"
+        ],
+        "name": "Corpsetaker",
+        "rarity": "EPIC",
+        "referencedTags": [
+            "DIVINE_SHIELD",
+            "LIFESTEAL",
+            "TAUNT",
+            "WINDFURY"
+        ],
+        "set": "CORE",
+        "text": "[x]<b>Battlecry:</b> Gain <b>Taunt</b> if your\ndeck has a <b>Taunt</b> minion.\nRepeat for <b>Divine Shield</b>,\n<b>Lifesteal</b>, <b>Windfury</b>.",
+        "type": "MINION"
+    },
+    {
+        "artist": "Jesper Ejsing",
+        "attack": 1,
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 2,
+        "dbfId": 95764,
+        "flavor": "The love she shares seems to go nowhere. Now she's lost her Light, tosses and turns, she can't sleep at night...",
+        "health": 1,
+        "id": "CORE_ICC_913",
+        "mechanics": [
+            "DIVINE_SHIELD",
+            "SPELLPOWER"
+        ],
+        "name": "Tainted Zealot",
+        "rarity": "COMMON",
+        "set": "CORE",
+        "spellDamage": 1,
+        "text": "<b>Divine Shield</b>\n<b>Spell Damage +1</b>",
         "type": "MINION"
     },
     {
@@ -44807,6 +47323,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Sergey Tsvelykh",
+        "cardClass": "SHAMAN",
+        "collectible": true,
+        "dbfId": 93790,
+        "health": 30,
+        "id": "HERO_02ad",
+        "name": "Mummy Morgl",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "A.J. Nazzaro",
         "cardClass": "SHAMAN",
         "collectible": true,
@@ -45306,6 +47834,18 @@
         "health": 30,
         "id": "HERO_03v",
         "name": "Marshmallow Maiev",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "BOSi Studio",
+        "cardClass": "ROGUE",
+        "collectible": true,
+        "dbfId": 93787,
+        "health": 30,
+        "id": "HERO_03w",
+        "name": "Poisonheart Maiev",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -45912,6 +48452,18 @@
         "type": "HERO"
     },
     {
+        "artist": "James Ryman",
+        "cardClass": "HUNTER",
+        "collectible": true,
+        "dbfId": 93762,
+        "health": 30,
+        "id": "HERO_05y",
+        "name": "Lor'themar",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Alex Horley Orlandelli",
         "cardClass": "DRUID",
         "collectible": true,
@@ -46500,6 +49052,18 @@
         "type": "HERO"
     },
     {
+        "artist": "Grafit",
+        "cardClass": "WARLOCK",
+        "collectible": true,
+        "dbfId": 93724,
+        "health": 30,
+        "id": "HERO_07y",
+        "name": "Jaraxxustein",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
         "artist": "Glenn Rane",
         "cardClass": "MAGE",
         "collectible": true,
@@ -46579,6 +49143,18 @@
         "health": 30,
         "id": "HERO_08ae",
         "name": "Cookin' Reno",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Caroline Gariba",
+        "cardClass": "MAGE",
+        "collectible": true,
+        "dbfId": 93788,
+        "health": 30,
+        "id": "HERO_08af",
+        "name": "Witch Jaina",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -47135,6 +49711,18 @@
         "health": 30,
         "id": "HERO_09w",
         "name": "Appetizer Anduin",
+        "rarity": "FREE",
+        "set": "HERO_SKINS",
+        "type": "HERO"
+    },
+    {
+        "artist": "Tanamaes Leejierasaes",
+        "cardClass": "PRIEST",
+        "collectible": true,
+        "dbfId": 93789,
+        "health": 30,
+        "id": "HERO_09x",
+        "name": "Banshee Tyrande",
         "rarity": "FREE",
         "set": "HERO_SKINS",
         "type": "HERO"
@@ -48841,7 +51429,7 @@
         "name": "The Lich King",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "text": "[x]<b>Taunt</b>\nAt the end of your turn,\nadd a random <b>Death Knight</b>\ncard to your hand.",
+        "text": "[x]<b>Taunt</b>\nAt the end of your turn,\nadd a random <b>Lich King</b>\ncard to your hand.",
         "type": "MINION"
     },
     {
@@ -49766,7 +52354,7 @@
         "race": "BEAST",
         "rarity": "LEGENDARY",
         "set": "ICECROWN",
-        "text": "<b>Deathrattle:</b> Add a random <b>Death Knight</b> card to your hand.",
+        "text": "[x]<b>Deathrattle:</b> Add a random\n<b>Lich King</b> card to your hand.",
         "type": "MINION"
     },
     {
@@ -59207,6 +61795,7 @@
         "elite": true,
         "flavor": "A lot of kids go through a rebellious phase, but Prince Renathal's was a bit extreme.",
         "health": 4,
+        "howToEarn": "Earnable after opening a <i>Murder at Castle Nathria</i> card pack.",
         "howToEarnGolden": "Earnable after purchasing the <i>Murder at Castle Nathria</i> Tavern Pass.",
         "id": "REV_018",
         "name": "Prince Renathal",
@@ -61548,6 +64137,23 @@
         "set": "REVENDRETH",
         "text": "[x]Deal 1 damage to a \nminion and give it \n+2 Attack.",
         "type": "LOCATION"
+    },
+    {
+        "artist": "Michaela Nienaber",
+        "cardClass": "NEUTRAL",
+        "collectible": true,
+        "cost": 9,
+        "dbfId": 86228,
+        "elite": true,
+        "flavor": "The Lich King had extinguished the light of the Sunwell once before - it will take all the might Silvermoon can muster to defend it!",
+        "howToEarnGolden": "Earnable after purchasing the <i>March of the Lich King</i> Tavern Pass.",
+        "id": "RLK_590",
+        "name": "The Sunwell",
+        "rarity": "LEGENDARY",
+        "set": "RETURN_OF_THE_LICH_KING",
+        "spellSchool": "HOLY",
+        "text": "Fill your hand with random spells. Costs (1) less for each other card in your hand.",
+        "type": "SPELL"
     },
     {
         "artist": "Slawomir Maniak",
@@ -71711,7 +74317,7 @@
         "race": "NAGA",
         "rarity": "RARE",
         "set": "THE_SUNKEN_CITY",
-        "text": "[x]<b>Battlecry:</b> Refresh empty\nMana Crystals equal to the\nCost of the most expensive\nspell in your hand.",
+        "text": "[x]<b>Battlecry:</b> Refresh empty\nMana Crystals equal to the\nCost of the highest Cost\nspell in your hand.",
         "type": "MINION"
     },
     {

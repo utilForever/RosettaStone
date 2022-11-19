@@ -24,47 +24,49 @@ constexpr int DECK_CODE_VERSION = 1;
 const std::string INVALID_CARD_ID = "INVALID";
 
 //! Specifies which card sets combine into the STANDARD set.
-constexpr std::array<CardSet, 6> STANDARD_CARD_SETS = {
-    CardSet::CORE,             // Core, 2022
-    CardSet::THE_BARRENS,      // Forged in the Barrens, 2021
-    CardSet::STORMWIND,        // United in Stormwind, 2021
-    CardSet::ALTERAC_VALLEY,   // Fractured in Alterac Valley, 2021
-    CardSet::THE_SUNKEN_CITY,  // Voyage to the Sunken City, 2022
-    CardSet::REVENDRETH,       // Murder at Castle Nathria, 2022
+constexpr std::array<CardSet, 7> STANDARD_CARD_SETS = {
+    CardSet::CORE,                     // Core, 2022
+    CardSet::THE_BARRENS,              // Forged in the Barrens, 2021
+    CardSet::STORMWIND,                // United in Stormwind, 2021
+    CardSet::ALTERAC_VALLEY,           // Fractured in Alterac Valley, 2021
+    CardSet::THE_SUNKEN_CITY,          // Voyage to the Sunken City, 2022
+    CardSet::REVENDRETH,               // Murder at Castle Nathria, 2022
+    CardSet::RETURN_OF_THE_LICH_KING,  // March of the Lich King, 2022
 };
 
 //! Specifies which card sets combine into the WILD set.
-constexpr std::array<CardSet, 30> WILD_CARD_SETS = {
-    CardSet::EXPERT1,                // Classic, 2014
-    CardSet::LEGACY,                 // Legacy, 2021
-    CardSet::NAXX,                   // Curse of Naxxramas, 2014
-    CardSet::GVG,                    // Goblins vs Gnomes, 2014
-    CardSet::BRM,                    // Blackrock Mountain, 2015
-    CardSet::TGT,                    // The Grand Tournament, 2015
-    CardSet::LOE,                    // The League of Explorers, 2015
-    CardSet::OG,                     // Whispers of the Old Gods, 2016
-    CardSet::KARA,                   // One Night in Karazhan, 2016
-    CardSet::GANGS,                  // Mean Streets of Gadgetzan, 2016
-    CardSet::UNGORO,                 // Journey to Un'Goro, 2017
-    CardSet::ICECROWN,               // Knights of the Frozen Throne, 2017
-    CardSet::LOOTAPALOOZA,           // Kobolds & Catacombs, 2017
-    CardSet::GILNEAS,                // The Witchwood, 2018
-    CardSet::BOOMSDAY,               // The Boomsday Project, 2018
-    CardSet::TROLL,                  // Rastakhan's Rumble, 2018
-    CardSet::DALARAN,                // Rise of Shadows, 2019
-    CardSet::ULDUM,                  // Saviors of Uldum, 2019
-    CardSet::DRAGONS,                // Descent of Dragons, 2019
-    CardSet::YEAR_OF_THE_DRAGON,     // Galakrond's Awakening, 2020
-    CardSet::DEMON_HUNTER_INITIATE,  // Ashes of Outland, 2020
-    CardSet::BLACK_TEMPLE,           // Ashes of Outland, 2020
-    CardSet::SCHOLOMANCE,            // Scholomance Academy, 2020
-    CardSet::DARKMOON_FAIRE,         // Madness at the Darkmoon Faire, 2020
-    CardSet::THE_BARRENS,            // Forged in the Barrens, 2021
-    CardSet::STORMWIND,              // United in Stormwind, 2021
-    CardSet::ALTERAC_VALLEY,         // Fractured in Alterac Valley, 2021
-    CardSet::THE_SUNKEN_CITY,        // Voyage to the Sunken City, 2022
-    CardSet::REVENDRETH,             // Murder at Castle Nathria, 2022
-    CardSet::PLACEHOLDER_202204,     // Placeholder between 2020.04 and 2022.04
+constexpr std::array<CardSet, 31> WILD_CARD_SETS = {
+    CardSet::EXPERT1,                  // Classic, 2014
+    CardSet::LEGACY,                   // Legacy, 2021
+    CardSet::NAXX,                     // Curse of Naxxramas, 2014
+    CardSet::GVG,                      // Goblins vs Gnomes, 2014
+    CardSet::BRM,                      // Blackrock Mountain, 2015
+    CardSet::TGT,                      // The Grand Tournament, 2015
+    CardSet::LOE,                      // The League of Explorers, 2015
+    CardSet::OG,                       // Whispers of the Old Gods, 2016
+    CardSet::KARA,                     // One Night in Karazhan, 2016
+    CardSet::GANGS,                    // Mean Streets of Gadgetzan, 2016
+    CardSet::UNGORO,                   // Journey to Un'Goro, 2017
+    CardSet::ICECROWN,                 // Knights of the Frozen Throne, 2017
+    CardSet::LOOTAPALOOZA,             // Kobolds & Catacombs, 2017
+    CardSet::GILNEAS,                  // The Witchwood, 2018
+    CardSet::BOOMSDAY,                 // The Boomsday Project, 2018
+    CardSet::TROLL,                    // Rastakhan's Rumble, 2018
+    CardSet::DALARAN,                  // Rise of Shadows, 2019
+    CardSet::ULDUM,                    // Saviors of Uldum, 2019
+    CardSet::DRAGONS,                  // Descent of Dragons, 2019
+    CardSet::YEAR_OF_THE_DRAGON,       // Galakrond's Awakening, 2020
+    CardSet::DEMON_HUNTER_INITIATE,    // Ashes of Outland, 2020
+    CardSet::BLACK_TEMPLE,             // Ashes of Outland, 2020
+    CardSet::SCHOLOMANCE,              // Scholomance Academy, 2020
+    CardSet::DARKMOON_FAIRE,           // Madness at the Darkmoon Faire, 2020
+    CardSet::THE_BARRENS,              // Forged in the Barrens, 2021
+    CardSet::STORMWIND,                // United in Stormwind, 2021
+    CardSet::ALTERAC_VALLEY,           // Fractured in Alterac Valley, 2021
+    CardSet::THE_SUNKEN_CITY,          // Voyage to the Sunken City, 2022
+    CardSet::REVENDRETH,               // Murder at Castle Nathria, 2022
+    CardSet::RETURN_OF_THE_LICH_KING,  // March of the Lich King, 2022
+    CardSet::PLACEHOLDER_202204,  // Placeholder between 2020.04 and 2022.04
 };
 
 //! Specifies which card sets combine into the CLASSIC set.
@@ -73,10 +75,10 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 };
 
 //! The number of Play mode cards.
-constexpr int NUM_PLAY_MODE_CARDS = 15667;
+constexpr int NUM_PLAY_MODE_CARDS = 15818;
 
 //! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 17402;
+constexpr int NUM_BATTLEGROUNDS_CARDS = 17611;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -114,7 +116,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 88;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 89;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
@@ -138,7 +140,7 @@ constexpr int NUM_COPIES_OF_EACH_TIER5_MINIONS = 9;
 constexpr int NUM_COPIES_OF_EACH_TIER6_MINIONS = 7;
 
 //! The number of tier 1 minions in Battlegrounds.
-constexpr int NUM_TIER1_MINIONS = 20;
+constexpr int NUM_TIER1_MINIONS = 21;
 
 //! The number of tier 2 minions in Battlegrounds.
 constexpr int NUM_TIER2_MINIONS = 30;
@@ -147,10 +149,10 @@ constexpr int NUM_TIER2_MINIONS = 30;
 constexpr int NUM_TIER3_MINIONS = 33;
 
 //! The number of tier 4 minions in Battlegrounds.
-constexpr int NUM_TIER4_MINIONS = 34;
+constexpr int NUM_TIER4_MINIONS = 35;
 
 //! The number of tier 5 minions in Battlegrounds.
-constexpr int NUM_TIER5_MINIONS = 28;
+constexpr int NUM_TIER5_MINIONS = 30;
 
 //! The number of tier 6 minions in Battlegrounds.
 constexpr int NUM_TIER6_MINIONS = 22;

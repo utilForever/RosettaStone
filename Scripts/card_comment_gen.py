@@ -50,7 +50,7 @@ def cardCommentGen(card):
         if "mechanics" in card.keys():
             for tag in card['mechanics']:
                 str_format = str_format + comm + "- " + tag + " = 1"
-            str_format = str_format + div
+        str_format = str_format + div
     # RefTag
     if "referencedTags" in card.keys():
         str_format = str_format + comm + "RefTag:"
@@ -117,6 +117,9 @@ def setCommentGen(target_set, target_id):
         total_cnt += 1
         if "collectible" in card.keys() and card["collectible"] == True:
             collectible_cnt += 1
+
+        if not "type" in card.keys():
+            continue
 
         if card["type"] == "HERO":
             data = cardCommentGen(card)
