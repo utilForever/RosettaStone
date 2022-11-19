@@ -50,7 +50,6 @@ def cardCommentGen(card):
         if "mechanics" in card.keys():
             for tag in card['mechanics']:
                 str_format = str_format + comm + "- " + tag + " = 1"
-            str_format = str_format
         str_format = str_format + div
     # RefTag
     if "referencedTags" in card.keys():
