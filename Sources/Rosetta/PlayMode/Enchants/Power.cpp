@@ -90,6 +90,7 @@ void Power::ClearData()
     m_spellburstTask.clear();
     m_frenzyTask.clear();
     m_honorableKillTask.clear();
+    m_locationTask.clear();
 }
 
 void Power::AddAura(std::shared_ptr<IAura> aura)
