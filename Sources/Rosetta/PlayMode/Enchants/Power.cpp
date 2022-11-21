@@ -189,4 +189,14 @@ void Power::AddHonorableKillTask(TaskList tasks)
     m_honorableKillTask.insert(m_honorableKillTask.end(), tasks.begin(),
                                tasks.end());
 }
+
+void Power::AddLocationTask(const std::shared_ptr<ITask>& task)
+{
+    m_locationTask.emplace_back(task);
+}
+
+void Power::AddLocationTask(TaskList tasks)
+{
+    m_locationTask.insert(m_locationTask.end(), tasks.begin(), tasks.end());
+}
 }  // namespace RosettaStone::PlayMode
