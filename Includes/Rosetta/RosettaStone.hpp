@@ -161,6 +161,7 @@
 #include <Rosetta/PlayMode/Models/Entity.hpp>
 #include <Rosetta/PlayMode/Models/Hero.hpp>
 #include <Rosetta/PlayMode/Models/HeroPower.hpp>
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Playable.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
