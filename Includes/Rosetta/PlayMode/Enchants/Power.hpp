@@ -81,6 +81,10 @@ class Power
     //! \return A list of honorable kill tasks.
     std::vector<std::shared_ptr<ITask>>& GetHonorableKillTask();
 
+    //! Returns a list of location tasks.
+    //! \return A list of location tasks.
+    std::vector<std::shared_ptr<ITask>>& GetLocationTask();
+
     //! Clears power task and enchant.
     void ClearData();
 

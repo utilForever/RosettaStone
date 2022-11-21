@@ -75,6 +75,11 @@ std::vector<std::shared_ptr<ITask>>& Power::GetHonorableKillTask()
     return m_honorableKillTask;
 }
 
+std::vector<std::shared_ptr<ITask>>& Power::GetLocationTask()
+{
+    return m_locationTask;
+}
+
 void Power::ClearData()
 {
     m_aura.reset();
