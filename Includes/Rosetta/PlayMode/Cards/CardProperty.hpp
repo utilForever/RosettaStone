@@ -26,6 +26,7 @@ struct CardProperty
     void ClearData()
     {
         playReqs.clear();
+        locationPlayReqs.clear();
         chooseCardIDs.clear();
         entourages.clear();
         appendages.clear();
@@ -37,6 +38,7 @@ struct CardProperty
     }
 
     std::map<PlayReq, int> playReqs;
+    std::map<PlayReq, int> locationPlayReqs;
     std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
     std::vector<std::tuple<std::string, SummonSide>> appendages;
