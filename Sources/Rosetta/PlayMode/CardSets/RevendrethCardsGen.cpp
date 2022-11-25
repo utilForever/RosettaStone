@@ -1035,6 +1035,8 @@ void RevendrethCardsGen::AddMageNonCollect(
 
 void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - PALADIN
     // [REV_842] Promotion - COST:1
     // - Set: REVENDRETH, Rarity: Epic
@@ -1151,6 +1153,13 @@ void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Set a minion's Attack and Health to 3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddLocationTask(
+        std::make_shared<AddEnchantmentTask>("REV_983e", EntityType::TARGET));
+    cardDef.property.locationPlayReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                  { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("REV_983", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [MAW_015] Jury Duty - COST:3
@@ -1173,7 +1182,7 @@ void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: REVENDRETH, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no Neutral cards,
-    //       set a minion's stats to 1/1.
+    //       set a minion's stats to 1/1.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1183,6 +1192,8 @@ void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void RevendrethCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [REV_842e] Promoted - COST:0
     // - Set: REVENDRETH
@@ -1267,6 +1278,10 @@ void RevendrethCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Stats changed to 3/3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SetAttackHealth(3)));
+    cards.emplace("REV_983e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [MAW_015e] Jury Summons - COST:0
