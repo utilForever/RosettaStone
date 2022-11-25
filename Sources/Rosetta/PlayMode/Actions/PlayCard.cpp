@@ -115,7 +115,6 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             break;
         }
         case CardType::MINION:
-        case CardType::LOCATION:
         {
             const auto minion = dynamic_cast<Minion*>(source);
             PlayMinion(player, minion, target, fieldPos, chooseOne);
@@ -131,6 +130,12 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
         {
             const auto weapon = dynamic_cast<Weapon*>(source);
             PlayWeapon(player, weapon, target);
+            break;
+        }
+        case CardType::LOCATION:
+        {
+            const auto location = dynamic_cast<Location*>(source);
+            PlayLocation(player, location, fieldPos);
             break;
         }
         case CardType::INVALID:
@@ -542,5 +547,11 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
+}
+
+void PlayLocation(Player* player, Location* location, int fieldPos)
+{
+    // Add minion to field zone
+    player->GetFieldZone()->Add(location, fieldPos);
 }
 }  // namespace RosettaStone::PlayMode::Generic

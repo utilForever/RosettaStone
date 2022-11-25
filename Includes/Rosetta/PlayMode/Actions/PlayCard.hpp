@@ -6,6 +6,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_PLAY_CARD_HPP
 #define ROSETTASTONE_PLAYMODE_PLAY_CARD_HPP
 
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Models/Spell.hpp>
@@ -52,6 +53,12 @@ void PlaySpell(Player* player, Spell* spell, Character* target = nullptr,
 //! \param weapon A pointer to weapon card to play.
 //! \param target A target of the character to receive power.
 void PlayWeapon(Player* player, Weapon* weapon, Character* target = nullptr);
+
+//! Plays a location card from player's hand.
+//! \param player The player to play weapon card.
+//! \param location A pointer to location card to play.
+//! \param fieldPos A value indicating where to place card.
+void PlayLocation(Player* player, Location* location, int fieldPos = -1);
 }  // namespace RosettaStone::PlayMode::Generic
 
 #endif  // ROSETTASTONE_PLAYMODE_PLAY_CARD_HPP
