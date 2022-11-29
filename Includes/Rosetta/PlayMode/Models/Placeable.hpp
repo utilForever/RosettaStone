@@ -16,6 +16,17 @@ namespace RosettaStone::PlayMode
 //!
 class Placeable
 {
+ public:
+    //! Virtual default destructor.
+    virtual ~Placeable() = default;
+
+    //! Returns the value of last board position.
+    //! \return The value of last board position.
+    virtual int GetLastBoardPos() const = 0;
+
+    //! Sets the value of last board position.
+    //! \param value The value of last board position.
+    virtual void SetLastBoardPos(int value) = 0;
 };
 }  // namespace RosettaStone::PlayMode
 
