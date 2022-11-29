@@ -163,6 +163,7 @@
 #include <Rosetta/PlayMode/Models/HeroPower.hpp>
 #include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
+#include <Rosetta/PlayMode/Models/Placeable.hpp>
 #include <Rosetta/PlayMode/Models/Playable.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Models/Spell.hpp>
