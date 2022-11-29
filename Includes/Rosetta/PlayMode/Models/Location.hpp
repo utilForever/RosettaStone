@@ -8,6 +8,7 @@
 #define ROSETTASTONE_PLAYMODE_LOCATION_HPP
 
 #include <Rosetta/PlayMode/Models/Playable.hpp>
+#include <Rosetta/PlayMode/Models/Placeable.hpp>
 
 namespace RosettaStone::PlayMode
 {
@@ -20,7 +21,7 @@ namespace RosettaStone::PlayMode
 //! player's turns. Each activation costs 1 durability and has a cooldown of 1
 //! turn where it cannot be used.
 //!
-class Location : public Playable
+class Location : public Playable, public Placeable
 {
  public:
     //! Constructs location with given \p _player, \p _card, \p tags and \p id.

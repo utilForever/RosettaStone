@@ -8,6 +8,7 @@
 #define ROSETTASTONE_PLAYMODE_MINION_HPP
 
 #include <Rosetta/PlayMode/Models/Character.hpp>
+#include <Rosetta/PlayMode/Models/Placeable.hpp>
 
 namespace RosettaStone::PlayMode
 {
@@ -16,7 +17,7 @@ namespace RosettaStone::PlayMode
 //!
 //! This class inherits from Character class.
 //!
-class Minion : public Character
+class Minion : public Character, public Placeable
 {
  public:
     //! Constructs minion with given \p _player, \p _card, \p tags and \p id.
