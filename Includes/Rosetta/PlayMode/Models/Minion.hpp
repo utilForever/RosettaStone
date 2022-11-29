@@ -53,11 +53,11 @@ class Minion : public Character, public Placeable
 
     //! Returns the value of last board position.
     //! \return The value of last board position.
-    int GetLastBoardPos() const;
+    int GetLastBoardPos() const override;
 
     //! Sets the value of last board position.
     //! \param value The value of last board position.
-    void SetLastBoardPos(int value);
+    void SetLastBoardPos(int value) override;
 
     //! Gets the minions adjacent to this minion in order from left to right.
     //! \return The minions adjacent to this minion.
