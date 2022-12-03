@@ -275,7 +275,7 @@ class LimitedZone : public Zone<T>
     //! Operator overloading for operator[].
     //! \param zonePos The zone position of entity.
     //! \return The entity at \p zonePos.
-    T* operator[](int zonePos)
+    virtual T* operator[](int zonePos)
     {
         return m_entities[zonePos];
     }
