@@ -35,6 +35,20 @@ class FieldZone : public PositioningZone<Placeable>
     //! Destructor.
     ~FieldZone() override = default;
 
+    //! Operator overloading for operator[].
+    //! \param zonePos The zone position of entity.
+    //! \return The entity at \p zonePos.
+    Minion* operator[](int zonePos) override
+    {
+        if (const auto minion = dynamic_cast<Minion*>(m_entities[zonePos]);
+            minion)
+        {
+            return minion;
+        }
+
+        return nullptr;
+    }
+
     //! Returns the number of minions except untouchables.
     //! \return The number of minions except untouchables.
     int GetCountExceptUntouchables() const;
