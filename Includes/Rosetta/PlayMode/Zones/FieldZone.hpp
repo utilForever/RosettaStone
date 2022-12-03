@@ -9,6 +9,7 @@
 
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
+#include <Rosetta/PlayMode/Models/Placeable.hpp>
 #include <Rosetta/PlayMode/Zones/Zone.hpp>
 
 namespace RosettaStone::PlayMode
@@ -24,7 +25,7 @@ namespace RosettaStone::PlayMode
 //! battlefield selection. Battlefields are chosen at random and are independent
 //! of the heroes chosen by players or used by the Innkeeper.
 //!
-class FieldZone : public PositioningZone<Minion>
+class FieldZone : public PositioningZone<Placeable>
 {
  public:
     //! Constructs field zone with given \p player.
@@ -37,7 +38,7 @@ class FieldZone : public PositioningZone<Minion>
 
     //! Returns all entities in board zone.
     //! \return A list of entity in board zone.
-    std::vector<Minion*> GetAll() override;
+    std::vector<Placeable*> GetAll() override;
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.

@@ -23,7 +23,7 @@ int FieldZone::GetCountExceptUntouchables() const
     return m_count - m_untouchableCount;
 }
 
-std::vector<Minion*> FieldZone::GetAll()
+std::vector<Placeable*> FieldZone::GetAll()
 {
     return PositioningZone::GetAll();
 }
