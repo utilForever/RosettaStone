@@ -43,6 +43,10 @@ class FieldZone : public PositioningZone<Placeable>
     //! \return A list of entity in board zone.
     std::vector<Placeable*> GetAll() override;
 
+    //! Returns all minions in board zone.
+    //! \return A list of minions in board zone.
+    std::vector<Minion*> GetMinions();
+
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
