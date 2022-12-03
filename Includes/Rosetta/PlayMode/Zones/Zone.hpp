@@ -250,7 +250,7 @@ class LimitedZone : public Zone<T>
     }
 
     //! Destructor.
-    ~LimitedZone()
+    ~LimitedZone() override
     {
         for (int i = 0; i < m_count; ++i)
         {
