@@ -60,7 +60,7 @@ class Zone : public IZone
     //! Moves the specified entity to a new position.
     //! \param entity The entity to move.
     //! \param zonePos The zone position of entity.
-    virtual void MoveTo(T* entity, int zonePos = -1) = 0;
+    virtual void MoveTo(Playable* entity, int zonePos = -1) = 0;
 
     //! Returns the number of entities in this zone.
     //! \return The number of entities in this zone.
@@ -296,7 +296,7 @@ class LimitedZone : public Zone<T>
                 "Can't add an opponent's entity to own zones");
         }
 
-        MoveTo(static_cast<T*>(entity), zonePos < 0 ? m_count : zonePos);
+        MoveTo(entity, zonePos < 0 ? m_count : zonePos);
     }
 
     //! Removes the specified entity from this zone.
@@ -346,7 +346,7 @@ class LimitedZone : public Zone<T>
     //! Moves the specified entity to a new position.
     //! \param entity The entity to move.
     //! \param zonePos The zone position of entity.
-    void MoveTo(T* entity, int zonePos = -1) override
+    void MoveTo(Playable* entity, int zonePos = -1) override
     {
         if (IsFull())
         {
@@ -355,7 +355,7 @@ class LimitedZone : public Zone<T>
 
         if (zonePos < 0 || zonePos == m_count)
         {
-            m_entities[m_count] = entity;
+            m_entities[m_count] = dynamic_cast<T*>(entity);
         }
         else
         {
@@ -364,13 +364,13 @@ class LimitedZone : public Zone<T>
                 m_entities[i + 1] = m_entities[i];
             }
 
-            m_entities[zonePos] = entity;
+            m_entities[zonePos] = dynamic_cast<T*>(entity);
         }
 
         ++m_count;
 
-        dynamic_cast<Playable*>(entity)->zone = this;
-        dynamic_cast<Playable*>(entity)->SetZoneType(Zone<T>::m_type);
+        entity->zone = this;
+        entity->SetZoneType(Zone<T>::m_type);
     }
 
     //! Returns the number of entities in this zone.
@@ -403,7 +403,7 @@ class LimitedZone : public Zone<T>
 
         for (int i = 0; i < m_count; ++i)
         {
-            if (!m_entities[i] || static_cast<bool>(m_entities[i]->isDestroyed))
+            if (!m_entities[i])
             {
                 continue;
             }
@@ -423,7 +423,7 @@ class LimitedZone : public Zone<T>
 
         for (int i = 0; i < m_count; ++i)
         {
-            if (!m_entities[i] || static_cast<bool>(m_entities[i]->isDestroyed))
+            if (!m_entities[i])
             {
                 continue;
             }
