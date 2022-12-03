@@ -32,6 +32,9 @@ class FieldZone : public PositioningZone<Placeable>
     //! \param player The player.
     explicit FieldZone(Player* player);
 
+    //! Destructor.
+    ~FieldZone() override = default;
+
     //! Returns the number of minions except untouchables.
     //! \return The number of minions except untouchables.
     int GetCountExceptUntouchables() const;
