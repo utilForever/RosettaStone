@@ -924,7 +924,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<CustomTask>([](const Player* player, Entity* source,
                                         [[maybe_unused]] Playable* target) {
-            const auto minions = player->opponent->GetFieldZone()->GetAll();
+            const auto minions = player->opponent->GetFieldZone()->GetMinions();
 
             for (auto& minion : minions)
             {
@@ -1040,7 +1040,7 @@ void TheBarrensCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             const auto minions =
-                playable->player->opponent->GetFieldZone()->GetAll();
+                playable->player->opponent->GetFieldZone()->GetMinions();
             int numFrozenEnemies = 0;
 
             for (auto& minion : minions)
@@ -2192,7 +2192,7 @@ void TheBarrensCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<CustomTask>([](const Player* player, Entity* source,
                                         [[maybe_unused]] Playable* target) {
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 if (minion->card->GetRace() == Race::MURLOC)
                 {
@@ -2961,16 +2961,19 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
         [](Player* player, Entity* source, Playable* target) {
             int count = 0;
 
-            player->GetFieldZone()->ForEach([&](const Playable* minion) {
-                if (minion->isDestroyed)
+            player->GetFieldZone()->ForEach([&](const Placeable* placeable) {
+                if (const auto minion = dynamic_cast<const Minion*>(placeable);
+                    minion->isDestroyed)
                 {
                     ++count;
                 }
             });
 
             player->opponent->GetFieldZone()->ForEach(
-                [&](const Playable* minion) {
-                    if (minion->isDestroyed)
+                [&](const Placeable* placeable) {
+                    if (const auto minion =
+                            dynamic_cast<const Minion*>(placeable);
+                        minion->isDestroyed)
                     {
                         ++count;
                     }

@@ -1124,7 +1124,7 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
         GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
-            const auto minions = playable->player->GetFieldZone()->GetAll();
+            const auto minions = playable->player->GetFieldZone()->GetMinions();
 
             for (auto& minion : minions)
             {

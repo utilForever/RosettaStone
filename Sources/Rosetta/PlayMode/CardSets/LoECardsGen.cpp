@@ -534,7 +534,7 @@ void LoECardsGen::AddShaman(std::map<std::string, CardDef>& cards)
         std::make_shared<AddEnchantmentTask>("LOE_113e", EntityType::MINIONS));
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            const auto minions = playable->player->GetFieldZone()->GetAll();
+            const auto minions = playable->player->GetFieldZone()->GetMinions();
             int numMurlocs = 0;
 
             for (auto& minion : minions)

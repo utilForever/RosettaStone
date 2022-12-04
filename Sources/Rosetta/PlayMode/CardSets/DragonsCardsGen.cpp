@@ -517,7 +517,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            const auto minions = playable->player->GetFieldZone()->GetAll();
+            const auto minions = playable->player->GetFieldZone()->GetMinions();
             int numTreants = 0;
 
             for (auto& minion : minions)
@@ -1147,11 +1147,13 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
                     if (isLeft && targetPos > 0)
                     {
-                        minion = (*fieldZone)[targetPos - 1];
+                        minion =
+                            dynamic_cast<Minion*>((*fieldZone)[targetPos - 1]);
                     }
                     else if (!isLeft && targetPos < fieldZone->GetCount() - 1)
                     {
-                        minion = (*fieldZone)[targetPos + 1];
+                        minion =
+                            dynamic_cast<Minion*>((*fieldZone)[targetPos + 1]);
                     }
                     else
                     {
@@ -1175,40 +1177,47 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                 if (remainDamage > 0)
                 {
                     FieldZone* fieldZone = realTarget->player->GetFieldZone();
-                    Minion* left = nullptr;
-                    Minion* right = nullptr;
                     const int targetPos = realTarget->GetZonePosition();
                     int count = 0;
-                    bool includeLeft = false, includeRight = false;
+
+                    Minion* left = nullptr;
+                    Minion* right = nullptr;
 
                     if (targetPos > 0)
                     {
-                        left = (*fieldZone)[targetPos - 1];
+                        Placeable* leftPlaceable = (*fieldZone)[targetPos - 1];
 
-                        if (!left->IsUntouchable())
+                        if (const auto leftMinion =
+                                dynamic_cast<Minion*>(leftPlaceable);
+                            leftMinion && !leftMinion->IsUntouchable())
                         {
-                            includeLeft = true;
+                            left = leftMinion;
                             ++count;
                         }
 
                         if (targetPos < fieldZone->GetCount() - 1)
                         {
-                            right = (*fieldZone)[targetPos + 1];
+                            Placeable* rightPlaceable =
+                                (*fieldZone)[targetPos + 1];
 
-                            if (!right->IsUntouchable())
+                            if (const auto rightMinion =
+                                    dynamic_cast<Minion*>(rightPlaceable);
+                                rightMinion && !rightMinion->IsUntouchable())
                             {
-                                includeRight = true;
+                                right = rightMinion;
                                 ++count;
                             }
                         }
                     }
                     else if (fieldZone->GetCount() > 1)
                     {
-                        right = (*fieldZone)[targetPos + 1];
+                        Placeable* rightPlaceable = (*fieldZone)[targetPos + 1];
 
-                        if (!right->IsUntouchable())
+                        if (const auto rightMinion =
+                                dynamic_cast<Minion*>(rightPlaceable);
+                            rightMinion && !rightMinion->IsUntouchable())
                         {
-                            includeRight = true;
+                            right = rightMinion;
                             ++count;
                         }
                     }
@@ -1229,12 +1238,12 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     }
                     else if (count == 1)
                     {
-                        if (includeLeft)
+                        if (left)
                         {
                             continueFunc(fieldZone, realSource, left,
                                          remainDamage, true);
                         }
-                        else if (includeRight)
+                        else if (right)
                         {
                             continueFunc(fieldZone, realSource, right,
                                          remainDamage, false);
@@ -3278,12 +3287,12 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
         [](const Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            auto enemyMinions = player->opponent->GetFieldZone()->GetAll();
+            auto enemyMinions = player->opponent->GetFieldZone()->GetMinions();
             Random::shuffle(enemyMinions.begin(), enemyMinions.end());
 
             auto& curField = *(player->GetFieldZone());
-            const auto deathwing =
-                curField[player->GetFieldZone()->GetCount() - 1];
+            const auto deathwing = dynamic_cast<Minion*>(
+                curField[player->GetFieldZone()->GetCount() - 1]);
 
             for (const auto& minion : enemyMinions)
             {
@@ -4000,7 +4009,8 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
             int numDreadRaven = 0;
 
-            for (const auto& card : playable->player->GetFieldZone()->GetAll())
+            for (const auto& card :
+                 playable->player->GetFieldZone()->GetMinions())
             {
                 if (card->card->id == "DRG_088")
                 {

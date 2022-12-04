@@ -2047,7 +2047,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
             FieldZone* opField = playable->player->opponent->GetFieldZone();
             int count = 0;
 
-            for (const auto& minion : curField->GetAll())
+            for (const auto& minion : curField->GetMinions())
             {
                 if (minion->GetDamage() > 0)
                 {
@@ -2055,7 +2055,7 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
                 }
             }
 
-            for (const auto& minion : opField->GetAll())
+            for (const auto& minion : opField->GetMinions())
             {
                 if (minion->GetDamage() > 0)
                 {
