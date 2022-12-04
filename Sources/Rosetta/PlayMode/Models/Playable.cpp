@@ -474,7 +474,7 @@ bool Playable::HasAnyValidPlayTargets(Card* _card) const
 
     if (friendlyMinions)
     {
-        for (const auto& minion : player->GetFieldZone()->GetAll())
+        for (const auto& minion : player->GetFieldZone()->GetMinions())
         {
             if (TargetingRequirements(_card, minion))
             {
@@ -485,7 +485,8 @@ bool Playable::HasAnyValidPlayTargets(Card* _card) const
 
     if (enemyMinions)
     {
-        for (const auto& minion : player->opponent->GetFieldZone()->GetAll())
+        for (const auto& minion :
+             player->opponent->GetFieldZone()->GetMinions())
         {
             if (TargetingRequirements(_card, minion))
             {

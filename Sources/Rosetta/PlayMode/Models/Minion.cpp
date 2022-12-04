@@ -54,30 +54,33 @@ std::vector<Minion*> Minion::GetAdjacentMinions() const
 
         if (pos > 0)
         {
-            Minion* left = (*fieldZone)[pos - 1];
+            Placeable* left = (*fieldZone)[pos - 1];
+            auto leftMinion = dynamic_cast<Minion*>(left);
 
-            if (!left->IsUntouchable())
+            if (leftMinion && !leftMinion->IsUntouchable())
             {
-                minions.emplace_back(left);
+                minions.emplace_back(leftMinion);
             }
 
             if (pos < fieldZone->GetCount() - 1)
             {
-                Minion* right = (*fieldZone)[pos + 1];
+                Placeable* right = (*fieldZone)[pos + 1];
+                auto rightMinion = dynamic_cast<Minion*>(right);
 
-                if (!right->IsUntouchable())
+                if (rightMinion && !rightMinion->IsUntouchable())
                 {
-                    minions.emplace_back(right);
+                    minions.emplace_back(rightMinion);
                 }
             }
         }
         else if (fieldZone->GetCount() > 1)
         {
-            Minion* right = (*fieldZone)[pos + 1];
+            Placeable* right = (*fieldZone)[pos + 1];
+            auto rightMinion = dynamic_cast<Minion*>(right);
 
-            if (!right->IsUntouchable())
+            if (rightMinion && !rightMinion->IsUntouchable())
             {
-                minions.emplace_back(right);
+                minions.emplace_back(rightMinion);
             }
         }
     }

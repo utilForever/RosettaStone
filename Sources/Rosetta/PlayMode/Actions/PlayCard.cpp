@@ -185,7 +185,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Reset transformed/summoned minions
-    for (const auto& minion : player->GetFieldZone()->GetAll())
+    for (const auto& minion : player->GetFieldZone()->GetMinions())
     {
         minion->SetTransformed(false);
         minion->SetSummoned(false);
@@ -416,7 +416,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->ProcessDestroyAndUpdateAura();
 
     // Store minions in field to process spellburst task
-    const auto minions = player->GetFieldZone()->GetAll();
+    const auto minions = player->GetFieldZone()->GetMinions();
 
     // Check spell is countered
     if (spell->IsCountered())

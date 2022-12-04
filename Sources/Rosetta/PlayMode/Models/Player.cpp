@@ -93,8 +93,8 @@ int Player::GetCurrentSpellPower() const
 {
     int value = 0;
 
-    m_fieldZone->ForEach([&](Playable* playable) {
-        if (const auto minion = dynamic_cast<Minion*>(playable);
+    m_fieldZone->ForEach([&](Placeable* placeable) {
+        if (const auto minion = dynamic_cast<Minion*>(placeable);
             minion && !minion->IsUntouchable())
         {
             value += minion->GetSpellPower();
@@ -112,8 +112,8 @@ int Player::GetExtraSpellPower(SpellSchool spellSchool) const
 {
     int value = 0;
 
-    m_fieldZone->ForEach([&](Playable* playable) {
-        if (const auto minion = dynamic_cast<Minion*>(playable);
+    m_fieldZone->ForEach([&](Placeable* placeable) {
+        if (const auto minion = dynamic_cast<Minion*>(placeable);
             minion && !minion->IsUntouchable())
         {
             switch (spellSchool)

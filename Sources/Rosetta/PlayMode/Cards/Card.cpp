@@ -492,7 +492,7 @@ bool Card::IsPlayableByCardReq(Player* player) const
                 auto curField = player->GetFieldZone();
                 std::size_t entourageCount = 0;
 
-                for (auto& minion : curField->GetAll())
+                for (auto& minion : curField->GetMinions())
                 {
                     for (auto& entourage : entourages)
                     {
@@ -677,7 +677,7 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 
     if (friendlyMinions)
     {
-        for (auto& minion : player->GetFieldZone()->GetAll())
+        for (auto& minion : player->GetFieldZone()->GetMinions())
         {
             if (TargetingRequirements(player, minion))
             {
@@ -688,7 +688,7 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 
     if (enemyMinions)
     {
-        for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+        for (auto& minion : player->opponent->GetFieldZone()->GetMinions())
         {
             if (TargetingRequirements(player, minion))
             {

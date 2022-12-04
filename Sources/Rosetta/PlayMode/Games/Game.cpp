@@ -335,7 +335,7 @@ void Game::MainReady()
         player.GetHero()->SetNumAttacksThisTurn(0);
 
         // Field
-        for (const auto& minion : player.GetFieldZone()->GetAll())
+        for (const auto& minion : player.GetFieldZone()->GetMinions())
         {
             minion->SetNumAttacksThisTurn(0);
         }
@@ -364,7 +364,7 @@ void Game::MainReady()
     }
 
     // Field
-    for (const auto& minion : curPlayer->GetFieldZone()->GetAll())
+    for (const auto& minion : curPlayer->GetFieldZone()->GetMinions())
     {
         minion->SetExhausted(false);
     }
@@ -537,7 +537,7 @@ void Game::MainCleanUp()
     }
 
     // Field
-    for (const auto& minion : curPlayer->GetFieldZone()->GetAll())
+    for (const auto& minion : curPlayer->GetFieldZone()->GetMinions())
     {
         if (minion->IsFrozen() && minion->GetNumAttacksThisTurn() == 0 &&
             !minion->IsExhausted())
