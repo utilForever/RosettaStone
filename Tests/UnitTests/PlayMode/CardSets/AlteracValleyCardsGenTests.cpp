@@ -2606,8 +2606,9 @@ TEST_CASE("[Neutral : Minion] - AV_102 : Popsicooler")
 
     int numFrozenMinions = 0;
 
-    opField.ForEach([&](Playable* minion) {
-        if (dynamic_cast<Minion*>(minion)->IsFrozen())
+    opField.ForEach([&](Placeable* placeable) {
+        if (auto minion = dynamic_cast<Minion*>(placeable);
+            minion && minion->IsFrozen())
         {
             ++numFrozenMinions;
         }
@@ -2616,8 +2617,9 @@ TEST_CASE("[Neutral : Minion] - AV_102 : Popsicooler")
 
     game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
 
-    opField.ForEach([&](Playable* minion) {
-        if (dynamic_cast<Minion*>(minion)->IsFrozen())
+    opField.ForEach([&](Placeable* placeable) {
+        if (auto minion = dynamic_cast<Minion*>(placeable);
+            minion && minion->IsFrozen())
         {
             ++numFrozenMinions;
         }

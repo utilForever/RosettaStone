@@ -41,7 +41,7 @@ TEST_CASE("[FieldZone] - GetAll")
                             std::nullopt, curPlayer->GetFieldZone());
     curField.Add(playable2);
 
-    auto minions = curField.GetAll();
+    auto minions = curField.GetMinions();
 
     CHECK_EQ(minions[0]->card->name, "Flame Imp");
     CHECK_EQ(minions[1]->card->name, "Wisp");

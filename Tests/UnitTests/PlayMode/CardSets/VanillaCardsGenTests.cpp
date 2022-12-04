@@ -21091,7 +21091,7 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_040 : Hogger")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 2);
-    CHECK_EQ(curField.GetAll()[1]->card->id, "NEW1_040t");
+    CHECK_EQ(curField.GetMinions()[1]->card->id, "NEW1_040t");
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -21163,7 +21163,7 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_041 : Stampeding Kodo")
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField.GetAll()[0]->card->name, "Bloodfen Raptor");
+    CHECK_EQ(curField.GetMinions()[0]->card->name, "Bloodfen Raptor");
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

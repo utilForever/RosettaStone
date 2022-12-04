@@ -1286,7 +1286,7 @@ TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
     auto NumFrozenMinions = [&](FieldZone& field) -> int {
         int count = 0;
 
-        for (const auto& minion : field.GetAll())
+        for (const auto& minion : field.GetMinions())
         {
             if (minion->IsFrozen())
             {
