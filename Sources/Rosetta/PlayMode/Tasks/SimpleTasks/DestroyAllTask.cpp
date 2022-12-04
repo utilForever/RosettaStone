@@ -27,7 +27,7 @@ TaskStatus DestroyAllTask::Impl(Player* player)
         std::string name = playable->card->name;
 
         // Field
-        for (const auto& minion : player->GetFieldZone()->GetAll())
+        for (const auto& minion : player->GetFieldZone()->GetMinions())
         {
             if (minion->card->name == name)
             {
@@ -36,7 +36,8 @@ TaskStatus DestroyAllTask::Impl(Player* player)
         }
 
         // Enemy Field
-        for (const auto& minion : player->opponent->GetFieldZone()->GetAll())
+        for (const auto& minion :
+             player->opponent->GetFieldZone()->GetMinions())
         {
             if (minion->card->name == name)
             {

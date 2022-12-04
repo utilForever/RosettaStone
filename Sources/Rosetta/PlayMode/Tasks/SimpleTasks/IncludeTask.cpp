@@ -47,20 +47,20 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ALL:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player->GetHero());
             for (const auto& minion :
-                 player->opponent->GetFieldZone()->GetAll())
+                 player->opponent->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
             entities.emplace_back(player->opponent->GetHero());
             break;
         case EntityType::ALL_NOSOURCE:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 if (source == minion)
                 {
@@ -70,7 +70,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             entities.emplace_back(player->GetHero());
             for (const auto& minion :
-                 player->opponent->GetFieldZone()->GetAll())
+                 player->opponent->GetFieldZone()->GetMinions())
             {
                 if (source == minion)
                 {
@@ -81,7 +81,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             entities.emplace_back(player->opponent->GetHero());
             break;
         case EntityType::FRIENDS:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
@@ -89,7 +89,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             break;
         case EntityType::ENEMIES:
             for (const auto& minion :
-                 player->opponent->GetFieldZone()->GetAll())
+                 player->opponent->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
@@ -99,7 +99,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             if (target == player->opponent->GetHero())
             {
                 for (const auto& minion :
-                     player->opponent->GetFieldZone()->GetAll())
+                     player->opponent->GetFieldZone()->GetMinions())
                 {
                     entities.emplace_back(minion);
                 }
@@ -107,7 +107,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             else
             {
                 for (const auto& minion :
-                     player->opponent->GetFieldZone()->GetAll())
+                     player->opponent->GetFieldZone()->GetMinions())
                 {
                     if (target == minion)
                     {
@@ -179,19 +179,19 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ALL_MINIONS:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
 
             for (const auto& minion :
-                 player->opponent->GetFieldZone()->GetAll())
+                 player->opponent->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::ALL_MINIONS_NOSOURCE:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 if (source == minion)
                 {
@@ -202,7 +202,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
 
             for (const auto& minion :
-                 player->opponent->GetFieldZone()->GetAll())
+                 player->opponent->GetFieldZone()->GetMinions())
             {
                 if (source == minion)
                 {
@@ -213,7 +213,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ALL_MINIONS_NOTARGET:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 if (target == minion)
                 {
@@ -224,7 +224,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
 
             for (const auto& minion :
-                 player->opponent->GetFieldZone()->GetAll())
+                 player->opponent->GetFieldZone()->GetMinions())
             {
                 if (target == minion)
                 {
@@ -235,7 +235,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::ALL_MINIONS_NOEVENTSOURCE:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 if (player->game->currentEventData->eventSource == minion)
                 {
@@ -246,7 +246,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
 
             for (const auto& minion :
-                 player->opponent->GetFieldZone()->GetAll())
+                 player->opponent->GetFieldZone()->GetMinions())
             {
                 if (player->game->currentEventData->eventSource == minion)
                 {
@@ -257,13 +257,13 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::MINIONS:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::MINIONS_NOSOURCE:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 if (source == minion)
                 {
@@ -274,7 +274,7 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             }
             break;
         case EntityType::MINIONS_NOEVENTSOURCE:
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 if (player->game->currentEventData->eventSource == minion)
                 {
@@ -310,35 +310,35 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
                 }
             }
 
-            for (const auto& minion : player->GetFieldZone()->GetAll())
+            for (const auto& minion : player->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::ENEMY_MINIONS:
             for (const auto& minion :
-                 player->opponent->GetFieldZone()->GetAll())
+                 player->opponent->GetFieldZone()->GetMinions())
             {
                 entities.emplace_back(minion);
             }
             break;
         case EntityType::ENEMY_MINIONS_LEFTMOST:
         {
-            FieldZone& opField = *(player->opponent->GetFieldZone());
+            auto opMinions = player->opponent->GetFieldZone()->GetMinions();
 
-            if (!opField.IsEmpty())
+            if (!opMinions.empty())
             {
-                entities.emplace_back(opField[0]);
+                entities.emplace_back(opMinions[0]);
             }
             break;
         }
         case EntityType::ENEMY_MINIONS_RIGHTMOST:
         {
-            FieldZone& opField = *(player->opponent->GetFieldZone());
+            auto opMinions = player->opponent->GetFieldZone()->GetMinions();
 
-            if (!opField.IsEmpty())
+            if (!opMinions.empty())
             {
-                entities.emplace_back(opField[opField.GetCount() - 1]);
+                entities.emplace_back(opMinions[opMinions.size() - 1]);
             }
             break;
         }

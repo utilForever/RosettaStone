@@ -54,45 +54,48 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
         const int pos = center->GetZonePosition();
         int count = m_includeCenter ? 1 : 0;
 
-        Minion* right = nullptr;
         Minion* left = nullptr;
-        bool includeLeft = false, includeRight = false;
+        Minion* right = nullptr;
 
         if (pos > 0)
         {
-            left = (*fieldZone)[pos - 1];
+            Placeable* leftPlaceable = (*fieldZone)[pos - 1];
 
-            if (!left->IsUntouchable())
+            if (const auto leftMinion = dynamic_cast<Minion*>(leftPlaceable);
+                leftMinion && !leftMinion->IsUntouchable())
             {
-                includeLeft = true;
+                left = leftMinion;
                 ++count;
             }
 
             if (pos < fieldZone->GetCount() - 1)
             {
-                right = (*fieldZone)[pos + 1];
+                Placeable* rightPlaceable = (*fieldZone)[pos + 1];
 
-                if (!right->IsUntouchable())
+                if (const auto rightMinion =
+                        dynamic_cast<Minion*>(rightPlaceable);
+                    rightMinion && !rightMinion->IsUntouchable())
                 {
-                    includeRight = true;
+                    right = rightMinion;
                     ++count;
                 }
             }
         }
         else if (fieldZone->GetCount() > 1)
         {
-            right = (*fieldZone)[pos + 1];
+            Placeable* rightPlaceable = (*fieldZone)[pos + 1];
 
-            if (!right->IsUntouchable())
+            if (const auto rightMinion = dynamic_cast<Minion*>(rightPlaceable);
+                rightMinion && !rightMinion->IsUntouchable())
             {
-                includeRight = true;
+                right = rightMinion;
                 ++count;
             }
         }
 
         minions.reserve(count);
 
-        if (includeLeft)
+        if (left)
         {
             minions.emplace_back(left);
         }
@@ -100,7 +103,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
         {
             minions.emplace_back(center);
         }
-        if (includeRight)
+        if (right)
         {
             minions.emplace_back(right);
         }
