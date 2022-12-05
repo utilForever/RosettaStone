@@ -214,25 +214,22 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     else
     {
         Playable* entity = nullptr;
+        const auto gameTags = playable->card->gameTags;
 
         switch (newCard->GetCardType())
         {
             case CardType::HERO:
-                entity =
-                    new Hero(player, newCard, playable->card->gameTags, id);
+                entity = new Hero(player, newCard, gameTags, id);
                 break;
             case CardType::MINION:
             case CardType::LOCATION:
-                entity =
-                    new Minion(player, newCard, playable->card->gameTags, id);
+                entity = new Minion(player, newCard, gameTags, id);
                 break;
             case CardType::SPELL:
-                entity =
-                    new Spell(player, newCard, playable->card->gameTags, id);
+                entity = new Spell(player, newCard, gameTags, id);
                 break;
             case CardType::WEAPON:
-                entity =
-                    new Weapon(player, newCard, playable->card->gameTags, id);
+                entity = new Weapon(player, newCard, gameTags, id);
                 break;
             case CardType::INVALID:
             case CardType::GAME:
