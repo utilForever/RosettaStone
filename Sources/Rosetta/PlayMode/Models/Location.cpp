@@ -17,4 +17,14 @@ Location::Location(Player* _player, Card* _card, std::map<GameTag, int> tags,
 {
     // Do nothing
 }
+
+int Location::GetLastBoardPos() const
+{
+    return GetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND);
+}
+
+void Location::SetLastBoardPos(int value)
+{
+    SetGameTag(GameTag::TAG_LAST_KNOWN_COST_IN_HAND, value);
+}
 }  // namespace RosettaStone::PlayMode

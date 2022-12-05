@@ -46,6 +46,14 @@ class Location : public Playable, public Placeable
 
     //! Deleted move assignment operator.
     Location& operator=(Location&&) noexcept = delete;
+
+    //! Returns the value of last board position.
+    //! \return The value of last board position.
+    int GetLastBoardPos() const override;
+
+    //! Sets the value of last board position.
+    //! \param value The value of last board position.
+    void SetLastBoardPos(int value) override;
 };
 }  // namespace RosettaStone::PlayMode
 
