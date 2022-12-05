@@ -53,30 +53,35 @@ std::vector<Minion*> FieldZone::GetMinions()
 
 void FieldZone::Add(Playable* entity, int zonePos)
 {
-    const auto minion = dynamic_cast<Minion*>(entity);
-
-    PositioningZone::Add(minion, zonePos);
-
-    if (minion->player == minion->game->GetCurrentPlayer())
+    if (const auto minion = dynamic_cast<Minion*>(entity); minion)
     {
-        if (!minion->HasCharge())
+        PositioningZone::Add(minion, zonePos);
+
+        if (minion->player == minion->game->GetCurrentPlayer())
         {
-            if (minion->HasRush())
+            if (!minion->HasCharge())
             {
-                minion->SetAttackableByRush(true);
-                minion->game->rushMinions.emplace_back(
-                    minion->GetGameTag(GameTag::ENTITY_ID));
-            }
-            else
-            {
-                minion->SetExhausted(true);
+                if (minion->HasRush())
+                {
+                    minion->SetAttackableByRush(true);
+                    minion->game->rushMinions.emplace_back(
+                        minion->GetGameTag(GameTag::ENTITY_ID));
+                }
+                else
+                {
+                    minion->SetExhausted(true);
+                }
             }
         }
+
+        minion->orderOfPlay = minion->game->GetNextOOP();
+
+        ActivateAura(minion);
     }
-
-    minion->orderOfPlay = minion->game->GetNextOOP();
-
-    ActivateAura(minion);
+    else if (const auto location = dynamic_cast<Location*>(entity); location)
+    {
+        PositioningZone::Add(location, zonePos);
+    }
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
