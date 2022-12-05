@@ -66,6 +66,11 @@ class PlayCardTask : public ITask
     //! \return Generated PlayCardTask for intended purpose.
     static PlayCardTask WeaponTarget(Entity* source, Playable* target);
 
+    //! PlayCardTask wrapper for location without target.
+    //! \param source A pointer to source entity to play card.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask Location(Entity* source);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

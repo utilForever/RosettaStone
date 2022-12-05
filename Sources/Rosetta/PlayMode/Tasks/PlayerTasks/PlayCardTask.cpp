@@ -47,6 +47,11 @@ PlayCardTask PlayCardTask::WeaponTarget(Entity* source, Playable* target)
     return PlayCardTask(source, target);
 }
 
+PlayCardTask PlayCardTask::Location(Entity* source)
+{
+    return PlayCardTask(source, nullptr);
+}
+
 TaskStatus PlayCardTask::Impl(Player* player)
 {
     const auto source = dynamic_cast<Playable*>(m_source);
