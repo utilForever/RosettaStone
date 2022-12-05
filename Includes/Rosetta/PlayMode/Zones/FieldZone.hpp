@@ -8,6 +8,7 @@
 #define ROSETTASTONE_PLAYMODE_FIELD_ZONE_HPP
 
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Placeable.hpp>
 #include <Rosetta/PlayMode/Zones/Zone.hpp>
@@ -57,9 +58,13 @@ class FieldZone : public PositioningZone<Placeable>
     //! \return A list of entity in board zone.
     std::vector<Placeable*> GetAll() override;
 
-    //! Returns all minions in board zone.
-    //! \return A list of minions in board zone.
+    //! Returns all minions in field zone.
+    //! \return A list of minions in field zone.
     std::vector<Minion*> GetMinions();
+
+    //! Returns all locations in field zone.
+    //! \return A list of locations in field zone.
+    std::vector<Location*> GetLocations();
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.

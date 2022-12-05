@@ -51,6 +51,24 @@ std::vector<Minion*> FieldZone::GetMinions()
     return minions;
 }
 
+std::vector<Location*> FieldZone::GetLocations()
+{
+    std::vector<Location*> locations;
+    locations.reserve(MAX_FIELD_SIZE);
+
+    const auto placeables = PositioningZone::GetAll();
+
+    for (auto& placeable : placeables)
+    {
+        if (const auto location = dynamic_cast<Location*>(placeable))
+        {
+            locations.emplace_back(location);
+        }
+    }
+
+    return locations;
+}
+
 void FieldZone::Add(Playable* entity, int zonePos)
 {
     if (const auto minion = dynamic_cast<Minion*>(entity); minion)
