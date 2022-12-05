@@ -551,7 +551,15 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
 
 void PlayLocation(Player* player, Location* location, int fieldPos)
 {
-    // Add minion to field zone
+    // Add location to field zone
     player->GetFieldZone()->Add(location, fieldPos);
+
+    // Process play card trigger
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnPlayMinionTrigger(location);
+    player->game->triggerManager.OnPlayCardTrigger(location);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
 }
 }  // namespace RosettaStone::PlayMode::Generic
