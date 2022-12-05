@@ -6,6 +6,7 @@
 
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Entity.hpp>
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Models/Spell.hpp>
@@ -142,7 +143,6 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
             result = new HeroPower(player, card, tags, id);
             break;
         case CardType::MINION:
-        case CardType::LOCATION:
             result = new Minion(player, card, tags, id);
             break;
         case CardType::SPELL:
@@ -150,6 +150,9 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
             break;
         case CardType::WEAPON:
             result = new Weapon(player, card, tags, id);
+            break;
+        case CardType::LOCATION:
+            result = new Location(player, card, tags, id);
             break;
         case CardType::INVALID:
         case CardType::GAME:
