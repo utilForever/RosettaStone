@@ -208,6 +208,14 @@ class Card
     //! \return true if it is playable by card requirements, false otherwise.
     bool IsPlayableByCardReqInternal(Player* player,
                                      PlayReqType playReqType) const;
+
+    //! Internal method of TargetingRequirements().
+    //! \param player The player of the source.
+    //! \param target The proposed target.
+    //! \param playReqType The play requirement type.
+    //! \return true if the proposed target is valid, false otherwise.
+    bool TargetingRequirementsInternal(Player* player, Character* target,
+                                       PlayReqType playReqType);
 };
 }  // namespace RosettaStone::PlayMode
 
