@@ -265,6 +265,13 @@ enum class ZoneType
     SECRET
 };
 
+//! \brief An enumerator for indicating the type of play requirements.
+enum class PlayReqType
+{
+    CARD,
+    LOCATION
+};
+
 template <class T>
 T StrToEnum(const std::string_view&);
 template <class T>
