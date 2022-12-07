@@ -449,6 +449,9 @@ void Card::SetTargetingType(PlayReqType playReqType)
     auto requirements = playReqType == PlayReqType::CARD
                             ? playRequirements
                             : locationPlayRequirements;
+    bool& targetToPlay = playReqType == PlayReqType::CARD
+                             ? mustHaveToTargetToPlay
+                             : mustHaveToTargetToPlayLocation;
 
     for (auto& requirement : requirements)
     {
@@ -456,7 +459,7 @@ void Card::SetTargetingType(PlayReqType playReqType)
         {
             case PlayReq::REQ_TARGET_TO_PLAY:
             case PlayReq::REQ_STEADY_SHOT:
-                mustHaveToTargetToPlay = true;
+                targetToPlay = true;
                 needsTarget = true;
                 break;
             case PlayReq::REQ_NONSELF_TARGET:

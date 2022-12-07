@@ -194,6 +194,7 @@ class Card
     std::size_t maxAllowedInDeck = 0;
 
     bool mustHaveToTargetToPlay = false;
+    bool mustHaveToTargetToPlayLocation = false;
 
  private:
     //! Sets targeting-related values regarding to play requirements.
