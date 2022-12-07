@@ -18,163 +18,7 @@ void Card::Initialize()
 {
     maxAllowedInDeck = (GetRarity() == Rarity::LEGENDARY) ? 1 : 2;
 
-    bool needsTarget = false;
-    CharacterType characterType = CharacterType::CHARACTERS;
-    FriendlyType friendlyType = FriendlyType::ALL;
-
-    for (auto& requirement : playRequirements)
-    {
-        switch (requirement.first)
-        {
-            case PlayReq::REQ_TARGET_TO_PLAY:
-            case PlayReq::REQ_STEADY_SHOT:
-                mustHaveToTargetToPlay = true;
-                needsTarget = true;
-                break;
-            case PlayReq::REQ_NONSELF_TARGET:
-            case PlayReq::REQ_TARGET_IF_AVAILABLE:
-            case PlayReq::REQ_DRAG_TO_PLAY:
-                needsTarget = true;
-                break;
-            case PlayReq::REQ_MINION_TARGET:
-                characterType = CharacterType::MINIONS;
-                break;
-            case PlayReq::REQ_FRIENDLY_TARGET:
-                friendlyType = FriendlyType::FRIENDLY;
-                break;
-            case PlayReq::REQ_ENEMY_TARGET:
-                friendlyType = FriendlyType::ENEMY;
-                break;
-            case PlayReq::REQ_HERO_TARGET:
-                characterType = CharacterType::HEROES;
-                break;
-            case PlayReq::REQ_MINION_OR_ENEMY_HERO:
-                characterType = CharacterType::CHARACTERS_EXCEPT_HERO;
-                break;
-            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
-                needsTarget = true;
-                targetingAvailabilityPredicate.emplace_back(
-                    TargetingPredicates::DragonInHand());
-                break;
-            case PlayReq::REQ_LEGENDARY_TARGET:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqLegendaryTarget());
-                break;
-            case PlayReq::REQ_DAMAGED_TARGET:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqDamagedTarget());
-                break;
-            case PlayReq::REQ_DAMAGED_TARGET_UNLESS_COMBO:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqDamagedTargetUnlessCombo());
-                break;
-            case PlayReq::REQ_UNDAMAGED_TARGET:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqUndamagedTarget());
-                break;
-            case PlayReq::REQ_TARGET_MAX_ATTACK:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqTargetMaxAttack(
-                        requirement.second));
-                break;
-            case PlayReq::REQ_TARGET_MIN_ATTACK:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqTargetMinAttack(
-                        requirement.second));
-                break;
-            case PlayReq::REQ_TARGET_WITH_RACE:
-            {
-                Race race = static_cast<Race>(requirement.second);
-
-                // NOTE: Race::EGG has special value that is not 27, but 38.
-                if (requirement.second == 38)
-                {
-                    race = Race::EGG;
-                }
-
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqTargetWithRace(race));
-            }
-            break;
-            case PlayReq::REQ_LACKEY_TARGET:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqLackeyTarget());
-                break;
-            case PlayReq::REQ_TARGET_FOR_COMBO:
-                needsTarget = true;
-                targetingAvailabilityPredicate.emplace_back(
-                    TargetingPredicates::ReqTargetForCombo());
-                break;
-            case PlayReq::REQ_MUST_TARGET_TAUNTER:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqMustTargetTaunter());
-                break;
-            case PlayReq::REQ_TARGET_WITH_DEATHRATTLE:
-                targetingPredicate.emplace_back(
-                    TargetingPredicates::ReqTargetWithDeathrattle());
-                break;
-            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
-                needsTarget = true;
-                targetingAvailabilityPredicate.emplace_back(
-                    TargetingPredicates::MinimumFriendlySecrets(
-                        requirement.second));
-                break;
-            case PlayReq::
-                REQ_TARGET_IF_AVAILABLE_AND_ELEMENTAL_PLAYED_LAST_TURN:
-                needsTarget = true;
-                targetingAvailabilityPredicate.emplace_back(
-                    TargetingPredicates::ElementalPlayedLastTurn());
-                break;
-            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MAXIMUM_CARDS_IN_DECK:
-                needsTarget = true;
-                targetingAvailabilityPredicate.emplace_back(
-                    TargetingPredicates::MaximumCardsInDeck(
-                        requirement.second));
-                break;
-            default:
-                continue;
-        }
-    }
-
-    if (needsTarget)
-    {
-        switch (characterType)
-        {
-            case CharacterType::CHARACTERS:
-                switch (friendlyType)
-                {
-                    case FriendlyType::ALL:
-                        targetingType = TargetingType::ALL;
-                        break;
-                    case FriendlyType::FRIENDLY:
-                        targetingType = TargetingType::FRIENDLY_CHARACTERS;
-                        break;
-                    case FriendlyType::ENEMY:
-                        targetingType = TargetingType::ENEMY_CHARACTERS;
-                        break;
-                }
-                break;
-            case CharacterType::CHARACTERS_EXCEPT_HERO:
-                targetingType = TargetingType::CHARACTERS_EXCEPT_HERO;
-                break;
-            case CharacterType::HEROES:
-                targetingType = TargetingType::HEROES;
-                break;
-            case CharacterType::MINIONS:
-                switch (friendlyType)
-                {
-                    case FriendlyType::ALL:
-                        targetingType = TargetingType::ALL_MINIONS;
-                        break;
-                    case FriendlyType::FRIENDLY:
-                        targetingType = TargetingType::FRIENDLY_MINIONS;
-                        break;
-                    case FriendlyType::ENEMY:
-                        targetingType = TargetingType::ENEMY_MINIONS;
-                        break;
-                }
-        }
-    }
+    SetTargetingType(PlayReqType::CARD);
 }
 
 CardClass Card::GetCardClass() const
@@ -589,6 +433,171 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
     }
 
     return ret;
+}
+
+void Card::SetTargetingType(PlayReqType playReqType)
+{
+    bool needsTarget = false;
+    CharacterType characterType = CharacterType::CHARACTERS;
+    FriendlyType friendlyType = FriendlyType::ALL;
+
+    auto requirements = playReqType == PlayReqType::CARD
+                            ? playRequirements
+                            : locationPlayRequirements;
+
+    for (auto& requirement : requirements)
+    {
+        switch (requirement.first)
+        {
+            case PlayReq::REQ_TARGET_TO_PLAY:
+            case PlayReq::REQ_STEADY_SHOT:
+                mustHaveToTargetToPlay = true;
+                needsTarget = true;
+                break;
+            case PlayReq::REQ_NONSELF_TARGET:
+            case PlayReq::REQ_TARGET_IF_AVAILABLE:
+            case PlayReq::REQ_DRAG_TO_PLAY:
+                needsTarget = true;
+                break;
+            case PlayReq::REQ_MINION_TARGET:
+                characterType = CharacterType::MINIONS;
+                break;
+            case PlayReq::REQ_FRIENDLY_TARGET:
+                friendlyType = FriendlyType::FRIENDLY;
+                break;
+            case PlayReq::REQ_ENEMY_TARGET:
+                friendlyType = FriendlyType::ENEMY;
+                break;
+            case PlayReq::REQ_HERO_TARGET:
+                characterType = CharacterType::HEROES;
+                break;
+            case PlayReq::REQ_MINION_OR_ENEMY_HERO:
+                characterType = CharacterType::CHARACTERS_EXCEPT_HERO;
+                break;
+            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::DragonInHand());
+                break;
+            case PlayReq::REQ_LEGENDARY_TARGET:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqLegendaryTarget());
+                break;
+            case PlayReq::REQ_DAMAGED_TARGET:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqDamagedTarget());
+                break;
+            case PlayReq::REQ_DAMAGED_TARGET_UNLESS_COMBO:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqDamagedTargetUnlessCombo());
+                break;
+            case PlayReq::REQ_UNDAMAGED_TARGET:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqUndamagedTarget());
+                break;
+            case PlayReq::REQ_TARGET_MAX_ATTACK:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetMaxAttack(
+                        requirement.second));
+                break;
+            case PlayReq::REQ_TARGET_MIN_ATTACK:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetMinAttack(
+                        requirement.second));
+                break;
+            case PlayReq::REQ_TARGET_WITH_RACE:
+            {
+                Race race = static_cast<Race>(requirement.second);
+
+                // NOTE: Race::EGG has special value that is not 27, but 38.
+                if (requirement.second == 38)
+                {
+                    race = Race::EGG;
+                }
+
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetWithRace(race));
+            }
+            break;
+            case PlayReq::REQ_LACKEY_TARGET:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqLackeyTarget());
+                break;
+            case PlayReq::REQ_TARGET_FOR_COMBO:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetForCombo());
+                break;
+            case PlayReq::REQ_MUST_TARGET_TAUNTER:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqMustTargetTaunter());
+                break;
+            case PlayReq::REQ_TARGET_WITH_DEATHRATTLE:
+                targetingPredicate.emplace_back(
+                    TargetingPredicates::ReqTargetWithDeathrattle());
+                break;
+            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::MinimumFriendlySecrets(
+                        requirement.second));
+                break;
+            case PlayReq::
+                REQ_TARGET_IF_AVAILABLE_AND_ELEMENTAL_PLAYED_LAST_TURN:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::ElementalPlayedLastTurn());
+                break;
+            case PlayReq::REQ_TARGET_IF_AVAILABLE_AND_MAXIMUM_CARDS_IN_DECK:
+                needsTarget = true;
+                targetingAvailabilityPredicate.emplace_back(
+                    TargetingPredicates::MaximumCardsInDeck(
+                        requirement.second));
+                break;
+            default:
+                continue;
+        }
+    }
+
+    if (needsTarget)
+    {
+        switch (characterType)
+        {
+            case CharacterType::CHARACTERS:
+                switch (friendlyType)
+                {
+                    case FriendlyType::ALL:
+                        targetingType = TargetingType::ALL;
+                        break;
+                    case FriendlyType::FRIENDLY:
+                        targetingType = TargetingType::FRIENDLY_CHARACTERS;
+                        break;
+                    case FriendlyType::ENEMY:
+                        targetingType = TargetingType::ENEMY_CHARACTERS;
+                        break;
+                }
+                break;
+            case CharacterType::CHARACTERS_EXCEPT_HERO:
+                targetingType = TargetingType::CHARACTERS_EXCEPT_HERO;
+                break;
+            case CharacterType::HEROES:
+                targetingType = TargetingType::HEROES;
+                break;
+            case CharacterType::MINIONS:
+                switch (friendlyType)
+                {
+                    case FriendlyType::ALL:
+                        targetingType = TargetingType::ALL_MINIONS;
+                        break;
+                    case FriendlyType::FRIENDLY:
+                        targetingType = TargetingType::FRIENDLY_MINIONS;
+                        break;
+                    case FriendlyType::ENEMY:
+                        targetingType = TargetingType::ENEMY_MINIONS;
+                        break;
+                }
+        }
+    }
 }
 
 bool Card::IsPlayableByCardReqInternal(Player* player,

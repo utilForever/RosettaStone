@@ -189,6 +189,10 @@ class Card
     bool mustHaveToTargetToPlay = false;
 
  private:
+    //! Sets targeting-related values regarding to play requirements.
+    //! \param playReqType The play requirement type.
+    void SetTargetingType(PlayReqType playReqType);
+
     //! Internal method of IsPlayableByCardReq().
     //! \param player The player of the source.
     //! \param playReqType The play requirement type.
