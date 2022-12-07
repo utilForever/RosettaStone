@@ -7,9 +7,9 @@
 #ifndef ROSETTASTONE_UNIT_TESTS_CARD_SET_HEADERS_HPP
 #define ROSETTASTONE_UNIT_TESTS_CARD_SET_HEADERS_HPP
 
-#include <iostream>
 #include <doctest.h>
 #include <Utils/TestUtils.hpp>
+#include <iostream>
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
@@ -22,6 +22,7 @@
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/HeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayLocationTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/AddCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DrawTask.hpp>
 #include <Rosetta/PlayMode/Utils/DeckCode.hpp>
