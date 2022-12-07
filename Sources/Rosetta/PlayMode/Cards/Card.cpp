@@ -452,6 +452,9 @@ void Card::SetTargetingType(PlayReqType playReqType)
     bool& targetToPlay = playReqType == PlayReqType::CARD
                              ? mustHaveToTargetToPlay
                              : mustHaveToTargetToPlayLocation;
+    TargetingType& targetType = playReqType == PlayReqType::CARD
+                                    ? targetingType
+                                    : locationTargetingType;
 
     for (auto& requirement : requirements)
     {
@@ -575,33 +578,33 @@ void Card::SetTargetingType(PlayReqType playReqType)
                 switch (friendlyType)
                 {
                     case FriendlyType::ALL:
-                        targetingType = TargetingType::ALL;
+                        targetType = TargetingType::ALL;
                         break;
                     case FriendlyType::FRIENDLY:
-                        targetingType = TargetingType::FRIENDLY_CHARACTERS;
+                        targetType = TargetingType::FRIENDLY_CHARACTERS;
                         break;
                     case FriendlyType::ENEMY:
-                        targetingType = TargetingType::ENEMY_CHARACTERS;
+                        targetType = TargetingType::ENEMY_CHARACTERS;
                         break;
                 }
                 break;
             case CharacterType::CHARACTERS_EXCEPT_HERO:
-                targetingType = TargetingType::CHARACTERS_EXCEPT_HERO;
+                targetType = TargetingType::CHARACTERS_EXCEPT_HERO;
                 break;
             case CharacterType::HEROES:
-                targetingType = TargetingType::HEROES;
+                targetType = TargetingType::HEROES;
                 break;
             case CharacterType::MINIONS:
                 switch (friendlyType)
                 {
                     case FriendlyType::ALL:
-                        targetingType = TargetingType::ALL_MINIONS;
+                        targetType = TargetingType::ALL_MINIONS;
                         break;
                     case FriendlyType::FRIENDLY:
-                        targetingType = TargetingType::FRIENDLY_MINIONS;
+                        targetType = TargetingType::FRIENDLY_MINIONS;
                         break;
                     case FriendlyType::ENEMY:
-                        targetingType = TargetingType::ENEMY_MINIONS;
+                        targetType = TargetingType::ENEMY_MINIONS;
                         break;
                 }
         }

@@ -189,6 +189,7 @@ class Card
     std::vector<AvailabilityPredicate> targetingAvailabilityPredicate;
 
     TargetingType targetingType;
+    TargetingType locationTargetingType;
     Power power;
 
     std::size_t maxAllowedInDeck = 0;
