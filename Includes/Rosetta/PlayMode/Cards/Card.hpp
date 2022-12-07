@@ -187,6 +187,14 @@ class Card
     std::size_t maxAllowedInDeck = 0;
 
     bool mustHaveToTargetToPlay = false;
+
+ private:
+    //! Internal method of IsPlayableByCardReq().
+    //! \param player The player of the source.
+    //! \param playReqType The play requirement type.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReqInternal(Player* player,
+                                     PlayReqType playReqType) const;
 };
 }  // namespace RosettaStone::PlayMode
 
