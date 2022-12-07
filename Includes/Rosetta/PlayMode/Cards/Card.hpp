@@ -173,6 +173,7 @@ class Card
 
     std::map<GameTag, int> gameTags;
     std::map<PlayReq, int> playRequirements;
+    std::map<PlayReq, int> locationPlayRequirements;
     std::vector<std::string> chooseCardIDs;
     std::vector<std::string> entourages;
     std::vector<std::tuple<std::string, SummonSide>> appendages;
