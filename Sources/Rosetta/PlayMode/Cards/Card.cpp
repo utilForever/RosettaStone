@@ -309,6 +309,11 @@ bool Card::IsPlayableByCardReq(Player* player) const
     return IsPlayableByCardReqInternal(player, PlayReqType::CARD);
 }
 
+bool Card::IsPlayableByLocationReq(Player* player) const
+{
+    return IsPlayableByCardReqInternal(player, PlayReqType::LOCATION);
+}
+
 bool Card::TargetingRequirements(Player* player, Character* target)
 {
     if (target->card->IsUntouchable())

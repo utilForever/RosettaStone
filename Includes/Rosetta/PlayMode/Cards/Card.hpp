@@ -153,6 +153,13 @@ class Card
     //! \return true if it is playable by card requirements, false otherwise.
     bool IsPlayableByCardReq(Player* player) const;
 
+    //! Gets a value indicating whether source entity is playable by location
+    //! requirements. Static requirements are checked.
+    //! \param player The player of the source.
+    //! \return true if it is playable by location requirements,
+    //! false otherwise.
+    bool IsPlayableByLocationReq(Player* player) const;
+
     //! Calculates if a target is valid by testing the game state
     //! for each hardcoded requirement.
     //! \param player The player of the source.
