@@ -727,6 +727,10 @@ bool Card::IsPlayableByCardReqInternal(Player* player,
 bool Card::TargetingRequirementsInternal(Player* player, Character* target,
                                          PlayReqType playReqType)
 {
+    const auto predicates = playReqType == PlayReqType::CARD
+                                ? targetingPredicate
+                                : locationTargetingPredicate;
+
     if (target->card->IsUntouchable())
     {
         return false;
@@ -738,9 +742,9 @@ bool Card::TargetingRequirementsInternal(Player* player, Character* target,
         return false;
     }
 
-    if (!targetingPredicate.empty())
+    if (!predicates.empty())
     {
-        for (auto& predicate : targetingPredicate)
+        for (auto& predicate : predicates)
         {
             if (!predicate(target))
             {

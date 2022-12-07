@@ -187,6 +187,7 @@ class Card
 
     std::vector<TargetingPredicate> targetingPredicate;
     std::vector<AvailabilityPredicate> targetingAvailabilityPredicate;
+    std::vector<TargetingPredicate> locationTargetingPredicate;
 
     TargetingType targetingType;
     TargetingType locationTargetingType;
