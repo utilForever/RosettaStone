@@ -167,6 +167,13 @@ class Card
     //! \return true if the proposed target is valid, false otherwise.
     bool TargetingRequirements(Player* player, Character* target);
 
+    //! Calculates if a target is valid by testing the game state
+    //! for each hardcoded requirement.
+    //! \param player The player of the source.
+    //! \param target The proposed target.
+    //! \return true if the proposed target is valid, false otherwise.
+    bool LocationTargetingRequirements(Player* player, Character* target);
+
     //! Gets the valid play targets.
     //! This method defaults to targeting in the context of spells/hero powers.
     //! \param player The player of the source.

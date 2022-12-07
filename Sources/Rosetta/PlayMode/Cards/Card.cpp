@@ -319,6 +319,11 @@ bool Card::TargetingRequirements(Player* player, Character* target)
     return TargetingRequirementsInternal(player, target, PlayReqType::CARD);
 }
 
+bool Card::LocationTargetingRequirements(Player* player, Character* target)
+{
+    return TargetingRequirementsInternal(player, target, PlayReqType::LOCATION);
+}
+
 std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 {
     std::vector<Character*> ret;
