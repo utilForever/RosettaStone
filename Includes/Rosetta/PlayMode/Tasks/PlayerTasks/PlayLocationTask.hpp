@@ -32,6 +32,12 @@ class PlayLocationTask : public ITask
     //! Internal method of Clone().
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
+
+    //! Calculates if a target is valid by testing the game state for each
+    //! hardcoded requirement.
+    //! \param target The proposed target.
+    //! \return true if the proposed target is valid, false otherwise.
+    bool TargetingRequirements(Character* target) const;
 };
 }  // namespace RosettaStone::PlayMode::PlayerTasks
 

@@ -32,4 +32,9 @@ std::unique_ptr<ITask> PlayLocationTask::CloneImpl()
 {
     return std::make_unique<PlayLocationTask>(m_source, m_target);
 }
+
+bool PlayLocationTask::TargetingRequirements(Character* target) const
+{
+    return m_source->card->TargetingRequirements(m_player, target);
+}
 }  // namespace RosettaStone::PlayMode::PlayerTasks
