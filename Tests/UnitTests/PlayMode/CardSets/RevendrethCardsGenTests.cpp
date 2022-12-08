@@ -655,11 +655,13 @@ TEST_CASE("[Paladin : Location] - REV_983 : Great Hall")
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::Location(card2));
+    game.Process(curPlayer, PlayCardTask::Location(card1));
+    game.Process(curPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 2);
     CHECK_EQ(curField.GetMinions().size(), 1u);
     CHECK_EQ(curField.GetLocations().size(), 1u);
+
+    game.Process(curPlayer, PlayLocationTask(card1, card2));
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
