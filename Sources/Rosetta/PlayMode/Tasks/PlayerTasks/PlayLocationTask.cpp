@@ -34,6 +34,22 @@ std::unique_ptr<ITask> PlayLocationTask::CloneImpl()
     return std::make_unique<PlayLocationTask>(m_source, m_target);
 }
 
+bool PlayLocationTask::IsPlayableByCardReq() const
+{
+    if (!m_source->card->IsPlayableByLocationReq(m_player))
+    {
+        return false;
+    }
+
+    if (m_source->card->mustHaveToTargetToPlayLocation &&
+        !HasAnyValidPlayTargets())
+    {
+        return false;
+    }
+
+    return true;
+}
+
 bool PlayLocationTask::HasAnyValidPlayTargets() const
 {
     bool friendlyMinions = false, enemyMinions = false;

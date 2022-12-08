@@ -33,6 +33,11 @@ class PlayLocationTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
+    //! Gets a value indicating whether source entity is playable by card
+    //! requirements. Static requirements are checked.
+    //! \return true if it is playable by card requirements, false otherwise.
+    bool IsPlayableByCardReq() const;
+
     //! Gets whether the current field has any valid play targets
     //! for this location.
     //! \return true if the current field has any valid play targets,
