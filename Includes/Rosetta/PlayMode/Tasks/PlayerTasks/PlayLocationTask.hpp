@@ -49,6 +49,10 @@ class PlayLocationTask : public ITask
     //! \param target The proposed target.
     //! \return true if the proposed target is valid, false otherwise.
     bool TargetingRequirements(Character* target) const;
+
+    //! Determines whether the specified character is a valid target.
+    //! \return true if the specified target is valid, false otherwise.
+    bool IsValidPlayTarget() const;
 };
 }  // namespace RosettaStone::PlayMode::PlayerTasks
 

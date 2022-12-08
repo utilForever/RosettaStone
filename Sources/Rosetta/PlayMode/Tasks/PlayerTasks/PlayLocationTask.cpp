@@ -134,4 +134,9 @@ bool PlayLocationTask::TargetingRequirements(Character* target) const
 {
     return m_source->card->TargetingRequirements(m_player, target);
 }
+
+bool PlayLocationTask::IsValidPlayTarget() const
+{
+    return false;
+}
 }  // namespace RosettaStone::PlayMode::PlayerTasks
