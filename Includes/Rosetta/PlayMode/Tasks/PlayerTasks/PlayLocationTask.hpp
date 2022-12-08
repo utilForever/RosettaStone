@@ -33,6 +33,12 @@ class PlayLocationTask : public ITask
     //! \return The cloned task.
     std::unique_ptr<ITask> CloneImpl() override;
 
+    //! Gets whether the current field has any valid play targets
+    //! for this location.
+    //! \return true if the current field has any valid play targets,
+    //! false otherwise.
+    bool HasAnyValidPlayTargets() const;
+
     //! Calculates if a target is valid by testing the game state for each
     //! hardcoded requirement.
     //! \param target The proposed target.

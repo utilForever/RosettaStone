@@ -5,6 +5,7 @@
 
 #include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayLocationTask.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
 #include <stdexcept>
 
@@ -31,6 +32,86 @@ TaskStatus PlayLocationTask::Impl(Player* player)
 std::unique_ptr<ITask> PlayLocationTask::CloneImpl()
 {
     return std::make_unique<PlayLocationTask>(m_source, m_target);
+}
+
+bool PlayLocationTask::HasAnyValidPlayTargets() const
+{
+    bool friendlyMinions = false, enemyMinions = false;
+    bool hero = false, enemyHero = false;
+
+    switch (m_source->card->locationTargetingType)
+    {
+        case TargetingType::NONE:
+            return false;
+        case TargetingType::ALL:
+            friendlyMinions = true;
+            enemyMinions = true;
+            hero = true;
+            enemyHero = true;
+            break;
+        case TargetingType::CHARACTERS_EXCEPT_HERO:
+            friendlyMinions = true;
+            enemyMinions = true;
+            enemyHero = true;
+            break;
+        case TargetingType::FRIENDLY_CHARACTERS:
+            friendlyMinions = true;
+            hero = true;
+            break;
+        case TargetingType::ENEMY_CHARACTERS:
+            enemyMinions = true;
+            enemyHero = true;
+            break;
+        case TargetingType::ALL_MINIONS:
+            friendlyMinions = true;
+            enemyMinions = true;
+            break;
+        case TargetingType::FRIENDLY_MINIONS:
+            friendlyMinions = true;
+            break;
+        case TargetingType::ENEMY_MINIONS:
+            enemyMinions = true;
+            break;
+        case TargetingType::HEROES:
+            hero = true;
+            enemyHero = true;
+            break;
+    }
+
+    if (friendlyMinions)
+    {
+        for (const auto& minion : m_player->GetFieldZone()->GetMinions())
+        {
+            if (TargetingRequirements(minion))
+            {
+                return true;
+            }
+        }
+    }
+
+    if (enemyMinions)
+    {
+        for (const auto& minion :
+             m_player->opponent->GetFieldZone()->GetMinions())
+        {
+            if (TargetingRequirements(minion))
+            {
+                return true;
+            }
+        }
+    }
+
+    if (hero && TargetingRequirements(m_player->GetHero()))
+    {
+        return true;
+    }
+
+    if (enemyHero && TargetingRequirements(m_player->opponent->GetHero()))
+    {
+        return true;
+    }
+
+    return false;
 }
 
 bool PlayLocationTask::TargetingRequirements(Character* target) const
