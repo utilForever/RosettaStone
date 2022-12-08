@@ -26,6 +26,11 @@ TaskStatus PlayLocationTask::Impl(Player* player)
         throw std::invalid_argument("PlayLocationTask - It's not a location");
     }
 
+    if (!IsPlayableByCardReq() || !IsValidPlayTarget())
+    {
+        return TaskStatus::STOP;
+    }
+
     return TaskStatus::COMPLETE;
 }
 
