@@ -203,4 +203,4 @@ The build quality is tracked by [Travis CI](https://travis-ci.org/utilForever/Ro
 
 ### Code Quality
 
-The code quality is tracked by [Codacy](https://app.codacy.com/project/utilForever/RosettaStone/dashboard), [LGTM](https://lgtm.com/projects/g/utilForever/RosettaStone) and [CodeFactor](https://www.codefactor.io/repository/github/utilforever/RosettaStone). Any pull requests must pass all the code quality tools.
+The code quality is tracked by [Codacy](https://app.codacy.com/project/utilForever/RosettaStone/dashboard) and [CodeFactor](https://www.codefactor.io/repository/github/utilforever/RosettaStone). Any pull requests must pass all the code quality tools.

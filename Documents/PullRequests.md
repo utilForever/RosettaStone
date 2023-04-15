@@ -267,7 +267,7 @@ Testing source code helps to prevent bugs and syntax errors by executing each li
 
 ### Code Quality Checking
 
-After CI passes, code quality is checked using [Codacy](https://www.codacy.com/) and [LGTM](https://lgtm.com/).
+After CI passes, code quality is checked using [Codacy](https://www.codacy.com/) and [CodeFactor](https://www.codefactor.io/).
 
 **NOTE: Passing this check isn’t essential but it is highly advised.**
 
