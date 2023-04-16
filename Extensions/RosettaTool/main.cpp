@@ -154,7 +154,7 @@ int main(int argc, char* argv[])
 
     if (!result)
     {
-        std::cerr << "Error in command line: " << result.errorMessage() << '\n';
+        std::cerr << "Error in command line: " << result.message() << '\n';
         exit(EXIT_FAILURE);
     }
 
