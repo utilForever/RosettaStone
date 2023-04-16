@@ -10,8 +10,6 @@
 
 [![codecov](https://codecov.io/gh/utilForever/RosettaStone/branch/main/graph/badge.svg)](https://codecov.io/gh/utilForever/RosettaStone)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/df6a02e1358f4e719e7bebb9a728d2ab)](https://www.codacy.com/app/utilForever/RosettaStone?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=utilForever/RosettaStone&amp;utm_campaign=Badge_Grade)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/utilForever/RosettaStone.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/RosettaStone/alerts/)
-[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/utilForever/RosettaStone.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/utilForever/RosettaStone/context:cpp)
 [![CodeFactor](https://www.codefactor.io/repository/github/utilforever/RosettaStone/badge)](https://www.codefactor.io/repository/github/utilforever/RosettaStone)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RosettaStone&metric=alert_status)](https://sonarcloud.io/dashboard?id=RosettaStone)
