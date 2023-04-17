@@ -3,7 +3,7 @@
 #
 # You may wish to alter this file to override the set of languages analyzed,
 # or to provide custom queries or build logic.
-name: "CodeQL"
+name: CodeQL - Scan
 
 on:
   push:
@@ -16,8 +16,8 @@ on:
 
 jobs:
   analyze:
-    name: Analyze
     runs-on: ubuntu-latest
+    name: 🔍 Scan - CodeQL
 
     strategy:
       fail-fast: false
