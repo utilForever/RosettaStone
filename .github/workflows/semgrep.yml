@@ -1,4 +1,4 @@
-name: Semgrep - Scan
+name: Code Scan
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ jobs:
   semgrep:
     runs-on: ubuntu-latest
     name: 🔎 Scan - Semgrep
-    
+
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:

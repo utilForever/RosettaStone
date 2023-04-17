@@ -43,7 +43,7 @@ jobs:
             version: "10"
 
     runs-on: ${{ matrix.os }}
-    name: 🍎 ${{ matrix.name }}
+    name: 🍎 Build - ${{ matrix.name }}
 
     steps:
     - uses: actions/checkout@v1

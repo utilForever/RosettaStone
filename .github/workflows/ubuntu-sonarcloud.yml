@@ -1,4 +1,4 @@
-name: Ubuntu - SonarCloud
+name: Static Analysis
 
 on:
   push:
