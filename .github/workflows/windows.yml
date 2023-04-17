@@ -11,15 +11,15 @@ jobs:
     strategy:
       matrix:
         include:
-          # Windows Server 2019 + Visual Studio 2019
-          - name: "Windows Server 2019 + Visual Studio 2019"
-            os: windows-2019
           # Windows Server 2022 + Visual Studio 2022
           - name: "Windows Server 2022 + Visual Studio 2022"
             os: windows-2022
+          # Windows Server 2019 + Visual Studio 2019
+          - name: "Windows Server 2019 + Visual Studio 2019"
+            os: windows-2019
 
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.name }}
+    name: 🪟 Build - ${{ matrix.name }}
 
     steps:
     - uses: actions/checkout@v1
