@@ -13,20 +13,20 @@ jobs:
     strategy:
       matrix:
         include:
-          # Ubuntu 22.04 + gcc-12
-          - name: "Ubuntu 22.04 + gcc-12"
-            os: ubuntu-22.04
+          # Ubuntu 20.04 + gcc-10
+          - name: "Ubuntu 20.04 + gcc-10"
+            os: ubuntu-20.04
             compiler: gcc
-            version: "12"
+            version: "10"
     steps:
     - uses: actions/checkout@v2
       with:
         submodules: true
     - name: Prepare Sonar scanner
       run: |
-        wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.0.2311-linux.zip
-        unzip -q sonar-scanner-cli-4.6.0.2311-linux.zip
-        echo "${PWD}/sonar-scanner-4.6.0.2311-linux/bin/" >> $GITHUB_PATH
+        wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
+        unzip -q sonar-scanner-cli-4.7.0.2747-linux.zip
+        echo "${PWD}/sonar-scanner-4.7.0.2747-linux/bin/" >> $GITHUB_PATH
         wget -nv https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
         unzip -q build-wrapper-linux-x86.zip
         echo "${PWD}/build-wrapper-linux-x86" >> $GITHUB_PATH
