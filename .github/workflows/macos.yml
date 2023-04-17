@@ -68,6 +68,6 @@ jobs:
       run: /Users/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
     - name: Run Python Test
       run: |
-        pip install -r requirements.txt
-        pip install .
-        python -m pytest Tests/PythonTests/
+        pip3 install -r requirements.txt
+        pip3 install .
+        python3 -m pytest Tests/PythonTests/
