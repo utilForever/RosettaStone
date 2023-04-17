@@ -305,7 +305,7 @@ class ComplexTask
     //! \param tasks A list of task of secret card.
     static TaskList ActivateSecret(TaskList tasks)
     {
-        TaskList ret{ std::move(tasks) };
+        TaskList ret{ tasks };
         ret.emplace_back(std::make_shared<SimpleTasks::SetGameTagTask>(
             EntityType::SOURCE, GameTag::REVEALED, 1));
         ret.emplace_back(std::make_shared<SimpleTasks::MoveToGraveyardTask>(
