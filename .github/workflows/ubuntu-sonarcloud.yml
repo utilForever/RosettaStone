@@ -9,15 +9,15 @@ on:
 jobs:
   build-ubuntu:
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.name }}
+    name: 🌞 Static Analysis - SonarCloud
     strategy:
       matrix:
         include:
-          # Ubuntu 20.04 + gcc-9
-          - name: "Ubuntu 20.04 + gcc-9"
-            os: ubuntu-20.04
+          # Ubuntu 22.04 + gcc-12
+          - name: "Ubuntu 22.04 + gcc-12"
+            os: ubuntu-22.04
             compiler: gcc
-            version: "9"
+            version: "12"
     steps:
     - uses: actions/checkout@v2
       with:
