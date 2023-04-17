@@ -11,11 +11,11 @@ jobs:
     strategy:
       matrix:
         include:
-          # Ubuntu 22.04 + gcc-12
-          - name: "Ubuntu 22.04 + gcc-12"
-            os: ubuntu-22.04
+          # Ubuntu 20.04 + gcc-10
+          - name: "Ubuntu 20.04 + gcc-10"
+            os: ubuntu-20.04
             compiler: gcc
-            version: "12"
+            version: "10"
 
     runs-on: ${{ matrix.os }}
     name: 🧪 Code Coverage - Codecov
