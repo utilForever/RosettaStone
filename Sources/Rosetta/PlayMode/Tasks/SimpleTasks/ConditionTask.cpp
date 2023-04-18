@@ -14,7 +14,7 @@ namespace RosettaStone::PlayMode::SimpleTasks
 ConditionTask::ConditionTask(
     EntityType entityType,
     std::vector<std::shared_ptr<SelfCondition>> selfConditions)
-    : ITask(entityType), m_selfConditions(selfConditions)
+    : ITask(entityType), m_selfConditions(std::move(selfConditions))
 {
     // Do nothing
 }
@@ -22,7 +22,7 @@ ConditionTask::ConditionTask(
 ConditionTask::ConditionTask(
     EntityType entityType,
     std::vector<std::shared_ptr<RelaCondition>> relaConditions)
-    : ITask(entityType), m_relaConditions(relaConditions)
+    : ITask(entityType), m_relaConditions(std::move(relaConditions))
 {
     // Do nothing
 }
@@ -32,8 +32,8 @@ ConditionTask::ConditionTask(
     std::vector<std::shared_ptr<SelfCondition>> selfConditions,
     std::vector<std::shared_ptr<RelaCondition>> relaConditions)
     : ITask(entityType),
-      m_selfConditions(selfConditions),
-      m_relaConditions(relaConditions)
+      m_selfConditions(std::move(selfConditions)),
+      m_relaConditions(std::move(relaConditions))
 {
     // Do nothing
 }

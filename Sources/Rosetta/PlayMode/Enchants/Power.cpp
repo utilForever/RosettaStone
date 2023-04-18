@@ -94,17 +94,17 @@ void Power::ClearData()
 
 void Power::AddAura(std::shared_ptr<IAura> aura)
 {
-    m_aura = aura;
+    m_aura = std::move(aura);
 }
 
 void Power::AddEnchant(std::shared_ptr<Enchant> enchant)
 {
-    m_enchant = enchant;
+    m_enchant = std::move(enchant);
 }
 
 void Power::AddTrigger(std::shared_ptr<Trigger> trigger)
 {
-    m_trigger = trigger;
+    m_trigger = std::move(trigger);
 }
 
 void Power::AddPowerTask(const std::shared_ptr<ITask>& task)
