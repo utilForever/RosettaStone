@@ -284,12 +284,17 @@ std::shared_ptr<Trigger> Trigger::Activate(Playable* source,
 
 void Trigger::Remove()
 {
-    if (m_isRemoved)
+    if (m_isRemoved || !m_owner)
     {
         return;
     }
 
     Game* game = m_owner->game;
+
+    if (!game)
+    {
+        return;
+    }
 
     switch (m_triggerType)
     {
