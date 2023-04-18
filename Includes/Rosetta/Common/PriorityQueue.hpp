@@ -57,7 +57,7 @@ class PriorityQueue
         }
     }
 
-    //! Deleted move constructor.
+    //! Move constructor.
     PriorityQueue(PriorityQueue&& rhs) noexcept : m_count(rhs.m_count)
     {
         const Node* rhsNode = rhs.m_head;
@@ -84,14 +84,24 @@ class PriorityQueue
     //! Copy assignment operator.
     PriorityQueue& operator=(const PriorityQueue& rhs)
     {
+        if (this == &rhs)
+        {
+            return *this;
+        }
+
         PriorityQueue<T> temp(rhs);
         std::swap(temp.m_head, m_head);
         return *this;
     }
 
-    //! Deleted move assignment operator.
+    //! Move assignment operator.
     PriorityQueue& operator=(PriorityQueue&& rhs) noexcept
     {
+        if (*this == rhs)
+        {
+            return *this;
+        }
+
         PriorityQueue<T> temp(rhs);
         std::swap(temp.m_head, m_head);
         return *this;
