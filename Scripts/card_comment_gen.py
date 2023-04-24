@@ -86,6 +86,8 @@ def setCommentGen(target_set, target_id):
     WarriorNonCollect = []
     DemonHunter = []
     DemonHunterNonCollect = []
+    DeathKnight = []
+    DeathKnightNonCollect = []
     Dual = []
     DualNonCollect = []
     Neutral = []
@@ -115,6 +117,8 @@ def setCommentGen(target_set, target_id):
         WarriorNonCollect,
         DemonHunter,
         DemonHunterNonCollect,
+        DeathKnight,
+        DeathKnightNonCollect,
         Dual,
         DualNonCollect,
         Neutral,
@@ -145,6 +149,8 @@ def setCommentGen(target_set, target_id):
         "WarriorNonCollect",
         "DemonHunter",
         "DemonHunterNonCollect",
+        "DeathKnight",
+        "DeathKnightNonCollect",
         "Dual",
         "DualNonCollect",
         "Neutral",
@@ -254,6 +260,13 @@ def setCommentGen(target_set, target_id):
                 DemonHunter.append(data)
             else:
                 DemonHunterNonCollect.append(data)
+        elif card["cardClass"] == "DEATHKNIGHT":
+            data = cardCommentGen(card)
+            data = data + "\n" + "\n"
+            if "collectible" in card.keys() and card["collectible"]:
+                DeathKnight.append(data)
+            else:
+                DeathKnightNonCollect.append(data)
         elif card["cardClass"] == "DUAL":
             data = cardCommentGen(card)
             data = data + "\n" + "\n"
