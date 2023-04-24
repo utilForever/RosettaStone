@@ -78,7 +78,7 @@ constexpr std::array<CardSet, 1> CLASSIC_CARD_SETS = {
 constexpr int NUM_PLAY_MODE_CARDS = 15818;
 
 //! The number of Battlegrounds cards.
-constexpr int NUM_BATTLEGROUNDS_CARDS = 17611;
+constexpr int NUM_BATTLEGROUNDS_CARDS = 18325;
 
 //! The number of player class.
 //! \note Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock, Warrior,
@@ -116,7 +116,7 @@ constexpr int MAX_SECERT_SIZE = 5;
 constexpr int NUM_BATTLEGROUNDS_PLAYERS = 8;
 
 //! The number of heroes in Battlegrounds.
-constexpr int NUM_BATTLEGROUNDS_HEROES = 89;
+constexpr int NUM_BATTLEGROUNDS_HEROES = 90;
 
 //! The number of heroes on the selection list in Battlegrounds.
 constexpr int NUM_HEROES_ON_SELECTION_LIST = 4;
