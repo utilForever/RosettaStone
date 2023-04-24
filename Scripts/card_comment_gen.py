@@ -84,6 +84,8 @@ def setCommentGen(target_set, target_id):
     WarriorNonCollect = []
     DemonHunter = []
     DemonHunterNonCollect = []
+    DeathKnight = []
+    DeathKnightNonCollect = []
     Dual = []
     DualNonCollect = []
     Neutral = []
@@ -93,14 +95,14 @@ def setCommentGen(target_set, target_id):
     all = [Heroes, HeroPowers, Druid, DruidNonCollect, Hunter, HunterNonCollect, Mage,
            MageNonCollect, Paladin, PaladinNonCollect, Priest, PriestNonCollect,
            Rogue, RogueNonCollect, Shaman, ShamanNonCollect, Warlock, WarlockNonCollect,
-           Warrior, WarriorNonCollect, DemonHunter, DemonHunterNonCollect, Dual, DualNonCollect,
-           Neutral, NeutralNonCollect, NoneClass]
+           Warrior, WarriorNonCollect, DemonHunter, DemonHunterNonCollect, DeathKnight,
+           DeathKnightNonCollect, Dual, DualNonCollect, Neutral, NeutralNonCollect, NoneClass]
 
     all_names = ["Heroes", "HeroPowers", "Druid", "DruidNonCollect", "Hunter", "HunterNonCollect", "Mage",
                  "MageNonCollect", "Paladin", "PaladinNonCollect", "Priest", "PriestNonCollect",
                  "Rogue", "RogueNonCollect", "Shaman", "ShamanNonCollect", "Warlock", "WarlockNonCollect",
-                 "Warrior", "WarriorNonCollect", "DemonHunter", "DemonHunterNonCollect", "Dual", "DualNonCollect",
-                 "Neutral", "NeutralNonCollect", "Exceptions"]
+                 "Warrior", "WarriorNonCollect", "DemonHunter", "DemonHunterNonCollect", "DeathKnight",
+                 "DeathKnightNonCollect", "Dual", "DualNonCollect", "Neutral", "NeutralNonCollect", "Exceptions"]
     # coding=utf8
     file_path = "../Resources/cards.json"
     with open(file_path, "r", encoding='UTF8') as json_file:
@@ -204,6 +206,13 @@ def setCommentGen(target_set, target_id):
                 DemonHunter.append(data)
             else:
                 DemonHunterNonCollect.append(data)
+        elif card["cardClass"] == "DEATHKNIGHT":
+            data = cardCommentGen(card)
+            data = data + "\n" + "\n"
+            if "collectible" in card.keys() and card["collectible"]:
+                DeathKnight.append(data)
+            else:
+                DeathKnightNonCollect.append(data)
         elif card["cardClass"] == "DUAL":
             data = cardCommentGen(card)
             data = data + "\n" + "\n"
