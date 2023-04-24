@@ -113,7 +113,9 @@ def setCommentGen(target_set, target_id):
     for card in card_data:
         # The expansion set "RETURN_OF_THE_LICH_KING" is not set in some card data.
         if not "set" in card.keys():
-            if card["id"].startswith("RLK"):
+            if card["id"].startswith("CORE_ICC"):
+                card["set"] = "CORE"
+            elif card["id"].startswith("RLK"):
                 card["set"] = "RETURN_OF_THE_LICH_KING"
 
         if card['set'] != target_set:
