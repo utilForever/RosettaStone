@@ -116,7 +116,10 @@ def setCommentGen(target_set, target_id):
             if card["id"].startswith("CORE_ICC"):
                 card["set"] = "CORE"
             elif card["id"].startswith("RLK"):
-                card["set"] = "RETURN_OF_THE_LICH_KING"
+                if "howToEarn" in card.keys():
+                    card["set"] = "CORE"
+                else:
+                    card["set"] = "RETURN_OF_THE_LICH_KING"
 
         if card['set'] != target_set:
             continue
