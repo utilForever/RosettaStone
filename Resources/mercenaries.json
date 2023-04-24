@@ -20429,7 +20429,7 @@
                     },
                     {
                         "id": 895,
-                        "name": "Holy Judgement",
+                        "name": "Holy Judgment",
                         "tiers": [
                             {
                                 "crafting_cost": 0,
@@ -27905,6 +27905,181 @@
             95024
         ],
         "specializations": []
+    },
+    {
+        "collectible": true,
+        "craftingCost": 300,
+        "defaultSkinDbfId": 95941,
+        "equipment": [
+            {
+                "id": 476,
+                "tiers": [
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 95951,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 477,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 97230,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 97229,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 97228,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 95952,
+                        "tier": 4
+                    }
+                ]
+            },
+            {
+                "id": 478,
+                "tiers": [
+                    {
+                        "crafting_cost": 0,
+                        "dbf_id": 97231,
+                        "tier": 1
+                    },
+                    {
+                        "crafting_cost": 100,
+                        "dbf_id": 97232,
+                        "tier": 2
+                    },
+                    {
+                        "crafting_cost": 150,
+                        "dbf_id": 97233,
+                        "tier": 3
+                    },
+                    {
+                        "crafting_cost": 175,
+                        "dbf_id": 95955,
+                        "tier": 4
+                    }
+                ]
+            }
+        ],
+        "id": 420,
+        "name": "Chromie",
+        "skinDbfIds": [
+            95943,
+            95942,
+            95941
+        ],
+        "specializations": [
+            {
+                "abilities": [
+                    {
+                        "id": 974,
+                        "name": "Rewind",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 97216,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 97217,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 97218,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 97219,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 95944,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 975,
+                        "name": "Reading Chromie",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 97220,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 97221,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 97222,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 97223,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 95947,
+                                "tier": 5
+                            }
+                        ]
+                    },
+                    {
+                        "id": 976,
+                        "name": "Change The Timeline",
+                        "tiers": [
+                            {
+                                "crafting_cost": 0,
+                                "dbf_id": 97224,
+                                "tier": 1
+                            },
+                            {
+                                "crafting_cost": 50,
+                                "dbf_id": 97225,
+                                "tier": 2
+                            },
+                            {
+                                "crafting_cost": 125,
+                                "dbf_id": 97226,
+                                "tier": 3
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 97227,
+                                "tier": 4
+                            },
+                            {
+                                "crafting_cost": 150,
+                                "dbf_id": 95948,
+                                "tier": 5
+                            }
+                        ]
+                    }
+                ],
+                "id": 475,
+                "name": "Uncategorized"
+            }
+        ]
     },
     {
         "collectible": true,
