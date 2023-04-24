@@ -38,11 +38,12 @@ Cards::Cards()
 
     for (Card* card : m_cards)
     {
-        // NOTE: Subtract 2 because of CardClass::DRUID = 2
+        // NOTE: Subtract 1 because of CardClass::DEATHKNIGHT = 1
         // NOTE: CardClass::DEMONHUNTER = 14
+        // NOTE: CardClass::DEATHKNIGHT = 1
         const auto cardClass = card->GetCardClass() == CardClass::DEMONHUNTER
-                                   ? static_cast<int>(card->GetCardClass()) - 5
-                                   : static_cast<int>(card->GetCardClass()) - 2;
+                                   ? static_cast<int>(card->GetCardClass()) - 4
+                                   : static_cast<int>(card->GetCardClass()) - 1;
 
         if (card->IsCollectible())
         {
