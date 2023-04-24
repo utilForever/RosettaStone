@@ -2970,7 +2970,7 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
 
     // --------------------------------------- MINION - NEUTRAL
-    // [REV_238] Theotar, the Mad Duke - COST:5 [ATK:3/HP:3]
+    // [REV_238] Theotar, the Mad Duke - COST:6 [ATK:4/HP:4]
     // - Set: REVENDRETH, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> <b>Discover</b> a card
