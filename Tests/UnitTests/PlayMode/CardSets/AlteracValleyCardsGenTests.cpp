@@ -3076,7 +3076,7 @@ TEST_CASE("[Neutral : Minion] - AV_126 : Bunker Sergeant")
 // [AV_127] Ice Revenant - COST:4 [ATK:4/HP:5]
 // - Race: Elemental, Set: ALTERAC_VALLEY, Rarity: Common
 // --------------------------------------------------------
-// Text: Whenever you cast a Frost spell, gain +2/+2.
+// Text: Whenever you cast a Frost spell, gain +1/+1.
 // --------------------------------------------------------
 // GameTag:
 // - TRIGGER_VISUAL = 1
@@ -3122,13 +3122,13 @@ TEST_CASE("[Neutral : Minion] - AV_127 : Ice Revenant")
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 6);
-    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
 
     game.Process(curPlayer,
                  PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
-    CHECK_EQ(curField[0]->GetAttack(), 6);
-    CHECK_EQ(curField[0]->GetHealth(), 7);
+    CHECK_EQ(curField[0]->GetAttack(), 5);
+    CHECK_EQ(curField[0]->GetHealth(), 6);
 }
 
 // --------------------------------------- MINION - NEUTRAL

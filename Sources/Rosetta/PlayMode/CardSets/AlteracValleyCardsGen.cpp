@@ -3273,7 +3273,7 @@ void AlteracValleyCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // [AV_127] Ice Revenant - COST:4 [ATK:4/HP:5]
     // - Race: Elemental, Set: ALTERAC_VALLEY, Rarity: Common
     // --------------------------------------------------------
-    // Text: Whenever you cast a Frost spell, gain +2/+2.
+    // Text: Whenever you cast a Frost spell, gain +1/+1.
     // --------------------------------------------------------
     // GameTag:
     // - TRIGGER_VISUAL = 1
@@ -3758,7 +3758,7 @@ void AlteracValleyCardsGen::AddNeutralNonCollect(
     // [AV_127e] Frosty Spirit - COST:0
     // - Set: ALTERAC_VALLEY
     // --------------------------------------------------------
-    // Text: +2/+2.
+    // Text: +1/+1.
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddEnchant(Enchants::GetEnchantFromText("AV_127e"));
