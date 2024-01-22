@@ -314,3 +314,53 @@ TEST_CASE("[Neutral : Minion] - GVG_121 : Clockwork Giant")
     game.Process(opPlayer, PlayCardTask::Minion(card3));
     CHECK_EQ(card1->GetCost(), 6);
 }
+
+// ----------------------------------------- MINION - DRUID
+// [GVG_035] Malorne - COST:7 [ATK:9/HP:7]
+// - Race: Beast, Set: Gvg, Rarity: Legendary
+// --------------------------------------------------------
+// Text: <b>Deathrattle:</b> Shuffle this minion into your deck.
+// --------------------------------------------------------
+// GameTag:
+// - ELITE = 1
+// - DEATHRATTLE = 1
+// - 542 = 1
+// --------------------------------------------------------
+TEST_CASE("[MINION - DRUID] - GVG_035 : Malorne")
+{
+    GameConfig config;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    auto& curField = *(curPlayer->GetFieldZone());
+    auto& opField = *(opPlayer->GetFieldZone());
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Malorne"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Pyroblast"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card1));
+    CHECK_EQ(curField.GetCount(), 1);
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::SpellTarget(card2, card1));
+    CHECK_EQ(curField.GetCount(), 0);
+    CHECK_EQ(curPlayer->GetDeckZone()->GetCount(), 1);
+}

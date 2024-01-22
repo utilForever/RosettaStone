@@ -20,6 +20,8 @@ void GvgCardsGen::AddHeroPowers(std::map<std::string, CardDef>& cards)
 
 void GvgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ----------------------------------------- MINION - DRUID
     // [GVG_030] Anodized Robo Cub - COST:2 [ATK:2/HP:2]
     // - Race: Mechanical, Set: Gvg, Rarity: Common
@@ -87,6 +89,10 @@ void GvgCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // - DEATHRATTLE = 1
     // - 542 = 1
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddDeathrattleTask(
+        std::make_shared<AddCardTask>(EntityType::DECK, "GVG_035"));
+    cards.emplace("GVG_035", cardDef);
 
     // ------------------------------------------ SPELL - DRUID
     // [GVG_041] Dark Wispers - COST:6
