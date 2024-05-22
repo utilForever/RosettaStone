@@ -11,7 +11,7 @@ jobs:
     name: 🌞 Static Analysis - SonarCloud
     runs-on: ubuntu-latest
     env:
-      BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
+      BUILD_WRAPPER_OUT_DIR: bw-output # Directory where build-wrapper output will be placed
     steps:
       - uses: actions/checkout@v3
         with:
@@ -23,7 +23,7 @@ jobs:
         run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_SONARCLOUD=ON ..
       - name: Run build-wrapper
         run: |
-          cd build && build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} make all
+          cd build && build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} make all
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
