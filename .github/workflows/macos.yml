@@ -44,6 +44,11 @@ jobs:
     - uses: actions/checkout@v1
       with:
         submodules: true
+      # NOTE: Linker ICEs with Xcode 15.0.1 (default version on macos-14)
+      # Remove this step if the default gets changed to 15.1 in actions/runner-images.
+    - name: Switch to Xcode v15.1
+      if: matrix.compiler == 'gcc'
+      run: sudo xcode-select -switch /Applications/Xcode_15.1.app
     - name: Configure Compiler
       run: |
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
