@@ -629,7 +629,7 @@ void RevendrethCardsGen::AddHunterNonCollect(
     // --------------------------------------------------------
     // Text: <b>Infused</b>
     //       <b>Battlecry:</b> Summon 2 Gargon Companions.
-    //       <b>Infuse (4):</b> Summon all 3!   
+    //       <b>Infuse (4):</b> Summon all 3!
     // --------------------------------------------------------
     // Entourage: REV_353t3, REV_353t4, REV_353t5
     // --------------------------------------------------------
@@ -1173,7 +1173,7 @@ void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // - Set: REVENDRETH, Rarity: Rare
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no Neutral cards,
-    //       set a minion's stats to 1/1.
+    //       set a minion's stats to 1/1.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -1566,7 +1566,7 @@ void RevendrethCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     // - Set: REVENDRETH, Rarity: Common
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> Cast a <b>Secret</b> from your deck.
-    //       <b>Combo:</b> Cast 2 instead.
+    //       <b>Combo:</b> Cast 2 instead.
     // --------------------------------------------------------
     // GameTag:
     // - BATTLECRY = 1
@@ -3051,7 +3051,7 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: <b>Rush</b>
     //       <b>Deathrattle:</b> Summon an 8/8 Gravewing
-    //       with <b>Rush</b>. 
+    //       with <b>Rush</b>.
     // --------------------------------------------------------
     // GameTag:
     // - DEATHRATTLE = 1

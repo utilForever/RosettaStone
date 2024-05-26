@@ -11,36 +11,36 @@ jobs:
     strategy:
       matrix:
         include:
-          # Ubuntu 22.04 + gcc-12
+          # Ubuntu 22.04 + gcc-13
           - name: "Ubuntu 22.04 + gcc-12"
             os: ubuntu-22.04
             compiler: gcc
             version: "12"
-          # Ubuntu 22.04 + gcc-11
+          # Ubuntu 22.04 + gcc-12
           - name: "Ubuntu 22.04 + gcc-11"
             os: ubuntu-22.04
             compiler: gcc
             version: "11"
-          # Ubuntu 22.04 + gcc-10
+          # Ubuntu 22.04 + gcc-11
           - name: "Ubuntu 22.04 + gcc-10"
             os: ubuntu-22.04
             compiler: gcc
             version: "10"
+          # Ubuntu 22.04 + clang-15
+          - name: "Ubuntu 22.04 + clang-15"
+            os: ubuntu-22.04
+            compiler: clang
+            version: "15"
           # Ubuntu 22.04 + clang-14
           - name: "Ubuntu 22.04 + clang-14"
             os: ubuntu-22.04
             compiler: clang
             version: "14"
-          # Ubuntu 22.04 + clang-14
+          # Ubuntu 22.04 + clang-13
           - name: "Ubuntu 22.04 + clang-13"
             os: ubuntu-22.04
             compiler: clang
             version: "13"
-          # Ubuntu 22.04 + clang-12
-          - name: "Ubuntu 22.04 + clang-12"
-            os: ubuntu-22.04
-            compiler: clang
-            version: "12"
 
     runs-on: ${{ matrix.os }}
     name: 🐧 Build - ${{ matrix.name }}

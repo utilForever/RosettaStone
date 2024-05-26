@@ -35,6 +35,6 @@ jobs:
       run: /a/RosettaStone/RosettaStone/build/bin/Release/UnitTests.exe
     - name: Run Python Test
       run: |
-        pip install -r requirements.txt
-        pip install .
+        pip install -r requirements.txt --break-system-packages
+        pip install . --break-system-packages
         python -m pytest Tests/PythonTests/
