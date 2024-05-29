@@ -216,7 +216,7 @@ The class is licensed under the [Affero GPLv3 License](https://opensource.org/li
 
 RosettaStone is based on part of Sabberstone's code
 
-Copyright &copy; 2017-2023 SabberStone Team, darkfriend77 & rnilva
+Copyright &copy; 2017-2021 SabberStone Team, darkfriend77 & rnilva
 
 RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
