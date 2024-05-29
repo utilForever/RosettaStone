@@ -220,7 +220,7 @@ Copyright &copy; 2017-2021 SabberStone Team, darkfriend77 & rnilva
 
 RosettaStone, Hearthstone simulator using C++ with some reinforcement learning
 
-Copyright &copy; 2017-2023 [Chris Ohk](https://github.com/utilForever)
+Copyright &copy; 2017-2024 [Chris Ohk](https://github.com/utilForever)
 
 RosettaStone is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License. RosettaStone is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 

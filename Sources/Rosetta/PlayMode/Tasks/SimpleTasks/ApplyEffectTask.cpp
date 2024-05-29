@@ -1,7 +1,7 @@
 // This code is based on Sabberstone project.
 // Copyright (c) 2017-2021 SabberStone Team, darkfriend77 & rnilva
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
-// Copyright (c) 2017-2023 Chris Ohk
+// Copyright (c) 2017-2024 Chris Ohk
 
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ApplyEffectTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/IncludeTask.hpp>
