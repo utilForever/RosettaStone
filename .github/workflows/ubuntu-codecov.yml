@@ -41,5 +41,7 @@ jobs:
       run: cd build && make
     - name: Run Unit Test
       run: /home/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
-    - name: Upload coverage to Codecov
-      run: bash <(curl -s https://codecov.io/bash)
+    - name: Upload Coverage Reports to Codecov
+      uses: codecov/codecov-action@v4
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
