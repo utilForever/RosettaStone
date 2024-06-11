@@ -1,5 +1,5 @@
-codecov:
-  require_ci_to_pass: yes
+codecov: 
+  token: ${{ secrets.CODECOV_TOKEN }}
 
 coverage:
   precision: 2
