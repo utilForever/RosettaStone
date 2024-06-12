@@ -60,8 +60,9 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SO
 # NOTE: Code coverage results with an optimized (non-Debug) build may be misleading
 option(BUILD_COVERAGE "Build code coverage" OFF)
 if (CMAKE_BUILD_TYPE MATCHES Debug AND CMAKE_COMPILER_IS_GNUCXX AND BUILD_COVERAGE)
-    include(CodeCoverage)
-    setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
+    include(Builds/CMake/CodeCoverage.cmake)
+    add_code_coverage()
+    add_code_coverage_all_targets()
 endif()
 
 add_subdirectory(Libraries/pybind11)
