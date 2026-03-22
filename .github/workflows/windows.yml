@@ -14,11 +14,11 @@ jobs:
           # Windows Server 2025 + Visual Studio 2026
           - name: "Windows Server 2025 + Visual Studio 2026"
             os: windows-2025-vs2026
-            solution: baba-is-auto.slnx
+            solution: RosettaStone.slnx
           # Windows Server 2022 + Visual Studio 2022
           - name: "Windows Server 2022 + Visual Studio 2022"
             os: windows-2022
-            solution: baba-is-auto.sln
+            solution: RosettaStone.sln
 
     runs-on: ${{ matrix.os }}
     name: 🪟 Build - ${{ matrix.name }}
