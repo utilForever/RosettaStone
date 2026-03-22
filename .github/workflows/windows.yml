@@ -11,26 +11,28 @@ jobs:
     strategy:
       matrix:
         include:
+          # Windows Server 2025 + Visual Studio 2026
+          - name: "Windows Server 2025 + Visual Studio 2026"
+            os: windows-2025-vs2026
+            solution: baba-is-auto.slnx
           # Windows Server 2022 + Visual Studio 2022
           - name: "Windows Server 2022 + Visual Studio 2022"
             os: windows-2022
-          # Windows Server 2019 + Visual Studio 2019
-          - name: "Windows Server 2019 + Visual Studio 2019"
-            os: windows-2019
+            solution: baba-is-auto.sln
 
     runs-on: ${{ matrix.os }}
     name: 🪟 Build - ${{ matrix.name }}
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
       with:
         submodules: true
     - name: Configure Build
       run: mkdir build && cd build && cmake -DCMAKE_GENERATOR_PLATFORM=x64 -DCMAKE_BUILD_TYPE=Release ..
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v2
     - name: Build
-      run: cd build && MSBuild.exe RosettaStone.sln /p:Configuration=Release
+      run: cd build && MSBuild.exe ${{ matrix.solution }} /p:Configuration=Release
     - name: Run Unit Test
       run: /a/RosettaStone/RosettaStone/build/bin/Release/UnitTests.exe
     - name: Run Python Test
