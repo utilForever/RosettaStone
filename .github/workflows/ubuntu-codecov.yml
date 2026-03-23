@@ -52,7 +52,7 @@ jobs:
       run: |
         GCOV_TOOL="$(command -v gcov-${{ matrix.version }})"
         lcov --gcov-tool "${GCOV_TOOL}" --directory build --capture --output-file build/coverage.info
-        lcov --gcov-tool "${GCOV_TOOL}" --remove build/coverage.info '/usr/*' '*/Tests/*' '*/build/*' --output-file build/coverage.info.cleaned
+        lcov --ignore-errors unused --gcov-tool "${GCOV_TOOL}" --remove build/coverage.info '/usr/*' '*/Tests/*' --output-file build/coverage.info.cleaned
     - name: Upload Coverage Reports to Codecov
       uses: codecov/codecov-action@v5
       with:
