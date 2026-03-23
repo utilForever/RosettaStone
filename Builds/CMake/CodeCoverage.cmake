@@ -106,7 +106,7 @@ FUNCTION(SETUP_TARGET_FOR_COVERAGE _targetname _testrunner _outputname)
 	ADD_CUSTOM_TARGET(${_targetname}
 		
 		# Cleanup lcov
-		${LCOV_PATH} --directory . --zerocounters
+		COMMAND ${LCOV_PATH} --directory . --zerocounters
 		
 		# Run tests
 		COMMAND ${_testrunner} ${ARGV3}
@@ -123,7 +123,7 @@ FUNCTION(SETUP_TARGET_FOR_COVERAGE _targetname _testrunner _outputname)
 	
 	# Show info where to find the report
 	ADD_CUSTOM_COMMAND(TARGET ${_targetname} POST_BUILD
-		COMMAND ;
+		COMMAND ${CMAKE_COMMAND} -E echo "Open ./${_outputname}/index.html in your browser to view the coverage report."
 		COMMENT "Open ./${_outputname}/index.html in your browser to view the coverage report."
 	)
 
@@ -147,7 +147,7 @@ FUNCTION(SETUP_TARGET_FOR_COVERAGE_COBERTURA _targetname _testrunner _outputname
 	ADD_CUSTOM_TARGET(${_targetname}
 
 		# Run tests
-		${_testrunner} ${ARGV3}
+		COMMAND ${_testrunner} ${ARGV3}
 
 		# Running gcovr
 		COMMAND ${GCOVR_PATH} -x -r ${CMAKE_SOURCE_DIR} -e '${CMAKE_SOURCE_DIR}/tests/' -e '${CMAKE_SOURCE_DIR}/build/'  -o ${_outputname}.xml
@@ -157,7 +157,7 @@ FUNCTION(SETUP_TARGET_FOR_COVERAGE_COBERTURA _targetname _testrunner _outputname
 
 	# Show info where to find the report
 	ADD_CUSTOM_COMMAND(TARGET ${_targetname} POST_BUILD
-		COMMAND ;
+		COMMAND ${CMAKE_COMMAND} -E echo "Cobertura code coverage report saved in ${_outputname}.xml."
 		COMMENT "Cobertura code coverage report saved in ${_outputname}.xml."
 	)
 
