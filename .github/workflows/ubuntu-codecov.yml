@@ -48,7 +48,17 @@ jobs:
       run: cd build && make
     - name: Run Unit Test
       run: /home/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
+    - name: Collect coverage report
+      run: |
+        GCOV_TOOL="$(command -v gcov-${{ matrix.version }})"
+        lcov --gcov-tool "${GCOV_TOOL}" --directory build --capture --output-file build/coverage.info
+        lcov --gcov-tool "${GCOV_TOOL}" --remove build/coverage.info '/usr/*' '*/Tests/*' '*/build/*' --output-file build/coverage.info.cleaned
     - name: Upload Coverage Reports to Codecov
-      uses: codecov/codecov-action@v4
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      uses: codecov/codecov-action@v5
+      with:
+        fail_ci_if_error: true
+        files: ./build/coverage.info.cleaned
+        flags: unittests
+        name: ubuntu-codecov
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
