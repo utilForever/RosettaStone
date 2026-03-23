@@ -6,49 +6,51 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  PYTHON_VERSION: '3.12'
+
 jobs:
   build-macos:
     strategy:
       matrix:
         include:
-          # macOS 14 + Xcode 15.4
-          - name: "macOS 14 + Xcode 15.4"
-            os: macos-14
+          # macOS 26.3 + Xcode 26.3
+          - name: "macOS 26.3 + Xcode 26.3"
+            os: macos-26
             compiler: xcode
-            version: "15.4"
-          # macOS 14 + Xcode 15.0.1
-          - name: "macOS 14 + Xcode 15.0.1"
-            os: macos-14
+            version: "26.3"
+          # macOS 15.7.4 + Xcode 16.4
+          - name: "macOS 15.7.4 + Xcode 16.4"
+            os: macos-15
             compiler: xcode
-            version: "15.0.1"
-          # macOS 14 + gcc-13
-          # - name: "macOS 14 + gcc-13"
-          #   os: macos-14
-          #   compiler: gcc
-          #   version: "13"
-          # macOS 14 + gcc-12
-          - name: "macOS 14 + gcc-12"
-            os: macos-14
+            version: "16.4"
+          # macOS 26.3 + gcc-15
+          - name: "macOS 26.3 + gcc-15"
+            os: macos-26
             compiler: gcc
-            version: "12"
-          # macOS 14 + gcc-11
-          - name: "macOS 14 + gcc-11"
-            os: macos-14
+            version: "15"
+          # macOS 26.3 + gcc-14
+          - name: "macOS 26.3 + gcc-14"
+            os: macos-26
             compiler: gcc
-            version: "11"
+            version: "14"
+          # macOS 26.3 + gcc-13
+          - name: "macOS 26.3 + gcc-13"
+            os: macos-26
+            compiler: gcc
+            version: "13"
 
     runs-on: ${{ matrix.os }}
     name: 🍎 Build - ${{ matrix.name }}
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
       with:
         submodules: true
-      # NOTE: Linker ICEs with Xcode 15.0.1 (default version on macos-14)
-      # Remove this step if the default gets changed to 15.1 in actions/runner-images.
-    - name: Switch to Xcode v15.1
-      if: matrix.compiler == 'gcc'
-      run: sudo xcode-select -switch /Applications/Xcode_15.1.app
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
     - name: Configure Compiler
       run: |
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
@@ -68,6 +70,7 @@ jobs:
       run: /Users/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
     - name: Run Python Test
       run: |
-        pip3 install -r requirements.txt --break-system-packages
-        pip3 install . --break-system-packages
-        python3 -m pytest Tests/PythonTests/
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install .
+        python -m pytest Tests/PythonTests/
