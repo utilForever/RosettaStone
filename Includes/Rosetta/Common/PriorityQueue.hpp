@@ -4,11 +4,12 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
-#ifndef ROSETTASTONE_PRIOIRTY_QUEUE_HPP
-#define ROSETTASTONE_PRIOIRTY_QUEUE_HPP
+#ifndef ROSETTASTONE_PRIORITY_QUEUE_HPP
+#define ROSETTASTONE_PRIORITY_QUEUE_HPP
 
 #include <algorithm>
 #include <cstddef>
+#include <stdexcept>
 
 namespace RosettaStone
 {
@@ -30,6 +31,7 @@ class PriorityQueue
     //! Destructor.
     ~PriorityQueue()
     {
+        Clear();
         delete m_head;
     }
 
@@ -58,27 +60,10 @@ class PriorityQueue
     }
 
     //! Move constructor.
-    PriorityQueue(PriorityQueue&& rhs) noexcept : m_count(rhs.m_count)
+    PriorityQueue(PriorityQueue&& rhs) noexcept : PriorityQueue()
     {
-        const Node* rhsNode = rhs.m_head;
-        Node* curNode = nullptr;
-
-        if (rhsNode)
-        {
-            m_head = new Node(rhsNode->value, rhsNode->priority);
-            curNode = m_head;
-
-            rhsNode = rhsNode->next;
-        }
-
-        while (rhsNode)
-        {
-            Node* newNode = new Node(rhsNode->value, rhsNode->priority);
-            curNode->next = newNode;
-
-            curNode = curNode->next;
-            rhsNode = rhsNode->next;
-        }
+        std::swap(m_head, rhs.m_head);
+        std::swap(m_count, rhs.m_count);
     }
 
     //! Copy assignment operator.
@@ -91,19 +76,23 @@ class PriorityQueue
 
         PriorityQueue<T> temp(rhs);
         std::swap(temp.m_head, m_head);
+        std::swap(temp.m_count, m_count);
         return *this;
     }
 
     //! Move assignment operator.
     PriorityQueue& operator=(PriorityQueue&& rhs) noexcept
     {
-        if (*this == rhs)
+        if (this == &rhs)
         {
             return *this;
         }
 
-        PriorityQueue<T> temp(rhs);
-        std::swap(temp.m_head, m_head);
+        PriorityQueue<T> temp;
+        std::swap(temp.m_head, rhs.m_head);
+        std::swap(temp.m_count, rhs.m_count);
+        std::swap(m_head, temp.m_head);
+        std::swap(m_count, temp.m_count);
         return *this;
     }
 
@@ -145,11 +134,19 @@ class PriorityQueue
     //! \return The top element that is removed.
     T Pop()
     {
+        if (IsEmpty())
+        {
+            throw std::out_of_range("Cannot pop from an empty priority queue");
+        }
+
         Node* node = m_head->next;
         m_head->next = node->next;
         m_count--;
 
-        return node->value;
+        T value = node->value;
+        delete node;
+
+        return value;
     }
 
     //! Checks if the value of the element exists.
@@ -205,9 +202,34 @@ class PriorityQueue
         Node* next = nullptr;
     };
 
+    //!
+    //! \brief Clears the priority queue.
+    //!
+    //! This function deletes all the nodes in the priority queue and resets the
+    //! count to 0.
+    //!
+    void Clear()
+    {
+        if (!m_head)
+        {
+            return;
+        }
+
+        Node* node = m_head->next;
+        while (node)
+        {
+            Node* next = node->next;
+            delete node;
+            node = next;
+        }
+
+        m_head->next = nullptr;
+        m_count = 0;
+    }
+
     Node* m_head = nullptr;
     std::size_t m_count = 0;
 };
 }  // namespace RosettaStone
 
-#endif  // ROSETTASTONE_PRIOIRTY_QUEUE_HPP
+#endif  // ROSETTASTONE_PRIORITY_QUEUE_HPP
