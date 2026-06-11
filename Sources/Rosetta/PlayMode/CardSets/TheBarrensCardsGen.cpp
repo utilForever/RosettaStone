@@ -3576,9 +3576,16 @@ void TheBarrensCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddFrenzyTask(std::make_shared<CustomTask>(
         [](Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            int damage = dynamic_cast<Minion*>(source)->GetDamage();
+            const auto minion = dynamic_cast<Minion*>(source);
 
+            if (!minion)
+            {
+                return;
+            }
+
+            int damage = minion->GetDamage();
             const auto& armorTask = std::make_shared<ArmorTask>(damage);
+
             armorTask->SetPlayer(player);
             armorTask->SetSource(source);
             armorTask->SetTarget(target);

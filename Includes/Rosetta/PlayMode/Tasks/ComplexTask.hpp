@@ -389,7 +389,7 @@ class ComplexTask
     //! \param numTarget The number of target(s).
     //! \param damage A value indicating how much to deal.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.
-    static TaskList DamageRandomTargets(EntityType entityType, int numTarget, 
+    static TaskList DamageRandomTargets(EntityType entityType, int numTarget,
                                         int damage, bool isSpellDamage = false)
     {
         return TaskList{
@@ -421,7 +421,8 @@ class ComplexTask
                         taskStack.playables.emplace_back(minion);
                     }
 
-                    return dynamic_cast<Minion*>(playable)->GetAttack();
+                    const auto source = dynamic_cast<Minion*>(playable);
+                    return source ? source->GetAttack() : 0;
                 }),
             std::make_shared<SimpleTasks::DamageNumberTask>(EntityType::STACK)
         };

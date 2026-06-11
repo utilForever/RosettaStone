@@ -60,7 +60,10 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
 
     if (!_card->power.GetDeathrattleTask().empty())
     {
-        dynamic_cast<Playable*>(target)->SetGameTag(GameTag::DEATHRATTLE, 1);
+        if (const auto playable = dynamic_cast<Playable*>(target); playable)
+        {
+            playable->SetGameTag(GameTag::DEATHRATTLE, 1);
+        }
     }
 
     return instance;

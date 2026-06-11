@@ -11,11 +11,18 @@
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::PlayMode::Generic
 {
 Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
                bool deathrattle)
 {
+    if (!player || !source || !source->card)
+    {
+        throw std::invalid_argument("Copy() - Invalid source.");
+    }
+
     //! \note Determine whether enchantments should be also copied.
     //! Whenever a card moves forward in that flow (Deck -> Hand, Hand -> Play,
     //! Deck -> Play), it retains enchantments. If a card moves backwards in
@@ -61,7 +68,14 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
         if (const auto character = dynamic_cast<Character*>(copiedEntity);
             character)
         {
-            dynamic_cast<Character*>(source)->CopyInternalAttributes(character);
+            const auto sourceCharacter = dynamic_cast<Character*>(source);
+
+            if (!sourceCharacter)
+            {
+                throw std::logic_error("Copy() - Source is not a character.");
+            }
+
+            sourceCharacter->CopyInternalAttributes(character);
         }
 
         for (const auto& enchantment : source->appliedEnchantments)
@@ -127,7 +141,15 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
 
                 if (deathrattle)
                 {
-                    position = dynamic_cast<Minion*>(source)->GetLastBoardPos();
+                    const auto sourceMinion = dynamic_cast<Minion*>(source);
+
+                    if (!sourceMinion)
+                    {
+                        throw std::logic_error(
+                            "Copy() - Deathrattle source is not a minion.");
+                    }
+
+                    position = sourceMinion->GetLastBoardPos();
 
                     if (position > player->GetFieldZone()->GetCount())
                     {
@@ -135,7 +157,15 @@ Playable* Copy(Player* player, Playable* source, ZoneType targetZone,
                     }
                 }
 
-                Summon(dynamic_cast<Minion*>(copiedEntity), position, source);
+                const auto copiedMinion = dynamic_cast<Minion*>(copiedEntity);
+
+                if (!copiedMinion)
+                {
+                    throw std::logic_error(
+                        "Copy() - Copied entity is not a minion.");
+                }
+
+                Summon(copiedMinion, position, source);
             }
             break;
         }

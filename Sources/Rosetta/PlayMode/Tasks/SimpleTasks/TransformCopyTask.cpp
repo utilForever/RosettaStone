@@ -28,16 +28,22 @@ TaskStatus TransformCopyTask::Impl(Player* player)
 
     const auto source = dynamic_cast<Minion*>(m_toTarget ? m_target : m_source);
 
-    if (source->GetZoneType() != ZoneType::PLAY)
+    if (!source || source->GetZoneType() != ZoneType::PLAY)
     {
         return TaskStatus::STOP;
     }
 
     const auto copiedCard = Entity::GetFromCard(player, target->card, {});
+    const auto copiedMinion = dynamic_cast<Minion*>(copiedCard);
+
+    if (!copiedMinion)
+    {
+        return TaskStatus::STOP;
+    }
+
     IAura* aura = target->ongoingEffect;
 
-    source->player->GetFieldZone()->Replace(source,
-                                            dynamic_cast<Minion*>(copiedCard));
+    source->player->GetFieldZone()->Replace(source, copiedMinion);
 
     if (!target->appliedEnchantments.empty())
     {
@@ -85,7 +91,7 @@ TaskStatus TransformCopyTask::Impl(Player* player)
     }
     else if (target->HasRush())
     {
-        dynamic_cast<Minion*>(copiedCard)->SetAttackableByRush(true);
+        copiedMinion->SetAttackableByRush(true);
         copiedCard->game->rushMinions.emplace_back(
             copiedCard->GetGameTag(GameTag::ENTITY_ID));
     }

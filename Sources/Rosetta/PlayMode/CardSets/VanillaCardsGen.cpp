@@ -2995,7 +2995,8 @@ void VanillaCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
         GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
-            return dynamic_cast<Minion*>(playable)->GetHealth();
+            const auto minion = dynamic_cast<Minion*>(playable);
+            return minion ? minion->GetHealth() : 0;
         }));
     cards.emplace("VAN_EX1_335", cardDef);
 

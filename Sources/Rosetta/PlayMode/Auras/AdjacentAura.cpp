@@ -11,6 +11,8 @@
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
+#include <stdexcept>
+
 namespace RosettaStone::PlayMode
 {
 AdjacentAura::AdjacentAura(std::string&& enchantmentID)
@@ -21,7 +23,15 @@ AdjacentAura::AdjacentAura(std::string&& enchantmentID)
 
 void AdjacentAura::Activate(Playable* owner, [[maybe_unused]] bool cloning)
 {
-    new AdjacentAura(*this, *dynamic_cast<Minion*>(owner), false);
+    const auto minion = dynamic_cast<Minion*>(owner);
+
+    if (!minion)
+    {
+        throw std::invalid_argument(
+            "AdjacentAura::Activate() - Invalid owner.");
+    }
+
+    new AdjacentAura(*this, *minion, false);
 }
 
 void AdjacentAura::Update()
@@ -106,7 +116,14 @@ void AdjacentAura::Remove()
 
 void AdjacentAura::Clone(Playable* clone)
 {
-    new AdjacentAura(*this, *dynamic_cast<Minion*>(clone), true);
+    const auto minion = dynamic_cast<Minion*>(clone);
+
+    if (!minion)
+    {
+        throw std::invalid_argument("AdjacentAura::Clone() - Invalid clone.");
+    }
+
+    new AdjacentAura(*this, *minion, true);
 }
 
 void AdjacentAura::SetIsFieldChanged(bool isFieldChanged)
