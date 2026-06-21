@@ -6,6 +6,7 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Common/PriorityQueue.hpp>
 #include <Rosetta/Common/Utils.hpp>
 
 #include <array>
@@ -56,4 +57,61 @@ TEST_CASE("[Utils] - SplitSpring")
     CHECK_EQ(tokens[0], "1");
     CHECK_EQ(tokens[1], "2");
     CHECK_EQ(tokens[2], "3");
+}
+
+TEST_CASE("[PriorityQueue] - Pop empty queue throws")
+{
+    RosettaStone::PriorityQueue<int> queue;
+
+    CHECK(queue.IsEmpty());
+    CHECK_THROWS(queue.Pop());
+}
+
+TEST_CASE("[PriorityQueue] - Copy assignment preserves count")
+{
+    RosettaStone::PriorityQueue<int> source;
+    source.Push(10, 2);
+    source.Push(20, 1);
+
+    RosettaStone::PriorityQueue<int> target;
+    target.Push(30, 3);
+    target = source;
+
+    CHECK_EQ(target.GetCount(), 2u);
+    CHECK_EQ(target.Pop(), 20);
+    CHECK_EQ(target.Pop(), 10);
+    CHECK(target.IsEmpty());
+}
+
+TEST_CASE("[PriorityQueue] - Move assignment transfers nodes")
+{
+    RosettaStone::PriorityQueue<int> source;
+    source.Push(10, 2);
+    source.Push(20, 1);
+
+    RosettaStone::PriorityQueue<int> target;
+    target.Push(30, 3);
+    target = static_cast<RosettaStone::PriorityQueue<int>&&>(source);
+
+    CHECK_EQ(target.GetCount(), 2u);
+    CHECK_EQ(target.Pop(), 20);
+    CHECK_EQ(target.Pop(), 10);
+    CHECK(target.IsEmpty());
+    CHECK(source.IsEmpty());
+}
+
+TEST_CASE("[PriorityQueue] - Move constructor transfers nodes")
+{
+    RosettaStone::PriorityQueue<int> source;
+    source.Push(10, 2);
+    source.Push(20, 1);
+
+    RosettaStone::PriorityQueue<int> target(
+        static_cast<RosettaStone::PriorityQueue<int>&&>(source));
+
+    CHECK_EQ(target.GetCount(), 2u);
+    CHECK_EQ(target.Pop(), 20);
+    CHECK_EQ(target.Pop(), 10);
+    CHECK(target.IsEmpty());
+    CHECK(source.IsEmpty());
 }

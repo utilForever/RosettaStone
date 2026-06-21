@@ -8,7 +8,6 @@
 #define ROSETTASTONE_PRIORITY_QUEUE_HPP
 
 #include <algorithm>
-#include <cstddef>
 #include <stdexcept>
 
 namespace RosettaStone
@@ -88,11 +87,10 @@ class PriorityQueue
             return *this;
         }
 
-        PriorityQueue<T> temp;
-        std::swap(temp.m_head, rhs.m_head);
-        std::swap(temp.m_count, rhs.m_count);
+        PriorityQueue<T> temp(static_cast<PriorityQueue<T>&&>(rhs));
         std::swap(m_head, temp.m_head);
         std::swap(m_count, temp.m_count);
+
         return *this;
     }
 
