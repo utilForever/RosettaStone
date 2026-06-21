@@ -76,7 +76,8 @@ Deck DeckCode::Decode(std::string_view deckCode)
 
     const Card* hero = Cards::FindCardByDbfID(ReadVarint());
 
-    if (hero->id.empty() || hero->GetCardClass() == CardClass::INVALID)
+    if (!hero || hero->id.empty() ||
+        hero->GetCardClass() == CardClass::INVALID)
     {
         throw std::runtime_error("Invalid hero");
     }
@@ -91,7 +92,7 @@ Deck DeckCode::Decode(std::string_view deckCode)
         const int cardID = ReadVarint();
         Card* card = Cards::FindCardByDbfID(cardID);
 
-        if (card->id.empty())
+        if (!card || card->id.empty())
         {
             throw std::runtime_error("Invalid card");
         }
@@ -107,7 +108,7 @@ Deck DeckCode::Decode(std::string_view deckCode)
         const int cardID = ReadVarint();
         Card* card = Cards::FindCardByDbfID(cardID);
 
-        if (card->id.empty())
+        if (!card || card->id.empty())
         {
             throw std::runtime_error("Invalid card");
         }
@@ -124,7 +125,7 @@ Deck DeckCode::Decode(std::string_view deckCode)
         const int count = ReadVarint();
         Card* card = Cards::FindCardByDbfID(cardID);
 
-        if (card->id.empty())
+        if (!card || card->id.empty())
         {
             throw std::runtime_error("Invalid card");
         }
