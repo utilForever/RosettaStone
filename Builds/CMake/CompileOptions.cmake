@@ -100,6 +100,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 		/wd4702       # -> disable warning: unreachable code (caused by Torch)
 		/wd4189       # -> disable warning: local variable is initialized but not referenced (caused by tiny-dnn)
 		/wd5033       # -> disable warning: 'register' is no longer a supported storage class
+		/wd5285       # -> disable warning: cannot declare a specialization for 'std::tuple' (caused by doctest)
 
 		#$<$<CONFIG:Debug>:
 		#/RTCc        # -> value is assigned to a smaller data type and results in a data loss
