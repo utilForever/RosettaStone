@@ -19,6 +19,11 @@
 using namespace RosettaStone;
 using namespace PlayMode;
 
+TEST_CASE("[Copy] - Invalid source throws")
+{
+    CHECK_THROWS(Generic::Copy(nullptr, nullptr, ZoneType::HAND));
+}
+
 TEST_CASE("[Copy] - Copy")
 {
     GameConfig config;

@@ -49,8 +49,11 @@ TaskStatus TransformCopyTask::Impl(Player* player)
     {
         for (const auto& enchantment : target->appliedEnchantments)
         {
-            const auto instance =
-                Enchantment::GetInstance(target, enchantment->card, copiedCard);
+            const auto enchantmentOwner = target;
+            const auto enchantmentTarget = copiedCard;
+            const auto instance = Enchantment::GetInstance(
+                enchantmentOwner, enchantment->card, enchantmentTarget);
+
             if (enchantment->GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1) > 0)
             {
                 instance->SetGameTag(
@@ -69,14 +72,10 @@ TaskStatus TransformCopyTask::Impl(Player* player)
 
     for (const auto& tag : target->GetGameTags())
     {
-        switch (tag.first)
+        if (tag.first != GameTag::ZONE && tag.first != GameTag::ZONE_POSITION &&
+            tag.first != GameTag::EXHAUSTED)
         {
-            case GameTag::ZONE:
-            case GameTag::ZONE_POSITION:
-            case GameTag::EXHAUSTED:
-                break;
-            default:
-                copiedCard->SetGameTag(tag.first, tag.second);
+            copiedCard->SetGameTag(tag.first, tag.second);
         }
     }
 
