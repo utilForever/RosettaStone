@@ -76,8 +76,7 @@ Deck DeckCode::Decode(std::string_view deckCode)
 
     const Card* hero = Cards::FindCardByDbfID(ReadVarint());
 
-    if (!hero || hero->id.empty() ||
-        hero->GetCardClass() == CardClass::INVALID)
+    if (!hero || hero->id.empty() || hero->GetCardClass() == CardClass::INVALID)
     {
         throw std::runtime_error("Invalid hero");
     }
