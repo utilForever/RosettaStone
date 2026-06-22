@@ -11,10 +11,13 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Models/Playable.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+
+#include <map>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -22,6 +25,46 @@ using namespace PlayMode;
 TEST_CASE("[Copy] - Invalid source throws")
 {
     CHECK_THROWS(Generic::Copy(nullptr, nullptr, ZoneType::HAND));
+}
+
+TEST_CASE("[Copy] - Inconsistent source throws")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    const std::map<GameTag, int> tags;
+
+    SUBCASE("Source card copies to character but source is not a character")
+    {
+        Playable source(curPlayer, Cards::FindCardByName("Wisp"), tags, -1);
+
+        CHECK_THROWS(Generic::Copy(curPlayer, &source, ZoneType::PLAY));
+    }
+
+    SUBCASE("Source card does not copy to minion for play zone")
+    {
+        Playable source(curPlayer, Cards::FindCardByName("Fireball"), tags, -1);
+
+        CHECK_THROWS(Generic::Copy(curPlayer, &source, ZoneType::PLAY));
+    }
+
+    SUBCASE("Deathrattle source is not a minion")
+    {
+        Playable source(curPlayer, Cards::FindCardByName("Wisp"), tags, -1);
+        source.zone = curPlayer->GetGraveyardZone();
+        source.SetZoneType(ZoneType::GRAVEYARD);
+
+        CHECK_THROWS(Generic::Copy(curPlayer, &source, ZoneType::PLAY, true));
+    }
 }
 
 TEST_CASE("[Copy] - Copy")
