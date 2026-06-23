@@ -26,56 +26,33 @@ std::vector<unsigned char> DecodeBase64(std::string_view src)
         -1, -1, -1, -1
     };
 
-    union
-    {
-        struct
-        {
-            unsigned char c1, c2, c3;
-        } chCode;
-
-        struct
-        {
-            unsigned int e1 : 6, e2 : 6, e3 : 6, e4 : 6;
-        } intCode;
-    } temp;
-
     std::vector<unsigned char> ret;
-    std::vector<unsigned char> srcTmp(begin(src), end(src));
+    int value = 0;
+    int valueBits = -8;
 
-    int blank = 0;
-    for (std::size_t i = 0; i < src.size(); i += 4)
+    for (const unsigned char ch : src)
     {
-        temp.intCode.e4 = decodeTable[srcTmp[i]];
-        temp.intCode.e3 = decodeTable[srcTmp[i + 1]];
-
-        if (src[i + 2] == '=')
+        if (ch == '=')
         {
-            temp.intCode.e2 = 0;
-            ++blank;
-        }
-        else
-        {
-            temp.intCode.e2 = decodeTable[srcTmp[i + 2]];
+            break;
         }
 
-        if (src[i + 3] == '=')
+        const int decoded = decodeTable[ch];
+
+        if (decoded < 0)
         {
-            temp.intCode.e1 = 0;
-            ++blank;
-        }
-        else
-        {
-            temp.intCode.e1 = decodeTable[srcTmp[i + 3]];
+            return ret;
         }
 
-        ret.emplace_back(temp.chCode.c3);
-        ret.emplace_back(temp.chCode.c2);
-        ret.emplace_back(temp.chCode.c1);
-    }
+        value = (value << 6) | decoded;
+        valueBits += 6;
 
-    for (int i = 0; i < blank; ++i)
-    {
-        ret.pop_back();
+        if (valueBits >= 0)
+        {
+            ret.emplace_back(
+                static_cast<unsigned char>((value >> valueBits) & 0xff));
+            valueBits -= 8;
+        }
     }
 
     return ret;

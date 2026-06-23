@@ -369,8 +369,10 @@ class LimitedZone : public Zone<T>
 
         ++m_count;
 
-        dynamic_cast<Playable*>(entity)->zone = this;
-        dynamic_cast<Playable*>(entity)->SetZoneType(Zone<T>::m_type);
+        auto playable = static_cast<Playable*>(entity);
+
+        playable->zone = this;
+        playable->SetZoneType(Zone<T>::m_type);
     }
 
     //! Returns the number of entities in this zone.

@@ -13,7 +13,12 @@ using namespace PlayMode;
 
 TEST_CASE("[DeckString] - Decode")
 {
+    CHECK_THROWS(DeckCode::Decode(""));
     CHECK_THROWS(DeckCode::Decode("AAECAR8I"));
+    CHECK_THROWS(DeckCode::Decode("AAECAb+EPQAAAA=="));
+    CHECK_THROWS_WITH(DeckCode::Decode("AAECAR8Bv4Q9AAA="), "Invalid card");
+    CHECK_THROWS_WITH(DeckCode::Decode("AAECAR8AAb+EPQA="), "Invalid card");
+    CHECK_THROWS_WITH(DeckCode::Decode("AAECAR8AAAG/hD0B"), "Invalid card");
     CHECK_THROWS(
         DeckCode::Decode("AQECAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArU"
                          "DxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="));
