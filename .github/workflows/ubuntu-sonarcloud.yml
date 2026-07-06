@@ -6,6 +6,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: 🔎 Static Analysis - SonarCloud
@@ -18,6 +21,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
+          persist-credentials: false
       - name: Install Build Wrapper
         uses: SonarSource/sonarqube-scan-action/install-build-wrapper@v8
       - name: Configure Build
