@@ -1,32 +1,38 @@
-# name: Static Analysis
+name: Static Analysis
 
-# on:
-#   push:
-#     branches: [ main ]
-#   pull_request:
-#     types: [ opened, synchronize, reopened ]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
 
-# jobs:
-#   build:
-#     name: 🌞 Static Analysis - SonarCloud
-#     runs-on: ubuntu-latest
-#     env:
-#       BUILD_WRAPPER_OUT_DIR: bw-output # Directory where build-wrapper output will be placed
-#     steps:
-#       - uses: actions/checkout@v3
-#         with:
-#           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-#           submodules: true
-#       - name: Install sonar-scanner and build-wrapper
-#         uses: SonarSource/sonarcloud-github-c-cpp@v2
-#       - name: Configure Build
-#         run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_SONARCLOUD=ON ..
-#       - name: Run build-wrapper
-#         run: |
-#           cd build && build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} make all
-#       - name: Run sonar-scanner
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#         run: |
-#           sonar-scanner --define sonar.cfamily.compile-commands="${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: 🔎 Static Analysis - SonarCloud
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      BUILD_WRAPPER_OUT_DIR: bw-output
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+          persist-credentials: false
+      - name: Install Build Wrapper
+        uses: SonarSource/sonarqube-scan-action/install-build-wrapper@713881670b6b3676cda39549040e2d88c70d582e
+      - name: Configure Build
+        run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug ..
+      - name: Run Build Wrapper
+        run: cd build && build-wrapper-linux-x86-64 --out-dir ../${{ env.BUILD_WRAPPER_OUT_DIR }} make all
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            --define "sonar.cfamily.compile-commands=${{ env.BUILD_WRAPPER_OUT_DIR }}/compile_commands.json"
