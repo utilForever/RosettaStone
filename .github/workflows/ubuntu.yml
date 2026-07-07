@@ -55,7 +55,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Install packages
-      run: sudo apt-get update && sudo apt-get install -yq python3-setuptools
+      run: sudo apt-get update && sudo apt-get install -yq autoconf autoconf-archive automake libtool python3-setuptools
     - name: Configure Compiler
       run: |
         if [ "${{ matrix.compiler }}" = "gcc" ]; then

@@ -23,6 +23,8 @@ jobs:
           persist-credentials: false
       - name: Install Build Wrapper
         uses: SonarSource/sonarqube-scan-action/install-build-wrapper@713881670b6b3676cda39549040e2d88c70d582e
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install -yq autoconf autoconf-archive automake libtool
       - name: Configure Build
         run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake" ..
       - name: Run Build Wrapper

@@ -49,6 +49,8 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+    - name: Install packages
+      run: brew install autoconf autoconf-archive automake libtool
     - name: Configure Compiler
       run: |
         if [ "${{ matrix.compiler }}" = "gcc" ]; then

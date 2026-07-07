@@ -30,7 +30,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Install packages
-      run: sudo apt-get install -yq lcov
+      run: sudo apt-get update && sudo apt-get install -yq autoconf autoconf-archive automake libtool lcov
     - name: Configure Compiler
       run: |
         if [ "${{ matrix.compiler }}" = "gcc" ]; then
