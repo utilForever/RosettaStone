@@ -8,7 +8,7 @@
 #define ROSETTASTONE_UNIT_TESTS_CARD_SET_HEADERS_HPP
 
 #include <iostream>
-#include <doctest.h>
+#include <doctest/doctest.h>
 #include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Choose.hpp>

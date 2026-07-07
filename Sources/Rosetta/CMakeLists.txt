@@ -7,7 +7,6 @@ set(root_dir ${CMAKE_CURRENT_SOURCE_DIR}/../..)
 # Includes
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../Includes
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../Libraries
 )
 
 # Sources
@@ -72,6 +71,8 @@ target_link_libraries(${target}
 
     PUBLIC
     ${DEFAULT_LINKER_OPTIONS}
+    effolkronium_random
+    nlohmann_json::nlohmann_json
 
     INTERFACE
 )

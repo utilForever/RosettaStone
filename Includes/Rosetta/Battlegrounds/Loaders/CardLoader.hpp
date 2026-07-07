@@ -10,7 +10,7 @@
 #include <Rosetta/Battlegrounds/Cards/Card.hpp>
 #include <Rosetta/Common/Constants.hpp>
 
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <array>
 
