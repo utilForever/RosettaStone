@@ -1,0 +1,11 @@
+{
+  "name": "rosettastone",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "bfgroup-lyra",
+    "doctest",
+    "effolkronium-random",
+    "nlohmann-json",
+    "pybind11"
+  ]
+}

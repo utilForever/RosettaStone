@@ -9,7 +9,7 @@
 
 #include <Rosetta/PlayMode/Cards/Card.hpp>
 
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 #include <vector>
 

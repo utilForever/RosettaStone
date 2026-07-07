@@ -45,6 +45,12 @@ class CMakeBuild(build_ext):
         build_args = ['--config', cfg]
 
         env = os.environ.copy()
+        toolchain = env.get('CMAKE_TOOLCHAIN_FILE')
+        vcpkg_root = env.get('VCPKG_ROOT') or env.get('VCPKG_INSTALLATION_ROOT')
+        if not toolchain and vcpkg_root:
+            toolchain = os.path.join(vcpkg_root, 'scripts', 'buildsystems', 'vcpkg.cmake')
+        if toolchain:
+            cmake_args += ['-DCMAKE_TOOLCHAIN_FILE=' + toolchain]
 
         if platform.system() == "Windows":
             cmake_args += ['-DROSETTASTONE_ENABLE_MSVC_LTCG=OFF']

@@ -24,11 +24,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Includes
 include_directories(Includes)
 include_directories(Extensions/RosettaPython/Includes)
-include_directories(Libraries)
-include_directories(Libraries/doctest/doctest)
-include_directories(Libraries/Lyra/include)
-include_directories(Libraries/random/include)
-include_directories(Libraries/pybind11/include)
+
+# Dependencies
+find_package(doctest CONFIG REQUIRED)
+find_package(effolkronium_random CONFIG REQUIRED)
+find_package(lyra CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(pybind11 CONFIG REQUIRED)
 
 # Compile options
 include(Builds/CMake/CompileOptions.cmake)
@@ -48,7 +50,6 @@ set(RESOURCES_JSONS
     ${RESOURCES_DIR}/cards.json)
 
 # Project modules
-add_subdirectory(Libraries/doctest)
 add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
@@ -64,7 +65,6 @@ if (CMAKE_BUILD_TYPE MATCHES Debug AND CMAKE_COMPILER_IS_GNUCXX AND BUILD_COVERA
     setup_target_for_coverage(${PROJECT_NAME}_coverage UnitTests coverage)
 endif()
 
-add_subdirectory(Libraries/pybind11)
 if (BUILD_FROM_PIP)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 endif()

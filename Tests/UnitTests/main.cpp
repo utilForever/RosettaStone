@@ -5,7 +5,7 @@
 // property of any third parties.
 
 #define DOCTEST_CONFIG_IMPLEMENT
-#include <doctest.h>
+#include <doctest/doctest.h>
 
 #include <Rosetta/Battlegrounds/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
