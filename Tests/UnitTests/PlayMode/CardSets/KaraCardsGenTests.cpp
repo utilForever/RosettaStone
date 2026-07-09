@@ -565,7 +565,10 @@ TEST_CASE("[Paladin : Spell] - KAR_077 : Silvermoon Portal")
     game.Process(curPlayer, PlayCardTask::Minion(card2));
     game.Process(curPlayer, PlayCardTask::MinionTarget(card1, card2));
     CHECK_EQ(curField.GetCount(), 2);
-    CHECK_EQ(curField[0]->GetAttack(), 3);
+    // NOTE: Due to 'Flametongue Totem' (CORE_EX1_565),
+    //       adjacent minions have +2 Attack.
+    //       Therefore, use CHECK_GE instead of CHECK_EQ for Attack value.
+    CHECK_GE(curField[0]->GetAttack(), 3);
     CHECK_EQ(curField[0]->GetHealth(), 3);
     CHECK_EQ(curField[1]->card->GetCost(), 2);
 }
