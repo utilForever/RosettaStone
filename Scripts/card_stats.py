@@ -14,19 +14,33 @@ def collect(format_name):
     path = ROOT / f"Documents/CardList - {format_name}.md"
     sections = {}
     section = None
+    in_table = False
 
     for line in path.read_text(encoding="utf-8").splitlines():
         if line.startswith("## "):
             section = line[3:]
+            in_table = False
+            continue
+
+        if line == "Set | ID | Name | Implemented":
+            in_table = True
+            continue
+        if not in_table:
+            continue
+        if not line:
+            in_table = False
             continue
 
         cells = [cell.strip() for cell in line.split("|")]
-        if section and len(cells) == 4 and cells[0] not in {"Set", ":---:"}:
-            if cells[3] not in {"", "O"}:
-                raise ValueError(f"Unknown implementation status in {path}: {cells[3]}")
-            counts = sections.setdefault(section, [0, 0])
-            counts[0] += cells[3] == "O"
-            counts[1] += 1
+        if len(cells) != 4:
+            raise ValueError(f"Malformed card-list row in {path}: {line}")
+        if cells[0] == ":---:":
+            continue
+        if cells[3] not in {"", "O"}:
+            raise ValueError(f"Unknown implementation status in {path}: {cells[3]}")
+        counts = sections.setdefault(section, [0, 0])
+        counts[0] += cells[3] == "O"
+        counts[1] += 1
 
     return sections
 
