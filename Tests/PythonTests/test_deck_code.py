@@ -11,25 +11,25 @@ import pytest
 
 
 def test_decode():
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         pyRosetta.DeckCode.decode("AAECAR8I")
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         pyRosetta.DeckCode.decode(
             "AQECAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArUDxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="
         )
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         pyRosetta.DeckCode.decode(
             "AAICAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArUDxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="
         )
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         pyRosetta.DeckCode.decode(
             "AAESAR8IxwOHBMkErgaggAOnggObhQPWmQMLngGoArUDxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="
         )
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         pyRosetta.DeckCode.decode(
             "AAECAh8FCMcDhwTJBK4GoIADp4IDm4UD1pkDC54BqAK1A8UI/gyY8ALv8QL1iQPmlgP5lgO+mAMA"
         )
-    with pytest.raises(Exception):
+    with pytest.raises(RuntimeError):
         pyRosetta.DeckCode.decode(
             "AAECAQAIxwOHBMkErgaggAOnggObhQPWmQMLngGoArUDxQj+DJjwAu/xAvWJA+aWA/mWA76YAwA="
         )
