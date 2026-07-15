@@ -92,7 +92,7 @@ def setCommentGen(target_set, target_id):
     NeutralNonCollect = []
     NoneClass = []
 
-    all = [
+    groups = [
         Heroes,
         HeroPowers,
         Druid,
@@ -271,7 +271,7 @@ def setCommentGen(target_set, target_id):
 
     name = iter(all_names)
     with open(target_set + "_comments" + ".txt", "a", -1, "utf-8") as f:
-        for group in all:
+        for group in groups:
             f.write(next(name))
             f.write(" =" * 57 + "\n\n\n")
             for data in group:
