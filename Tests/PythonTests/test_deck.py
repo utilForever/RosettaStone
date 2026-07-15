@@ -8,6 +8,7 @@ property of any third parties.
 
 import pyRosetta
 
+
 def test_constructors():
     deck1 = pyRosetta.Deck()
 
@@ -19,6 +20,7 @@ def test_constructors():
     assert deck2.format_type() == pyRosetta.FormatType.STANDARD
     assert deck2.deck_class() == pyRosetta.CardClass.MAGE
     assert deck2.num_of_cards() == 0
+
 
 def test_card_control():
     druid_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.DRUID)
@@ -41,6 +43,7 @@ def test_card_control():
     assert deck.delete_card(mage_cards[0].id, 4) is False
     assert deck.delete_card(druid_cards[0].id, 1) is False
 
+
 def test_num_card_in_deck():
     mage_cards = pyRosetta.Cards.find_card_by_class(pyRosetta.CardClass.MAGE)
 
@@ -50,8 +53,9 @@ def test_num_card_in_deck():
     deck_cards = deck.cards()
     assert deck_cards[0].id == mage_cards[0].id
 
+
 def test_card_ids():
-    INKEEPER_EXPERT_WARLOCK = 'AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA'
+    INKEEPER_EXPERT_WARLOCK = "AAEBAfqUAwAPMJMB3ALVA9AE9wTOBtwGkgeeB/sHsQjCCMQI9ggA"
     deck = pyRosetta.DeckCode.decode(INKEEPER_EXPERT_WARLOCK).card_ids()
 
     assert len(deck) == 30
@@ -59,4 +63,7 @@ def test_card_ids():
     for card_id in deck:
         card = pyRosetta.Cards.find_card_by_id(card_id)
 
-        assert (card.card_class() == pyRosetta.CardClass.WARLOCK or card.card_class() == pyRosetta.CardClass.NEUTRAL) is True
+        assert (
+            card.card_class() == pyRosetta.CardClass.WARLOCK
+            or card.card_class() == pyRosetta.CardClass.NEUTRAL
+        ) is True

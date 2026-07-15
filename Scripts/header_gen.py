@@ -19,12 +19,14 @@ def main():
     header = os.path.join(dir_name, "../Includes/Rosetta/RosettaStone.hpp")
     header_tmp = header + ".tmp"
     with open(header_tmp, "w") as header_file:
-        header_file.write("""// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
+        header_file.write(
+            """// Copyright (c) 2018 Chris Ohk, Youngjoong Kim, SeungHyun Jeon
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.\n
-""")
+"""
+        )
         header_file.write("#ifndef ROSSETASTONE_ROSETTA_HPP\n")
         header_file.write("#define ROSSETASTONE_ROSETTA_HPP\n\n")
         for filename in file_names:
