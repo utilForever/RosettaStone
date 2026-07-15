@@ -5,42 +5,44 @@ def cardCommentGen(card):
     div = "\n// --------------------------------------------------------"
     comm = "\n// "
     if "cardClass" in card.keys():
-        str_format = "//#" + \
-            '%56s' % ("#" + card['type'] + "#-#" + card['cardClass'])
+        str_format = "//#" + "%56s" % ("#" + card["type"] + "#-#" + card["cardClass"])
     else:
-        str_format = "//#" + '%56s' % ("#" + card['type'])
+        str_format = "//#" + "%56s" % ("#" + card["type"])
     str_format = str_format.replace(" ", "-")
     str_format = str_format.replace("#", " ")
-    str_format = str_format + comm + \
-        "[" + card['id'] + "] " + card['name'] + " - COST:"
-    if("cost" in card.keys()):
-        str_format = str_format + str(card['cost'])
+    str_format = str_format + comm + "[" + card["id"] + "] " + card["name"] + " - COST:"
+    if "cost" in card.keys():
+        str_format = str_format + str(card["cost"])
     else:
         str_format = str_format + str(0)
-    if card['type'] == "MINION":
-        str_format = str_format + \
-            " [ATK:" + str(card['attack']) + "/HP:" + \
-            str(card['health']) + "]"
+    if card["type"] == "MINION":
+        str_format = (
+            str_format
+            + " [ATK:"
+            + str(card["attack"])
+            + "/HP:"
+            + str(card["health"])
+            + "]"
+        )
     str_format = str_format + comm + "- "
     if "race" in card.keys():
-        str_format = str_format + "Race: " + card['race'].capitalize() + ", "
+        str_format = str_format + "Race: " + card["race"].capitalize() + ", "
     if "faction" in card.keys():
-        str_format = str_format + "Faction: " + \
-            card['faction'].capitalize() + ", "
-    str_format = str_format + "Set: " + card['set']
+        str_format = str_format + "Faction: " + card["faction"].capitalize() + ", "
+    str_format = str_format + "Set: " + card["set"]
     if "rarity" in card.keys():
-        str_format = str_format + ", " + \
-            "Rarity: " + card['rarity'].capitalize()
+        str_format = str_format + ", " + "Rarity: " + card["rarity"].capitalize()
     if "spellSchool" in card.keys():
         str_format = str_format + comm
-        str_format = str_format + "- " + \
-            "Spell School: " + card['spellSchool'].capitalize()
+        str_format = (
+            str_format + "- " + "Spell School: " + card["spellSchool"].capitalize()
+        )
     str_format = str_format + div
     if "text" in card.keys():
-        card['text'] = card['text'].replace("[x]", "")
-        card['text'] = card['text'].replace("$", "")
-        card['text'] = card['text'].replace("\n", "\n//       ")
-        str_format = str_format + comm + "Text: " + card['text'] + div
+        card["text"] = card["text"].replace("[x]", "")
+        card["text"] = card["text"].replace("$", "")
+        card["text"] = card["text"].replace("\n", "\n//       ")
+        str_format = str_format + comm + "Text: " + card["text"] + div
     # If card has GameTag or RefTag, add it.
     # GameTag
     if "mechanics" in card.keys() or "elite" in card.keys():
@@ -48,14 +50,14 @@ def cardCommentGen(card):
         if "elite" in card.keys():
             str_format = str_format + comm + "- ELITE = 1"
         if "mechanics" in card.keys():
-            for tag in card['mechanics']:
+            for tag in card["mechanics"]:
                 str_format = str_format + comm + "- " + tag + " = 1"
         str_format = str_format + div
     # RefTag
     if "referencedTags" in card.keys():
         str_format = str_format + comm + "RefTag:"
         if "referencedTags" in card.keys():
-            for tag in card['referencedTags']:
+            for tag in card["referencedTags"]:
                 str_format = str_format + comm + "- " + tag + " = 1"
             str_format = str_format + div
     return str_format
@@ -90,28 +92,76 @@ def setCommentGen(target_set, target_id):
     NeutralNonCollect = []
     NoneClass = []
 
-    all = [Heroes, HeroPowers, Druid, DruidNonCollect, Hunter, HunterNonCollect, Mage,
-           MageNonCollect, Paladin, PaladinNonCollect, Priest, PriestNonCollect,
-           Rogue, RogueNonCollect, Shaman, ShamanNonCollect, Warlock, WarlockNonCollect,
-           Warrior, WarriorNonCollect, DemonHunter, DemonHunterNonCollect, Dual, DualNonCollect,
-           Neutral, NeutralNonCollect, NoneClass]
+    groups = [
+        Heroes,
+        HeroPowers,
+        Druid,
+        DruidNonCollect,
+        Hunter,
+        HunterNonCollect,
+        Mage,
+        MageNonCollect,
+        Paladin,
+        PaladinNonCollect,
+        Priest,
+        PriestNonCollect,
+        Rogue,
+        RogueNonCollect,
+        Shaman,
+        ShamanNonCollect,
+        Warlock,
+        WarlockNonCollect,
+        Warrior,
+        WarriorNonCollect,
+        DemonHunter,
+        DemonHunterNonCollect,
+        Dual,
+        DualNonCollect,
+        Neutral,
+        NeutralNonCollect,
+        NoneClass,
+    ]
 
-    all_names = ["Heroes", "HeroPowers", "Druid", "DruidNonCollect", "Hunter", "HunterNonCollect", "Mage",
-                 "MageNonCollect", "Paladin", "PaladinNonCollect", "Priest", "PriestNonCollect",
-                 "Rogue", "RogueNonCollect", "Shaman", "ShamanNonCollect", "Warlock", "WarlockNonCollect",
-                 "Warrior", "WarriorNonCollect", "DemonHunter", "DemonHunterNonCollect", "Dual", "DualNonCollect",
-                 "Neutral", "NeutralNonCollect", "Exceptions"]
+    all_names = [
+        "Heroes",
+        "HeroPowers",
+        "Druid",
+        "DruidNonCollect",
+        "Hunter",
+        "HunterNonCollect",
+        "Mage",
+        "MageNonCollect",
+        "Paladin",
+        "PaladinNonCollect",
+        "Priest",
+        "PriestNonCollect",
+        "Rogue",
+        "RogueNonCollect",
+        "Shaman",
+        "ShamanNonCollect",
+        "Warlock",
+        "WarlockNonCollect",
+        "Warrior",
+        "WarriorNonCollect",
+        "DemonHunter",
+        "DemonHunterNonCollect",
+        "Dual",
+        "DualNonCollect",
+        "Neutral",
+        "NeutralNonCollect",
+        "Exceptions",
+    ]
     # coding=utf8
     file_path = "../Resources/cards.json"
-    with open(file_path, "r", encoding='UTF8') as json_file:
+    with open(file_path, "r", encoding="UTF8") as json_file:
         card_data = json.load(json_file)
     # Empty the list
     total_cnt = 0
     collectible_cnt = 0
     for card in card_data:
-        if card['set'] != target_set:
+        if card["set"] != target_set:
             continue
-        if card['id'].split("_")[0] != target_id:
+        if card["id"].split("_")[0] != target_id:
             continue
         # count the number of cards in target set
         total_cnt += 1
@@ -220,8 +270,8 @@ def setCommentGen(target_set, target_id):
                 NeutralNonCollect.append(data)
 
     name = iter(all_names)
-    with open(target_set + "_comments" + ".txt", 'a', -1, 'utf-8') as f:
-        for group in all:
+    with open(target_set + "_comments" + ".txt", "a", -1, "utf-8") as f:
+        for group in groups:
             f.write(next(name))
             f.write(" =" * 57 + "\n\n\n")
             for data in group:
@@ -230,14 +280,19 @@ def setCommentGen(target_set, target_id):
     return total_cnt, collectible_cnt
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     target_set = input(
-        "Enter the name of the set to generate comments (ex: BLACK_TEMPLE, SCHOLOMANCE): ")
+        "Enter the name of the set to generate comments (ex: BLACK_TEMPLE, SCHOLOMANCE): "
+    )
     target_set = target_set.upper()
     target_id = input(
-        "Enter the first id of the set to generate comments (ex: BT, SCH): ")
+        "Enter the first id of the set to generate comments (ex: BT, SCH): "
+    )
     target_id = target_id.upper()
     total_count, collectible_count = setCommentGen(target_set, target_id)
-    print("Total of {total_count} card comments are generated. "
-          "\nTotal of {collectible_count} collectible card comments are generated.\n".
-          format(total_count=total_count, collectible_count=collectible_count))
+    print(
+        "Total of {total_count} card comments are generated. "
+        "\nTotal of {collectible_count} collectible card comments are generated.\n".format(
+            total_count=total_count, collectible_count=collectible_count
+        )
+    )

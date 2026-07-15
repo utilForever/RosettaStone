@@ -54,6 +54,8 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ env.PYTHON_VERSION }}
+    - name: Check generated docs
+      run: python Scripts/card_stats.py --check
     - name: Install packages
       run: sudo apt-get update && sudo apt-get install -yq autoconf autoconf-archive automake libtool python3-setuptools
     - name: Configure Compiler

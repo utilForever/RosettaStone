@@ -42,12 +42,12 @@ def guess_os():
     'win32' for Windows, and 'freebsd' for FreeBSD.
     """
     _id = platform.system()
-    if _id == 'Linux':
-        return 'linux'
-    elif _id == 'Darwin':
-        return 'macosx'
-    elif _id == 'Windows' or _id == 'Microsoft':
-        return 'win32'
+    if _id == "Linux":
+        return "linux"
+    elif _id == "Darwin":
+        return "macosx"
+    elif _id == "Windows" or _id == "Microsoft":
+        return "win32"
     else:
         return None
 
@@ -57,14 +57,14 @@ def guess_word_size():
     Returns the size of the pointer. For 64-bit systems, this will return '64',
     and '32' for 32-bit systems.
     """
-    if '64' in platform.machine():
-        return '64'
+    if "64" in platform.machine():
+        return "64"
     else:
         archs = platform.architecture()
         for a in archs:
-            if '64' in a:
-                return '64'
-        return '32'
+            if "64" in a:
+                return "64"
+        return "32"
 
 
 def guess_arch():
@@ -72,22 +72,22 @@ def guess_arch():
     Returns the architecture name of the system.
     """
     if is_windows():
-        if guess_word_size() == '64':
-            return 'x64'
+        if guess_word_size() == "64":
+            return "x64"
         else:
-            return 'win32'
+            return "win32"
 
     _id = platform.machine()
 
     if is_mac():
-        if guess_word_size() == '64' and _id == 'i386':
-            return 'x86_64'
+        if guess_word_size() == "64" and _id == "i386":
+            return "x86_64"
         else:
             return _id
 
-    if _id.startswith('arm'):
-        return 'arm'
-    elif (not _id) or (not re.match('(x|i[3-6])86', _id) is None):
+    if _id.startswith("arm"):
+        return "arm"
+    elif (not _id) or (not re.match("(x|i[3-6])86", _id) is None):
         return _id
     else:
         return None
@@ -108,7 +108,7 @@ def detect_num_cpus():
                 return int(os.popen2("sysctl -n hw.ncpu")[1].read())
     # Windows:
     if os.environ.has_key("NUMBER_OF_PROCESSORS"):
-        ncpus = int(os.environ["NUMBER_OF_PROCESSORS"]);
+        ncpus = int(os.environ["NUMBER_OF_PROCESSORS"])
         if ncpus > 0:
             return ncpus
     return 1  # Default
@@ -118,7 +118,7 @@ def is_windows():
     """
     Returns True if you are using Windows.
     """
-    return guess_os() == 'win32'
+    return guess_os() == "win32"
 
 
 def is_windows64():
@@ -126,7 +126,7 @@ def is_windows64():
     Returns True if you are using Visual Studio compiler in 64-bit mode.
     """
     if is_windows():
-        return '64' in os.environ['LIB']
+        return "64" in os.environ["LIB"]
     else:
         return False
 
@@ -143,21 +143,21 @@ def is_mac():
     """
     Returns True if you are using Mac.
     """
-    return guess_os() == 'macosx'
+    return guess_os() == "macosx"
 
 
 def is_linux():
     """
     Returns True if you are using Linux.
     """
-    return guess_os() == 'linux'
+    return guess_os() == "linux"
 
 
 def is64():
     """
     Returns True if running on 64-bit machine
     """
-    return guess_word_size() == '64'
+    return guess_word_size() == "64"
 
 
 def navigate_all_files(root_path, patterns):
@@ -176,6 +176,8 @@ def get_all_files(root_path, patterns):
     Returns a list of all files that matches the given patterns from the
     root_path.
     """
-    ret = [fp.replace(root_path, '').lstrip('\\').lstrip('/').replace('\\', '/')
-           for fp in navigate_all_files(root_path, patterns)]
+    ret = [
+        fp.replace(root_path, "").lstrip("\\").lstrip("/").replace("\\", "/")
+        for fp in navigate_all_files(root_path, patterns)
+    ]
     return ret
