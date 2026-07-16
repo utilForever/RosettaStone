@@ -1,2 +1,8 @@
-pytest
-wheel
+colorama==0.4.6; sys_platform == "win32"
+iniconfig==2.3.0
+packaging==26.2
+pluggy==1.6.0
+Pygments==2.20.0
+pytest==9.1.1
+setuptools==83.0.0
+wheel==0.47.0
