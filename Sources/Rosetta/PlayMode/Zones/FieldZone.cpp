@@ -65,7 +65,6 @@ void FieldZone::Add(Playable* entity, int zonePos)
     if (entity->card->IsUntouchable())
     {
         ++m_untouchableCount;
-        m_hasUntouchables = true;
     }
 }
 
@@ -80,9 +79,9 @@ Playable* FieldZone::Remove(Playable* entity)
         adjacentAuras[i]->SetIsFieldChanged(true);
     }
 
-    if (entity->card->IsUntouchable() && --m_untouchableCount == 0)
+    if (entity->card->IsUntouchable())
     {
-        m_hasUntouchables = false;
+        --m_untouchableCount;
     }
 
     return PositioningZone::Remove(minion);
@@ -100,9 +99,9 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
         aura->NotifyEntityRemoved(oldEntity);
     }
 
-    if (oldEntity->card->IsUntouchable() && --m_untouchableCount == 0)
+    if (oldEntity->card->IsUntouchable())
     {
-        m_hasUntouchables = false;
+        --m_untouchableCount;
     }
 
     oldEntity->SetZonePosition(0);
@@ -121,7 +120,6 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
     if (newEntity->card->IsUntouchable())
     {
         ++m_untouchableCount;
-        m_hasUntouchables = true;
     }
 
     for (const auto& aura : auras)

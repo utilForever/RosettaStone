@@ -68,7 +68,6 @@ class FieldZone : public PositioningZone<Minion>
     static void RemoveAura(const Minion* entity);
 
     int m_untouchableCount = 0;
-    bool m_hasUntouchables = false;
 };
 }  // namespace RosettaStone::PlayMode
 
