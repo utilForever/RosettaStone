@@ -4,7 +4,7 @@ Guidance for AI coding agents (Codex, Claude Code, etc.) working in this reposit
 
 ## What this repository is
 
-This is **RosettaStone**, a C++17 Hearthstone simulator with console tooling, generated card/task implementations, and a Python API exposed through pybind11.
+This is **RosettaStone**, a C++26 Hearthstone simulator with console tooling, generated card/task implementations, and a Python API exposed through pybind11.
 
 It is not just a single C++ library:
 
@@ -22,7 +22,7 @@ Upstream lives at <https://github.com/utilForever/RosettaStone.git>.
 1. **Keep C++ and Python-visible behavior in sync.** If you change public types, enums, cards, tasks, zones, game flow, or other core behavior, check whether `Extensions/RosettaPython/` and `Tests/PythonTests/` need matching updates.
 2. **Treat generated files as generated.** `Includes/Rosetta/RosettaStone.hpp` is produced by `Scripts/header_gen.py` during the CMake build. Change headers under `Includes/Rosetta/` or the generator, not the aggregate header by hand.
 3. **Use CMake targets as the source of truth.** Before adding or moving C++ files, read the relevant `CMakeLists.txt`. Most source lists use `GLOB_RECURSE`, but target ownership and compile definitions still live there.
-4. **Preserve C++17 portability.** CI builds on Ubuntu, macOS, and Windows with several compilers. Avoid compiler-specific assumptions unless they are isolated or guarded by CMake.
+4. **Preserve C++26 portability.** CI builds on Ubuntu, macOS, and Windows with several compilers. Avoid compiler-specific assumptions unless they are isolated or guarded by CMake.
 5. **Do not add dependencies casually.** Prefer the standard library and existing vendored libraries. If Python dependencies change, update `requirements.txt` and verify the Python tests.
 6. **Run the smallest relevant check.** Documentation-only changes usually do not need a build. Code or API changes should run the focused C++ and/or Python tests below.
 

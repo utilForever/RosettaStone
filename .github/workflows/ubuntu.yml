@@ -19,16 +19,6 @@ jobs:
             os: ubuntu-24.04
             compiler: gcc
             version: "14"
-          # Ubuntu 24.04 + gcc-13
-          - name: "Ubuntu 24.04 + gcc-13"
-            os: ubuntu-24.04
-            compiler: gcc
-            version: "13"
-          # Ubuntu 24.04 + gcc-12
-          - name: "Ubuntu 24.04 + gcc-12"
-            os: ubuntu-24.04
-            compiler: gcc
-            version: "12"
           # Ubuntu 24.04 + clang-18
           - name: "Ubuntu 24.04 + clang-18"
             os: ubuntu-24.04
@@ -39,12 +29,6 @@ jobs:
             os: ubuntu-24.04
             compiler: clang
             version: "17"
-          # Ubuntu 24.04 + clang-16
-          - name: "Ubuntu 24.04 + clang-16"
-            os: ubuntu-24.04
-            compiler: clang
-            version: "16"
-
     runs-on: ${{ matrix.os }}
     name: 🐧 Build - ${{ matrix.name }}
 

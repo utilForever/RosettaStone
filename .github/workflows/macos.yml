@@ -34,12 +34,6 @@ jobs:
             os: macos-26
             compiler: gcc
             version: "14"
-          # macOS 26.3 + gcc-13
-          - name: "macOS 26.3 + gcc-13"
-            os: macos-26
-            compiler: gcc
-            version: "13"
-
     runs-on: ${{ matrix.os }}
     name: 🍎 Build - ${{ matrix.name }}
 

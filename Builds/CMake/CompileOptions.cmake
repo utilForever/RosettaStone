@@ -25,8 +25,14 @@ endif()
 # Project options
 #
 
+if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+	set(CMAKE_CXX26_STANDARD_COMPILE_OPTION "/std:c++latest")
+endif()
+
 set(DEFAULT_PROJECT_OPTIONS
-	CXX_STANDARD              17 # Not available before CMake 3.8.2; see below for manual command line argument addition
+	CXX_STANDARD              26
+	CXX_STANDARD_REQUIRED     ON
+	CXX_EXTENSIONS            OFF
 	LINKER_LANGUAGE           "CXX"
 	POSITION_INDEPENDENT_CODE ON
 )
@@ -127,7 +133,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang"
 		-Wno-unused-variable    # -> disable warning: error: unused variable 'curr_delta' [-Werror=unused-variable] (caused by tiny-dnn)
 
 		${WARN_AS_ERROR_FLAGS}
-		-std=c++1z
 	)
 endif ()
 
