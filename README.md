@@ -106,57 +106,55 @@ The full [architecture guide](ARCHITECTURE.md) explains game flow, the runtime m
 Implementation progress is generated from the `Implemented` column in the card lists. Run `python Scripts/card_stats.py` after updating a list.
 
 <!-- card-stats:start -->
-
 ### [Standard Format](Documents/CardList%20-%20Standard.md)
 
-| Set                         | Implemented |    Total |  Progress |
-| --------------------------- | ----------: | -------: | --------: |
-| Core                        |         247 |      250 |     98.8% |
-| Forged in the Barrens       |         139 |      170 |     81.8% |
-| United in Stormwind         |          60 |      170 |     35.3% |
-| Fractured in Alterac Valley |          61 |      170 |     35.9% |
-| Voyage to the Sunken City   |          22 |      170 |     12.9% |
-| Murder at Castle Nathria    |          17 |      170 |       10% |
-| March of the Lich King      |           0 |        1 |        0% |
-| **Total**                   |     **546** | **1101** | **49.6%** |
+| Set | Implemented | Total | Progress |
+| --- | ---: | ---: | ---: |
+| Core | 247 | 250 | 98.8% |
+| Forged in the Barrens | 139 | 170 | 81.8% |
+| United in Stormwind | 60 | 170 | 35.3% |
+| Fractured in Alterac Valley | 61 | 170 | 35.9% |
+| Voyage to the Sunken City | 22 | 170 | 12.9% |
+| Murder at Castle Nathria | 17 | 170 | 10% |
+| March of the Lich King | 0 | 1 | 0% |
+| **Total** | **546** | **1101** | **49.6%** |
 
 ### [Wild Format](Documents/CardList%20-%20Wild.md)
 
-| Set                           | Implemented |    Total |  Progress |
-| ----------------------------- | ----------: | -------: | --------: |
-| Legacy                        |         167 |      167 |      100% |
-| Expert1                       |         245 |      245 |      100% |
-| Demon Hunter Initiate         |          20 |       20 |      100% |
-| Curse of Naxxramas            |          30 |       30 |      100% |
-| Goblins vs Gnomes             |           8 |      123 |      6.5% |
-| Blackrock Mountain            |          31 |       31 |      100% |
-| The Grand Tournament          |          11 |      132 |      8.3% |
-| The League of Explorers       |          45 |       45 |      100% |
-| Whispers of the Old Gods      |           8 |      134 |        6% |
-| One Night in Karazhan         |          45 |       45 |      100% |
-| Mean Streets of Gadgetzan     |           3 |      132 |      2.3% |
-| Journey to Un'Goro            |          10 |      135 |      7.4% |
-| Knights of the Frozen Throne  |           6 |      135 |      4.4% |
-| Kobolds & Catacombs           |           7 |      135 |      5.2% |
-| The Witchwood                 |           8 |      135 |      5.9% |
-| The Boomsday Project          |           4 |      136 |      2.9% |
-| Rastakhan's Rumble            |           7 |      135 |      5.2% |
-| Rise of Shadows               |         136 |      136 |      100% |
-| Saviors of Uldum              |         134 |      135 |     99.3% |
-| Descent of Dragons            |         140 |      140 |      100% |
-| Galakrond's Awakening         |          21 |       35 |       60% |
-| Ashes of Outland              |          82 |      135 |     60.7% |
-| Scholomance Academy           |          78 |      135 |     57.8% |
-| Madness at the Darkmoon Faire |          79 |      170 |     46.5% |
-| **Total**                     |    **1325** | **2801** | **47.3%** |
+| Set | Implemented | Total | Progress |
+| --- | ---: | ---: | ---: |
+| Legacy | 167 | 167 | 100% |
+| Expert1 | 245 | 245 | 100% |
+| Demon Hunter Initiate | 20 | 20 | 100% |
+| Curse of Naxxramas | 30 | 30 | 100% |
+| Goblins vs Gnomes | 8 | 123 | 6.5% |
+| Blackrock Mountain | 31 | 31 | 100% |
+| The Grand Tournament | 11 | 132 | 8.3% |
+| The League of Explorers | 45 | 45 | 100% |
+| Whispers of the Old Gods | 8 | 134 | 6% |
+| One Night in Karazhan | 45 | 45 | 100% |
+| Mean Streets of Gadgetzan | 3 | 132 | 2.3% |
+| Journey to Un'Goro | 10 | 135 | 7.4% |
+| Knights of the Frozen Throne | 6 | 135 | 4.4% |
+| Kobolds & Catacombs | 7 | 135 | 5.2% |
+| The Witchwood | 8 | 135 | 5.9% |
+| The Boomsday Project | 4 | 136 | 2.9% |
+| Rastakhan's Rumble | 7 | 135 | 5.2% |
+| Rise of Shadows | 136 | 136 | 100% |
+| Saviors of Uldum | 134 | 135 | 99.3% |
+| Descent of Dragons | 140 | 140 | 100% |
+| Galakrond's Awakening | 21 | 35 | 60% |
+| Ashes of Outland | 82 | 135 | 60.7% |
+| Scholomance Academy | 78 | 135 | 57.8% |
+| Madness at the Darkmoon Faire | 79 | 170 | 46.5% |
+| **Total** | **1325** | **2801** | **47.3%** |
 
 ### [Classic Format](Documents/CardList%20-%20Classic.md)
 
-| Set       | Implemented |   Total | Progress |
-| --------- | ----------: | ------: | -------: |
-| Vanilla   |         382 |     382 |     100% |
-| **Total** |     **382** | **382** | **100%** |
-
+| Set | Implemented | Total | Progress |
+| --- | ---: | ---: | ---: |
+| Vanilla | 382 | 382 | 100% |
+| **Total** | **382** | **382** | **100%** |
 <!-- card-stats:end -->
 
 See the [ability list](Documents/AbilityList.md) and [task list](Documents/TaskList.md) for mechanic and task support.
