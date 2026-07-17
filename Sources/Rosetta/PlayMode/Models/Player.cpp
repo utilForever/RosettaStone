@@ -467,6 +467,7 @@ void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
         if (m_hero->weapon)
         {
             weapon = m_hero->weapon;
+            m_hero->weapon = nullptr;
         }
 
         auraEffects = m_hero->auraEffects;

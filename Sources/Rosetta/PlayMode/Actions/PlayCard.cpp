@@ -208,6 +208,7 @@ void PlayHero(Player* player, Hero* hero, Character* target, int chooseOne)
     player->GetSetasideZone()->Add(oldHero);
     player->GetSetasideZone()->Add(oldHero->heroPower);
     hero->weapon = oldHero->weapon;
+    oldHero->weapon = nullptr;
     hero->heroPower = dynamic_cast<HeroPower*>(Entity::GetFromCard(
         player, Cards::FindCardByDbfID(hero->GetGameTag(GameTag::HERO_POWER))));
 

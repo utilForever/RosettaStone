@@ -20,7 +20,10 @@ Weapon::Weapon(Player* _player, Card* _card, std::map<GameTag, int> tags,
 
 Weapon::~Weapon()
 {
-    player->GetHero()->weapon = nullptr;
+    if (player && player->GetHero() && player->GetHero()->weapon == this)
+    {
+        player->GetHero()->weapon = nullptr;
+    }
 }
 
 int Weapon::GetAttack() const
