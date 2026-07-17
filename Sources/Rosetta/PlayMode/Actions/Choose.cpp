@@ -382,6 +382,7 @@ bool ChoicePick(Player* player, int choice)
     else
     {
         player->choice = nextChoice;
+        delete choiceVal;
     }
 
     return true;

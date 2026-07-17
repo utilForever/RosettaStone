@@ -95,7 +95,7 @@ void Choice::TryPrepare()
                                                     std::vector<int>{}, 3);
 }
 
-Choice* Choice::TryPopNextChoice(const int _lastChoice) const
+Choice* Choice::TryPopNextChoice(const int _lastChoice)
 {
     if (nextChoice)
     {
@@ -104,6 +104,6 @@ Choice* Choice::TryPopNextChoice(const int _lastChoice) const
         nextChoice->entityStack = entityStack;
     }
 
-    return nextChoice;
+    return nextChoice.release();
 }
 }  // namespace RosettaStone::PlayMode

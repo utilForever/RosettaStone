@@ -206,14 +206,14 @@ TaskStatus DiscoverTask::Impl(Player* player)
 
         for (int i = 1; i < m_repeat; ++i)
         {
-            const auto choice = new Choice(player, cardsForGeneration);
+            auto choice = std::make_unique<Choice>(player, cardsForGeneration);
             choice->choiceType = ChoiceType::GENERAL;
             choice->choiceAction = m_choiceAction;
             choice->source = m_source;
             choice->depth = i + 1;
 
-            currentChoice->nextChoice = choice;
-            currentChoice = choice;
+            currentChoice->nextChoice = std::move(choice);
+            currentChoice = currentChoice->nextChoice.get();
         }
     }
 
