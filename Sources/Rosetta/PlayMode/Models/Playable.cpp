@@ -577,6 +577,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             Playable* playable0 =
                 GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[0]),
                             std::nullopt, player->GetSetasideZone());
+            player->GetSetasideZone()->Add(playable0);
 
             // Check card has overload
             if (playable0->HasOverload())
@@ -590,6 +591,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             Playable* playable1 =
                 GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[1]),
                             std::nullopt, player->GetSetasideZone());
+            player->GetSetasideZone()->Add(playable1);
 
             // Check card has overload
             if (playable1->HasOverload())
@@ -613,6 +615,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             Playable* playable = GetFromCard(
                 player, Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]),
                 std::nullopt, player->GetSetasideZone());
+            player->GetSetasideZone()->Add(playable);
 
             // Check card has overload
             if (playable->HasOverload())

@@ -507,6 +507,8 @@ void Game::MainCleanUp()
             playable->zone->Remove(playable));
     }
 
+    ghostlyCards.clear();
+
     // Remove one-turn effects
     if (const auto enchantments = oneTurnEffectEnchantments;
         !enchantments.empty())

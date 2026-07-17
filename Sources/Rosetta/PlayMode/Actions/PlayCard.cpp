@@ -170,8 +170,10 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             std::map<GameTag, int> tags;
             tags.emplace(GameTag::GHOSTLY, 1);
 
-            const Playable* playable = Entity::GetFromCard(
+            Playable* playable = Entity::GetFromCard(
                 player, source->card, tags, player->GetHandZone());
+
+            AddCardToHand(player, playable);
 
             player->game->UpdateAura();
             player->game->ghostlyCards.emplace_back(
