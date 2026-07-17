@@ -24,11 +24,6 @@ jobs:
             os: ubuntu-24.04
             compiler: clang
             version: "18"
-          # Ubuntu 24.04 + clang-17
-          - name: "Ubuntu 24.04 + clang-17"
-            os: ubuntu-24.04
-            compiler: clang
-            version: "17"
     runs-on: ${{ matrix.os }}
     name: 🐧 Build - ${{ matrix.name }}
 
