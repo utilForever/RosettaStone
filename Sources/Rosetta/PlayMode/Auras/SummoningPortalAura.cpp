@@ -24,7 +24,7 @@ void SummoningPortalAura::Activate(Playable* owner, bool cloning)
     auto instance = new SummoningPortalAura(*this, *owner);
     owner->ongoingEffect = instance;
     owner->player->GetHandZone()->auras.emplace_back(instance);
-    owner->game->auras.emplace_back(instance);
+    owner->game->AddAura(instance);
 
     if (!cloning)
     {

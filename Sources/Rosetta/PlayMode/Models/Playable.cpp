@@ -27,10 +27,7 @@ Playable::Playable(Player* _player, Card* _card, std::map<GameTag, int> _tags,
     player = _player;
 }
 
-Playable::~Playable()
-{
-    delete ongoingEffect;
-}
+Playable::~Playable() = default;
 
 ZoneType Playable::GetZoneType() const
 {

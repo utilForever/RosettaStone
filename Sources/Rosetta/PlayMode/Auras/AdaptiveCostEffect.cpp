@@ -38,7 +38,7 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
 
     owner->costManager->ActivateAdaptiveEffect(instance);
     owner->ongoingEffect = instance;
-    owner->game->auras.emplace_back(instance);
+    owner->game->AddAura(instance);
 }
 
 int AdaptiveCostEffect::Apply(int value) const

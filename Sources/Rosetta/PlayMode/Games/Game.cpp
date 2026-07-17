@@ -753,6 +753,12 @@ void Game::UpdateAura() const
     }
 }
 
+void Game::AddAura(IAura* aura)
+{
+    m_ownedAuras.emplace_back(aura);
+    auras.emplace_back(aura);
+}
+
 std::tuple<PlayState, PlayState> Game::Process(Player* player,
                                                std::unique_ptr<ITask> task)
 {

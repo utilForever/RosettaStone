@@ -341,7 +341,7 @@ Aura::Aura(const Aura& prototype, Playable& owner)
 
 void Aura::AddToGame(Playable& owner, Aura& aura)
 {
-    owner.game->auras.emplace_back(&aura);
+    owner.game->AddAura(&aura);
     owner.ongoingEffect = &aura;
 
     switch (aura.m_type)

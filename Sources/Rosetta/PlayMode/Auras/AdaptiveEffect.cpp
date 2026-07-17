@@ -50,7 +50,7 @@ void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
         }
     }
 
-    owner->game->auras.emplace_back(instance);
+    owner->game->AddAura(instance);
     owner->ongoingEffect = instance;
 }
 

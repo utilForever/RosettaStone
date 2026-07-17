@@ -23,7 +23,7 @@ void EnrageEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
 {
     auto instance = new EnrageEffect(*this, *owner);
 
-    owner->game->auras.emplace_back(instance);
+    owner->game->AddAura(instance);
     owner->ongoingEffect = instance;
 }
 
