@@ -25,12 +25,8 @@ endif()
 # Project options
 #
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-	set(CMAKE_CXX26_STANDARD_COMPILE_OPTION "/std:c++latest")
-endif()
-
 set(DEFAULT_PROJECT_OPTIONS
-	CXX_STANDARD              26
+	CXX_STANDARD              23
 	CXX_STANDARD_REQUIRED     ON
 	CXX_EXTENSIONS            OFF
 	LINKER_LANGUAGE           "CXX"
