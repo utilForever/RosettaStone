@@ -741,18 +741,17 @@ void Game::ProcessReborn()
     }
 }
 
-void Game::UpdateAura() const
+void Game::UpdateAura()
 {
     const int auraSize = static_cast<int>(auras.size());
-    if (auraSize == 0)
-    {
-        return;
-    }
-
     for (int i = auraSize - 1; i >= 0; --i)
     {
         auras[i]->Update();
     }
+
+    std::erase_if(m_ownedAuras, [this](const auto& aura) {
+        return std::find(auras.begin(), auras.end(), aura.get()) == auras.end();
+    });
 }
 
 void Game::AddAura(IAura* aura)

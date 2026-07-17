@@ -22,6 +22,60 @@ using namespace RosettaStone;
 using namespace PlayMode;
 using namespace PlayerTasks;
 
+namespace
+{
+class RetiringAura final : public IAura
+{
+ public:
+    RetiringAura(Game& game, bool& destroyed)
+        : m_game(game), m_destroyed(destroyed)
+    {
+        // Do nothing
+    }
+
+    ~RetiringAura() override
+    {
+        m_destroyed = true;
+    }
+
+    void Activate(Playable*, bool) override
+    {
+        // Do nothing
+    }
+
+    void Update() override
+    {
+        m_game.auras.clear();
+    }
+
+    void Remove() override
+    {
+        // Do nothing
+    }
+
+    void Clone(Playable*) override
+    {
+        // Do nothing
+    }
+
+ private:
+    Game& m_game;
+    bool& m_destroyed;
+};
+}  // namespace
+
+TEST_CASE("[Game] - UpdateAura retires inactive ownership")
+{
+    bool destroyed = false;
+    Game game;
+    game.AddAura(new RetiringAura(game, destroyed));
+
+    game.UpdateAura();
+
+    CHECK(game.auras.empty());
+    CHECK(destroyed);
+}
+
 TEST_CASE("[Game] - GetPlayers")
 {
     GameConfig config;

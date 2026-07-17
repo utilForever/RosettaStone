@@ -164,7 +164,7 @@ class Game
     void ProcessReborn();
 
     //! Updates aura.
-    void UpdateAura() const;
+    void UpdateAura();
 
     //! Adds an aura instance owned by this game.
     //! \param aura The aura instance.
