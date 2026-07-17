@@ -2,7 +2,7 @@
 
 RosettaStone is distributed and consumed in the following ways:
 
-- A C++26 Hearthstone simulator library for use from C++.
+- A C++23 Hearthstone simulator library for use from C++.
 - A `pyRosetta` Python extension exposed through pybind11.
 - Console and utility executables built on top of the same simulator library.
 

@@ -4,7 +4,7 @@
   </picture>
 </p>
 <p align="center">
-  <b>A C++26 Hearthstone simulator with C++, Python, console, and tooling interfaces</b>
+  <b>A C++23 Hearthstone simulator with C++, Python, console, and tooling interfaces</b>
 </p>
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-AGPL_v3-blue.svg" alt="License: AGPL v3" /></a>
@@ -30,7 +30,7 @@ RosettaStone models Hearthstone's normal play mode and Battlegrounds. The core s
 
 ## What This Project Does
 
-- Provides a reusable C++26 Hearthstone simulator library.
+- Provides a reusable C++23 Hearthstone simulator library.
 - Models cards, entities, zones, tasks, triggers, auras, and game flow.
 - Keeps normal play and Battlegrounds in separate simulator trees.
 - Exposes the simulator to Python through pybind11.
@@ -42,7 +42,7 @@ For deeper design details, see [ARCHITECTURE.md](ARCHITECTURE.md). For coding-ag
 
 ### Prerequisites
 
-- A C++26 compiler
+- A C++23 compiler
 - CMake 3.31.6 or later
 - [vcpkg](https://vcpkg.io/) with `VCPKG_ROOT` set
 - Python 3.12 or later for the Python API and tests

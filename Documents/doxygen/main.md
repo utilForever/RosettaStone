@@ -1,4 +1,4 @@
-Hearthstone++ is hearthstone simulator using C++ with some reinforcement learning. The code is built on C++26 and can be compiled with supported versions of g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS, Ubuntu, Windows, and Windows Subsystem for Linux (WSL). Other untested platforms that support C++26 also should be able to build Hearthstone++.
+Hearthstone++ is hearthstone simulator using C++ with some reinforcement learning. The code is built on C++23 and can be compiled with supported versions of g++, clang++, or Microsoft Visual Studio. Hearthstone++ currently supports macOS, Ubuntu, Windows, and Windows Subsystem for Linux (WSL). Other untested platforms that support C++23 also should be able to build Hearthstone++.
 
 ### Key Features
 

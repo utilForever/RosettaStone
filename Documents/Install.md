@@ -16,7 +16,7 @@ Or, you can simply clone the clode by adding --recursive option.
 git clone https://github.com/utilForever/RosettaStone.git --recursive
 ```
 
-To build the code, a compiler that supports C++26 is required. Platform-specific build instructions are described below.
+To build the code, a compiler that supports C++23 is required. Platform-specific build instructions are described below.
 
 ### Building from macOS
 
