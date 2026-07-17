@@ -30,6 +30,17 @@ Player::Player() : playerID(-1)
 
 Player::~Player()
 {
+    delete choice;
+
+    // Zone entities may consult the current hero while they are destroyed.
+    // Keep the hero alive until every zone has released its entities.
+    m_setasideZone.reset();
+    m_secretZone.reset();
+    m_handZone.reset();
+    m_graveyardZone.reset();
+    m_fieldZone.reset();
+    m_deckZone.reset();
+
     // TODO: This code will refactor.
     if (m_hero)
     {
@@ -37,6 +48,7 @@ Player::~Player()
     }
 
     delete m_hero;
+    m_hero = nullptr;
 }
 
 FieldZone* Player::GetFieldZone() const
