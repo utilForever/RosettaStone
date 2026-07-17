@@ -33,12 +33,22 @@ TEST_CASE("[AuraEffects] - Card type bounds")
     AuraEffects weaponEffects(CardType::WEAPON);
     weaponEffects.SetAttack(3);
     CHECK_EQ(weaponEffects.GetAttack(), 3);
+    CHECK_EQ(weaponEffects.GetCantBeTargetedBySpells(), 0);
     CHECK_EQ(weaponEffects.GetHeroPowerDamage(), 0);
+    CHECK_EQ(weaponEffects.GetTaunt(), 0);
+    CHECK_EQ(weaponEffects.GetRush(), 0);
     CHECK_EQ(weaponEffects.GetCharge(), 0);
+    CHECK_THROWS(weaponEffects.SetCantBeTargetedBySpells(1));
+    CHECK_THROWS(weaponEffects.SetHeroPowerDamage(1));
+    CHECK_THROWS(weaponEffects.SetWindfury(1));
+    CHECK_THROWS(weaponEffects.SetTaunt(1));
+    CHECK_THROWS(weaponEffects.SetRush(1));
+    CHECK_THROWS(weaponEffects.SetLifesteal(1));
 
     AuraEffects spellEffects(CardType::SPELL);
     CHECK_EQ(spellEffects.GetAttack(), 0);
     CHECK_EQ(spellEffects.GetCharge(), 0);
+    CHECK_THROWS(spellEffects.SetAttack(1));
 }
 
 TEST_CASE("[PlayAuraEffects] - Run")
