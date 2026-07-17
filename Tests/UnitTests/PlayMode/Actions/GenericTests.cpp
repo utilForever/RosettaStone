@@ -11,7 +11,9 @@
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Enchants/Attrs/Atk.hpp>
 #include <Rosetta/PlayMode/Enchants/Effect.hpp>
+#include <Rosetta/PlayMode/Enchants/GenericEffect.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
@@ -150,6 +152,49 @@ TEST_CASE("[Generic] - ChangeEntity transfers ownership")
     CHECK_FALSE(oldEntity->costManager);
 }
 
+TEST_CASE("[Generic] - One-turn attack effect variants")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    auto minionCard = TestUtils::GenerateMinionCard("minion", 2, 3);
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetPlayer1();
+    TestUtils::PlayMinionCard(player, &minionCard);
+    Minion* minion = (*player->GetFieldZone())[0];
+
+    const auto oneTurnAttack =
+        std::make_shared<GenericEffect<Playable, Atk>>(
+            std::make_shared<Atk>(), EffectOperator::ADD, 1);
+    oneTurnAttack->ApplyTo(minion, true);
+    CHECK_EQ(minion->GetAttack(), 3);
+    REQUIRE_EQ(game.oneTurnEffects.size(), 1u);
+
+    Atk::Effect(EffectOperator::SET, 4)->ApplyTo(minion);
+    CHECK_EQ(minion->GetAttack(), 4);
+    CHECK(game.oneTurnEffects.empty());
+
+    const auto subtractAura = Atk::Effect(EffectOperator::SUB, 1);
+    subtractAura->ApplyAuraTo(minion);
+    CHECK_EQ(minion->auraEffects->GetAttack(), -1);
+    subtractAura->RemoveAuraFrom(minion);
+    CHECK_EQ(minion->auraEffects->GetAttack(), 0);
+
+    const auto setAura = Atk::Effect(EffectOperator::SET, 1);
+    setAura->ApplyAuraTo(minion);
+    CHECK_EQ(minion->auraEffects->GetAttack(), 1);
+    setAura->RemoveAuraFrom(minion);
+    CHECK_EQ(minion->auraEffects->GetAttack(), 0);
+}
+
 TEST_CASE("[Generic] - Remove scripted one-turn enchantment early")
 {
     GameConfig config;
@@ -179,10 +224,12 @@ TEST_CASE("[Generic] - Remove scripted one-turn enchantment early")
 
     Minion* minion = (*player->GetFieldZone())[0];
     Generic::AddEnchantment(&enchantmentCard, minion, minion, 3);
+    const Effect unrelatedEffect(GameTag::ATK, EffectOperator::ADD, 0);
+    unrelatedEffect.ApplyTo(player->GetHero(), true);
 
     REQUIRE_EQ(minion->appliedEnchantments.size(), 1u);
     CHECK_EQ(minion->GetAttack(), 5);
-    CHECK_EQ(game.oneTurnEffects.size(), 1u);
+    CHECK_EQ(game.oneTurnEffects.size(), 2u);
 
     RemoveEnchantmentTask task;
     task.SetPlayer(player);
@@ -190,8 +237,10 @@ TEST_CASE("[Generic] - Remove scripted one-turn enchantment early")
     CHECK_EQ(task.Run(), TaskStatus::COMPLETE);
 
     CHECK_EQ(minion->GetAttack(), 2);
-    CHECK(game.oneTurnEffects.empty());
+    REQUIRE_EQ(game.oneTurnEffects.size(), 1u);
+    CHECK_EQ(game.oneTurnEffects[0].first, player->GetHero());
 
     game.MainCleanUp();
+    CHECK(game.oneTurnEffects.empty());
     CHECK_EQ(minion->GetAttack(), 2);
 }
