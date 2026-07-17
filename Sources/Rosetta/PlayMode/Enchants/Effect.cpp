@@ -170,7 +170,7 @@ void Effect::RemoveFrom(PlayerAuraEffects& auraEffects) const
 
 void Effect::RemoveAuraFrom(Entity* entity) const
 {
-    const AuraEffects* auraEffects = entity->auraEffects.get();
+    AuraEffects* auraEffects = entity->auraEffects.get();
     const int prevValue = auraEffects->GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
