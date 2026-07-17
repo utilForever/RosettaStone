@@ -457,7 +457,7 @@ void Player::IncreaseInvoke()
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
     Weapon* weapon = nullptr;
-    AuraEffects* auraEffects = nullptr;
+    std::shared_ptr<AuraEffects> auraEffects;
 
     if (m_hero)
     {

@@ -41,12 +41,13 @@ void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
             if (!weapon->player->GetHero()->auraEffects)
             {
                 weapon->player->GetHero()->auraEffects =
-                    new AuraEffects(CardType::HERO);
+                    std::make_shared<AuraEffects>(CardType::HERO);
             }
         }
         else if (!owner->auraEffects)
         {
-            owner->auraEffects = new AuraEffects(CardType::MINION);
+            owner->auraEffects =
+                std::make_shared<AuraEffects>(CardType::MINION);
         }
     }
 

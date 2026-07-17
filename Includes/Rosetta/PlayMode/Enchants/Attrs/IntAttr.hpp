@@ -78,11 +78,12 @@ class IntAttr : public Attr<T>
     //! \param value The value to change the attribute.
     void ApplyAura(T* entity, EffectOperator effectOp, int value) override
     {
-        AuraEffects* auraEffects = entity->auraEffects;
+        AuraEffects* auraEffects = entity->auraEffects.get();
         if (!auraEffects)
         {
-            auraEffects = new AuraEffects(entity->card->GetCardType());
-            entity->auraEffects = auraEffects;
+            entity->auraEffects =
+                std::make_shared<AuraEffects>(entity->card->GetCardType());
+            auraEffects = entity->auraEffects.get();
         }
 
         const int target = GetAuraValue(auraEffects);
@@ -111,18 +112,18 @@ class IntAttr : public Attr<T>
     //! \param value The value to change the attribute.
     void RemoveAura(T* entity, EffectOperator effectOp, int value) override
     {
-        const int target = GetAuraValue(entity->auraEffects);
+        const int target = GetAuraValue(entity->auraEffects.get());
 
         switch (effectOp)
         {
             case EffectOperator::ADD:
-                SetAuraValue(entity->auraEffects, target - value);
+                SetAuraValue(entity->auraEffects.get(), target - value);
                 break;
             case EffectOperator::SUB:
-                SetAuraValue(entity->auraEffects, target + value);
+                SetAuraValue(entity->auraEffects.get(), target + value);
                 break;
             case EffectOperator::SET:
-                SetAuraValue(entity->auraEffects, target - value);
+                SetAuraValue(entity->auraEffects.get(), target - value);
                 break;
             default:
                 throw std::invalid_argument(

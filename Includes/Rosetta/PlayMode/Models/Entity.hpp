@@ -13,6 +13,7 @@
 #include <Rosetta/PlayMode/Zones/IZone.hpp>
 
 #include <map>
+#include <memory>
 #include <optional>
 
 namespace RosettaStone::PlayMode
@@ -111,7 +112,7 @@ class Entity
     Card* card = nullptr;
     IZone* zone = nullptr;
 
-    AuraEffects* auraEffects = nullptr;
+    std::shared_ptr<AuraEffects> auraEffects;
     std::vector<std::shared_ptr<Enchantment>> appliedEnchantments;
 
  protected:

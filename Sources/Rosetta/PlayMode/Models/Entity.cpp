@@ -28,8 +28,6 @@ Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags, int _id)
 
 Entity::~Entity()
 {
-    delete auraEffects;
-
     m_gameTags.clear();
 }
 

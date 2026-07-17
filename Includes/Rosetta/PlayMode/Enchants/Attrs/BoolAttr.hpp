@@ -57,11 +57,12 @@ class BoolAttr : public Attr<T>
     void ApplyAura(T* entity, [[maybe_unused]] EffectOperator effectOp,
                    [[maybe_unused]] int value) override
     {
-        AuraEffects* auraEffects = entity->auraEffects;
+        AuraEffects* auraEffects = entity->auraEffects.get();
         if (!auraEffects)
         {
-            auraEffects = new AuraEffects(entity->card->GetCardType());
-            entity->auraEffects = auraEffects;
+            entity->auraEffects =
+                std::make_shared<AuraEffects>(entity->card->GetCardType());
+            auraEffects = entity->auraEffects.get();
         }
 
         const int target = Attr<T>::GetAuraValue(auraEffects);
@@ -75,8 +76,8 @@ class BoolAttr : public Attr<T>
     void RemoveAura(T* entity, [[maybe_unused]] EffectOperator effectOp,
                     [[maybe_unused]] int value) override
     {
-        const int target = Attr<T>::GetAuraValue(entity->auraEffects);
-        Attr<T>::SetAuraValue(entity->auraEffects, target - 1);
+        const int target = Attr<T>::GetAuraValue(entity->auraEffects.get());
+        Attr<T>::SetAuraValue(entity->auraEffects.get(), target - 1);
     }
 
  protected:
