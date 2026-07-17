@@ -48,15 +48,15 @@ TEST_CASE("[FieldZone] - GetAll")
     CHECK_EQ(minions[0]->card->name, "Flame Imp");
     CHECK_EQ(minions[1]->card->name, "Wisp");
 
-    auto untouchableCard =
-        TestUtils::GenerateMinionCard("untouchable", 0, 1);
+    auto untouchableCard = TestUtils::GenerateMinionCard("untouchable", 0, 1);
+    auto replacementCard = TestUtils::GenerateMinionCard("replacement", 1, 1);
+
     untouchableCard.gameTags[GameTag::UNTOUCHABLE] = 1;
-    auto replacementCard =
-        TestUtils::GenerateMinionCard("replacement", 1, 1);
-    auto* untouchable = dynamic_cast<Minion*>(
-        Entity::GetFromCard(curPlayer, &untouchableCard));
-    auto* replacement = dynamic_cast<Minion*>(
-        Entity::GetFromCard(curPlayer, &replacementCard));
+
+    auto* untouchable =
+        dynamic_cast<Minion*>(Entity::GetFromCard(curPlayer, &untouchableCard));
+    auto* replacement =
+        dynamic_cast<Minion*>(Entity::GetFromCard(curPlayer, &replacementCard));
 
     curField.Add(untouchable);
     CHECK_EQ(curField.GetCountExceptUntouchables(), 2);

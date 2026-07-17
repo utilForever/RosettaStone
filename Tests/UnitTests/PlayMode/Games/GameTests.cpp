@@ -66,14 +66,23 @@ class RetiringAura final : public IAura
 
 TEST_CASE("[Game] - UpdateAura retires inactive ownership")
 {
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game{ config };
+
     bool destroyed = false;
-    Game game;
     auto* aura = new RetiringAura(game, destroyed);
+
     aura->Activate(nullptr, false);
     aura->Remove();
     aura->Clone(nullptr);
-    game.AddAura(aura);
 
+    game.AddAura(aura);
     game.UpdateAura();
 
     CHECK(game.auras.empty());

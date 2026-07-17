@@ -31,7 +31,6 @@ using namespace SimpleTasks;
 TEST_CASE("[Generic] - AddEnchantment ignores null target")
 {
     auto enchantmentCard = TestUtils::GenerateEnchantmentCard("enchantment");
-
     CHECK_NOTHROW(
         Generic::AddEnchantment(&enchantmentCard, nullptr, nullptr, 0, 0));
 }
@@ -171,24 +170,26 @@ TEST_CASE("[Generic] - One-turn attack effect variants")
     TestUtils::PlayMinionCard(player, &minionCard);
     Minion* minion = (*player->GetFieldZone())[0];
 
-    const auto oneTurnAttack =
-        std::make_shared<GenericEffect<Playable, Atk>>(
-            std::make_shared<Atk>(), EffectOperator::ADD, 1);
+    const auto oneTurnAttack = std::make_shared<GenericEffect<Playable, Atk>>(
+        std::make_shared<Atk>(), EffectOperator::ADD, 1);
+
     oneTurnAttack->ApplyTo(minion, true);
     CHECK_EQ(minion->GetAttack(), 3);
-    REQUIRE_EQ(game.oneTurnEffects.size(), 1u);
+    CHECK_EQ(game.oneTurnEffects.size(), 1u);
 
     Atk::Effect(EffectOperator::SET, 4)->ApplyTo(minion);
     CHECK_EQ(minion->GetAttack(), 4);
     CHECK(game.oneTurnEffects.empty());
 
     const auto subtractAura = Atk::Effect(EffectOperator::SUB, 1);
+
     subtractAura->ApplyAuraTo(minion);
     CHECK_EQ(minion->auraEffects->GetAttack(), -1);
     subtractAura->RemoveAuraFrom(minion);
     CHECK_EQ(minion->auraEffects->GetAttack(), 0);
 
     const auto setAura = Atk::Effect(EffectOperator::SET, 1);
+
     setAura->ApplyAuraTo(minion);
     CHECK_EQ(minion->auraEffects->GetAttack(), 1);
     setAura->RemoveAuraFrom(minion);
@@ -224,10 +225,11 @@ TEST_CASE("[Generic] - Remove scripted one-turn enchantment early")
 
     Minion* minion = (*player->GetFieldZone())[0];
     Generic::AddEnchantment(&enchantmentCard, minion, minion, 3);
+
     const Effect unrelatedEffect(GameTag::ATK, EffectOperator::ADD, 0);
     unrelatedEffect.ApplyTo(player->GetHero(), true);
 
-    REQUIRE_EQ(minion->appliedEnchantments.size(), 1u);
+    CHECK_EQ(minion->appliedEnchantments.size(), 1u);
     CHECK_EQ(minion->GetAttack(), 5);
     CHECK_EQ(game.oneTurnEffects.size(), 2u);
 
@@ -237,7 +239,7 @@ TEST_CASE("[Generic] - Remove scripted one-turn enchantment early")
     CHECK_EQ(task.Run(), TaskStatus::COMPLETE);
 
     CHECK_EQ(minion->GetAttack(), 2);
-    REQUIRE_EQ(game.oneTurnEffects.size(), 1u);
+    CHECK_EQ(game.oneTurnEffects.size(), 1u);
     CHECK_EQ(game.oneTurnEffects[0].first, player->GetHero());
 
     game.MainCleanUp();
