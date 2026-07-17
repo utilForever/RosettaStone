@@ -103,3 +103,32 @@ TEST_CASE("[Generic] - GetZone")
     CHECK_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::INVALID));
     CHECK_EQ(nullptr, Generic::GetZone(curPlayer, ZoneType::REMOVEDFROMGAME));
 }
+
+TEST_CASE("[Generic] - ChangeEntity transfers ownership")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+
+    Player* player = game.GetPlayer1();
+    Playable* oldEntity =
+        Entity::GetFromCard(player, Cards::FindCardByID("GAME_005"));
+    player->GetHandZone()->Add(oldEntity);
+    oldEntity->costManager = std::make_unique<CostManager>();
+
+    const int entityID = oldEntity->GetGameTag(GameTag::ENTITY_ID);
+    Generic::ChangeEntity(player, oldEntity, Cards::FindCardByID("CS2_231"),
+                          false);
+
+    Playable* newEntity = game.entityList.at(entityID);
+    CHECK_NE(newEntity, oldEntity);
+    CHECK_EQ(newEntity->zone, player->GetHandZone());
+    CHECK_EQ(oldEntity->zone, player->GetSetasideZone());
+    CHECK(newEntity->costManager);
+    CHECK_FALSE(oldEntity->costManager);
+}

@@ -162,7 +162,7 @@ void SummoningPortalAura::CalculateCost(Playable* playable) const
 
     minion->SetCost(cost);
 
-    if (const auto costManager = playable->costManager; costManager)
+    if (const auto costManager = playable->costManager.get(); costManager)
     {
         costManager->QueueUpdate();
     }

@@ -271,7 +271,8 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
             playable->costManager->EntityChanged(newCard->GetCost());
         }
 
-        entity->costManager = playable->costManager;
+        entity->costManager = std::move(playable->costManager);
+        player->GetSetasideZone()->Add(playable);
         playable = entity;
     }
 

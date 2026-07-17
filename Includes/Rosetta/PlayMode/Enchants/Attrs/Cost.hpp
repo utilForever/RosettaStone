@@ -40,7 +40,7 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
 
         const auto playable = dynamic_cast<Playable*>(entity);
 
-        if (auto* costManager = playable->costManager; costManager)
+        if (auto* costManager = playable->costManager.get(); costManager)
         {
             costManager->AddCostEnchantment(effectOp, value);
         }
@@ -54,11 +54,11 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
     {
         const auto playable = dynamic_cast<Playable*>(entity);
 
-        CostManager* costManager = playable->costManager;
+        CostManager* costManager = playable->costManager.get();
         if (!costManager)
         {
-            costManager = new CostManager();
-            playable->costManager = costManager;
+            playable->costManager = std::make_unique<CostManager>();
+            costManager = playable->costManager.get();
         }
 
         costManager->AddCostAura(effectOp, value);
@@ -72,7 +72,7 @@ class Cost : public SelfContainedIntAttr<Cost, Entity>
     {
         const auto playable = dynamic_cast<Playable*>(entity);
 
-        if (auto* costManager = playable->costManager; costManager)
+        if (auto* costManager = playable->costManager.get(); costManager)
         {
             costManager->RemoveCostAura(effectOp, value);
         }

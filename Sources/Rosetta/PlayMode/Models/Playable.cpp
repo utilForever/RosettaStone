@@ -226,7 +226,7 @@ bool Playable::CanActivateSpellburst() const
 
 void Playable::ResetCost()
 {
-    costManager = nullptr;
+    costManager.reset();
     if (const auto iter = m_gameTags.find(GameTag::COST);
         iter != m_gameTags.end())
     {

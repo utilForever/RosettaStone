@@ -219,7 +219,7 @@ class Playable : public Entity
     void ActivateTask(PowerType type, Character* target = nullptr,
                       int chooseOne = 0, Playable* chooseBase = nullptr);
 
-    CostManager* costManager = nullptr;
+    std::unique_ptr<CostManager> costManager;
     IAura* ongoingEffect = nullptr;
     std::shared_ptr<Trigger> activatedTrigger;
 

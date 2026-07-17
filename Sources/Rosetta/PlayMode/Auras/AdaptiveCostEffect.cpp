@@ -33,7 +33,7 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
 
     if (!owner->costManager)
     {
-        owner->costManager = new CostManager();
+        owner->costManager = std::make_unique<CostManager>();
     }
 
     owner->costManager->ActivateAdaptiveEffect(instance);
@@ -82,7 +82,7 @@ void AdaptiveCostEffect::Remove()
     EraseIf(m_owner->game->auras,
             [this](const IAura* aura) { return aura == this; });
 
-    if (const auto costManager = m_owner->costManager; costManager)
+    if (const auto costManager = m_owner->costManager.get(); costManager)
     {
         costManager->DeactivateAdaptiveEffect();
     }
