@@ -117,13 +117,15 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
         }
     }
 
+    std::shared_ptr<Enchantment> enchantment;
+
     if (power.GetAura() || power.GetTrigger() ||
         !power.GetDeathrattleTask().empty())
     {
         // Create Enchantment instance only when it is needed.
         // As an owner entity for auras, triggers or deathrattle tasks.
-        const auto enchantment = Enchantment::GetInstance(
-            creator, enchantmentCard, target, num1, num2);
+        enchantment = Enchantment::GetInstance(creator, enchantmentCard, target,
+                                               num1, num2);
 
         if (const auto aura = power.GetAura(); aura)
         {
@@ -145,6 +147,21 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
     if (const auto enchant = power.GetEnchant(); enchant)
     {
         enchant->ActivateTo(target, num1, num2);
+
+        if (enchantment)
+        {
+            const std::size_t idxFirstEffect =
+                target->game->oneTurnEffects.size();
+            const auto& oneTurnEffects = target->game->oneTurnEffects;
+
+            for (std::size_t i = idxFirstEffect; i < oneTurnEffects.size(); ++i)
+            {
+                if (oneTurnEffects[i].first == target)
+                {
+                    enchantment->AddOneTurnEffect(oneTurnEffects[i].second);
+                }
+            }
+        }
     }
 }
 

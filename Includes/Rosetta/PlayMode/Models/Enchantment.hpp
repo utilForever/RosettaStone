@@ -9,8 +9,12 @@
 
 #include <Rosetta/PlayMode/Models/Playable.hpp>
 
+#include <memory>
+#include <vector>
+
 namespace RosettaStone::PlayMode
 {
+class IEffect;
 class Player;
 
 //!
@@ -78,6 +82,15 @@ class Enchantment : public Playable
     //! \return The flag that indicates whether it is one turn active.
     bool IsOneTurnActive() const;
 
+    //! Adds the effect to the list of effects generated for this one-turn
+    //! enchantment.
+    //! \param effect The generated effect.
+    void AddOneTurnEffect(const std::shared_ptr<IEffect>& effect);
+
+    //! Returns effects generated for this one-turn enchantment.
+    //! \return The generated effects.
+    const std::vector<std::weak_ptr<IEffect>>& GetOneTurnEffects() const;
+
     //! Returns the captured card.
     //! \return The captured card.
     Card* GetCapturedCard() const;
@@ -94,6 +107,7 @@ class Enchantment : public Playable
     Entity* m_target = nullptr;
     Card* m_capturedCard = nullptr;
 
+    std::vector<std::weak_ptr<IEffect>> m_oneTurnEffects;
     bool m_isOneTurnActive = false;
 };
 }  // namespace RosettaStone::PlayMode

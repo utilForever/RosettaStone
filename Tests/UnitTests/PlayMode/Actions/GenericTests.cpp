@@ -6,10 +6,15 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Utils/TestUtils.hpp>
+
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Enchants/Effect.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
@@ -19,6 +24,7 @@
 
 using namespace RosettaStone;
 using namespace PlayMode;
+using namespace SimpleTasks;
 
 TEST_CASE("[Generic] - ShuffleIntoDeck")
 {
@@ -134,4 +140,50 @@ TEST_CASE("[Generic] - ChangeEntity transfers ownership")
     CHECK_EQ(oldEntity->zone, player->GetSetasideZone());
     CHECK(newEntity->costManager);
     CHECK_FALSE(oldEntity->costManager);
+}
+
+TEST_CASE("[Generic] - Remove scripted one-turn enchantment early")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::PALADIN;
+    config.formatType = FormatType::WILD;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    auto minionCard = TestUtils::GenerateMinionCard("minion", 2, 3);
+    auto enchantmentCard = TestUtils::GenerateEnchantmentCard("enchantment");
+
+    enchantmentCard.gameTags[GameTag::TAG_ONE_TURN_EFFECT] = 1;
+    enchantmentCard.power.AddEnchant(std::make_shared<Enchant>(
+        std::make_shared<Effect>(GameTag::ATK, EffectOperator::ADD, 0), true,
+        true));
+    enchantmentCard.power.AddTrigger(
+        std::make_shared<Trigger>(TriggerType::TURN_START));
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetPlayer1();
+    TestUtils::PlayMinionCard(player, &minionCard);
+
+    Minion* minion = (*player->GetFieldZone())[0];
+    Generic::AddEnchantment(&enchantmentCard, minion, minion, 3);
+
+    REQUIRE_EQ(minion->appliedEnchantments.size(), 1u);
+    CHECK_EQ(minion->GetAttack(), 5);
+    CHECK_EQ(game.oneTurnEffects.size(), 1u);
+
+    RemoveEnchantmentTask task;
+    task.SetPlayer(player);
+    task.SetSource(minion->appliedEnchantments[0].get());
+    CHECK_EQ(task.Run(), TaskStatus::COMPLETE);
+
+    CHECK_EQ(minion->GetAttack(), 2);
+    CHECK(game.oneTurnEffects.empty());
+
+    game.MainCleanUp();
+    CHECK_EQ(minion->GetAttack(), 2);
 }

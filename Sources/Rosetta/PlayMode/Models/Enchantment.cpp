@@ -94,6 +94,17 @@ bool Enchantment::IsOneTurnActive() const
     return m_isOneTurnActive;
 }
 
+void Enchantment::AddOneTurnEffect(const std::shared_ptr<IEffect>& effect)
+{
+    m_oneTurnEffects.emplace_back(effect);
+}
+
+const std::vector<std::weak_ptr<IEffect>>& Enchantment::GetOneTurnEffects()
+    const
+{
+    return m_oneTurnEffects;
+}
+
 Card* Enchantment::GetCapturedCard() const
 {
     return m_capturedCard;
@@ -131,5 +142,7 @@ void Enchantment::Remove()
     {
         activatedTrigger->Remove();
     }
+
+    m_oneTurnEffects.clear();
 }
 }  // namespace RosettaStone::PlayMode
