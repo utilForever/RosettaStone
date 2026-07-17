@@ -6,6 +6,8 @@
 #ifndef ROSETTASTONE_PLAYMODE_IEFFECT_HPP
 #define ROSETTASTONE_PLAYMODE_IEFFECT_HPP
 
+#include <memory>
+
 namespace RosettaStone::PlayMode
 {
 class Entity;
@@ -42,7 +44,7 @@ class IEffect
     //! Creates a new Effect having changed amount of \p newValue.
     //! \param newValue A value to change.
     //! \return A new Effect having changed amount.
-    virtual IEffect* ChangeValue(int newValue) const = 0;
+    virtual std::shared_ptr<IEffect> ChangeValue(int newValue) const = 0;
 };
 }  // namespace RosettaStone::PlayMode
 

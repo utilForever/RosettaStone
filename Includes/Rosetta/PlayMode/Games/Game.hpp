@@ -206,7 +206,7 @@ class Game
 
     std::vector<IAura*> auras;
     std::vector<std::shared_ptr<Trigger>> triggers;
-    std::vector<std::pair<Entity*, IEffect*>> oneTurnEffects;
+    std::vector<std::pair<Entity*, std::shared_ptr<IEffect>>> oneTurnEffects;
     std::vector<std::shared_ptr<Enchantment>> oneTurnEffectEnchantments;
 
  private:

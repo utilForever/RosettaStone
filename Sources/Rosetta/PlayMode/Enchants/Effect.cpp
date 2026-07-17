@@ -22,7 +22,7 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
     if (isOneTurnEffect)
     {
         entity->game->oneTurnEffects.emplace_back(
-            std::make_pair(entity, new Effect(*this)));
+            entity, std::make_shared<Effect>(*this));
     }
 
     const int prevValue = entity->GetNativeGameTag(m_gameTag);
@@ -198,9 +198,9 @@ void Effect::RemoveAuraFrom(Entity* entity) const
     }
 }
 
-IEffect* Effect::ChangeValue(int newValue) const
+std::shared_ptr<IEffect> Effect::ChangeValue(int newValue) const
 {
-    return new Effect(m_gameTag, m_effectOperator, newValue);
+    return std::make_shared<Effect>(m_gameTag, m_effectOperator, newValue);
 }
 
 EffectOperator Effect::GetEffectOperator() const

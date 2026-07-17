@@ -42,7 +42,7 @@ class GenericEffect : public IEffect
         if (isOneTurnEffect)
         {
             entity->game->oneTurnEffects.emplace_back(
-                entity, const_cast<GenericEffect<T, AttrT>*>(this));
+                entity, std::make_shared<GenericEffect<T, AttrT>>(*this));
         }
 
         m_attr->Apply(entity, m_effectOp, m_value);
@@ -72,9 +72,10 @@ class GenericEffect : public IEffect
     //! Creates a new Effect having changed amount of \p newValue.
     //! \param newValue A value to change.
     //! \return A new Effect having changed amount.
-    IEffect* ChangeValue(int newValue) const override
+    std::shared_ptr<IEffect> ChangeValue(int newValue) const override
     {
-        return new GenericEffect<T, AttrT>(m_attr, m_effectOp, newValue);
+        return std::make_shared<GenericEffect<T, AttrT>>(m_attr, m_effectOp,
+                                                         newValue);
     }
 
  private:

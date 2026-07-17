@@ -178,7 +178,7 @@ void Minion::Silence()
         ongoingEffect->Remove();
     }
 
-    EraseIf(game->oneTurnEffects, [this](std::pair<Entity*, IEffect*> effect) {
+    EraseIf(game->oneTurnEffects, [this](const auto& effect) {
         return effect.first->GetGameTag(GameTag::ENTITY_ID) ==
                GetGameTag(GameTag::ENTITY_ID);
     });

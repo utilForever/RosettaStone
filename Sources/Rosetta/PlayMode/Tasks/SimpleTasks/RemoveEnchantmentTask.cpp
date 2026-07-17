@@ -44,9 +44,9 @@ TaskStatus RemoveEnchantmentTask::Impl(Player* player)
             for (const auto& effect : enchant->effects)
             {
                 EraseIf(player->game->oneTurnEffects,
-                        [=](std::pair<Entity*, IEffect*> eff) {
+                        [=](const auto& eff) {
                             return eff.first == enchantment->GetTarget() &&
-                                   eff.second == effect.get();
+                                   eff.second.get() == effect.get();
                         });
             }
         }

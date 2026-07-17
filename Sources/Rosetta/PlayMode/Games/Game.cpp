@@ -520,7 +520,7 @@ void Game::MainCleanUp()
     for (const auto& effectPair : oneTurnEffects)
     {
         Entity* entity = effectPair.first;
-        const IEffect* effect = effectPair.second;
+        const IEffect* effect = effectPair.second.get();
 
         effect->RemoveFrom(entity);
     }
