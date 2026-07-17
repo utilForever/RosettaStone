@@ -56,7 +56,7 @@ class DeckZone : public LimitedZone<Playable>
     void ChangeEntity(Playable* oldEntity, Playable* newEntity) override;
 
     //! Shuffles cards in deck.
-    void Shuffle() const;
+    void Shuffle();
 
     //! Sets an new entity.
     //! \param index The position of entity.
@@ -67,7 +67,7 @@ class DeckZone : public LimitedZone<Playable>
     //! Both entities must be contained by this zone.
     //! \param entity1 The one entity.
     //! \param entity2 The other entity.
-    void Swap(const Playable* entity1, const Playable* entity2) const;
+    void Swap(const Playable* entity1, const Playable* entity2);
 };
 }  // namespace RosettaStone::PlayMode
 

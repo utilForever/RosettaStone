@@ -92,9 +92,9 @@ void DeckZone::ChangeEntity(Playable* oldEntity, Playable* newEntity)
     newEntity->zone = this;
 }
 
-void DeckZone::Shuffle() const
+void DeckZone::Shuffle()
 {
-    Random::shuffle(m_entities, m_entities + m_count);
+    Random::shuffle(m_entities.begin(), m_entities.begin() + m_count);
 }
 
 void DeckZone::SetEntity(int index, Playable* newEntity)
@@ -103,7 +103,7 @@ void DeckZone::SetEntity(int index, Playable* newEntity)
     newEntity->zone = this;
 }
 
-void DeckZone::Swap(const Playable* entity1, const Playable* entity2) const
+void DeckZone::Swap(const Playable* entity1, const Playable* entity2)
 {
     if (entity1->zone->GetType() != entity2->zone->GetType())
     {
@@ -129,8 +129,6 @@ void DeckZone::Swap(const Playable* entity1, const Playable* entity2) const
         return;
     }
 
-    const auto temp = m_entities[entity1Pos];
-    m_entities[entity1Pos] = m_entities[entity2Pos];
-    m_entities[entity2Pos] = temp;
+    std::swap(m_entities[entity1Pos], m_entities[entity2Pos]);
 }
 }  // namespace RosettaStone::PlayMode

@@ -157,6 +157,7 @@ class UnlimitedZone : public Zone<Playable>
         m_entities.erase(
             std::remove(m_entities.begin(), m_entities.end(), entity),
             m_entities.end());
+        entity->zone = nullptr;
 
         return entity;
     }
@@ -239,14 +240,9 @@ class LimitedZone : public Zone<T>
     //! \param type The type of zone.
     //! \param maxSize The maximum size of zone.
     explicit LimitedZone(ZoneType type, int maxSize)
-        : Zone<T>(type), m_maxSize(maxSize)
+        : Zone<T>(type), m_entities(maxSize, nullptr), m_maxSize(maxSize)
     {
-        m_entities = new T*[m_maxSize];
-
-        for (int i = 0; i < m_maxSize; ++i)
-        {
-            m_entities[i] = nullptr;
-        }
+        // Do nothing
     }
 
     //! Destructor.
@@ -256,8 +252,6 @@ class LimitedZone : public Zone<T>
         {
             delete m_entities[i];
         }
-
-        delete[] m_entities;
     }
 
     //! Deleted copy constructor.
@@ -448,7 +442,7 @@ class LimitedZone : public Zone<T>
     }
 
  protected:
-    T** m_entities;
+    std::vector<T*> m_entities;
 
     int m_count = 0;
     int m_maxSize = 0;
