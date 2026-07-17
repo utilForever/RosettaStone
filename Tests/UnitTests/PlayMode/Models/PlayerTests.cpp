@@ -26,11 +26,15 @@ TEST_CASE("[Player] - AddHeroAndPower shares aura state and moves weapon")
     GameConfig config;
     config.player1Class = CardClass::PALADIN;
     config.player2Class = CardClass::MAGE;
+    config.formatType = FormatType::WILD;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
     config.autoRun = false;
 
     Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
     Player* player = game.GetPlayer1();
     Hero* oldHero = player->GetHero();
 

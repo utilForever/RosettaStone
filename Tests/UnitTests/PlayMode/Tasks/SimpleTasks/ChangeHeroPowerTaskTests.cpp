@@ -21,7 +21,12 @@ TEST_CASE("[ChangeHeroPowerTask] - Run")
     config.startPlayer = PlayerType::PLAYER1;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::MAGE;
+    config.formatType = FormatType::WILD;
+    config.autoRun = false;
+
     Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Hero& hero = *game.GetPlayer1()->GetHero();
     HeroPower* oldHeroPower = hero.heroPower;

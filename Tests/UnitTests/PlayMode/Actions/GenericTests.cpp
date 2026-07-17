@@ -109,11 +109,14 @@ TEST_CASE("[Generic] - ChangeEntity transfers ownership")
     GameConfig config;
     config.player1Class = CardClass::ROGUE;
     config.player2Class = CardClass::PALADIN;
+    config.formatType = FormatType::WILD;
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = false;
     config.autoRun = false;
 
     Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* player = game.GetPlayer1();
     Playable* oldEntity =
