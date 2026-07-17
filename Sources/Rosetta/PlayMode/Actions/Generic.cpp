@@ -102,6 +102,11 @@ bool AddCardToHand(const Player* player, Playable* entity)
 void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
                     int num1, int num2, int entityID)
 {
+    if (!target)
+    {
+        return;
+    }
+
     Power& power = enchantmentCard->power;
 
     if (const auto playable = dynamic_cast<Playable*>(target))

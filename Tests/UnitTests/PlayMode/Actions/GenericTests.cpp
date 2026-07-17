@@ -26,6 +26,14 @@ using namespace RosettaStone;
 using namespace PlayMode;
 using namespace SimpleTasks;
 
+TEST_CASE("[Generic] - AddEnchantment ignores null target")
+{
+    auto enchantmentCard = TestUtils::GenerateEnchantmentCard("enchantment");
+
+    CHECK_NOTHROW(
+        Generic::AddEnchantment(&enchantmentCard, nullptr, nullptr, 0, 0));
+}
+
 TEST_CASE("[Generic] - ShuffleIntoDeck")
 {
     GameConfig config;
