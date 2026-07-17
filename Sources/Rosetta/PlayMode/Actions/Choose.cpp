@@ -114,11 +114,7 @@ bool ChoicePick(Player* player, int choice)
                 "ChoicePick() - Invalid choice action!");
         case ChoiceAction::CHANGE_HERO_POWER:
         {
-            delete player->GetHero()->heroPower;
-            player->GetSetasideZone()->Remove(playable);
-            playable->SetGameTag(GameTag::ZONE,
-                                 static_cast<int>(ZoneType::PLAY));
-            player->GetHero()->heroPower = dynamic_cast<HeroPower*>(playable);
+            player->ReplaceHeroPower(dynamic_cast<HeroPower*>(playable));
             break;
         }
         case ChoiceAction::HAND:

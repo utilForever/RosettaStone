@@ -79,6 +79,39 @@ void Player::SetHero(Hero* hero)
     m_hero = hero;
 }
 
+void Player::ReplaceHeroPower(HeroPower* heroPower)
+{
+    HeroPower* oldHeroPower = m_hero->heroPower;
+
+    if (oldHeroPower == heroPower)
+    {
+        return;
+    }
+
+    if (oldHeroPower)
+    {
+        if (oldHeroPower->ongoingEffect)
+        {
+            oldHeroPower->ongoingEffect->Remove();
+        }
+
+        if (oldHeroPower->activatedTrigger)
+        {
+            oldHeroPower->activatedTrigger->Remove();
+        }
+
+        m_setasideZone->Add(oldHeroPower);
+    }
+
+    if (heroPower->zone)
+    {
+        heroPower->zone->Remove(heroPower);
+    }
+
+    heroPower->SetZoneType(ZoneType::PLAY);
+    m_hero->heroPower = heroPower;
+}
+
 HeroPower& Player::GetHeroPower() const
 {
     return *m_hero->heroPower;

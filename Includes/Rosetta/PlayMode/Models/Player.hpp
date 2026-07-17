@@ -87,6 +87,10 @@ class Player : public Entity
     //! \param hero The hero of the player.
     void SetHero(Hero* hero);
 
+    //! Replaces the current hero power.
+    //! \param heroPower The new hero power.
+    void ReplaceHeroPower(HeroPower* heroPower);
+
     //! Returns player's hero power.
     //! \return Player's hero power.
     HeroPower& GetHeroPower() const;

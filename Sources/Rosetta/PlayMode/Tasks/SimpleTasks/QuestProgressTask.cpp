@@ -106,8 +106,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             if (const auto heroPower = dynamic_cast<HeroPower*>(reward);
                 heroPower)
             {
-                delete player->GetHero()->heroPower;
-                player->GetHero()->heroPower = heroPower;
+                player->ReplaceHeroPower(heroPower);
 
                 // Process aura
                 if (heroPower->card->power.GetAura())

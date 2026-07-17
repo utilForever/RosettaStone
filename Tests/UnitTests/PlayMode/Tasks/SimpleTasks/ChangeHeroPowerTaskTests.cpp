@@ -9,6 +9,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ChangeHeroPowerTask.hpp>
+#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -23,10 +24,12 @@ TEST_CASE("[ChangeHeroPowerTask] - Run")
     Game game(config);
 
     Hero& hero = *game.GetPlayer1()->GetHero();
+    HeroPower* oldHeroPower = hero.heroPower;
+    const int oldEntityID = oldHeroPower->GetGameTag(GameTag::ENTITY_ID);
 
     hero.heroPower->SetExhausted(true);
     CHECK_EQ(hero.heroPower->card->id,
-              Cards::GetDefaultHeroPower(CardClass::PRIEST)->id);
+             Cards::GetDefaultHeroPower(CardClass::PRIEST)->id);
     CHECK(hero.heroPower->IsExhausted());
 
     ChangeHeroPowerTask change(Cards::GetDefaultHeroPower(CardClass::MAGE)->id);
@@ -35,6 +38,8 @@ TEST_CASE("[ChangeHeroPowerTask] - Run")
     TaskStatus result = change.Run();
     CHECK_EQ(result, TaskStatus::COMPLETE);
     CHECK_EQ(hero.heroPower->card->id,
-              Cards::GetDefaultHeroPower(CardClass::MAGE)->id);
+             Cards::GetDefaultHeroPower(CardClass::MAGE)->id);
     CHECK_FALSE(hero.heroPower->IsExhausted());
+    CHECK_EQ(oldHeroPower->zone, game.GetPlayer1()->GetSetasideZone());
+    CHECK_EQ(game.entityList.at(oldEntityID), oldHeroPower);
 }
