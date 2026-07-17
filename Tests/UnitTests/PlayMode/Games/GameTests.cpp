@@ -68,7 +68,11 @@ TEST_CASE("[Game] - UpdateAura retires inactive ownership")
 {
     bool destroyed = false;
     Game game;
-    game.AddAura(new RetiringAura(game, destroyed));
+    auto* aura = new RetiringAura(game, destroyed);
+    aura->Activate(nullptr, false);
+    aura->Remove();
+    aura->Clone(nullptr);
+    game.AddAura(aura);
 
     game.UpdateAura();
 
