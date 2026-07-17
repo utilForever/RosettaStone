@@ -6,6 +6,8 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Utils/TestUtils.hpp>
+
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
@@ -45,4 +47,23 @@ TEST_CASE("[FieldZone] - GetAll")
 
     CHECK_EQ(minions[0]->card->name, "Flame Imp");
     CHECK_EQ(minions[1]->card->name, "Wisp");
+
+    auto untouchableCard =
+        TestUtils::GenerateMinionCard("untouchable", 0, 1);
+    untouchableCard.gameTags[GameTag::UNTOUCHABLE] = 1;
+    auto replacementCard =
+        TestUtils::GenerateMinionCard("replacement", 1, 1);
+    auto* untouchable = dynamic_cast<Minion*>(
+        Entity::GetFromCard(curPlayer, &untouchableCard));
+    auto* replacement = dynamic_cast<Minion*>(
+        Entity::GetFromCard(curPlayer, &replacementCard));
+
+    curField.Add(untouchable);
+    CHECK_EQ(curField.GetCountExceptUntouchables(), 2);
+    curField.Remove(untouchable);
+    CHECK_EQ(curField.GetCountExceptUntouchables(), 2);
+
+    curField.Add(untouchable);
+    curField.Replace(untouchable, replacement);
+    CHECK_EQ(curField.GetCountExceptUntouchables(), 3);
 }

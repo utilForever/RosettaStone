@@ -14,3 +14,13 @@
 using namespace RosettaStone;
 using namespace PlayMode;
 using namespace PlayerTasks;
+
+TEST_CASE("[HandZone] - Expand ignores smaller size")
+{
+    Game game;
+    HandZone* hand = game.GetPlayer1()->GetHandZone();
+
+    hand->Expand(1);
+
+    CHECK_EQ(hand->GetCount(), 0);
+}
