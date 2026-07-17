@@ -146,12 +146,12 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
 
     if (const auto enchant = power.GetEnchant(); enchant)
     {
+        const std::size_t idxFirstEffect = target->game->oneTurnEffects.size();
+
         enchant->ActivateTo(target, num1, num2);
 
         if (enchantment)
         {
-            const std::size_t idxFirstEffect =
-                target->game->oneTurnEffects.size();
             const auto& oneTurnEffects = target->game->oneTurnEffects;
 
             for (std::size_t i = idxFirstEffect; i < oneTurnEffects.size(); ++i)
