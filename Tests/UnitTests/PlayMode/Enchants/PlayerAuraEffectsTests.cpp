@@ -9,6 +9,7 @@
 #include <Utils/TestUtils.hpp>
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Enchants/AuraEffects.hpp>
 #include <Rosetta/PlayMode/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
@@ -18,6 +19,27 @@ using namespace PlayMode;
 using namespace TestUtils;
 
 using EffectList = std::vector<std::shared_ptr<IEffect>>;
+
+TEST_CASE("[AuraEffects] - Card type bounds")
+{
+    AuraEffects heroEffects(CardType::HERO);
+    heroEffects.SetImmune(1);
+    CHECK_EQ(heroEffects.GetImmune(), 1);
+    CHECK_EQ(heroEffects.GetWindfury(), 0);
+    CHECK_EQ(heroEffects.GetCharge(), 0);
+    CHECK_EQ(heroEffects.GetLifesteal(), 0);
+    CHECK_THROWS(heroEffects.SetCharge(1));
+
+    AuraEffects weaponEffects(CardType::WEAPON);
+    weaponEffects.SetAttack(3);
+    CHECK_EQ(weaponEffects.GetAttack(), 3);
+    CHECK_EQ(weaponEffects.GetHeroPowerDamage(), 0);
+    CHECK_EQ(weaponEffects.GetCharge(), 0);
+
+    AuraEffects spellEffects(CardType::SPELL);
+    CHECK_EQ(spellEffects.GetAttack(), 0);
+    CHECK_EQ(spellEffects.GetCharge(), 0);
+}
 
 TEST_CASE("[PlayAuraEffects] - Run")
 {

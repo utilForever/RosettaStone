@@ -14,26 +14,14 @@ AuraEffects::AuraEffects(CardType type) : m_type(type)
     switch (type)
     {
         case CardType::HERO:
-            m_data = new int[AURA_EFFECT_HERO_SIZE]();
-            break;
         case CardType::MINION:
-            m_data = new int[AURA_EFFECT_MINION_SIZE]();
-            break;
         case CardType::WEAPON:
-            m_data = new int[AURA_EFFECT_WEAPON_SIZE]();
-            break;
         case CardType::SPELL:
-            m_data = new int[AURA_EFFECT_CARD_SIZE]();
             break;
         default:
             throw std::invalid_argument(
                 "AuraEffects::AuraEffects() - Invalid card type!");
     }
-}
-
-AuraEffects::~AuraEffects()
-{
-    delete[] m_data;
 }
 
 int AuraEffects::GetGameTag(GameTag tag) const
@@ -150,21 +138,41 @@ void AuraEffects::SetImmune(int value) const
 
 int AuraEffects::GetCantBeTargetedBySpells() const
 {
+    if (m_type != CardType::HERO && m_type != CardType::MINION)
+    {
+        return 0;
+    }
+
     return m_data[0];
 }
 
 void AuraEffects::SetCantBeTargetedBySpells(int value) const
 {
+    if (m_type != CardType::HERO && m_type != CardType::MINION)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[0] = value;
 }
 
 int AuraEffects::GetAttack() const
 {
+    if (m_type == CardType::SPELL)
+    {
+        return 0;
+    }
+
     return m_data[1];
 }
 
 void AuraEffects::SetAttack(int value) const
 {
+    if (m_type == CardType::SPELL)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[1] = value;
 }
 
@@ -190,11 +198,21 @@ void AuraEffects::SetCannotAttackHeroes(int value) const
 
 int AuraEffects::GetHeroPowerDamage() const
 {
+    if (m_type != CardType::HERO)
+    {
+        return 0;
+    }
+
     return m_data[4];
 }
 
 void AuraEffects::SetHeroPowerDamage(int value) const
 {
+    if (m_type != CardType::HERO)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[4] = value;
 }
 
@@ -220,51 +238,101 @@ void AuraEffects::SetHealth(int value) const
 
 int AuraEffects::GetWindfury() const
 {
+    if (m_type != CardType::MINION)
+    {
+        return 0;
+    }
+
     return m_data[3];
 }
 
 void AuraEffects::SetWindfury(int value) const
 {
+    if (m_type != CardType::MINION)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[3] = value;
 }
 
 int AuraEffects::GetTaunt() const
 {
+    if (m_type != CardType::MINION)
+    {
+        return 0;
+    }
+
     return m_data[4];
 }
 
 void AuraEffects::SetTaunt(int value) const
 {
+    if (m_type != CardType::MINION)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[4] = value;
 }
 
 int AuraEffects::GetCharge() const
 {
+    if (m_type != CardType::MINION)
+    {
+        return 0;
+    }
+
     return m_data[5];
 }
 
 void AuraEffects::SetCharge(int value) const
 {
+    if (m_type != CardType::MINION)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[5] = value;
 }
 
 int AuraEffects::GetRush() const
 {
+    if (m_type != CardType::MINION)
+    {
+        return 0;
+    }
+
     return m_data[6];
 }
 
 void AuraEffects::SetRush(int value) const
 {
+    if (m_type != CardType::MINION)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[6] = value;
 }
 
 int AuraEffects::GetLifesteal() const
 {
+    if (m_type != CardType::MINION)
+    {
+        return 0;
+    }
+
     return m_data[7];
 }
 
 void AuraEffects::SetLifesteal(int value) const
 {
+    if (m_type != CardType::MINION)
+    {
+        throw std::logic_error("Not Implemented!");
+    }
+
     m_data[7] = value;
 }
 
