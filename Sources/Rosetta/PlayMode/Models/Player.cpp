@@ -500,7 +500,7 @@ void Player::IncreaseInvoke()
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
     Weapon* weapon = nullptr;
-    std::shared_ptr<AuraEffects> auraEffects;
+    std::shared_ptr<AuraEffects> heroAuraEffects;
 
     if (m_hero)
     {
@@ -513,7 +513,7 @@ void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
             m_hero->weapon = nullptr;
         }
 
-        auraEffects = m_hero->auraEffects;
+        heroAuraEffects = m_hero->auraEffects;
     }
 
     m_hero = dynamic_cast<Hero*>(GetFromCard(this, heroCard));
@@ -522,6 +522,6 @@ void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
     m_hero->heroPower = dynamic_cast<HeroPower*>(GetFromCard(this, powerCard));
 
     m_hero->weapon = weapon;
-    m_hero->auraEffects = auraEffects;
+    m_hero->auraEffects = heroAuraEffects;
 }
 }  // namespace RosettaStone::PlayMode

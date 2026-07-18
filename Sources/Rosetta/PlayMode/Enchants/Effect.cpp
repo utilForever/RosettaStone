@@ -83,7 +83,7 @@ void Effect::ApplyTo(PlayerAuraEffects& auraEffects) const
 
 void Effect::ApplyAuraTo(Entity* entity) const
 {
-    AuraEffects* auraEffects = entity->auraEffects.get();
+    const AuraEffects* auraEffects = entity->auraEffects.get();
     if (!auraEffects)
     {
         entity->auraEffects =
@@ -170,7 +170,7 @@ void Effect::RemoveFrom(PlayerAuraEffects& auraEffects) const
 
 void Effect::RemoveAuraFrom(Entity* entity) const
 {
-    AuraEffects* auraEffects = entity->auraEffects.get();
+    const AuraEffects* auraEffects = entity->auraEffects.get();
     const int prevValue = auraEffects->GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
