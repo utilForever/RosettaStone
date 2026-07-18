@@ -42,8 +42,8 @@ void ChoiceMulligan(Player* player, const std::vector<int>& choices)
     // Block it if player tries to mulligan a card that doesn't exist
     for (const auto chooseID : choices)
     {
-        if (std::find(choice->choices.begin(), choice->choices.end(),
-                      chooseID) == choice->choices.end())
+        if (std::ranges::find(choice->choices, chooseID) ==
+            choice->choices.end())
         {
             return;
         }
@@ -92,8 +92,8 @@ bool ChoicePick(Player* player, int choice)
     }
 
     // Block it if player tries to pick a card that doesn't exist
-    if (std::find(choiceVal->choices.begin(), choiceVal->choices.end(),
-                  choice) == choiceVal->choices.end())
+    if (std::ranges::find(choiceVal->choices, choice) ==
+        choiceVal->choices.end())
     {
         return false;
     }

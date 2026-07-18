@@ -57,10 +57,8 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     // Reverse card order in deck
     if (!m_gameConfig.doShuffle)
     {
-        std::reverse(m_gameConfig.player1Deck.begin(),
-                     m_gameConfig.player1Deck.end());
-        std::reverse(m_gameConfig.player2Deck.begin(),
-                     m_gameConfig.player2Deck.end());
+        std::ranges::reverse(m_gameConfig.player1Deck);
+        std::ranges::reverse(m_gameConfig.player2Deck);
     }
 
     // Set up decks
@@ -752,7 +750,7 @@ void Game::UpdateAura()
     }
 
     std::erase_if(m_ownedAuras, [this](const auto& aura) {
-        return std::find(auras.begin(), auras.end(), aura.get()) == auras.end();
+        return !std::ranges::contains(auras, aura.get());
     });
 }
 

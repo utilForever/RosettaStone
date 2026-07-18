@@ -15,6 +15,7 @@
 
 #include <effolkronium/random.hpp>
 
+#include <algorithm>
 #include <utility>
 
 using Random = effolkronium::random_static;
@@ -671,16 +672,19 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
 
     if (!cardsForOtherEffect.empty())
     {
-        std::sort(cardsForOtherEffect.begin(), cardsForOtherEffect.end(),
-                  [&player](const int& a, const int& b) {
-                      const Playable* playableA = player->game->entityList[a];
-                      const Playable* playableB = player->game->entityList[b];
+        std::ranges::sort(cardsForOtherEffect,
+                          [&player](const int& a, const int& b) {
+                              const Playable* playableA =
+                                  player->game->entityList[a];
+                              const Playable* playableB =
+                                  player->game->entityList[b];
 
-                      return playableA->card->dbfID < playableB->card->dbfID;
-                  });
+                              return playableA->card->dbfID <
+                                     playableB->card->dbfID;
+                          });
 
-        const auto last = std::unique(
-            cardsForOtherEffect.begin(), cardsForOtherEffect.end(),
+        const auto duplicates = std::ranges::unique(
+            cardsForOtherEffect,
             [&player](const int& a, const int& b) {
                 const Playable* playableA = player->game->entityList[a];
                 const Playable* playableB = player->game->entityList[b];
@@ -688,7 +692,7 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
                 return playableA->card->dbfID == playableB->card->dbfID;
             });
 
-        cardsForOtherEffect.erase(last, cardsForOtherEffect.end());
+        cardsForOtherEffect.erase(duplicates.begin(), duplicates.end());
         Random::shuffle(cardsForOtherEffect.begin(), cardsForOtherEffect.end());
     }
 

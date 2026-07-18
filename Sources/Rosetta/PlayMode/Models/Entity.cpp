@@ -33,7 +33,7 @@ Entity::~Entity()
 
 int Entity::GetNativeGameTag(GameTag tag) const
 {
-    return m_gameTags.find(tag) == m_gameTags.end() ? 0 : m_gameTags.at(tag);
+    return m_gameTags.contains(tag) ? m_gameTags.at(tag) : 0;
 }
 
 void Entity::SetNativeGameTag(GameTag tag, int value)

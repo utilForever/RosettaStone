@@ -154,9 +154,7 @@ class UnlimitedZone : public Zone<Playable>
             throw std::logic_error("Couldn't remove entity from zone.");
         }
 
-        m_entities.erase(
-            std::remove(m_entities.begin(), m_entities.end(), entity),
-            m_entities.end());
+        std::erase(m_entities, entity);
         entity->zone = nullptr;
 
         return entity;

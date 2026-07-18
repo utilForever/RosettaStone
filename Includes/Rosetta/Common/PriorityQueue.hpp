@@ -7,7 +7,9 @@
 #ifndef ROSETTASTONE_PRIORITY_QUEUE_HPP
 #define ROSETTASTONE_PRIORITY_QUEUE_HPP
 
+#include <algorithm>
 #include <map>
+#include <ranges>
 #include <stdexcept>
 #include <utility>
 
@@ -62,15 +64,7 @@ class PriorityQueue
     //! \return true if the the value of the element exists, false otherwise.
     bool IsExist(const T& value) const
     {
-        for (const auto& [priority, element] : m_elements)
-        {
-            if (element == value)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return std::ranges::contains(m_elements | std::views::values, value);
     }
 
     //! Checks if the underlying container has no elements.

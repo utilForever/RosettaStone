@@ -241,8 +241,7 @@ void Aura::Apply(Playable* entity)
 
 void Aura::Disapply(Playable* entity)
 {
-    if (const auto iter = std::find(m_appliedEntities.begin(),
-                                    m_appliedEntities.end(), entity);
+    if (const auto iter = std::ranges::find(m_appliedEntities, entity);
         iter != m_appliedEntities.end())
     {
         m_appliedEntities.erase(iter);
@@ -633,8 +632,7 @@ void Aura::RemoveInternal()
 void Aura::RenewAll()
 {
     auto Renew = [this](Playable* playable) {
-        const auto iter = std::find(m_appliedEntities.begin(),
-                                    m_appliedEntities.end(), playable);
+        const auto iter = std::ranges::find(m_appliedEntities, playable);
 
         if (condition->Evaluate(playable))
         {

@@ -11,6 +11,8 @@
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone::PlayMode
 {
 SummoningPortalAura::SummoningPortalAura()
@@ -63,8 +65,7 @@ void SummoningPortalAura::Update()
             case AuraInstruction::REMOVE:
             {
                 const auto iter =
-                    std::find(m_appliedEntities.begin(),
-                              m_appliedEntities.end(), inst.source);
+                    std::ranges::find(m_appliedEntities, inst.source);
 
                 if (iter != m_appliedEntities.end())
                 {
