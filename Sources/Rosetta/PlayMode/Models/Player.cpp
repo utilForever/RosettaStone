@@ -153,6 +153,8 @@ int Player::GetCurrentSpellPower() const
 
 int Player::GetExtraSpellPower(SpellSchool spellSchool) const
 {
+    using enum SpellSchool;
+
     int value = 0;
 
     m_fieldZone->ForEach([&](Playable* playable) {
@@ -161,17 +163,17 @@ int Player::GetExtraSpellPower(SpellSchool spellSchool) const
         {
             switch (spellSchool)
             {
-                case SpellSchool::NATURE:
+                case NATURE:
                     value += minion->GetSpellPowerNature();
                     break;
-                case SpellSchool::NONE:
-                case SpellSchool::ARCANE:
-                case SpellSchool::FIRE:
-                case SpellSchool::FROST:
-                case SpellSchool::HOLY:
-                case SpellSchool::SHADOW:
-                case SpellSchool::FEL:
-                case SpellSchool::PHYSICAL_COMBAT:
+                case NONE:
+                case ARCANE:
+                case FIRE:
+                case FROST:
+                case HOLY:
+                case SHADOW:
+                case FEL:
+                case PHYSICAL_COMBAT:
                     break;
             }
         }

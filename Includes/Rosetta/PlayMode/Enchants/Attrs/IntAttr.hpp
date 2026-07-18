@@ -33,18 +33,19 @@ class IntAttr : public Attr<T>
     {
         const int target = GetValue(entity);
 
+        using enum EffectOperator;
         switch (effectOp)
         {
-            case EffectOperator::ADD:
+            case ADD:
                 SetValue(entity, target + value);
                 break;
-            case EffectOperator::SUB:
+            case SUB:
                 SetValue(entity, target - value);
                 break;
-            case EffectOperator::MUL:
+            case MUL:
                 SetValue(entity, target * value);
                 break;
-            case EffectOperator::SET:
+            case SET:
                 SetValue(entity, value);
                 break;
         }
@@ -58,12 +59,13 @@ class IntAttr : public Attr<T>
     {
         const int target = GetValue(entity);
 
+        using enum EffectOperator;
         switch (effectOp)
         {
-            case EffectOperator::ADD:
+            case ADD:
                 SetValue(entity, target - value);
                 break;
-            case EffectOperator::SUB:
+            case SUB:
                 SetValue(entity, target + value);
                 break;
             default:
@@ -88,18 +90,19 @@ class IntAttr : public Attr<T>
 
         const int target = GetAuraValue(auraEffects);
 
+        using enum EffectOperator;
         switch (effectOp)
         {
-            case EffectOperator::ADD:
+            case ADD:
                 SetAuraValue(auraEffects, target + value);
                 break;
-            case EffectOperator::SUB:
+            case SUB:
                 SetAuraValue(auraEffects, target - value);
                 break;
-            case EffectOperator::MUL:
+            case MUL:
                 SetAuraValue(auraEffects, target * value);
                 break;
-            case EffectOperator::SET:
+            case SET:
                 SetValue(entity, 0);
                 SetAuraValue(auraEffects, value);
                 break;
@@ -114,15 +117,16 @@ class IntAttr : public Attr<T>
     {
         const int target = GetAuraValue(entity->auraEffects.get());
 
+        using enum EffectOperator;
         switch (effectOp)
         {
-            case EffectOperator::ADD:
+            case ADD:
                 SetAuraValue(entity->auraEffects.get(), target - value);
                 break;
-            case EffectOperator::SUB:
+            case SUB:
                 SetAuraValue(entity->auraEffects.get(), target + value);
                 break;
-            case EffectOperator::SET:
+            case SET:
                 SetAuraValue(entity->auraEffects.get(), target - value);
                 break;
             default:

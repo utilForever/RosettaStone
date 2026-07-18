@@ -20,12 +20,14 @@ namespace RosettaStone::PlayMode
 {
 AuraEffects::AuraEffects(CardType type) : m_type(type)
 {
+    using enum CardType;
+
     switch (type)
     {
-        case CardType::HERO:
-        case CardType::MINION:
-        case CardType::WEAPON:
-        case CardType::SPELL:
+        case HERO:
+        case MINION:
+        case WEAPON:
+        case SPELL:
             break;
         default:
             throw std::invalid_argument(
@@ -35,32 +37,34 @@ AuraEffects::AuraEffects(CardType type) : m_type(type)
 
 int AuraEffects::GetGameTag(GameTag tag) const
 {
+    using enum GameTag;
+
     switch (tag)
     {
-        case GameTag::IMMUNE:
+        case IMMUNE:
             return GetImmune();
-        case GameTag::CANT_BE_TARGETED_BY_SPELLS:
-        case GameTag::CANT_BE_TARGETED_BY_HERO_POWERS:
+        case CANT_BE_TARGETED_BY_SPELLS:
+        case CANT_BE_TARGETED_BY_HERO_POWERS:
             return GetCantBeTargetedBySpells();
-        case GameTag::ATK:
+        case ATK:
             return GetAttack();
-        case GameTag::CANNOT_ATTACK_HEROES:
+        case CANNOT_ATTACK_HEROES:
             return GetCannotAttackHeroes();
-        case GameTag::HEROPOWER_DAMAGE:
+        case HEROPOWER_DAMAGE:
             return GetHeroPowerDamage();
-        case GameTag::HEALTH:
+        case HEALTH:
             return GetHealth();
-        case GameTag::WINDFURY:
+        case WINDFURY:
             return GetWindfury();
-        case GameTag::TAUNT:
+        case TAUNT:
             return GetTaunt();
-        case GameTag::CHARGE:
+        case CHARGE:
             return GetCharge();
-        case GameTag::RUSH:
+        case RUSH:
             return GetRush();
-        case GameTag::LIFESTEAL:
+        case LIFESTEAL:
             return GetLifesteal();
-        case GameTag::CANT_ATTACK:
+        case CANT_ATTACK:
             return GetCantAttack();
         default:
             return 0;
@@ -69,43 +73,45 @@ int AuraEffects::GetGameTag(GameTag tag) const
 
 void AuraEffects::SetGameTag(GameTag tag, int value) const
 {
+    using enum GameTag;
+
     switch (tag)
     {
-        case GameTag::IMMUNE:
+        case IMMUNE:
             SetImmune(value);
             break;
-        case GameTag::CANT_BE_TARGETED_BY_SPELLS:
-        case GameTag::CANT_BE_TARGETED_BY_HERO_POWERS:
+        case CANT_BE_TARGETED_BY_SPELLS:
+        case CANT_BE_TARGETED_BY_HERO_POWERS:
             SetCantBeTargetedBySpells(value);
             break;
-        case GameTag::ATK:
+        case ATK:
             SetAttack(value);
             break;
-        case GameTag::CANNOT_ATTACK_HEROES:
+        case CANNOT_ATTACK_HEROES:
             SetCannotAttackHeroes(value);
             break;
-        case GameTag::HEROPOWER_DAMAGE:
+        case HEROPOWER_DAMAGE:
             SetHeroPowerDamage(value);
             break;
-        case GameTag::HEALTH:
+        case HEALTH:
             SetHealth(value);
             break;
-        case GameTag::WINDFURY:
+        case WINDFURY:
             SetWindfury(value);
             break;
-        case GameTag::TAUNT:
+        case TAUNT:
             SetTaunt(value);
             break;
-        case GameTag::CHARGE:
+        case CHARGE:
             SetCharge(value);
             break;
-        case GameTag::RUSH:
+        case RUSH:
             SetRush(value);
             break;
-        case GameTag::LIFESTEAL:
+        case LIFESTEAL:
             SetLifesteal(value);
             break;
-        case GameTag::CANT_ATTACK:
+        case CANT_ATTACK:
             SetCantAttack(value);
             break;
         default:

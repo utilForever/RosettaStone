@@ -115,13 +115,14 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     }
 
     // Determine first player
+    using enum PlayerType;
     switch (m_gameConfig.startPlayer)
     {
-        case PlayerType::RANDOM:
+        case RANDOM:
         {
             const auto val = Random::get(0, 1);
             m_currentPlayer =
-                (val == 0) ? PlayerType::PLAYER1 : PlayerType::PLAYER2;
+                (val == 0) ? PLAYER1 : PLAYER2;
             break;
         }
         default:
@@ -558,10 +559,10 @@ void Game::MainCleanUp()
 
 void Game::MainNext()
 {
+    using enum PlayerType;
+
     // Set player for next turn
-    m_currentPlayer = (m_currentPlayer == PlayerType::PLAYER1)
-                          ? PlayerType::PLAYER2
-                          : PlayerType::PLAYER1;
+    m_currentPlayer = (m_currentPlayer == PLAYER1) ? PLAYER2 : PLAYER1;
 
     // Count next turn
     m_turn++;
@@ -577,14 +578,15 @@ void Game::MainNext()
 
 void Game::FinalWrapUp()
 {
+    using enum PlayState;
+
     // Set game states according by result
     for (auto& p : m_players)
     {
-        if (p.playState == PlayState::LOSING ||
-            p.playState == PlayState::CONCEDED)
+        if (p.playState == LOSING || p.playState == CONCEDED)
         {
-            p.playState = PlayState::LOST;
-            p.opponent->playState = PlayState::WON;
+            p.playState = LOST;
+            p.opponent->playState = WON;
         }
     }
 
@@ -794,17 +796,19 @@ void Game::ProcessUntil(Step untilStep)
 
 std::tuple<PlayState, PlayState> Game::CheckGameOver()
 {
+    using enum PlayState;
+
     // Check hero of two players is destroyed
     if (GetPlayer1()->GetHero()->isDestroyed)
     {
         if (GetPlayer2()->GetHero()->isDestroyed)
         {
-            GetPlayer1()->playState = PlayState::TIED;
-            GetPlayer2()->playState = PlayState::TIED;
+            GetPlayer1()->playState = TIED;
+            GetPlayer2()->playState = TIED;
         }
         else
         {
-            GetPlayer1()->playState = PlayState::LOSING;
+            GetPlayer1()->playState = LOSING;
         }
 
         // Set next step
@@ -813,7 +817,7 @@ std::tuple<PlayState, PlayState> Game::CheckGameOver()
     }
     else if (GetPlayer2()->GetHero()->isDestroyed)
     {
-        GetPlayer2()->playState = PlayState::LOSING;
+        GetPlayer2()->playState = LOSING;
 
         // Set next step
         nextStep = Step::FINAL_WRAPUP;

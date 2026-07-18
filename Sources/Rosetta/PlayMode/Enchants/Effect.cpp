@@ -19,6 +19,8 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
 
 void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
 {
+    using enum EffectOperator;
+
     if (isOneTurnEffect)
     {
         entity->game->oneTurnEffects.emplace_back(
@@ -29,7 +31,7 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
 
     switch (m_effectOperator)
     {
-        case EffectOperator::ADD:
+        case ADD:
             entity->SetNativeGameTag(m_gameTag, prevValue + m_value);
 
             if (const auto weapon = dynamic_cast<Weapon*>(entity); weapon)
@@ -41,13 +43,13 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
             }
 
             break;
-        case EffectOperator::SUB:
+        case SUB:
             entity->SetNativeGameTag(m_gameTag, prevValue - m_value);
             break;
-        case EffectOperator::MUL:
+        case MUL:
             entity->SetNativeGameTag(m_gameTag, prevValue * m_value);
             break;
-        case EffectOperator::SET:
+        case SET:
             entity->SetNativeGameTag(m_gameTag, m_value);
             break;
     }
@@ -121,17 +123,19 @@ void Effect::ApplyAuraTo(Entity* entity) const
 
 void Effect::RemoveFrom(Entity* entity) const
 {
+    using enum EffectOperator;
+
     const int prevValue = entity->GetNativeGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
-        case EffectOperator::ADD:
+        case ADD:
             entity->SetNativeGameTag(m_gameTag, prevValue - m_value);
             break;
-        case EffectOperator::SUB:
+        case SUB:
             entity->SetNativeGameTag(m_gameTag, prevValue + m_value);
             break;
-        case EffectOperator::SET:
+        case SET:
             entity->SetNativeGameTag(m_gameTag, 0);
             break;
         default:

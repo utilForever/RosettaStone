@@ -43,25 +43,27 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
 
 int AdaptiveCostEffect::Apply(int value) const
 {
+    using enum EffectOperator;
+
     if (m_costFunc &&
         (m_condition == std::nullopt || m_condition->Evaluate(m_owner)))
     {
-        if (m_effectOp == EffectOperator::ADD)
+        if (m_effectOp == ADD)
         {
             return value + m_costFunc(m_owner);
         }
 
-        if (m_effectOp == EffectOperator::SUB)
+        if (m_effectOp == SUB)
         {
             return value - m_costFunc(m_owner);
         }
 
-        if (m_effectOp == EffectOperator::MUL)
+        if (m_effectOp == MUL)
         {
             return value * m_costFunc(m_owner);
         }
 
-        if (m_effectOp == EffectOperator::SET)
+        if (m_effectOp == SET)
         {
             return m_costFunc(m_owner);
         }

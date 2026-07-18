@@ -28,20 +28,22 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
                                                       Entity* target, int num1,
                                                       int num2)
 {
+    using enum GameTag;
+
     const int id = owner->player->game->GetNextID();
 
     std::map<GameTag, int> tags;
-    tags[GameTag::ENTITY_ID] = id;
-    tags[GameTag::CONTROLLER] = owner->player->playerID;
-    tags[GameTag::ZONE] = static_cast<int>(ZoneType::SETASIDE);
+    tags[ENTITY_ID] = id;
+    tags[CONTROLLER] = owner->player->playerID;
+    tags[ZONE] = std::to_underlying(ZoneType::SETASIDE);
 
     if (num1 > 0)
     {
-        tags[GameTag::TAG_SCRIPT_DATA_NUM_1] = num1;
+        tags[TAG_SCRIPT_DATA_NUM_1] = num1;
 
         if (num2 > 0)
         {
-            tags[GameTag::TAG_SCRIPT_DATA_NUM_2] = num2;
+            tags[TAG_SCRIPT_DATA_NUM_2] = num2;
         }
     }
 
@@ -50,7 +52,7 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
 
     target->appliedEnchantments.emplace_back(instance);
 
-    if (_card->gameTags[GameTag::TAG_ONE_TURN_EFFECT] == 1)
+    if (_card->gameTags[TAG_ONE_TURN_EFFECT] == 1)
     {
         instance->m_isOneTurnActive = true;
         owner->game->oneTurnEffectEnchantments.emplace_back(instance);
@@ -62,7 +64,7 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
     {
         if (const auto playable = dynamic_cast<Playable*>(target); playable)
         {
-            playable->SetGameTag(GameTag::DEATHRATTLE, 1);
+            playable->SetGameTag(DEATHRATTLE, 1);
         }
     }
 

@@ -118,17 +118,18 @@ std::vector<int> DiscoverTask::GetChoices(const Entity* source,
 
         for (const auto& card : selectedCards)
         {
+            using enum GameTag;
+
             std::map<GameTag, int> cardTags;
-            cardTags.emplace(GameTag::CREATOR,
-                             source->GetGameTag(GameTag::ENTITY_ID));
-            cardTags.emplace(GameTag::DISPLAYED_CREATOR,
-                             source->GetGameTag(GameTag::ENTITY_ID));
+            cardTags.emplace(CREATOR, source->GetGameTag(ENTITY_ID));
+            cardTags.emplace(DISPLAYED_CREATOR,
+                             source->GetGameTag(ENTITY_ID));
 
             Playable* choiceEntity =
                 Entity::GetFromCard(source->player, card, cardTags,
                                     source->player->GetSetasideZone());
             source->player->GetSetasideZone()->Add(choiceEntity);
-            result.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
+            result.emplace_back(choiceEntity->GetGameTag(ENTITY_ID));
         }
     }
     else if (!cardsForOtherEffect.empty())

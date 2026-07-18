@@ -402,20 +402,20 @@ void CreateChoice(Player* player, Entity* source, ChoiceType type,
 void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
                        ChoiceAction action, const std::vector<Card*>& choices)
 {
+    using enum GameTag;
+
     std::vector<int> choiceIDs;
 
     for (auto& card : choices)
     {
         std::map<GameTag, int> cardTags;
-        cardTags.emplace(GameTag::CREATOR,
-                         source->GetGameTag(GameTag::ENTITY_ID));
-        cardTags.emplace(GameTag::DISPLAYED_CREATOR,
-                         source->GetGameTag(GameTag::ENTITY_ID));
+        cardTags.emplace(CREATOR, source->GetGameTag(ENTITY_ID));
+        cardTags.emplace(DISPLAYED_CREATOR, source->GetGameTag(ENTITY_ID));
 
         Playable* choiceEntity = Entity::GetFromCard(player, card, cardTags,
                                                      player->GetSetasideZone());
         player->GetSetasideZone()->Add(choiceEntity);
-        choiceIDs.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
+        choiceIDs.emplace_back(choiceEntity->GetGameTag(ENTITY_ID));
     }
 
     if (!player->choice)

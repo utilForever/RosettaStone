@@ -240,38 +240,39 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     {
         Playable* entity = nullptr;
 
+        using enum CardType;
         switch (newCard->GetCardType())
         {
-            case CardType::HERO:
+            case HERO:
                 entity =
                     new Hero(player, newCard, playable->card->gameTags, id);
                 break;
-            case CardType::MINION:
-            case CardType::LOCATION:
+            case MINION:
+            case LOCATION:
                 entity =
                     new Minion(player, newCard, playable->card->gameTags, id);
                 break;
-            case CardType::SPELL:
+            case SPELL:
                 entity =
                     new Spell(player, newCard, playable->card->gameTags, id);
                 break;
-            case CardType::WEAPON:
+            case WEAPON:
                 entity =
                     new Weapon(player, newCard, playable->card->gameTags, id);
                 break;
-            case CardType::INVALID:
-            case CardType::GAME:
-            case CardType::PLAYER:
-            case CardType::ENCHANTMENT:
-            case CardType::ITEM:
-            case CardType::TOKEN:
-            case CardType::HERO_POWER:
-            case CardType::BLANK:
-            case CardType::GAME_MODE_BUTTON:
-            case CardType::MOVE_MINION_HOVER_TARGET:
-            case CardType::LETTUCE_ABILITY:
-            case CardType::BATTLEGROUND_HERO_BUDDY:
-            case CardType::BATTLEGROUND_QUEST_REWARD:
+            case INVALID:
+            case GAME:
+            case PLAYER:
+            case ENCHANTMENT:
+            case ITEM:
+            case TOKEN:
+            case HERO_POWER:
+            case BLANK:
+            case GAME_MODE_BUTTON:
+            case MOVE_MINION_HOVER_TARGET:
+            case LETTUCE_ABILITY:
+            case BATTLEGROUND_HERO_BUDDY:
+            case BATTLEGROUND_QUEST_REWARD:
                 throw std::invalid_argument(
                     "Generic::ChangeEntity() - Invalid card type");
         }
@@ -445,22 +446,24 @@ void TransformMinion(Player* player, Minion* oldMinion, Card* card)
 
 IZone* GetZone(const Player* player, ZoneType zoneType)
 {
+    using enum ZoneType;
+
     switch (zoneType)
     {
-        case ZoneType::PLAY:
+        case PLAY:
             return player->GetFieldZone();
-        case ZoneType::DECK:
+        case DECK:
             return player->GetDeckZone();
-        case ZoneType::HAND:
+        case HAND:
             return player->GetHandZone();
-        case ZoneType::GRAVEYARD:
+        case GRAVEYARD:
             return player->GetGraveyardZone();
-        case ZoneType::SETASIDE:
+        case SETASIDE:
             return player->GetSetasideZone();
-        case ZoneType::SECRET:
+        case SECRET:
             return player->GetSecretZone();
-        case ZoneType::INVALID:
-        case ZoneType::REMOVEDFROMGAME:
+        case INVALID:
+        case REMOVEDFROMGAME:
             return nullptr;
     }
 

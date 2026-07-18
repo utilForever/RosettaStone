@@ -106,46 +106,47 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     Trigger::ValidateTriggers(player->game, source, SequenceType::PLAY_CARD);
 
     // Pass to sub-logic
+    using enum CardType;
     switch (source->card->GetCardType())
     {
-        case CardType::HERO:
+        case HERO:
         {
             const auto hero = dynamic_cast<Hero*>(source);
             PlayHero(player, hero, target, chooseOne);
             break;
         }
-        case CardType::MINION:
-        case CardType::LOCATION:
+        case MINION:
+        case LOCATION:
         {
             const auto minion = dynamic_cast<Minion*>(source);
             PlayMinion(player, minion, target, fieldPos, chooseOne);
             break;
         }
-        case CardType::SPELL:
+        case SPELL:
         {
             const auto spell = dynamic_cast<Spell*>(source);
             PlaySpell(player, spell, target, chooseOne);
             break;
         }
-        case CardType::WEAPON:
+        case WEAPON:
         {
             const auto weapon = dynamic_cast<Weapon*>(source);
             PlayWeapon(player, weapon, target);
             break;
         }
-        case CardType::INVALID:
-        case CardType::GAME:
-        case CardType::PLAYER:
-        case CardType::ENCHANTMENT:
-        case CardType::ITEM:
-        case CardType::TOKEN:
-        case CardType::HERO_POWER:
-        case CardType::BLANK:
-        case CardType::GAME_MODE_BUTTON:
-        case CardType::MOVE_MINION_HOVER_TARGET:
-        case CardType::LETTUCE_ABILITY:
-        case CardType::BATTLEGROUND_HERO_BUDDY:
-        case CardType::BATTLEGROUND_QUEST_REWARD:
+        case INVALID:
+        case GAME:
+        case PLAYER:
+        case ENCHANTMENT:
+        case ITEM:
+        case TOKEN:
+        case HERO_POWER:
+        case BLANK:
+        case GAME_MODE_BUTTON:
+        case MOVE_MINION_HOVER_TARGET:
+        case LETTUCE_ABILITY:
+        case BATTLEGROUND_HERO_BUDDY:
+        case BATTLEGROUND_QUEST_REWARD:
             throw std::invalid_argument(
                 "Generic::PlayCard() - Invalid card type!");
     }

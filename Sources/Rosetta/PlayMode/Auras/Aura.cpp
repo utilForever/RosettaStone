@@ -77,6 +77,8 @@ void Aura::Activate(Playable* owner, bool cloning)
 
 void Aura::Update()
 {
+    using enum AuraInstruction;
+
     bool addAllProcessed = false;
 
     if (restless)
@@ -91,23 +93,23 @@ void Aura::Update()
 
         switch (inst.instruction)
         {
-            case AuraInstruction::ADD:
+            case ADD:
                 if (!addAllProcessed)
                 {
                     Apply(inst.source);
                 }
                 break;
-            case AuraInstruction::ADD_ALL:
+            case ADD_ALL:
                 addAllProcessed = true;
                 UpdateInternal();
                 break;
-            case AuraInstruction::REMOVE:
+            case REMOVE:
                 Disapply(inst.source);
                 break;
-            case AuraInstruction::REMOVE_ALL:
+            case REMOVE_ALL:
                 RemoveInternal();
                 break;
-            case AuraInstruction::INVALID:
+            case INVALID:
                 throw std::invalid_argument(
                     "Aura::Update() - Invalid aura instruction!");
         }
@@ -341,41 +343,43 @@ Aura::Aura(const Aura& prototype, Playable& owner)
 
 void Aura::AddToGame(Playable& owner, Aura& aura)
 {
+    using enum AuraType;
+
     owner.game->AddAura(&aura);
     owner.ongoingEffect = &aura;
 
     switch (aura.m_type)
     {
-        case AuraType::ADJACENT:
-        case AuraType::FIELD:
-        case AuraType::FIELD_EXCEPT_SOURCE:
+        case ADJACENT:
+        case FIELD:
+        case FIELD_EXCEPT_SOURCE:
             owner.player->GetFieldZone()->auras.emplace_back(&aura);
             break;
-        case AuraType::WEAPON:
+        case WEAPON:
             owner.player->GetHero()->weaponAuras.emplace_back(&aura);
             break;
-        case AuraType::HAND:
+        case HAND:
             owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
-        case AuraType::ENEMY_HAND:
+        case ENEMY_HAND:
             owner.player->opponent->GetHandZone()->auras.emplace_back(&aura);
             break;
-        case AuraType::HANDS:
+        case HANDS:
             owner.player->GetHandZone()->auras.emplace_back(&aura);
             owner.player->opponent->GetHandZone()->auras.emplace_back(&aura);
             break;
-        case AuraType::FIELD_AND_HAND:
+        case FIELD_AND_HAND:
             owner.player->GetFieldZone()->auras.emplace_back(&aura);
             owner.player->GetHandZone()->auras.emplace_back(&aura);
             break;
-        case AuraType::INVALID:
-        case AuraType::SELF:
-        case AuraType::HERO:
-        case AuraType::HERO_POWER:
-        case AuraType::ENEMY_HERO_POWER:
-        case AuraType::PLAYER:
-        case AuraType::ENEMY_PLAYER:
-        case AuraType::PLAYERS:
+        case INVALID:
+        case SELF:
+        case HERO:
+        case HERO_POWER:
+        case ENEMY_HERO_POWER:
+        case PLAYER:
+        case ENEMY_PLAYER:
+        case PLAYERS:
             break;
     }
 }
