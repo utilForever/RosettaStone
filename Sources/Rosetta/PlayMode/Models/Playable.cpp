@@ -27,10 +27,7 @@ Playable::Playable(Player* _player, Card* _card, std::map<GameTag, int> _tags,
     player = _player;
 }
 
-Playable::~Playable()
-{
-    delete ongoingEffect;
-}
+Playable::~Playable() = default;
 
 ZoneType Playable::GetZoneType() const
 {
@@ -39,7 +36,7 @@ ZoneType Playable::GetZoneType() const
 
 void Playable::SetZoneType(ZoneType type)
 {
-    SetGameTag(GameTag::ZONE, static_cast<int>(type));
+    SetGameTag(GameTag::ZONE, std::to_underlying(type));
 }
 
 int Playable::GetZonePosition() const
@@ -83,21 +80,22 @@ void Playable::IncreaseNumInfuse()
 
 bool Playable::IsExhausted() const
 {
+    using enum GameTag;
+
     // Consider windfury
-    if (GetGameTag(GameTag::WINDFURY) == 1 &&
-        GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 1)
+    if (GetGameTag(WINDFURY) == 1 &&
+        GetGameTag(NUM_ATTACKS_THIS_TURN) == 1)
     {
         return false;
     }
 
     // Consider charge
-    if (GetGameTag(GameTag::CHARGE) == 1 &&
-        GetGameTag(GameTag::NUM_ATTACKS_THIS_TURN) == 0)
+    if (GetGameTag(CHARGE) == 1 && GetGameTag(NUM_ATTACKS_THIS_TURN) == 0)
     {
         return false;
     }
 
-    return GetGameTag(GameTag::EXHAUSTED) == 1;
+    return GetGameTag(EXHAUSTED) == 1;
 }
 
 void Playable::SetExhausted(bool exhausted)
@@ -226,7 +224,7 @@ bool Playable::CanActivateSpellburst() const
 
 void Playable::ResetCost()
 {
-    costManager = nullptr;
+    costManager.reset();
     if (const auto iter = m_gameTags.find(GameTag::COST);
         iter != m_gameTags.end())
     {
@@ -430,43 +428,45 @@ bool Playable::IsValidPlayTarget(Character* target, int chooseOne) const
 
 bool Playable::HasAnyValidPlayTargets(Card* _card) const
 {
+    using enum TargetingType;
+
     bool friendlyMinions = false, enemyMinions = false;
     bool hero = false, enemyHero = false;
 
     switch (_card->targetingType)
     {
-        case TargetingType::NONE:
+        case NONE:
             return false;
-        case TargetingType::ALL:
+        case ALL:
             friendlyMinions = true;
             enemyMinions = true;
             hero = true;
             enemyHero = true;
             break;
-        case TargetingType::CHARACTERS_EXCEPT_HERO:
+        case CHARACTERS_EXCEPT_HERO:
             friendlyMinions = true;
             enemyMinions = true;
             enemyHero = true;
             break;
-        case TargetingType::FRIENDLY_CHARACTERS:
+        case FRIENDLY_CHARACTERS:
             friendlyMinions = true;
             hero = true;
             break;
-        case TargetingType::ENEMY_CHARACTERS:
+        case ENEMY_CHARACTERS:
             enemyMinions = true;
             enemyHero = true;
             break;
-        case TargetingType::ALL_MINIONS:
+        case ALL_MINIONS:
             friendlyMinions = true;
             enemyMinions = true;
             break;
-        case TargetingType::FRIENDLY_MINIONS:
+        case FRIENDLY_MINIONS:
             friendlyMinions = true;
             break;
-        case TargetingType::ENEMY_MINIONS:
+        case ENEMY_MINIONS:
             enemyMinions = true;
             break;
-        case TargetingType::HEROES:
+        case HEROES:
             hero = true;
             enemyHero = true;
             break;
@@ -509,52 +509,54 @@ bool Playable::HasAnyValidPlayTargets(Card* _card) const
 
 bool Playable::CheckTargetingType(const Card* _card, Character* target) const
 {
+    using enum TargetingType;
+
     switch (_card->targetingType)
     {
-        case TargetingType::NONE:
+        case NONE:
             return false;
-        case TargetingType::ALL:
+        case ALL:
             break;
-        case TargetingType::CHARACTERS_EXCEPT_HERO:
+        case CHARACTERS_EXCEPT_HERO:
             if (const auto hero = dynamic_cast<Hero*>(target);
                 hero && hero->player == player)
             {
                 return false;
             }
             break;
-        case TargetingType::FRIENDLY_CHARACTERS:
+        case FRIENDLY_CHARACTERS:
             if (target && target->player != player)
             {
                 return false;
             }
             break;
-        case TargetingType::ENEMY_CHARACTERS:
+        case ENEMY_CHARACTERS:
             if (target && target->player == player)
             {
                 return false;
             }
             break;
-        case TargetingType::ALL_MINIONS:
+        case ALL_MINIONS:
             if (const auto hero = dynamic_cast<Hero*>(target); hero)
             {
                 return false;
             }
             break;
-        case TargetingType::FRIENDLY_MINIONS:
+        case FRIENDLY_MINIONS:
             if (dynamic_cast<Hero*>(target) ||
                 (target && target->player != player))
             {
                 return false;
             }
             break;
-        case TargetingType::ENEMY_MINIONS:
+        case ENEMY_MINIONS:
             if (dynamic_cast<Hero*>(target) ||
                 (target && target->player == player))
             {
                 return false;
             }
             break;
-        case TargetingType::HEROES:
+        case HEROES:
             if (dynamic_cast<Minion*>(target))
             {
                 return false;
@@ -568,6 +570,8 @@ bool Playable::CheckTargetingType(const Card* _card, Character* target) const
 void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
                             Playable* chooseBase)
 {
+    using enum PowerType;
+
     if (HasChooseOne())
     {
         if (player->ChooseBoth() && !card->IsTransformMinion())
@@ -580,6 +584,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             Playable* playable0 =
                 GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[0]),
                             std::nullopt, player->GetSetasideZone());
+            player->GetSetasideZone()->Add(playable0);
 
             // Check card has overload
             if (playable0->HasOverload())
@@ -593,6 +598,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             Playable* playable1 =
                 GetFromCard(player, Cards::FindCardByID(card->chooseCardIDs[1]),
                             std::nullopt, player->GetSetasideZone());
+            player->GetSetasideZone()->Add(playable1);
 
             // Check card has overload
             if (playable1->HasOverload())
@@ -616,6 +622,7 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
             Playable* playable = GetFromCard(
                 player, Cards::FindCardByID(card->chooseCardIDs[chooseOne - 1]),
                 std::nullopt, player->GetSetasideZone());
+            player->GetSetasideZone()->Add(playable);
 
             // Check card has overload
             if (playable->HasOverload())
@@ -633,25 +640,25 @@ void Playable::ActivateTask(PowerType type, Character* target, int chooseOne,
     std::vector<std::shared_ptr<ITask>> tasks;
     switch (type)
     {
-        case PowerType::POWER:
+        case POWER:
             tasks = card->power.GetPowerTask();
             break;
-        case PowerType::DEATHRATTLE:
+        case DEATHRATTLE:
             tasks = card->power.GetDeathrattleTask();
             break;
-        case PowerType::COMBO:
+        case COMBO:
             tasks = card->power.GetComboTask();
             break;
-        case PowerType::OUTCAST:
+        case OUTCAST:
             tasks = card->power.GetOutcastTask();
             break;
-        case PowerType::SPELLBURST:
+        case SPELLBURST:
             tasks = card->power.GetSpellburstTask();
             break;
-        case PowerType::FRENZY:
+        case FRENZY:
             tasks = card->power.GetFrenzyTask();
             break;
-        case PowerType::HONORABLE_KILL:
+        case HONORABLE_KILL:
             tasks = card->power.GetHonorableKillTask();
             break;
         default:

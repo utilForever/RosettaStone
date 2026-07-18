@@ -28,14 +28,12 @@ Entity::Entity(Game* _game, Card* _card, std::map<GameTag, int> _tags, int _id)
 
 Entity::~Entity()
 {
-    delete auraEffects;
-
     m_gameTags.clear();
 }
 
 int Entity::GetNativeGameTag(GameTag tag) const
 {
-    return m_gameTags.find(tag) == m_gameTags.end() ? 0 : m_gameTags.at(tag);
+    return m_gameTags.contains(tag) ? m_gameTags.at(tag) : 0;
 }
 
 void Entity::SetNativeGameTag(GameTag tag, int value)
@@ -99,28 +97,32 @@ void Entity::SetCardTarget(int value)
 
 void Entity::Reset()
 {
-    m_gameTags.erase(GameTag::DAMAGE);
-    m_gameTags.erase(GameTag::EXHAUSTED);
-    m_gameTags.erase(GameTag::ATK);
-    m_gameTags.erase(GameTag::HEALTH);
-    m_gameTags.erase(GameTag::COST);
-    m_gameTags.erase(GameTag::TAUNT);
-    m_gameTags.erase(GameTag::FROZEN);
-    m_gameTags.erase(GameTag::CHARGE);
-    m_gameTags.erase(GameTag::WINDFURY);
-    m_gameTags.erase(GameTag::DIVINE_SHIELD);
-    m_gameTags.erase(GameTag::STEALTH);
-    m_gameTags.erase(GameTag::SPELLBURST);
-    m_gameTags.erase(GameTag::NUM_ATTACKS_THIS_TURN);
-    m_gameTags.erase(GameTag::INFUSE);
-    m_gameTags.erase(GameTag::INFUSED);
-    m_gameTags.erase(GameTag::INFUSE_COUNTER);
+    using enum GameTag;
+
+    m_gameTags.erase(DAMAGE);
+    m_gameTags.erase(EXHAUSTED);
+    m_gameTags.erase(ATK);
+    m_gameTags.erase(HEALTH);
+    m_gameTags.erase(COST);
+    m_gameTags.erase(TAUNT);
+    m_gameTags.erase(FROZEN);
+    m_gameTags.erase(CHARGE);
+    m_gameTags.erase(WINDFURY);
+    m_gameTags.erase(DIVINE_SHIELD);
+    m_gameTags.erase(STEALTH);
+    m_gameTags.erase(SPELLBURST);
+    m_gameTags.erase(NUM_ATTACKS_THIS_TURN);
+    m_gameTags.erase(INFUSE);
+    m_gameTags.erase(INFUSED);
+    m_gameTags.erase(INFUSE_COUNTER);
 }
 
 Playable* Entity::GetFromCard(Player* player, Card* card,
                               std::optional<std::map<GameTag, int>> cardTags,
                               const IZone* zone, int id)
 {
+    using enum CardType;
+
     std::map<GameTag, int> tags;
     if (cardTags.has_value())
     {
@@ -128,41 +130,41 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
     }
 
     tags[GameTag::CONTROLLER] = player->playerID;
-    tags[GameTag::ZONE] = zone ? static_cast<int>(zone->GetType()) : 0;
+    tags[GameTag::ZONE] = zone ? std::to_underlying(zone->GetType()) : 0;
 
     Playable* result = nullptr;
 
     switch (card->GetCardType())
     {
-        case CardType::HERO:
+        case HERO:
             result = new Hero(player, card, tags, id);
             break;
-        case CardType::HERO_POWER:
-            tags[GameTag::ZONE] = static_cast<int>(ZoneType::PLAY);
+        case HERO_POWER:
+            tags[GameTag::ZONE] = std::to_underlying(ZoneType::PLAY);
             result = new HeroPower(player, card, tags, id);
             break;
-        case CardType::MINION:
-        case CardType::LOCATION:
+        case MINION:
+        case LOCATION:
             result = new Minion(player, card, tags, id);
             break;
-        case CardType::SPELL:
+        case SPELL:
             result = new Spell(player, card, tags, id);
             break;
-        case CardType::WEAPON:
+        case WEAPON:
             result = new Weapon(player, card, tags, id);
             break;
-        case CardType::INVALID:
-        case CardType::GAME:
-        case CardType::PLAYER:
-        case CardType::ENCHANTMENT:
-        case CardType::ITEM:
-        case CardType::TOKEN:
-        case CardType::BLANK:
-        case CardType::GAME_MODE_BUTTON:
-        case CardType::MOVE_MINION_HOVER_TARGET:
-        case CardType::LETTUCE_ABILITY:
-        case CardType::BATTLEGROUND_HERO_BUDDY:
-        case CardType::BATTLEGROUND_QUEST_REWARD:
+        case INVALID:
+        case GAME:
+        case PLAYER:
+        case ENCHANTMENT:
+        case ITEM:
+        case TOKEN:
+        case BLANK:
+        case GAME_MODE_BUTTON:
+        case MOVE_MINION_HOVER_TARGET:
+        case LETTUCE_ABILITY:
+        case BATTLEGROUND_HERO_BUDDY:
+        case BATTLEGROUND_QUEST_REWARD:
             throw std::invalid_argument(
                 "Generic::DrawCard() - Invalid card type!");
     }

@@ -61,15 +61,12 @@ Playable* HandZone::Remove(Playable* entity)
 
 void HandZone::Expand(int newSize)
 {
-    const auto entities = new Playable*[newSize];
-
-    for (int i = 0; i < std::min(m_count, newSize); ++i)
+    if (newSize <= m_maxSize)
     {
-        entities[i] = m_entities[i];
+        return;
     }
 
-    delete[] m_entities;
-    m_entities = entities;
+    m_entities.resize(newSize, nullptr);
     m_maxSize = newSize;
 }
 }  // namespace RosettaStone::PlayMode

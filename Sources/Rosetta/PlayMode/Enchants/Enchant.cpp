@@ -37,16 +37,26 @@ Enchant::Enchant(std::vector<std::shared_ptr<IEffect>> _effects,
 
 void Enchant::ActivateTo(Entity* entity, int num1, int num2)
 {
+    const auto applyEffect = [this, entity](
+                                 const std::shared_ptr<IEffect>& effect) {
+        effect->ApplyTo(entity);
+
+        if (isOneTurnEffect)
+        {
+            entity->game->oneTurnEffects.emplace_back(entity, effect);
+        }
+    };
+
     if (!useScriptTag)
     {
         for (const auto& effect : effects)
         {
-            effect->ApplyTo(entity, isOneTurnEffect);
+            applyEffect(effect);
         }
     }
     else
     {
-        effects[0]->ChangeValue(num1)->ApplyTo(entity, isOneTurnEffect);
+        applyEffect(effects[0]->ChangeValue(num1));
 
         if (effects.size() != 2)
         {
@@ -55,11 +65,11 @@ void Enchant::ActivateTo(Entity* entity, int num1, int num2)
 
         if (num2 > 0)
         {
-            effects[1]->ChangeValue(num2)->ApplyTo(entity, isOneTurnEffect);
+            applyEffect(effects[1]->ChangeValue(num2));
         }
         else
         {
-            effects[1]->ChangeValue(num1)->ApplyTo(entity, isOneTurnEffect);
+            applyEffect(effects[1]->ChangeValue(num1));
         }
     }
 }

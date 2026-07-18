@@ -11,6 +11,8 @@
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
+#include <memory>
+
 using namespace RosettaStone;
 using namespace PlayMode;
 
@@ -32,12 +34,12 @@ TEST_CASE("[Choose] - ChoiceMulligan")
 
     const std::vector<int> curChoices, opChoices;
 
-    curPlayer->choice = new Choice(curPlayer);
+    curPlayer->choice = std::make_unique<Choice>(curPlayer);
     curPlayer->choice->choiceAction = ChoiceAction::HAND;
     curPlayer->choice->choices = curChoices;
     curPlayer->choice->choiceType = ChoiceType::MULLIGAN;
 
-    opPlayer->choice = new Choice(opPlayer);
+    opPlayer->choice = std::make_unique<Choice>(opPlayer);
     opPlayer->choice->choiceAction = ChoiceAction::HAND;
     opPlayer->choice->choices = opChoices;
     opPlayer->choice->choiceType = ChoiceType::MULLIGAN;

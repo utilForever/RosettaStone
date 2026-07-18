@@ -57,10 +57,8 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     // Reverse card order in deck
     if (!m_gameConfig.doShuffle)
     {
-        std::reverse(m_gameConfig.player1Deck.begin(),
-                     m_gameConfig.player1Deck.end());
-        std::reverse(m_gameConfig.player2Deck.begin(),
-                     m_gameConfig.player2Deck.end());
+        std::ranges::reverse(m_gameConfig.player1Deck);
+        std::ranges::reverse(m_gameConfig.player2Deck);
     }
 
     // Set up decks
@@ -115,13 +113,14 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
     }
 
     // Determine first player
+    using enum PlayerType;
     switch (m_gameConfig.startPlayer)
     {
-        case PlayerType::RANDOM:
+        case RANDOM:
         {
             const auto val = Random::get(0, 1);
             m_currentPlayer =
-                (val == 0) ? PlayerType::PLAYER1 : PlayerType::PLAYER2;
+                (val == 0) ? PLAYER1 : PLAYER2;
             break;
         }
         default:
@@ -507,6 +506,8 @@ void Game::MainCleanUp()
             playable->zone->Remove(playable));
     }
 
+    ghostlyCards.clear();
+
     // Remove one-turn effects
     if (const auto enchantments = oneTurnEffectEnchantments;
         !enchantments.empty())
@@ -520,7 +521,7 @@ void Game::MainCleanUp()
     for (const auto& effectPair : oneTurnEffects)
     {
         Entity* entity = effectPair.first;
-        const IEffect* effect = effectPair.second;
+        const IEffect* effect = effectPair.second.get();
 
         effect->RemoveFrom(entity);
     }
@@ -556,10 +557,10 @@ void Game::MainCleanUp()
 
 void Game::MainNext()
 {
+    using enum PlayerType;
+
     // Set player for next turn
-    m_currentPlayer = (m_currentPlayer == PlayerType::PLAYER1)
-                          ? PlayerType::PLAYER2
-                          : PlayerType::PLAYER1;
+    m_currentPlayer = (m_currentPlayer == PLAYER1) ? PLAYER2 : PLAYER1;
 
     // Count next turn
     m_turn++;
@@ -575,14 +576,15 @@ void Game::MainNext()
 
 void Game::FinalWrapUp()
 {
+    using enum PlayState;
+
     // Set game states according by result
     for (auto& p : m_players)
     {
-        if (p.playState == PlayState::LOSING ||
-            p.playState == PlayState::CONCEDED)
+        if (p.playState == LOSING || p.playState == CONCEDED)
         {
-            p.playState = PlayState::LOST;
-            p.opponent->playState = PlayState::WON;
+            p.playState = LOST;
+            p.opponent->playState = WON;
         }
     }
 
@@ -739,18 +741,23 @@ void Game::ProcessReborn()
     }
 }
 
-void Game::UpdateAura() const
+void Game::UpdateAura()
 {
     const int auraSize = static_cast<int>(auras.size());
-    if (auraSize == 0)
-    {
-        return;
-    }
-
     for (int i = auraSize - 1; i >= 0; --i)
     {
         auras[i]->Update();
     }
+
+    std::erase_if(m_ownedAuras, [this](const auto& aura) {
+        return !std::ranges::contains(auras, aura.get());
+    });
+}
+
+void Game::AddAura(IAura* aura)
+{
+    m_ownedAuras.emplace_back(aura);
+    auras.emplace_back(aura);
 }
 
 std::tuple<PlayState, PlayState> Game::Process(Player* player,
@@ -787,17 +794,19 @@ void Game::ProcessUntil(Step untilStep)
 
 std::tuple<PlayState, PlayState> Game::CheckGameOver()
 {
+    using enum PlayState;
+
     // Check hero of two players is destroyed
     if (GetPlayer1()->GetHero()->isDestroyed)
     {
         if (GetPlayer2()->GetHero()->isDestroyed)
         {
-            GetPlayer1()->playState = PlayState::TIED;
-            GetPlayer2()->playState = PlayState::TIED;
+            GetPlayer1()->playState = TIED;
+            GetPlayer2()->playState = TIED;
         }
         else
         {
-            GetPlayer1()->playState = PlayState::LOSING;
+            GetPlayer1()->playState = LOSING;
         }
 
         // Set next step
@@ -806,7 +815,7 @@ std::tuple<PlayState, PlayState> Game::CheckGameOver()
     }
     else if (GetPlayer2()->GetHero()->isDestroyed)
     {
-        GetPlayer2()->playState = PlayState::LOSING;
+        GetPlayer2()->playState = LOSING;
 
         // Set next step
         nextStep = Step::FINAL_WRAPUP;

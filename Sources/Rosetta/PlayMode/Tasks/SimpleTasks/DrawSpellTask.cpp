@@ -12,6 +12,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <algorithm>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
@@ -56,13 +58,13 @@ TaskStatus DrawSpellTask::Impl(Player* player)
 
     auto deckCards = player->GetDeckZone()->GetAll();
 
-    EraseIf(deckCards, [=](const Playable* playable) {
+    EraseIf(deckCards, [](const Playable* playable) {
         return playable->card->GetCardType() != CardType::SPELL;
     });
 
     if (m_spellSchool != SpellSchool::NONE)
     {
-        EraseIf(deckCards, [=](const Playable* playable) {
+        EraseIf(deckCards, [this](const Playable* playable) {
             return playable->card->GetSpellSchool() != m_spellSchool;
         });
     }
@@ -75,14 +77,13 @@ TaskStatus DrawSpellTask::Impl(Player* player)
     switch (m_drawSpellType)
     {
         case DrawSpellType::DEFAULT:
-            std::shuffle(deckCards.begin(), deckCards.end(),
-                         Random::get_engine());
+            std::ranges::shuffle(deckCards, Random::get_engine());
             break;
         case DrawSpellType::HIGHEST_COST:
-            std::sort(deckCards.begin(), deckCards.end(),
-                      [](const Playable* card1, const Playable* card2) {
-                          return card1->GetCost() > card2->GetCost();
-                      });
+            std::ranges::sort(
+                deckCards, [](const Playable* card1, const Playable* card2) {
+                    return card1->GetCost() > card2->GetCost();
+                });
             break;
     }
 

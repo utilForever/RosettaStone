@@ -15,6 +15,7 @@
 
 #include <effolkronium/random.hpp>
 
+#include <algorithm>
 #include <utility>
 
 using Random = effolkronium::random_static;
@@ -118,17 +119,18 @@ std::vector<int> DiscoverTask::GetChoices(const Entity* source,
 
         for (const auto& card : selectedCards)
         {
+            using enum GameTag;
+
             std::map<GameTag, int> cardTags;
-            cardTags.emplace(GameTag::CREATOR,
-                             source->GetGameTag(GameTag::ENTITY_ID));
-            cardTags.emplace(GameTag::DISPLAYED_CREATOR,
-                             source->GetGameTag(GameTag::ENTITY_ID));
+            cardTags.emplace(CREATOR, source->GetGameTag(ENTITY_ID));
+            cardTags.emplace(DISPLAYED_CREATOR,
+                             source->GetGameTag(ENTITY_ID));
 
             Playable* choiceEntity =
                 Entity::GetFromCard(source->player, card, cardTags,
                                     source->player->GetSetasideZone());
             source->player->GetSetasideZone()->Add(choiceEntity);
-            result.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
+            result.emplace_back(choiceEntity->GetGameTag(ENTITY_ID));
         }
     }
     else if (!cardsForOtherEffect.empty())
@@ -202,18 +204,18 @@ TaskStatus DiscoverTask::Impl(Player* player)
 
     if (m_repeat > 1)
     {
-        Choice* currentChoice = player->choice;
+        Choice* currentChoice = player->choice.get();
 
         for (int i = 1; i < m_repeat; ++i)
         {
-            const auto choice = new Choice(player, cardsForGeneration);
+            auto choice = std::make_unique<Choice>(player, cardsForGeneration);
             choice->choiceType = ChoiceType::GENERAL;
             choice->choiceAction = m_choiceAction;
             choice->source = m_source;
             choice->depth = i + 1;
 
-            currentChoice->nextChoice = choice;
-            currentChoice = choice;
+            currentChoice->nextChoice = std::move(choice);
+            currentChoice = currentChoice->nextChoice.get();
         }
     }
 
@@ -670,16 +672,19 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
 
     if (!cardsForOtherEffect.empty())
     {
-        std::sort(cardsForOtherEffect.begin(), cardsForOtherEffect.end(),
-                  [&player](const int& a, const int& b) {
-                      const Playable* playableA = player->game->entityList[a];
-                      const Playable* playableB = player->game->entityList[b];
+        std::ranges::sort(cardsForOtherEffect,
+                          [&player](const int& a, const int& b) {
+                              const Playable* playableA =
+                                  player->game->entityList[a];
+                              const Playable* playableB =
+                                  player->game->entityList[b];
 
-                      return playableA->card->dbfID < playableB->card->dbfID;
-                  });
+                              return playableA->card->dbfID <
+                                     playableB->card->dbfID;
+                          });
 
-        const auto last = std::unique(
-            cardsForOtherEffect.begin(), cardsForOtherEffect.end(),
+        const auto duplicates = std::ranges::unique(
+            cardsForOtherEffect,
             [&player](const int& a, const int& b) {
                 const Playable* playableA = player->game->entityList[a];
                 const Playable* playableB = player->game->entityList[b];
@@ -687,7 +692,7 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
                 return playableA->card->dbfID == playableB->card->dbfID;
             });
 
-        cardsForOtherEffect.erase(last, cardsForOtherEffect.end());
+        cardsForOtherEffect.erase(duplicates.begin(), duplicates.end());
         Random::shuffle(cardsForOtherEffect.begin(), cardsForOtherEffect.end());
     }
 

@@ -11,6 +11,8 @@
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone::PlayMode
 {
 SummoningPortalAura::SummoningPortalAura()
@@ -24,7 +26,7 @@ void SummoningPortalAura::Activate(Playable* owner, bool cloning)
     auto instance = new SummoningPortalAura(*this, *owner);
     owner->ongoingEffect = instance;
     owner->player->GetHandZone()->auras.emplace_back(instance);
-    owner->game->auras.emplace_back(instance);
+    owner->game->AddAura(instance);
 
     if (!cloning)
     {
@@ -63,8 +65,7 @@ void SummoningPortalAura::Update()
             case AuraInstruction::REMOVE:
             {
                 const auto iter =
-                    std::find(m_appliedEntities.begin(),
-                              m_appliedEntities.end(), inst.source);
+                    std::ranges::find(m_appliedEntities, inst.source);
 
                 if (iter != m_appliedEntities.end())
                 {
@@ -162,7 +163,7 @@ void SummoningPortalAura::CalculateCost(Playable* playable) const
 
     minion->SetCost(cost);
 
-    if (const auto costManager = playable->costManager; costManager)
+    if (const auto costManager = playable->costManager.get(); costManager)
     {
         costManager->QueueUpdate();
     }

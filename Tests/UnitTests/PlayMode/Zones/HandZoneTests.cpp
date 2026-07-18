@@ -14,3 +14,22 @@
 using namespace RosettaStone;
 using namespace PlayMode;
 using namespace PlayerTasks;
+
+TEST_CASE("[HandZone] - Expand ignores smaller size")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::PALADIN;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    HandZone* hand = game.GetPlayer1()->GetHandZone();
+
+    hand->Expand(1);
+    CHECK_EQ(hand->GetCount(), 4);
+}

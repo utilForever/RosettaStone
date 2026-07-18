@@ -181,7 +181,7 @@ AdjacentAura::AdjacentAura(const AdjacentAura& prototype, Minion& owner,
     }
 
     owner.ongoingEffect = this;
-    owner.game->auras.emplace_back(this);
+    owner.game->AddAura(this);
 
     m_fieldZone = owner.player->GetFieldZone();
     m_fieldZone->adjacentAuras.emplace_back(this);

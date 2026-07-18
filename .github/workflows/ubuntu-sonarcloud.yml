@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUILD_WRAPPER_OUT_DIR: bw-output
+      CC: gcc-14
+      CXX: g++-14
     steps:
       - uses: actions/checkout@v4
         with:

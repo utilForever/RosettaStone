@@ -14,6 +14,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <utility>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::SimpleTasks
@@ -59,8 +61,7 @@ TaskStatus CastRandomSpellTask::Impl(Player* player)
     const auto randTarget = spellToCast->GetRandomValidTarget();
     const int randChooseOne = Random::get<int>(1, 2);
 
-    const auto choiceTemp = player->choice;
-    player->choice = nullptr;
+    auto choiceTemp = std::move(player->choice);
 
     player->game->taskQueue.StartEvent();
     Generic::CastRandomSpell(player, spellToCast, randTarget, randChooseOne);
@@ -76,7 +77,7 @@ TaskStatus CastRandomSpellTask::Impl(Player* player)
 
     player->game->ProcessDestroyAndUpdateAura();
 
-    player->choice = choiceTemp;
+    player->choice = std::move(choiceTemp);
 
     player->SetGameTag(GameTag::CAST_RANDOM_SPELLS, 0);
 

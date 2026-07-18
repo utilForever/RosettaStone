@@ -19,17 +19,19 @@ Effect::Effect(GameTag gameTag, EffectOperator effectOperator, int value)
 
 void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
 {
+    using enum EffectOperator;
+
     if (isOneTurnEffect)
     {
         entity->game->oneTurnEffects.emplace_back(
-            std::make_pair(entity, new Effect(*this)));
+            entity, std::make_shared<Effect>(*this));
     }
 
     const int prevValue = entity->GetNativeGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
-        case EffectOperator::ADD:
+        case ADD:
             entity->SetNativeGameTag(m_gameTag, prevValue + m_value);
 
             if (const auto weapon = dynamic_cast<Weapon*>(entity); weapon)
@@ -41,13 +43,13 @@ void Effect::ApplyTo(Entity* entity, bool isOneTurnEffect) const
             }
 
             break;
-        case EffectOperator::SUB:
+        case SUB:
             entity->SetNativeGameTag(m_gameTag, prevValue - m_value);
             break;
-        case EffectOperator::MUL:
+        case MUL:
             entity->SetNativeGameTag(m_gameTag, prevValue * m_value);
             break;
-        case EffectOperator::SET:
+        case SET:
             entity->SetNativeGameTag(m_gameTag, m_value);
             break;
     }
@@ -83,11 +85,12 @@ void Effect::ApplyTo(PlayerAuraEffects& auraEffects) const
 
 void Effect::ApplyAuraTo(Entity* entity) const
 {
-    AuraEffects* auraEffects = entity->auraEffects;
+    const AuraEffects* auraEffects = entity->auraEffects.get();
     if (!auraEffects)
     {
-        auraEffects = new AuraEffects(entity->card->GetCardType());
-        entity->auraEffects = auraEffects;
+        entity->auraEffects =
+            std::make_shared<AuraEffects>(entity->card->GetCardType());
+        auraEffects = entity->auraEffects.get();
     }
 
     const int prevValue = auraEffects->GetGameTag(m_gameTag);
@@ -120,17 +123,19 @@ void Effect::ApplyAuraTo(Entity* entity) const
 
 void Effect::RemoveFrom(Entity* entity) const
 {
+    using enum EffectOperator;
+
     const int prevValue = entity->GetNativeGameTag(m_gameTag);
 
     switch (m_effectOperator)
     {
-        case EffectOperator::ADD:
+        case ADD:
             entity->SetNativeGameTag(m_gameTag, prevValue - m_value);
             break;
-        case EffectOperator::SUB:
+        case SUB:
             entity->SetNativeGameTag(m_gameTag, prevValue + m_value);
             break;
-        case EffectOperator::SET:
+        case SET:
             entity->SetNativeGameTag(m_gameTag, 0);
             break;
         default:
@@ -169,7 +174,7 @@ void Effect::RemoveFrom(PlayerAuraEffects& auraEffects) const
 
 void Effect::RemoveAuraFrom(Entity* entity) const
 {
-    const AuraEffects* auraEffects = entity->auraEffects;
+    const AuraEffects* auraEffects = entity->auraEffects.get();
     const int prevValue = auraEffects->GetGameTag(m_gameTag);
 
     switch (m_effectOperator)
@@ -198,9 +203,9 @@ void Effect::RemoveAuraFrom(Entity* entity) const
     }
 }
 
-IEffect* Effect::ChangeValue(int newValue) const
+std::shared_ptr<IEffect> Effect::ChangeValue(int newValue) const
 {
-    return new Effect(m_gameTag, m_effectOperator, newValue);
+    return std::make_shared<Effect>(m_gameTag, m_effectOperator, newValue);
 }
 
 EffectOperator Effect::GetEffectOperator() const

@@ -11,6 +11,7 @@
 #include <Rosetta/Common/Enums/ChoiceEnums.hpp>
 #include <Rosetta/PlayMode/Models/Entity.hpp>
 
+#include <memory>
 #include <vector>
 
 namespace RosettaStone::PlayMode
@@ -41,7 +42,7 @@ struct Choice
     //! Tries to pop next choice.
     //! \param _lastChoice The chosen entity ID of last choice.
     //! \return The popped next choice.
-    Choice* TryPopNextChoice(const int _lastChoice) const;
+    std::unique_ptr<Choice> TryPopNextChoice(const int _lastChoice);
 
     ChoiceType choiceType = ChoiceType::INVALID;
     ChoiceAction choiceAction = ChoiceAction::INVALID;
@@ -54,7 +55,7 @@ struct Choice
 
     int depth = 1;
     int lastChoice = 0;
-    Choice* nextChoice = nullptr;
+    std::unique_ptr<Choice> nextChoice;
 };
 }  // namespace RosettaStone::PlayMode
 

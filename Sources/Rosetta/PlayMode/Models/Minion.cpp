@@ -147,40 +147,41 @@ bool Minion::CanAttack() const
 
 void Minion::Silence()
 {
-    SetGameTag(GameTag::TAUNT, 0);
-    SetGameTag(GameTag::FROZEN, 0);
-    SetGameTag(GameTag::ENRAGED, 0);
-    SetGameTag(GameTag::CHARGE, 0);
-    SetGameTag(GameTag::WINDFURY, 0);
-    SetGameTag(GameTag::DIVINE_SHIELD, 0);
-    SetGameTag(GameTag::STEALTH, 0);
-    SetGameTag(GameTag::DEATHRATTLE, 0);
-    SetGameTag(GameTag::BATTLECRY, 0);
-    SetGameTag(GameTag::INSPIRE, 0);
-    SetGameTag(GameTag::LIFESTEAL, 0);
-    SetGameTag(GameTag::CANT_BE_TARGETED_BY_HERO_POWERS, 0);
-    SetGameTag(GameTag::CANT_BE_TARGETED_BY_SPELLS, 0);
-    SetGameTag(GameTag::IMMUNE, 0);
-    SetGameTag(GameTag::CANT_ATTACK, 0);
-    SetGameTag(GameTag::RUSH, 0);
-    SetGameTag(GameTag::REBORN, 0);
-    SetGameTag(GameTag::SPELLPOWER, 0);
-    SetGameTag(GameTag::SPELLPOWER_ARCANE, 0);
-    SetGameTag(GameTag::SPELLPOWER_FIRE, 0);
-    SetGameTag(GameTag::SPELLPOWER_FROST, 0);
-    SetGameTag(GameTag::SPELLPOWER_NATURE, 0);
-    SetGameTag(GameTag::SPELLPOWER_HOLY, 0);
-    SetGameTag(GameTag::SPELLPOWER_SHADOW, 0);
-    SetGameTag(GameTag::SPELLPOWER_FEL, 0);
+    using enum GameTag;
+
+    SetGameTag(TAUNT, 0);
+    SetGameTag(FROZEN, 0);
+    SetGameTag(ENRAGED, 0);
+    SetGameTag(CHARGE, 0);
+    SetGameTag(WINDFURY, 0);
+    SetGameTag(DIVINE_SHIELD, 0);
+    SetGameTag(STEALTH, 0);
+    SetGameTag(DEATHRATTLE, 0);
+    SetGameTag(BATTLECRY, 0);
+    SetGameTag(INSPIRE, 0);
+    SetGameTag(LIFESTEAL, 0);
+    SetGameTag(CANT_BE_TARGETED_BY_HERO_POWERS, 0);
+    SetGameTag(CANT_BE_TARGETED_BY_SPELLS, 0);
+    SetGameTag(IMMUNE, 0);
+    SetGameTag(CANT_ATTACK, 0);
+    SetGameTag(RUSH, 0);
+    SetGameTag(REBORN, 0);
+    SetGameTag(SPELLPOWER, 0);
+    SetGameTag(SPELLPOWER_ARCANE, 0);
+    SetGameTag(SPELLPOWER_FIRE, 0);
+    SetGameTag(SPELLPOWER_FROST, 0);
+    SetGameTag(SPELLPOWER_NATURE, 0);
+    SetGameTag(SPELLPOWER_HOLY, 0);
+    SetGameTag(SPELLPOWER_SHADOW, 0);
+    SetGameTag(SPELLPOWER_FEL, 0);
 
     if (ongoingEffect)
     {
         ongoingEffect->Remove();
     }
 
-    EraseIf(game->oneTurnEffects, [this](std::pair<Entity*, IEffect*> effect) {
-        return effect.first->GetGameTag(GameTag::ENTITY_ID) ==
-               GetGameTag(GameTag::ENTITY_ID);
+    EraseIf(game->oneTurnEffects, [this](const auto& effect) {
+        return effect.first->GetGameTag(ENTITY_ID) == GetGameTag(ENTITY_ID);
     });
 
     if (activatedTrigger)
@@ -205,52 +206,50 @@ void Minion::Silence()
     // enchantments.
     if (card->id == "DRG_207t")
     {
-        SetGameTag(GameTag::ATK, GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+        SetGameTag(ATK, GetGameTag(TAG_SCRIPT_DATA_NUM_1));
 
-        if (GetBaseHealth() > GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1))
+        if (GetBaseHealth() > GetGameTag(TAG_SCRIPT_DATA_NUM_1))
         {
-            SetBaseHealth(GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+            SetBaseHealth(GetGameTag(TAG_SCRIPT_DATA_NUM_1));
         }
         else
         {
-            const int cardBaseHealth =
-                GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1);
-            const int delta = GetGameTag(GameTag::HEALTH) - cardBaseHealth;
+            const int cardBaseHealth = GetGameTag(TAG_SCRIPT_DATA_NUM_1);
+            const int delta = GetGameTag(HEALTH) - cardBaseHealth;
 
             if (delta > 0)
             {
                 SetDamage(GetDamage() - delta);
             }
 
-            SetGameTag(GameTag::HEALTH,
-                       GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+            SetGameTag(HEALTH, GetGameTag(TAG_SCRIPT_DATA_NUM_1));
         }
 
-        SetGameTag(GameTag::COST, GetGameTag(GameTag::TAG_SCRIPT_DATA_NUM_1));
+        SetGameTag(COST, GetGameTag(TAG_SCRIPT_DATA_NUM_1));
     }
     else
     {
-        SetGameTag(GameTag::ATK, card->gameTags[GameTag::ATK]);
+        SetGameTag(ATK, card->gameTags[ATK]);
 
-        if (GetBaseHealth() > card->gameTags[GameTag::HEALTH])
+        if (GetBaseHealth() > card->gameTags[HEALTH])
         {
-            SetBaseHealth(card->gameTags[GameTag::HEALTH]);
+            SetBaseHealth(card->gameTags[HEALTH]);
         }
         else
         {
-            const int cardBaseHealth = card->gameTags[GameTag::HEALTH];
-            const int delta = GetGameTag(GameTag::HEALTH) - cardBaseHealth;
+            const int cardBaseHealth = card->gameTags[HEALTH];
+            const int delta = GetGameTag(HEALTH) - cardBaseHealth;
 
             if (delta > 0)
             {
                 SetDamage(GetDamage() - delta);
             }
 
-            SetGameTag(GameTag::HEALTH, card->gameTags[GameTag::HEALTH]);
+            SetGameTag(HEALTH, card->gameTags[HEALTH]);
         }
     }
 
-    SetGameTag(GameTag::SILENCED, 1);
+    SetGameTag(SILENCED, 1);
 }
 
 void Minion::Reset()

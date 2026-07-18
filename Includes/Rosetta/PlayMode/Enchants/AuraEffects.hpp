@@ -8,6 +8,8 @@
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 
+#include <array>
+
 namespace RosettaStone::PlayMode
 {
 class Entity;
@@ -31,8 +33,8 @@ class AuraEffects
     //! \param type The type of the card.
     explicit AuraEffects(CardType type);
 
-    //! Destructor.
-    ~AuraEffects();
+    //! Default destructor.
+    ~AuraEffects() = default;
 
     //! Deleted copy constructor.
     AuraEffects(const AuraEffects&) = delete;
@@ -180,7 +182,7 @@ class AuraEffects
     // 6 : RUSH
     // 7 : LIFESTEAL
     // 8 : CANT_ATTACK
-    int* m_data = nullptr;
+    mutable std::array<int, AURA_EFFECT_MINION_SIZE> m_data{};
 };
 }  // namespace RosettaStone::PlayMode
 

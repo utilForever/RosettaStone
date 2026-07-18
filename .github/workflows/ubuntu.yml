@@ -2,12 +2,15 @@ name: Ubuntu
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+
+permissions:
+  contents: read
 
 env:
-  PYTHON_VERSION: '3.12'
+  PYTHON_VERSION: "3.12"
 
 jobs:
   build-ubuntu:
@@ -19,63 +22,44 @@ jobs:
             os: ubuntu-24.04
             compiler: gcc
             version: "14"
-          # Ubuntu 24.04 + gcc-13
-          - name: "Ubuntu 24.04 + gcc-13"
-            os: ubuntu-24.04
-            compiler: gcc
-            version: "13"
-          # Ubuntu 24.04 + gcc-12
-          - name: "Ubuntu 24.04 + gcc-12"
-            os: ubuntu-24.04
-            compiler: gcc
-            version: "12"
           # Ubuntu 24.04 + clang-18
           - name: "Ubuntu 24.04 + clang-18"
             os: ubuntu-24.04
             compiler: clang
             version: "18"
-          # Ubuntu 24.04 + clang-17
-          - name: "Ubuntu 24.04 + clang-17"
-            os: ubuntu-24.04
-            compiler: clang
-            version: "17"
-          # Ubuntu 24.04 + clang-16
-          - name: "Ubuntu 24.04 + clang-16"
-            os: ubuntu-24.04
-            compiler: clang
-            version: "16"
-
     runs-on: ${{ matrix.os }}
     name: 🐧 Build - ${{ matrix.name }}
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-    - name: Check generated docs
-      run: python Scripts/card_stats.py --check
-    - name: Install packages
-      run: sudo apt-get update && sudo apt-get install -yq autoconf autoconf-archive automake libtool python3-setuptools
-    - name: Configure Compiler
-      run: |
-        if [ "${{ matrix.compiler }}" = "gcc" ]; then
-          echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
-          echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
-        else
-          echo "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
-          echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
-        fi
-    - name: Configure Build
-      run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake" ..
-    - name: Build
-      run: cd build && make
-    - name: Run Unit Test
-      run: /home/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
-    - name: Run Python Test
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install -r requirements.txt
-        python -m pip install .
-        python -m pytest Tests/PythonTests/
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Check generated docs
+        run: python Scripts/card_stats.py --check
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install -yq autoconf autoconf-archive automake libtool python3-setuptools
+      - name: Configure Compiler
+        run: |
+          if [ "${{ matrix.compiler }}" = "gcc" ]; then
+            echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
+            echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
+          else
+            echo "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
+            echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
+          fi
+      - name: Configure Build
+        run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake" ..
+      - name: Build
+        run: cd build && make
+      - name: Run Unit Test
+        run: /home/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
+      - name: Run Python Test
+        run: |
+          python -m pip install --upgrade pip==26.1.2
+          python -m pip install -r requirements.txt
+          python -m pip install --no-build-isolation --no-deps .
+          python -m pytest Tests/PythonTests/

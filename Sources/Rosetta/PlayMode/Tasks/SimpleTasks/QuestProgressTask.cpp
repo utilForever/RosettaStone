@@ -50,6 +50,8 @@ QuestProgressTask::QuestProgressTask(
 
 TaskStatus QuestProgressTask::Impl(Player* player)
 {
+    using enum ProgressType;
+
     if (player->GetGameTag(GameTag::CAST_RANDOM_SPELLS) == 1)
     {
         return TaskStatus::STOP;
@@ -64,11 +66,11 @@ TaskStatus QuestProgressTask::Impl(Player* player)
 
     switch (m_progressType)
     {
-        case ProgressType::DEFAULT:
+        case DEFAULT:
             spell->IncreaseQuestProgress();
             break;
-        case ProgressType::SPEND_MANA:
-        case ProgressType::SPEND_MANA_ON_SPELLS:
+        case SPEND_MANA:
+        case SPEND_MANA_ON_SPELLS:
         {
             const auto source = player->game->currentEventData->eventSource;
             const auto cost = source->GetCost();
@@ -79,14 +81,14 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             }
             break;
         }
-        case ProgressType::PLAY_ELEMENTAL_MINONS:
+        case PLAY_ELEMENTAL_MINONS:
             if (player->GetNumElementalPlayedThisTurn() == 1)
             {
                 spell->IncreaseQuestProgress();
             }
             break;
-        case ProgressType::RESTORE_HEALTH:
-        case ProgressType::GAIN_ATTACK:
+        case RESTORE_HEALTH:
+        case GAIN_ATTACK:
             const int amount = player->game->currentEventData->eventNumber;
 
             for (int i = 0; i < amount; ++i)
@@ -106,8 +108,7 @@ TaskStatus QuestProgressTask::Impl(Player* player)
             if (const auto heroPower = dynamic_cast<HeroPower*>(reward);
                 heroPower)
             {
-                delete player->GetHero()->heroPower;
-                player->GetHero()->heroPower = heroPower;
+                player->ReplaceHeroPower(heroPower);
 
                 // Process aura
                 if (heroPower->card->power.GetAura())

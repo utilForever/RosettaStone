@@ -16,11 +16,83 @@
 
 #include <effolkronium/random.hpp>
 
+#include <memory>
+
 using Random = effolkronium::random_static;
 
 using namespace RosettaStone;
 using namespace PlayMode;
 using namespace PlayerTasks;
+
+namespace
+{
+class RetiringAura final : public IAura
+{
+ public:
+    RetiringAura(Game& game, bool& destroyed)
+        : m_game(game), m_destroyed(destroyed)
+    {
+        // Do nothing
+    }
+
+    ~RetiringAura() override
+    {
+        m_destroyed = true;
+    }
+
+    RetiringAura(const RetiringAura&) = delete;
+    RetiringAura& operator=(const RetiringAura&) = delete;
+
+    void Activate(Playable*, bool) override
+    {
+        // Do nothing
+    }
+
+    void Update() override
+    {
+        m_game.auras.clear();
+    }
+
+    void Remove() override
+    {
+        // Do nothing
+    }
+
+    void Clone(Playable*) override
+    {
+        // Do nothing
+    }
+
+ private:
+    Game& m_game;
+    bool& m_destroyed;
+};
+}  // namespace
+
+TEST_CASE("[Game] - UpdateAura retires inactive ownership")
+{
+    GameConfig config;
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::ROGUE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game{ config };
+
+    bool destroyed = false;
+    auto aura = std::make_unique<RetiringAura>(game, destroyed);
+
+    aura->Activate(nullptr, false);
+    aura->Remove();
+    aura->Clone(nullptr);
+
+    game.AddAura(aura.release());
+    game.UpdateAura();
+
+    CHECK(game.auras.empty());
+    CHECK(destroyed);
+}
 
 TEST_CASE("[Game] - GetPlayers")
 {

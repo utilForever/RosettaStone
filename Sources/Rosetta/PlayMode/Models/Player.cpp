@@ -30,6 +30,15 @@ Player::Player() : playerID(-1)
 
 Player::~Player()
 {
+    // Zone entities may consult the current hero while they are destroyed.
+    // Keep the hero alive until every zone has released its entities.
+    m_setasideZone.reset();
+    m_secretZone.reset();
+    m_handZone.reset();
+    m_graveyardZone.reset();
+    m_fieldZone.reset();
+    m_deckZone.reset();
+
     // TODO: This code will refactor.
     if (m_hero)
     {
@@ -37,6 +46,7 @@ Player::~Player()
     }
 
     delete m_hero;
+    m_hero = nullptr;
 }
 
 FieldZone* Player::GetFieldZone() const
@@ -79,6 +89,39 @@ void Player::SetHero(Hero* hero)
     m_hero = hero;
 }
 
+void Player::ReplaceHeroPower(HeroPower* heroPower)
+{
+    HeroPower* oldHeroPower = m_hero->heroPower;
+
+    if (oldHeroPower == heroPower)
+    {
+        return;
+    }
+
+    if (oldHeroPower)
+    {
+        if (oldHeroPower->ongoingEffect)
+        {
+            oldHeroPower->ongoingEffect->Remove();
+        }
+
+        if (oldHeroPower->activatedTrigger)
+        {
+            oldHeroPower->activatedTrigger->Remove();
+        }
+
+        m_setasideZone->Add(oldHeroPower);
+    }
+
+    if (heroPower->zone)
+    {
+        heroPower->zone->Remove(heroPower);
+    }
+
+    heroPower->SetZoneType(ZoneType::PLAY);
+    m_hero->heroPower = heroPower;
+}
+
 HeroPower& Player::GetHeroPower() const
 {
     return *m_hero->heroPower;
@@ -110,6 +153,8 @@ int Player::GetCurrentSpellPower() const
 
 int Player::GetExtraSpellPower(SpellSchool spellSchool) const
 {
+    using enum SpellSchool;
+
     int value = 0;
 
     m_fieldZone->ForEach([&](Playable* playable) {
@@ -118,17 +163,17 @@ int Player::GetExtraSpellPower(SpellSchool spellSchool) const
         {
             switch (spellSchool)
             {
-                case SpellSchool::NATURE:
+                case NATURE:
                     value += minion->GetSpellPowerNature();
                     break;
-                case SpellSchool::NONE:
-                case SpellSchool::ARCANE:
-                case SpellSchool::FIRE:
-                case SpellSchool::FROST:
-                case SpellSchool::HOLY:
-                case SpellSchool::SHADOW:
-                case SpellSchool::FEL:
-                case SpellSchool::PHYSICAL_COMBAT:
+                case NONE:
+                case ARCANE:
+                case FIRE:
+                case FROST:
+                case HOLY:
+                case SHADOW:
+                case FEL:
+                case PHYSICAL_COMBAT:
                     break;
             }
         }
@@ -139,7 +184,7 @@ int Player::GetExtraSpellPower(SpellSchool spellSchool) const
 
 int Player::GetGameTag(GameTag tag) const
 {
-    if (m_gameTags.find(tag) == m_gameTags.end())
+    if (!m_gameTags.contains(tag))
     {
         return 0;
     }
@@ -457,7 +502,7 @@ void Player::IncreaseInvoke()
 void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
 {
     Weapon* weapon = nullptr;
-    AuraEffects* auraEffects = nullptr;
+    std::shared_ptr<AuraEffects> heroAuraEffects;
 
     if (m_hero)
     {
@@ -467,9 +512,10 @@ void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
         if (m_hero->weapon)
         {
             weapon = m_hero->weapon;
+            m_hero->weapon = nullptr;
         }
 
-        auraEffects = m_hero->auraEffects;
+        heroAuraEffects = m_hero->auraEffects;
     }
 
     m_hero = dynamic_cast<Hero*>(GetFromCard(this, heroCard));
@@ -478,6 +524,6 @@ void Player::AddHeroAndPower(Card* heroCard, Card* powerCard)
     m_hero->heroPower = dynamic_cast<HeroPower*>(GetFromCard(this, powerCard));
 
     m_hero->weapon = weapon;
-    m_hero->auraEffects = auraEffects;
+    m_hero->auraEffects = heroAuraEffects;
 }
 }  // namespace RosettaStone::PlayMode

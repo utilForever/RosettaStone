@@ -8,6 +8,7 @@
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
 #include <Rosetta/Common/Enums/GameEnums.hpp>
+#include <Rosetta/PlayMode/Auras/IAura.hpp>
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
 #include <Rosetta/PlayMode/Managers/TriggerManager.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
@@ -163,7 +164,11 @@ class Game
     void ProcessReborn();
 
     //! Updates aura.
-    void UpdateAura() const;
+    void UpdateAura();
+
+    //! Adds an aura instance owned by this game.
+    //! \param aura The aura instance.
+    void AddAura(IAura* aura);
 
     //! Process the specified task.
     //! \param player A player to run task.
@@ -201,7 +206,7 @@ class Game
 
     std::vector<IAura*> auras;
     std::vector<std::shared_ptr<Trigger>> triggers;
-    std::vector<std::pair<Entity*, IEffect*>> oneTurnEffects;
+    std::vector<std::pair<Entity*, std::shared_ptr<IEffect>>> oneTurnEffects;
     std::vector<std::shared_ptr<Enchantment>> oneTurnEffectEnchantments;
 
  private:
@@ -217,6 +222,8 @@ class Game
     int m_oopIndex = 0;
 
     PlayerType m_currentPlayer = PlayerType::INVALID;
+
+    std::vector<std::unique_ptr<IAura>> m_ownedAuras;
 };
 }  // namespace RosettaStone::PlayMode
 

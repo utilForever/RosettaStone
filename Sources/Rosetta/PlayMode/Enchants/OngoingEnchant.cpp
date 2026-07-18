@@ -64,7 +64,7 @@ void OngoingEnchant::Clone(Playable* clone)
     copy->isOneTurnEffect = isOneTurnEffect;
 
     clone->ongoingEffect = copy;
-    copy->game->auras.emplace_back(copy);
+    copy->game->AddAura(copy);
 }
 
 int OngoingEnchant::GetCount() const

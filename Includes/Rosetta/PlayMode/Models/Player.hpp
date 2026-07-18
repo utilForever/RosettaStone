@@ -87,6 +87,10 @@ class Player : public Entity
     //! \param hero The hero of the player.
     void SetHero(Hero* hero);
 
+    //! Replaces the current hero power.
+    //! \param heroPower The new hero power.
+    void ReplaceHeroPower(HeroPower* heroPower);
+
     //! Returns player's hero power.
     //! \return Player's hero power.
     HeroPower& GetHeroPower() const;
@@ -107,12 +111,12 @@ class Player : public Entity
     //! Returns the value of game tag.
     //! \param tag The game tag of card.
     //! \return The value of game tag.
-    int GetGameTag(GameTag tag) const;
+    int GetGameTag(GameTag tag) const override;
 
     //! Sets game tag to the card.
     //! \param tag The game tag to indicate ability or condition.
     //! \param value The value to set for game tag.
-    void SetGameTag(GameTag tag, int value);
+    void SetGameTag(GameTag tag, int value) override;
 
     //! Returns the value of time out.
     //! \return The value of time out.
@@ -343,7 +347,7 @@ class Player : public Entity
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
 
-    Choice* choice = nullptr;
+    std::unique_ptr<Choice> choice;
     Playable* galakrond = nullptr;
     Player* opponent = nullptr;
 
@@ -360,8 +364,6 @@ class Player : public Entity
     std::unique_ptr<HandZone> m_handZone;
     std::unique_ptr<SecretZone> m_secretZone;
     std::unique_ptr<SetasideZone> m_setasideZone;
-
-    std::map<GameTag, int> m_gameTags;
 };
 }  // namespace RosettaStone::PlayMode
 

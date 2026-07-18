@@ -3,10 +3,12 @@
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2024 Chris Ohk
 
-#include <Rosetta/Common/Utils.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
+
+#include <algorithm>
+#include <vector>
 
 namespace RosettaStone::PlayMode::SimpleTasks
 {
@@ -28,7 +30,30 @@ TaskStatus RemoveEnchantmentTask::Impl(Player* player)
             return TaskStatus::COMPLETE;
         }
 
-        if (enchant->useScriptTag)
+        const auto& oneTurnEffects = enchantment->GetOneTurnEffects();
+
+        if (!oneTurnEffects.empty())
+        {
+            std::vector<const IEffect*> appliedEffects;
+
+            for (const auto& effect : oneTurnEffects)
+            {
+                if (const auto appliedEffect = effect.lock())
+                {
+                    appliedEffect->RemoveFrom(enchantment->GetTarget());
+                    appliedEffects.emplace_back(appliedEffect.get());
+                }
+            }
+
+            const Entity* target = enchantment->GetTarget();
+            std::erase_if(player->game->oneTurnEffects,
+                          [target, &appliedEffects](const auto& effect) {
+                              return effect.first == target &&
+                                     std::ranges::contains(
+                                         appliedEffects, effect.second.get());
+                          });
+        }
+        else if (enchant->useScriptTag)
         {
             enchant->RemoveEffect(enchantment->GetTarget(),
                                   enchantment->GetScriptTag1(),
@@ -37,18 +62,6 @@ TaskStatus RemoveEnchantmentTask::Impl(Player* player)
         else
         {
             enchant->RemoveEffect(enchantment->GetTarget());
-        }
-
-        if (enchantment->IsOneTurnActive())
-        {
-            for (const auto& effect : enchant->effects)
-            {
-                EraseIf(player->game->oneTurnEffects,
-                        [=](std::pair<Entity*, IEffect*> eff) {
-                            return eff.first == enchantment->GetTarget() &&
-                                   eff.second == effect.get();
-                        });
-            }
         }
     }
 

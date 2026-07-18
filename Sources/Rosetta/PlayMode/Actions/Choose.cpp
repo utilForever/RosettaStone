@@ -19,6 +19,7 @@
 #include <effolkronium/random.hpp>
 
 #include <algorithm>
+#include <utility>
 
 using Random = effolkronium::random_static;
 
@@ -26,7 +27,7 @@ namespace RosettaStone::PlayMode::Generic
 {
 void ChoiceMulligan(Player* player, const std::vector<int>& choices)
 {
-    Choice* choice = player->choice;
+    Choice* choice = player->choice.get();
     if (!choice)
     {
         return;
@@ -41,8 +42,8 @@ void ChoiceMulligan(Player* player, const std::vector<int>& choices)
     // Block it if player tries to mulligan a card that doesn't exist
     for (const auto chooseID : choices)
     {
-        if (std::find(choice->choices.begin(), choice->choices.end(),
-                      chooseID) == choice->choices.end())
+        if (std::ranges::find(choice->choices, chooseID) ==
+            choice->choices.end())
         {
             return;
         }
@@ -72,14 +73,13 @@ void ChoiceMulligan(Player* player, const std::vector<int>& choices)
         }
 
         // It's done! - Reset choice
-        delete player->choice;
-        player->choice = nullptr;
+        player->choice.reset();
     }
 }
 
 bool ChoicePick(Player* player, int choice)
 {
-    Choice* choiceVal = player->choice;
+    Choice* choiceVal = player->choice.get();
     if (!choiceVal)
     {
         return false;
@@ -92,8 +92,8 @@ bool ChoicePick(Player* player, int choice)
     }
 
     // Block it if player tries to pick a card that doesn't exist
-    if (std::find(choiceVal->choices.begin(), choiceVal->choices.end(),
-                  choice) == choiceVal->choices.end())
+    if (std::ranges::find(choiceVal->choices, choice) ==
+        choiceVal->choices.end())
     {
         return false;
     }
@@ -114,11 +114,7 @@ bool ChoicePick(Player* player, int choice)
                 "ChoicePick() - Invalid choice action!");
         case ChoiceAction::CHANGE_HERO_POWER:
         {
-            delete player->GetHero()->heroPower;
-            player->GetSetasideZone()->Remove(playable);
-            playable->SetGameTag(GameTag::ZONE,
-                                 static_cast<int>(ZoneType::PLAY));
-            player->GetHero()->heroPower = dynamic_cast<HeroPower*>(playable);
+            player->ReplaceHeroPower(dynamic_cast<HeroPower*>(playable));
             break;
         }
         case ChoiceAction::HAND:
@@ -242,8 +238,7 @@ bool ChoicePick(Player* player, int choice)
             const auto randTarget = spellToCast->GetRandomValidTarget();
             const int randChooseOne = Random::get<int>(1, 2);
 
-            const auto choiceTemp = player->choice;
-            player->choice = nullptr;
+            auto choiceTemp = std::move(player->choice);
 
             player->game->taskQueue.StartEvent();
             CastSpell(player, spellToCast, randTarget, randChooseOne);
@@ -262,7 +257,7 @@ bool ChoicePick(Player* player, int choice)
                 player->game->ProcessDestroyAndUpdateAura();
             }
 
-            player->choice = choiceTemp;
+            player->choice = std::move(choiceTemp);
 
             break;
         }
@@ -312,7 +307,7 @@ bool ChoicePick(Player* player, int choice)
         }
     }
 
-    Choice* nextChoice = choiceVal->TryPopNextChoice(choice);
+    auto nextChoice = choiceVal->TryPopNextChoice(choice);
     if (!nextChoice)
     {
         // Process after choose tasks
@@ -376,12 +371,11 @@ bool ChoicePick(Player* player, int choice)
         }
 
         // It's done! - Reset choice
-        delete player->choice;
-        player->choice = nullptr;
+        player->choice.reset();
     }
     else
     {
-        player->choice = nextChoice;
+        player->choice = std::move(nextChoice);
     }
 
     return true;
@@ -397,7 +391,7 @@ void CreateChoice(Player* player, Entity* source, ChoiceType type,
     }
 
     // Create a choice for player
-    player->choice = new Choice(player);
+    player->choice = std::make_unique<Choice>(player);
     player->choice->choiceType = type;
     player->choice->choiceAction = action;
     player->choice->source = source;
@@ -408,25 +402,25 @@ void CreateChoice(Player* player, Entity* source, ChoiceType type,
 void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
                        ChoiceAction action, const std::vector<Card*>& choices)
 {
+    using enum GameTag;
+
     std::vector<int> choiceIDs;
 
     for (auto& card : choices)
     {
         std::map<GameTag, int> cardTags;
-        cardTags.emplace(GameTag::CREATOR,
-                         source->GetGameTag(GameTag::ENTITY_ID));
-        cardTags.emplace(GameTag::DISPLAYED_CREATOR,
-                         source->GetGameTag(GameTag::ENTITY_ID));
+        cardTags.emplace(CREATOR, source->GetGameTag(ENTITY_ID));
+        cardTags.emplace(DISPLAYED_CREATOR, source->GetGameTag(ENTITY_ID));
 
         Playable* choiceEntity = Entity::GetFromCard(player, card, cardTags,
                                                      player->GetSetasideZone());
         player->GetSetasideZone()->Add(choiceEntity);
-        choiceIDs.emplace_back(choiceEntity->GetGameTag(GameTag::ENTITY_ID));
+        choiceIDs.emplace_back(choiceEntity->GetGameTag(ENTITY_ID));
     }
 
     if (!player->choice)
     {
-        player->choice = new Choice(player);
+        player->choice = std::make_unique<Choice>(player);
         player->choice->choiceType = type;
         player->choice->choiceAction = action;
         player->choice->source = source;

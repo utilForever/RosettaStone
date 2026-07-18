@@ -29,16 +29,11 @@ TaskStatus SwapAttackHealthTask::Impl(Player* player)
         const int attack = minion->GetAttack();
         const int health = minion->GetHealth();
 
-        const auto attackEffect =
-            new Effect(GameTag::ATK, EffectOperator::SET, health);
-        const auto healthEffect =
-            new Effect(GameTag::HEALTH, EffectOperator::SET, attack);
+        const Effect attackEffect(GameTag::ATK, EffectOperator::SET, health);
+        const Effect healthEffect(GameTag::HEALTH, EffectOperator::SET, attack);
 
-        attackEffect->ApplyTo(playable);
-        healthEffect->ApplyTo(playable);
-
-        delete attackEffect;
-        delete healthEffect;
+        attackEffect.ApplyTo(playable);
+        healthEffect.ApplyTo(playable);
     }
 
     return TaskStatus::COMPLETE;

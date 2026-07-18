@@ -44,7 +44,7 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
             for (int i = static_cast<int>(effects.size()) - 1; i >= 0; --i)
             {
                 Entity* ent = effects[i].first;
-                IEffect* eff = effects[i].second;
+                IEffect* eff = effects[i].second.get();
 
                 if (ent != entity ||
                     !dynamic_cast<GenericEffect<Playable, Atk>*>(eff))
@@ -76,10 +76,8 @@ class Atk : public SelfContainedIntAttr<Atk, Entity>
         }
         else
         {
-            const auto effect =
-                new PlayMode::Effect(GameTag::ATK, effectOp, value);
-            effect->ApplyTo(entity);
-            delete effect;
+            const PlayMode::Effect effect(GameTag::ATK, effectOp, value);
+            effect.ApplyTo(entity);
         }
     }
 
