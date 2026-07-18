@@ -28,7 +28,6 @@ TEST_CASE("[HandZone] - Expand ignores smaller size")
     game.Start();
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    Player* curPlayer = game.GetCurrentPlayer();
     HandZone* hand = game.GetPlayer1()->GetHandZone();
 
     hand->Expand(1);

@@ -16,6 +16,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <memory>
+
 using Random = effolkronium::random_static;
 
 using namespace RosettaStone;
@@ -37,6 +39,9 @@ class RetiringAura final : public IAura
     {
         m_destroyed = true;
     }
+
+    RetiringAura(const RetiringAura&) = delete;
+    RetiringAura& operator=(const RetiringAura&) = delete;
 
     void Activate(Playable*, bool) override
     {
@@ -76,13 +81,13 @@ TEST_CASE("[Game] - UpdateAura retires inactive ownership")
     Game game{ config };
 
     bool destroyed = false;
-    auto* aura = new RetiringAura(game, destroyed);
+    auto aura = std::make_unique<RetiringAura>(game, destroyed);
 
     aura->Activate(nullptr, false);
     aura->Remove();
     aura->Clone(nullptr);
 
-    game.AddAura(aura);
+    game.AddAura(aura.release());
     game.UpdateAura();
 
     CHECK(game.auras.empty());
