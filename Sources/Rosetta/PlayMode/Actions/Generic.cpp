@@ -149,23 +149,26 @@ void AddEnchantment(Card* enchantmentCard, Playable* creator, Entity* target,
         }
     }
 
-    if (const auto enchant = power.GetEnchant(); enchant)
+    const auto enchant = power.GetEnchant();
+    if (!enchant)
     {
-        const std::size_t idxFirstEffect = target->game->oneTurnEffects.size();
+        return;
+    }
 
-        enchant->ActivateTo(target, num1, num2);
+    const std::size_t idxFirstEffect = target->game->oneTurnEffects.size();
+    enchant->ActivateTo(target, num1, num2);
 
-        if (enchantment)
+    if (!enchantment)
+    {
+        return;
+    }
+
+    const auto& oneTurnEffects = target->game->oneTurnEffects;
+    for (std::size_t i = idxFirstEffect; i < oneTurnEffects.size(); ++i)
+    {
+        if (oneTurnEffects[i].first == target)
         {
-            const auto& oneTurnEffects = target->game->oneTurnEffects;
-
-            for (std::size_t i = idxFirstEffect; i < oneTurnEffects.size(); ++i)
-            {
-                if (oneTurnEffects[i].first == target)
-                {
-                    enchantment->AddOneTurnEffect(oneTurnEffects[i].second);
-                }
-            }
+            enchantment->AddOneTurnEffect(oneTurnEffects[i].second);
         }
     }
 }
