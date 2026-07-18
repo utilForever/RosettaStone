@@ -7,6 +7,15 @@
 
 #include <stdexcept>
 
+namespace
+{
+class InvalidAuraEffectOperation final : public std::logic_error
+{
+ public:
+    using std::logic_error::logic_error;
+};
+}  // namespace
+
 namespace RosettaStone::PlayMode
 {
 AuraEffects::AuraEffects(CardType type) : m_type(type)
@@ -131,7 +140,7 @@ void AuraEffects::SetImmune(int value) const
     }
     else
     {
-        throw std::runtime_error(
+        throw InvalidAuraEffectOperation(
             "AuraEffects::SetImmune() - Invalid card type!");
     }
 }
@@ -150,7 +159,8 @@ void AuraEffects::SetCantBeTargetedBySpells(int value) const
 {
     if (m_type != CardType::HERO && m_type != CardType::MINION)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetCantBeTargetedBySpells() - Invalid card type!");
     }
 
     m_data[0] = value;
@@ -170,7 +180,8 @@ void AuraEffects::SetAttack(int value) const
 {
     if (m_type == CardType::SPELL)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetAttack() - Invalid card type!");
     }
 
     m_data[1] = value;
@@ -190,7 +201,8 @@ void AuraEffects::SetCannotAttackHeroes(int value) const
 {
     if (m_type != CardType::HERO)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetCannotAttackHeroes() - Invalid card type!");
     }
 
     m_data[2] = value;
@@ -210,7 +222,8 @@ void AuraEffects::SetHeroPowerDamage(int value) const
 {
     if (m_type != CardType::HERO)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetHeroPowerDamage() - Invalid card type!");
     }
 
     m_data[4] = value;
@@ -230,7 +243,8 @@ void AuraEffects::SetHealth(int value) const
 {
     if (m_type != CardType::MINION)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetHealth() - Invalid card type!");
     }
 
     m_data[2] = value;
@@ -250,7 +264,8 @@ void AuraEffects::SetWindfury(int value) const
 {
     if (m_type != CardType::MINION)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetWindfury() - Invalid card type!");
     }
 
     m_data[3] = value;
@@ -270,7 +285,8 @@ void AuraEffects::SetTaunt(int value) const
 {
     if (m_type != CardType::MINION)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetTaunt() - Invalid card type!");
     }
 
     m_data[4] = value;
@@ -290,7 +306,8 @@ void AuraEffects::SetCharge(int value) const
 {
     if (m_type != CardType::MINION)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetCharge() - Invalid card type!");
     }
 
     m_data[5] = value;
@@ -310,7 +327,8 @@ void AuraEffects::SetRush(int value) const
 {
     if (m_type != CardType::MINION)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetRush() - Invalid card type!");
     }
 
     m_data[6] = value;
@@ -330,7 +348,8 @@ void AuraEffects::SetLifesteal(int value) const
 {
     if (m_type != CardType::MINION)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetLifesteal() - Invalid card type!");
     }
 
     m_data[7] = value;
@@ -350,7 +369,8 @@ void AuraEffects::SetCantAttack(int value) const
 {
     if (m_type != CardType::MINION)
     {
-        throw std::logic_error("Not Implemented!");
+        throw InvalidAuraEffectOperation(
+            "AuraEffects::SetCantAttack() - Invalid card type!");
     }
 
     m_data[8] = value;
