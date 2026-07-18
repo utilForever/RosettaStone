@@ -10,6 +10,8 @@
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/DiscoverTask.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <utility>
+
 namespace RosettaStone::PlayMode
 {
 Choice::Choice(Player* _player) : player(_player)
@@ -95,7 +97,7 @@ void Choice::TryPrepare()
                                                     std::vector<int>{}, 3);
 }
 
-Choice* Choice::TryPopNextChoice(const int _lastChoice)
+std::unique_ptr<Choice> Choice::TryPopNextChoice(const int _lastChoice)
 {
     if (nextChoice)
     {
@@ -104,6 +106,6 @@ Choice* Choice::TryPopNextChoice(const int _lastChoice)
         nextChoice->entityStack = entityStack;
     }
 
-    return nextChoice.release();
+    return std::move(nextChoice);
 }
 }  // namespace RosettaStone::PlayMode

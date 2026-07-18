@@ -30,8 +30,6 @@ Player::Player() : playerID(-1)
 
 Player::~Player()
 {
-    delete choice;
-
     // Zone entities may consult the current hero while they are destroyed.
     // Keep the hero alive until every zone has released its entities.
     m_setasideZone.reset();

@@ -202,7 +202,7 @@ TaskStatus DiscoverTask::Impl(Player* player)
 
     if (m_repeat > 1)
     {
-        Choice* currentChoice = player->choice;
+        Choice* currentChoice = player->choice.get();
 
         for (int i = 1; i < m_repeat; ++i)
         {

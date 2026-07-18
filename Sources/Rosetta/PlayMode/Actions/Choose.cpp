@@ -19,6 +19,7 @@
 #include <effolkronium/random.hpp>
 
 #include <algorithm>
+#include <utility>
 
 using Random = effolkronium::random_static;
 
@@ -26,7 +27,7 @@ namespace RosettaStone::PlayMode::Generic
 {
 void ChoiceMulligan(Player* player, const std::vector<int>& choices)
 {
-    Choice* choice = player->choice;
+    Choice* choice = player->choice.get();
     if (!choice)
     {
         return;
@@ -72,14 +73,13 @@ void ChoiceMulligan(Player* player, const std::vector<int>& choices)
         }
 
         // It's done! - Reset choice
-        delete player->choice;
-        player->choice = nullptr;
+        player->choice.reset();
     }
 }
 
 bool ChoicePick(Player* player, int choice)
 {
-    Choice* choiceVal = player->choice;
+    Choice* choiceVal = player->choice.get();
     if (!choiceVal)
     {
         return false;
@@ -238,8 +238,7 @@ bool ChoicePick(Player* player, int choice)
             const auto randTarget = spellToCast->GetRandomValidTarget();
             const int randChooseOne = Random::get<int>(1, 2);
 
-            const auto choiceTemp = player->choice;
-            player->choice = nullptr;
+            auto choiceTemp = std::move(player->choice);
 
             player->game->taskQueue.StartEvent();
             CastSpell(player, spellToCast, randTarget, randChooseOne);
@@ -258,7 +257,7 @@ bool ChoicePick(Player* player, int choice)
                 player->game->ProcessDestroyAndUpdateAura();
             }
 
-            player->choice = choiceTemp;
+            player->choice = std::move(choiceTemp);
 
             break;
         }
@@ -308,7 +307,7 @@ bool ChoicePick(Player* player, int choice)
         }
     }
 
-    Choice* nextChoice = choiceVal->TryPopNextChoice(choice);
+    auto nextChoice = choiceVal->TryPopNextChoice(choice);
     if (!nextChoice)
     {
         // Process after choose tasks
@@ -372,13 +371,11 @@ bool ChoicePick(Player* player, int choice)
         }
 
         // It's done! - Reset choice
-        delete player->choice;
-        player->choice = nullptr;
+        player->choice.reset();
     }
     else
     {
-        player->choice = nextChoice;
-        delete choiceVal;
+        player->choice = std::move(nextChoice);
     }
 
     return true;
@@ -394,7 +391,7 @@ void CreateChoice(Player* player, Entity* source, ChoiceType type,
     }
 
     // Create a choice for player
-    player->choice = new Choice(player);
+    player->choice = std::make_unique<Choice>(player);
     player->choice->choiceType = type;
     player->choice->choiceAction = action;
     player->choice->source = source;
@@ -423,7 +420,7 @@ void CreateChoiceCards(Player* player, Entity* source, ChoiceType type,
 
     if (!player->choice)
     {
-        player->choice = new Choice(player);
+        player->choice = std::make_unique<Choice>(player);
         player->choice->choiceType = type;
         player->choice->choiceAction = action;
         player->choice->source = source;

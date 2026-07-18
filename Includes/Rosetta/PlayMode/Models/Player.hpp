@@ -347,7 +347,7 @@ class Player : public Entity
     PlayState playState = PlayState::INVALID;
     Mulligan mulliganState = Mulligan::INVALID;
 
-    Choice* choice = nullptr;
+    std::unique_ptr<Choice> choice;
     Playable* galakrond = nullptr;
     Player* opponent = nullptr;
 
