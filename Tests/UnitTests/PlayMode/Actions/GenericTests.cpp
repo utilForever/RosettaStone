@@ -24,6 +24,8 @@
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <utility>
+
 using namespace RosettaStone;
 using namespace PlayMode;
 using namespace SimpleTasks;
@@ -149,6 +151,10 @@ TEST_CASE("[Generic] - ChangeEntity transfers ownership")
     CHECK_EQ(oldEntity->zone, player->GetSetasideZone());
     CHECK(newEntity->costManager);
     CHECK_FALSE(oldEntity->costManager);
+
+    Generic::ChangeEntity(player, newEntity, Cards::FindCardByID("CS2_091"),
+                          false);
+    CHECK(dynamic_cast<Weapon*>(game.entityList.at(entityID)));
 }
 
 TEST_CASE("[Generic] - One-turn attack effect variants")
@@ -194,6 +200,34 @@ TEST_CASE("[Generic] - One-turn attack effect variants")
     CHECK_EQ(minion->auraEffects->GetAttack(), 1);
     setAura->RemoveAuraFrom(minion);
     CHECK_EQ(minion->auraEffects->GetAttack(), 0);
+
+    minion->SetNativeGameTag(GameTag::ATK, 4);
+
+    Effect subtractAttack(GameTag::ATK, EffectOperator::SUB, 1);
+    subtractAttack.ApplyTo(minion);
+    subtractAttack.RemoveFrom(minion);
+    CHECK_EQ(minion->GetAttack(), 4);
+
+    const auto multiplyAttack = Atk::Effect(EffectOperator::MUL, 2);
+    multiplyAttack->ApplyTo(minion);
+    CHECK_EQ(minion->GetAttack(), 8);
+
+    minion->auraEffects->SetAttack(2);
+    multiplyAttack->ApplyAuraTo(minion);
+    CHECK_EQ(minion->auraEffects->GetAttack(), 4);
+
+    minionCard.targetingType = TargetingType::NONE;
+    CHECK_FALSE(minion->HasAnyValidPlayTargets(&minionCard));
+
+    minionCard.targetingType = TargetingType::HEROES;
+    CHECK(minion->HasAnyValidPlayTargets(&minionCard));
+
+    minion->ActivateTask(PowerType::HONORABLE_KILL);
+    oneTurnAttack->ApplyTo(minion, true);
+    CHECK_FALSE(game.oneTurnEffects.empty());
+
+    minion->Silence();
+    CHECK(game.oneTurnEffects.empty());
 }
 
 TEST_CASE("[Generic] - Remove scripted one-turn enchantment early")

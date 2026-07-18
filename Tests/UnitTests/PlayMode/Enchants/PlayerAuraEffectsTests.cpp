@@ -49,6 +49,19 @@ TEST_CASE("[AuraEffects] - Card type bounds")
     CHECK_EQ(spellEffects.GetAttack(), 0);
     CHECK_EQ(spellEffects.GetCharge(), 0);
     CHECK_THROWS(spellEffects.SetAttack(1));
+    CHECK_THROWS(spellEffects.SetCannotAttackHeroes(1));
+    CHECK_THROWS(spellEffects.SetHealth(1));
+    CHECK_THROWS(spellEffects.SetCantAttack(1));
+
+    AuraEffects minionEffects(CardType::MINION);
+
+    for (const GameTag tag :
+         { GameTag::CANT_BE_TARGETED_BY_SPELLS, GameTag::ATK, GameTag::HEALTH,
+           GameTag::LIFESTEAL, GameTag::CANT_ATTACK })
+    {
+        minionEffects.SetGameTag(tag, 1);
+        CHECK_EQ(minionEffects.GetGameTag(tag), 1);
+    }
 }
 
 TEST_CASE("[PlayAuraEffects] - Run")
