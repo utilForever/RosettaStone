@@ -2107,16 +2107,8 @@ TEST_CASE("[Neutral : Minion] - LOE_086 : Summoning Stone")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Summoning Stone"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Pyroblast"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
-    CHECK_EQ(curField.GetCount(), 2);
-    CHECK_EQ(curField[1]->GetCost(), 4);
 
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -2124,10 +2116,27 @@ TEST_CASE("[Neutral : Minion] - LOE_086 : Summoning Stone")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer,
-                 PlayCardTask::SpellTarget(card3, opPlayer->GetHero()));
-    CHECK_EQ(curField.GetCount(), 3);
-    CHECK_EQ(curField[2]->GetCost(), 10);
+    SUBCASE("Fireball - 4 cost minion")
+    {
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
+
+        game.Process(curPlayer,
+                     PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetCost(), 4);
+    }
+
+    SUBCASE("Pyroblast - 10 cost minion")
+    {
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Pyroblast"));
+
+        game.Process(curPlayer,
+                     PlayCardTask::SpellTarget(card2, opPlayer->GetHero()));
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField[1]->GetCost(), 10);
+    }
 }
 
 // --------------------------------------- MINION - NEUTRAL
