@@ -114,7 +114,7 @@ void Game::Start()
     // Create callback to get opponent player
     auto getOpponentPlayerCallback = [this](Player& player) -> Player& {
         const std::size_t idx = FindPlayerNextFight(player.idx);
-        return m_gameState.players[idx];
+        return m_gameState.players.at(idx);
     };
 
     // Create callback to process the tasks related to defeat
@@ -125,11 +125,11 @@ void Game::Start()
         player.rank = m_gameState.numRemainPlayer;
         --m_gameState.numRemainPlayer;
 
-        player.tavern.fieldZone.ForEach([&](MinionData& minion) {
+        player.tavern.fieldZone.ForEach([this](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
 
-        player.hand.ForEach([&](std::optional<CardData>& card) {
+        player.hand.ForEach([this](std::optional<CardData>& card) {
             if (std::holds_alternative<Minion>(card.value()))
             {
                 const auto minion = std::get<Minion>(card.value());
@@ -137,7 +137,7 @@ void Game::Start()
             }
         });
 
-        player.recruitField.ForEach([&](MinionData& minion) {
+        player.recruitField.ForEach([this](MinionData& minion) {
             m_gameState.minionPool.ReturnMinion(minion.value().GetPoolIndex());
         });
 
@@ -273,8 +273,8 @@ void Game::Combat()
         Battle battle(player1, player2);
 
         // Create callback to get battle
-        player1.getBattleCallback = [&]() -> Battle& { return battle; };
-        player2.getBattleCallback = [&]() -> Battle& { return battle; };
+        player1.getBattleCallback = [&battle]() -> Battle& { return battle; };
+        player2.getBattleCallback = [&battle]() -> Battle& { return battle; };
 
         battle.Run();
     }
@@ -363,7 +363,7 @@ std::size_t Game::DeterminePlayerToFightGhost(
 
     // Remove the index of randomly selected player from player data
     playerData.erase(std::remove_if(playerData.begin(), playerData.end(),
-                                    [&](std::tuple<int, int> data) {
+                                    [idx](std::tuple<int, int> data) {
                                         return std::get<0>(data) ==
                                                static_cast<int>(idx);
                                     }),
@@ -435,6 +435,6 @@ std::size_t Game::FindPlayerNextFight(std::size_t playerIdx)
         }
     }
 
-    return std::numeric_limits<std::size_t>::max();
+    throw std::logic_error("Opponent player not found");
 }
 }  // namespace RosettaStone::Battlegrounds
