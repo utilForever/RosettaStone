@@ -21,7 +21,7 @@ class GetEventNumberTask : public ITask
  public:
     //! Constructs task with given \p numIndex.
     //! \param numIndex An index of number.
-    GetEventNumberTask(int numIndex = 0);
+    explicit GetEventNumberTask(int numIndex = 0);
 
  private:
     //! Processes task logic internally and returns meta data.

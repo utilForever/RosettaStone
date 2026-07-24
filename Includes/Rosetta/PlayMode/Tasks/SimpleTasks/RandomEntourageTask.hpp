@@ -21,7 +21,7 @@ class RandomEntourageTask : public ITask
     //! Constructs task with given \p count and \p isOpponent.
     //! \param count A value indicating the number of picking.
     //! \param isOpponent A flag to owner indicating opponent player.
-    RandomEntourageTask(int count = 1, bool isOpponent = false);
+    explicit RandomEntourageTask(int count = 1, bool isOpponent = false);
 
  private:
     //! Processes task logic internally and returns meta data.

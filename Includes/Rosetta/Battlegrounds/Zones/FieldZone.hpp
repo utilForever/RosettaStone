@@ -34,21 +34,6 @@ class FieldZone
     //! Default constructor.
     FieldZone() = default;
 
-    //! Default destructor.
-    ~FieldZone() = default;
-
-    //! Default copy constructor.
-    FieldZone(const FieldZone& rhs) = default;
-
-    //! Deleted move constructor.
-    FieldZone(FieldZone&& rhs) noexcept = delete;
-
-    //! Copy assignment operator.
-    FieldZone& operator=(const FieldZone& rhs);
-
-    //! Deleted Move assignment operator.
-    FieldZone& operator=(FieldZone&& rhs) noexcept = delete;
-
     //! Operator overloading for operator[].
     //! \param zonePos The zone position of minion.
     //! \return The minion at \p zonePos.
@@ -151,7 +136,7 @@ class FieldZone
     }
 
  private:
-    const ZoneType m_type = ZoneType::PLAY;
+    static constexpr ZoneType m_type = ZoneType::PLAY;
 
     std::array<MinionData, MAX_FIELD_SIZE> m_minions;
     int m_count = 0;

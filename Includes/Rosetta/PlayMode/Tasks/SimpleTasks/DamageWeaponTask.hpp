@@ -23,7 +23,7 @@ class DamageWeaponTask : public ITask
     //! \param opponent The flag that indicates whether
     //! the target is opponent's equipped weapon.
     //! \param amount The amount to damage the durability.
-    DamageWeaponTask(bool opponent = true, int amount = 1);
+    explicit DamageWeaponTask(bool opponent = true, int amount = 1);
 
  private:
     //! Processes task logic internally and returns meta data.

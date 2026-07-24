@@ -10,19 +10,6 @@
 
 namespace RosettaStone::Battlegrounds
 {
-FieldZone& FieldZone::operator=(const FieldZone& rhs)
-{
-    if (this == &rhs)
-    {
-        return *this;
-    }
-
-    m_minions = rhs.m_minions;
-    m_count = rhs.m_count;
-
-    return *this;
-}
-
 Minion& FieldZone::operator[](std::size_t zonePos)
 {
     return m_minions.at(zonePos).value();
