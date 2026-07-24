@@ -23,14 +23,17 @@ SummoningPortalAura::SummoningPortalAura()
 
 void SummoningPortalAura::Activate(Playable* owner, bool cloning)
 {
-    auto instance = new SummoningPortalAura(*this, *owner);
-    owner->ongoingEffect = instance;
-    owner->player->GetHandZone()->auras.emplace_back(instance);
-    owner->game->AddAura(instance);
+    auto instance = std::unique_ptr<SummoningPortalAura>(
+        new SummoningPortalAura(*this, *owner));
+    auto* aura = instance.get();
+
+    owner->ongoingEffect = aura;
+    owner->player->GetHandZone()->auras.emplace_back(aura);
+    owner->game->AddAura(std::move(instance));
 
     if (!cloning)
     {
-        instance->m_auraUpdateInstQueue.Push(
+        aura->m_auraUpdateInstQueue.Push(
             AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
     }
 }

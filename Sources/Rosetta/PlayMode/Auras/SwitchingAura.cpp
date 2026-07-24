@@ -41,20 +41,23 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
         m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
 
-    const auto instance = new SwitchingAura(*this, *owner);
+    auto instance =
+        std::unique_ptr<SwitchingAura>(new SwitchingAura(*this, *owner));
+    auto* aura = instance.get();
 
-    AddToGame(*owner, *instance);
+    AddToGame(*owner, *aura);
+    owner->game->AddAura(std::move(instance));
 
-    owner->game->triggerManager.startTurnTrigger += instance->m_onHandler;
-    owner->game->triggerManager.endTurnTrigger += instance->m_offHandler;
+    owner->game->triggerManager.startTurnTrigger += aura->m_onHandler;
+    owner->game->triggerManager.endTurnTrigger += aura->m_offHandler;
 
     if (m_offTrigger == TriggerType::PLAY_MINION)
     {
-        owner->game->triggerManager.playMinionTrigger += instance->m_offHandler;
+        owner->game->triggerManager.playMinionTrigger += aura->m_offHandler;
     }
     else if (m_offTrigger == TriggerType::CAST_SPELL)
     {
-        owner->game->triggerManager.castSpellTrigger += instance->m_offHandler;
+        owner->game->triggerManager.castSpellTrigger += aura->m_offHandler;
     }
     else
     {
@@ -64,13 +67,13 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
 
     if (!cloning)
     {
-        if (!instance->m_activateCondition.Evaluate(owner))
+        if (!aura->m_activateCondition.Evaluate(owner))
         {
-            instance->m_turnOn = false;
+            aura->m_turnOn = false;
         }
         else
         {
-            instance->m_auraUpdateInstQueue.Push(
+            aura->m_auraUpdateInstQueue.Push(
                 AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
         }
     }

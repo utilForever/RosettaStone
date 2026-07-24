@@ -40,37 +40,36 @@ void Aura::Activate(Playable* owner, bool cloning)
         m_effects = m_enchantmentCard->power.GetEnchant()->effects;
     }
 
-    const auto instance = new Aura(*this, *owner);
+    auto instance = std::unique_ptr<Aura>(new Aura(*this, *owner));
+    auto* aura = instance.get();
 
-    AddToGame(*owner, *instance);
+    AddToGame(*owner, *aura);
+    owner->game->AddAura(std::move(instance));
 
     if (removeTrigger.first == TriggerType::TURN_END)
     {
-        owner->game->triggerManager.endTurnTrigger += instance->m_removeHandler;
+        owner->game->triggerManager.endTurnTrigger += aura->m_removeHandler;
     }
     else if (removeTrigger.first == TriggerType::CAST_SPELL)
     {
-        owner->game->triggerManager.castSpellTrigger +=
-            instance->m_removeHandler;
+        owner->game->triggerManager.castSpellTrigger += aura->m_removeHandler;
     }
     else if (removeTrigger.first == TriggerType::PLAY_MINION)
     {
-        owner->game->triggerManager.playMinionTrigger +=
-            instance->m_removeHandler;
+        owner->game->triggerManager.playMinionTrigger += aura->m_removeHandler;
     }
     else if (removeTrigger.first == TriggerType::INSPIRE)
     {
-        owner->game->triggerManager.inspireTrigger += instance->m_removeHandler;
+        owner->game->triggerManager.inspireTrigger += aura->m_removeHandler;
     }
     else if (removeTrigger.first == TriggerType::EQUIP_WEAPON)
     {
-        owner->game->triggerManager.equipWeaponTrigger +=
-            instance->m_removeHandler;
+        owner->game->triggerManager.equipWeaponTrigger += aura->m_removeHandler;
     }
 
     if (!cloning && !restless)
     {
-        instance->m_auraUpdateInstQueue.Push(
+        aura->m_auraUpdateInstQueue.Push(
             AuraUpdateInstruction(AuraInstruction::ADD_ALL), 1);
     }
 }
@@ -344,7 +343,6 @@ void Aura::AddToGame(Playable& owner, Aura& aura)
 {
     using enum AuraType;
 
-    owner.game->AddAura(&aura);
     owner.ongoingEffect = &aura;
 
     switch (aura.m_type)

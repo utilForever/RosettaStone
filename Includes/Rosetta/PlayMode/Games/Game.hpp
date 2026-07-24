@@ -168,7 +168,7 @@ class Game
 
     //! Adds an aura instance owned by this game.
     //! \param aura The aura instance.
-    void AddAura(IAura* aura);
+    void AddAura(std::unique_ptr<IAura> aura);
 
     //! Process the specified task.
     //! \param player A player to run task.
