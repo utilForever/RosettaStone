@@ -2179,7 +2179,7 @@ void ScholomanceCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
             }
 
             const std::vector<Playable*> selectedMinions =
-                ChooseNElements(minions, whelps.size());
+                ChooseNElements(std::span{ minions }, whelps.size());
 
             for (std::size_t i = 0; i < whelps.size(); ++i)
             {

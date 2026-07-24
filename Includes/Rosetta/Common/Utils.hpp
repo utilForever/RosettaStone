@@ -10,10 +10,11 @@
 #include <effolkronium/random.hpp>
 
 #include <algorithm>
-#include <array>
 #include <cstddef>
 #include <functional>
+#include <span>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 using Random = effolkronium::random_static;
@@ -62,27 +63,10 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
 //! \param amount The number of elements to choose.
 //! \return A list of N distinct elements.
 template <typename T, std::size_t N>
-std::vector<T*> ChooseNElements(const std::array<T*, N>& list,
-                                std::size_t amount)
+std::vector<std::remove_cv_t<T>> ChooseNElements(std::span<T, N> list,
+                                                std::size_t amount)
 {
-    std::vector<T*> results(list.begin(), list.end());
-
-    Random::shuffle(results);
-    results.erase(results.begin() + std::min(amount, results.size()),
-                  results.end());
-
-    return results;
-}
-
-//! Gets N elements from a list of distinct elements by using the default
-//! equality comparer. The source list must not have any repeated elements.
-//! \param list A list of distinct elements to choose.
-//! \param amount The number of elements to choose.
-//! \return A list of N distinct elements.
-template <typename T>
-std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
-{
-    std::vector<T*> results(list);
+    std::vector<std::remove_cv_t<T>> results(list.begin(), list.end());
 
     Random::shuffle(results);
     results.erase(results.begin() + std::min(amount, results.size()),

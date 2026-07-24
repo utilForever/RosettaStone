@@ -44,7 +44,7 @@ TaskStatus RandomTask::Impl(Player* player)
     }
     else
     {
-        stackPlayables = ChooseNElements(playables, m_amount);
+        stackPlayables = ChooseNElements(std::span{ playables }, m_amount);
     }
 
     return TaskStatus::COMPLETE;

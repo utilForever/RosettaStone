@@ -2118,13 +2118,13 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
             {
                 const auto startDeck =
                     player->game->GetPlayerDeck(player->opponent->playerType);
-                auto twoCards = ChooseNElements(startDeck, 2);
+                auto twoCards = ChooseNElements(std::span{ startDeck }, 2);
                 result.emplace_back(twoCards[0]);
                 result.emplace_back(twoCards[1]);
             }
             else
             {
-                auto twoCards = ChooseNElements(opDeckCards, 2);
+                auto twoCards = ChooseNElements(std::span{ opDeckCards }, 2);
                 result.emplace_back(twoCards[0]);
                 result.emplace_back(twoCards[1]);
             }
