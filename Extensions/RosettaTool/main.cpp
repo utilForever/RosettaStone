@@ -39,23 +39,16 @@ inline bool CheckCardImpl(const std::string& path, const std::string& id)
 
     for (auto&& file : filesystem::recursive_directory_iterator(p))
     {
-        std::ifstream fileInput;
+        std::ifstream fileInput(file.path());
         std::string line;
 
-        fileInput.open(file.path().string());
-
-        if (fileInput.is_open())
+        while (getline(fileInput, line))
         {
-            while (getline(fileInput, line))
+            if (line.find(id, 0) != std::string::npos)
             {
-                if (line.find(id, 0) != std::string::npos)
-                {
-                    return true;
-                }
+                return true;
             }
         }
-
-        fileInput.close();
     }
 
     return false;
