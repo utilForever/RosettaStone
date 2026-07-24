@@ -180,7 +180,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
             gameTags.emplace(GameTag::HONORABLEKILL, 1);
         }
 
-        Card* card = new Card();
+        auto card = std::make_unique<Card>();
         card->id = id;
         card->dbfID = dbfID;
         card->name = name;
@@ -255,7 +255,7 @@ void CardLoader::Load(std::vector<Card*>& cards)
             card->gameTags.erase(GameTag::OVERLOAD);
         }
 
-        cards.emplace_back(card);
+        cards.emplace_back(card.release());
     }
 
     cardFile.close();
