@@ -25,8 +25,8 @@ void EnrageEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
         std::unique_ptr<EnrageEffect>(new EnrageEffect(*this, *owner));
     auto* effect = instance.get();
 
-    owner->ongoingEffect = effect;
     owner->game->AddAura(std::move(instance));
+    owner->ongoingEffect = effect;
 }
 
 void EnrageEffect::Update()

@@ -45,8 +45,8 @@ void SwitchingAura::Activate(Playable* owner, bool cloning)
         std::unique_ptr<SwitchingAura>(new SwitchingAura(*this, *owner));
     auto* aura = instance.get();
 
-    AddToGame(*owner, *aura);
     owner->game->AddAura(std::move(instance));
+    AddToGame(*owner, *aura);
 
     owner->game->triggerManager.startTurnTrigger += aura->m_onHandler;
     owner->game->triggerManager.endTurnTrigger += aura->m_offHandler;

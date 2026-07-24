@@ -64,8 +64,8 @@ void OngoingEnchant::Clone(Playable* clone)
     enchantment->target = clone;
     enchantment->isOneTurnEffect = isOneTurnEffect;
 
-    clone->ongoingEffect = enchantment;
     enchantment->game->AddAura(std::move(copy));
+    clone->ongoingEffect = enchantment;
 }
 
 int OngoingEnchant::GetCount() const

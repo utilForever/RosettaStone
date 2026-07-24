@@ -38,9 +38,9 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
         owner->costManager = std::make_unique<CostManager>();
     }
 
+    owner->game->AddAura(std::move(instance));
     owner->costManager->ActivateAdaptiveEffect(effect);
     owner->ongoingEffect = effect;
-    owner->game->AddAura(std::move(instance));
 }
 
 int AdaptiveCostEffect::Apply(int value) const

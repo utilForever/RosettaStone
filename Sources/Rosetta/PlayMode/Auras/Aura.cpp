@@ -43,8 +43,8 @@ void Aura::Activate(Playable* owner, bool cloning)
     auto instance = std::unique_ptr<Aura>(new Aura(*this, *owner));
     auto* aura = instance.get();
 
-    AddToGame(*owner, *aura);
     owner->game->AddAura(std::move(instance));
+    AddToGame(*owner, *aura);
 
     if (removeTrigger.first == TriggerType::TURN_END)
     {

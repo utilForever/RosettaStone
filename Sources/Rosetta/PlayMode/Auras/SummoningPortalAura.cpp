@@ -27,9 +27,9 @@ void SummoningPortalAura::Activate(Playable* owner, bool cloning)
         new SummoningPortalAura(*this, *owner));
     auto* aura = instance.get();
 
+    owner->game->AddAura(std::move(instance));
     owner->ongoingEffect = aura;
     owner->player->GetHandZone()->auras.emplace_back(aura);
-    owner->game->AddAura(std::move(instance));
 
     if (!cloning)
     {

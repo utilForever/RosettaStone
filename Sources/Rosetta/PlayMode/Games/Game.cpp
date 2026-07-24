@@ -755,8 +755,18 @@ void Game::UpdateAura()
 
 void Game::AddAura(std::unique_ptr<IAura> aura)
 {
-    auras.emplace_back(aura.get());
+    auto* auraPtr = aura.get();
     m_ownedAuras.emplace_back(std::move(aura));
+
+    try
+    {
+        auras.emplace_back(auraPtr);
+    }
+    catch (...)
+    {
+        m_ownedAuras.pop_back();
+        throw;
+    }
 }
 
 std::tuple<PlayState, PlayState> Game::Process(Player* player,

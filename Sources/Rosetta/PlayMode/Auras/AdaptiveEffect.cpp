@@ -53,8 +53,8 @@ void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
         }
     }
 
-    owner->ongoingEffect = effect;
     owner->game->AddAura(std::move(instance));
+    owner->ongoingEffect = effect;
 }
 
 void AdaptiveEffect::Update()
