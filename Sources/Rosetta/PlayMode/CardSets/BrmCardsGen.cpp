@@ -70,7 +70,7 @@ void BrmCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetNumFriendlyMinionsDiedThisTurn();
         }));
     cards.emplace("BRM_009", cardDef);
@@ -238,7 +238,7 @@ void BrmCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<DamageTask>(EntityType::TARGET, 4, true));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetNumFriendlyMinionsDiedThisTurn();
         }));
     cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 } };
@@ -264,7 +264,7 @@ void BrmCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetNumFriendlyMinionsDiedThisTurn();
         }));
     cards.emplace("BRM_001", cardDef);
@@ -639,7 +639,7 @@ void BrmCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetNumFriendlyMinionsDiedThisTurn();
         }));
     cards.emplace("BRM_025", cardDef);

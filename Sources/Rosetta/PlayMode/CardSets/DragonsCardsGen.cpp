@@ -1065,7 +1065,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetNumCardsPlayedThisGameNotStartInDeck();
         }));
     cards.emplace("DRG_109", cardDef);
@@ -1316,7 +1316,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
         SelfCondition::IsNotPlayElementalMinionThisTurn()) };
     trigger4->tasks = { std::make_shared<IncludeTask>(EntityType::SOURCE),
                         std::make_shared<FuncPlayableTask>(
-                            [=](const std::vector<Playable*>& playables) {
+                            [](const std::vector<Playable*>& playables) {
                                 const auto spell =
                                     dynamic_cast<Spell*>(playables[0]);
                                 spell->SetGameTag(GameTag::QUEST_PROGRESS, 0);
@@ -2581,7 +2581,7 @@ void DragonsCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             return (playable->player->GetOverloadLocked() > 0 ||
                     playable->player->GetOverloadOwed() > 0)
                        ? 1
@@ -3000,7 +3000,7 @@ void DragonsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<SummonTask>("DRG_207t", SummonSide::RIGHT, true));
     cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
-        [=](const std::vector<Playable*>& playables) {
+        [](const std::vector<Playable*>& playables) {
             if (const auto minion = dynamic_cast<Minion*>(playables[0]))
             {
                 const auto count = minion->player->GetHandZone()->GetCount();
@@ -3482,7 +3482,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             int numDragon = 0;
 
             for (const auto& card : playable->player->GetHandZone()->GetAll())
@@ -3997,7 +3997,7 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             int numDreadRaven = 0;
 
             for (const auto& card : playable->player->GetFieldZone()->GetAll())

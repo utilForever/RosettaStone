@@ -1136,7 +1136,7 @@ void ScholomanceCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
     cardDef.power.AddTrigger(std::make_shared<Trigger>(TriggerType::TURN_END));
     cardDef.power.GetTrigger()->eitherTurn = true;
     cardDef.power.GetTrigger()->conditions = SelfCondList{
-        std::make_shared<SelfCondition>([=](const Playable* playable) -> bool {
+        std::make_shared<SelfCondition>([](const Playable* playable) -> bool {
             const auto opPlayer = playable->game->GetCurrentPlayer();
 
             return opPlayer != playable->player &&

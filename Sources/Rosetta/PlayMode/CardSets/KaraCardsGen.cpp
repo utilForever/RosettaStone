@@ -495,7 +495,7 @@ void KaraCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             if (playable->player->GetCurrentSpellPower() > 0)
             {
                 return 2;
@@ -829,7 +829,7 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddDeathrattleTask(
         std::make_shared<IncludeTask>(EntityType::SOURCE));
     cardDef.power.AddDeathrattleTask(std::make_shared<FuncPlayableTask>(
-        [=](const std::vector<Playable*>& playables) {
+        [](const std::vector<Playable*>& playables) {
             const int entityID =
                 playables[0]->GetGameTag(GameTag::MOAT_LURKER_MINION);
             if (entityID == 0)
@@ -1053,7 +1053,7 @@ void KaraCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetNumSpellsPlayedThisGame();
         }));
     cards.emplace("KAR_711", cardDef);

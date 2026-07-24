@@ -1687,7 +1687,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(
         EntityType::ALL_MINIONS, std::vector<EntityType>(), true));
     cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
-        [=](const std::vector<Playable*>& playables) {
+        [](const std::vector<Playable*>& playables) {
             const auto source = playables[0];
 
             for (std::size_t i = 1; i < playables.size(); ++i)
@@ -4205,7 +4205,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetFieldZone()->GetCount() +
                    playable->player->opponent->GetFieldZone()->GetCount();
         }));
@@ -4716,7 +4716,7 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             return playable->player == playable->game->GetOpponentPlayer() ? 2
                                                                            : 0;
         }));
