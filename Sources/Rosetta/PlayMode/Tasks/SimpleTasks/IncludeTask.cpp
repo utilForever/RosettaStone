@@ -405,9 +405,9 @@ TaskStatus IncludeTask::Impl(Player* player)
 
         std::vector<Playable*> result = entities;
 
-        EraseIf(result, [&](const Entity* entity) {
+        EraseIf(result, [&exceptEntities](const Entity* entity) {
             return std::any_of(exceptEntities.begin(), exceptEntities.end(),
-                               [&](const Playable* excludeEntity) {
+                               [entity](const Playable* excludeEntity) {
                                    return entity == excludeEntity;
                                });
         });

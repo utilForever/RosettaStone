@@ -71,9 +71,10 @@ void CostManager::AddCostAura(EffectOperator effectOp, int value)
 
 void CostManager::RemoveCostAura(EffectOperator effectOp, int value)
 {
-    EraseIf(m_costEffects, [=](std::pair<EffectOperator, int> effect) {
-        return effectOp == effect.first && value == effect.second;
-    });
+    EraseIf(m_costEffects,
+            [effectOp, value](std::pair<EffectOperator, int> effect) {
+                return effectOp == effect.first && value == effect.second;
+            });
     switch (effectOp)
     {
         case EffectOperator::ADD:

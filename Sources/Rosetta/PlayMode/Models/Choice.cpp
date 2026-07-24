@@ -89,8 +89,9 @@ void Choice::TryPrepare()
     {
         const Playable* effect = player->game->entityList[lastChoice];
 
-        EraseIf(cardSets,
-                [=](const Card* card) { return effect->card->id == card->id; });
+        EraseIf(cardSets, [effect](const Card* card) {
+            return effect->card->id == card->id;
+        });
     }
 
     choices = SimpleTasks::DiscoverTask::GetChoices(source, cardSets,

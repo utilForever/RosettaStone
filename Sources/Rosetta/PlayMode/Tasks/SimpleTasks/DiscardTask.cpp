@@ -29,7 +29,7 @@ TaskStatus DiscardTask::Impl(Player* player)
 
     if (m_discardType == DiscardType::ENEMY_MINION)
     {
-        EraseIf(handCards, [=](const Playable* playable) {
+        EraseIf(handCards, [](const Playable* playable) {
             return playable->card->GetCardType() != CardType::MINION;
         });
     }

@@ -147,14 +147,14 @@ TargetingPredicate TargetingPredicates::ReqUndamagedTarget()
 
 TargetingPredicate TargetingPredicates::ReqTargetMaxAttack(int value)
 {
-    return [=](const Character* character) {
+    return [value](const Character* character) {
         return character->GetAttack() <= value;
     };
 }
 
 TargetingPredicate TargetingPredicates::ReqTargetMinAttack(int value)
 {
-    return [=](const Character* character) {
+    return [value](const Character* character) {
         return character->GetAttack() >= value;
     };
 }
@@ -176,32 +176,32 @@ TargetingPredicate TargetingPredicates::ReqMustTargetTaunter()
 
 AvailabilityPredicate TargetingPredicates::MinimumFriendlySecrets(int value)
 {
-    return [=](const Player* player, [[maybe_unused]] Card* card) {
+    return [value](const Player* player, [[maybe_unused]] Card* card) {
         return player->GetSecretZone()->GetCount() >= value;
     };
 }
 
 AvailabilityPredicate TargetingPredicates::ElementalPlayedLastTurn()
 {
-    return [=](const Player* player, [[maybe_unused]] Card* card) {
+    return [](const Player* player, [[maybe_unused]] Card* card) {
         return player->GetNumElementalPlayedLastTurn() > 0;
     };
 }
 
 AvailabilityPredicate TargetingPredicates::MaximumCardsInDeck(int value)
 {
-    return [=](const Player* player, [[maybe_unused]] Card* card) {
+    return [value](const Player* player, [[maybe_unused]] Card* card) {
         return player->GetDeckZone()->GetCount() <= value;
     };
 }
 
 AvailabilityPredicate TargetingPredicates::DragonInHand()
 {
-    return [=](const Player* player, [[maybe_unused]] Card* card) {
+    return [](const Player* player, [[maybe_unused]] Card* card) {
         auto cards = player->GetHandZone()->GetAll();
 
         return std::any_of(
-            cards.begin(), cards.end(), [&](const Playable* handCard) {
+            cards.begin(), cards.end(), [](const Playable* handCard) {
                 return handCard->card->GetCardType() == CardType::MINION &&
                        handCard->card->GetRace() == Race::DRAGON;
             });

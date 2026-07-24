@@ -210,9 +210,10 @@ TaskStatus SummonTask::Impl(Player* player)
 
             if (m_removeFromStack)
             {
-                EraseIf(stack.playables, [&](const Playable* entity) {
-                    return entity == summonEntity;
-                });
+                EraseIf(stack.playables,
+                        [summonEntity](const Playable* entity) {
+                            return entity == summonEntity;
+                        });
             }
         }
 

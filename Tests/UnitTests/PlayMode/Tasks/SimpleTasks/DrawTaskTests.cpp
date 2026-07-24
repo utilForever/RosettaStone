@@ -32,7 +32,8 @@ TEST_CASE("[DrawTask] - Run")
     auto& playerHand = *(player->GetHandZone());
     auto& playerDeck = *(player->GetDeckZone());
 
-    const auto Generate = [&](std::string&& id) -> Playable* {
+    const auto Generate = [&cards, &minions,
+                           player](std::string&& id) -> Playable* {
         cards.emplace_back(new Card());
 
         Card* card = cards.back();
@@ -123,7 +124,8 @@ TEST_CASE("[DrawTask] - RunOverDraw")
     auto& playerHand = *(player->GetHandZone());
     auto& playerDeck = *(player->GetDeckZone());
 
-    const auto Generate = [&](std::string&& id) -> Playable* {
+    const auto Generate = [&cards, &minions,
+                           player](std::string&& id) -> Playable* {
         cards.emplace_back(new Card());
 
         Card* card = cards.back();
@@ -174,7 +176,8 @@ TEST_CASE("[DrawTask] - RunExhaustOverdraw")
     auto& playerHand = *(player->GetHandZone());
     auto& playerDeck = *(player->GetDeckZone());
 
-    const auto Generate = [&](std::string&& id) -> Playable* {
+    const auto Generate = [&cards, &minions,
+                           player](std::string&& id) -> Playable* {
         cards.emplace_back(new Card());
 
         Card* card = cards.back();

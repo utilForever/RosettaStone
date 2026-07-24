@@ -23,7 +23,7 @@ Deck DeckCode::Decode(std::string_view deckCode)
         throw std::runtime_error("Invalid deck code");
     }
 
-    const auto ReadVarint = [&] {
+    const auto ReadVarint = [&code, &pos] {
         int shift = 0, result = 0;
 
         while (true)

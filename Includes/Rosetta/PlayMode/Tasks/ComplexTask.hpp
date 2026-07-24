@@ -55,7 +55,7 @@ class ComplexTask
         return TaskList{
             std::make_shared<SimpleTasks::IncludeTask>(EntityType::SOURCE),
             std::make_shared<SimpleTasks::FuncPlayableTask>(
-                [=](const std::vector<Playable*>& playables) {
+                [](const std::vector<Playable*>& playables) {
                     auto basicTotems = Cards::GetBasicTotems();
                     const auto totem = Entity::GetFromCard(
                         playables[0]->player, *Random::get(basicTotems));
