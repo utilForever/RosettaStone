@@ -20,6 +20,7 @@ TEST_CASE("[Utils] - ChooseNElements (std::array)")
     std::vector<int*> result = ChooseNElements(intVec, 2);
     CHECK_EQ(result.size(), 2);
     CHECK_NE(*result[0], *result[1]);
+    CHECK_EQ(ChooseNElements(intVec, 10).size(), intVec.size());
 }
 
 TEST_CASE("[Utils] - ChooseNElements (std::vector)")
@@ -31,6 +32,7 @@ TEST_CASE("[Utils] - ChooseNElements (std::vector)")
     std::vector<int*> result = ChooseNElements(intVec, 2);
     CHECK_EQ(result.size(), 2);
     CHECK_NE(*result[0], *result[1]);
+    CHECK_EQ(ChooseNElements(intVec, 10).size(), intVec.size());
 }
 
 TEST_CASE("[Utils] - SplitSpring")

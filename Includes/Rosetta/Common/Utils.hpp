@@ -68,7 +68,8 @@ std::vector<T*> ChooseNElements(const std::array<T*, N>& list,
     std::vector<T*> results(list.begin(), list.end());
 
     Random::shuffle(results);
-    results.resize(std::min(amount, results.size()));
+    results.erase(results.begin() + std::min(amount, results.size()),
+                  results.end());
 
     return results;
 }
@@ -84,7 +85,8 @@ std::vector<T*> ChooseNElements(const std::vector<T*>& list, std::size_t amount)
     std::vector<T*> results(list);
 
     Random::shuffle(results);
-    results.resize(std::min(amount, results.size()));
+    results.erase(results.begin() + std::min(amount, results.size()),
+                  results.end());
 
     return results;
 }
