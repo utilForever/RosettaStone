@@ -72,12 +72,10 @@ void TriggerEvent::NotifyHandlers(Entity* entity)
         }
     }
 
-    m_handlers.erase(
-        std::remove_if(m_handlers.begin(), m_handlers.end(),
-                       [](const std::unique_ptr<TriggerEventHandler>& handler) {
-                           return handler->toBeRemoved;
-                       }),
-        m_handlers.end());
+    std::erase_if(m_handlers,
+                  [](const std::unique_ptr<TriggerEventHandler>& handler) {
+                      return handler->toBeRemoved;
+                  });
 
     m_isNotifying = false;
 }

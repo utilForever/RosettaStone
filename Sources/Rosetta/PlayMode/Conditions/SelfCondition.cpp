@@ -1158,7 +1158,7 @@ SelfCondition SelfCondition::Cast5MoreCostSpellInThisTurn()
     return SelfCondition([](const Playable* playable) {
         auto cards = playable->player->cardsPlayedThisTurn;
 
-        return std::any_of(cards.begin(), cards.end(), [](const Card* card) {
+        return std::ranges::any_of(cards, [](const Card* card) {
             return card->GetCardType() == CardType::SPELL &&
                    card->GetCost() >= 5;
         });
@@ -1170,7 +1170,7 @@ SelfCondition SelfCondition::CastFelSpellInThisTurn()
     return SelfCondition([](const Playable* playable) {
         auto cards = playable->player->cardsPlayedThisTurn;
 
-        return std::any_of(cards.begin(), cards.end(), [](const Card* card) {
+        return std::ranges::any_of(cards, [](const Card* card) {
             return card->GetCardType() == CardType::SPELL &&
                    card->GetSpellSchool() >= SpellSchool::FEL;
         });
@@ -1211,11 +1211,11 @@ SelfCondition SelfCondition::NotExistInSecretZone()
     return SelfCondition([](const Playable* playable) {
         auto secrets = playable->player->GetSecretZone()->GetAll();
 
-        return std::none_of(secrets.begin(), secrets.end(),
-                            [playable](const Spell* secretCard) {
-                                return secretCard->card->dbfID ==
-                                       playable->card->dbfID;
-                            });
+        return std::ranges::none_of(secrets,
+                                    [playable](const Spell* secretCard) {
+                                        return secretCard->card->dbfID ==
+                                               playable->card->dbfID;
+                                    });
     });
 }
 
