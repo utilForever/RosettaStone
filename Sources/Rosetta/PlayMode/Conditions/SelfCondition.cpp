@@ -423,7 +423,7 @@ SelfCondition SelfCondition::IsHoldingAnotherClassCard()
 
 SelfCondition SelfCondition::IsHoldingAnyNonClassCard(CardClass cardClass)
 {
-    return SelfCondition([&cardClass](const Playable* playable) {
+    return SelfCondition([cardClass](const Playable* playable) {
         auto cards = playable->player->GetHandZone()->GetAll();
 
         return std::any_of(
