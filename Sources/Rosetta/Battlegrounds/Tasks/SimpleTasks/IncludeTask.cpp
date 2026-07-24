@@ -29,22 +29,23 @@ std::vector<std::reference_wrapper<Minion>> IncludeTask::GetMinions(
         case EntityType::TARGET:
             break;
         case EntityType::MINIONS:
-            player.GetField().ForEachAlive([&](MinionData& minion) {
+            player.GetField().ForEachAlive([&minions](MinionData& minion) {
                 minions.emplace_back(minion.value());
             });
             break;
         case EntityType::MINIONS_NOSOURCE:
-            player.GetField().ForEachAlive([&](MinionData& minion) {
-                if (minion.value().GetPoolIndex() != source.GetPoolIndex())
-                {
-                    minions.emplace_back(minion.value());
-                }
-            });
+            player.GetField().ForEachAlive(
+                [&minions, &source](MinionData& minion) {
+                    if (minion.value().GetPoolIndex() != source.GetPoolIndex())
+                    {
+                        minions.emplace_back(minion.value());
+                    }
+                });
             break;
         case EntityType::ENEMY_MINIONS:
         {
             Player& opponent = player.getOpponentPlayerCallback(player);
-            opponent.GetField().ForEachAlive([&](MinionData& minion) {
+            opponent.GetField().ForEachAlive([&minions](MinionData& minion) {
                 minions.emplace_back(minion.value());
             });
         }

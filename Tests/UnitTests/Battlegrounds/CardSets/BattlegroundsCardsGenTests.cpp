@@ -388,11 +388,11 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
     CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 1);
 
-    auto& p1Field = const_cast<FieldZone&>(battle.GetPlayer1Field());
-    auto& p2Field = const_cast<FieldZone&>(battle.GetPlayer2Field());
+    auto& p1Field = battle.GetPlayer1Field();
+    auto& p2Field = battle.GetPlayer2Field();
 
-    p1Field.ForEachAlive([&](MinionData& owner) {
-        p1Field.ForEachAlive([&](MinionData& minion) {
+    p1Field.ForEachAlive([&p1Field](MinionData& owner) {
+        p1Field.ForEachAlive([&owner](MinionData& minion) {
             {
                 owner.value().ActivateTrigger(TriggerType::TURN_START,
                                               minion.value());
@@ -400,8 +400,8 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
         });
     });
 
-    p2Field.ForEachAlive([&](MinionData& owner) {
-        p2Field.ForEachAlive([&](MinionData& minion) {
+    p2Field.ForEachAlive([&p2Field](MinionData& owner) {
+        p2Field.ForEachAlive([&owner](MinionData& minion) {
             {
                 owner.value().ActivateTrigger(TriggerType::TURN_START,
                                               minion.value());
@@ -416,8 +416,8 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
     CHECK_EQ(battle.GetPlayer2Field()[0].GetAttack(), 2);
 
-    p1Field.ForEachAlive([&](MinionData& owner) {
-        p1Field.ForEachAlive([&](MinionData& minion) {
+    p1Field.ForEachAlive([&p1Field](MinionData& owner) {
+        p1Field.ForEachAlive([&owner](MinionData& minion) {
             {
                 owner.value().ActivateTrigger(TriggerType::TURN_START,
                                               minion.value());
@@ -425,8 +425,8 @@ TEST_CASE("[Battlegrounds : Minion] - GVG_103 : Micro Machine")
         });
     });
 
-    p2Field.ForEachAlive([&](MinionData& owner) {
-        p2Field.ForEachAlive([&](MinionData& minion) {
+    p2Field.ForEachAlive([&p2Field](MinionData& owner) {
+        p2Field.ForEachAlive([&owner](MinionData& minion) {
             {
                 owner.value().ActivateTrigger(TriggerType::TURN_START,
                                               minion.value());
@@ -685,8 +685,8 @@ TEST_CASE("[Battlegrounds : Minion] - BGS_061 : Scallywag")
     Battle battle(player1, player2);
     battle.Initialize();
 
-    player1.getBattleCallback = [&]() -> Battle& { return battle; };
-    player2.getBattleCallback = [&]() -> Battle& { return battle; };
+    player1.getBattleCallback = [&battle]() -> Battle& { return battle; };
+    player2.getBattleCallback = [&battle]() -> Battle& { return battle; };
 
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);
@@ -757,8 +757,8 @@ TEST_CASE("[Battlegrounds : Minion] - OG_221 : Selfless Hero")
     Battle battle(player1, player2);
     battle.Initialize();
 
-    player1.getBattleCallback = [&]() -> Battle& { return battle; };
-    player2.getBattleCallback = [&]() -> Battle& { return battle; };
+    player1.getBattleCallback = [&battle]() -> Battle& { return battle; };
+    player2.getBattleCallback = [&battle]() -> Battle& { return battle; };
 
     CHECK_EQ(battle.GetPlayer1Field().GetCount(), 2);
     CHECK_EQ(battle.GetPlayer2Field().GetCount(), 1);

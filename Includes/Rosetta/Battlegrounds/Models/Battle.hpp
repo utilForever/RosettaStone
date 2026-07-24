@@ -64,7 +64,15 @@ class Battle
 
     //! Returns the field zone of player 1.
     //! \return The field zone of player 1.
+    FieldZone& GetPlayer1Field();
+
+    //! Returns the field zone of player 1.
+    //! \return The field zone of player 1.
     const FieldZone& GetPlayer1Field() const;
+
+    //! Returns the field zone of player 2.
+    //! \return The field zone of player 2.
+    FieldZone& GetPlayer2Field();
 
     //! Returns the field zone of player 2.
     //! \return The field zone of player 2.

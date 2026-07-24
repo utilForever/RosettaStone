@@ -45,7 +45,7 @@ void HandZone::Add(CardData card, int zonePos)
 
     ++m_count;
 
-    std::visit([&](auto&& _card) { return _card.SetZoneType(m_type); },
+    std::visit([this](auto& _card) { return _card.SetZoneType(m_type); },
                m_cards[pos].value());
 
     Reposition(pos);
@@ -54,14 +54,14 @@ void HandZone::Add(CardData card, int zonePos)
 const CardData HandZone::Remove(CardData& card)
 {
     const ZoneType cardZone = std::visit(
-        [&](auto&& _card) -> ZoneType { return _card.GetZoneType(); }, card);
+        [](auto& _card) -> ZoneType { return _card.GetZoneType(); }, card);
     if (cardZone != m_type)
     {
         throw std::logic_error("Couldn't remove entity from zone.");
     }
 
     const int cardPos = std::visit(
-        [&](auto&& _card) -> int { return _card.GetZonePosition(); }, card);
+        [](auto& _card) -> int { return _card.GetZonePosition(); }, card);
     int count = m_count;
 
     CardData result = m_cards.at(cardPos).value();
@@ -88,14 +88,14 @@ void HandZone::Reposition(int zonePos)
     if (zonePos < 0)
     {
         std::visit(
-            [&](auto&& _card) { return _card.SetZonePosition(m_count - 1); },
+            [this](auto& _card) { return _card.SetZonePosition(m_count - 1); },
             m_cards[m_count - 1].value());
         return;
     }
 
     for (int i = m_count - 1; i >= zonePos; --i)
     {
-        std::visit([&](auto&& _card) { return _card.SetZonePosition(i); },
+        std::visit([i](auto& _card) { return _card.SetZonePosition(i); },
                    m_cards[i].value());
     }
 }

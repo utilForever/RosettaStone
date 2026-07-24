@@ -49,19 +49,19 @@ void Battle::Initialize()
 
     if (m_turn == Turn::PLAYER1)
     {
-        m_p1Field.ForEach([&](MinionData& minion) {
+        m_p1Field.ForEach([this](MinionData& minion) {
             minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player1);
         });
-        m_p2Field.ForEach([&](MinionData& minion) {
+        m_p2Field.ForEach([this](MinionData& minion) {
             minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player2);
         });
     }
     else
     {
-        m_p2Field.ForEach([&](MinionData& minion) {
+        m_p2Field.ForEach([this](MinionData& minion) {
             minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player2);
         });
-        m_p1Field.ForEach([&](MinionData& minion) {
+        m_p1Field.ForEach([this](MinionData& minion) {
             minion.value().ActivateTask(PowerType::START_OF_COMBAT, m_player1);
         });
     }
@@ -79,8 +79,8 @@ void Battle::Run()
     {
         if (m_turn == Turn::PLAYER1)
         {
-            m_p1Field.ForEachAlive([&](MinionData& owner) {
-                m_p1Field.ForEachAlive([&](MinionData& minion) {
+            m_p1Field.ForEachAlive([this](MinionData& owner) {
+                m_p1Field.ForEachAlive([&owner](MinionData& minion) {
                     {
                         owner.value().ActivateTrigger(TriggerType::TURN_START,
                                                       minion.value());
@@ -88,8 +88,8 @@ void Battle::Run()
                 });
             });
 
-            m_p2Field.ForEachAlive([&](MinionData& owner) {
-                m_p2Field.ForEachAlive([&](MinionData& minion) {
+            m_p2Field.ForEachAlive([this](MinionData& owner) {
+                m_p2Field.ForEachAlive([&owner](MinionData& minion) {
                     {
                         owner.value().ActivateTrigger(TriggerType::TURN_START,
                                                       minion.value());
@@ -99,8 +99,8 @@ void Battle::Run()
         }
         else
         {
-            m_p2Field.ForEachAlive([&](MinionData& owner) {
-                m_p2Field.ForEachAlive([&](MinionData& minion) {
+            m_p2Field.ForEachAlive([this](MinionData& owner) {
+                m_p2Field.ForEachAlive([&owner](MinionData& minion) {
                     {
                         owner.value().ActivateTrigger(TriggerType::TURN_START,
                                                       minion.value());
@@ -108,8 +108,8 @@ void Battle::Run()
                 });
             });
 
-            m_p1Field.ForEachAlive([&](MinionData& owner) {
-                m_p1Field.ForEachAlive([&](MinionData& minion) {
+            m_p1Field.ForEachAlive([this](MinionData& owner) {
+                m_p1Field.ForEachAlive([&owner](MinionData& minion) {
                     {
                         owner.value().ActivateTrigger(TriggerType::TURN_START,
                                                       minion.value());
@@ -194,7 +194,7 @@ Minion& Battle::GetProperTarget([[maybe_unused]] Minion& attacker)
     tauntMinions.reserve(MAX_FIELD_SIZE);
 
     std::size_t minionIdx = 0;
-    minions.ForEach([&](const MinionData& minion) {
+    minions.ForEach([&tauntMinions, &minionIdx](const MinionData& minion) {
         if (minion.value().HasTaunt())
         {
             tauntMinions.emplace_back(minionIdx);
@@ -219,7 +219,7 @@ void Battle::ProcessDestroy(bool beforeAttack)
 
     if (m_turn == Turn::PLAYER1)
     {
-        m_p2Field.ForEach([&](MinionData& minion) {
+        m_p2Field.ForEach([&deadMinions](MinionData& minion) {
             if (minion.value().IsDestroyed())
             {
                 deadMinions.emplace_back(
@@ -227,7 +227,7 @@ void Battle::ProcessDestroy(bool beforeAttack)
             }
         });
 
-        m_p1Field.ForEach([&](MinionData& minion) {
+        m_p1Field.ForEach([&deadMinions](MinionData& minion) {
             if (minion.value().IsDestroyed())
             {
                 deadMinions.emplace_back(
@@ -237,7 +237,7 @@ void Battle::ProcessDestroy(bool beforeAttack)
     }
     else
     {
-        m_p1Field.ForEach([&](MinionData& minion) {
+        m_p1Field.ForEach([&deadMinions](MinionData& minion) {
             if (minion.value().IsDestroyed())
             {
                 deadMinions.emplace_back(
@@ -245,7 +245,7 @@ void Battle::ProcessDestroy(bool beforeAttack)
             }
         });
 
-        m_p2Field.ForEach([&](MinionData& minion) {
+        m_p2Field.ForEach([&deadMinions](MinionData& minion) {
             if (minion.value().IsDestroyed())
             {
                 deadMinions.emplace_back(
@@ -282,11 +282,11 @@ void Battle::ProcessDestroy(bool beforeAttack)
                 }
             }
 
-            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+            m_p1Field.ForEachAlive([&minion](MinionData& aliveMinion) {
                 aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
-            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+            m_p2Field.ForEachAlive([&minion](MinionData& aliveMinion) {
                 aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
@@ -313,11 +313,11 @@ void Battle::ProcessDestroy(bool beforeAttack)
                 }
             }
 
-            m_p1Field.ForEachAlive([&](MinionData& aliveMinion) {
+            m_p1Field.ForEachAlive([&minion](MinionData& aliveMinion) {
                 aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
-            m_p2Field.ForEachAlive([&](MinionData& aliveMinion) {
+            m_p2Field.ForEachAlive([&minion](MinionData& aliveMinion) {
                 aliveMinion.value().ActivateTrigger(TriggerType::DEATH, minion);
             });
 
@@ -389,7 +389,7 @@ int Battle::CalculateDamage()
 
     if (m_result == BattleResult::PLAYER1_WIN)
     {
-        m_p1Field.ForEach([&](const MinionData& minion) {
+        m_p1Field.ForEach([&totalDamage](const MinionData& minion) {
             totalDamage += minion.value().GetTier();
         });
 
@@ -397,7 +397,7 @@ int Battle::CalculateDamage()
     }
     else
     {
-        m_p2Field.ForEach([&](const MinionData& minion) {
+        m_p2Field.ForEach([&totalDamage](const MinionData& minion) {
             totalDamage += minion.value().GetTier();
         });
 
@@ -407,9 +407,19 @@ int Battle::CalculateDamage()
     return totalDamage;
 }
 
+FieldZone& Battle::GetPlayer1Field()
+{
+    return m_p1Field;
+}
+
 const FieldZone& Battle::GetPlayer1Field() const
 {
     return m_p1Field;
+}
+
+FieldZone& Battle::GetPlayer2Field()
+{
+    return m_p2Field;
 }
 
 const FieldZone& Battle::GetPlayer2Field() const
