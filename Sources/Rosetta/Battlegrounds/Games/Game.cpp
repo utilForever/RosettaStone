@@ -11,7 +11,18 @@
 
 #include <effolkronium/random.hpp>
 
+#include <stdexcept>
+
 using Random = effolkronium::random_static;
+
+namespace
+{
+class OpponentNotFound final : public std::logic_error
+{
+ public:
+    using std::logic_error::logic_error;
+};
+}  // namespace
 
 namespace RosettaStone::Battlegrounds
 {
@@ -435,6 +446,6 @@ std::size_t Game::FindPlayerNextFight(std::size_t playerIdx)
         }
     }
 
-    throw std::logic_error("Opponent player not found");
+    throw OpponentNotFound("Opponent player not found");
 }
 }  // namespace RosettaStone::Battlegrounds
