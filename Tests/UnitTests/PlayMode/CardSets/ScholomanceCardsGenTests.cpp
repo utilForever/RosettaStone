@@ -2685,33 +2685,47 @@ TEST_CASE("[Neutral : Minion] - SCH_162 : Vectus")
 
     auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Kobold Sandtrooper"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
-    const auto card4 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Vectus"));
-    const auto card5 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
+    SUBCASE("Vectus with Deathrattle")
+    {
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Kobold Sandtrooper"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Leper Gnome"));
+        const auto card3 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
+        const auto card4 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Vectus"));
+        const auto card5 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Whirlwind"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    CHECK_EQ(curField.GetCount(), 2);
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
+        CHECK_EQ(curField.GetCount(), 2);
 
-    game.Process(curPlayer, PlayCardTask::Spell(card3));
-    CHECK_EQ(curField.GetCount(), 0);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
+        game.Process(curPlayer, PlayCardTask::Spell(card3));
+        CHECK_EQ(curField.GetCount(), 0);
+        CHECK_EQ(opPlayer->GetHero()->GetHealth(), 15);
 
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
-    CHECK_EQ(curField.GetCount(), 3);
-    CHECK_EQ(curField[0]->HasDeathrattle(), true);
-    CHECK_EQ(curField[2]->HasDeathrattle(), true);
+        game.Process(curPlayer, PlayCardTask::Minion(card4));
+        CHECK_EQ(curField.GetCount(), 3);
+        CHECK_EQ(curField[0]->HasDeathrattle(), true);
+        CHECK_EQ(curField[2]->HasDeathrattle(), true);
 
-    game.Process(curPlayer, PlayCardTask::Spell(card5));
-    CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(opPlayer->GetHero()->GetHealth(), 10);
+        game.Process(curPlayer, PlayCardTask::Spell(card5));
+        CHECK_EQ(curField.GetCount(), 1);
+        CHECK_EQ(opPlayer->GetHero()->GetHealth(), 10);
+    }
+
+    SUBCASE("Vectus without Deathrattle")
+    {
+        const auto card =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Vectus"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card));
+        CHECK_EQ(curField.GetCount(), 3);
+        CHECK_EQ(curField[0]->HasDeathrattle(), false);
+        CHECK_EQ(curField[2]->HasDeathrattle(), false);
+    }
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -3673,11 +3687,12 @@ TEST_CASE("[Neutral : Spell] - SCH_352 : Potion of Illusion")
     game.Process(curPlayer, PlayCardTask::Spell(card4));
 
     CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(opHand.GetCount(), 1);  // The Coin
+    CHECK_EQ(opHand.GetCount(), 1); // The Coin
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(opField.GetCount(), 1);
 
-    const auto CheckMinion = [](Playable* card, bool isChanged) {
+    const auto CheckMinion = [](Playable* card, bool isChanged)
+    {
         const auto minion = dynamic_cast<Minion*>(card);
         CHECK_EQ(minion->GetCost() == 1, isChanged);
         CHECK_EQ(minion->GetAttack() == 1, isChanged);
@@ -3810,7 +3825,7 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
     for (int count = 1; count < curDeck.GetCount(); ++count)
     {
         CHECK(curDeck.GetNthTopCard(count)->GetCost() >=
-              curDeck.GetNthTopCard(count + 1)->GetCost());
+            curDeck.GetNthTopCard(count + 1)->GetCost());
     }
 }
 
@@ -4446,9 +4461,11 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_717 : Keymaster Alabaster")
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
-    config.fillCardIDs = { "CS2_124", "CS2_124", "CS2_124",
-                           "CS2_124", "CS2_124", "CS2_124",
-                           "CS2_124", "CS2_124", "CS2_124" };
+    config.fillCardIDs = {
+        "CS2_124", "CS2_124", "CS2_124",
+        "CS2_124", "CS2_124", "CS2_124",
+        "CS2_124", "CS2_124", "CS2_124"
+    };
 
     Game game(config);
     game.Start();
