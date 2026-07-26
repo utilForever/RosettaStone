@@ -749,7 +749,7 @@ void DalaranCardsGen::AddMage(std::map<std::string, CardDef>& cards)
     cardDef.power.GetTrigger()->triggerSource =
         TriggerSource::FRIENDLY_EVENT_SOURCE;
     cardDef.power.GetTrigger()->conditions = SelfCondList{
-        std::make_shared<SelfCondition>([=](const Playable* playable) -> bool {
+        std::make_shared<SelfCondition>([](const Playable* playable) -> bool {
             return playable->game->currentEventData->eventSource != playable &&
                    playable->GetGameTag(GameTag::COPIED_BY_KHADGAR) != 1;
         })
@@ -1525,7 +1525,7 @@ void DalaranCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<IncludeTask>(EntityType::SOURCE));
     cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
-        [=](const std::vector<Playable*>& playables) {
+        [](const std::vector<Playable*>& playables) {
             playables[0]->player->SetUsedMana(
                 playables[0]->player->GetTotalMana() +
                 playables[0]->player->GetTemporaryMana() -
@@ -3043,7 +3043,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             return playable->player->GetFieldZone()->GetCount() == 1 ? 2 : 0;
         }));
     cards.emplace("DAL_551", cardDef);

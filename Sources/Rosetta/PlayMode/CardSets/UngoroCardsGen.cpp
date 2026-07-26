@@ -314,8 +314,8 @@ void UngoroCardsGen::AddHunter(std::map<std::string, CardDef>& cards)
     // - BATTLECRY = 1
     // --------------------------------------------------------
     cardDef.ClearData();
-    cardDef.power.AddPowerTask(
-        std::make_shared<RandomCardTask>(CardType::MINION, CardClass::INVALID, Race::BEAST));
+    cardDef.power.AddPowerTask(std::make_shared<RandomCardTask>(
+        CardType::MINION, CardClass::INVALID, Race::BEAST));
     cardDef.power.AddPowerTask(
         std::make_shared<AddStackToTask>(EntityType::HAND));
     cards.emplace("UNG_912", cardDef);
@@ -2265,7 +2265,7 @@ void UngoroCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             return playable->player == playable->game->GetOpponentPlayer() ? 2
                                                                            : 0;
         }));

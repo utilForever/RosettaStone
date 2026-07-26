@@ -100,7 +100,9 @@ void Trigger::Run(Minion& owner, Minion& source)
     for (auto& task : m_tasks)
     {
         std::visit(
-            [&](auto&& _task) { _task.Run(owner.getPlayerCallback(), owner); },
+            [&owner](auto& _task) {
+                _task.Run(owner.getPlayerCallback(), owner);
+            },
             task);
     }
 

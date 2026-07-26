@@ -18,7 +18,8 @@
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
 using namespace RosettaStone;
-using namespace PlayerTasks;
+using namespace RosettaStone::PlayMode;
+using namespace RosettaStone::PlayMode::PlayerTasks;
 
 namespace TestUtils
 {
@@ -88,7 +89,8 @@ void PlayEnchantmentCard(Player* player, Card* card, Entity* target)
     GraveyardZone& graveyardZone = *(player->GetGraveyardZone());
     const std::map<GameTag, int> tags;
 
-    const auto enchantment = new Enchantment(player, card, tags, nullptr, target, -1);
+    const auto enchantment =
+        new Enchantment(player, card, tags, nullptr, target, -1);
     player->game->entityList.emplace(
         enchantment->GetGameTag(GameTag::ENTITY_ID), enchantment);
 

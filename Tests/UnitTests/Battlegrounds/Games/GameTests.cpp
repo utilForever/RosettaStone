@@ -214,6 +214,8 @@ TEST_CASE("[Game] - DetermineOpponent")
     players.at(6).playerIdxFoughtLastTurn = 4;
     players.at(7).playerIdxFoughtLastTurn = 2;
 
+    CHECK_THROWS_WITH(game.FindPlayerNextFight(0), "Opponent player not found");
+
     game.DetermineOpponent();
     for (auto& player : game.GetGameState().players)
     {

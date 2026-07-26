@@ -2961,7 +2961,7 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
         [](Player* player, Entity* source, Playable* target) {
             int count = 0;
 
-            player->GetFieldZone()->ForEach([&](const Playable* minion) {
+            player->GetFieldZone()->ForEach([&count](const Playable* minion) {
                 if (minion->isDestroyed)
                 {
                     ++count;
@@ -2969,7 +2969,7 @@ void TheBarrensCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
             });
 
             player->opponent->GetFieldZone()->ForEach(
-                [&](const Playable* minion) {
+                [&count](const Playable* minion) {
                     if (minion->isDestroyed)
                     {
                         ++count;

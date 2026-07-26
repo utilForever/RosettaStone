@@ -238,27 +238,27 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     }
     else
     {
-        Playable* entity = nullptr;
+        std::unique_ptr<Playable> entity;
 
         using enum CardType;
         switch (newCard->GetCardType())
         {
             case HERO:
-                entity =
-                    new Hero(player, newCard, playable->card->gameTags, id);
+                entity = std::make_unique<Hero>(player, newCard,
+                                                playable->card->gameTags, id);
                 break;
             case MINION:
             case LOCATION:
-                entity =
-                    new Minion(player, newCard, playable->card->gameTags, id);
+                entity = std::make_unique<Minion>(player, newCard,
+                                                  playable->card->gameTags, id);
                 break;
             case SPELL:
-                entity =
-                    new Spell(player, newCard, playable->card->gameTags, id);
+                entity = std::make_unique<Spell>(player, newCard,
+                                                 playable->card->gameTags, id);
                 break;
             case WEAPON:
-                entity =
-                    new Weapon(player, newCard, playable->card->gameTags, id);
+                entity = std::make_unique<Weapon>(player, newCard,
+                                                  playable->card->gameTags, id);
                 break;
             case INVALID:
             case GAME:
@@ -279,18 +279,18 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
 
         if (hand)
         {
-            hand->ChangeEntity(playable, entity);
+            hand->ChangeEntity(playable, entity.get());
         }
         else if (field)
         {
-            field->ChangeEntity(playable, entity);
+            field->ChangeEntity(playable, entity.get());
         }
         else if (deck)
         {
-            deck->ChangeEntity(playable, entity);
+            deck->ChangeEntity(playable, entity.get());
         }
 
-        player->game->entityList[id] = entity;
+        player->game->entityList[id] = entity.get();
 
         if (playable->costManager)
         {
@@ -299,7 +299,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
 
         entity->costManager = std::move(playable->costManager);
         player->GetSetasideZone()->Add(playable);
-        playable = entity;
+        playable = entity.release();
     }
 
     // Set it is transformed playable

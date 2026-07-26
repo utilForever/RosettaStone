@@ -26,7 +26,7 @@ class Zone : public IZone
  public:
     //! Constructs zone with given \p type.
     //! \param type The type of zone.
-    Zone(ZoneType type)
+    explicit Zone(ZoneType type)
     {
         m_type = type;
     }
@@ -329,11 +329,6 @@ class LimitedZone : public Zone<T>
 
         return entity;
     }
-
-    //! Replaces an entity in the given position internally.
-    //! \param oldEntity The old entity.
-    //! \param newEntity The new entity.
-    void ChangeEntity(Playable* oldEntity, Playable* newEntity) override = 0;
 
     //! Moves the specified entity to a new position.
     //! \param entity The entity to move.

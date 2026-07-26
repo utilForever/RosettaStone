@@ -87,7 +87,7 @@ TEST_CASE("[Game] - UpdateAura retires inactive ownership")
     aura->Remove();
     aura->Clone(nullptr);
 
-    game.AddAura(aura.release());
+    game.AddAura(std::move(aura));
     game.UpdateAura();
 
     CHECK(game.auras.empty());

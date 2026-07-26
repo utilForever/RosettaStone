@@ -11,6 +11,8 @@
 
 namespace RosettaStone::Battlegrounds
 {
+using namespace SimpleTasks;
+
 using PlayReqs = std::map<PlayReq, int>;
 
 void BattlegroundsCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)

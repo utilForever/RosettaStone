@@ -25,12 +25,15 @@
 
 namespace RosettaStone::Battlegrounds
 {
-using namespace SimpleTasks;
 using TaskType =
-    std::variant<AddEnchantmentTask, AttackTask, CountTask, DamageHeroTask,
-                 DamageTask, GetGameTagTask, IncludeTask, RandomTask,
-                 ReduceTavernCostTask, RepeatNumberEndTask,
-                 RepeatNumberStartTask, SetGameTagTask, SummonTask>;
+    std::variant<SimpleTasks::AddEnchantmentTask, SimpleTasks::AttackTask,
+                 SimpleTasks::CountTask, SimpleTasks::DamageHeroTask,
+                 SimpleTasks::DamageTask, SimpleTasks::GetGameTagTask,
+                 SimpleTasks::IncludeTask, SimpleTasks::RandomTask,
+                 SimpleTasks::ReduceTavernCostTask,
+                 SimpleTasks::RepeatNumberEndTask,
+                 SimpleTasks::RepeatNumberStartTask,
+                 SimpleTasks::SetGameTagTask, SimpleTasks::SummonTask>;
 }  // namespace RosettaStone::Battlegrounds
 
 #endif  // ROSETTASTONE_BATTLEGROUNDS_TASK_TYPE_HPP

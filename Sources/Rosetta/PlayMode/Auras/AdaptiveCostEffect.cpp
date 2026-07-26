@@ -29,16 +29,18 @@ void AdaptiveCostEffect::Activate(Playable* owner, bool cloning)
         return;
     }
 
-    auto instance = new AdaptiveCostEffect(*this, *owner);
+    auto instance = std::unique_ptr<AdaptiveCostEffect>(
+        new AdaptiveCostEffect(*this, *owner));
+    auto* effect = instance.get();
 
     if (!owner->costManager)
     {
         owner->costManager = std::make_unique<CostManager>();
     }
 
-    owner->costManager->ActivateAdaptiveEffect(instance);
-    owner->ongoingEffect = instance;
-    owner->game->AddAura(instance);
+    owner->game->AddAura(std::move(instance));
+    owner->costManager->ActivateAdaptiveEffect(effect);
+    owner->ongoingEffect = effect;
 }
 
 int AdaptiveCostEffect::Apply(int value) const

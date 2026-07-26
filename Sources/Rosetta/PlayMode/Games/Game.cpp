@@ -119,8 +119,7 @@ Game::Game(const GameConfig& gameConfig) : m_gameConfig(gameConfig)
         case RANDOM:
         {
             const auto val = Random::get(0, 1);
-            m_currentPlayer =
-                (val == 0) ? PLAYER1 : PLAYER2;
+            m_currentPlayer = (val == 0) ? PLAYER1 : PLAYER2;
             break;
         }
         default:
@@ -754,10 +753,20 @@ void Game::UpdateAura()
     });
 }
 
-void Game::AddAura(IAura* aura)
+void Game::AddAura(std::unique_ptr<IAura> aura)
 {
-    m_ownedAuras.emplace_back(aura);
-    auras.emplace_back(aura);
+    auto* auraPtr = aura.get();
+    m_ownedAuras.emplace_back(std::move(aura));
+
+    try
+    {
+        auras.emplace_back(auraPtr);
+    }
+    catch (...)
+    {
+        m_ownedAuras.pop_back();
+        throw;
+    }
 }
 
 std::tuple<PlayState, PlayState> Game::Process(Player* player,

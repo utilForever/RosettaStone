@@ -132,26 +132,26 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
     tags[GameTag::CONTROLLER] = player->playerID;
     tags[GameTag::ZONE] = zone ? std::to_underlying(zone->GetType()) : 0;
 
-    Playable* result = nullptr;
+    std::unique_ptr<Playable> result;
 
     switch (card->GetCardType())
     {
         case HERO:
-            result = new Hero(player, card, tags, id);
+            result = std::make_unique<Hero>(player, card, tags, id);
             break;
         case HERO_POWER:
             tags[GameTag::ZONE] = std::to_underlying(ZoneType::PLAY);
-            result = new HeroPower(player, card, tags, id);
+            result = std::make_unique<HeroPower>(player, card, tags, id);
             break;
         case MINION:
         case LOCATION:
-            result = new Minion(player, card, tags, id);
+            result = std::make_unique<Minion>(player, card, tags, id);
             break;
         case SPELL:
-            result = new Spell(player, card, tags, id);
+            result = std::make_unique<Spell>(player, card, tags, id);
             break;
         case WEAPON:
-            result = new Weapon(player, card, tags, id);
+            result = std::make_unique<Weapon>(player, card, tags, id);
             break;
         case INVALID:
         case GAME:
@@ -171,8 +171,8 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
 
     // Add entity to list
     player->game->entityList.emplace(result->GetGameTag(GameTag::ENTITY_ID),
-                                     result);
+                                     result.get());
 
-    return result;
+    return result.release();
 }
 }  // namespace RosettaStone::PlayMode

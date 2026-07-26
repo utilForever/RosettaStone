@@ -2640,7 +2640,7 @@ void LootapaloozaCardsGen::AddNeutralNonCollect(
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<DrawTask>(1, true));
     cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
-        [=](const std::vector<Playable*>& playables) {
+        [](const std::vector<Playable*>& playables) {
             if (playables.empty())
             {
                 return std::vector<Playable*>{};

@@ -12,7 +12,14 @@
 
 namespace RosettaStone::PlayMode
 {
-Card emptyCard;
+namespace
+{
+Card* GetEmptyCard()
+{
+    static Card emptyCard;
+    return &emptyCard;
+}
+}  // namespace
 
 std::vector<Card*> Cards::m_cards;
 std::array<std::vector<Card*>, NUM_PLAYER_CLASS> Cards::m_standardCards;
@@ -193,7 +200,7 @@ Card* Cards::FindCardByID(const std::string_view& id)
         }
     }
 
-    return &emptyCard;
+    return GetEmptyCard();
 }
 
 Card* Cards::FindCardByDbfID(int dbfID)
@@ -206,7 +213,7 @@ Card* Cards::FindCardByDbfID(int dbfID)
         }
     }
 
-    return &emptyCard;
+    return GetEmptyCard();
 }
 
 std::vector<Card*> Cards::FindCardByRarity(Rarity rarity)
@@ -311,7 +318,7 @@ Card* Cards::FindCardByName(const std::string_view& name, FormatType format)
         }
     }
 
-    return &emptyCard;
+    return GetEmptyCard();
 }
 
 std::vector<Card*> Cards::FindCardByCost(int minVal, int maxVal)
@@ -440,7 +447,7 @@ Card* Cards::GetHeroCard(CardClass cardClass)
         case CardClass::DEMONHUNTER:
             return FindCardByID("HERO_10");
         default:
-            return &emptyCard;
+            return GetEmptyCard();
     }
 }
 
@@ -469,7 +476,7 @@ Card* Cards::GetDefaultHeroPower(CardClass cardClass)
         case CardClass::DEMONHUNTER:
             return FindCardByID("HERO_10bp");
         default:
-            return &emptyCard;
+            return GetEmptyCard();
     }
 }
 }  // namespace RosettaStone::PlayMode

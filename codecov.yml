@@ -8,8 +8,14 @@ coverage:
 
   status:
     # Learn more at https://codecov.io/docs#yaml_default_commit_status
-    project: true
-    patch: true
+    project:
+      default:
+        target: auto
+        threshold: 0%
+    patch:
+      default:
+        target: auto
+        threshold: 5%
     changes: false
 
 # We don't want statistics for the tests themselves and certainly not for the
@@ -29,6 +35,7 @@ ignore:
 - "Medias/**/*"
 - "Resources/*"
 - "Scripts/*"
+- "Tests/**/*"
 
 comment:
   layout: "header, diff, changes, uncovered"

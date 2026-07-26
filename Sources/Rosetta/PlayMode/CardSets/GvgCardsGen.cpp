@@ -527,7 +527,7 @@ void GvgCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<IncludeTask>(
         EntityType::ALL_MINIONS, std::vector<EntityType>(), true));
     cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
-        [=](const std::vector<Playable*>& playables) {
+        [](const std::vector<Playable*>& playables) {
             const auto source = playables[0];
 
             for (std::size_t i = 1; i < playables.size(); ++i)
@@ -1129,7 +1129,7 @@ void GvgCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::ADD, [=](const Playable* playable) {
+        GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             const auto minions = playable->player->GetFieldZone()->GetAll();
 
             for (auto& minion : minions)

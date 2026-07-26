@@ -9,10 +9,14 @@
 
 #include <Rosetta/PlayMode/Cards/Card.hpp>
 
-using namespace RosettaStone::PlayMode;
-
 namespace TestUtils
 {
+using RosettaStone::PlayMode::Card;
+using RosettaStone::PlayMode::Entity;
+using RosettaStone::PlayMode::Game;
+using RosettaStone::PlayMode::Playable;
+using RosettaStone::PlayMode::Player;
+
 Card GenerateMinionCard(std::string&& id, int attack, int health);
 Card GenerateWeaponCard(std::string&& id, int attack, int durability);
 Card GenerateEnchantmentCard(std::string&& id);

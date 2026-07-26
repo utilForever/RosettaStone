@@ -31,7 +31,8 @@ void AdjacentAura::Activate(Playable* owner, [[maybe_unused]] bool cloning)
             "AdjacentAura::Activate() - Invalid owner.");
     }
 
-    new AdjacentAura(*this, *minion, false);
+    minion->game->AddAura(
+        std::unique_ptr<AdjacentAura>(new AdjacentAura(*this, *minion, false)));
 }
 
 void AdjacentAura::Update()
@@ -123,7 +124,8 @@ void AdjacentAura::Clone(Playable* clone)
         throw std::invalid_argument("AdjacentAura::Clone() - Invalid clone.");
     }
 
-    new AdjacentAura(*this, *minion, true);
+    minion->game->AddAura(
+        std::unique_ptr<AdjacentAura>(new AdjacentAura(*this, *minion, true)));
 }
 
 void AdjacentAura::SetIsFieldChanged(bool isFieldChanged)
@@ -181,8 +183,6 @@ AdjacentAura::AdjacentAura(const AdjacentAura& prototype, Minion& owner,
     }
 
     owner.ongoingEffect = this;
-    owner.game->AddAura(this);
-
     m_fieldZone = owner.player->GetFieldZone();
     m_fieldZone->adjacentAuras.emplace_back(this);
 

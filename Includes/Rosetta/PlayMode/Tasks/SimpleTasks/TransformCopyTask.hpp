@@ -23,7 +23,7 @@ class TransformCopyTask : public ITask
     //! \param toTarget true if it transforms to target,
     //! false if it transforms from target.
     //! \param addToStack A flag to store transformed card to stack.
-    TransformCopyTask(bool toTarget = false, bool addToStack = false);
+    explicit TransformCopyTask(bool toTarget = false, bool addToStack = false);
 
  private:
     //! Processes task logic internally and returns meta data.

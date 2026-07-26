@@ -21,10 +21,12 @@ EnrageEffect::EnrageEffect(AuraType type, std::string&& enchantmentID)
 
 void EnrageEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
 {
-    auto instance = new EnrageEffect(*this, *owner);
+    auto instance =
+        std::unique_ptr<EnrageEffect>(new EnrageEffect(*this, *owner));
+    auto* effect = instance.get();
 
-    owner->game->AddAura(instance);
-    owner->ongoingEffect = instance;
+    owner->game->AddAura(std::move(instance));
+    owner->ongoingEffect = effect;
 }
 
 void EnrageEffect::Update()

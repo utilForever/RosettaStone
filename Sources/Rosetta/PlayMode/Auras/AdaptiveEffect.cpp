@@ -32,7 +32,9 @@ AdaptiveEffect::AdaptiveEffect(std::shared_ptr<SelfCondition> condition,
 
 void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
 {
-    auto instance = new AdaptiveEffect(*this, *owner);
+    auto instance =
+        std::unique_ptr<AdaptiveEffect>(new AdaptiveEffect(*this, *owner));
+    auto* effect = instance.get();
 
     if (!m_isSwitching)
     {
@@ -51,8 +53,8 @@ void AdaptiveEffect::Activate(Playable* owner, [[maybe_unused]] bool cloning)
         }
     }
 
-    owner->game->AddAura(instance);
-    owner->ongoingEffect = instance;
+    owner->game->AddAura(std::move(instance));
+    owner->ongoingEffect = effect;
 }
 
 void AdaptiveEffect::Update()

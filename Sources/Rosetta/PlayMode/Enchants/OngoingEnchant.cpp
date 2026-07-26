@@ -58,13 +58,14 @@ void OngoingEnchant::Remove()
 
 void OngoingEnchant::Clone(Playable* clone)
 {
-    auto copy = new OngoingEnchant(effects);
-    copy->game = clone->game;
-    copy->target = clone;
-    copy->isOneTurnEffect = isOneTurnEffect;
+    auto copy = std::make_unique<OngoingEnchant>(effects);
+    auto* enchantment = copy.get();
+    enchantment->game = clone->game;
+    enchantment->target = clone;
+    enchantment->isOneTurnEffect = isOneTurnEffect;
 
-    clone->ongoingEffect = copy;
-    copy->game->AddAura(copy);
+    enchantment->game->AddAura(std::move(copy));
+    clone->ongoingEffect = enchantment;
 }
 
 int OngoingEnchant::GetCount() const

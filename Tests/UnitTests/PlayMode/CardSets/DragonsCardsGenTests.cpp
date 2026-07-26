@@ -6,6 +6,10 @@
 
 #include <Utils/CardSetHeaders.hpp>
 
+#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
+
+#include <algorithm>
+
 // ----------------------------------------- HERO - WARLOCK
 // [DRG_600] Galakrond, the Wretched - COST:7 [ATK:0/HP:30]
 // - Set: Dragons, Rarity: Legendary
@@ -4138,6 +4142,45 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     opPlayer->SetUsedMana(0);
 
     auto& opHand = *(opPlayer->GetHandZone());
+    auto& curHand = *(curPlayer->GetHandZone());
+    auto& curDeck = *(curPlayer->GetDeckZone());
+
+    while (!curHand.IsEmpty())
+    {
+        curPlayer->GetSetasideZone()->Add(curHand.Remove(curHand[0]));
+    }
+    Card* opponentHandCard = Cards::FindCardByID("GAME_005");
+    Generic::DrawCard(curPlayer, opponentHandCard);
+
+    while (!curDeck.IsEmpty())
+    {
+        curPlayer->GetSetasideZone()->Add(
+            curDeck.Remove(curDeck.GetTopCard()));
+    }
+
+    const auto startDeck = game.GetPlayerDeck(curPlayer->playerType);
+    std::vector<Card*> startDeckCards(startDeck.begin(), startDeck.end());
+    Card* deckCard1 = Cards::FindCardByName("Arcane Intellect");
+    Card* deckCard2 = Cards::FindCardByName("Flamestrike");
+
+    SUBCASE("Uses starting deck when opponent's current deck is empty")
+    {
+        CHECK(curDeck.IsEmpty());
+    }
+
+    SUBCASE("Uses starting deck when opponent's current deck has one card")
+    {
+        curDeck.Add(Entity::GetFromCard(curPlayer, deckCard1));
+        CHECK_EQ(curDeck.GetCount(), 1);
+    }
+
+    SUBCASE("Uses current deck when opponent's current deck has two cards")
+    {
+        curDeck.Add(Entity::GetFromCard(curPlayer, deckCard1));
+        curDeck.Add(Entity::GetFromCard(curPlayer, deckCard2));
+        startDeckCards = {deckCard1, deckCard2};
+        CHECK_EQ(curDeck.GetCount(), 2);
+    }
 
     const auto card1 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Envoy of Lazul"));
@@ -4149,6 +4192,17 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     CHECK(opPlayer->choice);
 
     auto cards = TestUtils::GetChoiceCards(game);
+    CHECK_EQ(cards.size(), 3);
+    CHECK_EQ(std::count(cards.begin(), cards.end(), opponentHandCard), 1);
+    CHECK_EQ(
+        std::count_if(cards.begin(), cards.end(),
+            [&startDeckCards](Card* card) {
+            return std::find(startDeckCards.begin(),
+                startDeckCards.end(),
+                card) != startDeckCards.end();
+            }),
+        2);
+
     TestUtils::ChooseNthChoice(game, 1);
 
     int dbfTotal = 0;
@@ -4158,8 +4212,7 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     }
 
     // NOTE: dbfID of the card 'The Coin' is 1746
-    //       dbfID of the card 'Wisp' is 179
-    const bool isCorrect = dbfTotal == 1746 || dbfTotal == 1925;
+    const bool isCorrect = dbfTotal == 1746 || dbfTotal == 3492;
     CHECK(isCorrect);
 }
 

@@ -1614,7 +1614,7 @@ void Expert1CardsGen::AddMage(std::map<std::string, CardDef>& cards)
                       std::make_shared<IncludeTask>(
                           EntityType::TARGET, std::vector<EntityType>(), true),
                       std::make_shared<FuncPlayableTask>(
-                          [=](const std::vector<Playable*>& playables) {
+                          [](const std::vector<Playable*>& playables) {
                               playables[2]->SetCardTarget(
                                   playables[0]->GetGameTag(GameTag::ENTITY_ID));
                               return playables;
@@ -1752,7 +1752,7 @@ void Expert1CardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     cardDef.power.GetTrigger()->tasks = ComplexTask::ActivateSecret(TaskList{
         std::make_shared<CopyTask>(EntityType::TARGET, ZoneType::PLAY, 1, true),
         std::make_shared<FuncPlayableTask>(
-            [=](const std::vector<Playable*>& playables) {
+            [](const std::vector<Playable*>& playables) {
                 const auto target = dynamic_cast<Minion*>(playables[0]);
 
                 if (!target)
@@ -2322,7 +2322,7 @@ void Expert1CardsGen::AddPriest(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
-        GameTag::ATK, EffectOperator::SET, [=](Playable* playable) {
+        GameTag::ATK, EffectOperator::SET, [](Playable* playable) {
             const auto minion = dynamic_cast<Minion*>(playable);
             return minion ? minion->GetHealth() : 0;
         }));
@@ -2788,7 +2788,7 @@ void Expert1CardsGen::AddRogue(std::map<std::string, CardDef>& cards)
             true,
             TaskList{ std::make_shared<IncludeTask>(EntityType::SOURCE),
                       std::make_shared<FuncPlayableTask>(
-                          [=](const std::vector<Playable*>& playables) {
+                          [](const std::vector<Playable*>& playables) {
                               const auto source = playables[0];
 
                               source->zone->Remove(source);
@@ -4238,7 +4238,7 @@ void Expert1CardsGen::AddWarriorNonCollect(
         trigger->tasks = {
             std::make_shared<IncludeTask>(EntityType::TARGET),
             std::make_shared<FuncPlayableTask>(
-                [=](const std::vector<Playable*>& playables) {
+                [](const std::vector<Playable*>& playables) {
                     const auto minion = dynamic_cast<Minion*>(playables[0]);
                     int& eventNumber =
                         minion->game->currentEventData->eventNumber;
@@ -5106,7 +5106,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(
         std::make_shared<IncludeTask>(EntityType::ENEMY_MINIONS));
     cardDef.power.AddPowerTask(std::make_shared<FuncPlayableTask>(
-        [=](const std::vector<Playable*>& playables) {
+        [](const std::vector<Playable*>& playables) {
             return playables.size() > 3 ? playables : std::vector<Playable*>{};
         }));
     cardDef.power.AddPowerTask(
@@ -5862,7 +5862,7 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetFieldZone()->GetCount() +
                    playable->player->opponent->GetFieldZone()->GetCount();
         }));

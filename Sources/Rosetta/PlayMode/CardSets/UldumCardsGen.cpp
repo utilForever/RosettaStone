@@ -1815,7 +1815,7 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddAura(
-        std::make_shared<AdaptiveCostEffect>([=](const Playable* playable) {
+        std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
             return playable->player->GetFieldZone()->GetCount() +
                    playable->player->opponent->GetFieldZone()->GetCount();
         }));

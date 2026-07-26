@@ -16,7 +16,9 @@ TaskStatus RepeatNumberEndTask::Run(Player& player, Minion& source)
     {
         for (auto& task : player.taskStack.tasks)
         {
-            std::visit([&](auto&& _task) { _task.Run(player, source); }, task);
+            std::visit(
+                [&player, &source](auto& _task) { _task.Run(player, source); },
+                task);
         }
     }
 
@@ -32,7 +34,8 @@ TaskStatus RepeatNumberEndTask::Run(Player& player, Minion& source,
     {
         for (auto& task : player.taskStack.tasks)
         {
-            std::visit([&](auto&& _task) { _task.Run(player, source, target); },
+            std::visit([&player, &source, &target](
+                           auto& _task) { _task.Run(player, source, target); },
                        task);
         }
     }

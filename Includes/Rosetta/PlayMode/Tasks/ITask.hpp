@@ -30,7 +30,7 @@ class ITask
 
     //! Constructs task with given \p entityType.
     //! \param entityType The entity type of target.
-    ITask(EntityType entityType);
+    explicit ITask(EntityType entityType);
 
     //! Constructs task with given \p source and \p target.
     //! \param source A source entity to apply task.

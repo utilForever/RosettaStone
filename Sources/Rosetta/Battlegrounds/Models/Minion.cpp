@@ -203,7 +203,7 @@ bool Minion::IsPlayableByCardReq(Player& player) const
 bool Minion::HasAnyValidPlayTargets(Player& player) const
 {
     bool friendlyMinions = false;
-    
+
     switch (m_card.targetingType)
     {
         case TargetingType::FRIENDLY_MINIONS:
@@ -308,13 +308,15 @@ void Minion::ActivateTask(PowerType type, Player& player)
     for (auto& task : tasks)
     {
         if (player.taskStack.isStackingTasks &&
-            !std::holds_alternative<RepeatNumberEndTask>(task))
+            !std::holds_alternative<SimpleTasks::RepeatNumberEndTask>(task))
         {
             player.taskStack.tasks.emplace_back(task);
         }
         else
         {
-            std::visit([&](auto&& _task) { _task.Run(player, *this); }, task);
+            std::visit(
+                [this, &player](auto& _task) { _task.Run(player, *this); },
+                task);
         }
     }
 }
@@ -330,13 +332,14 @@ void Minion::ActivateTask(PowerType type, Player& player, Minion& target)
     for (auto& task : tasks)
     {
         if (player.taskStack.isStackingTasks &&
-            !std::holds_alternative<RepeatNumberEndTask>(task))
+            !std::holds_alternative<SimpleTasks::RepeatNumberEndTask>(task))
         {
             player.taskStack.tasks.emplace_back(task);
         }
         else
         {
-            std::visit([&](auto&& _task) { _task.Run(player, *this, target); },
+            std::visit([this, &player, &target](
+                           auto& _task) { _task.Run(player, *this, target); },
                        task);
         }
     }
