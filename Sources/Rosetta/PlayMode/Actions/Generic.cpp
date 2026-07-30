@@ -8,6 +8,7 @@
 #include <Rosetta/PlayMode/Enchants/OngoingEnchant.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
 #include <Rosetta/PlayMode/Models/HeroPower.hpp>
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
@@ -248,9 +249,12 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
                                                 playable->card->gameTags, id);
                 break;
             case MINION:
-            case LOCATION:
                 entity = std::make_unique<Minion>(player, newCard,
                                                   playable->card->gameTags, id);
+                break;
+            case LOCATION:
+                entity = std::make_unique<Location>(
+                    player, newCard, playable->card->gameTags, id);
                 break;
             case SPELL:
                 entity = std::make_unique<Spell>(player, newCard,

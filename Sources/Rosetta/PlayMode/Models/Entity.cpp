@@ -6,6 +6,7 @@
 
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Entity.hpp>
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Models/Spell.hpp>
@@ -144,8 +145,10 @@ Playable* Entity::GetFromCard(Player* player, Card* card,
             result = std::make_unique<HeroPower>(player, card, tags, id);
             break;
         case MINION:
-        case LOCATION:
             result = std::make_unique<Minion>(player, card, tags, id);
+            break;
+        case LOCATION:
+            result = std::make_unique<Location>(player, card, tags, id);
             break;
         case SPELL:
             result = std::make_unique<Spell>(player, card, tags, id);
