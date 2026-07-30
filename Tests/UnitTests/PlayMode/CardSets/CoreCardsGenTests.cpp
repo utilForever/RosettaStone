@@ -4426,32 +4426,53 @@ TEST_CASE("[Priest : Minion] - CORE_DRG_090 : Murozond the Infinite")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opHand = *(opPlayer->GetHandZone());
-    auto& opField = *(opPlayer->GetFieldZone());
+    SUBCASE("Minion, Weapon, Spell")
+    {
+        auto& opHand = *(opPlayer->GetHandZone());
+        auto& opField = *(opPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Shield Block"));
-    const auto card4 = Generic::DrawCard(
-        opPlayer, Cards::FindCardByName("Murozond the Infinite"));
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Fiery War Axe"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
+        const auto card3 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Shield Block"));
+        const auto card4 = Generic::DrawCard(
+            opPlayer, Cards::FindCardByName("Murozond the Infinite"));
 
-    game.Process(curPlayer, PlayCardTask::Weapon(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
-    game.Process(curPlayer, PlayCardTask::Spell(card3));
+        game.Process(curPlayer, PlayCardTask::Weapon(card1));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
+        game.Process(curPlayer, PlayCardTask::Spell(card3));
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card4));
-    CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
-    CHECK_EQ(opPlayer->GetHero()->weapon->card->name, "Fiery War Axe");
-    CHECK_EQ(opField.GetCount(), 2);
-    CHECK_EQ(opField[1]->card->name, "Wolfrider");
-    CHECK_EQ(opHand.GetCount(), 7);
-    CHECK_EQ(opPlayer->GetHero()->GetArmor(), 5);
+        game.Process(opPlayer, PlayCardTask::Minion(card4));
+        CHECK_EQ(opPlayer->GetHero()->HasWeapon(), true);
+        CHECK_EQ(opPlayer->GetHero()->weapon->card->name, "Fiery War Axe");
+        CHECK_EQ(opField.GetCount(), 2);
+        CHECK_EQ(opField[1]->card->name, "Wolfrider");
+        CHECK_EQ(opHand.GetCount(), 7);
+        CHECK_EQ(opPlayer->GetHero()->GetArmor(), 5);
+    }
+
+    SUBCASE("Location")
+    {
+        const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Great Hall"));
+        const auto card2 = Generic::DrawCard(
+            opPlayer, Cards::FindCardByName("Murozond the Infinite"));
+
+        game.Process(curPlayer, PlayCardTask::Location(card1));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(opPlayer, PlayCardTask::Minion(card2));
+        CHECK_EQ(opPlayer->GetFieldZone()->GetCount(), 2);
+        CHECK_EQ(opPlayer->GetFieldZone()->GetMinionCount(), 1);
+        CHECK_EQ(opPlayer->GetFieldZone()->GetLocations().size(), 1u);
+    }
 }
 
 // ---------------------------------------- MINION - PRIEST
@@ -5763,6 +5784,35 @@ TEST_CASE("[Rogue : Minion] - CORE_GIL_598 : Tess Greymane")
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curField.GetCount(), 6);
     CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+}
+
+TEST_CASE("[Rogue : Minion] - CORE_GIL_598 replays a location")
+{
+    GameConfig config;
+    config.player1Class = CardClass::ROGUE;
+    config.player2Class = CardClass::WARLOCK;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    curPlayer->SetTotalMana(10);
+
+    const auto location =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("REV_983"));
+    const auto tess =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("CORE_GIL_598"));
+
+    game.Process(curPlayer, PlayCardTask::Location(location));
+    game.Process(curPlayer, PlayCardTask::Minion(tess));
+
+    CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 3);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetMinionCount(), 1);
+    CHECK_EQ(curPlayer->GetFieldZone()->GetLocations().size(), 2u);
 }
 
 // ----------------------------------------- MINION - ROGUE
