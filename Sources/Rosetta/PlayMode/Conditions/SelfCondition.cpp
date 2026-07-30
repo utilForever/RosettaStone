@@ -286,7 +286,7 @@ SelfCondition SelfCondition::IsNotRace(Race race)
 SelfCondition SelfCondition::IsControllingRace(Race race)
 {
     return SelfCondition([race](const Playable* playable) {
-        auto minions = playable->player->GetFieldZone()->GetAll();
+        auto minions = playable->player->GetFieldZone()->GetMinions();
 
         return std::any_of(minions.begin(), minions.end(),
                            [race](const Minion* minion) {
@@ -298,7 +298,7 @@ SelfCondition SelfCondition::IsControllingRace(Race race)
 SelfCondition SelfCondition::IsOpControllingRace(Race race)
 {
     return SelfCondition([race](const Playable* playable) {
-        auto minions = playable->player->opponent->GetFieldZone()->GetAll();
+        auto minions = playable->player->opponent->GetFieldZone()->GetMinions();
 
         return std::any_of(minions.begin(), minions.end(),
                            [race](const Minion* minion) {
@@ -324,7 +324,7 @@ SelfCondition SelfCondition::IsControllingQuest()
 SelfCondition SelfCondition::IsControllingStealthedMinion()
 {
     return SelfCondition([](const Playable* playable) {
-        auto minions = playable->player->GetFieldZone()->GetAll();
+        auto minions = playable->player->GetFieldZone()->GetMinions();
 
         return std::any_of(
             minions.begin(), minions.end(),
@@ -335,7 +335,7 @@ SelfCondition SelfCondition::IsControllingStealthedMinion()
 SelfCondition SelfCondition::IsControllingLackey()
 {
     return SelfCondition([](const Playable* playable) {
-        auto minions = playable->player->GetFieldZone()->GetAll();
+        auto minions = playable->player->GetFieldZone()->GetMinions();
 
         return std::any_of(
             minions.begin(), minions.end(),
@@ -346,7 +346,7 @@ SelfCondition SelfCondition::IsControllingLackey()
 SelfCondition SelfCondition::IsControllingColaqueShell()
 {
     return SelfCondition([](const Playable* playable) {
-        auto minions = playable->player->GetFieldZone()->GetAll();
+        auto minions = playable->player->GetFieldZone()->GetMinions();
 
         return std::any_of(minions.begin(), minions.end(),
                            [](const Minion* minion) {
@@ -1182,7 +1182,8 @@ SelfCondition SelfCondition::ControlThisCard(int num)
     return SelfCondition([num](const Playable* playable) {
         int count = 0;
 
-        for (const auto& deckCard : playable->player->GetFieldZone()->GetAll())
+        for (const auto& deckCard :
+             playable->player->GetFieldZone()->GetMinions())
         {
             if (playable->card->dbfID == deckCard->card->dbfID)
             {
@@ -1211,11 +1212,10 @@ SelfCondition SelfCondition::NotExistInSecretZone()
     return SelfCondition([](const Playable* playable) {
         auto secrets = playable->player->GetSecretZone()->GetAll();
 
-        return std::ranges::none_of(secrets,
-                                    [playable](const Spell* secretCard) {
-                                        return secretCard->card->dbfID ==
-                                               playable->card->dbfID;
-                                    });
+        return std::ranges::none_of(
+            secrets, [playable](const Spell* secretCard) {
+                return secretCard->card->dbfID == playable->card->dbfID;
+            });
     });
 }
 

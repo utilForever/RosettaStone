@@ -517,7 +517,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            const auto minions = playable->player->GetFieldZone()->GetAll();
+            const auto minions = playable->player->GetFieldZone()->GetMinions();
             int numTreants = 0;
 
             for (auto& minion : minions)
@@ -3278,7 +3278,7 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
         [](const Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            auto enemyMinions = player->opponent->GetFieldZone()->GetAll();
+            auto enemyMinions = player->opponent->GetFieldZone()->GetMinions();
             Random::shuffle(enemyMinions.begin(), enemyMinions.end());
 
             auto& curField = *(player->GetFieldZone());
@@ -4000,7 +4000,8 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             int numDreadRaven = 0;
 
-            for (const auto& card : playable->player->GetFieldZone()->GetAll())
+            for (const auto& card :
+                 playable->player->GetFieldZone()->GetMinions())
             {
                 if (card->card->id == "DRG_088")
                 {

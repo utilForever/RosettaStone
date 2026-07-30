@@ -401,24 +401,32 @@ void Aura::UpdateInternal()
             const int pos = m_owner->GetZonePosition();
             if (pos > 0)
             {
-                Apply(field[pos - 1]);
+                if (const auto left = field[pos - 1]; !left->IsUntouchable())
+                {
+                    Apply(left);
+                }
             }
             if (pos < m_owner->player->GetFieldZone()->GetCount() - 1)
             {
-                Apply(field[pos + 1]);
+                if (const auto right = field[pos + 1]; !right->IsUntouchable())
+                {
+                    Apply(right);
+                }
             }
 
             break;
         }
         case AuraType::FIELD:
-            for (const auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            for (const auto& minion :
+                 m_owner->player->GetFieldZone()->GetMinions())
             {
                 Apply(minion);
             }
             break;
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (const auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            for (const auto& minion :
+                 m_owner->player->GetFieldZone()->GetMinions())
             {
                 if (minion != m_owner)
                 {
@@ -486,7 +494,8 @@ void Aura::UpdateInternal()
             {
                 Apply(card);
             }
-            for (const auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            for (const auto& minion :
+                 m_owner->player->GetFieldZone()->GetMinions())
             {
                 Apply(minion);
             }
@@ -511,7 +520,7 @@ void Aura::UpdateInternal()
                     }
 
                     for (const auto& minion :
-                         m_owner->player->GetFieldZone()->GetAll())
+                         m_owner->player->GetFieldZone()->GetMinions())
                     {
                         if (minion->IsFrozen())
                         {
@@ -522,7 +531,7 @@ void Aura::UpdateInternal()
                 else if (effectPtr->GetGameTag() == GameTag::MEGA_WINDFURY)
                 {
                     for (const auto& minion :
-                         m_owner->player->GetFieldZone()->GetAll())
+                         m_owner->player->GetFieldZone()->GetMinions())
                     {
                         // A minion can't attack at first turn in play.
                         if (minion->GetNumAttacksThisTurn() == 0 &&
@@ -658,7 +667,8 @@ void Aura::RenewAll()
             break;
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
-            for (const auto& minion : m_owner->player->GetFieldZone()->GetAll())
+            for (const auto& minion :
+                 m_owner->player->GetFieldZone()->GetMinions())
             {
                 if (minion != m_owner)
                 {

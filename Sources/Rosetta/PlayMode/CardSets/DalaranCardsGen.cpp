@@ -3044,7 +3044,8 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddAura(std::make_shared<AdaptiveEffect>(
         GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
-            return playable->player->GetFieldZone()->GetCount() == 1 ? 2 : 0;
+            return playable->player->GetFieldZone()->GetMinionCount() == 1 ? 2
+                                                                           : 0;
         }));
     cards.emplace("DAL_551", cardDef);
 
@@ -3174,7 +3175,7 @@ void DalaranCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddPowerTask(
         std::make_shared<FuncNumberTask>([](const Playable* playable) {
-            return 2 * (playable->player->GetFieldZone()->GetCount() - 1);
+            return 2 * (playable->player->GetFieldZone()->GetMinionCount() - 1);
         }));
     cardDef.power.AddPowerTask(std::make_shared<AddEnchantmentTask>(
         "DAL_560e2", EntityType::SOURCE, true));

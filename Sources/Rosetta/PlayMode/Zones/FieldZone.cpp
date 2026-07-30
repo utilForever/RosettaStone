@@ -23,9 +23,35 @@ int FieldZone::GetCountExceptUntouchables() const
     return m_count - m_untouchableCount;
 }
 
-std::vector<Minion*> FieldZone::GetAll()
+int FieldZone::GetMinionCount() const
 {
-    return PositioningZone::GetAll();
+    return static_cast<int>(GetMinions().size());
+}
+
+std::vector<Minion*> FieldZone::GetMinions() const
+{
+    auto minions = PositioningZone::GetAll();
+
+    std::erase_if(minions, [](const Minion* minion) {
+        return minion->card->GetCardType() != CardType::MINION;
+    });
+
+    return minions;
+}
+
+std::vector<Location*> FieldZone::GetLocations() const
+{
+    std::vector<Location*> locations;
+
+    for (const auto entity : PositioningZone::GetAll())
+    {
+        if (const auto location = dynamic_cast<Location*>(entity))
+        {
+            locations.emplace_back(location);
+        }
+    }
+
+    return locations;
 }
 
 void FieldZone::Add(Playable* entity, int zonePos)
@@ -34,7 +60,11 @@ void FieldZone::Add(Playable* entity, int zonePos)
 
     PositioningZone::Add(minion, zonePos);
 
-    if (minion->player == minion->game->GetCurrentPlayer())
+    if (const auto location = dynamic_cast<Location*>(minion))
+    {
+        location->SetOnCooldown(true);
+    }
+    else if (minion->player == minion->game->GetCurrentPlayer())
     {
         if (!minion->HasCharge())
         {

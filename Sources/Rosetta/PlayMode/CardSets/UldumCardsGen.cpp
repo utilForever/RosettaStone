@@ -1816,8 +1816,8 @@ void UldumCardsGen::AddShaman(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            return playable->player->GetFieldZone()->GetCount() +
-                   playable->player->opponent->GetFieldZone()->GetCount();
+            return playable->player->GetFieldZone()->GetMinionCount() +
+                   playable->player->opponent->GetFieldZone()->GetMinionCount();
         }));
     cards.emplace("ULD_169", cardDef);
 
@@ -2230,7 +2230,8 @@ void UldumCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
         [](const Player* player, [[maybe_unused]] Entity* source,
            [[maybe_unused]] Playable* target) {
-            player->game->taskStack.num[0] = player->GetFieldZone()->GetCount();
+            player->game->taskStack.num[0] =
+                player->GetFieldZone()->GetMinionCount();
         }));
     cardDef.power.AddPowerTask(
         std::make_shared<DestroyTask>(EntityType::MINIONS));

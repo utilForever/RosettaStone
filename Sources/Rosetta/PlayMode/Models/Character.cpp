@@ -218,7 +218,7 @@ std::vector<Character*> Character::GetValidAttackTargets(
     std::vector<Character*> targets;
     std::vector<Character*> targetsHaveTaunt;
 
-    for (auto& minion : opponent->GetFieldZone()->GetAll())
+    for (auto& minion : opponent->GetFieldZone()->GetMinions())
     {
         if (!minion->HasStealth())
         {
