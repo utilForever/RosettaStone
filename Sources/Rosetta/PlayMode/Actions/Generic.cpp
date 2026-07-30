@@ -331,9 +331,8 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
     }
     else if (field)
     {
-        const auto minion = dynamic_cast<Minion*>(playable);
-
-        if (minion->player == player->game->GetCurrentPlayer())
+        if (const auto minion = dynamic_cast<Minion*>(playable);
+            minion && minion->player == player->game->GetCurrentPlayer())
         {
             if (!minion->HasCharge())
             {
@@ -354,12 +353,12 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
                 minion->SetExhausted(false);
             }
         }
-        else
+        else if (minion)
         {
             minion->SetExhausted(true);
         }
 
-        FieldZone::ActivateAura(minion);
+        FieldZone::ActivateAura(playable);
 
         for (const auto& aura : field->auras)
         {

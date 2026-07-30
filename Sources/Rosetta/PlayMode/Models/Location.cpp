@@ -14,7 +14,7 @@ namespace RosettaStone::PlayMode
 {
 Location::Location(Player* _player, Card* _card, std::map<GameTag, int> tags,
                    int id)
-    : Minion(_player, _card, std::move(tags), id)
+    : Character(_player, _card, std::move(tags), id)
 {
     // Do nothing
 }
@@ -52,7 +52,6 @@ void Location::Destroy()
 
     if (zone && GetZoneType() == ZoneType::PLAY)
     {
-        SetLastBoardPos(GetZonePosition());
         zone->Remove(this);
         player->GetGraveyardZone()->Add(this);
     }

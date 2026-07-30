@@ -25,7 +25,7 @@ namespace RosettaStone::PlayMode
 //! battlefield selection. Battlefields are chosen at random and are independent
 //! of the heroes chosen by players or used by the Innkeeper.
 //!
-class FieldZone : public PositioningZone<Minion>
+class FieldZone : public PositioningZone<Character>
 {
  public:
     //! Constructs field zone with given \p player.
@@ -48,6 +48,15 @@ class FieldZone : public PositioningZone<Minion>
     //! \return A list of locations in board zone.
     std::vector<Location*> GetLocations() const;
 
+    //! Returns the minion at \p zonePos.
+    //! \param zonePos The zone position of minion.
+    //! \return The minion at \p zonePos, or nullptr for another field entity.
+    Minion* operator[](int zonePos)
+    {
+        return dynamic_cast<Minion*>(
+            PositioningZone<Character>::operator[](zonePos));
+    }
+
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
     //! \param zonePos The zone position.
@@ -66,7 +75,7 @@ class FieldZone : public PositioningZone<Minion>
     //! Activates a minion's trigger and aura and
     //! applies it's spell power increment.
     //! \param entity The entity to activate aura.
-    static void ActivateAura(Minion* entity);
+    static void ActivateAura(Playable* entity);
 
     std::vector<AdjacentAura*> adjacentAuras;
 
@@ -74,7 +83,7 @@ class FieldZone : public PositioningZone<Minion>
     //! Removes a minion's trigger and aura and
     //! applies it's spell power increment.
     //! \param entity The entity to remove aura.
-    static void RemoveAura(const Minion* entity);
+    static void RemoveAura(const Playable* entity);
 
     int m_untouchableCount = 0;
 };

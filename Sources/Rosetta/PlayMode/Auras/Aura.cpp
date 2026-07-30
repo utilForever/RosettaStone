@@ -401,14 +401,16 @@ void Aura::UpdateInternal()
             const int pos = m_owner->GetZonePosition();
             if (pos > 0)
             {
-                if (const auto left = field[pos - 1]; !left->IsUntouchable())
+                if (const auto left = field[pos - 1];
+                    left && !left->GetGameTag(GameTag::UNTOUCHABLE))
                 {
                     Apply(left);
                 }
             }
             if (pos < m_owner->player->GetFieldZone()->GetCount() - 1)
             {
-                if (const auto right = field[pos + 1]; !right->IsUntouchable())
+                if (const auto right = field[pos + 1];
+                    right && !right->GetGameTag(GameTag::UNTOUCHABLE))
                 {
                     Apply(right);
                 }

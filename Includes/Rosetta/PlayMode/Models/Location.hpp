@@ -7,7 +7,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_LOCATION_HPP
 #define ROSETTASTONE_PLAYMODE_LOCATION_HPP
 
-#include <Rosetta/PlayMode/Models/Minion.hpp>
+#include <Rosetta/PlayMode/Models/Character.hpp>
 
 namespace RosettaStone::PlayMode
 {
@@ -20,7 +20,7 @@ namespace RosettaStone::PlayMode
 //! player's turns. Each activation costs 1 Health and has a cooldown of 1
 //! turn where it cannot be used.
 //!
-class Location : public Minion
+class Location : public Character
 {
  public:
     //! Constructs location with given \p _player, \p _card, \p tags and \p id.

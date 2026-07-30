@@ -30,11 +30,15 @@ int FieldZone::GetMinionCount() const
 
 std::vector<Minion*> FieldZone::GetMinions() const
 {
-    auto minions = PositioningZone::GetAll();
+    std::vector<Minion*> minions;
 
-    std::erase_if(minions, [](const Minion* minion) {
-        return minion->card->GetCardType() != CardType::MINION;
-    });
+    for (const auto entity : PositioningZone::GetAll())
+    {
+        if (const auto minion = dynamic_cast<Minion*>(entity))
+        {
+            minions.emplace_back(minion);
+        }
+    }
 
     return minions;
 }
@@ -56,15 +60,16 @@ std::vector<Location*> FieldZone::GetLocations() const
 
 void FieldZone::Add(Playable* entity, int zonePos)
 {
-    const auto minion = dynamic_cast<Minion*>(entity);
+    const auto character = dynamic_cast<Character*>(entity);
 
-    PositioningZone::Add(minion, zonePos);
+    PositioningZone::Add(character, zonePos);
 
-    if (const auto location = dynamic_cast<Location*>(minion))
+    if (const auto location = dynamic_cast<Location*>(character))
     {
         location->SetOnCooldown(true);
     }
-    else if (minion->player == minion->game->GetCurrentPlayer())
+    else if (const auto minion = dynamic_cast<Minion*>(character);
+             minion && minion->player == minion->game->GetCurrentPlayer())
     {
         if (!minion->HasCharge())
         {
@@ -81,9 +86,9 @@ void FieldZone::Add(Playable* entity, int zonePos)
         }
     }
 
-    minion->orderOfPlay = minion->game->GetNextOOP();
+    character->orderOfPlay = character->game->GetNextOOP();
 
-    ActivateAura(minion);
+    ActivateAura(character);
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
@@ -100,9 +105,9 @@ void FieldZone::Add(Playable* entity, int zonePos)
 
 Playable* FieldZone::Remove(Playable* entity)
 {
-    const auto minion = dynamic_cast<Minion*>(entity);
+    const auto character = dynamic_cast<Character*>(entity);
 
-    RemoveAura(minion);
+    RemoveAura(character);
 
     for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
     {
@@ -114,7 +119,7 @@ Playable* FieldZone::Remove(Playable* entity)
         --m_untouchableCount;
     }
 
-    return PositioningZone::Remove(minion);
+    return PositioningZone::Remove(character);
 }
 
 void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
@@ -177,7 +182,7 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
     }
 }
 
-void FieldZone::ActivateAura(Minion* entity)
+void FieldZone::ActivateAura(Playable* entity)
 {
     if (entity->card->power.GetTrigger())
     {
@@ -190,7 +195,7 @@ void FieldZone::ActivateAura(Minion* entity)
     }
 }
 
-void FieldZone::RemoveAura(const Minion* entity)
+void FieldZone::RemoveAura(const Playable* entity)
 {
     if (entity->ongoingEffect)
     {

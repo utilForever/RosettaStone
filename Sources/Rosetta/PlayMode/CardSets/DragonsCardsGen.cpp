@@ -1147,13 +1147,20 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
                     if (isLeft && targetPos > 0)
                     {
-                        minion = (*fieldZone)[targetPos - 1];
+                        minion =
+                            dynamic_cast<Minion*>((*fieldZone)[targetPos - 1]);
                     }
                     else if (!isLeft && targetPos < fieldZone->GetCount() - 1)
                     {
-                        minion = (*fieldZone)[targetPos + 1];
+                        minion =
+                            dynamic_cast<Minion*>((*fieldZone)[targetPos + 1]);
                     }
                     else
+                    {
+                        break;
+                    }
+
+                    if (!minion)
                     {
                         break;
                     }
@@ -1183,9 +1190,10 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
                     if (targetPos > 0)
                     {
-                        left = (*fieldZone)[targetPos - 1];
+                        left =
+                            dynamic_cast<Minion*>((*fieldZone)[targetPos - 1]);
 
-                        if (!left->IsUntouchable())
+                        if (left && !left->IsUntouchable())
                         {
                             includeLeft = true;
                             ++count;
@@ -1193,9 +1201,10 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
                         if (targetPos < fieldZone->GetCount() - 1)
                         {
-                            right = (*fieldZone)[targetPos + 1];
+                            right = dynamic_cast<Minion*>(
+                                (*fieldZone)[targetPos + 1]);
 
-                            if (!right->IsUntouchable())
+                            if (right && !right->IsUntouchable())
                             {
                                 includeRight = true;
                                 ++count;
@@ -1204,9 +1213,10 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     }
                     else if (fieldZone->GetCount() > 1)
                     {
-                        right = (*fieldZone)[targetPos + 1];
+                        right =
+                            dynamic_cast<Minion*>((*fieldZone)[targetPos + 1]);
 
-                        if (!right->IsUntouchable())
+                        if (right && !right->IsUntouchable())
                         {
                             includeRight = true;
                             ++count;

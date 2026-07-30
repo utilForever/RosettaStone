@@ -67,3 +67,24 @@ TEST_CASE("[FieldZone] - GetAll")
     curField.Replace(untouchable, replacement);
     CHECK_EQ(curField.GetCountExceptUntouchables(), 3);
 }
+
+TEST_CASE("[FieldZone] - Location is a character, not a minion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetCurrentPlayer();
+    Playable* playable =
+        Entity::GetFromCard(player, Cards::FindCardByID("REV_983"));
+
+    CHECK(dynamic_cast<Character*>(playable));
+    CHECK_FALSE(dynamic_cast<Minion*>(playable));
+}
