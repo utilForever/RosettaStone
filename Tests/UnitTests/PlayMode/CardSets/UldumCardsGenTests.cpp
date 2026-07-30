@@ -1628,15 +1628,15 @@ TEST_CASE("[Paladin : Minion] - ULD_144 : Brazen Zealot")
         for (int pos = 0; pos <= i; ++pos)
         {
             CHECK_EQ(defaultAttack + i - pos,
-                     curField->GetAll()[pos]->GetAttack());
+                     curField->GetMinions()[pos]->GetAttack());
         }
     }
 
     game.Process(curPlayer, PlayCardTask::Minion(minionCard));
-    CHECK_EQ(defaultAttack + 3, curField->GetAll()[0]->GetAttack());
-    CHECK_EQ(defaultAttack + 2, curField->GetAll()[1]->GetAttack());
-    CHECK_EQ(defaultAttack + 1, curField->GetAll()[2]->GetAttack());
-    CHECK_EQ(4, curField->GetAll()[3]->GetAttack());
+    CHECK_EQ(defaultAttack + 3, curField->GetMinions()[0]->GetAttack());
+    CHECK_EQ(defaultAttack + 2, curField->GetMinions()[1]->GetAttack());
+    CHECK_EQ(defaultAttack + 1, curField->GetMinions()[2]->GetAttack());
+    CHECK_EQ(4, curField->GetMinions()[3]->GetAttack());
 }
 
 // ------------------------------------------ SPELL - DRUID

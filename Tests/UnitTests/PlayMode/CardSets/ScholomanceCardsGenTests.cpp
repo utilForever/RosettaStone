@@ -3687,12 +3687,11 @@ TEST_CASE("[Neutral : Spell] - SCH_352 : Potion of Illusion")
     game.Process(curPlayer, PlayCardTask::Spell(card4));
 
     CHECK_EQ(curHand.GetCount(), 5);
-    CHECK_EQ(opHand.GetCount(), 1); // The Coin
+    CHECK_EQ(opHand.GetCount(), 1);  // The Coin
     CHECK_EQ(curField.GetCount(), 4);
     CHECK_EQ(opField.GetCount(), 1);
 
-    const auto CheckMinion = [](Playable* card, bool isChanged)
-    {
+    const auto CheckMinion = [](Playable* card, bool isChanged) {
         const auto minion = dynamic_cast<Minion*>(card);
         CHECK_EQ(minion->GetCost() == 1, isChanged);
         CHECK_EQ(minion->GetAttack() == 1, isChanged);
@@ -3825,7 +3824,7 @@ TEST_CASE("[Neutral : Minion] - SCH_428 : Lorekeeper Polkelt")
     for (int count = 1; count < curDeck.GetCount(); ++count)
     {
         CHECK(curDeck.GetNthTopCard(count)->GetCost() >=
-            curDeck.GetNthTopCard(count + 1)->GetCost());
+              curDeck.GetNthTopCard(count + 1)->GetCost());
     }
 }
 
@@ -4461,11 +4460,9 @@ TEST_CASE("[NEUTRAL : Minion] - SCH_717 : Keymaster Alabaster")
     config.startPlayer = PlayerType::PLAYER1;
     config.doFillDecks = true;
     config.autoRun = false;
-    config.fillCardIDs = {
-        "CS2_124", "CS2_124", "CS2_124",
-        "CS2_124", "CS2_124", "CS2_124",
-        "CS2_124", "CS2_124", "CS2_124"
-    };
+    config.fillCardIDs = { "CS2_124", "CS2_124", "CS2_124",
+                           "CS2_124", "CS2_124", "CS2_124",
+                           "CS2_124", "CS2_124", "CS2_124" };
 
     Game game(config);
     game.Start();

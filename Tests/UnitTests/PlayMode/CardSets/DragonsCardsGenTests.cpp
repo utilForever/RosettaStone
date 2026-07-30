@@ -4154,8 +4154,7 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
 
     while (!curDeck.IsEmpty())
     {
-        curPlayer->GetSetasideZone()->Add(
-            curDeck.Remove(curDeck.GetTopCard()));
+        curPlayer->GetSetasideZone()->Add(curDeck.Remove(curDeck.GetTopCard()));
     }
 
     const auto startDeck = game.GetPlayerDeck(curPlayer->playerType);
@@ -4178,7 +4177,7 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     {
         curDeck.Add(Entity::GetFromCard(curPlayer, deckCard1));
         curDeck.Add(Entity::GetFromCard(curPlayer, deckCard2));
-        startDeckCards = {deckCard1, deckCard2};
+        startDeckCards = { deckCard1, deckCard2 };
         CHECK_EQ(curDeck.GetCount(), 2);
     }
 
@@ -4194,14 +4193,13 @@ TEST_CASE("[Priest : Minion] - DRG_306 : Envoy of Lazul")
     auto cards = TestUtils::GetChoiceCards(game);
     CHECK_EQ(cards.size(), 3);
     CHECK_EQ(std::count(cards.begin(), cards.end(), opponentHandCard), 1);
-    CHECK_EQ(
-        std::count_if(cards.begin(), cards.end(),
-            [&startDeckCards](Card* card) {
-            return std::find(startDeckCards.begin(),
-                startDeckCards.end(),
-                card) != startDeckCards.end();
-            }),
-        2);
+    CHECK_EQ(std::count_if(cards.begin(), cards.end(),
+                           [&startDeckCards](Card* card) {
+                               return std::find(startDeckCards.begin(),
+                                                startDeckCards.end(),
+                                                card) != startDeckCards.end();
+                           }),
+             2);
 
     TestUtils::ChooseNthChoice(game, 1);
 
