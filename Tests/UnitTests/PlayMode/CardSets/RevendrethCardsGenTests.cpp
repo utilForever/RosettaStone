@@ -914,6 +914,63 @@ TEST_CASE("[Neutral : Minion] - REV_019 : Famished Fool")
 }
 
 // --------------------------------------- MINION - NEUTRAL
+// [REV_023] Demolition Renovator - COST:4 [ATK:4/HP:4]
+// - Set: REVENDRETH, Rarity: Epic
+// --------------------------------------------------------
+// Text: <b>Battlecry:</b> Destroy an enemy location.
+// --------------------------------------------------------
+// GameTag:
+// - BATTLECRY = 1
+// --------------------------------------------------------
+// PlayReq:
+// - REQ_TARGET_TO_PLAY = 0
+// - REQ_ENEMY_TARGET = 0
+// - REQ_LOCATION_TARGET = 0
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Minion] - REV_023 : Demolition Renovator")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    curPlayer->SetTotalMana(10);
+    curPlayer->SetUsedMana(0);
+    opPlayer->SetTotalMana(10);
+    opPlayer->SetUsedMana(0);
+
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Great Hall"));
+    const auto card2 =
+        Generic::DrawCard(opPlayer, Cards::FindCardByName("Great Hall"));
+    const auto card3 = Generic::DrawCard(
+        opPlayer, Cards::FindCardByName("Demolition Renovator"));
+
+    game.Process(curPlayer, PlayCardTask::Location(card1));
+
+    game.Process(curPlayer, EndTurnTask());
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    game.Process(opPlayer, PlayCardTask::Location(card2));
+    CHECK_EQ(card3->GetValidPlayTargets()[0], card1);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card3, card2));
+    CHECK_EQ(card3->GetZoneType(), ZoneType::HAND);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card3, card1));
+    CHECK_EQ(opPlayer->GetFieldZone()->GetLocations().size(), 1u);
+    CHECK_EQ(card1->GetZoneType(), ZoneType::GRAVEYARD);
+}
+
+// --------------------------------------- MINION - NEUTRAL
 // [REV_251] Sinrunner - COST:5 [ATK:6/HP:5]
 // - Race: Beast, Set: REVENDRETH, Rarity: Common
 // --------------------------------------------------------

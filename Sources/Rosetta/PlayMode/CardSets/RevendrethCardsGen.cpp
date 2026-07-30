@@ -2982,6 +2982,18 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_TO_PLAY = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_LOCATION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_ENEMY_TARGET, 0 },
+                                          { PlayReq::REQ_LOCATION_TARGET, 0 } };
+    cards.emplace("REV_023", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_238] Theotar, the Mad Duke - COST:5 [ATK:3/HP:3]
