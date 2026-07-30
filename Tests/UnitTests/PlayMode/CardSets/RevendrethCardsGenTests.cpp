@@ -669,6 +669,7 @@ TEST_CASE("[Paladin : Location] - REV_983 : Great Hall")
     CHECK_EQ(curField.GetLocations().size(), 1u);
     CHECK_EQ(location->GetHealth(), 3);
     CHECK(location->IsOnCooldown());
+    CHECK_FALSE(location->IsPlayableByPlayer());
 
     game.Process(curPlayer, PlayLocationTask(location, minion));
     CHECK_EQ(minion->GetAttack(), 1);
@@ -680,11 +681,13 @@ TEST_CASE("[Paladin : Location] - REV_983 : Great Hall")
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
+    CHECK(location->IsPlayableByPlayer());
     game.Process(curPlayer, PlayLocationTask(location, minion));
     CHECK_EQ(minion->GetAttack(), 3);
     CHECK_EQ(minion->GetHealth(), 3);
     CHECK_EQ(location->GetHealth(), 2);
     CHECK(location->IsOnCooldown());
+    CHECK_FALSE(location->IsPlayableByPlayer());
 
     game.Process(curPlayer, PlayLocationTask(location, minion));
     CHECK_EQ(location->GetHealth(), 2);
@@ -708,6 +711,7 @@ TEST_CASE("[Paladin : Location] - REV_983 : Great Hall")
     CHECK(curField.GetLocations().empty());
     CHECK_EQ(curField.GetCount(), 1);
     CHECK_EQ(location->GetZoneType(), ZoneType::GRAVEYARD);
+    CHECK_EQ(curPlayer->GetNumFriendlyMinionsDiedThisTurn(), 0);
 }
 
 // --------------------------------------- MINION - NEUTRAL

@@ -39,6 +39,9 @@ class Location : public Character
     //! Returns false because locations cannot attack.
     bool CanAttack() const override;
 
+    //! Returns whether this location can be activated by its owner.
+    bool IsPlayableByPlayer() override;
+
     //! Consumes one Health and starts the cooldown.
     void Use();
 

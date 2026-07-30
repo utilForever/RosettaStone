@@ -4,6 +4,7 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
@@ -33,6 +34,17 @@ void Location::SetOnCooldown(bool onCooldown)
 bool Location::CanAttack() const
 {
     return false;
+}
+
+bool Location::IsPlayableByPlayer()
+{
+    if (GetZoneType() != ZoneType::PLAY)
+    {
+        return Playable::IsPlayableByPlayer();
+    }
+
+    return player == game->GetCurrentPlayer() && !IsOnCooldown() &&
+           GetHealth() > 0 && IsPlayableByCardReq();
 }
 
 void Location::Use()

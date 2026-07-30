@@ -22,23 +22,8 @@ TaskStatus PlayLocationTask::Impl(Player* player)
     const auto target = dynamic_cast<Character*>(m_target);
 
     if (!location || location->player != player ||
-        player->game->GetCurrentPlayer() != player)
-    {
-        return TaskStatus::STOP;
-    }
-
-    if (location->GetZoneType() != ZoneType::PLAY)
-    {
-        return TaskStatus::STOP;
-    }
-
-    if (location->IsOnCooldown() || location->GetHealth() <= 0)
-    {
-        return TaskStatus::STOP;
-    }
-
-    if (!location->IsPlayableByCardReq() ||
-        !location->IsValidPlayTarget(target))
+        location->GetZoneType() != ZoneType::PLAY ||
+        !location->IsPlayableByPlayer() || !location->IsValidPlayTarget(target))
     {
         return TaskStatus::STOP;
     }
