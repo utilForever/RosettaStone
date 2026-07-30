@@ -41,6 +41,11 @@ class PlayCardTask : public ITask
     static PlayCardTask MinionTarget(Entity* source, Playable* target,
                                      int chooseOne = 0);
 
+    //! PlayCardTask wrapper for location.
+    //! \param source A pointer to source location to play.
+    //! \return Generated PlayCardTask for intended purpose.
+    static PlayCardTask Location(Entity* source);
+
     //! PlayCardTask wrapper for spell without target.
     //! \param source A pointer to source entity to play card.
     //! \param chooseOne The index of chosen card from two cards.

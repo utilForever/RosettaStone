@@ -26,16 +26,18 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Check battlefield is full
-    if (source->card->GetCardType() == CardType::MINION &&
+    const bool isLocation = source->card->GetCardType() == CardType::LOCATION;
+
+    if ((source->card->GetCardType() == CardType::MINION || isLocation) &&
         player->GetFieldZone()->IsFull())
     {
         return;
     }
 
     // Check if we can play this card and the target is valid
-    if (!source->IsPlayableByPlayer() ||
-        !source->IsPlayableByCardReq(chooseOne) ||
-        !source->IsValidPlayTarget(target, chooseOne))
+    if (!source->IsPlayableByPlayer() || (isLocation && target) ||
+        (!isLocation && (!source->IsPlayableByCardReq(chooseOne) ||
+                         !source->IsValidPlayTarget(target, chooseOne))))
     {
         return;
     }
@@ -116,10 +118,15 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             break;
         }
         case MINION:
-        case LOCATION:
         {
             const auto minion = dynamic_cast<Minion*>(source);
             PlayMinion(player, minion, target, fieldPos, chooseOne);
+            break;
+        }
+        case LOCATION:
+        {
+            const auto location = dynamic_cast<Location*>(source);
+            PlayLocation(player, location, fieldPos);
             break;
         }
         case SPELL:
@@ -171,8 +178,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             std::map<GameTag, int> tags;
             tags.emplace(GameTag::GHOSTLY, 1);
 
-            Playable* playable = Entity::GetFromCard(
-                player, source->card, tags, player->GetHandZone());
+            Playable* playable = Entity::GetFromCard(player, source->card, tags,
+                                                     player->GetHandZone());
 
             AddCardToHand(player, playable);
 
@@ -183,7 +190,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Reset transformed/summoned minions
-    for (const auto& minion : player->GetFieldZone()->GetAll())
+    for (const auto& minion : player->GetFieldZone()->GetMinions())
     {
         minion->SetTransformed(false);
         minion->SetSummoned(false);
@@ -415,7 +422,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->ProcessDestroyAndUpdateAura();
 
     // Store minions in field to process spellburst task
-    const auto minions = player->GetFieldZone()->GetAll();
+    const auto minions = player->GetFieldZone()->GetMinions();
 
     // Check spell is countered
     if (spell->IsCountered())
@@ -543,6 +550,17 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
 
     player->game->taskQueue.StartEvent();
     player->GetHero()->AddWeapon(*weapon);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
+}
+
+void PlayLocation(Player* player, Location* location, int fieldPos)
+{
+    player->GetFieldZone()->Add(location, fieldPos);
+
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnPlayCardTrigger(location);
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();

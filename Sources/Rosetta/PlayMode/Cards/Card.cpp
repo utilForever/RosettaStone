@@ -18,6 +18,12 @@ void Card::Initialize()
 {
     maxAllowedInDeck = (GetRarity() == Rarity::LEGENDARY) ? 1 : 2;
 
+    // Location cards are untouchable by default, so we need to set the game tag
+    if (GetCardType() == CardType::LOCATION)
+    {
+        gameTags[GameTag::UNTOUCHABLE] = 1;
+    }
+
     bool needsTarget = false;
     CharacterType characterType = CharacterType::CHARACTERS;
     FriendlyType friendlyType = FriendlyType::ALL;
@@ -481,7 +487,7 @@ bool Card::IsPlayableByCardReq(Player* player) const
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
                 const auto opField = player->opponent->GetFieldZone();
-                if (opField->GetCount() < requirement.second)
+                if (opField->GetMinionCount() < requirement.second)
                 {
                     return false;
                 }
@@ -492,7 +498,7 @@ bool Card::IsPlayableByCardReq(Player* player) const
                 auto curField = player->GetFieldZone();
                 std::size_t entourageCount = 0;
 
-                for (auto& minion : curField->GetAll())
+                for (auto& minion : curField->GetMinions())
                 {
                     for (auto& entourage : entourages)
                     {
@@ -513,8 +519,8 @@ bool Card::IsPlayableByCardReq(Player* player) const
             case PlayReq::REQ_MINIMUM_TOTAL_MINIONS:
             {
                 const int fieldCount =
-                    player->GetFieldZone()->GetCount() +
-                    player->opponent->GetFieldZone()->GetCount();
+                    player->GetFieldZone()->GetMinionCount() +
+                    player->opponent->GetFieldZone()->GetMinionCount();
                 if (fieldCount < requirement.second)
                 {
                     return false;
@@ -526,8 +532,8 @@ bool Card::IsPlayableByCardReq(Player* player) const
                 bool isExist = false;
                 for (auto& playable : player->GetGraveyardZone()->GetAll())
                 {
-                    if (const auto minion = dynamic_cast<Minion*>(playable);
-                        minion && minion->isDestroyed)
+                    if (playable->card->GetCardType() == CardType::MINION &&
+                        playable->isDestroyed)
                     {
                         isExist = true;
                         break;
@@ -592,7 +598,15 @@ bool Card::IsPlayableByCardReq(Player* player) const
 
 bool Card::TargetingRequirements(Player* player, Character* target)
 {
-    if (target->card->IsUntouchable())
+    const bool targetsLocation =
+        playRequirements.contains(PlayReq::REQ_LOCATION_TARGET);
+
+    if (targetsLocation && target->card->GetCardType() != CardType::LOCATION)
+    {
+        return false;
+    }
+
+    if (!targetsLocation && target->card->IsUntouchable())
     {
         return false;
     }
@@ -630,6 +644,31 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
                 return ret;
             }
         }
+    }
+
+    if (playRequirements.contains(PlayReq::REQ_LOCATION_TARGET))
+    {
+        const auto addLocations = [&](const Player* owner) {
+            for (auto& location : owner->GetFieldZone()->GetLocations())
+            {
+                if (TargetingRequirements(player, location))
+                {
+                    ret.emplace_back(location);
+                }
+            }
+        };
+
+        if (!playRequirements.contains(PlayReq::REQ_ENEMY_TARGET))
+        {
+            addLocations(player);
+        }
+
+        if (!playRequirements.contains(PlayReq::REQ_FRIENDLY_TARGET))
+        {
+            addLocations(player->opponent);
+        }
+
+        return ret;
     }
 
     bool friendlyMinions = false, enemyMinions = false;
@@ -677,7 +716,7 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 
     if (friendlyMinions)
     {
-        for (auto& minion : player->GetFieldZone()->GetAll())
+        for (auto& minion : player->GetFieldZone()->GetMinions())
         {
             if (TargetingRequirements(player, minion))
             {
@@ -688,7 +727,7 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 
     if (enemyMinions)
     {
-        for (auto& minion : player->opponent->GetFieldZone()->GetAll())
+        for (auto& minion : player->opponent->GetFieldZone()->GetMinions())
         {
             if (TargetingRequirements(player, minion))
             {
