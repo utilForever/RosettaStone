@@ -32,6 +32,11 @@ class FieldZone : public PositioningZone<Character>
     //! \param player The player.
     explicit FieldZone(Player* player);
 
+    //! Returns the minion at \p zonePos.
+    //! \param zonePos The zone position of minion.
+    //! \return The minion at \p zonePos, or nullptr for another field entity.
+    Minion* operator[](int zonePos);
+
     //! Returns the number of minions except untouchables.
     //! \return The number of minions except untouchables.
     int GetCountExceptUntouchables() const;
@@ -47,15 +52,6 @@ class FieldZone : public PositioningZone<Character>
     //! Returns all locations in board zone.
     //! \return A list of locations in board zone.
     std::vector<Location*> GetLocations() const;
-
-    //! Returns the minion at \p zonePos.
-    //! \param zonePos The zone position of minion.
-    //! \return The minion at \p zonePos, or nullptr for another field entity.
-    Minion* operator[](int zonePos)
-    {
-        return dynamic_cast<Minion*>(
-            PositioningZone<Character>::operator[](zonePos));
-    }
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.

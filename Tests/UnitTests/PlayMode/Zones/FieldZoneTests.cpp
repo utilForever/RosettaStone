@@ -82,9 +82,9 @@ TEST_CASE("[FieldZone] - Location is a character, not a minion")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* player = game.GetCurrentPlayer();
-    Playable* playable =
-        Entity::GetFromCard(player, Cards::FindCardByID("REV_983"));
+    Playable* location =
+        Entity::GetFromCard(player, Cards::FindCardByName("Great Hall"));
 
-    CHECK(dynamic_cast<Character*>(playable));
-    CHECK_FALSE(dynamic_cast<Minion*>(playable));
+    CHECK(dynamic_cast<Character*>(location));
+    CHECK_FALSE(dynamic_cast<Minion*>(location));
 }

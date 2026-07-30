@@ -18,6 +18,12 @@ FieldZone::FieldZone(Player* player)
     m_player = player;
 }
 
+Minion* FieldZone::operator[](int zonePos)
+{
+    return dynamic_cast<Minion*>(
+        PositioningZone<Character>::operator[](zonePos));
+}
+
 int FieldZone::GetCountExceptUntouchables() const
 {
     return m_count - m_untouchableCount;
