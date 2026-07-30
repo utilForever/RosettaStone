@@ -1865,7 +1865,6 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                     break;
                 }
                 case CardType::MINION:
-                case CardType::LOCATION:
                 {
                     if (player->GetFieldZone()->IsFull())
                     {
@@ -1875,6 +1874,17 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
                     Generic::Summon(dynamic_cast<Minion*>(entity), -1, player);
 
                     player->game->ProcessDestroyAndUpdateAura();
+                    break;
+                }
+                case CardType::LOCATION:
+                {
+                    if (player->GetFieldZone()->IsFull())
+                    {
+                        break;
+                    }
+
+                    Generic::PlayLocation(player,
+                                          dynamic_cast<Location*>(entity));
                     break;
                 }
                 case CardType::SPELL:
