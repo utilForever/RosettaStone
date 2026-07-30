@@ -37,8 +37,8 @@ Enchant::Enchant(std::vector<std::shared_ptr<IEffect>> _effects,
 
 void Enchant::ActivateTo(Entity* entity, int num1, int num2)
 {
-    const auto applyEffect = [this, entity](
-                                 const std::shared_ptr<IEffect>& effect) {
+    const auto applyEffect = [this,
+                              entity](const std::shared_ptr<IEffect>& effect) {
         effect->ApplyTo(entity);
 
         if (isOneTurnEffect)

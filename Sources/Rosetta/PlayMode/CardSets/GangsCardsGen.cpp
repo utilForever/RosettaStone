@@ -964,7 +964,7 @@ void GangsCardsGen::AddWarlock(std::map<std::string, CardDef>& cards)
     // - Race: Demon, Set: GANGS, Rarity: Legendary
     // --------------------------------------------------------
     // Text: <b>Battlecry:</b> If your deck has no duplicates,
-    //       summon all Demons from your hand. 
+    //       summon all Demons from your hand.
     // --------------------------------------------------------
     // GameTag:
     // - ELITE = 1

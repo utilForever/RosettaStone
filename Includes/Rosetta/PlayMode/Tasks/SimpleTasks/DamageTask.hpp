@@ -18,7 +18,8 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class DamageTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType, \p damage and \p isSpellDamage.
+    //! Constructs task with given \p entityType, \p damage and \p
+    //! isSpellDamage.
     //! \param entityType The entity type of target to take damage.
     //! \param damage A value indicating how much to take.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.

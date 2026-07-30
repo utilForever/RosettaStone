@@ -80,10 +80,10 @@ TaskStatus DrawSpellTask::Impl(Player* player)
             std::ranges::shuffle(deckCards, Random::get_engine());
             break;
         case DrawSpellType::HIGHEST_COST:
-            std::ranges::sort(
-                deckCards, [](const Playable* card1, const Playable* card2) {
-                    return card1->GetCost() > card2->GetCost();
-                });
+            std::ranges::sort(deckCards,
+                              [](const Playable* card1, const Playable* card2) {
+                                  return card1->GetCost() > card2->GetCost();
+                              });
             break;
     }
 

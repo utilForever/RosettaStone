@@ -14,8 +14,8 @@
 TEST_CASE("[Utils] - ChooseNElements (std::array)")
 {
     std::array<int, 5> values{ 10, 20, 30, 40, 50 };
-    std::array<int*, 5> intVec{ &values[0], &values[1], &values[2],
-                                &values[3], &values[4] };
+    std::array<int*, 5> intVec{ &values[0], &values[1], &values[2], &values[3],
+                                &values[4] };
 
     std::vector<int*> result = ChooseNElements(std::span{ intVec }, 2);
     CHECK_EQ(result.size(), 2);

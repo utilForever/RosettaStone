@@ -123,8 +123,7 @@ std::vector<int> DiscoverTask::GetChoices(const Entity* source,
 
             std::map<GameTag, int> cardTags;
             cardTags.emplace(CREATOR, source->GetGameTag(ENTITY_ID));
-            cardTags.emplace(DISPLAYED_CREATOR,
-                             source->GetGameTag(ENTITY_ID));
+            cardTags.emplace(DISPLAYED_CREATOR, source->GetGameTag(ENTITY_ID));
 
             Playable* choiceEntity =
                 Entity::GetFromCard(source->player, card, cardTags,
@@ -672,20 +671,16 @@ auto DiscoverTask::Discover(const Game* game, Player* player,
 
     if (!cardsForOtherEffect.empty())
     {
-        std::ranges::sort(cardsForOtherEffect,
-                          [&player](const int& a, const int& b) {
-                              const Playable* playableA =
-                                  player->game->entityList[a];
-                              const Playable* playableB =
-                                  player->game->entityList[b];
+        std::ranges::sort(
+            cardsForOtherEffect, [&player](const int& a, const int& b) {
+                const Playable* playableA = player->game->entityList[a];
+                const Playable* playableB = player->game->entityList[b];
 
-                              return playableA->card->dbfID <
-                                     playableB->card->dbfID;
-                          });
+                return playableA->card->dbfID < playableB->card->dbfID;
+            });
 
         const auto duplicates = std::ranges::unique(
-            cardsForOtherEffect,
-            [&player](const int& a, const int& b) {
+            cardsForOtherEffect, [&player](const int& a, const int& b) {
                 const Playable* playableA = player->game->entityList[a];
                 const Playable* playableB = player->game->entityList[b];
 

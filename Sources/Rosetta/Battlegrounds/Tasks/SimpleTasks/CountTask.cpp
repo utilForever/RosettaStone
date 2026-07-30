@@ -55,7 +55,7 @@ TaskStatus CountTask::Run(Player& player, Minion& source)
     switch (m_numIndex)
     {
         case 0:
-        player.taskStack.num = count;
+            player.taskStack.num = count;
             break;
         default:
             throw std::invalid_argument(
