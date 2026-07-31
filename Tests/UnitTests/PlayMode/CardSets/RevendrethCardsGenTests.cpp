@@ -650,68 +650,96 @@ TEST_CASE("[Paladin : Location] - REV_983 : Great Hall")
 
     auto& curField = *curPlayer->GetFieldZone();
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Great Hall"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+    SUBCASE("Normal case")
+    {
+        const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Great Hall"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
+        const auto card3 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Wisp"));
 
-    game.Process(curPlayer, PlayCardTask::Location(card1));
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
+        game.Process(curPlayer, PlayCardTask::Location(card1));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
 
-    const auto location = dynamic_cast<Location*>(card1);
-    const auto minion = dynamic_cast<Minion*>(card2);
+        const auto location = dynamic_cast<Location*>(card1);
+        const auto minion = dynamic_cast<Minion*>(card2);
+        const auto handMinion = dynamic_cast<Minion*>(card3);
 
-    REQUIRE(location);
-    REQUIRE(minion);
-    CHECK_EQ(curField.GetCount(), 2);
-    CHECK_EQ(curField.GetAll().size(), 2u);
-    CHECK_EQ(curField.GetMinionCount(), 1);
-    CHECK_EQ(curField.GetLocations().size(), 1u);
-    CHECK_EQ(location->GetHealth(), 3);
-    CHECK(location->IsOnCooldown());
-    CHECK_FALSE(location->IsPlayableByPlayer());
+        REQUIRE(location);
+        REQUIRE(minion);
+        REQUIRE(handMinion);
+        CHECK_EQ(curField.GetCount(), 2);
+        CHECK_EQ(curField.GetAll().size(), 2u);
+        CHECK_EQ(curField.GetMinionCount(), 1);
+        CHECK_EQ(curField.GetLocations().size(), 1u);
+        CHECK_EQ(location->GetHealth(), 3);
+        CHECK(location->IsOnCooldown());
+        CHECK_FALSE(location->IsPlayableByPlayer());
 
-    game.Process(curPlayer, PlayLocationTask(location, minion));
-    CHECK_EQ(minion->GetAttack(), 1);
-    CHECK_EQ(location->GetHealth(), 3);
+        game.Process(curPlayer, PlayLocationTask(location, minion));
+        CHECK_EQ(minion->GetAttack(), 1);
+        CHECK_EQ(location->GetHealth(), 3);
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    CHECK(location->IsPlayableByPlayer());
-    game.Process(curPlayer, PlayLocationTask(location, minion));
-    CHECK_EQ(minion->GetAttack(), 3);
-    CHECK_EQ(minion->GetHealth(), 3);
-    CHECK_EQ(location->GetHealth(), 2);
-    CHECK(location->IsOnCooldown());
-    CHECK_FALSE(location->IsPlayableByPlayer());
+        CHECK(location->IsPlayableByPlayer());
 
-    game.Process(curPlayer, PlayLocationTask(location, minion));
-    CHECK_EQ(location->GetHealth(), 2);
+        game.Process(curPlayer, PlayLocationTask(location, handMinion));
+        CHECK_EQ(handMinion->GetAttack(), 1);
+        CHECK_EQ(handMinion->GetHealth(), 1);
+        CHECK_EQ(location->GetHealth(), 3);
+        CHECK_FALSE(location->IsOnCooldown());
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, PlayLocationTask(location, minion));
+        CHECK_EQ(minion->GetAttack(), 3);
+        CHECK_EQ(minion->GetHealth(), 3);
+        CHECK_EQ(location->GetHealth(), 2);
+        CHECK(location->IsOnCooldown());
+        CHECK_FALSE(location->IsPlayableByPlayer());
 
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, PlayLocationTask(location, minion));
+        CHECK_EQ(location->GetHealth(), 2);
 
-    game.Process(curPlayer, PlayLocationTask(location, minion));
-    CHECK_EQ(location->GetHealth(), 1);
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, PlayLocationTask(location, minion));
+        CHECK_EQ(location->GetHealth(), 1);
 
-    game.Process(curPlayer, PlayLocationTask(location, minion));
-    CHECK(curField.GetLocations().empty());
-    CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(location->GetZoneType(), ZoneType::GRAVEYARD);
-    CHECK_EQ(curPlayer->GetNumFriendlyMinionsDiedThisTurn(), 0);
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(curPlayer, PlayLocationTask(location, minion));
+        CHECK(curField.GetLocations().empty());
+        CHECK_EQ(curField.GetCount(), 1);
+        CHECK_EQ(location->GetZoneType(), ZoneType::GRAVEYARD);
+        CHECK_EQ(curPlayer->GetNumFriendlyMinionsDiedThisTurn(), 0);
+    }
+
+    SUBCASE("Aura minion case")
+    {
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Stormwind Champion"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Great Hall"));
+
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        game.Process(curPlayer, PlayCardTask::Location(card2));
+        CHECK_EQ(curPlayer->GetFieldZone()->GetMinionCount(), 1);
+        CHECK_EQ(curPlayer->GetFieldZone()->GetLocations().size(), 1u);
+        CHECK_EQ(dynamic_cast<Location*>(card2)->GetHealth(), 3);
+    }
 }
 
 // --------------------------------------- MINION - NEUTRAL
@@ -956,7 +984,12 @@ TEST_CASE("[Neutral : Minion] - REV_023 : Demolition Renovator")
     const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Great Hall"));
     const auto card3 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Demolition Renovator"));
+    const auto card4 = Generic::DrawCard(
         opPlayer, Cards::FindCardByName("Demolition Renovator"));
+
+    game.Process(curPlayer, PlayCardTask::Minion(card3));
+    CHECK_EQ(card3->GetZoneType(), ZoneType::PLAY);
 
     game.Process(curPlayer, PlayCardTask::Location(card1));
 
@@ -964,12 +997,16 @@ TEST_CASE("[Neutral : Minion] - REV_023 : Demolition Renovator")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Location(card2));
-    CHECK_EQ(card3->GetValidPlayTargets()[0], card1);
+    REQUIRE_EQ(card4->GetValidPlayTargets().size(), 1u);
+    CHECK_EQ(card4->GetValidPlayTargets().front(), card1);
 
-    game.Process(opPlayer, PlayCardTask::MinionTarget(card3, card2));
-    CHECK_EQ(card3->GetZoneType(), ZoneType::HAND);
+    game.Process(opPlayer, PlayCardTask::Minion(card4));
+    CHECK_EQ(card4->GetZoneType(), ZoneType::HAND);
 
-    game.Process(opPlayer, PlayCardTask::MinionTarget(card3, card1));
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card4, card2));
+    CHECK_EQ(card4->GetZoneType(), ZoneType::HAND);
+
+    game.Process(opPlayer, PlayCardTask::MinionTarget(card4, card1));
     CHECK_EQ(opPlayer->GetFieldZone()->GetLocations().size(), 1u);
     CHECK_EQ(card1->GetZoneType(), ZoneType::GRAVEYARD);
 }

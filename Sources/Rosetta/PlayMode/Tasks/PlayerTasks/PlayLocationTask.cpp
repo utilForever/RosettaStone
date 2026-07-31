@@ -8,6 +8,8 @@
 #include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayLocationTask.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone::PlayMode::PlayerTasks
 {
 PlayLocationTask::PlayLocationTask(Entity* source, Playable* target)
@@ -23,7 +25,10 @@ TaskStatus PlayLocationTask::Impl(Player* player)
 
     if (!location || location->player != player ||
         location->GetZoneType() != ZoneType::PLAY ||
-        !location->IsPlayableByPlayer() || !location->IsValidPlayTarget(target))
+        !location->IsPlayableByPlayer() ||
+        !location->IsValidPlayTarget(target) ||
+        (m_target && (!target || !std::ranges::contains(
+                                     location->GetValidPlayTargets(), target))))
     {
         return TaskStatus::STOP;
     }

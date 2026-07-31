@@ -278,6 +278,15 @@ void Aura::NotifyEntityAdded(Playable* entity)
         return;
     }
 
+    if (entity->GetZoneType() == ZoneType::PLAY &&
+        !dynamic_cast<Minion*>(entity) &&
+        (m_type == AuraType::ADJACENT || m_type == AuraType::FIELD ||
+         m_type == AuraType::FIELD_EXCEPT_SOURCE ||
+         m_type == AuraType::FIELD_AND_HAND))
+    {
+        return;
+    }
+
     const auto instruction =
         AuraUpdateInstruction(entity, AuraInstruction::ADD);
 
@@ -665,7 +674,11 @@ void Aura::RenewAll()
             Renew(m_owner);
             break;
         case AuraType::FIELD:
-            m_owner->player->GetFieldZone()->ForEach(Renew);
+            for (const auto& minion :
+                 m_owner->player->GetFieldZone()->GetMinions())
+            {
+                Renew(minion);
+            }
             break;
         case AuraType::FIELD_EXCEPT_SOURCE:
         {
