@@ -233,44 +233,61 @@ TEST_CASE("[Rogue : Minion] - GIL_598 : Tess Greymane")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    SUBCASE("Minion, Weapon, Spell")
+    {
+        auto& curField = *(curPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Tess Greymane"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiendish Circle"));
-    const auto card3 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Fiery War Axe"));
-    const auto card4 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Righteous Protector"));
-    const auto card5 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Twisting Nether"));
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Tess Greymane"));
+        const auto card2 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Fiendish Circle"));
+        const auto card3 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Fiery War Axe"));
+        const auto card4 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Righteous Protector"));
+        const auto card5 = Generic::DrawCard(
+            opPlayer, Cards::FindCardByName("Twisting Nether"));
 
-    game.Process(curPlayer, PlayCardTask::Spell(card2));
-    game.Process(curPlayer, PlayCardTask::Minion(card4));
-    CHECK_EQ(curField.GetCount(), 5);
+        game.Process(curPlayer, PlayCardTask::Spell(card2));
+        game.Process(curPlayer, PlayCardTask::Minion(card4));
+        CHECK_EQ(curField.GetCount(), 5);
 
-    game.Process(curPlayer, PlayCardTask::Weapon(card3));
-    game.Process(curPlayer,
-                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
+        game.Process(curPlayer, PlayCardTask::Weapon(card3));
+        game.Process(curPlayer,
+                     AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+        CHECK_EQ(curPlayer->GetHero()->weapon->GetDurability(), 1);
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Spell(card5));
-    CHECK_EQ(curField.GetCount(), 0);
+        game.Process(opPlayer, PlayCardTask::Spell(card5));
+        CHECK_EQ(curField.GetCount(), 0);
 
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer,
-                 AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
-    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
+        game.Process(curPlayer,
+                     AttackTask(curPlayer->GetHero(), opPlayer->GetHero()));
+        CHECK_EQ(curPlayer->GetHero()->HasWeapon(), false);
 
-    game.Process(curPlayer, PlayCardTask::Minion(card1));
-    CHECK_EQ(curField.GetCount(), 6);
-    CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+        game.Process(curPlayer, PlayCardTask::Minion(card1));
+        CHECK_EQ(curField.GetCount(), 6);
+        CHECK_EQ(curPlayer->GetHero()->HasWeapon(), true);
+    }
+
+    SUBCASE("Location")
+    {
+        const auto card1 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Great Hall"));
+        const auto card2 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Tess Greymane"));
+
+        game.Process(curPlayer, PlayCardTask::Location(card1));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
+        CHECK_EQ(curPlayer->GetFieldZone()->GetCount(), 3);
+        CHECK_EQ(curPlayer->GetFieldZone()->GetMinionCount(), 1);
+        CHECK_EQ(curPlayer->GetFieldZone()->GetLocations().size(), 2u);
+    }
 }
 
 // ---------------------------------------- SPELL - WARLOCK
