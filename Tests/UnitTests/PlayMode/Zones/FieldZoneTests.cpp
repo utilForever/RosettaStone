@@ -8,7 +8,9 @@
 
 #include <Utils/TestUtils.hpp>
 
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
@@ -87,4 +89,33 @@ TEST_CASE("[FieldZone] - Location is a character, not a minion")
 
     CHECK(dynamic_cast<Character*>(location));
     CHECK_FALSE(dynamic_cast<Minion*>(location));
+}
+
+TEST_CASE("[FieldZone] - Location does not satisfy minion presence condition")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetCurrentPlayer();
+    player->SetTotalMana(10);
+    player->SetUsedMana(0);
+
+    Playable* location =
+        Generic::DrawCard(player, Cards::FindCardByName("Great Hall"));
+    Playable* minion = Generic::DrawCard(player, Cards::FindCardByName("Wisp"));
+
+    game.Process(player, PlayCardTask::Location(location));
+    CHECK_EQ(player->GetFieldZone()->GetLocations().size(), 1u);
+    CHECK_FALSE(SelfCondition::IsFieldNotEmpty().Evaluate(location));
+
+    game.Process(player, PlayCardTask::Minion(minion));
+    CHECK(SelfCondition::IsFieldNotEmpty().Evaluate(location));
 }

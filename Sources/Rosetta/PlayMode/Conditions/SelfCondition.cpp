@@ -208,7 +208,7 @@ SelfCondition SelfCondition::IsOpFieldNotFull()
 SelfCondition SelfCondition::IsFieldNotEmpty()
 {
     return SelfCondition([](const Playable* playable) {
-        return !playable->player->GetFieldZone()->IsEmpty();
+        return playable->player->GetFieldZone()->GetMinionCount() > 0;
     });
 }
 

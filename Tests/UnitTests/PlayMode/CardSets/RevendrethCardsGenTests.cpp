@@ -997,7 +997,7 @@ TEST_CASE("[Neutral : Minion] - REV_023 : Demolition Renovator")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     game.Process(opPlayer, PlayCardTask::Location(card2));
-    REQUIRE_EQ(card4->GetValidPlayTargets().size(), 1u);
+    CHECK_EQ(card4->GetValidPlayTargets().size(), 1u);
     CHECK_EQ(card4->GetValidPlayTargets().front(), card1);
 
     game.Process(opPlayer, PlayCardTask::Minion(card4));
