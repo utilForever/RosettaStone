@@ -20,7 +20,7 @@ class PlayLocationTask : public ITask
 {
  public:
     //! Constructs task with given \p source and \p target.
-    PlayLocationTask(Entity* source, Playable* target = nullptr);
+    explicit PlayLocationTask(Entity* source, Playable* target = nullptr);
 
  private:
     //! Processes task logic internally and returns meta data.

@@ -3296,14 +3296,12 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](const Player* player, [[maybe_unused]] Entity* source,
+        [](const Player* player, Entity* source,
            [[maybe_unused]] Playable* target) {
             auto enemyMinions = player->opponent->GetFieldZone()->GetMinions();
             Random::shuffle(enemyMinions.begin(), enemyMinions.end());
 
-            auto& curField = *(player->GetFieldZone());
-            const auto deathwing =
-                curField[player->GetFieldZone()->GetCount() - 1];
+            const auto deathwing = dynamic_cast<Minion*>(source);
 
             for (const auto& minion : enemyMinions)
             {

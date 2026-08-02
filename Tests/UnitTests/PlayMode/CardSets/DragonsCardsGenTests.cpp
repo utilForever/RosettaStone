@@ -6482,6 +6482,7 @@ TEST_CASE("[Warrior : Weapon] - DRG_025 : Ancharrr")
 TEST_CASE("[Warrior : Minion] - DRG_026 : Deathwing, Mad Aspect")
 {
     GameConfig config;
+    config.formatType = FormatType::WILD;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;
@@ -6514,6 +6515,8 @@ TEST_CASE("[Warrior : Minion] - DRG_026 : Deathwing, Mad Aspect")
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Wolfrider"));
     const auto card6 = Generic::DrawCard(
         opPlayer, Cards::FindCardByName("Deathwing, Mad Aspect"));
+    const auto location =
+        Generic::DrawCard(opPlayer, Cards::FindCardByID("REV_983"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     game.Process(curPlayer, PlayCardTask::Minion(card2));
@@ -6526,9 +6529,11 @@ TEST_CASE("[Warrior : Minion] - DRG_026 : Deathwing, Mad Aspect")
     game.Process(curPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card6));
+    game.Process(opPlayer, PlayCardTask::Location(location));
+    game.Process(opPlayer, PlayCardTask(card6, nullptr, 0));
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(opField.GetCount(), 0);
+    CHECK_EQ(opField.GetMinionCount(), 0);
+    CHECK_EQ(opField.GetLocations().size(), 1u);
 }
 
 // ---------------------------------------- SPELL - WARRIOR
