@@ -365,10 +365,7 @@ void ChangeEntity(Player* player, Playable* playable, Card* newCard,
             aura->NotifyEntityAdded(playable);
         }
 
-        for (const auto& aura : field->adjacentAuras)
-        {
-            aura->SetIsFieldChanged(true);
-        }
+        field->MarkAdjacentAurasDirty();
     }
     else if (deck)
     {

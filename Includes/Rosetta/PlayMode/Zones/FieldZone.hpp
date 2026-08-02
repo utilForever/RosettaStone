@@ -73,7 +73,12 @@ class FieldZone : public PositioningZone<Character>
     //! \param entity The entity to activate aura.
     static void ActivateAura(Playable* entity);
 
-    std::vector<AdjacentAura*> adjacentAuras;
+    //! Registers an adjacent aura on this field.
+    //! \param aura The adjacent aura.
+    void AddAdjacentAura(AdjacentAura* aura);
+
+    //! Marks every adjacent aura for an update.
+    void MarkAdjacentAurasDirty();
 
  private:
     //! Removes a minion's trigger and aura and
@@ -81,6 +86,7 @@ class FieldZone : public PositioningZone<Character>
     //! \param entity The entity to remove aura.
     static void RemoveAura(const Playable* entity);
 
+    std::vector<AdjacentAura*> m_adjacentAuras;
     int m_untouchableCount = 0;
 };
 }  // namespace RosettaStone::PlayMode

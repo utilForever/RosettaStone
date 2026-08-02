@@ -96,10 +96,7 @@ void FieldZone::Add(Playable* entity, int zonePos)
 
     ActivateAura(character);
 
-    for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
-    {
-        adjacentAuras[i]->SetIsFieldChanged(true);
-    }
+    MarkAdjacentAurasDirty();
 
     entity->game->triggerManager.OnZoneTrigger(entity);
 
@@ -115,10 +112,7 @@ Playable* FieldZone::Remove(Playable* entity)
 
     RemoveAura(character);
 
-    for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
-    {
-        adjacentAuras[i]->SetIsFieldChanged(true);
-    }
+    MarkAdjacentAurasDirty();
 
     if (entity->card->IsUntouchable())
     {
@@ -168,10 +162,7 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
         aura->NotifyEntityAdded(newEntity);
     }
 
-    for (const auto& aura : adjacentAuras)
-    {
-        aura->SetIsFieldChanged(true);
-    }
+    MarkAdjacentAurasDirty();
 
     if (!newEntity->HasCharge())
     {
@@ -198,6 +189,19 @@ void FieldZone::ActivateAura(Playable* entity)
     if (entity->card->power.GetAura())
     {
         entity->card->power.GetAura()->Activate(entity);
+    }
+}
+
+void FieldZone::AddAdjacentAura(AdjacentAura* aura)
+{
+    m_adjacentAuras.emplace_back(aura);
+}
+
+void FieldZone::MarkAdjacentAurasDirty()
+{
+    for (const auto aura : m_adjacentAuras)
+    {
+        aura->SetIsFieldChanged(true);
     }
 }
 

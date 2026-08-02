@@ -16,6 +16,22 @@
 
 namespace RosettaStone::PlayMode
 {
+namespace
+{
+template <typename Range>
+void AddValidTargets(Card* card, Player* player, const Range& candidates,
+                     std::vector<Character*>& targets)
+{
+    for (auto* candidate : candidates)
+    {
+        if (card->TargetingRequirements(player, candidate))
+        {
+            targets.emplace_back(candidate);
+        }
+    }
+}
+}  // namespace
+
 void Card::Initialize()
 {
     maxAllowedInDeck = (GetRarity() == Rarity::LEGENDARY) ? 1 : 2;
@@ -630,42 +646,15 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 {
     std::vector<Character*> ret;
 
-    if (!targetingAvailabilityPredicate.empty())
+    if (std::ranges::any_of(
+            targetingAvailabilityPredicate,
+            [&](const auto& predicate) { return !predicate(player, this); }))
     {
-        for (auto& predicate : targetingAvailabilityPredicate)
-        {
-            if (!predicate(player, this))
-            {
-                return ret;
-            }
-        }
-    }
-
-    if (playRequirements.contains(PlayReq::REQ_LOCATION_TARGET))
-    {
-        const auto addLocations = [&](const Player* owner) {
-            for (auto& location : owner->GetFieldZone()->GetLocations())
-            {
-                if (TargetingRequirements(player, location))
-                {
-                    ret.emplace_back(location);
-                }
-            }
-        };
-
-        if (!playRequirements.contains(PlayReq::REQ_ENEMY_TARGET))
-        {
-            addLocations(player);
-        }
-
-        if (!playRequirements.contains(PlayReq::REQ_FRIENDLY_TARGET))
-        {
-            addLocations(player->opponent);
-        }
-
         return ret;
     }
 
+    const bool targetsLocation =
+        playRequirements.contains(PlayReq::REQ_LOCATION_TARGET);
     bool friendlyMinions = false, enemyMinions = false;
     bool hero = false, enemyHero = false;
 
@@ -711,23 +700,24 @@ std::vector<Character*> Card::GetValidPlayTargets(Player* player)
 
     if (friendlyMinions)
     {
-        for (auto& minion : player->GetFieldZone()->GetMinions())
+        AddValidTargets(this, player, player->GetFieldZone()->GetMinions(),
+                        ret);
+        if (targetsLocation)
         {
-            if (TargetingRequirements(player, minion))
-            {
-                ret.emplace_back(minion);
-            }
+            AddValidTargets(this, player,
+                            player->GetFieldZone()->GetLocations(), ret);
         }
     }
 
     if (enemyMinions)
     {
-        for (auto& minion : player->opponent->GetFieldZone()->GetMinions())
+        AddValidTargets(this, player,
+                        player->opponent->GetFieldZone()->GetMinions(), ret);
+        if (targetsLocation)
         {
-            if (TargetingRequirements(player, minion))
-            {
-                ret.emplace_back(minion);
-            }
+            AddValidTargets(this, player,
+                            player->opponent->GetFieldZone()->GetLocations(),
+                            ret);
         }
     }
 

@@ -22,6 +22,25 @@ using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::Generic
 {
+namespace
+{
+bool CanPlayCard(Playable* source, Character* target, int chooseOne)
+{
+    if (!source->IsPlayableByPlayer())
+    {
+        return false;
+    }
+
+    if (source->card->GetCardType() == CardType::LOCATION)
+    {
+        return target == nullptr;
+    }
+
+    return source->IsPlayableByCardReq(chooseOne) &&
+           source->IsValidPlayTarget(target, chooseOne);
+}
+}  // namespace
+
 void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
               int chooseOne)
 {
@@ -40,9 +59,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Check if we can play this card and the target is valid
-    if (!source->IsPlayableByPlayer() || (isLocation && target) ||
-        (!isLocation && (!source->IsPlayableByCardReq(chooseOne) ||
-                         !source->IsValidPlayTarget(target, chooseOne))))
+    if (!CanPlayCard(source, target, chooseOne))
     {
         return;
     }
