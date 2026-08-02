@@ -115,9 +115,9 @@ Implementation progress is generated from the `Implemented` column in the card l
 | United in Stormwind | 60 | 170 | 35.3% |
 | Fractured in Alterac Valley | 61 | 170 | 35.9% |
 | Voyage to the Sunken City | 22 | 170 | 12.9% |
-| Murder at Castle Nathria | 17 | 170 | 10% |
+| Murder at Castle Nathria | 19 | 170 | 11.2% |
 | March of the Lich King | 0 | 1 | 0% |
-| **Total** | **546** | **1101** | **49.6%** |
+| **Total** | **548** | **1101** | **49.8%** |
 
 ### [Wild Format](Documents/CardList%20-%20Wild.md)
 
