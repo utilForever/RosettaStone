@@ -59,6 +59,11 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target = nullptr);
 //! \param location A pointer to location card to play.
 //! \param fieldPos A value indicating where to place card.
 void PlayLocation(Player* player, Location* location, int fieldPos = -1);
+
+//! Replays a card without paying its cost.
+//! \param player The player to replay the card.
+//! \param card The card to replay.
+void ReplayCard(Player* player, Card* card);
 }  // namespace RosettaStone::PlayMode::Generic
 
 #endif  // ROSETTASTONE_PLAYMODE_PLAY_CARD_HPP

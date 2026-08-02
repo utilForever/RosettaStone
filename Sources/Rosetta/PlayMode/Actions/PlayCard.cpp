@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2024 Chris Ohk
 
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/PlayCard.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
@@ -14,6 +15,10 @@
 #include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
+
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode::Generic
 {
@@ -564,5 +569,86 @@ void PlayLocation(Player* player, Location* location, int fieldPos)
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
+}
+
+void ReplayCard(Player* player, Card* card)
+{
+    auto validTargets = card->GetValidPlayTargets(player);
+    if (card->mustHaveToTargetToPlay && validTargets.empty())
+    {
+        return;
+    }
+
+    const auto targetIdx =
+        Random::get<std::size_t>(0, validTargets.size() - 1);
+    const auto randTarget =
+        validTargets.empty() ? nullptr : validTargets[targetIdx];
+    const auto chooseOneIdx = Random::get<int>(1, 2);
+    Entity* entity = Entity::GetFromCard(player, card);
+
+    switch (card->GetCardType())
+    {
+        case CardType::HERO:
+            PlayHero(player, dynamic_cast<Hero*>(entity), randTarget,
+                     chooseOneIdx);
+            break;
+        case CardType::MINION:
+            if (!player->GetFieldZone()->IsFull())
+            {
+                Summon(dynamic_cast<Minion*>(entity), -1, player);
+                player->game->ProcessDestroyAndUpdateAura();
+            }
+            break;
+        case CardType::LOCATION:
+            if (!player->GetFieldZone()->IsFull())
+            {
+                PlayLocation(player, dynamic_cast<Location*>(entity));
+            }
+            break;
+        case CardType::SPELL:
+            CastSpell(player, dynamic_cast<Spell*>(entity), randTarget,
+                      chooseOneIdx);
+
+            while (player->choice)
+            {
+                const auto choiceIdx = Random::get<std::size_t>(
+                    0, player->choice->choices.size());
+                ChoicePick(player, static_cast<int>(choiceIdx));
+            }
+
+            player->game->ProcessDestroyAndUpdateAura();
+            break;
+        case CardType::WEAPON:
+        {
+            const auto weapon = dynamic_cast<Weapon*>(entity);
+
+            if (const auto aura = weapon->card->power.GetAura(); aura)
+            {
+                aura->Activate(weapon);
+            }
+
+            if (const auto trigger = weapon->card->power.GetTrigger(); trigger)
+            {
+                trigger->Activate(weapon);
+            }
+
+            player->GetHero()->AddWeapon(*weapon);
+            break;
+        }
+        case CardType::INVALID:
+        case CardType::GAME:
+        case CardType::PLAYER:
+        case CardType::ENCHANTMENT:
+        case CardType::ITEM:
+        case CardType::TOKEN:
+        case CardType::HERO_POWER:
+        case CardType::BLANK:
+        case CardType::GAME_MODE_BUTTON:
+        case CardType::MOVE_MINION_HOVER_TARGET:
+        case CardType::LETTUCE_ABILITY:
+        case CardType::BATTLEGROUND_HERO_BUDDY:
+        case CardType::BATTLEGROUND_QUEST_REWARD:
+            throw std::invalid_argument("ReplayCard() - Invalid card type!");
+    }
 }
 }  // namespace RosettaStone::PlayMode::Generic
