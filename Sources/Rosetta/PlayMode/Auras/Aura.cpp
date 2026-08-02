@@ -273,6 +273,8 @@ void Aura::Disapply(Playable* entity)
 
 void Aura::NotifyEntityAdded(Playable* entity)
 {
+    using enum AuraType;
+
     if (!m_turnOn)
     {
         return;
@@ -280,9 +282,8 @@ void Aura::NotifyEntityAdded(Playable* entity)
 
     if (entity->GetZoneType() == ZoneType::PLAY &&
         !dynamic_cast<Minion*>(entity) &&
-        (m_type == AuraType::ADJACENT || m_type == AuraType::FIELD ||
-         m_type == AuraType::FIELD_EXCEPT_SOURCE ||
-         m_type == AuraType::FIELD_AND_HAND))
+        (m_type == ADJACENT || m_type == FIELD ||
+         m_type == FIELD_EXCEPT_SOURCE || m_type == FIELD_AND_HAND))
     {
         return;
     }

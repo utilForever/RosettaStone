@@ -324,10 +324,9 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
             break;
         case EntityType::ENEMY_MINIONS_LEFTMOST:
         {
-            const auto opMinions =
-                player->opponent->GetFieldZone()->GetMinions();
-
-            if (!opMinions.empty())
+            if (const auto opMinions =
+                    player->opponent->GetFieldZone()->GetMinions();
+                !opMinions.empty())
             {
                 entities.emplace_back(opMinions.front());
             }
@@ -335,10 +334,9 @@ std::vector<Playable*> IncludeTask::GetEntities(EntityType entityType,
         }
         case EntityType::ENEMY_MINIONS_RIGHTMOST:
         {
-            const auto opMinions =
-                player->opponent->GetFieldZone()->GetMinions();
-
-            if (!opMinions.empty())
+            if (const auto opMinions =
+                    player->opponent->GetFieldZone()->GetMinions();
+                !opMinions.empty())
             {
                 entities.emplace_back(opMinions.back());
             }

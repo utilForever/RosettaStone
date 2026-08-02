@@ -2043,8 +2043,9 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            FieldZone* curField = playable->player->GetFieldZone();
-            FieldZone* opField = playable->player->opponent->GetFieldZone();
+            const FieldZone* curField = playable->player->GetFieldZone();
+            const FieldZone* opField =
+                playable->player->opponent->GetFieldZone();
             int count = 0;
 
             for (const auto& minion : curField->GetMinions())

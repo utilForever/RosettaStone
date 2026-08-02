@@ -76,7 +76,7 @@ void AdjacentAura::Update()
 
     if (!m_left && pos > 0)
     {
-        if (const auto left = dynamic_cast<Minion*>((*m_fieldZone)[pos - 1]);
+        if (const auto left = (*m_fieldZone)[pos - 1];
             left && !left->GetGameTag(GameTag::UNTOUCHABLE))
         {
             Apply(left);
@@ -97,7 +97,7 @@ void AdjacentAura::Update()
 
     if (!m_right && pos < m_fieldZone->GetCount() - 1)
     {
-        if (const auto right = dynamic_cast<Minion*>((*m_fieldZone)[pos + 1]);
+        if (const auto right = (*m_fieldZone)[pos + 1];
             right && !right->GetGameTag(GameTag::UNTOUCHABLE))
         {
             Apply(right);

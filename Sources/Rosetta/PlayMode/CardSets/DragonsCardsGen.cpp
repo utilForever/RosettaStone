@@ -1143,17 +1143,14 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                         break;
                     }
 
-                    const int targetPos = minion->GetZonePosition();
-
-                    if (isLeft && targetPos > 0)
+                    if (const int targetPos = minion->GetZonePosition();
+                        isLeft && targetPos > 0)
                     {
-                        minion =
-                            dynamic_cast<Minion*>((*fieldZone)[targetPos - 1]);
+                        minion = (*fieldZone)[targetPos - 1];
                     }
                     else if (!isLeft && targetPos < fieldZone->GetCount() - 1)
                     {
-                        minion =
-                            dynamic_cast<Minion*>((*fieldZone)[targetPos + 1]);
+                        minion = (*fieldZone)[targetPos + 1];
                     }
                     else
                     {
@@ -1190,8 +1187,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
                     if (targetPos > 0)
                     {
-                        left =
-                            dynamic_cast<Minion*>((*fieldZone)[targetPos - 1]);
+                        left = (*fieldZone)[targetPos - 1];
 
                         if (left && !left->IsUntouchable())
                         {
@@ -1201,8 +1197,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
 
                         if (targetPos < fieldZone->GetCount() - 1)
                         {
-                            right = dynamic_cast<Minion*>(
-                                (*fieldZone)[targetPos + 1]);
+                            right = (*fieldZone)[targetPos + 1];
 
                             if (right && !right->IsUntouchable())
                             {
@@ -1213,8 +1208,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     }
                     else if (fieldZone->GetCount() > 1)
                     {
-                        right =
-                            dynamic_cast<Minion*>((*fieldZone)[targetPos + 1]);
+                        right = (*fieldZone)[targetPos + 1];
 
                         if (right && !right->IsUntouchable())
                         {

@@ -12,6 +12,8 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone::PlayMode
 {
 void Card::Initialize()
@@ -486,8 +488,8 @@ bool Card::IsPlayableByCardReq(Player* player) const
                 break;
             case PlayReq::REQ_MINIMUM_ENEMY_MINIONS:
             {
-                const auto opField = player->opponent->GetFieldZone();
-                if (opField->GetMinionCount() < requirement.second)
+                if (const auto opField = player->opponent->GetFieldZone();
+                    opField->GetMinionCount() < requirement.second)
                 {
                     return false;
                 }
@@ -529,18 +531,11 @@ bool Card::IsPlayableByCardReq(Player* player) const
             }
             case PlayReq::REQ_FRIENDLY_MINION_DIED_THIS_GAME:
             {
-                bool isExist = false;
-                for (auto& playable : player->GetGraveyardZone()->GetAll())
-                {
-                    if (playable->card->GetCardType() == CardType::MINION &&
-                        playable->isDestroyed)
-                    {
-                        isExist = true;
-                        break;
-                    }
-                }
-
-                if (!isExist)
+                const auto graveyard = player->GetGraveyardZone()->GetAll();
+                if (std::ranges::none_of(graveyard, [](const Playable* card) {
+                        return card->card->GetCardType() == CardType::MINION &&
+                               card->isDestroyed;
+                    }))
                 {
                     return false;
                 }

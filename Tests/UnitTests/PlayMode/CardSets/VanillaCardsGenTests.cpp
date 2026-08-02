@@ -21079,7 +21079,7 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_040 : Hogger")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Hogger", FormatType::CLASSIC));
@@ -21130,7 +21130,7 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_041 : Stampeding Kodo")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         opPlayer,

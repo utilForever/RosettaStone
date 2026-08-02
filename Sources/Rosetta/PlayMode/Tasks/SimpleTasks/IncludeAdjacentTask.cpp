@@ -60,7 +60,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
 
         if (pos > 0)
         {
-            left = dynamic_cast<Minion*>((*fieldZone)[pos - 1]);
+            left = (*fieldZone)[pos - 1];
 
             if (left && !left->IsUntouchable())
             {
@@ -70,7 +70,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
 
             if (pos < fieldZone->GetCount() - 1)
             {
-                right = dynamic_cast<Minion*>((*fieldZone)[pos + 1]);
+                right = (*fieldZone)[pos + 1];
 
                 if (right && !right->IsUntouchable())
                 {
@@ -81,7 +81,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
         }
         else if (fieldZone->GetCount() > 1)
         {
-            right = dynamic_cast<Minion*>((*fieldZone)[pos + 1]);
+            right = (*fieldZone)[pos + 1];
 
             if (right && !right->IsUntouchable())
             {

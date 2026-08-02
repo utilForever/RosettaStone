@@ -1283,7 +1283,7 @@ TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
     const auto card6 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
 
-    auto NumFrozenMinions = [](FieldZone& field) -> int {
+    auto NumFrozenMinions = [](const FieldZone& field) -> int {
         int count = 0;
 
         for (const auto& minion : field.GetMinions())
