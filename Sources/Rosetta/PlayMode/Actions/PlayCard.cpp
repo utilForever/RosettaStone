@@ -606,26 +606,27 @@ void ReplayCard(Player* player, Card* card)
     const auto chooseOneIdx = Random::get<int>(1, 2);
     Entity* entity = Entity::GetFromCard(player, card);
 
+    using enum CardType;
     switch (card->GetCardType())
     {
-        case CardType::HERO:
+        case HERO:
             PlayHero(player, dynamic_cast<Hero*>(entity), randTarget,
                      chooseOneIdx);
             break;
-        case CardType::MINION:
+        case MINION:
             if (!player->GetFieldZone()->IsFull())
             {
                 Summon(dynamic_cast<Minion*>(entity), -1, player);
                 player->game->ProcessDestroyAndUpdateAura();
             }
             break;
-        case CardType::LOCATION:
+        case LOCATION:
             if (!player->GetFieldZone()->IsFull())
             {
                 PlayLocation(player, dynamic_cast<Location*>(entity));
             }
             break;
-        case CardType::SPELL:
+        case SPELL:
             CastSpell(player, dynamic_cast<Spell*>(entity), randTarget,
                       chooseOneIdx);
 
@@ -644,7 +645,7 @@ void ReplayCard(Player* player, Card* card)
 
             player->game->ProcessDestroyAndUpdateAura();
             break;
-        case CardType::WEAPON:
+        case WEAPON:
         {
             const auto weapon = dynamic_cast<Weapon*>(entity);
 
@@ -661,19 +662,19 @@ void ReplayCard(Player* player, Card* card)
             player->GetHero()->AddWeapon(*weapon);
             break;
         }
-        case CardType::INVALID:
-        case CardType::GAME:
-        case CardType::PLAYER:
-        case CardType::ENCHANTMENT:
-        case CardType::ITEM:
-        case CardType::TOKEN:
-        case CardType::HERO_POWER:
-        case CardType::BLANK:
-        case CardType::GAME_MODE_BUTTON:
-        case CardType::MOVE_MINION_HOVER_TARGET:
-        case CardType::LETTUCE_ABILITY:
-        case CardType::BATTLEGROUND_HERO_BUDDY:
-        case CardType::BATTLEGROUND_QUEST_REWARD:
+        case INVALID:
+        case GAME:
+        case PLAYER:
+        case ENCHANTMENT:
+        case ITEM:
+        case TOKEN:
+        case HERO_POWER:
+        case BLANK:
+        case GAME_MODE_BUTTON:
+        case MOVE_MINION_HOVER_TARGET:
+        case LETTUCE_ABILITY:
+        case BATTLEGROUND_HERO_BUDDY:
+        case BATTLEGROUND_QUEST_REWARD:
             throw std::invalid_argument("ReplayCard() - Invalid card type!");
     }
 }
