@@ -6,6 +6,8 @@
 #include <Rosetta/PlayMode/CardSets/BlackTempleCardsGen.hpp>
 #include <Rosetta/PlayMode/Cards/CardPowers.hpp>
 
+#include <algorithm>
+
 namespace RosettaStone::PlayMode
 {
 void BlackTempleCardsGen::AddHeroes(std::map<std::string, CardDef>& cards)
@@ -2043,28 +2045,14 @@ void BlackTempleCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            const FieldZone* curField = playable->player->GetFieldZone();
-            const FieldZone* opField =
-                playable->player->opponent->GetFieldZone();
-            int count = 0;
-
-            for (const auto& minion : curField->GetMinions())
-            {
-                if (minion->GetDamage() > 0)
-                {
-                    ++count;
-                }
-            }
-
-            for (const auto& minion : opField->GetMinions())
-            {
-                if (minion->GetDamage() > 0)
-                {
-                    ++count;
-                }
-            }
-
-            return count;
+            const auto countDamaged = [](const FieldZone* field) {
+                return std::ranges::count_if(field->GetMinions(),
+                                             [](const Minion* minion) {
+                                                 return minion->GetDamage() > 0;
+                                             });
+            };
+            return countDamaged(playable->player->GetFieldZone()) +
+                   countDamaged(playable->player->opponent->GetFieldZone());
         }));
     cards.emplace("BT_138", cardDef);
 
