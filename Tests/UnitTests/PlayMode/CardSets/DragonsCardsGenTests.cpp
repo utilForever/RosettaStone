@@ -2778,7 +2778,7 @@ TEST_CASE("[Mage : Spell] - DRG_321 : Rolling Fireball")
         CHECK_EQ(opPlayer->GetFieldZone()->GetLocations().size(), 1u);
     }
 
-    SUBCASE("Location - Left, Right")
+    SUBCASE("Location - Middle")
     {
         const auto card1 = Generic::DrawCard(
             curPlayer, Cards::FindCardByName("Rolling Fireball"));
