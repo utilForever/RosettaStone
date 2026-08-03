@@ -1158,7 +1158,7 @@ void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
         std::make_shared<AddEnchantmentTask>("REV_983e", EntityType::TARGET));
     cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
                                           { PlayReq::REQ_MINION_TARGET, 0 } };
-    cards.try_emplace("REV_983", cardDef);
+    cards.emplace("REV_983", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [MAW_015] Jury Duty - COST:3
@@ -1280,7 +1280,7 @@ void RevendrethCardsGen::AddPaladinNonCollect(
     cardDef.ClearData();
     cardDef.power.AddEnchant(
         std::make_shared<Enchant>(Effects::SetAttackHealth(3)));
-    cards.try_emplace("REV_983e", cardDef);
+    cards.emplace("REV_983e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [MAW_015e] Jury Summons - COST:0

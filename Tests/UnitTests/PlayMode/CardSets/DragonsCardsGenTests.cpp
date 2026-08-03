@@ -2710,31 +2710,99 @@ TEST_CASE("[Mage : Spell] - DRG_321 : Rolling Fireball")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    SUBCASE("Normal")
+    {
+        auto& opField = *(opPlayer->GetFieldZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Rolling Fireball"));
-    const auto card2 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
-    const auto card3 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Oasis Snapjaw"));
-    const auto card4 =
-        Generic::DrawCard(opPlayer, Cards::FindCardByName("Archmage"));
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Rolling Fireball"));
+        const auto card2 =
+            Generic::DrawCard(curPlayer, Cards::FindCardByName("Dalaran Mage"));
+        const auto card3 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Oasis Snapjaw"));
+        const auto card4 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Archmage"));
 
-    game.Process(curPlayer, PlayCardTask::Minion(card2));
+        game.Process(curPlayer, PlayCardTask::Minion(card2));
 
-    game.Process(curPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(opPlayer, PlayCardTask::Minion(card3));
-    game.Process(opPlayer, PlayCardTask::Minion(card4));
+        game.Process(opPlayer, PlayCardTask::Minion(card3));
+        game.Process(opPlayer, PlayCardTask::Minion(card4));
 
-    game.Process(opPlayer, EndTurnTask());
-    game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
 
-    game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
-    CHECK_EQ(opField.GetCount(), 1);
-    CHECK_EQ(opField[0]->GetHealth(), 5);
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card4));
+        CHECK_EQ(opField.GetCount(), 1);
+        CHECK_EQ(opField[0]->GetHealth(), 5);
+    }
+
+    SUBCASE("Location - Left, Right")
+    {
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Rolling Fireball"));
+        const auto card2 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+        const auto card3 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+        const auto card4 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Great Hall"));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Playable* target = nullptr;
+        SUBCASE("Left location")
+        {
+            game.Process(opPlayer, PlayCardTask::Location(card4));
+            game.Process(opPlayer, PlayCardTask::Minion(card2));
+            game.Process(opPlayer, PlayCardTask::Minion(card3));
+            target = card3;
+        }
+
+        SUBCASE("Right location")
+        {
+            game.Process(opPlayer, PlayCardTask::Minion(card2));
+            game.Process(opPlayer, PlayCardTask::Minion(card3));
+            game.Process(opPlayer, PlayCardTask::Location(card4));
+            target = card2;
+        }
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card1, target));
+        CHECK_EQ(opPlayer->GetFieldZone()->GetMinionCount(), 0);
+        CHECK_EQ(opPlayer->GetFieldZone()->GetLocations().size(), 1u);
+    }
+
+    SUBCASE("Location - Left, Right")
+    {
+        const auto card1 = Generic::DrawCard(
+            curPlayer, Cards::FindCardByName("Rolling Fireball"));
+        const auto card2 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+        const auto card3 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
+        const auto card4 =
+            Generic::DrawCard(opPlayer, Cards::FindCardByName("Great Hall"));
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(opPlayer, PlayCardTask::Minion(card2));
+        game.Process(opPlayer, PlayCardTask::Location(card4));
+        game.Process(opPlayer, PlayCardTask::Minion(card3));
+
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        game.Process(curPlayer, PlayCardTask::SpellTarget(card1, card2));
+        CHECK_EQ(opPlayer->GetFieldZone()->GetMinionCount(), 1);
+        CHECK_EQ(opPlayer->GetFieldZone()->GetLocations().size(), 1u);
+    }
 }
 
 // ------------------------------------------ MINION - MAGE
@@ -6482,7 +6550,6 @@ TEST_CASE("[Warrior : Weapon] - DRG_025 : Ancharrr")
 TEST_CASE("[Warrior : Minion] - DRG_026 : Deathwing, Mad Aspect")
 {
     GameConfig config;
-    config.formatType = FormatType::WILD;
     config.player1Class = CardClass::PRIEST;
     config.player2Class = CardClass::WARRIOR;
     config.startPlayer = PlayerType::PLAYER1;

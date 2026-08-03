@@ -73,6 +73,7 @@ TEST_CASE("[FieldZone] - GetAll")
 TEST_CASE("[FieldZone] - Location is a character, not a minion")
 {
     GameConfig config;
+    config.formatType = FormatType::STANDARD;
     config.player1Class = CardClass::PALADIN;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
@@ -84,11 +85,41 @@ TEST_CASE("[FieldZone] - Location is a character, not a minion")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* player = game.GetCurrentPlayer();
-    Playable* location =
+    Playable* locationEntity =
         Entity::GetFromCard(player, Cards::FindCardByName("Great Hall"));
+    const auto location = dynamic_cast<Location*>(locationEntity);
 
-    CHECK(dynamic_cast<Character*>(location));
-    CHECK_FALSE(dynamic_cast<Minion*>(location));
+    CHECK(location);
+    CHECK_EQ(location->CanAttack(), false);
+    CHECK_EQ(dynamic_cast<Minion*>(locationEntity), nullptr);
+}
+
+TEST_CASE("[FieldZone] - Location is not an adjacent minion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetCurrentPlayer();
+    player->SetTotalMana(10);
+
+    Playable* minion = Generic::DrawCard(player, Cards::FindCardByName("Wisp"));
+    Playable* location =
+        Generic::DrawCard(player, Cards::FindCardByName("Great Hall"));
+
+    game.Process(player, PlayCardTask::Minion(minion));
+    game.Process(player, PlayCardTask::Location(location));
+
+    const auto fieldMinion = dynamic_cast<Minion*>(minion);
+    CHECK(fieldMinion);
+    CHECK_EQ(fieldMinion->GetAdjacentMinions().empty(), true);
 }
 
 TEST_CASE("[FieldZone] - Location does not satisfy minion presence condition")
@@ -114,8 +145,8 @@ TEST_CASE("[FieldZone] - Location does not satisfy minion presence condition")
 
     game.Process(player, PlayCardTask::Location(location));
     CHECK_EQ(player->GetFieldZone()->GetLocations().size(), 1u);
-    CHECK_FALSE(SelfCondition::IsFieldNotEmpty().Evaluate(location));
+    CHECK_EQ(SelfCondition::IsFieldNotEmpty().Evaluate(location), false);
 
     game.Process(player, PlayCardTask::Minion(minion));
-    CHECK(SelfCondition::IsFieldNotEmpty().Evaluate(location));
+    CHECK_EQ(SelfCondition::IsFieldNotEmpty().Evaluate(location), true);
 }

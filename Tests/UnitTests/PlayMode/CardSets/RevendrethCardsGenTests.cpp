@@ -666,9 +666,9 @@ TEST_CASE("[Paladin : Location] - REV_983 : Great Hall")
         const auto minion = dynamic_cast<Minion*>(card2);
         const auto handMinion = dynamic_cast<Minion*>(card3);
 
-        REQUIRE(location);
-        REQUIRE(minion);
-        REQUIRE(handMinion);
+        CHECK(location);
+        CHECK(minion);
+        CHECK(handMinion);
         CHECK_EQ(curField.GetCount(), 2);
         CHECK_EQ(curField.GetAll().size(), 2u);
         CHECK_EQ(curField.GetMinionCount(), 1);
@@ -725,6 +725,9 @@ TEST_CASE("[Paladin : Location] - REV_983 : Great Hall")
         CHECK_EQ(curField.GetCount(), 1);
         CHECK_EQ(location->GetZoneType(), ZoneType::GRAVEYARD);
         CHECK_EQ(curPlayer->GetNumFriendlyMinionsDiedThisTurn(), 0);
+
+        location->Destroy();
+        CHECK_EQ(location->GetZoneType(), ZoneType::GRAVEYARD);
     }
 
     SUBCASE("Aura minion case")

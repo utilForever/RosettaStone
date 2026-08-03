@@ -596,8 +596,7 @@ void ReplayCard(Player* player, Card* card)
         return;
     }
 
-    const auto targetIdx =
-        Random::get<std::size_t>(0, validTargets.size() - 1);
+    const auto targetIdx = Random::get<std::size_t>(0, validTargets.size() - 1);
     const auto randTarget =
         validTargets.empty() ? nullptr : validTargets[targetIdx];
     const auto chooseOneIdx = Random::get<int>(1, 2);
@@ -628,8 +627,8 @@ void ReplayCard(Player* player, Card* card)
 
             while (player->choice)
             {
-                const auto choiceIdx = Random::get<std::size_t>(
-                    0, player->choice->choices.size());
+                const auto choiceIdx =
+                    Random::get<std::size_t>(0, player->choice->choices.size());
                 ChoicePick(player, static_cast<int>(choiceIdx));
             }
 

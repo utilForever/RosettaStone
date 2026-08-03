@@ -16,6 +16,7 @@
 #include <Rosetta/PlayMode/Enchants/GenericEffect.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/RemoveEnchantmentTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
@@ -155,6 +156,11 @@ TEST_CASE("[Generic] - ChangeEntity transfers ownership")
     Generic::ChangeEntity(player, newEntity, Cards::FindCardByID("CS2_091"),
                           false);
     CHECK(dynamic_cast<Weapon*>(game.entityList.at(entityID)));
+
+    newEntity = game.entityList.at(entityID);
+    Generic::ChangeEntity(player, newEntity, Cards::FindCardByID("REV_983"),
+                          false);
+    CHECK(dynamic_cast<Location*>(game.entityList.at(entityID)));
 }
 
 TEST_CASE("[Generic] - One-turn attack effect variants")
