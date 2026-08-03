@@ -8,10 +8,12 @@
 
 #include <Utils/TestUtils.hpp>
 
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Auras/Aura.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Effects.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 
 using namespace RosettaStone;
@@ -32,13 +34,17 @@ TEST_CASE("[Aura] - Location is skipped by minion auras")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     Player* player = game.GetCurrentPlayer();
+    player->SetTotalMana(10);
+    player->SetUsedMana(0);
     auto& field = *player->GetFieldZone();
 
     auto ownerCard = TestUtils::GenerateMinionCard("owner", 1, 1);
     auto neighborCard = TestUtils::GenerateMinionCard("neighbor", 1, 1);
 
     const auto AddLocation = [&] {
-        field.Add(Entity::GetFromCard(player, Cards::FindCardByID("REV_983")));
+        const auto location =
+            Generic::DrawCard(player, Cards::FindCardByID("REV_983"));
+        game.Process(player, PlayerTasks::PlayCardTask::Location(location));
     };
     const auto Activate = [&](AuraType type, Minion* owner) {
         Aura aura(type, { Effects::AttackN(1) });
