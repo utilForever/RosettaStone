@@ -51,9 +51,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Check battlefield is full
-    const bool isLocation = source->card->GetCardType() == CardType::LOCATION;
-
-    if ((source->card->GetCardType() == CardType::MINION || isLocation) &&
+    if (const auto cardType = source->card->GetCardType();
+        (cardType == CardType::MINION || cardType == CardType::LOCATION) &&
         player->GetFieldZone()->IsFull())
     {
         return;
