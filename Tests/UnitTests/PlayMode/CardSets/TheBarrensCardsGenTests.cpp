@@ -1268,7 +1268,7 @@ TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
     opPlayer->SetTotalMana(3);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
