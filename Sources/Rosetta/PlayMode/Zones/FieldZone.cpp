@@ -31,7 +31,15 @@ int FieldZone::GetCountExceptUntouchables() const
 
 int FieldZone::GetMinionCount() const
 {
-    return static_cast<int>(GetMinions().size());
+    int count = 0;
+    ForEach([&count](const Playable* entity) {
+        if (entity && !entity->isDestroyed &&
+            dynamic_cast<const Minion*>(entity))
+        {
+            ++count;
+        }
+    });
+    return count;
 }
 
 std::vector<Minion*> FieldZone::GetMinions() const
