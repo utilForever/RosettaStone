@@ -9,7 +9,9 @@
 #include <Utils/TestUtils.hpp>
 
 #include <Rosetta/Common/Enums/CardEnums.hpp>
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
+#include <Rosetta/PlayMode/Actions/PlayCard.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Enchants/Attrs/Atk.hpp>
 #include <Rosetta/PlayMode/Enchants/Effect.hpp>
@@ -36,6 +38,33 @@ TEST_CASE("[Generic] - AddEnchantment ignores null target")
     auto enchantmentCard = TestUtils::GenerateEnchantmentCard("enchantment");
     CHECK_NOTHROW(
         Generic::AddEnchantment(&enchantmentCard, nullptr, nullptr, 0, 0));
+}
+
+TEST_CASE("[Generic] - Location play requirements")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Card card;
+    card.gameTags[GameTag::CARDTYPE] = static_cast<int>(CardType::LOCATION);
+    card.gameTags[GameTag::HEALTH] = 1;
+    card.playRequirements.emplace(PlayReq::REQ_WEAPON_EQUIPPED, 0);
+
+    Player* player = game.GetCurrentPlayer();
+    Playable* location = Generic::DrawCard(player, &card);
+
+    Generic::PlayCard(player, location);
+
+    CHECK_EQ(player->GetFieldZone()->GetCount(), 0);
+    CHECK_EQ(player->GetHandZone()->GetCount(), 1);
 }
 
 TEST_CASE("[Generic] - ShuffleIntoDeck")

@@ -33,7 +33,8 @@ bool CanPlayCard(Playable* source, Character* target, int chooseOne)
 
     if (source->card->GetCardType() == CardType::LOCATION)
     {
-        return target == nullptr;
+        return target == nullptr &&
+               source->card->IsPlayableByCardReq(source->player);
     }
 
     return source->IsPlayableByCardReq(chooseOne) &&
