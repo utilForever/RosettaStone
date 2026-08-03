@@ -547,8 +547,8 @@ bool Card::IsPlayableByCardReq(Player* player) const
             }
             case PlayReq::REQ_FRIENDLY_MINION_DIED_THIS_GAME:
             {
-                const auto graveyard = player->GetGraveyardZone()->GetAll();
-                if (std::ranges::none_of(graveyard, [](const Playable* card) {
+                if (const auto graveyard = player->GetGraveyardZone()->GetAll();
+                    std::ranges::none_of(graveyard, [](const Playable* card) {
                         return card->card->GetCardType() == CardType::MINION &&
                                card->isDestroyed;
                     }))
