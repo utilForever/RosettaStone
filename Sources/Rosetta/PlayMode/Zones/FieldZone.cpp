@@ -205,7 +205,7 @@ void FieldZone::AddAdjacentAura(AdjacentAura* aura)
     m_adjacentAuras.emplace_back(aura);
 }
 
-void FieldZone::MarkAdjacentAurasDirty()
+void FieldZone::MarkAdjacentAurasDirty() const
 {
     for (const auto aura : m_adjacentAuras)
     {

@@ -78,7 +78,7 @@ class FieldZone : public PositioningZone<Character>
     void AddAdjacentAura(AdjacentAura* aura);
 
     //! Marks every adjacent aura for an update.
-    void MarkAdjacentAurasDirty();
+    void MarkAdjacentAurasDirty() const;
 
  private:
     //! Removes a minion's trigger and aura and
