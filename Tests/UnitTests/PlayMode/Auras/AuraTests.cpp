@@ -22,7 +22,6 @@ using namespace PlayMode;
 TEST_CASE("[Aura] - Location is skipped by minion auras")
 {
     GameConfig config;
-    config.formatType = FormatType::STANDARD;
     config.player1Class = CardClass::PALADIN;
     config.player2Class = CardClass::MAGE;
     config.startPlayer = PlayerType::PLAYER1;
@@ -36,14 +35,14 @@ TEST_CASE("[Aura] - Location is skipped by minion auras")
     Player* player = game.GetCurrentPlayer();
     player->SetTotalMana(10);
     player->SetUsedMana(0);
-    auto& field = *player->GetFieldZone();
 
+    auto& field = *player->GetFieldZone();
     auto ownerCard = TestUtils::GenerateMinionCard("owner", 1, 1);
     auto neighborCard = TestUtils::GenerateMinionCard("neighbor", 1, 1);
 
     const auto AddLocation = [&] {
         const auto location =
-            Generic::DrawCard(player, Cards::FindCardByID("REV_983"));
+            Generic::DrawCard(player, Cards::FindCardByName("Great Hall"));
         game.Process(player, PlayerTasks::PlayCardTask::Location(location));
     };
     const auto Activate = [&](AuraType type, Minion* owner) {

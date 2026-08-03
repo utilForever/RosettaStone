@@ -591,22 +591,26 @@ void PlayLocation(Player* player, Location* location, int fieldPos)
 void ReplayCard(Player* player, Card* card)
 {
     auto validTargets = card->GetValidPlayTargets(player);
+
     if (card->mustHaveToTargetToPlay && validTargets.empty())
     {
         return;
     }
 
     Character* randTarget = nullptr;
+
     if (!validTargets.empty())
     {
         const auto targetIdx =
             Random::get<std::size_t>(0, validTargets.size() - 1);
         randTarget = validTargets[targetIdx];
     }
+
     const auto chooseOneIdx = Random::get<int>(1, 2);
     Entity* entity = Entity::GetFromCard(player, card);
 
     using enum CardType;
+
     switch (card->GetCardType())
     {
         case HERO:

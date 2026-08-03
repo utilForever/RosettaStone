@@ -32,6 +32,7 @@ int FieldZone::GetCountExceptUntouchables() const
 int FieldZone::GetMinionCount() const
 {
     int count = 0;
+
     ForEach([&count](const Playable* entity) {
         if (entity && !entity->isDestroyed &&
             dynamic_cast<const Minion*>(entity))
@@ -39,6 +40,7 @@ int FieldZone::GetMinionCount() const
             ++count;
         }
     });
+
     return count;
 }
 
