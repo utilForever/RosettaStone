@@ -632,9 +632,15 @@ void ReplayCard(Player* player, Card* card)
 
             while (player->choice)
             {
-                const auto choiceIdx =
-                    Random::get<std::size_t>(0, player->choice->choices.size());
-                ChoicePick(player, static_cast<int>(choiceIdx));
+                if (player->choice->choices.empty())
+                {
+                    player->choice.reset();
+                    break;
+                }
+
+                const auto choiceIdx = Random::get<std::size_t>(
+                    0, player->choice->choices.size() - 1);
+                ChoicePick(player, player->choice->choices[choiceIdx]);
             }
 
             player->game->ProcessDestroyAndUpdateAura();

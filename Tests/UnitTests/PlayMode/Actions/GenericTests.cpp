@@ -67,6 +67,27 @@ TEST_CASE("[Generic] - Location play requirements")
     CHECK_EQ(player->GetHandZone()->GetCount(), 1);
 }
 
+TEST_CASE("[Generic] - ReplayCard resolves discover choices")
+{
+    GameConfig config;
+    config.formatType = FormatType::WILD;
+    config.player1Class = CardClass::DRUID;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetCurrentPlayer();
+    Generic::ReplayCard(player, Cards::FindCardByID("REV_313"));
+
+    CHECK_FALSE(player->choice);
+    CHECK_EQ(player->GetHandZone()->GetCount(), 1);
+}
+
 TEST_CASE("[Generic] - ShuffleIntoDeck")
 {
     GameConfig config;
