@@ -54,7 +54,7 @@ TEST_CASE("[Generic] - Location play requirements")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     Card card;
-    card.gameTags[GameTag::CARDTYPE] = static_cast<int>(CardType::LOCATION);
+    card.gameTags[GameTag::CARDTYPE] = std::to_underlying(CardType::LOCATION);
     card.gameTags[GameTag::HEALTH] = 1;
     card.playRequirements.emplace(PlayReq::REQ_WEAPON_EQUIPPED, 0);
 
