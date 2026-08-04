@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2017-2024 Chris Ohk
+// Copyright (c) 2017-2024 Chris Ohk
 
 // We are making my contributions/submissions to this project solely in our
 // personal capacity and are not conveying any rights to any intellectual
@@ -21079,7 +21079,7 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_040 : Hogger")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         curPlayer, Cards::FindCardByName("Hogger", FormatType::CLASSIC));
@@ -21091,7 +21091,7 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_040 : Hogger")
     game.ProcessUntil(Step::MAIN_ACTION);
 
     CHECK_EQ(curField.GetCount(), 2);
-    CHECK_EQ(curField.GetAll()[1]->card->id, "NEW1_040t");
+    CHECK_EQ(curField.GetMinions()[1]->card->id, "NEW1_040t");
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);
@@ -21130,7 +21130,7 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_041 : Stampeding Kodo")
     opPlayer->SetTotalMana(10);
     opPlayer->SetUsedMana(0);
 
-    auto& curField = *(curPlayer->GetFieldZone());
+    const auto& curField = *(curPlayer->GetFieldZone());
 
     const auto card1 = Generic::DrawCard(
         opPlayer,
@@ -21163,7 +21163,7 @@ TEST_CASE("[Neutral : Minion] - VAN_NEW1_041 : Stampeding Kodo")
 
     game.Process(opPlayer, PlayCardTask::Minion(card2));
     CHECK_EQ(curField.GetCount(), 1);
-    CHECK_EQ(curField.GetAll()[0]->card->name, "Bloodfen Raptor");
+    CHECK_EQ(curField.GetMinions()[0]->card->name, "Bloodfen Raptor");
 
     game.Process(opPlayer, EndTurnTask());
     game.ProcessUntil(Step::MAIN_ACTION);

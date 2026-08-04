@@ -115,14 +115,14 @@ int Card::GetTier() const
 
 bool Card::IsPlayableByCardReq([[maybe_unused]] Player& player) const
 {
-    //for (const auto& playReq : playRequirements)
+    // for (const auto& playReq : playRequirements)
     //{
-    //    switch (playReq.first)
-    //    {
-    //        default:
-    //            break;
-    //    }
-    //}
+    //     switch (playReq.first)
+    //     {
+    //         default:
+    //             break;
+    //     }
+    // }
 
     return true;
 }

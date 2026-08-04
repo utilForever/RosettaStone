@@ -8,6 +8,7 @@
 #define ROSETTASTONE_PLAYMODE_FIELD_ZONE_HPP
 
 #include <Rosetta/PlayMode/Auras/AdjacentAura.hpp>
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Zones/Zone.hpp>
 
@@ -24,20 +25,33 @@ namespace RosettaStone::PlayMode
 //! battlefield selection. Battlefields are chosen at random and are independent
 //! of the heroes chosen by players or used by the Innkeeper.
 //!
-class FieldZone : public PositioningZone<Minion>
+class FieldZone : public PositioningZone<Character>
 {
  public:
     //! Constructs field zone with given \p player.
     //! \param player The player.
     explicit FieldZone(Player* player);
 
+    //! Returns the minion at \p zonePos.
+    //! \param zonePos The zone position of minion.
+    //! \return The minion at \p zonePos, or nullptr for another field entity.
+    Minion* operator[](int zonePos);
+
     //! Returns the number of minions except untouchables.
     //! \return The number of minions except untouchables.
     int GetCountExceptUntouchables() const;
 
-    //! Returns all entities in board zone.
-    //! \return A list of entity in board zone.
-    std::vector<Minion*> GetAll() override;
+    //! Returns the number of minions.
+    //! \return The number of minions.
+    int GetMinionCount() const;
+
+    //! Returns all minions in board zone.
+    //! \return A list of minions in board zone.
+    std::vector<Minion*> GetMinions() const;
+
+    //! Returns all locations in board zone.
+    //! \return A list of locations in board zone.
+    std::vector<Location*> GetLocations() const;
 
     //! Adds the specified entity into this zone, at the given position.
     //! \param entity The entity.
@@ -57,16 +71,22 @@ class FieldZone : public PositioningZone<Minion>
     //! Activates a minion's trigger and aura and
     //! applies it's spell power increment.
     //! \param entity The entity to activate aura.
-    static void ActivateAura(Minion* entity);
+    static void ActivateAura(Playable* entity);
 
-    std::vector<AdjacentAura*> adjacentAuras;
+    //! Registers an adjacent aura on this field.
+    //! \param aura The adjacent aura.
+    void AddAdjacentAura(AdjacentAura* aura);
+
+    //! Marks every adjacent aura for an update.
+    void MarkAdjacentAurasDirty() const;
 
  private:
     //! Removes a minion's trigger and aura and
     //! applies it's spell power increment.
     //! \param entity The entity to remove aura.
-    static void RemoveAura(const Minion* entity);
+    static void RemoveAura(const Playable* entity);
 
+    std::vector<AdjacentAura*> m_adjacentAuras;
     int m_untouchableCount = 0;
 };
 }  // namespace RosettaStone::PlayMode

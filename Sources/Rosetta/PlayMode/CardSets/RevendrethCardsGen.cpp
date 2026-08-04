@@ -1035,6 +1035,8 @@ void RevendrethCardsGen::AddMageNonCollect(
 
 void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------------- SPELL - PALADIN
     // [REV_842] Promotion - COST:1
     // - Set: REVENDRETH, Rarity: Epic
@@ -1151,6 +1153,12 @@ void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Set a minion's Attack and Health to 3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<AddEnchantmentTask>("REV_983e", EntityType::TARGET));
+    cardDef.property.playReqs = PlayReqs{ { PlayReq::REQ_TARGET_TO_PLAY, 0 },
+                                          { PlayReq::REQ_MINION_TARGET, 0 } };
+    cards.emplace("REV_983", cardDef);
 
     // ---------------------------------------- SPELL - PALADIN
     // [MAW_015] Jury Duty - COST:3
@@ -1183,6 +1191,8 @@ void RevendrethCardsGen::AddPaladin(std::map<std::string, CardDef>& cards)
 void RevendrethCardsGen::AddPaladinNonCollect(
     std::map<std::string, CardDef>& cards)
 {
+    CardDef cardDef;
+
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [REV_842e] Promoted - COST:0
     // - Set: REVENDRETH
@@ -1267,6 +1277,10 @@ void RevendrethCardsGen::AddPaladinNonCollect(
     // --------------------------------------------------------
     // Text: Stats changed to 3/3.
     // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddEnchant(
+        std::make_shared<Enchant>(Effects::SetAttackHealth(3)));
+    cards.emplace("REV_983e", cardDef);
 
     // ---------------------------------- ENCHANTMENT - PALADIN
     // [MAW_015e] Jury Summons - COST:0
@@ -2968,6 +2982,19 @@ void RevendrethCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     // GameTag:
     // - BATTLECRY = 1
     // --------------------------------------------------------
+    // PlayReq:
+    // - REQ_TARGET_IF_AVAILABLE = 0
+    // - REQ_ENEMY_TARGET = 0
+    // - REQ_LOCATION_TARGET = 0
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(
+        std::make_shared<DestroyTask>(EntityType::TARGET));
+    cardDef.property.playReqs =
+        PlayReqs{ { PlayReq::REQ_TARGET_IF_AVAILABLE, 0 },
+                  { PlayReq::REQ_ENEMY_TARGET, 0 },
+                  { PlayReq::REQ_LOCATION_TARGET, 0 } };
+    cards.try_emplace("REV_023", cardDef);
 
     // --------------------------------------- MINION - NEUTRAL
     // [REV_238] Theotar, the Mad Duke - COST:5 [ATK:3/HP:3]

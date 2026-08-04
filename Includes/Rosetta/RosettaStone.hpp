@@ -161,6 +161,7 @@
 #include <Rosetta/PlayMode/Models/Entity.hpp>
 #include <Rosetta/PlayMode/Models/Hero.hpp>
 #include <Rosetta/PlayMode/Models/HeroPower.hpp>
+#include <Rosetta/PlayMode/Models/Location.hpp>
 #include <Rosetta/PlayMode/Models/Minion.hpp>
 #include <Rosetta/PlayMode/Models/Playable.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
@@ -176,6 +177,7 @@
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/HeroPowerTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
+#include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayLocationTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/TradeCardTask.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/ActivateCapturedDeathrattleTask.hpp>

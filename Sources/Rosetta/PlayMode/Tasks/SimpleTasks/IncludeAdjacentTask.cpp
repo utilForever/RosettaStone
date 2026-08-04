@@ -62,7 +62,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
         {
             left = (*fieldZone)[pos - 1];
 
-            if (!left->IsUntouchable())
+            if (left && !left->IsUntouchable())
             {
                 includeLeft = true;
                 ++count;
@@ -72,7 +72,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
             {
                 right = (*fieldZone)[pos + 1];
 
-                if (!right->IsUntouchable())
+                if (right && !right->IsUntouchable())
                 {
                     includeRight = true;
                     ++count;
@@ -83,7 +83,7 @@ TaskStatus IncludeAdjacentTask::Impl(Player* player)
         {
             right = (*fieldZone)[pos + 1];
 
-            if (!right->IsUntouchable())
+            if (right && !right->IsUntouchable())
             {
                 includeRight = true;
                 ++count;

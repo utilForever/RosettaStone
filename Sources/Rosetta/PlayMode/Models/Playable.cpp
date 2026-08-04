@@ -83,8 +83,7 @@ bool Playable::IsExhausted() const
     using enum GameTag;
 
     // Consider windfury
-    if (GetGameTag(WINDFURY) == 1 &&
-        GetGameTag(NUM_ATTACKS_THIS_TURN) == 1)
+    if (GetGameTag(WINDFURY) == 1 && GetGameTag(NUM_ATTACKS_THIS_TURN) == 1)
     {
         return false;
     }
@@ -428,83 +427,7 @@ bool Playable::IsValidPlayTarget(Character* target, int chooseOne) const
 
 bool Playable::HasAnyValidPlayTargets(Card* _card) const
 {
-    using enum TargetingType;
-
-    bool friendlyMinions = false, enemyMinions = false;
-    bool hero = false, enemyHero = false;
-
-    switch (_card->targetingType)
-    {
-        case NONE:
-            return false;
-        case ALL:
-            friendlyMinions = true;
-            enemyMinions = true;
-            hero = true;
-            enemyHero = true;
-            break;
-        case CHARACTERS_EXCEPT_HERO:
-            friendlyMinions = true;
-            enemyMinions = true;
-            enemyHero = true;
-            break;
-        case FRIENDLY_CHARACTERS:
-            friendlyMinions = true;
-            hero = true;
-            break;
-        case ENEMY_CHARACTERS:
-            enemyMinions = true;
-            enemyHero = true;
-            break;
-        case ALL_MINIONS:
-            friendlyMinions = true;
-            enemyMinions = true;
-            break;
-        case FRIENDLY_MINIONS:
-            friendlyMinions = true;
-            break;
-        case ENEMY_MINIONS:
-            enemyMinions = true;
-            break;
-        case HEROES:
-            hero = true;
-            enemyHero = true;
-            break;
-    }
-
-    if (friendlyMinions)
-    {
-        for (const auto& minion : player->GetFieldZone()->GetAll())
-        {
-            if (TargetingRequirements(_card, minion))
-            {
-                return true;
-            }
-        }
-    }
-
-    if (enemyMinions)
-    {
-        for (const auto& minion : player->opponent->GetFieldZone()->GetAll())
-        {
-            if (TargetingRequirements(_card, minion))
-            {
-                return true;
-            }
-        }
-    }
-
-    if (hero && TargetingRequirements(_card, player->GetHero()))
-    {
-        return true;
-    }
-
-    if (enemyHero && TargetingRequirements(_card, player->opponent->GetHero()))
-    {
-        return true;
-    }
-
-    return false;
+    return !_card->GetValidPlayTargets(player).empty();
 }
 
 bool Playable::CheckTargetingType(const Card* _card, Character* target) const

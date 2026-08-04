@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2024 Chris Ohk
 
 #include <Rosetta/PlayMode/Actions/CastSpell.hpp>
+#include <Rosetta/PlayMode/Actions/Choose.hpp>
 #include <Rosetta/PlayMode/Actions/Generic.hpp>
 #include <Rosetta/PlayMode/Actions/PlayCard.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
@@ -15,8 +16,32 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <effolkronium/random.hpp>
+
+using Random = effolkronium::random_static;
+
 namespace RosettaStone::PlayMode::Generic
 {
+namespace
+{
+bool CanPlayCard(Playable* source, Character* target, int chooseOne)
+{
+    if (!source->IsPlayableByPlayer())
+    {
+        return false;
+    }
+
+    if (source->card->GetCardType() == CardType::LOCATION)
+    {
+        return target == nullptr &&
+               source->card->IsPlayableByCardReq(source->player);
+    }
+
+    return source->IsPlayableByCardReq(chooseOne) &&
+           source->IsValidPlayTarget(target, chooseOne);
+}
+}  // namespace
+
 void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
               int chooseOne)
 {
@@ -26,16 +51,15 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Check battlefield is full
-    if (source->card->GetCardType() == CardType::MINION &&
+    if (const auto cardType = source->card->GetCardType();
+        (cardType == CardType::MINION || cardType == CardType::LOCATION) &&
         player->GetFieldZone()->IsFull())
     {
         return;
     }
 
     // Check if we can play this card and the target is valid
-    if (!source->IsPlayableByPlayer() ||
-        !source->IsPlayableByCardReq(chooseOne) ||
-        !source->IsValidPlayTarget(target, chooseOne))
+    if (!CanPlayCard(source, target, chooseOne))
     {
         return;
     }
@@ -116,10 +140,15 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             break;
         }
         case MINION:
-        case LOCATION:
         {
             const auto minion = dynamic_cast<Minion*>(source);
             PlayMinion(player, minion, target, fieldPos, chooseOne);
+            break;
+        }
+        case LOCATION:
+        {
+            const auto location = dynamic_cast<Location*>(source);
+            PlayLocation(player, location, fieldPos);
             break;
         }
         case SPELL:
@@ -171,8 +200,8 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
             std::map<GameTag, int> tags;
             tags.emplace(GameTag::GHOSTLY, 1);
 
-            Playable* playable = Entity::GetFromCard(
-                player, source->card, tags, player->GetHandZone());
+            Playable* playable = Entity::GetFromCard(player, source->card, tags,
+                                                     player->GetHandZone());
 
             AddCardToHand(player, playable);
 
@@ -183,7 +212,7 @@ void PlayCard(Player* player, Playable* source, Character* target, int fieldPos,
     }
 
     // Reset transformed/summoned minions
-    for (const auto& minion : player->GetFieldZone()->GetAll())
+    for (const auto& minion : player->GetFieldZone()->GetMinions())
     {
         minion->SetTransformed(false);
         minion->SetSummoned(false);
@@ -415,7 +444,7 @@ void PlaySpell(Player* player, Spell* spell, Character* target, int chooseOne)
     player->game->ProcessDestroyAndUpdateAura();
 
     // Store minions in field to process spellburst task
-    const auto minions = player->GetFieldZone()->GetAll();
+    const auto minions = player->GetFieldZone()->GetMinions();
 
     // Check spell is countered
     if (spell->IsCountered())
@@ -546,5 +575,111 @@ void PlayWeapon(Player* player, Weapon* weapon, Character* target)
     player->game->ProcessTasks();
     player->game->taskQueue.EndEvent();
     player->game->ProcessDestroyAndUpdateAura();
+}
+
+void PlayLocation(Player* player, Location* location, int fieldPos)
+{
+    player->GetFieldZone()->Add(location, fieldPos);
+
+    player->game->taskQueue.StartEvent();
+    player->game->triggerManager.OnPlayCardTrigger(location);
+    player->game->ProcessTasks();
+    player->game->taskQueue.EndEvent();
+    player->game->ProcessDestroyAndUpdateAura();
+}
+
+void ReplayCard(Player* player, Card* card)
+{
+    auto validTargets = card->GetValidPlayTargets(player);
+
+    if (card->mustHaveToTargetToPlay && validTargets.empty())
+    {
+        return;
+    }
+
+    Character* randTarget = nullptr;
+
+    if (!validTargets.empty())
+    {
+        const auto targetIdx =
+            Random::get<std::size_t>(0, validTargets.size() - 1);
+        randTarget = validTargets[targetIdx];
+    }
+
+    const auto chooseOneIdx = Random::get<int>(1, 2);
+    Entity* entity = Entity::GetFromCard(player, card);
+
+    using enum CardType;
+
+    switch (card->GetCardType())
+    {
+        case HERO:
+            PlayHero(player, dynamic_cast<Hero*>(entity), randTarget,
+                     chooseOneIdx);
+            break;
+        case MINION:
+            if (!player->GetFieldZone()->IsFull())
+            {
+                Summon(dynamic_cast<Minion*>(entity), -1, player);
+                player->game->ProcessDestroyAndUpdateAura();
+            }
+            break;
+        case LOCATION:
+            if (!player->GetFieldZone()->IsFull())
+            {
+                PlayLocation(player, dynamic_cast<Location*>(entity));
+            }
+            break;
+        case SPELL:
+            CastSpell(player, dynamic_cast<Spell*>(entity), randTarget,
+                      chooseOneIdx);
+
+            while (player->choice)
+            {
+                if (player->choice->choices.empty())
+                {
+                    player->choice.reset();
+                    break;
+                }
+
+                const auto choiceIdx = Random::get<std::size_t>(
+                    0, player->choice->choices.size() - 1);
+                ChoicePick(player, player->choice->choices[choiceIdx]);
+            }
+
+            player->game->ProcessDestroyAndUpdateAura();
+            break;
+        case WEAPON:
+        {
+            const auto weapon = dynamic_cast<Weapon*>(entity);
+
+            if (const auto aura = weapon->card->power.GetAura(); aura)
+            {
+                aura->Activate(weapon);
+            }
+
+            if (const auto trigger = weapon->card->power.GetTrigger(); trigger)
+            {
+                trigger->Activate(weapon);
+            }
+
+            player->GetHero()->AddWeapon(*weapon);
+            break;
+        }
+        case INVALID:
+        case GAME:
+        case PLAYER:
+        case ENCHANTMENT:
+        case ITEM:
+        case TOKEN:
+        case HERO_POWER:
+        case BLANK:
+        case GAME_MODE_BUTTON:
+        case MOVE_MINION_HOVER_TARGET:
+        case LETTUCE_ABILITY:
+        case BATTLEGROUND_HERO_BUDDY:
+        case BATTLEGROUND_QUEST_REWARD:
+            throw std::invalid_argument("ReplayCard() - Invalid card type!");
+    }
 }
 }  // namespace RosettaStone::PlayMode::Generic

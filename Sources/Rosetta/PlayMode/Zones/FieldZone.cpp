@@ -18,23 +18,74 @@ FieldZone::FieldZone(Player* player)
     m_player = player;
 }
 
+Minion* FieldZone::operator[](int zonePos)
+{
+    return dynamic_cast<Minion*>(
+        PositioningZone<Character>::operator[](zonePos));
+}
+
 int FieldZone::GetCountExceptUntouchables() const
 {
     return m_count - m_untouchableCount;
 }
 
-std::vector<Minion*> FieldZone::GetAll()
+int FieldZone::GetMinionCount() const
 {
-    return PositioningZone::GetAll();
+    int count = 0;
+
+    ForEach([&count](const Playable* entity) {
+        if (entity && !entity->isDestroyed &&
+            dynamic_cast<const Minion*>(entity))
+        {
+            ++count;
+        }
+    });
+
+    return count;
+}
+
+std::vector<Minion*> FieldZone::GetMinions() const
+{
+    std::vector<Minion*> minions;
+
+    for (const auto entity : PositioningZone::GetAll())
+    {
+        if (const auto minion = dynamic_cast<Minion*>(entity))
+        {
+            minions.emplace_back(minion);
+        }
+    }
+
+    return minions;
+}
+
+std::vector<Location*> FieldZone::GetLocations() const
+{
+    std::vector<Location*> locations;
+
+    for (const auto entity : PositioningZone::GetAll())
+    {
+        if (const auto location = dynamic_cast<Location*>(entity))
+        {
+            locations.emplace_back(location);
+        }
+    }
+
+    return locations;
 }
 
 void FieldZone::Add(Playable* entity, int zonePos)
 {
-    const auto minion = dynamic_cast<Minion*>(entity);
+    const auto character = dynamic_cast<Character*>(entity);
 
-    PositioningZone::Add(minion, zonePos);
+    PositioningZone::Add(character, zonePos);
 
-    if (minion->player == minion->game->GetCurrentPlayer())
+    if (const auto location = dynamic_cast<Location*>(character))
+    {
+        location->SetOnCooldown(true);
+    }
+    else if (const auto minion = dynamic_cast<Minion*>(character);
+             minion && minion->player == minion->game->GetCurrentPlayer())
     {
         if (!minion->HasCharge())
         {
@@ -51,14 +102,11 @@ void FieldZone::Add(Playable* entity, int zonePos)
         }
     }
 
-    minion->orderOfPlay = minion->game->GetNextOOP();
+    character->orderOfPlay = character->game->GetNextOOP();
 
-    ActivateAura(minion);
+    ActivateAura(character);
 
-    for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
-    {
-        adjacentAuras[i]->SetIsFieldChanged(true);
-    }
+    MarkAdjacentAurasDirty();
 
     entity->game->triggerManager.OnZoneTrigger(entity);
 
@@ -70,21 +118,18 @@ void FieldZone::Add(Playable* entity, int zonePos)
 
 Playable* FieldZone::Remove(Playable* entity)
 {
-    const auto minion = dynamic_cast<Minion*>(entity);
+    const auto character = dynamic_cast<Character*>(entity);
 
-    RemoveAura(minion);
+    RemoveAura(character);
 
-    for (int i = static_cast<int>(adjacentAuras.size()) - 1; i >= 0; --i)
-    {
-        adjacentAuras[i]->SetIsFieldChanged(true);
-    }
+    MarkAdjacentAurasDirty();
 
     if (entity->card->IsUntouchable())
     {
         --m_untouchableCount;
     }
 
-    return PositioningZone::Remove(minion);
+    return PositioningZone::Remove(character);
 }
 
 void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
@@ -127,10 +172,7 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
         aura->NotifyEntityAdded(newEntity);
     }
 
-    for (const auto& aura : adjacentAuras)
-    {
-        aura->SetIsFieldChanged(true);
-    }
+    MarkAdjacentAurasDirty();
 
     if (!newEntity->HasCharge())
     {
@@ -147,7 +189,7 @@ void FieldZone::Replace(Minion* oldEntity, Minion* newEntity)
     }
 }
 
-void FieldZone::ActivateAura(Minion* entity)
+void FieldZone::ActivateAura(Playable* entity)
 {
     if (entity->card->power.GetTrigger())
     {
@@ -160,7 +202,20 @@ void FieldZone::ActivateAura(Minion* entity)
     }
 }
 
-void FieldZone::RemoveAura(const Minion* entity)
+void FieldZone::AddAdjacentAura(AdjacentAura* aura)
+{
+    m_adjacentAuras.emplace_back(aura);
+}
+
+void FieldZone::MarkAdjacentAurasDirty() const
+{
+    for (const auto aura : m_adjacentAuras)
+    {
+        aura->SetIsFieldChanged(true);
+    }
+}
+
+void FieldZone::RemoveAura(const Playable* entity)
 {
     if (entity->ongoingEffect)
     {

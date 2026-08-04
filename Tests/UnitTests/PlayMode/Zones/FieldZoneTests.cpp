@@ -8,7 +8,9 @@
 
 #include <Utils/TestUtils.hpp>
 
+#include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Conditions/SelfCondition.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
@@ -43,7 +45,7 @@ TEST_CASE("[FieldZone] - GetAll")
                             std::nullopt, curPlayer->GetFieldZone());
     curField.Add(playable2);
 
-    auto minions = curField.GetAll();
+    auto minions = curField.GetMinions();
 
     CHECK_EQ(minions[0]->card->name, "Flame Imp");
     CHECK_EQ(minions[1]->card->name, "Wisp");
@@ -66,4 +68,85 @@ TEST_CASE("[FieldZone] - GetAll")
     curField.Add(untouchable);
     curField.Replace(untouchable, replacement);
     CHECK_EQ(curField.GetCountExceptUntouchables(), 3);
+}
+
+TEST_CASE("[FieldZone] - Location is a character, not a minion")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetCurrentPlayer();
+    Playable* locationEntity =
+        Entity::GetFromCard(player, Cards::FindCardByName("Great Hall"));
+    const auto location = dynamic_cast<Location*>(locationEntity);
+
+    CHECK(location);
+    CHECK_EQ(location->CanAttack(), false);
+    CHECK_EQ(dynamic_cast<Minion*>(locationEntity), nullptr);
+}
+
+TEST_CASE("[FieldZone] - Location is not an adjacent minion")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetCurrentPlayer();
+    player->SetTotalMana(10);
+
+    Playable* minion = Generic::DrawCard(player, Cards::FindCardByName("Wisp"));
+    Playable* location =
+        Generic::DrawCard(player, Cards::FindCardByName("Great Hall"));
+
+    game.Process(player, PlayCardTask::Minion(minion));
+    game.Process(player, PlayCardTask::Location(location));
+
+    const auto fieldMinion = dynamic_cast<Minion*>(minion);
+    CHECK(fieldMinion);
+    CHECK_EQ(fieldMinion->GetAdjacentMinions().empty(), true);
+}
+
+TEST_CASE("[FieldZone] - Location does not satisfy minion presence condition")
+{
+    GameConfig config;
+    config.player1Class = CardClass::PALADIN;
+    config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = false;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* player = game.GetCurrentPlayer();
+    player->SetTotalMana(10);
+    player->SetUsedMana(0);
+
+    Playable* location =
+        Generic::DrawCard(player, Cards::FindCardByName("Great Hall"));
+    Playable* minion = Generic::DrawCard(player, Cards::FindCardByName("Wisp"));
+
+    game.Process(player, PlayCardTask::Location(location));
+    CHECK_EQ(player->GetFieldZone()->GetLocations().size(), 1u);
+    CHECK_EQ(SelfCondition::IsFieldNotEmpty().Evaluate(location), false);
+
+    game.Process(player, PlayCardTask::Minion(minion));
+    CHECK_EQ(SelfCondition::IsFieldNotEmpty().Evaluate(location), true);
 }

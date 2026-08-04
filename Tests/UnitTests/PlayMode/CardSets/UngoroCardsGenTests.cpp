@@ -178,8 +178,8 @@ TEST_CASE("[Hunter : Minion] - UNG_914 : Raptor Hatchling")
 
     auto& curDeck = *(curPlayer->GetDeckZone());
 
-    const auto card1 = Generic::DrawCard(
-        curPlayer, Cards::FindCardByName("Raptor Hatchling"));
+    const auto card1 =
+        Generic::DrawCard(curPlayer, Cards::FindCardByName("Raptor Hatchling"));
     const auto card2 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Fireball"));
 
@@ -189,7 +189,6 @@ TEST_CASE("[Hunter : Minion] - UNG_914 : Raptor Hatchling")
     CHECK_EQ(curDeck.GetCount(), 1);
     CHECK_EQ(curDeck[0]->card->name, "Raptor Patriarch");
 }
-
 
 // ------------------------------------------ MINION - MAGE
 // [UNG_020] Arcanologist - COST:2 [ATK:2/HP:3]
@@ -376,9 +375,9 @@ TEST_CASE("[Rogue : Minion] - UNG_058 : Razorpetal Lasher")
 
     auto& curHand = *(curPlayer->GetHandZone());
 
-    const auto card1 =
-        Generic::DrawCard(curPlayer, Cards::FindCardByName("Razorpetal Lasher"));
-    
+    const auto card1 = Generic::DrawCard(
+        curPlayer, Cards::FindCardByName("Razorpetal Lasher"));
+
     game.Process(curPlayer, PlayCardTask::Minion(card1));
     CHECK_EQ(curHand.GetCount(), 5);
     CHECK_EQ(curHand[4]->card->name, "Razorpetal");
@@ -421,7 +420,7 @@ TEST_CASE("[Rogue : Spell] - UNG_057 : Razorpetal Volley")
     CHECK_EQ(curHand[5]->card->name, "Razorpetal");
 
     game.Process(curPlayer,
-        PlayCardTask::SpellTarget(curHand[4], opPlayer->GetHero()));
+                 PlayCardTask::SpellTarget(curHand[4], opPlayer->GetHero()));
     CHECK_EQ(opPlayer->GetHero()->GetHealth(), 29);
 }
 
@@ -562,7 +561,7 @@ TEST_CASE("[Neutral : Minion] - UNG_083 : Devilsaur Egg")
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Devilsaur Egg"));
-    const auto card2 = 
+    const auto card2 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wolfrider"));
 
     game.Process(curPlayer, PlayCardTask::Minion(card1));

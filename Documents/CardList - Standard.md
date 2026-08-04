@@ -1027,7 +1027,7 @@ REVENDRETH | REV_019 | Famished Fool | O
 REVENDRETH | REV_020 | Dinner Performer |  
 REVENDRETH | REV_021 | Kael'thas Sinstrider |  
 REVENDRETH | REV_022 | Murloc Holmes |  
-REVENDRETH | REV_023 | Demolition Renovator |  
+REVENDRETH | REV_023 | Demolition Renovator | O
 REVENDRETH | REV_238 | Theotar, the Mad Duke |  
 REVENDRETH | REV_239 | Suffocating Shadows |  
 REVENDRETH | REV_240 | Tome Tampering |  
@@ -1145,10 +1145,10 @@ REVENDRETH | REV_958 | Buffet Biggun |
 REVENDRETH | REV_959 | Ghastly Gravedigger |  
 REVENDRETH | REV_960 | Ashen Elemental |  
 REVENDRETH | REV_961 | Elitist Snob |  
-REVENDRETH | REV_983 | Great Hall |  
+REVENDRETH | REV_983 | Great Hall | O
 REVENDRETH | REV_990 | Sanguine Depths |  
 
-- Progress: 10% (17 of 170 Cards)
+- Progress: 11% (19 of 170 Cards)
 
 ## March of the Lich King
 

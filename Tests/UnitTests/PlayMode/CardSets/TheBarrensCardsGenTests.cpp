@@ -1268,7 +1268,7 @@ TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
     opPlayer->SetTotalMana(3);
     opPlayer->SetUsedMana(0);
 
-    auto& opField = *(opPlayer->GetFieldZone());
+    const auto& opField = *(opPlayer->GetFieldZone());
 
     const auto card1 =
         Generic::DrawCard(curPlayer, Cards::FindCardByName("Flurry (Rank 1)"));
@@ -1283,10 +1283,10 @@ TEST_CASE("[Mage : Spell] - BAR_305 : Flurry (Rank 1)")
     const auto card6 =
         Generic::DrawCard(opPlayer, Cards::FindCardByName("Wisp"));
 
-    auto NumFrozenMinions = [](FieldZone& field) -> int {
+    auto NumFrozenMinions = [](const FieldZone& field) -> int {
         int count = 0;
 
-        for (const auto& minion : field.GetAll())
+        for (const auto& minion : field.GetMinions())
         {
             if (minion->IsFrozen())
             {

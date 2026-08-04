@@ -26,6 +26,11 @@ PlayCardTask PlayCardTask::MinionTarget(Entity* source, Playable* target,
     return PlayCardTask(source, target, -1, chooseOne);
 }
 
+PlayCardTask PlayCardTask::Location(Entity* source)
+{
+    return PlayCardTask(source);
+}
+
 PlayCardTask PlayCardTask::Spell(Entity* source, int chooseOne)
 {
     return PlayCardTask(source, nullptr, -1, chooseOne);

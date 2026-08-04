@@ -1,4 +1,4 @@
-﻿// This code is based on Sabberstone project.
+// This code is based on Sabberstone project.
 // Copyright (c) 2017-2021 SabberStone Team, darkfriend77 & rnilva
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2024 Chris Ohk
@@ -5863,8 +5863,8 @@ void Expert1CardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            return playable->player->GetFieldZone()->GetCount() +
-                   playable->player->opponent->GetFieldZone()->GetCount();
+            return playable->player->GetFieldZone()->GetMinionCount() +
+                   playable->player->opponent->GetFieldZone()->GetMinionCount();
         }));
     cards.emplace("EX1_586", cardDef);
 

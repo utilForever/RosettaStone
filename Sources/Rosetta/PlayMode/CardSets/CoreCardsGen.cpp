@@ -1,4 +1,4 @@
-﻿// This code is based on Sabberstone project.
+// This code is based on Sabberstone project.
 // Copyright (c) 2017-2021 SabberStone Team, darkfriend77 & rnilva
 // RosettaStone is hearthstone simulator using C++ with reinforcement learning.
 // Copyright (c) 2017-2024 Chris Ohk
@@ -1482,95 +1482,7 @@ void CoreCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
             for (const auto& card : cardsOpPlayedLastTurn)
             {
-                auto validTargets = card->GetValidPlayTargets(player);
-                if (card->mustHaveToTargetToPlay && validTargets.empty())
-                {
-                    continue;
-                }
-
-                const auto targetIdx =
-                    Random::get<std::size_t>(0, validTargets.size() - 1);
-                const auto randTarget =
-                    validTargets.empty() ? nullptr : validTargets[targetIdx];
-                const auto chooseOneIdx = Random::get<int>(1, 2);
-
-                Entity* entity = Entity::GetFromCard(player, card);
-
-                switch (card->GetCardType())
-                {
-                    case CardType::HERO:
-                    {
-                        Generic::PlayHero(player, dynamic_cast<Hero*>(entity),
-                                          randTarget, chooseOneIdx);
-                        break;
-                    }
-                    case CardType::MINION:
-                    case CardType::LOCATION:
-                    {
-                        if (player->GetFieldZone()->IsFull())
-                        {
-                            break;
-                        }
-
-                        Generic::Summon(dynamic_cast<Minion*>(entity), -1,
-                                        player);
-
-                        player->game->ProcessDestroyAndUpdateAura();
-                        break;
-                    }
-                    case CardType::SPELL:
-                    {
-                        Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
-                                           randTarget, chooseOneIdx);
-
-                        while (player->choice)
-                        {
-                            const auto choiceIdx = Random::get<std::size_t>(
-                                0, player->choice->choices.size());
-                            Generic::ChoicePick(player,
-                                                static_cast<int>(choiceIdx));
-                        }
-
-                        player->game->ProcessDestroyAndUpdateAura();
-                        break;
-                    }
-                    case CardType::WEAPON:
-                    {
-                        const auto weapon = dynamic_cast<Weapon*>(entity);
-
-                        if (const auto aura = weapon->card->power.GetAura();
-                            aura)
-                        {
-                            aura->Activate(weapon);
-                        }
-
-                        if (const auto trigger =
-                                weapon->card->power.GetTrigger();
-                            trigger)
-                        {
-                            trigger->Activate(weapon);
-                        }
-
-                        player->GetHero()->AddWeapon(*weapon);
-                        break;
-                    }
-                    case CardType::INVALID:
-                    case CardType::GAME:
-                    case CardType::PLAYER:
-                    case CardType::ENCHANTMENT:
-                    case CardType::ITEM:
-                    case CardType::TOKEN:
-                    case CardType::HERO_POWER:
-                    case CardType::BLANK:
-                    case CardType::GAME_MODE_BUTTON:
-                    case CardType::MOVE_MINION_HOVER_TARGET:
-                    case CardType::LETTUCE_ABILITY:
-                    case CardType::BATTLEGROUND_HERO_BUDDY:
-                    case CardType::BATTLEGROUND_QUEST_REWARD:
-                        throw std::invalid_argument(
-                            "Murozond the Infinite (CORE_DRG_090) - Invalid "
-                            "card type!");
-                }
+                Generic::ReplayCard(player, card);
             }
         }));
     cards.emplace("CORE_DRG_090", cardDef);
@@ -2052,95 +1964,7 @@ void CoreCardsGen::AddRogue(std::map<std::string, CardDef>& cards)
 
             for (const auto& card : playedCards)
             {
-                auto validTargets = card->GetValidPlayTargets(player);
-                if (card->mustHaveToTargetToPlay && validTargets.empty())
-                {
-                    continue;
-                }
-
-                const auto targetIdx =
-                    Random::get<std::size_t>(0, validTargets.size() - 1);
-                const auto randTarget =
-                    validTargets.empty() ? nullptr : validTargets[targetIdx];
-                const auto chooseOneIdx = Random::get<int>(1, 2);
-
-                Entity* entity = Entity::GetFromCard(player, card);
-
-                switch (card->GetCardType())
-                {
-                    case CardType::HERO:
-                    {
-                        Generic::PlayHero(player, dynamic_cast<Hero*>(entity),
-                                          randTarget, chooseOneIdx);
-                        break;
-                    }
-                    case CardType::MINION:
-                    case CardType::LOCATION:
-                    {
-                        if (player->GetFieldZone()->IsFull())
-                        {
-                            break;
-                        }
-
-                        Generic::Summon(dynamic_cast<Minion*>(entity), -1,
-                                        player);
-
-                        player->game->ProcessDestroyAndUpdateAura();
-                        break;
-                    }
-                    case CardType::SPELL:
-                    {
-                        Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
-                                           randTarget, chooseOneIdx);
-
-                        while (player->choice)
-                        {
-                            const auto choiceIdx = Random::get<std::size_t>(
-                                0, player->choice->choices.size());
-                            Generic::ChoicePick(player,
-                                                static_cast<int>(choiceIdx));
-                        }
-
-                        player->game->ProcessDestroyAndUpdateAura();
-                        break;
-                    }
-                    case CardType::WEAPON:
-                    {
-                        const auto weapon = dynamic_cast<Weapon*>(entity);
-
-                        if (const auto aura = weapon->card->power.GetAura();
-                            aura)
-                        {
-                            aura->Activate(weapon);
-                        }
-
-                        if (const auto trigger =
-                                weapon->card->power.GetTrigger();
-                            trigger)
-                        {
-                            trigger->Activate(weapon);
-                        }
-
-                        player->GetHero()->AddWeapon(*weapon);
-                        break;
-                    }
-                    case CardType::INVALID:
-                    case CardType::GAME:
-                    case CardType::PLAYER:
-                    case CardType::ENCHANTMENT:
-                    case CardType::ITEM:
-                    case CardType::TOKEN:
-                    case CardType::HERO_POWER:
-                    case CardType::BLANK:
-                    case CardType::GAME_MODE_BUTTON:
-                    case CardType::MOVE_MINION_HOVER_TARGET:
-                    case CardType::LETTUCE_ABILITY:
-                    case CardType::BATTLEGROUND_HERO_BUDDY:
-                    case CardType::BATTLEGROUND_QUEST_REWARD:
-                        throw std::invalid_argument(
-                            "Tess Greymane (CORE_GIL_598) - Invalid card "
-                            "type!");
-                }
+                Generic::ReplayCard(player, card);
             }
 
             return 0;
@@ -4206,8 +4030,8 @@ void CoreCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
     cardDef.ClearData();
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            return playable->player->GetFieldZone()->GetCount() +
-                   playable->player->opponent->GetFieldZone()->GetCount();
+            return playable->player->GetFieldZone()->GetMinionCount() +
+                   playable->player->opponent->GetFieldZone()->GetMinionCount();
         }));
     cards.emplace("CORE_EX1_586", cardDef);
 

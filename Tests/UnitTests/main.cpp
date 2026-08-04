@@ -12,9 +12,9 @@
 
 using namespace RosettaStone;
 
-int main()
+int main(int argc, char** argv)
 {
-    doctest::Context context;
+    doctest::Context context(argc, argv);
 
     PlayMode::Cards::GetInstance();
     Battlegrounds::Cards::GetInstance();

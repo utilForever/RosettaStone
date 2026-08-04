@@ -64,7 +64,7 @@ void EraseIf(ContainerT& items, const PredicateT& predicate)
 //! \return A list of N distinct elements.
 template <typename T, std::size_t N>
 std::vector<std::remove_cv_t<T>> ChooseNElements(std::span<T, N> list,
-                                                std::size_t amount)
+                                                 std::size_t amount)
 {
     std::vector<std::remove_cv_t<T>> results(list.begin(), list.end());
 

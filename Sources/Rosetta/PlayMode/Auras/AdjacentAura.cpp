@@ -76,9 +76,8 @@ void AdjacentAura::Update()
 
     if (!m_left && pos > 0)
     {
-        Minion* left = (*m_fieldZone)[pos - 1];
-
-        if (!left->GetGameTag(GameTag::UNTOUCHABLE))
+        if (const auto left = (*m_fieldZone)[pos - 1];
+            left && !left->GetGameTag(GameTag::UNTOUCHABLE))
         {
             Apply(left);
             m_left = left;
@@ -98,9 +97,8 @@ void AdjacentAura::Update()
 
     if (!m_right && pos < m_fieldZone->GetCount() - 1)
     {
-        Minion* right = (*m_fieldZone)[pos + 1];
-
-        if (!right->GetGameTag(GameTag::UNTOUCHABLE))
+        if (const auto right = (*m_fieldZone)[pos + 1];
+            right && !right->GetGameTag(GameTag::UNTOUCHABLE))
         {
             Apply(right);
             m_right = right;
@@ -184,7 +182,7 @@ AdjacentAura::AdjacentAura(const AdjacentAura& prototype, Minion& owner,
 
     owner.ongoingEffect = this;
     m_fieldZone = owner.player->GetFieldZone();
-    m_fieldZone->adjacentAuras.emplace_back(this);
+    m_fieldZone->AddAdjacentAura(this);
 
     if (cloning)
     {

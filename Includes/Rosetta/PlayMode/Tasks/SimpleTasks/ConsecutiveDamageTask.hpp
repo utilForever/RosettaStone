@@ -18,7 +18,8 @@ namespace RosettaStone::PlayMode::SimpleTasks
 class ConsecutiveDamageTask : public ITask
 {
  public:
-    //! Constructs task with given \p entityType, \p damages and \p isSpellDamage.
+    //! Constructs task with given \p entityType, \p damages and \p
+    //! isSpellDamage.
     //! \param entityType The entity type of target to take damages.
     //! \param damages A list of values indicating how much to take.
     //! \param isSpellDamage true if it is spell damage, and false otherwise.

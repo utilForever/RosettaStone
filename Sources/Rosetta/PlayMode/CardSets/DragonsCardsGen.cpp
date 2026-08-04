@@ -517,7 +517,7 @@ void DragonsCardsGen::AddDruid(std::map<std::string, CardDef>& cards)
     cardDef.power.AddPowerTask(std::make_shared<DrawTask>(2));
     cardDef.power.AddAura(
         std::make_shared<AdaptiveCostEffect>([](const Playable* playable) {
-            const auto minions = playable->player->GetFieldZone()->GetAll();
+            const auto minions = playable->player->GetFieldZone()->GetMinions();
             int numTreants = 0;
 
             for (auto& minion : minions)
@@ -1143,9 +1143,8 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                         break;
                     }
 
-                    const int targetPos = minion->GetZonePosition();
-
-                    if (isLeft && targetPos > 0)
+                    if (const int targetPos = minion->GetZonePosition();
+                        isLeft && targetPos > 0)
                     {
                         minion = (*fieldZone)[targetPos - 1];
                     }
@@ -1154,6 +1153,11 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                         minion = (*fieldZone)[targetPos + 1];
                     }
                     else
+                    {
+                        break;
+                    }
+
+                    if (!minion)
                     {
                         break;
                     }
@@ -1185,7 +1189,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     {
                         left = (*fieldZone)[targetPos - 1];
 
-                        if (!left->IsUntouchable())
+                        if (left && !left->IsUntouchable())
                         {
                             includeLeft = true;
                             ++count;
@@ -1195,7 +1199,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                         {
                             right = (*fieldZone)[targetPos + 1];
 
-                            if (!right->IsUntouchable())
+                            if (right && !right->IsUntouchable())
                             {
                                 includeRight = true;
                                 ++count;
@@ -1206,7 +1210,7 @@ void DragonsCardsGen::AddMage(std::map<std::string, CardDef>& cards)
                     {
                         right = (*fieldZone)[targetPos + 1];
 
-                        if (!right->IsUntouchable())
+                        if (right && !right->IsUntouchable())
                         {
                             includeRight = true;
                             ++count;
@@ -1832,91 +1836,7 @@ void DragonsCardsGen::AddPriest(std::map<std::string, CardDef>& cards)
 
         for (const auto& card : cardsOpPlayedLastTurn)
         {
-            auto validTargets = card->GetValidPlayTargets(player);
-            if (card->mustHaveToTargetToPlay && validTargets.empty())
-            {
-                continue;
-            }
-
-            const auto targetIdx =
-                Random::get<std::size_t>(0, validTargets.size() - 1);
-            const auto randTarget =
-                validTargets.empty() ? nullptr : validTargets[targetIdx];
-            const auto chooseOneIdx = Random::get<int>(1, 2);
-
-            Entity* entity = Entity::GetFromCard(player, card);
-
-            switch (card->GetCardType())
-            {
-                case CardType::HERO:
-                {
-                    Generic::PlayHero(player, dynamic_cast<Hero*>(entity),
-                                      randTarget, chooseOneIdx);
-                    break;
-                }
-                case CardType::MINION:
-                case CardType::LOCATION:
-                {
-                    if (player->GetFieldZone()->IsFull())
-                    {
-                        break;
-                    }
-
-                    Generic::Summon(dynamic_cast<Minion*>(entity), -1, player);
-
-                    player->game->ProcessDestroyAndUpdateAura();
-                    break;
-                }
-                case CardType::SPELL:
-                {
-                    Generic::CastSpell(player, dynamic_cast<Spell*>(entity),
-                                       randTarget, chooseOneIdx);
-
-                    while (player->choice)
-                    {
-                        const auto choiceIdx = Random::get<std::size_t>(
-                            0, player->choice->choices.size());
-                        Generic::ChoicePick(player,
-                                            static_cast<int>(choiceIdx));
-                    }
-
-                    player->game->ProcessDestroyAndUpdateAura();
-                    break;
-                }
-                case CardType::WEAPON:
-                {
-                    const auto weapon = dynamic_cast<Weapon*>(entity);
-
-                    if (const auto aura = weapon->card->power.GetAura(); aura)
-                    {
-                        aura->Activate(weapon);
-                    }
-
-                    if (const auto trigger = weapon->card->power.GetTrigger();
-                        trigger)
-                    {
-                        trigger->Activate(weapon);
-                    }
-
-                    player->GetHero()->AddWeapon(*weapon);
-                    break;
-                }
-                case CardType::INVALID:
-                case CardType::GAME:
-                case CardType::PLAYER:
-                case CardType::ENCHANTMENT:
-                case CardType::ITEM:
-                case CardType::TOKEN:
-                case CardType::HERO_POWER:
-                case CardType::BLANK:
-                case CardType::GAME_MODE_BUTTON:
-                case CardType::MOVE_MINION_HOVER_TARGET:
-                case CardType::LETTUCE_ABILITY:
-                case CardType::BATTLEGROUND_HERO_BUDDY:
-                case CardType::BATTLEGROUND_QUEST_REWARD:
-                    throw std::invalid_argument(
-                        "Murozond the Infinite (DRG_090) - Invalid card type!");
-            }
+            Generic::ReplayCard(player, card);
         }
     }));
     cards.emplace("DRG_090", cardDef);
@@ -3276,14 +3196,12 @@ void DragonsCardsGen::AddWarrior(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     cardDef.ClearData();
     cardDef.power.AddPowerTask(std::make_shared<CustomTask>(
-        [](const Player* player, [[maybe_unused]] Entity* source,
+        [](const Player* player, Entity* source,
            [[maybe_unused]] Playable* target) {
-            auto enemyMinions = player->opponent->GetFieldZone()->GetAll();
+            auto enemyMinions = player->opponent->GetFieldZone()->GetMinions();
             Random::shuffle(enemyMinions.begin(), enemyMinions.end());
 
-            auto& curField = *(player->GetFieldZone());
-            const auto deathwing =
-                curField[player->GetFieldZone()->GetCount() - 1];
+            const auto deathwing = dynamic_cast<Minion*>(source);
 
             for (const auto& minion : enemyMinions)
             {
@@ -4000,7 +3918,8 @@ void DragonsCardsGen::AddNeutral(std::map<std::string, CardDef>& cards)
         GameTag::ATK, EffectOperator::ADD, [](const Playable* playable) {
             int numDreadRaven = 0;
 
-            for (const auto& card : playable->player->GetFieldZone()->GetAll())
+            for (const auto& card :
+                 playable->player->GetFieldZone()->GetMinions())
             {
                 if (card->card->id == "DRG_088")
                 {

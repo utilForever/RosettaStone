@@ -29,7 +29,8 @@ class SummonTask : public ITask
     //! \param amount The number of minions to summon.
     explicit SummonTask(SummonSide side = SummonSide::DEFAULT,
                         std::optional<Card*> card = std::nullopt,
-                        bool removeFromStack = false, bool addToStack = false, int amount = 1);
+                        bool removeFromStack = false, bool addToStack = false,
+                        int amount = 1);
 
     //! Constructs task with given \p cardID, \p side and \p addToStack.
     //! \param cardID The card ID to summon.
