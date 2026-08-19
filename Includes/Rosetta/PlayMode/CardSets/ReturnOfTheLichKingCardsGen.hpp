@@ -132,6 +132,16 @@ class ReturnOfTheLichKingCardsGen
     //! play requirements and entourages.
     static void AddDemonHunterNonCollect(std::map<std::string, CardDef>& cards);
 
+    //! Adds death knight cards that are collectible to \p cards.
+    //! \param cards A list of cards to store the data such as powers,
+    //! play requirements and entourages.
+    static void AddDeathKnight(std::map<std::string, CardDef>& cards);
+
+    //! Adds death knight cards that are not collectible to \p cards.
+    //! \param cards A list of cards to store the data such as powers,
+    //! play requirements and entourages.
+    static void AddDeathKnightNonCollect(std::map<std::string, CardDef>& cards);
+
     //! Adds neutral cards that are not collectible to \p cards.
     //! \param cards A list of cards to store the data such as powers,
     //! play requirements and entourages.
