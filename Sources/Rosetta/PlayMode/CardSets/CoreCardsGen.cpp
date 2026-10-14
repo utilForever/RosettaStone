@@ -4828,6 +4828,16 @@ void CoreCardsGen::AddNeutralNonCollect(std::map<std::string, CardDef>& cards)
     // --------------------------------------------------------
     // Text: Turns are 15 seconds long.
     // --------------------------------------------------------
+
+    // ---------------------------------------- SPELL - NEUTRAL
+    // [GAME_005] The Coin - COST:0
+    // - Set: CORE
+    // --------------------------------------------------------
+    // Text: Gain 1 Mana Crystal this turn only.
+    // --------------------------------------------------------
+    cardDef.ClearData();
+    cardDef.power.AddPowerTask(std::make_shared<TempManaTask>(1));
+    cards.emplace("GAME_005", cardDef);
 }
 
 void CoreCardsGen::AddAll(std::map<std::string, CardDef>& cards)
