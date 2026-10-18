@@ -17,6 +17,11 @@ ChooseTask::ChooseTask(std::vector<int> choices) : m_choices(std::move(choices))
     // Do nothing
 }
 
+std::size_t ChooseTask::GetChoiceCount() const
+{
+    return m_choices.size();
+}
+
 ChooseTask ChooseTask::Mulligan(Player*, std::vector<int> choices)
 {
     return ChooseTask(std::move(choices));

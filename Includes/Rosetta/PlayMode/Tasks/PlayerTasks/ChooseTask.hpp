@@ -8,6 +8,7 @@
 
 #include <Rosetta/PlayMode/Tasks/ITask.hpp>
 
+#include <cstddef>
 #include <vector>
 
 namespace RosettaStone::PlayMode::PlayerTasks
@@ -23,6 +24,10 @@ class ChooseTask : public ITask
     //! Construct task with given \p choices.
     //! \param choices A container of card to choose.
     explicit ChooseTask(std::vector<int> choices);
+
+    //! Returns the number of selected entity IDs.
+    //! \return The number of choices stored in this task.
+    std::size_t GetChoiceCount() const;
 
     //! ChooseTask wrapper for mulligan.
     //! \param player The player to run task.

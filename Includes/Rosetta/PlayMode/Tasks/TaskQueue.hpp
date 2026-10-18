@@ -32,6 +32,10 @@ class TaskQueue
     //! \return Flag that indicates task queue is empty.
     bool IsEmpty();
 
+    //! Returns whether no queued tasks or open events remain.
+    //! \return True if all queues are empty and no event is open.
+    bool IsIdle() const;
+
     //! Starts the event.
     void StartEvent();
 

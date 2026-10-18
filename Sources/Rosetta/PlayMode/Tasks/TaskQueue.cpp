@@ -17,6 +17,11 @@ bool TaskQueue::IsEmpty()
     return m_eventFlag || GetCurrentQueue().empty();
 }
 
+bool TaskQueue::IsIdle() const
+{
+    return !m_eventFlag && m_eventStack.empty() && m_baseQueue.empty();
+}
+
 void TaskQueue::StartEvent()
 {
     m_eventFlag = true;

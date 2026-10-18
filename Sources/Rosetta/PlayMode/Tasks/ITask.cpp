@@ -35,9 +35,19 @@ void ITask::SetPlayer(Player* player)
     m_player = player;
 }
 
+const Entity* ITask::GetSource() const
+{
+    return m_source;
+}
+
 void ITask::SetSource(Entity* source)
 {
     m_source = source;
+}
+
+const Playable* ITask::GetTarget() const
+{
+    return m_target;
 }
 
 void ITask::SetTarget(Playable* target)
