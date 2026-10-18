@@ -57,13 +57,14 @@ TaskStatus RandomMinionTask::Impl(Player* player)
             }
             else
             {
+                const int tag = card->HasGameTag(gameTag)
+                                    ? card->gameTags.at(gameTag)
+                                    : 0;
+
                 if (card->GetCardType() != CardType::MINION ||
-                    ((relaSign == RelaSign::EQ &&
-                      card->gameTags[gameTag] != value) ||
-                     (relaSign == RelaSign::GEQ &&
-                      card->gameTags[gameTag] <= value) ||
-                     (relaSign == RelaSign::LEQ &&
-                      card->gameTags[gameTag] >= value)))
+                    ((relaSign == RelaSign::EQ && tag != value) ||
+                     (relaSign == RelaSign::GEQ && tag <= value) ||
+                     (relaSign == RelaSign::LEQ && tag >= value)))
                 {
                     check = false;
                     break;

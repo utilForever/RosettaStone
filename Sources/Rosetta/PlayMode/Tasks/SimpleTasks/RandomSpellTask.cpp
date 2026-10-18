@@ -114,9 +114,11 @@ std::unique_ptr<ITask> RandomSpellTask::CloneImpl()
 
 bool RandomSpellTask::Evaluate(Card* card) const
 {
-    if ((m_relaSign == RelaSign::EQ && card->gameTags[m_gameTag] == m_value) ||
-        (m_relaSign == RelaSign::GEQ && card->gameTags[m_gameTag] >= m_value) ||
-        (m_relaSign == RelaSign::LEQ && card->gameTags[m_gameTag] <= m_value))
+    const int tag = card->HasGameTag(m_gameTag) ? card->gameTags.at(m_gameTag) : 0;
+
+    if ((m_relaSign == RelaSign::EQ && tag == m_value) ||
+        (m_relaSign == RelaSign::GEQ && tag >= m_value) ||
+        (m_relaSign == RelaSign::LEQ && tag <= m_value))
     {
         return true;
     }
