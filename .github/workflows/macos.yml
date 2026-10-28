@@ -58,7 +58,8 @@ jobs:
       - name: Configure Compiler
         run: |
           if [ "${{ matrix.compiler }}" = "gcc" ]; then
-            echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
+            # CPython's macOS logging requires Apple Clang for C sources.
+            echo "CC=/usr/bin/clang" >> $GITHUB_ENV
             echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
           else
             ls -ls /Applications/
