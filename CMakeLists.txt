@@ -30,6 +30,16 @@ find_package(doctest CONFIG REQUIRED)
 find_package(effolkronium_random CONFIG REQUIRED)
 find_package(lyra CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
+
+if (BUILD_FROM_PIP)
+    # vcpkg's Python wrapper can select headers from a different interpreter.
+    if (COMMAND _find_package)
+        _find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
+    else()
+        find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
+    endif()
+endif()
+
 find_package(pybind11 CONFIG REQUIRED)
 
 # Compile options
