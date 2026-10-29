@@ -47,7 +47,7 @@ jobs:
         run: /a/RosettaStone/RosettaStone/build/bin/Release/UnitTests.exe
       - name: Run Python Test
         run: |
-          python -m pip install --upgrade pip==26.1.2
-          python -m pip install -r requirements.txt
+          python -m pip install --only-binary=:all: --upgrade pip==26.1.2
+          python -m pip install --only-binary=:all: -r requirements.txt
           python -m pip install --no-build-isolation --no-deps .
           python -m pytest Tests/PythonTests/
