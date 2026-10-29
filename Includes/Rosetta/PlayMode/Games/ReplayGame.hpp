@@ -38,6 +38,7 @@ class ReplayGame
 
     //! Records and executes a built-in player task for the current player.
     //! Custom tasks and pointers belonging to another game are rejected.
+    //! Choices must contain exactly one offered entity ID.
     //! \param task The player task to record and execute.
     //! \return The play states of player 1 and player 2, in that order.
     std::tuple<PlayState, PlayState> Process(ITask&& task);

@@ -518,9 +518,17 @@ TEST_CASE("[ReplayGame] - PendingChoices")
     parent.Process(PlayCardTask(InHand(parent, "LOE_023")));
 
     REQUIRE(parent.GetCurrentPlayer()->choice);
+
+    const auto before = StateOf(parent);
+    const auto choices = parent.GetCurrentPlayer()->choice->choices;
+
     CHECK_THROWS_AS(parent.Branch(), std::logic_error);
     CHECK_THROWS_AS(parent.Process(EndTurnTask()), std::logic_error);
     CHECK_THROWS_AS(parent.Process(ChooseTask({})), std::invalid_argument);
+    CHECK_THROWS_AS(parent.Process(ChooseTask({ -1 })), std::invalid_argument);
+    CHECK_EQ(StateOf(parent), before);
+    REQUIRE(parent.GetCurrentPlayer()->choice);
+    CHECK(parent.GetCurrentPlayer()->choice->choices == choices);
 
     parent.Process(
         ChooseTask({ parent.GetCurrentPlayer()->choice->choices[0] }));

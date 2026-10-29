@@ -10,6 +10,7 @@
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayLocationTask.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/TradeCardTask.hpp>
 
+#include <algorithm>
 #include <stdexcept>
 #include <typeinfo>
 #include <utility>
@@ -129,10 +130,16 @@ std::tuple<PlayState, PlayState> ReplayGame::Process(ITask&& task)
         throw std::logic_error("Resolve the current player's choice first");
     }
 
-    if (type == typeid(ChooseTask) &&
-        static_cast<const ChooseTask&>(task).GetChoiceCount() != 1)
+    if (type == typeid(ChooseTask))
     {
-        throw std::invalid_argument("Choose exactly one offered entity ID");
+        const auto& choices = static_cast<const ChooseTask&>(task).GetChoices();
+
+        if (choices.size() != 1 ||
+            std::ranges::find(player->choice->choices, choices.front()) ==
+                player->choice->choices.end())
+        {
+            throw std::invalid_argument("Choose exactly one offered entity ID");
+        }
     }
 
     const auto* source = task.GetSource();
