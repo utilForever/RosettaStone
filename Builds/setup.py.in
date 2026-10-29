@@ -3,6 +3,7 @@
 import os
 import re
 import sys
+import sysconfig
 import platform
 import subprocess
 import multiprocessing
@@ -53,6 +54,12 @@ class CMakeBuild(build_ext):
             cmake_args += ['-DCMAKE_TOOLCHAIN_FILE=' + toolchain]
 
         if platform.system() == "Windows":
+            # Use this interpreter's import library, including inside a venv.
+            library_name = sysconfig.get_config_var('LIBRARY') or 'python{}{}'.format(
+                *sys.version_info[:2])
+            python_library = os.path.join(
+                sys.base_prefix, 'libs', os.path.splitext(library_name)[0] + '.lib')
+            cmake_args += ['-DPython_LIBRARY=' + python_library]
             cmake_args += ['-DROSETTASTONE_ENABLE_MSVC_LTCG=OFF']
             cmake_args += [
                 '-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{}={}'.format(cfg.upper(), extdir)]
