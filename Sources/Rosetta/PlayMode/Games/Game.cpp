@@ -23,6 +23,7 @@
 #include <effolkronium/random.hpp>
 
 #include <algorithm>
+#include <utility>
 
 using Random = effolkronium::random_static;
 using namespace RosettaStone::PlayMode::PlayerTasks;
@@ -627,28 +628,34 @@ void Game::ProcessTasks()
 
 void Game::ProcessDestroyAndUpdateAura()
 {
-    UpdateAura();
-
-    // Process summoned minions
-    taskQueue.StartEvent();
-    for (const auto& minion : summonedMinions)
-    {
-        triggerManager.OnSummonTrigger(minion);
-    }
-    summonedMinions.clear();
-    ProcessTasks();
-    taskQueue.EndEvent();
-
-    taskQueue.StartEvent();
     do
     {
-        ProcessGraveyard();
-        ProcessTasks();
-        ProcessReborn();
-    } while (!deadMinions.empty());
-    taskQueue.EndEvent();
+        UpdateAura();
 
-    UpdateAura();
+        // New summons from triggers belong to the next batch.
+        const auto pendingSummons = std::exchange(summonedMinions, {});
+
+        taskQueue.StartEvent();
+
+        for (const auto& minion : pendingSummons)
+        {
+            triggerManager.OnSummonTrigger(minion);
+        }
+        ProcessTasks();
+        taskQueue.EndEvent();
+
+        taskQueue.StartEvent();
+        do
+        {
+            ProcessGraveyard();
+            ProcessTasks();
+            ProcessReborn();
+        } while (!deadMinions.empty());
+        taskQueue.EndEvent();
+
+        UpdateAura();
+    } while (!summonedMinions.empty() || !deadMinions.empty() ||
+             !rebornMinions.empty());
 }
 
 void Game::ProcessGraveyard()

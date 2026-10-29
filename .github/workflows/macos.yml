@@ -58,7 +58,8 @@ jobs:
       - name: Configure Compiler
         run: |
           if [ "${{ matrix.compiler }}" = "gcc" ]; then
-            echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
+            # CPython's macOS logging requires Apple Clang for C sources.
+            echo "CC=/usr/bin/clang" >> $GITHUB_ENV
             echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
           else
             ls -ls /Applications/
@@ -74,7 +75,7 @@ jobs:
         run: /Users/runner/work/RosettaStone/RosettaStone/build/bin/UnitTests
       - name: Run Python Test
         run: |
-          python -m pip install --upgrade pip==26.1.2
-          python -m pip install -r requirements.txt
+          python -m pip install --only-binary=:all: --upgrade pip==26.1.2
+          python -m pip install --only-binary=:all: -r requirements.txt
           python -m pip install --no-build-isolation --no-deps .
           python -m pytest Tests/PythonTests/

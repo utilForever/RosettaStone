@@ -146,6 +146,7 @@
 #include <Rosetta/PlayMode/Enchants/SwapCostEnchant.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
+#include <Rosetta/PlayMode/Games/ReplayGame.hpp>
 #include <Rosetta/PlayMode/Loaders/CardLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/InternalCardLoader.hpp>
 #include <Rosetta/PlayMode/Loaders/TargetingPredicates.hpp>

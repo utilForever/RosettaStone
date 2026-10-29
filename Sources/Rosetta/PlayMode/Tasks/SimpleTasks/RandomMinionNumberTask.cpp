@@ -30,8 +30,11 @@ TaskStatus RandomMinionNumberTask::Impl(Player* player)
 
     for (const auto& card : cards)
     {
-        if (card->GetCardType() == CardType::MINION &&
-            card->gameTags[m_gameTag] == num)
+        const int tag = card->HasGameTag(m_gameTag)
+                            ? card->gameTags.at(m_gameTag)
+                            : 0;
+
+        if (card->GetCardType() == CardType::MINION && tag == num)
         {
             cardsList.emplace_back(card);
         }

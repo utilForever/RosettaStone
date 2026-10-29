@@ -52,7 +52,8 @@ std::shared_ptr<Enchantment> Enchantment::GetInstance(Playable* owner,
 
     target->appliedEnchantments.emplace_back(instance);
 
-    if (_card->gameTags[TAG_ONE_TURN_EFFECT] == 1)
+    if (_card->HasGameTag(TAG_ONE_TURN_EFFECT) &&
+        _card->gameTags.at(TAG_ONE_TURN_EFFECT) == 1)
     {
         instance->m_isOneTurnActive = true;
         owner->game->oneTurnEffectEnchantments.emplace_back(instance);

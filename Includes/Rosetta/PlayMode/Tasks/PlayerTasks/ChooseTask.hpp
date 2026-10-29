@@ -24,6 +24,10 @@ class ChooseTask : public ITask
     //! \param choices A container of card to choose.
     explicit ChooseTask(std::vector<int> choices);
 
+    //! Returns the selected entity IDs.
+    //! \return The choices stored in this task.
+    const std::vector<int>& GetChoices() const;
+
     //! ChooseTask wrapper for mulligan.
     //! \param player The player to run task.
     //! \param choices A container of card to choose.

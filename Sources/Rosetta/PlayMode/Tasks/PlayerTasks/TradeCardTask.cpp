@@ -4,6 +4,7 @@
 // Copyright (c) 2017-2024 Chris Ohk
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
+#include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Player.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/TradeCardTask.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
@@ -33,6 +34,8 @@ TaskStatus TradeCardTask::Impl(Player* player)
         player->GetDeckZone()->Add(tradeCard);
 
         Generic::Draw(player, topCard);
+
+        player->game->ProcessDestroyAndUpdateAura();
     }
 
     return TaskStatus::COMPLETE;

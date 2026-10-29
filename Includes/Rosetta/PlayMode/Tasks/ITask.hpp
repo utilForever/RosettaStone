@@ -66,9 +66,17 @@ class ITask
     //! \param player The player to run task.
     void SetPlayer(Player* player);
 
+    //! Returns the source for inspection.
+    //! \return The source entity, or nullptr if none is set.
+    const Entity* GetSource() const;
+
     //! Sets the source.
     //! \param source The source.
     void SetSource(Entity* source);
+
+    //! Returns the target for inspection.
+    //! \return The target entity, or nullptr if none is set.
+    const Playable* GetTarget() const;
 
     //! Sets the target.
     //! \param target The target.

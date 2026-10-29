@@ -17,6 +17,11 @@ ChooseTask::ChooseTask(std::vector<int> choices) : m_choices(std::move(choices))
     // Do nothing
 }
 
+const std::vector<int>& ChooseTask::GetChoices() const
+{
+    return m_choices;
+}
+
 ChooseTask ChooseTask::Mulligan(Player*, std::vector<int> choices)
 {
     return ChooseTask(std::move(choices));
