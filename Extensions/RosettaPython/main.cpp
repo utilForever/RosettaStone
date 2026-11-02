@@ -4,6 +4,8 @@
 // personal capacity and are not conveying any rights to any intellectual
 // property of any third parties.
 
+#include <Python/PlayMode/Actions/PlayerAction.hpp>
+
 #include <Python/PlayMode/Cards/Card.hpp>
 #include <Python/PlayMode/Cards/Cards.hpp>
 
@@ -28,6 +30,9 @@ PYBIND11_MODULE(pyRosetta, m)
 {
     m.doc() =
         R"pbdoc(Hearthstone simulator with some reinforcement learning)pbdoc";
+
+    // Actions
+    AddPlayerAction(m);
 
     // Cards
     AddCard(m);
