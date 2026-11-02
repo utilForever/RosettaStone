@@ -20,7 +20,8 @@ void AddPlayerAction(pybind11::module& m)
         m, "PlayerAction",
         R"pbdoc(A semantic player decision with game-local entity IDs.
         Values compare lexicographically by type, source_id, target_id,
-        field_pos, choose_one, and choice_id.)pbdoc")
+        field_pos, choose_one, and choice_id. Game execution and action
+        enumeration are currently available through the C++ API.)pbdoc")
         .def(pybind11::init<PlayerActionType, int, int, int, int, int>(),
              pybind11::arg("type") = PlayerActionType::END_TURN,
              pybind11::arg("source_id") = -1, pybind11::arg("target_id") = -1,

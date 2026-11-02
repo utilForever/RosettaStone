@@ -189,6 +189,11 @@ Player* Game::GetCurrentPlayer()
     return &m_players[1];
 }
 
+const Player* Game::GetCurrentPlayer() const
+{
+    return &m_players[m_currentPlayer == PlayerType::PLAYER1 ? 0 : 1];
+}
+
 void Game::SetCurrentPlayer(PlayerType playerType)
 {
     m_currentPlayer = playerType;
