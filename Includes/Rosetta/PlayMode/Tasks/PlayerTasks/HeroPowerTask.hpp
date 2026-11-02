@@ -22,6 +22,18 @@ class HeroPowerTask : public ITask
     //! \param target A pointer to target entity to receive power.
     explicit HeroPowerTask(Playable* target = nullptr);
 
+    //! Resolves any forced target used by this hero power.
+    //! \param player The player using the hero power.
+    //! \param target The requested target, or nullptr.
+    //! \return The target that the task will actually use.
+    static Character* ResolveTarget(const Player* player, Character* target);
+
+    //! Checks the same availability and target rules used by this task.
+    //! \param player The player using the hero power.
+    //! \param target The requested target, or nullptr.
+    //! \return Whether the hero power can be used.
+    static bool CanPlay(const Player* player, Character* target);
+
  private:
     //! Processes task logic internally and returns meta data.
     //! \param player The player to run task.

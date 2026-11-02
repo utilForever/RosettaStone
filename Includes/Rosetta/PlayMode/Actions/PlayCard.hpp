@@ -14,6 +14,13 @@
 
 namespace RosettaStone::PlayMode::Generic
 {
+//! Checks the same playability and targeting rules used by PlayCard().
+//! \param source The card in hand to play.
+//! \param target The optional character target.
+//! \param chooseOne The one-based Choose One option, or zero for no choice.
+bool CanPlayCard(Playable* source, Character* target = nullptr,
+                 int chooseOne = 0);
+
 //! Plays a card from player's hand.
 //! \param player The player to play card.
 //! \param source A pointer to source entity to play card.

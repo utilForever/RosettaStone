@@ -14,9 +14,9 @@ HeroPowerTask::HeroPowerTask(Playable* target) : ITask(nullptr, target)
     // Do nothing
 }
 
-TaskStatus HeroPowerTask::Impl(Player* player)
+Character* HeroPowerTask::ResolveTarget(const Player* player, Character* target)
 {
-    HeroPower& power = player->GetHeroPower();
+    const HeroPower& power = player->GetHeroPower();
 
     // NOTE: 'Steady Shot' (HERO_05bp) and 'Ballista Shot' (HERO_05bp2) can
     // target by some cards e.g. Steamwheedle Sniper, Dwarven Sharpshooter
@@ -29,17 +29,29 @@ TaskStatus HeroPowerTask::Impl(Player* player)
         }
         else
         {
-            m_target = player->opponent->GetHero();
+            return player->opponent->GetHero();
         }
     }
 
-    if (!power.IsPlayableByPlayer() || !power.IsPlayableByCardReq() ||
-        !power.IsValidPlayTarget(dynamic_cast<Character*>(m_target)))
-    {
-        return TaskStatus::STOP;
-    }
+    return target;
+}
 
-    if (power.IsExhausted())
+bool HeroPowerTask::CanPlay(const Player* player, Character* target)
+{
+    HeroPower& power = player->GetHeroPower();
+
+    return power.IsPlayableByPlayer() && power.IsPlayableByCardReq() &&
+           power.IsValidPlayTarget(ResolveTarget(player, target)) &&
+           !power.IsExhausted();
+}
+
+TaskStatus HeroPowerTask::Impl(Player* player)
+{
+    HeroPower& power = player->GetHeroPower();
+
+    m_target = ResolveTarget(player, dynamic_cast<Character*>(m_target));
+
+    if (!CanPlay(player, dynamic_cast<Character*>(m_target)))
     {
         return TaskStatus::STOP;
     }
