@@ -76,6 +76,10 @@ class Game
     //! \return The player controlling the current turn.
     Player* GetCurrentPlayer();
 
+    //! Returns the current player for inspection.
+    //! \return The player controlling the current turn.
+    const Player* GetCurrentPlayer() const;
+
     //! Sets the player controlling the current turn.
     //! \param type The player type controlling the current turn.
     void SetCurrentPlayer(PlayerType type);
