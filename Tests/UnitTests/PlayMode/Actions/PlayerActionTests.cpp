@@ -138,7 +138,7 @@ void ProcessAndCheck(Game& game, const PlayerAction& action)
 TEST_CASE("[PlayerAction] - Complete deterministic main actions")
 {
     auto game = MixedActions();
-    auto* player = game->GetCurrentPlayer();
+    const auto* player = game->GetCurrentPlayer();
     const auto actions = EnumerateActions(*game);
 
     CHECK(std::ranges::is_sorted(actions));
@@ -146,7 +146,7 @@ TEST_CASE("[PlayerAction] - Complete deterministic main actions")
     CHECK(actions == EnumerateActions(*game));
     CHECK_EQ(std::ranges::count(actions, PlayerAction{}), 1);
 
-    for (auto* card : player->GetHandZone()->GetAll())
+    for (const auto* card : player->GetHandZone()->GetAll())
     {
         const auto count =
             std::ranges::count_if(actions, [card](const auto& a) {
@@ -204,7 +204,7 @@ TEST_CASE("[PlayerAction] - Mana board capacity and unavailable targets")
 {
     auto game = ActionGame();
     auto* player = game->GetCurrentPlayer();
-    auto* fireball = Draw(player, "CS2_029");
+    const auto* fireball = Draw(player, "CS2_029");
 
     player->SetTotalMana(0);
 
@@ -239,7 +239,7 @@ TEST_CASE("[PlayerAction] - Mana board capacity and unavailable targets")
     }));
 
     auto empty = ActionGame();
-    auto* execute = Draw(empty->GetCurrentPlayer(), "CS2_108");
+    const auto* execute = Draw(empty->GetCurrentPlayer(), "CS2_108");
     const auto noTargets = EnumerateActions(*empty);
 
     CHECK_FALSE(std::ranges::any_of(noTargets, [execute](const auto& action) {
@@ -250,7 +250,7 @@ TEST_CASE("[PlayerAction] - Mana board capacity and unavailable targets")
 TEST_CASE("[PlayerAction] - Attack restrictions")
 {
     auto game = MixedActions();
-    auto* player = game->GetCurrentPlayer();
+    const auto* player = game->GetCurrentPlayer();
     auto* minion = (*player->GetFieldZone())[0];
     auto* defender = (*player->opponent->GetFieldZone())[0];
 
@@ -297,7 +297,7 @@ TEST_CASE("[PlayerAction] - Untargeted hero powers")
     for (const auto heroClass : { CardClass::WARRIOR, CardClass::HUNTER })
     {
         auto game = ActionGame(heroClass);
-        auto* player = game->GetCurrentPlayer();
+        const auto* player = game->GetCurrentPlayer();
         const auto actions = EnumerateActions(*game);
         const auto powers = std::ranges::count_if(actions, [](const auto& a) {
             return a.type == PlayerActionType::HERO_POWER;
@@ -341,8 +341,8 @@ TEST_CASE("[PlayerAction] - Choose One and Choose Both")
 
             game->Process(player, PlayCardTask(Draw(player, "CS2_182")));
 
-            auto* target = (*player->GetFieldZone())[0];
-            auto* wrath = Draw(player, "EX1_154");
+            const auto* target = (*player->GetFieldZone())[0];
+            const auto* wrath = Draw(player, "EX1_154");
 
             player->playerAuraEffects.SetValue(GameTag::CHOOSE_BOTH,
                                                chooseBoth ? 1 : 0);
@@ -371,7 +371,7 @@ TEST_CASE("[PlayerAction] - Choose One options have independent targets")
     {
         auto game = ActionGame(CardClass::DRUID);
         auto* player = game->GetCurrentPlayer();
-        auto* roots = Draw(player, "AT_037");
+        const auto* roots = Draw(player, "AT_037");
         const auto actions = EnumerateActions(*game);
 
         CHECK_EQ(std::ranges::count_if(actions,
@@ -419,8 +419,8 @@ TEST_CASE("[PlayerAction] - Locations share placement slots and can be targets")
         game->Process(player, PlayCardTask(Draw(player, "CS2_231")));
         game->Process(player, PlayCardTask(Draw(player, "REV_983")));
 
-        auto* location = Draw(player, "REV_983");
-        auto* renovator = Draw(player, "REV_023");
+        const auto* location = Draw(player, "REV_983");
+        const auto* renovator = Draw(player, "REV_023");
         const auto actions = EnumerateActions(*game);
 
         CHECK_EQ(std::ranges::count_if(actions,

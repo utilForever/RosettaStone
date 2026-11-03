@@ -11,6 +11,84 @@
 
 namespace RosettaStone::PlayMode
 {
+namespace
+{
+void AddCardActions(const Player* player, Playable* source,
+                    const std::vector<Character*>& targets,
+                    std::vector<PlayerAction>& actions)
+{
+    const bool choose = source->HasChooseOne() && !player->ChooseBoth();
+    const int lastChoice =
+        choose ? static_cast<int>(source->card->chooseCardIDs.size()) : 0;
+    const auto type = source->card->GetCardType();
+    const bool onBoard = type == CardType::MINION || type == CardType::LOCATION;
+    const int lastPosition = onBoard ? player->GetFieldZone()->GetCount() : -1;
+
+    for (int choice = choose ? 1 : 0; choice <= lastChoice; ++choice)
+    {
+        for (auto* target : targets)
+        {
+            if (!Generic::CanPlayCard(source, target, choice))
+            {
+                continue;
+            }
+
+            for (int position = onBoard ? 0 : -1; position <= lastPosition;
+                 ++position)
+            {
+                actions.emplace_back(
+                    PlayerActionType::PLAY_CARD,
+                    source->GetGameTag(GameTag::ENTITY_ID),
+                    target ? target->GetGameTag(GameTag::ENTITY_ID) : -1,
+                    position, choice);
+            }
+        }
+    }
+}
+
+void AddAttackActions(const Player* player,
+                      const std::vector<Character*>& targets,
+                      std::vector<PlayerAction>& actions)
+{
+    for (const auto* source : targets)
+    {
+        if (!source || source->player != player || !source->CanAttack())
+        {
+            continue;
+        }
+
+        for (auto* target : source->GetValidAttackTargets(player->opponent))
+        {
+            if (source->IsValidAttackTarget(player->opponent, target))
+            {
+                actions.emplace_back(PlayerActionType::ATTACK,
+                                     source->GetGameTag(GameTag::ENTITY_ID),
+                                     target->GetGameTag(GameTag::ENTITY_ID));
+            }
+        }
+    }
+}
+
+void AddHeroPowerActions(const Player* player,
+                         const std::vector<Character*>& targets,
+                         std::vector<PlayerAction>& actions)
+{
+    using PlayerTasks::HeroPowerTask;
+
+    for (auto* target : targets)
+    {
+        if (HeroPowerTask::ResolveTarget(player, target) == target &&
+            HeroPowerTask::CanPlay(player, target))
+        {
+            actions.emplace_back(
+                PlayerActionType::HERO_POWER,
+                player->GetHeroPower().GetGameTag(GameTag::ENTITY_ID),
+                target ? target->GetGameTag(GameTag::ENTITY_ID) : -1);
+        }
+    }
+}
+}  // namespace
+
 std::vector<PlayerAction> EnumerateActions(const Game& game)
 {
     std::vector<PlayerAction> actions;
@@ -35,20 +113,20 @@ std::vector<PlayerAction> EnumerateActions(const Game& game)
         {
             for (const int id : player->choice->choices)
             {
-                actions.push_back(
-                    { PlayerActionType::CHOOSE, -1, -1, -1, 0, id });
+                actions.emplace_back(PlayerActionType::CHOOSE, -1, -1, -1, 0,
+                                     id);
             }
         }
     }
     else
     {
-        actions.push_back({ PlayerActionType::END_TURN });
+        actions.emplace_back(PlayerActionType::END_TURN);
 
         // Choose One options may target differently from their parent card.
         std::vector<Character*> targets{ nullptr, player->GetHero(),
                                          player->opponent->GetHero() };
 
-        for (auto* owner :
+        for (const auto* owner :
              { player, static_cast<const Player*>(player->opponent) })
         {
             for (auto* character : owner->GetFieldZone()->GetAll())
@@ -59,77 +137,18 @@ std::vector<PlayerAction> EnumerateActions(const Game& game)
 
         for (auto* source : player->GetHandZone()->GetAll())
         {
-            const bool choose = source->HasChooseOne() && !player->ChooseBoth();
-            const int lastChoice =
-                choose ? static_cast<int>(source->card->chooseCardIDs.size())
-                       : 0;
-            const auto type = source->card->GetCardType();
-            const bool onBoard =
-                type == CardType::MINION || type == CardType::LOCATION;
-
-            for (int choice = choose ? 1 : 0; choice <= lastChoice; ++choice)
-            {
-                for (auto* target : targets)
-                {
-                    if (!Generic::CanPlayCard(source, target, choice))
-                    {
-                        continue;
-                    }
-
-                    const int lastPosition =
-                        onBoard ? player->GetFieldZone()->GetCount() : -1;
-
-                    for (int position = onBoard ? 0 : -1;
-                         position <= lastPosition; ++position)
-                    {
-                        actions.push_back(
-                            { PlayerActionType::PLAY_CARD,
-                              source->GetGameTag(GameTag::ENTITY_ID),
-                              target ? target->GetGameTag(GameTag::ENTITY_ID)
-                                     : -1,
-                              position, choice });
-                    }
-                }
-            }
+            AddCardActions(player, source, targets, actions);
         }
 
-        for (auto* source : targets)
-        {
-            if (!source || source->player != player || !source->CanAttack())
-            {
-                continue;
-            }
-
-            for (auto* target : source->GetValidAttackTargets(player->opponent))
-            {
-                if (source->IsValidAttackTarget(player->opponent, target))
-                {
-                    actions.push_back(
-                        { PlayerActionType::ATTACK,
-                          source->GetGameTag(GameTag::ENTITY_ID),
-                          target->GetGameTag(GameTag::ENTITY_ID) });
-                }
-            }
-        }
-
-        using PlayerTasks::HeroPowerTask;
-
-        for (auto* target : targets)
-        {
-            if (HeroPowerTask::ResolveTarget(player, target) == target &&
-                HeroPowerTask::CanPlay(player, target))
-            {
-                actions.push_back(
-                    { PlayerActionType::HERO_POWER,
-                      player->GetHeroPower().GetGameTag(GameTag::ENTITY_ID),
-                      target ? target->GetGameTag(GameTag::ENTITY_ID) : -1 });
-            }
-        }
+        AddAttackActions(player, targets, actions);
+        AddHeroPowerActions(player, targets, actions);
     }
 
     std::ranges::sort(actions);
-    actions.erase(std::unique(actions.begin(), actions.end()), actions.end());
 
+    const auto duplicates = std::ranges::unique(actions);
+
+    actions.erase(duplicates.begin(), duplicates.end());
     return actions;
 }
 }  // namespace RosettaStone::PlayMode
