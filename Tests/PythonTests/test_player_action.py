@@ -53,3 +53,16 @@ def test_action_comparisons(field, value):
     assert second >= first
     assert sorted([second, first]) == [first, second]
     assert first <= PlayerAction() <= first
+
+
+def test_action_comparisons_with_unrelated_type():
+    action = PlayerAction()
+    other = object()
+
+    for method in ("__eq__", "__ne__", "__lt__", "__le__", "__gt__", "__ge__"):
+        assert getattr(action, method)(other) is NotImplemented
+
+    assert action != other
+
+    with pytest.raises(TypeError):
+        assert action < other
