@@ -16,11 +16,10 @@ HeroPowerTask::HeroPowerTask(Playable* target) : ITask(nullptr, target)
 
 Character* HeroPowerTask::ResolveTarget(const Player* player, Character* target)
 {
-    const HeroPower& power = player->GetHeroPower();
-
     // NOTE: 'Steady Shot' (HERO_05bp) and 'Ballista Shot' (HERO_05bp2) can
     // target by some cards e.g. Steamwheedle Sniper, Dwarven Sharpshooter
-    if (power.card->id == "HERO_05bp" || power.card->id == "HERO_05bp2")
+    if (const HeroPower& power = player->GetHeroPower();
+        power.card->id == "HERO_05bp" || power.card->id == "HERO_05bp2")
     {
         if (const auto& auraEffects = player->playerAuraEffects;
             auraEffects.GetValue(GameTag::CAN_TARGET_MINION_BY_HERO_POWER) == 1)
