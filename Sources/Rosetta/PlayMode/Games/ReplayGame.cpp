@@ -173,6 +173,39 @@ std::tuple<PlayState, PlayState> ReplayGame::Process(ITask&& task)
     return Apply(m_history.back());
 }
 
+std::tuple<PlayState, PlayState> ReplayGame::ApplyAction(
+    const PlayerAction& action)
+{
+    CheckReady();
+
+    if (!std::ranges::binary_search(EnumerateActions(*m_game), action))
+    {
+        throw std::invalid_argument("Action is not legal in this replay");
+    }
+
+    auto* source =
+        action.sourceID < 0 ? nullptr : m_game->entityList.at(action.sourceID);
+    auto* target =
+        action.targetID < 0 ? nullptr : m_game->entityList.at(action.targetID);
+
+    switch (action.type)
+    {
+        case PlayerActionType::END_TURN:
+            return Process(EndTurnTask());
+        case PlayerActionType::PLAY_CARD:
+            return Process(PlayCardTask(source, target, action.fieldPos,
+                                        action.chooseOne));
+        case PlayerActionType::ATTACK:
+            return Process(AttackTask(source, target));
+        case PlayerActionType::HERO_POWER:
+            return Process(HeroPowerTask(target));
+        case PlayerActionType::CHOOSE:
+            return Process(ChooseTask({ action.choiceID }));
+    }
+
+    throw std::invalid_argument("Unknown player action type");
+}
+
 std::tuple<PlayState, PlayState> ReplayGame::Apply(const RecordedTask& record)
 {
     RandomScope random(m_random);
