@@ -3,6 +3,7 @@
 #ifndef ROSETTASTONE_PLAYMODE_REPLAY_GAME_HPP
 #define ROSETTASTONE_PLAYMODE_REPLAY_GAME_HPP
 
+#include <Rosetta/PlayMode/Actions/PlayerAction.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 
 #include <effolkronium/random.hpp>
@@ -12,7 +13,7 @@ namespace RosettaStone::PlayMode
 //!
 //! \brief A game that branches by replaying recorded player tasks.
 //!
-//! All mutations must go through Process(); pointers reachable through
+//! All mutations must go through Process() or ApplyAction(). Pointers from
 //! GetGame() and GetCurrentPlayer() are for inspection and task construction
 //! only. Uses the existing global RNG temporarily, so execution must be
 //! single-threaded. Card metadata must remain unchanged throughout the lifetime
@@ -42,6 +43,26 @@ class ReplayGame
     //! \param task The player task to record and execute.
     //! \return The play states of player 1 and player 2, in that order.
     std::tuple<PlayState, PlayState> Process(ITask&& task);
+
+    //! Validates and records a semantic decision using the normal task path.
+    //! Invalid decisions leave the game, history, and random state unchanged.
+    //! \param action An action from EnumerateActions(GetGame()).
+    //! \return The play states of player 1 and player 2, in that order.
+    //! \throws std::invalid_argument If the action is not currently legal.
+    //! \throws std::logic_error If the replay failed or is not ready.
+    std::tuple<PlayState, PlayState> ApplyAction(const PlayerAction& action);
+
+    //! Returns PLAYING, WON, LOST, or TIED from a fixed player's perspective.
+    //! \param player PLAYER1 or PLAYER2, independent of whose turn it is.
+    //! \return The requested player's outcome, including after game over.
+    //! \throws std::invalid_argument If the player is not a concrete seat.
+    //! \throws std::logic_error If the replay failed.
+    PlayState GetOutcome(PlayerType player) const;
+
+    //! Returns +1 for a win, -1 for a loss, and 0 for a draw or ongoing game.
+    //! \param player PLAYER1 or PLAYER2, independent of whose turn it is.
+    //! \return The terminal reward; uses the same validation as GetOutcome().
+    int GetReward(PlayerType player) const;
 
     //! Replays into independent runtime state at a quiescent MAIN_ACTION.
     //! Throws for pending choices, unfinished tasks, failed or terminal games.

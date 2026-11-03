@@ -2,6 +2,7 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/PlayMode/Actions/PlayerAction.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/ReplayGame.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
@@ -102,6 +103,16 @@ std::string StateOf(const ReplayGame& replay)
         {
             out << ',' << card->id;
         }
+
+        if (player->choice)
+        {
+            out << "|choice:" << static_cast<int>(player->choice->choiceType);
+
+            for (const int id : player->choice->choices)
+            {
+                out << ',' << id;
+            }
+        }
     }
 
     for (const auto& [id, entity] : game.entityList)
@@ -130,6 +141,31 @@ std::string StateOf(const ReplayGame& replay)
         << game.oneTurnEffectEnchantments.size();
 
     return out.str();
+}
+
+std::tuple<PlayState, PlayState> ProcessActionTask(ReplayGame& replay,
+                                                   const PlayerAction& action)
+{
+    const auto& entities = replay.GetGame().entityList;
+    auto* source = action.sourceID < 0 ? nullptr : entities.at(action.sourceID);
+    auto* target = action.targetID < 0 ? nullptr : entities.at(action.targetID);
+
+    switch (action.type)
+    {
+        case PlayerActionType::END_TURN:
+            return replay.Process(EndTurnTask());
+        case PlayerActionType::PLAY_CARD:
+            return replay.Process(PlayCardTask(source, target, action.fieldPos,
+                                               action.chooseOne));
+        case PlayerActionType::ATTACK:
+            return replay.Process(AttackTask(source, target));
+        case PlayerActionType::HERO_POWER:
+            return replay.Process(HeroPowerTask(target));
+        case PlayerActionType::CHOOSE:
+            return replay.Process(ChooseTask({ action.choiceID }));
+    }
+
+    throw std::invalid_argument("Unknown test action");
 }
 
 void CheckIndependent(const ReplayGame& source, const ReplayGame& child)
@@ -358,12 +394,20 @@ TEST_CASE("[ReplayGame] - CombatSummons")
 
     auto child = parent.Branch();
     auto sibling = parent.Branch();
+    auto direct = parent.Branch();
 
     const auto* player = child->GetCurrentPlayer();
     auto* enemyField = player->opponent->GetFieldZone();
 
-    child->Process(
-        AttackTask(player->GetFieldZone()->GetAll().front(), (*enemyField)[1]));
+    const PlayerAction attack{
+        PlayerActionType::ATTACK,
+        player->GetFieldZone()->GetAll().front()->GetGameTag(
+            GameTag::ENTITY_ID),
+        (*enemyField)[1]->GetGameTag(GameTag::ENTITY_ID)
+    };
+
+    CHECK(child->ApplyAction(attack) == ProcessActionTask(*direct, attack));
+    CHECK_EQ(StateOf(*child), StateOf(*direct));
 
     CHECK_EQ(enemyField->GetCount(), expectedMinions);
     CHECK_EQ((*enemyField)[0]->GetAttack(), expectedTidecallerAttack);
@@ -520,15 +564,17 @@ TEST_CASE("[ReplayGame] - PendingChoices")
     REQUIRE(parent.GetCurrentPlayer()->choice);
 
     const auto before = StateOf(parent);
-    const auto choices = parent.GetCurrentPlayer()->choice->choices;
 
     CHECK_THROWS_AS(parent.Branch(), std::logic_error);
     CHECK_THROWS_AS(parent.Process(EndTurnTask()), std::logic_error);
     CHECK_THROWS_AS(parent.Process(ChooseTask({})), std::invalid_argument);
     CHECK_THROWS_AS(parent.Process(ChooseTask({ -1 })), std::invalid_argument);
+    CHECK_THROWS_AS(parent.ApplyAction(PlayerAction{}), std::invalid_argument);
+    CHECK_THROWS_AS(
+        parent.ApplyAction({ PlayerActionType::CHOOSE, -1, -1, -1, 0, -1 }),
+        std::invalid_argument);
     CHECK_EQ(StateOf(parent), before);
     REQUIRE(parent.GetCurrentPlayer()->choice);
-    CHECK(parent.GetCurrentPlayer()->choice->choices == choices);
 
     parent.Process(
         ChooseTask({ parent.GetCurrentPlayer()->choice->choices[0] }));
@@ -558,6 +604,11 @@ TEST_CASE("[ReplayGame] - InvalidStates")
     CHECK_THROWS_AS(parent.Branch(), std::logic_error);
     CHECK_THROWS_AS(parent.Process(EndTurnTask()), std::logic_error);
 
+    const auto terminal = StateOf(parent);
+
+    CHECK_THROWS_AS(parent.ApplyAction(PlayerAction{}), std::logic_error);
+    CHECK_EQ(StateOf(parent), terminal);
+
     ReplayGame unfinished(ReplayConfig(), 8);
     auto* game = unfinished.GetCurrentPlayer()->game;
 
@@ -568,4 +619,206 @@ TEST_CASE("[ReplayGame] - InvalidStates")
     REQUIRE(game->taskQueue.IsEmpty());
     CHECK_FALSE(game->taskQueue.IsIdle());
     CHECK_THROWS_AS(unfinished.Branch(), std::logic_error);
+    const auto pending = StateOf(unfinished);
+    CHECK_THROWS_AS(unfinished.ApplyAction(PlayerAction{}), std::logic_error);
+    CHECK_EQ(StateOf(unfinished), pending);
+}
+
+TEST_CASE("[ReplayGame] - SemanticActionsMatchPlayerTasks")
+{
+    auto config = ReplayConfig();
+    const std::array cards{ "CS2_231", "NEW1_019", "CS2_122",
+                            "EX1_154", "LOE_023",  "CS2_029" };
+
+    for (std::size_t i = 0; i < cards.size(); ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByID(cards[i]);
+    }
+
+    ReplayGame parent(config, 42);
+
+    parent.Process(PlayCardTask(InHand(parent, "CS2_231")));
+    parent.Process(EndTurnTask());
+    parent.Process(EndTurnTask());
+    parent.Process(PlayCardTask(InHand(parent, "NEW1_019")));
+    parent.Process(EndTurnTask());
+    parent.Process(PlayCardTask(InHand(parent, "CS2_120")));
+    parent.Process(EndTurnTask());
+    parent.Process(PlayCardTask(InHand(parent, "CS2_122")));
+    parent.Process(EndTurnTask());
+    parent.Process(EndTurnTask());
+
+    const auto before = StateOf(parent);
+    const auto randomBefore = Random::get_engine();
+    std::array<int, 5> applied{};
+
+    for (const auto& action : EnumerateActions(parent.GetGame()))
+    {
+        INFO("source=", action.sourceID, " target=", action.targetID,
+             " position=", action.fieldPos, " option=", action.chooseOne);
+
+        auto child = parent.Branch();
+        auto direct = parent.Branch();
+
+        CHECK(child->ApplyAction(action) == ProcessActionTask(*direct, action));
+        CHECK_EQ(StateOf(*child), StateOf(*direct));
+
+        ++applied[static_cast<std::size_t>(action.type)];
+
+        if (child->GetCurrentPlayer()->choice)
+        {
+            const auto choices = EnumerateActions(child->GetGame());
+
+            REQUIRE_FALSE(choices.empty());
+            REQUIRE_EQ(choices.front().type, PlayerActionType::CHOOSE);
+            CHECK(child->ApplyAction(choices.front()) ==
+                  ProcessActionTask(*direct, choices.front()));
+            CHECK_EQ(StateOf(*child), StateOf(*direct));
+
+            ++applied[static_cast<std::size_t>(PlayerActionType::CHOOSE)];
+        }
+
+        CHECK_EQ(StateOf(*child->Branch()), StateOf(*child));
+        CHECK_EQ(StateOf(parent), before);
+        CHECK(Random::get_engine() == randomBefore);
+    }
+
+    for (const int count : applied)
+    {
+        CHECK_GT(count, 0);
+    }
+}
+
+TEST_CASE("[ReplayGame] - InvalidSemanticActionsDoNotMutate")
+{
+    ReplayGame parent(ReplayConfig(), 42);
+    const auto* player = parent.GetCurrentPlayer();
+    const int wisp = InHand(parent, "CS2_231")->GetGameTag(GameTag::ENTITY_ID);
+    const int hero = player->GetHero()->GetGameTag(GameTag::ENTITY_ID);
+    const int enemy =
+        player->opponent->GetHandZone()->GetAll().front()->GetGameTag(
+            GameTag::ENTITY_ID);
+    const auto before = StateOf(parent);
+    const auto randomBefore = Random::get_engine();
+
+    const std::vector<PlayerAction> invalid{
+        { static_cast<PlayerActionType>(99) },
+        { PlayerActionType::END_TURN, wisp },
+        { PlayerActionType::END_TURN, -1, hero },
+        { PlayerActionType::END_TURN, -1, -1, 0 },
+        { PlayerActionType::END_TURN, -1, -1, -1, 1 },
+        { PlayerActionType::END_TURN, -1, -1, -1, 0, wisp },
+        { PlayerActionType::PLAY_CARD, -1, -1, 0 },
+        { PlayerActionType::PLAY_CARD, enemy, -1, 0 },
+        { PlayerActionType::PLAY_CARD, wisp, 999999, 0 },
+        { PlayerActionType::PLAY_CARD, wisp, -1, 1 },
+        { PlayerActionType::PLAY_CARD, wisp, -1, 0, 1 },
+        { PlayerActionType::ATTACK, wisp, hero },
+        { PlayerActionType::HERO_POWER,
+          player->GetHeroPower().GetGameTag(GameTag::ENTITY_ID), hero },
+        { PlayerActionType::CHOOSE, -1, -1, -1, 0, wisp }
+    };
+
+    for (const auto& action : invalid)
+    {
+        INFO("source=", action.sourceID, " target=", action.targetID,
+             " position=", action.fieldPos, " option=", action.chooseOne);
+        CHECK_THROWS_AS(parent.ApplyAction(action), std::invalid_argument);
+        CHECK_EQ(StateOf(parent), before);
+        CHECK(Random::get_engine() == randomBefore);
+    }
+
+    CHECK_EQ(StateOf(*parent.Branch()), before);
+
+    const PlayerAction play{ PlayerActionType::PLAY_CARD, wisp, -1, 0 };
+
+    parent.ApplyAction(play);
+
+    const auto after = StateOf(parent);
+
+    CHECK_THROWS_AS(parent.ApplyAction(play), std::invalid_argument);
+    CHECK_EQ(StateOf(parent), after);
+    CHECK_EQ(StateOf(*parent.Branch()), after);
+}
+
+TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
+{
+    for (const auto start : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
+    {
+        for (int result = 0; result < 3; ++result)
+        {
+            CAPTURE(start);
+            CAPTURE(result);
+
+            auto config = ReplayConfig();
+            const char* cardID = result == 2 ? "CS2_062" : "CS2_029";
+
+            config.startPlayer = start;
+            config.player1Deck.fill(Cards::FindCardByID(cardID));
+            config.player2Deck.fill(Cards::FindCardByID(cardID));
+
+            ReplayGame replay(config, 42);
+
+            const auto* actor = replay.GetCurrentPlayer();
+            const auto other = actor->opponent->playerType;
+
+            for (const auto seat : { start, other })
+            {
+                CHECK_EQ(replay.GetOutcome(seat), PlayState::PLAYING);
+                CHECK_EQ(replay.GetReward(seat), 0);
+            }
+
+            for (const auto invalid : { PlayerType::INVALID, PlayerType::RANDOM,
+                                        static_cast<PlayerType>(99) })
+            {
+                CHECK_THROWS_AS(replay.GetOutcome(invalid),
+                                std::invalid_argument);
+                CHECK_THROWS_AS(replay.GetReward(invalid),
+                                std::invalid_argument);
+            }
+
+            for (int turn = 0;
+                 turn < 40 && replay.GetGame().state == State::RUNNING; ++turn)
+            {
+                const auto* player = replay.GetCurrentPlayer();
+
+                if (player == actor && player->GetRemainingMana() >= 4)
+                {
+                    const int source =
+                        InHand(replay, cardID)->GetGameTag(GameTag::ENTITY_ID);
+                    const auto* target = result == 0
+                                             ? actor->opponent->GetHero()
+                                             : actor->GetHero();
+                    const auto states = replay.ApplyAction(
+                        { PlayerActionType::PLAY_CARD, source,
+                          result == 2
+                              ? -1
+                              : target->GetGameTag(GameTag::ENTITY_ID) });
+
+                    CHECK_EQ(std::get<0>(states),
+                             replay.GetOutcome(PlayerType::PLAYER1));
+                    CHECK_EQ(std::get<1>(states),
+                             replay.GetOutcome(PlayerType::PLAYER2));
+                }
+
+                if (replay.GetGame().state == State::RUNNING)
+                {
+                    replay.ApplyAction(PlayerAction{});
+                }
+            }
+
+            REQUIRE_EQ(replay.GetGame().state, State::COMPLETE);
+            CHECK_EQ(replay.GetOutcome(start), result == 2   ? PlayState::TIED
+                                               : result == 0 ? PlayState::WON
+                                                             : PlayState::LOST);
+            CHECK_EQ(replay.GetOutcome(other), result == 2   ? PlayState::TIED
+                                               : result == 0 ? PlayState::LOST
+                                                             : PlayState::WON);
+            CHECK_EQ(replay.GetReward(start), result == 2   ? 0
+                                              : result == 0 ? 1
+                                                            : -1);
+            CHECK_EQ(replay.GetReward(start), -replay.GetReward(other));
+            CHECK(EnumerateActions(replay.GetGame()).empty());
+        }
+    }
 }
