@@ -746,3 +746,85 @@ TEST_CASE("[ReplayGame] - InvalidSemanticActionsDoNotMutate")
     CHECK_EQ(StateOf(parent), after);
     CHECK_EQ(StateOf(*parent.Branch()), after);
 }
+
+TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
+{
+    for (const auto start : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
+    {
+        for (int result = 0; result < 3; ++result)
+        {
+            CAPTURE(start);
+            CAPTURE(result);
+
+            auto config = ReplayConfig();
+            const char* cardID = result == 2 ? "CS2_062" : "CS2_029";
+
+            config.startPlayer = start;
+            config.player1Deck.fill(Cards::FindCardByID(cardID));
+            config.player2Deck.fill(Cards::FindCardByID(cardID));
+
+            ReplayGame replay(config, 42);
+
+            const auto* actor = replay.GetCurrentPlayer();
+            const auto other = actor->opponent->playerType;
+
+            for (const auto seat : { start, other })
+            {
+                CHECK_EQ(replay.GetOutcome(seat), PlayState::PLAYING);
+                CHECK_EQ(replay.GetReward(seat), 0);
+            }
+
+            for (const auto invalid : { PlayerType::INVALID, PlayerType::RANDOM,
+                                        static_cast<PlayerType>(99) })
+            {
+                CHECK_THROWS_AS(replay.GetOutcome(invalid),
+                                std::invalid_argument);
+                CHECK_THROWS_AS(replay.GetReward(invalid),
+                                std::invalid_argument);
+            }
+
+            for (int turn = 0;
+                 turn < 40 && replay.GetGame().state == State::RUNNING; ++turn)
+            {
+                const auto* player = replay.GetCurrentPlayer();
+
+                if (player == actor && player->GetRemainingMana() >= 4)
+                {
+                    const int source =
+                        InHand(replay, cardID)->GetGameTag(GameTag::ENTITY_ID);
+                    const auto* target = result == 0
+                                             ? actor->opponent->GetHero()
+                                             : actor->GetHero();
+                    const auto states = replay.ApplyAction(
+                        { PlayerActionType::PLAY_CARD, source,
+                          result == 2
+                              ? -1
+                              : target->GetGameTag(GameTag::ENTITY_ID) });
+
+                    CHECK_EQ(std::get<0>(states),
+                             replay.GetOutcome(PlayerType::PLAYER1));
+                    CHECK_EQ(std::get<1>(states),
+                             replay.GetOutcome(PlayerType::PLAYER2));
+                }
+
+                if (replay.GetGame().state == State::RUNNING)
+                {
+                    replay.ApplyAction(PlayerAction{});
+                }
+            }
+
+            REQUIRE_EQ(replay.GetGame().state, State::COMPLETE);
+            CHECK_EQ(replay.GetOutcome(start), result == 2   ? PlayState::TIED
+                                               : result == 0 ? PlayState::WON
+                                                             : PlayState::LOST);
+            CHECK_EQ(replay.GetOutcome(other), result == 2   ? PlayState::TIED
+                                               : result == 0 ? PlayState::LOST
+                                                             : PlayState::WON);
+            CHECK_EQ(replay.GetReward(start), result == 2   ? 0
+                                              : result == 0 ? 1
+                                                            : -1);
+            CHECK_EQ(replay.GetReward(start), -replay.GetReward(other));
+            CHECK(EnumerateActions(replay.GetGame()).empty());
+        }
+    }
+}

@@ -206,6 +206,36 @@ std::tuple<PlayState, PlayState> ReplayGame::ApplyAction(
     throw std::invalid_argument("Unknown player action type");
 }
 
+PlayState ReplayGame::GetOutcome(PlayerType player) const
+{
+    if (player != PlayerType::PLAYER1 && player != PlayerType::PLAYER2)
+    {
+        throw std::invalid_argument("Outcome requires PLAYER1 or PLAYER2");
+    }
+
+    if (m_failed)
+    {
+        throw std::logic_error("Cannot report the outcome of a failed replay");
+    }
+
+    return (player == PlayerType::PLAYER1 ? m_game->GetPlayer1()
+                                          : m_game->GetPlayer2())
+        ->playState;
+}
+
+int ReplayGame::GetReward(PlayerType player) const
+{
+    switch (GetOutcome(player))
+    {
+        case PlayState::WON:
+            return 1;
+        case PlayState::LOST:
+            return -1;
+        default:
+            return 0;
+    }
+}
+
 std::tuple<PlayState, PlayState> ReplayGame::Apply(const RecordedTask& record)
 {
     RandomScope random(m_random);

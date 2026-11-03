@@ -52,6 +52,18 @@ class ReplayGame
     //! \throws std::logic_error If the replay failed or is not ready.
     std::tuple<PlayState, PlayState> ApplyAction(const PlayerAction& action);
 
+    //! Returns PLAYING, WON, LOST, or TIED from a fixed player's perspective.
+    //! \param player PLAYER1 or PLAYER2, independent of whose turn it is.
+    //! \return The requested player's outcome, including after game over.
+    //! \throws std::invalid_argument If the player is not a concrete seat.
+    //! \throws std::logic_error If the replay failed.
+    PlayState GetOutcome(PlayerType player) const;
+
+    //! Returns +1 for a win, -1 for a loss, and 0 for a draw or ongoing game.
+    //! \param player PLAYER1 or PLAYER2, independent of whose turn it is.
+    //! \return The terminal reward; uses the same validation as GetOutcome().
+    int GetReward(PlayerType player) const;
+
     //! Replays into independent runtime state at a quiescent MAIN_ACTION.
     //! Throws for pending choices, unfinished tasks, failed or terminal games.
     //! \return An independent replay with the same history and random state.
