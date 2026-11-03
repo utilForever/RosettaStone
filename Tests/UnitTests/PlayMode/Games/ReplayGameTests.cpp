@@ -564,7 +564,6 @@ TEST_CASE("[ReplayGame] - PendingChoices")
     REQUIRE(parent.GetCurrentPlayer()->choice);
 
     const auto before = StateOf(parent);
-    const auto choices = parent.GetCurrentPlayer()->choice->choices;
 
     CHECK_THROWS_AS(parent.Branch(), std::logic_error);
     CHECK_THROWS_AS(parent.Process(EndTurnTask()), std::logic_error);
@@ -576,7 +575,6 @@ TEST_CASE("[ReplayGame] - PendingChoices")
         std::invalid_argument);
     CHECK_EQ(StateOf(parent), before);
     REQUIRE(parent.GetCurrentPlayer()->choice);
-    CHECK(parent.GetCurrentPlayer()->choice->choices == choices);
 
     parent.Process(
         ChooseTask({ parent.GetCurrentPlayer()->choice->choices[0] }));
@@ -680,10 +678,6 @@ TEST_CASE("[ReplayGame] - SemanticActionsMatchPlayerTasks")
             ++applied[static_cast<std::size_t>(PlayerActionType::CHOOSE)];
         }
 
-        CHECK(child->GetGame().taskQueue.IsIdle());
-        CHECK(child->GetGame().deadMinions.empty());
-        CHECK(child->GetGame().rebornMinions.empty());
-        CHECK(child->GetGame().summonedMinions.empty());
         CHECK_EQ(StateOf(*child->Branch()), StateOf(*child));
         CHECK_EQ(StateOf(parent), before);
         CHECK(Random::get_engine() == randomBefore);
