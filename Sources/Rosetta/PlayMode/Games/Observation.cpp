@@ -56,6 +56,7 @@ Schema::Card EncodeCard(const Playable& entity, bool includeCost)
          type != CardType::WEAPON) ||
         entity.isDestroyed || entity.HasDormant() ||
         entity.GetGameTag(GameTag::UNTOUCHABLE) != 0 ||
+        entity.GetGameTag(GameTag::REBORN) != 0 ||
         entity.GetGameTag(GameTag::QUEST) != 0 ||
         entity.GetGameTag(GameTag::SIDEQUEST) != 0 ||
         entity.GetGameTag(GameTag::QUESTLINE) != 0)

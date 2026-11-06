@@ -81,7 +81,7 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
     }
     SUBCASE("Unsupported mechanics in hidden cards remain private")
     {
-        for (const auto* id : { "DRG_255" })
+        for (const auto* id : { "DRG_255", "ULD_266" })
         {
             Draw(first->GetCurrentPlayer()->opponent, "CS2_231");
             Draw(opponent, id);
@@ -405,6 +405,36 @@ TEST_CASE(
     }
 }
 
+TEST_CASE("[Observation] - Reborn on different public slots is rejected")
+{
+    std::array games{ ObservationGame(), ObservationGame() };
+    for (const auto& game : games)
+    {
+        auto* player = game->GetCurrentPlayer();
+        game->Process(player, PlayCardTask(Draw(player, "CS2_182")));
+        game->Process(player, PlayCardTask(Draw(player, "CS2_182")));
+        REQUIRE_EQ(player->GetFieldZone()->GetCount(), 2);
+        REQUIRE_NOTHROW(EncodeObservation(*game));
+    }
+    CHECK(EncodeObservation(*games[0]) == EncodeObservation(*games[1]));
+
+    for (int slot = 0; slot < 2; ++slot)
+    {
+        auto& game = *games[slot];
+        auto* player = game.GetCurrentPlayer();
+        auto* board = player->GetFieldZone();
+        game.Process(player,
+                     PlayCardTask(Draw(player, "ULD_265"), (*board)[slot]));
+        REQUIRE((*board)[slot]->HasReborn());
+        REQUIRE_FALSE((*board)[1 - slot]->HasReborn());
+        for (const auto seat : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
+        {
+            game.SetCurrentPlayer(seat);
+            CHECK_THROWS_AS(EncodeObservation(game), std::invalid_argument);
+        }
+    }
+}
+
 TEST_CASE("[Observation] - Unsupported decision boundaries are rejected")
 {
     auto game = ObservationGame();
@@ -444,6 +474,10 @@ TEST_CASE("[Observation] - Unsupported decision boundaries are rejected")
     SUBCASE("Sidequest in the actor's hand")
     {
         Draw(player, "DRG_255");
+    }
+    SUBCASE("Reborn in the actor's hand")
+    {
+        Draw(player, "ULD_266");
     }
     SUBCASE("Dormant minion")
     {
