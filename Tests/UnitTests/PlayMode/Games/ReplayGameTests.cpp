@@ -883,10 +883,10 @@ TEST_CASE("[ReplayGame] - SemanticActionsMatchPlayerTasks")
         {
             const auto choices = EnumerateActions(child->GetGame());
 
-            REQUIRE_FALSE(choices.empty());
-            REQUIRE_EQ(choices.front().type, PlayerActionType::CHOOSE);
-            CHECK(child->ApplyAction(choices.front()) ==
-                  ProcessActionTask(*direct, choices.front()));
+            REQUIRE_GT(choices.size(), 1);
+            REQUIRE_EQ(choices.back().type, PlayerActionType::CHOOSE);
+            CHECK(child->ApplyAction(choices.back()) ==
+                  ProcessActionTask(*direct, choices.back()));
             CHECK_EQ(StateOf(*child), StateOf(*direct));
 
             ++applied[static_cast<std::size_t>(PlayerActionType::CHOOSE)];
@@ -957,6 +957,15 @@ TEST_CASE("[ReplayGame] - InvalidSemanticActionsDoNotMutate")
 
 TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
 {
+    ReplayGame validation(ReplayConfig(), 42);
+
+    for (const auto invalid : { PlayerType::INVALID, PlayerType::RANDOM,
+                                static_cast<PlayerType>(99) })
+    {
+        CHECK_THROWS_AS(validation.GetOutcome(invalid), std::invalid_argument);
+        CHECK_THROWS_AS(validation.GetReward(invalid), std::invalid_argument);
+    }
+
     for (const auto start : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
     {
         for (int result = 0; result < 3; ++result)
@@ -980,15 +989,6 @@ TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
             {
                 CHECK_EQ(replay.GetOutcome(seat), PlayState::PLAYING);
                 CHECK_EQ(replay.GetReward(seat), 0);
-            }
-
-            for (const auto invalid : { PlayerType::INVALID, PlayerType::RANDOM,
-                                        static_cast<PlayerType>(99) })
-            {
-                CHECK_THROWS_AS(replay.GetOutcome(invalid),
-                                std::invalid_argument);
-                CHECK_THROWS_AS(replay.GetReward(invalid),
-                                std::invalid_argument);
             }
 
             for (int turn = 0;
