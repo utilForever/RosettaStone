@@ -57,6 +57,7 @@ Schema::Card EncodeCard(const Playable& entity, bool includeCost)
         entity.isDestroyed || entity.HasDormant() ||
         entity.GetGameTag(GameTag::UNTOUCHABLE) != 0 ||
         entity.GetGameTag(GameTag::QUEST) != 0 ||
+        entity.GetGameTag(GameTag::SIDEQUEST) != 0 ||
         entity.GetGameTag(GameTag::QUESTLINE) != 0)
     {
         throw std::invalid_argument("Observation cannot represent this card");
@@ -147,14 +148,24 @@ Observation EncodeObservation(const Game& game)
         const auto* hand = player->GetHandZone();
         const auto* secrets = player->GetSecretZone();
         if (player->playState != PlayState::PLAYING || !hero ||
-            !hero->heroPower || hero->GetHealth() <= 0 || secrets->quest)
+            !hero->heroPower || hero->GetHealth() <= 0)
         {
             throw std::invalid_argument(
-                "Observation requires live heroes and no active quests");
+                "Observation requires live heroes and hero powers");
         }
         CheckCapacity(board->GetCount(), Schema::BOARD_SLOTS);
         CheckCapacity(hand->GetCount(), Schema::HAND_SLOTS);
         CheckCapacity(secrets->GetCount(), Schema::SECRET_SLOTS);
+
+        // SecretZone also holds public quests; inspect only their category.
+        for (const auto* secret : secrets->GetAll())
+        {
+            if (!secret->IsSecret())
+            {
+                throw std::invalid_argument(
+                    "Observation cannot represent active quests");
+            }
+        }
 
         auto& row = observation.players[index];
         row[Schema::MANA_TOTAL] = EncodeValue(player->GetTotalMana());

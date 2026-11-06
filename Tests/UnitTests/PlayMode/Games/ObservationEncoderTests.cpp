@@ -79,6 +79,20 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
         AddToZone(other, "EX1_287", other->GetSecretZone());
         AddToZone(opponent, "EX1_289", opponent->GetSecretZone());
     }
+    SUBCASE("Unsupported mechanics in hidden cards remain private")
+    {
+        for (const auto* id : { "DRG_255" })
+        {
+            Draw(first->GetCurrentPlayer()->opponent, "CS2_231");
+            Draw(opponent, id);
+            for (auto* owner : { player, opponent })
+            {
+                auto* deck = owner->GetDeckZone();
+                owner->GetSetasideZone()->Add(deck->Remove(deck->GetTopCard()));
+                AddToZone(owner, id, deck);
+            }
+        }
+    }
     SUBCASE("Both deck identities and order")
     {
         for (auto* owner : { player, opponent })
@@ -364,6 +378,33 @@ TEST_CASE(
     CHECK_FALSE(EncodeObservation(*game) == observation);
 }
 
+TEST_CASE(
+    "[Observation] - Played sidequests are rejected from both perspectives")
+{
+    auto game = ObservationGame();
+    auto* player = game->GetCurrentPlayer();
+    REQUIRE_NOTHROW(EncodeObservation(*game));
+    auto* sidequest = Draw(player, "DRG_255");  // Toxic Reinforcements
+    game->Process(player, PlayCardTask(sidequest));
+    REQUIRE_EQ(sidequest->GetZoneType(), ZoneType::SECRET);
+    REQUIRE_EQ(player->GetSecretZone()->quest, nullptr);
+
+    for (int progress = 0; progress <= 1; ++progress)
+    {
+        game->SetCurrentPlayer(player->playerType);
+        if (progress == 1)
+        {
+            game->Process(player, HeroPowerTask(player->opponent->GetHero()));
+        }
+        REQUIRE_EQ(sidequest->GetGameTag(GameTag::QUEST_PROGRESS), progress);
+        for (const auto seat : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
+        {
+            game->SetCurrentPlayer(seat);
+            CHECK_THROWS_AS(EncodeObservation(*game), std::invalid_argument);
+        }
+    }
+}
+
 TEST_CASE("[Observation] - Unsupported decision boundaries are rejected")
 {
     auto game = ObservationGame();
@@ -399,6 +440,10 @@ TEST_CASE("[Observation] - Unsupported decision boundaries are rejected")
     SUBCASE("Public quest")
     {
         AddToZone(player, "UNG_028", player->GetSecretZone());
+    }
+    SUBCASE("Sidequest in the actor's hand")
+    {
+        Draw(player, "DRG_255");
     }
     SUBCASE("Dormant minion")
     {
