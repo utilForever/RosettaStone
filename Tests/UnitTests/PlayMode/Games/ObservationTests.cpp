@@ -4,6 +4,7 @@
 
 #include <Rosetta/PlayMode/Games/Observation.hpp>
 
+#include <cstddef>
 #include <type_traits>
 
 using namespace RosettaStone::PlayMode;
@@ -34,6 +35,25 @@ TEST_CASE("[Observation] - Version one shapes and zero defaults")
                                  std::array<std::array<std::int32_t, 4>, 10>>);
     static_assert(
         std::is_same_v<decltype(Observation::choices), std::array<Row, 4>>);
+
+    static_assert(std::is_standard_layout_v<Observation>);
+    static_assert(offsetof(Observation, schemaVersion) <
+                  offsetof(Observation, turn));
+    static_assert(offsetof(Observation, turn) < offsetof(Observation, players));
+    static_assert(offsetof(Observation, players) <
+                  offsetof(Observation, heroes));
+    static_assert(offsetof(Observation, heroes) <
+                  offsetof(Observation, heroPowers));
+    static_assert(offsetof(Observation, heroPowers) <
+                  offsetof(Observation, weapons));
+    static_assert(offsetof(Observation, weapons) <
+                  offsetof(Observation, board));
+    static_assert(offsetof(Observation, board) < offsetof(Observation, hand));
+    static_assert(offsetof(Observation, hand) < offsetof(Observation, secrets));
+    static_assert(offsetof(Observation, secrets) <
+                  offsetof(Observation, chooseOne));
+    static_assert(offsetof(Observation, chooseOne) <
+                  offsetof(Observation, choices));
 
     CHECK_EQ(Schema::VERSION, 1);
     CHECK_EQ(observation.schemaVersion, 1);
