@@ -20,6 +20,7 @@
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -526,41 +527,157 @@ TEST_CASE("[ReplayGame] - TradeSummons")
     CHECK(Random::get_engine() == randomBefore);
 }
 
-TEST_CASE("[ReplayGame] - DeterministicReplay")
+TEST_CASE("[ReplayGame] - SeededStartup")
 {
     auto config = ReplayConfig();
     config.startPlayer = PlayerType::RANDOM;
     config.doShuffle = true;
-    config.player1Deck.fill(Cards::FindCardByID("EX1_277"));
-    config.player2Deck.fill(Cards::FindCardByID("EX1_277"));
-    config.player1Deck[0] = Cards::FindCardByID("CS2_231");
-    config.player2Deck[0] = Cards::FindCardByID("CS2_231");
+
+    for (std::size_t i = 0; i < config.player1Deck.size(); i += 2)
+    {
+        config.player1Deck[i] = Cards::FindCardByID("EX1_277");
+        config.player2Deck[i] = Cards::FindCardByID("EX1_277");
+    }
 
     const auto globalRandom = Random::get_engine();
-    ReplayGame parent(config, 123);
+    std::set<std::string> outcomes;
 
-    parent.Process(PlayCardTask(InHand(parent, "EX1_277")));
+    for (unsigned int seed = 0; seed < 16; ++seed)
+    {
+        CAPTURE(seed);
 
-    auto first = parent.Branch();
+        ReplayGame parent(config, seed);
+        const auto before = StateOf(parent);
 
-    Random::discard(23);
+        outcomes.insert(before);
 
-    const auto advancedGlobalRandom = Random::get_engine();
-    auto second = parent.Branch();
+        Random::discard(23);
 
-    CHECK(Random::get_engine() == advancedGlobalRandom);
-    CHECK_EQ(StateOf(*first), StateOf(parent));
-    CHECK_EQ(StateOf(*first), StateOf(*second));
+        const auto advancedGlobalRandom = Random::get_engine();
+        ReplayGame repeated(config, seed);
+        auto child = parent.Branch();
 
-    first->Process(EndTurnTask());
-    first->Process(PlayCardTask(InHand(*first, "EX1_277")));
-    second->Process(EndTurnTask());
-    second->Process(PlayCardTask(InHand(*second, "EX1_277")));
+        CHECK_EQ(StateOf(repeated), before);
+        CHECK_EQ(StateOf(*child), before);
+        CHECK(Random::get_engine() == advancedGlobalRandom);
+    }
 
-    CHECK_EQ(StateOf(*first), StateOf(*second));
-    CHECK(Random::get_engine() == advancedGlobalRandom);
+    CHECK_GT(outcomes.size(), 1);
 
     Random::engine() = globalRandom;
+}
+
+TEST_CASE("[ReplayGame] - RandomActionsAreBranchLocal")
+{
+    auto config = ReplayConfig();
+    config.player1Deck.fill(Cards::FindCardByID("EX1_277"));
+    config.player2Deck.fill(Cards::FindCardByID("CS2_231"));
+
+    const auto globalRandom = Random::get_engine();
+    std::set<std::string> outcomes;
+    std::string initialState;
+
+    for (unsigned int seed = 0; seed < 16; ++seed)
+    {
+        std::string repeatedOutcome;
+
+        for (int run = 0; run < 2; ++run)
+        {
+            CAPTURE(seed);
+            CAPTURE(run);
+
+            ReplayGame parent(config, seed);
+            parent.ApplyAction(PlayerAction{});
+
+            for (int position = 0; position < 3; ++position)
+            {
+                parent.ApplyAction(
+                    { PlayerActionType::PLAY_CARD,
+                      InHand(parent, "CS2_231")->GetGameTag(GameTag::ENTITY_ID),
+                      -1, position });
+            }
+
+            parent.ApplyAction(PlayerAction{});
+
+            const auto before = StateOf(parent);
+
+            if (initialState.empty())
+            {
+                initialState = before;
+            }
+
+            CHECK_EQ(before, initialState);
+            REQUIRE_EQ(
+                parent.GetCurrentPlayer()->opponent->GetFieldZone()->GetCount(),
+                3);
+
+            auto first = parent.Branch();
+            auto sibling = parent.Branch();
+            const PlayerAction firstMissiles{
+                PlayerActionType::PLAY_CARD,
+                InHand(parent, "EX1_277")->GetGameTag(GameTag::ENTITY_ID)
+            };
+
+            first->ApplyAction(firstMissiles);
+
+            const auto afterFirst = StateOf(*first);
+
+            outcomes.insert(afterFirst);
+
+            // Replay a history that has already consumed random numbers.
+            auto grandchild = first->Branch();
+
+            CHECK_EQ(StateOf(*grandchild), afterFirst);
+
+            const PlayerAction secondMissiles{
+                PlayerActionType::PLAY_CARD,
+                InHand(*first, "EX1_277")->GetGameTag(GameTag::ENTITY_ID)
+            };
+
+            first->ApplyAction(secondMissiles);
+
+            const auto afterSecond = StateOf(*first);
+
+            grandchild->ApplyAction(secondMissiles);
+
+            CHECK_EQ(StateOf(*grandchild), afterSecond);
+            CHECK_EQ(StateOf(parent), before);
+            CHECK_EQ(StateOf(*sibling), before);
+            CHECK(Random::get_engine() == globalRandom);
+
+            Random::discard(23);
+
+            const auto advancedGlobalRandom = Random::get_engine();
+            auto lateSibling = parent.Branch();
+
+            CHECK_THROWS_AS(
+                sibling->ApplyAction({ PlayerActionType::PLAY_CARD, -1 }),
+                std::invalid_argument);
+
+            for (auto* equivalent :
+                 { sibling.get(), lateSibling.get(), &parent })
+            {
+                equivalent->ApplyAction(firstMissiles);
+                CHECK_EQ(StateOf(*equivalent), afterFirst);
+
+                equivalent->ApplyAction(secondMissiles);
+                CHECK_EQ(StateOf(*equivalent), afterSecond);
+            }
+            CHECK(Random::get_engine() == advancedGlobalRandom);
+            Random::engine() = globalRandom;
+
+            if (run == 0)
+            {
+                repeatedOutcome = afterSecond;
+            }
+            else
+            {
+                CHECK_EQ(afterSecond, repeatedOutcome);
+            }
+        }
+    }
+
+    CHECK_GT(outcomes.size(), 1);
 }
 
 TEST_CASE("[ReplayGame] - StructuralStateComparison")
