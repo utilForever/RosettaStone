@@ -15,9 +15,11 @@ namespace RosettaStone::PlayMode
 //!
 //! All mutations must go through Process() or ApplyAction(). Pointers from
 //! GetGame() and GetCurrentPlayer() are for inspection and task construction
-//! only. Uses the existing global RNG temporarily, so execution must be
-//! single-threaded. Card metadata must remain unchanged throughout the lifetime
-//! of the replay.
+//! only. Each replay owns its random state; startup and recorded tasks install
+//! it temporarily in the existing global RNG and restore the caller's state.
+//! Execution must be single-threaded. Fixed seeds reproduce outcomes within
+//! the same engine build, action schema, and unchanged card metadata, not
+//! across different standard-library implementations or data versions.
 //!
 class ReplayGame
 {
@@ -65,6 +67,7 @@ class ReplayGame
     int GetReward(PlayerType player) const;
 
     //! Replays into independent runtime state at a quiescent MAIN_ACTION.
+    //! Reconstructs the random state from the initial seed and recorded tasks.
     //! Throws for pending choices, unfinished tasks, failed or terminal games.
     //! \return An independent replay with the same history and random state.
     std::unique_ptr<ReplayGame> Branch() const;

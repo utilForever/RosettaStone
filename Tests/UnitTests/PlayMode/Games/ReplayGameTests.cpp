@@ -20,6 +20,7 @@
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 #include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
 
+#include <set>
 #include <sstream>
 #include <stdexcept>
 
@@ -60,6 +61,16 @@ Playable* InHand(const ReplayGame& replay, const std::string& cardID)
 std::string StateOf(const ReplayGame& replay)
 {
     const auto& game = replay.GetGame();
+    const auto entityID = [](const Entity* entity) {
+        return entity ? entity->GetGameTag(GameTag::ENTITY_ID) : -1;
+    };
+    const auto seat = [](const Player* player) {
+        return player ? static_cast<int>(player->playerType) : -1;
+    };
+    const auto cardID = [](const Card* card) {
+        return card ? card->id : std::string{};
+    };
+
     std::ostringstream out;
 
     out << static_cast<int>(game.state) << ':' << static_cast<int>(game.step)
@@ -73,12 +84,23 @@ std::string StateOf(const ReplayGame& replay)
         }
     };
 
+    const auto* first =
+        replay.GetCurrentPlayer()->playerType == PlayerType::PLAYER1
+            ? replay.GetCurrentPlayer()
+            : replay.GetCurrentPlayer()->opponent;
+
     for (const auto* player :
-         { replay.GetCurrentPlayer(),
-           static_cast<const Player*>(replay.GetCurrentPlayer()->opponent) })
+         { first, static_cast<const Player*>(first->opponent) })
     {
         out << "|player:" << static_cast<int>(player->playerType) << ':'
-            << static_cast<int>(player->playState);
+            << static_cast<int>(replay.GetOutcome(player->playerType)) << ':'
+            << replay.GetReward(player->playerType);
+
+        const auto* hero = player->GetHero();
+
+        out << "|hero:" << entityID(hero) << ':' << entityID(hero->heroPower)
+            << ':' << entityID(hero->weapon) << ':' << hero->fatigue << ':'
+            << hero->damageTakenThisTurn;
 
         tags(player);
 
@@ -99,18 +121,46 @@ std::string StateOf(const ReplayGame& replay)
 
         out << "|history:" << player->playHistory.size();
 
+        for (const auto& entry : player->playHistory)
+        {
+            out << '|' << seat(entry.sourcePlayer) << ':'
+                << seat(entry.targetPlayer) << ':' << cardID(entry.sourceCard)
+                << ':' << cardID(entry.targetCard) << ':' << entry.sourceID
+                << ':' << entry.turn << ':' << entry.chooseOne;
+        }
+
+        out << "|played:";
+
         for (const auto* card : player->cardsPlayedThisTurn)
         {
             out << ',' << card->id;
         }
 
-        if (player->choice)
+        for (const auto* choice = player->choice.get(); choice;
+             choice = choice->nextChoice.get())
         {
-            out << "|choice:" << static_cast<int>(player->choice->choiceType);
+            out << "|choice:" << static_cast<int>(choice->choiceType) << ':'
+                << static_cast<int>(choice->choiceAction) << ':'
+                << seat(choice->player) << ':' << entityID(choice->source)
+                << ':' << choice->depth << ':' << choice->lastChoice;
 
-            for (const int id : player->choice->choices)
+            for (const int id : choice->choices)
             {
                 out << ',' << id;
+            }
+
+            out << "|stack:";
+
+            for (const int id : choice->entityStack)
+            {
+                out << ',' << id;
+            }
+
+            out << "|pool:";
+
+            for (const auto* card : choice->cardSets)
+            {
+                out << ',' << cardID(card);
             }
         }
     }
@@ -119,7 +169,8 @@ std::string StateOf(const ReplayGame& replay)
     {
         out << "|entity:" << id << ':' << entity->card->id << ':'
             << entity->orderOfPlay << ':' << entity->isDestroyed << ':'
-            << entity->GetCost();
+            << entity->GetCost() << ':' << seat(entity->player) << ':'
+            << (entity->zone ? static_cast<int>(entity->zone->GetType()) : -1);
 
         tags(entity);
 
@@ -131,7 +182,10 @@ std::string StateOf(const ReplayGame& replay)
 
         for (const auto& enchantment : entity->appliedEnchantments)
         {
-            out << "|enchantment:" << enchantment->card->id;
+            out << "|enchantment:" << enchantment->card->id << ':'
+                << entityID(enchantment->GetOwner()) << ':'
+                << entityID(enchantment->GetTarget());
+
             tags(enchantment.get());
         }
     }
@@ -139,6 +193,14 @@ std::string StateOf(const ReplayGame& replay)
     out << "|effects:" << game.auras.size() << ':' << game.triggers.size()
         << ':' << game.oneTurnEffects.size() << ':'
         << game.oneTurnEffectEnchantments.size();
+
+    for (const auto& action : EnumerateActions(game))
+    {
+        out << "|action:" << static_cast<int>(action.type) << ':'
+            << action.sourceID << ':' << action.targetID << ':'
+            << action.fieldPos << ':' << action.chooseOne << ':'
+            << action.choiceID;
+    }
 
     return out.str();
 }
@@ -465,41 +527,193 @@ TEST_CASE("[ReplayGame] - TradeSummons")
     CHECK(Random::get_engine() == randomBefore);
 }
 
-TEST_CASE("[ReplayGame] - DeterministicReplay")
+TEST_CASE("[ReplayGame] - SeededStartup")
 {
     auto config = ReplayConfig();
     config.startPlayer = PlayerType::RANDOM;
     config.doShuffle = true;
-    config.player1Deck.fill(Cards::FindCardByID("EX1_277"));
-    config.player2Deck.fill(Cards::FindCardByID("EX1_277"));
-    config.player1Deck[0] = Cards::FindCardByID("CS2_231");
-    config.player2Deck[0] = Cards::FindCardByID("CS2_231");
+
+    for (std::size_t i = 0; i < config.player1Deck.size(); i += 2)
+    {
+        config.player1Deck[i] = Cards::FindCardByID("EX1_277");
+        config.player2Deck[i] = Cards::FindCardByID("EX1_277");
+    }
 
     const auto globalRandom = Random::get_engine();
-    ReplayGame parent(config, 123);
+    std::set<std::string> outcomes;
 
-    parent.Process(PlayCardTask(InHand(parent, "EX1_277")));
+    for (unsigned int seed = 0; seed < 16; ++seed)
+    {
+        CAPTURE(seed);
 
-    auto first = parent.Branch();
+        ReplayGame parent(config, seed);
+        const auto before = StateOf(parent);
 
-    Random::discard(23);
+        outcomes.insert(before);
 
-    const auto advancedGlobalRandom = Random::get_engine();
-    auto second = parent.Branch();
+        Random::discard(23);
 
-    CHECK(Random::get_engine() == advancedGlobalRandom);
-    CHECK_EQ(StateOf(*first), StateOf(parent));
-    CHECK_EQ(StateOf(*first), StateOf(*second));
+        const auto advancedGlobalRandom = Random::get_engine();
+        ReplayGame repeated(config, seed);
+        auto child = parent.Branch();
 
-    first->Process(EndTurnTask());
-    first->Process(PlayCardTask(InHand(*first, "EX1_277")));
-    second->Process(EndTurnTask());
-    second->Process(PlayCardTask(InHand(*second, "EX1_277")));
+        CHECK_EQ(StateOf(repeated), before);
+        CHECK_EQ(StateOf(*child), before);
+        CHECK(Random::get_engine() == advancedGlobalRandom);
+    }
 
-    CHECK_EQ(StateOf(*first), StateOf(*second));
-    CHECK(Random::get_engine() == advancedGlobalRandom);
+    CHECK_GT(outcomes.size(), 1);
 
     Random::engine() = globalRandom;
+}
+
+TEST_CASE("[ReplayGame] - RandomActionsAreBranchLocal")
+{
+    auto config = ReplayConfig();
+    config.player1Deck.fill(Cards::FindCardByID("EX1_277"));
+    config.player2Deck.fill(Cards::FindCardByID("CS2_231"));
+
+    const auto globalRandom = Random::get_engine();
+    std::set<std::string> outcomes;
+    std::string initialState;
+
+    for (unsigned int seed = 0; seed < 16; ++seed)
+    {
+        std::string repeatedOutcome;
+
+        for (int run = 0; run < 2; ++run)
+        {
+            CAPTURE(seed);
+            CAPTURE(run);
+
+            ReplayGame parent(config, seed);
+            parent.ApplyAction(PlayerAction{});
+
+            for (int position = 0; position < 3; ++position)
+            {
+                parent.ApplyAction(
+                    { PlayerActionType::PLAY_CARD,
+                      InHand(parent, "CS2_231")->GetGameTag(GameTag::ENTITY_ID),
+                      -1, position });
+            }
+
+            parent.ApplyAction(PlayerAction{});
+
+            const auto before = StateOf(parent);
+
+            if (initialState.empty())
+            {
+                initialState = before;
+            }
+
+            CHECK_EQ(before, initialState);
+            REQUIRE_EQ(
+                parent.GetCurrentPlayer()->opponent->GetFieldZone()->GetCount(),
+                3);
+
+            auto first = parent.Branch();
+            auto sibling = parent.Branch();
+            const PlayerAction firstMissiles{
+                PlayerActionType::PLAY_CARD,
+                InHand(parent, "EX1_277")->GetGameTag(GameTag::ENTITY_ID)
+            };
+
+            first->ApplyAction(firstMissiles);
+
+            const auto afterFirst = StateOf(*first);
+
+            outcomes.insert(afterFirst);
+
+            // Replay a history that has already consumed random numbers.
+            auto grandchild = first->Branch();
+
+            CHECK_EQ(StateOf(*grandchild), afterFirst);
+
+            const PlayerAction secondMissiles{
+                PlayerActionType::PLAY_CARD,
+                InHand(*first, "EX1_277")->GetGameTag(GameTag::ENTITY_ID)
+            };
+
+            first->ApplyAction(secondMissiles);
+
+            const auto afterSecond = StateOf(*first);
+
+            grandchild->ApplyAction(secondMissiles);
+
+            CHECK_EQ(StateOf(*grandchild), afterSecond);
+            CHECK_EQ(StateOf(parent), before);
+            CHECK_EQ(StateOf(*sibling), before);
+            CHECK(Random::get_engine() == globalRandom);
+
+            Random::discard(23);
+
+            const auto advancedGlobalRandom = Random::get_engine();
+            auto lateSibling = parent.Branch();
+
+            CHECK_THROWS_AS(
+                sibling->ApplyAction({ PlayerActionType::PLAY_CARD, -1 }),
+                std::invalid_argument);
+
+            for (auto* equivalent :
+                 { sibling.get(), lateSibling.get(), &parent })
+            {
+                equivalent->ApplyAction(firstMissiles);
+                CHECK_EQ(StateOf(*equivalent), afterFirst);
+
+                equivalent->ApplyAction(secondMissiles);
+                CHECK_EQ(StateOf(*equivalent), afterSecond);
+            }
+            CHECK(Random::get_engine() == advancedGlobalRandom);
+            Random::engine() = globalRandom;
+
+            if (run == 0)
+            {
+                repeatedOutcome = afterSecond;
+            }
+            else
+            {
+                CHECK_EQ(afterSecond, repeatedOutcome);
+            }
+        }
+    }
+
+    CHECK_GT(outcomes.size(), 1);
+}
+
+TEST_CASE("[ReplayGame] - StructuralStateComparison")
+{
+    ReplayGame parent(ReplayConfig(), 42);
+    parent.ApplyAction(
+        { PlayerActionType::PLAY_CARD,
+          InHand(parent, "CS2_231")->GetGameTag(GameTag::ENTITY_ID), -1, 0 });
+
+    auto child = parent.Branch();
+    const auto before = StateOf(parent);
+
+    CHECK_EQ(StateOf(*child), before);
+
+    auto* player = child->GetCurrentPlayer()->opponent->opponent;
+
+    SUBCASE("History contents with unchanged length")
+    {
+        REQUIRE_FALSE(player->playHistory.empty());
+        ++player->playHistory.front().turn;
+    }
+
+    SUBCASE("Hero fatigue outside game tags")
+    {
+        ++player->GetHero()->fatigue;
+    }
+
+    SUBCASE("Ordered deck identities")
+    {
+        const auto cards = player->GetDeckZone()->GetAll();
+        REQUIRE_GE(cards.size(), 2);
+        player->GetDeckZone()->Swap(cards[0], cards[1]);
+    }
+
+    CHECK_NE(StateOf(*child), before);
+    CHECK_EQ(StateOf(parent), before);
 }
 
 TEST_CASE("[ReplayGame] - CardMetadata")
@@ -669,10 +883,10 @@ TEST_CASE("[ReplayGame] - SemanticActionsMatchPlayerTasks")
         {
             const auto choices = EnumerateActions(child->GetGame());
 
-            REQUIRE_FALSE(choices.empty());
-            REQUIRE_EQ(choices.front().type, PlayerActionType::CHOOSE);
-            CHECK(child->ApplyAction(choices.front()) ==
-                  ProcessActionTask(*direct, choices.front()));
+            REQUIRE_GT(choices.size(), 1);
+            REQUIRE_EQ(choices.back().type, PlayerActionType::CHOOSE);
+            CHECK(child->ApplyAction(choices.back()) ==
+                  ProcessActionTask(*direct, choices.back()));
             CHECK_EQ(StateOf(*child), StateOf(*direct));
 
             ++applied[static_cast<std::size_t>(PlayerActionType::CHOOSE)];
@@ -743,6 +957,15 @@ TEST_CASE("[ReplayGame] - InvalidSemanticActionsDoNotMutate")
 
 TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
 {
+    ReplayGame validation(ReplayConfig(), 42);
+
+    for (const auto invalid : { PlayerType::INVALID, PlayerType::RANDOM,
+                                static_cast<PlayerType>(99) })
+    {
+        CHECK_THROWS_AS(validation.GetOutcome(invalid), std::invalid_argument);
+        CHECK_THROWS_AS(validation.GetReward(invalid), std::invalid_argument);
+    }
+
     for (const auto start : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
     {
         for (int result = 0; result < 3; ++result)
@@ -766,15 +989,6 @@ TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
             {
                 CHECK_EQ(replay.GetOutcome(seat), PlayState::PLAYING);
                 CHECK_EQ(replay.GetReward(seat), 0);
-            }
-
-            for (const auto invalid : { PlayerType::INVALID, PlayerType::RANDOM,
-                                        static_cast<PlayerType>(99) })
-            {
-                CHECK_THROWS_AS(replay.GetOutcome(invalid),
-                                std::invalid_argument);
-                CHECK_THROWS_AS(replay.GetReward(invalid),
-                                std::invalid_argument);
             }
 
             for (int turn = 0;
