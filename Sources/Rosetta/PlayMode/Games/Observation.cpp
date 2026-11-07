@@ -23,6 +23,7 @@ std::int32_t EncodeValue(int value)
     {
         throw std::overflow_error("Observation value exceeds int32");
     }
+
     return static_cast<std::int32_t>(value);
 }
 
@@ -33,6 +34,7 @@ std::int32_t EncodeCardID(const Card* card)
     {
         throw std::invalid_argument("Observation requires a known card ID");
     }
+
     return EncodeValue(card->dbfID);
 }
 
@@ -51,6 +53,7 @@ Schema::Card EncodeCard(const Playable& entity, bool includeCost)
     row[Schema::CARD_ID] = EncodeCardID(entity.card);
 
     const auto type = entity.card->GetCardType();
+
     if ((type != CardType::HERO && type != CardType::HERO_POWER &&
          type != CardType::MINION && type != CardType::SPELL &&
          type != CardType::WEAPON) ||
@@ -80,12 +83,14 @@ Schema::Card EncodeCard(const Playable& entity, bool includeCost)
             throw std::invalid_argument(
                 "Observation cannot represent school-specific Spell Damage");
         }
+
         row[Schema::ATTACK] = EncodeValue(character->GetAttack());
         row[Schema::HEALTH] = EncodeValue(character->GetHealth());
         row[Schema::MAX_HEALTH] = EncodeValue(character->GetBaseHealth());
         row[Schema::SPELL_POWER] = EncodeValue(character->GetSpellPower());
         row[Schema::ATTACKS_THIS_TURN] =
             EncodeValue(character->GetNumAttacksThisTurn());
+
         flags |= character->IsFrozen() ? Schema::FROZEN : 0;
         flags |= character->IsImmune() ? Schema::IMMUNE : 0;
         flags |= character->HasStealth() ? Schema::STEALTH : 0;
@@ -94,10 +99,12 @@ Schema::Card EncodeCard(const Playable& entity, bool includeCost)
         flags |= character->CantAttack() ? Schema::CANT_ATTACK : 0;
         flags |= character->CantAttackHeroes() ? Schema::CANT_ATTACK_HEROES : 0;
     }
+
     if (const auto* hero = dynamic_cast<const Hero*>(&entity))
     {
         row[Schema::ARMOR] = EncodeValue(hero->GetArmor());
     }
+
     if (const auto* minion = dynamic_cast<const Minion*>(&entity))
     {
         flags |= minion->HasTaunt() ? Schema::TAUNT : 0;
@@ -108,6 +115,7 @@ Schema::Card EncodeCard(const Playable& entity, bool includeCost)
         flags |= minion->GetGameTag(GameTag::SILENCED) ? Schema::SILENCED : 0;
         flags |= minion->IsAttackableByRush() ? Schema::RUSH_ATTACKABLE : 0;
     }
+
     if (const auto* weapon = dynamic_cast<const Weapon*>(&entity))
     {
         row[Schema::ATTACK] = EncodeValue(weapon->GetAttack());
@@ -115,6 +123,7 @@ Schema::Card EncodeCard(const Playable& entity, bool includeCost)
         flags |= weapon->IsImmune() ? Schema::IMMUNE : 0;
         flags |= weapon->HasPoisonous() ? Schema::POISONOUS : 0;
     }
+
     return row;
 }
 }  // namespace
@@ -130,6 +139,7 @@ Observation EncodeObservation(const Game& game)
     }
 
     const auto* actor = game.GetCurrentPlayer();
+
     if (!actor->opponent || actor->opponent->choice)
     {
         throw std::invalid_argument("Observation requires the acting player");
@@ -148,12 +158,14 @@ Observation EncodeObservation(const Game& game)
         const auto* board = player->GetFieldZone();
         const auto* hand = player->GetHandZone();
         const auto* secrets = player->GetSecretZone();
+
         if (player->playState != PlayState::PLAYING || !hero ||
             !hero->heroPower || hero->GetHealth() <= 0)
         {
             throw std::invalid_argument(
                 "Observation requires live heroes and hero powers");
         }
+
         CheckCapacity(board->GetCount(), Schema::BOARD_SLOTS);
         CheckCapacity(hand->GetCount(), Schema::HAND_SLOTS);
         CheckCapacity(secrets->GetCount(), Schema::SECRET_SLOTS);
@@ -185,16 +197,19 @@ Observation EncodeObservation(const Game& game)
 
         observation.heroes[index] = EncodeCard(*hero, false);
         observation.heroPowers[index] = EncodeCard(*hero->heroPower, true);
+
         if (hero->weapon)
         {
             observation.weapons[index] = EncodeCard(*hero->weapon, false);
         }
 
         const auto minions = board->GetAll();
+
         if (std::cmp_not_equal(minions.size(), board->GetCount()))
         {
             throw std::invalid_argument("Observation board is not settled");
         }
+
         for (std::size_t slot = 0; slot < minions.size(); ++slot)
         {
             if (!dynamic_cast<const Minion*>(minions[slot]))
@@ -202,32 +217,39 @@ Observation EncodeObservation(const Game& game)
                 throw std::invalid_argument(
                     "Observation supports only minions on the board");
             }
+
             observation.board[index][slot] = EncodeCard(*minions[slot], false);
         }
     }
 
     const auto hand = actor->GetHandZone()->GetAll();
     const auto secrets = actor->GetSecretZone()->GetAll();
+
     if (std::cmp_not_equal(hand.size(), actor->GetHandZone()->GetCount()) ||
         std::cmp_not_equal(secrets.size(), actor->GetSecretZone()->GetCount()))
     {
         throw std::invalid_argument("Observation actor zones are not settled");
     }
+
     for (std::size_t slot = 0; slot < hand.size(); ++slot)
     {
         observation.hand[slot] = EncodeCard(*hand[slot], true);
+
         const auto& options = hand[slot]->card->chooseCardIDs;
+
         if (options.size() > Schema::CHOICE_SLOTS)
         {
             throw std::invalid_argument(
                 "Observation has too many Choose One options");
         }
+
         for (std::size_t option = 0; option < options.size(); ++option)
         {
             observation.chooseOne[slot][option] =
                 EncodeCardID(Cards::FindCardByID(options[option]));
         }
     }
+
     for (std::size_t slot = 0; slot < secrets.size(); ++slot)
     {
         observation.secrets[slot] = EncodeCardID(secrets[slot]->card);
@@ -245,10 +267,13 @@ Observation EncodeObservation(const Game& game)
             throw std::invalid_argument(
                 "Observation cannot represent this choice");
         }
+
         observation.turn[Schema::DECISION] = Schema::GENERAL_CHOICE;
+
         for (std::size_t slot = 0; slot < choice->choices.size(); ++slot)
         {
             const auto offered = game.entityList.find(choice->choices[slot]);
+
             if (offered == game.entityList.end() || !offered->second ||
                 offered->second->player != actor ||
                 offered->second->GetZoneType() != ZoneType::SETASIDE)
@@ -256,9 +281,11 @@ Observation EncodeObservation(const Game& game)
                 throw std::invalid_argument(
                     "Observation requires a visible choice offer");
             }
+
             observation.choices[slot] = EncodeCard(*offered->second, true);
         }
     }
+
     return observation;
 }
 }  // namespace RosettaStone::PlayMode
