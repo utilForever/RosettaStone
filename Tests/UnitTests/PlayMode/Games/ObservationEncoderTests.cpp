@@ -43,6 +43,7 @@ std::unique_ptr<Game> ObservationGame()
     game->Start();
     game->ProcessUntil(Step::MAIN_ACTION);
     game->GetCurrentPlayer()->SetTotalMana(10);
+
     return game;
 }
 
@@ -69,6 +70,7 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
     SUBCASE("Opponent hand identities and private modifications")
     {
         Draw(first->GetCurrentPlayer()->opponent, "CS2_029");
+
         auto* hidden = Draw(opponent, "CS2_182");
         hidden->SetCost(0);
         hidden->SetGameTag(GameTag::ATK, 12);
@@ -76,6 +78,7 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
     SUBCASE("Opponent secret identities")
     {
         auto* other = first->GetCurrentPlayer()->opponent;
+
         AddToZone(other, "EX1_287", other->GetSecretZone());
         AddToZone(opponent, "EX1_289", opponent->GetSecretZone());
     }
@@ -85,9 +88,11 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
         {
             Draw(first->GetCurrentPlayer()->opponent, "CS2_231");
             Draw(opponent, id);
+
             for (auto* owner : { player, opponent })
             {
                 auto* deck = owner->GetDeckZone();
+
                 owner->GetSetasideZone()->Add(deck->Remove(deck->GetTopCard()));
                 AddToZone(owner, id, deck);
             }
@@ -99,6 +104,7 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
         {
             auto* deck = owner->GetDeckZone();
             auto* removed = deck->Remove(deck->GetTopCard());
+
             owner->GetSetasideZone()->Add(removed);
             AddToZone(owner, "CS2_029", deck);
             deck->Swap(deck->GetTopCard(), deck->GetBottomCard());
@@ -114,6 +120,7 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
                 AddToZone(owner, "CS2_029", owner->GetDeckZone());
             }
         }
+
         for (auto* owner : { player, opponent })
         {
             auto* deck = owner->GetDeckZone();
@@ -124,6 +131,7 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
     {
         auto* hidden =
             AddToZone(opponent, "CS2_029", opponent->GetGraveyardZone());
+
         AddToZone(player, "CS2_182", player->GetSetasideZone());
         opponent->playHistory.emplace_back(hidden, nullptr, 1, 0);
     }
@@ -133,6 +141,7 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
         {
             owner->playerID += 100;
             owner->GetHero()->SetGameTag(GameTag::ENTITY_ID, 1000);
+
             for (auto* card : owner->GetHandZone()->GetAll())
             {
                 card->SetGameTag(GameTag::ENTITY_ID, 2000);
@@ -148,6 +157,7 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
             game->Process(owner, PlayCardTask(Draw(owner, "CS2_182")));
             game->Process(owner, PlayCardTask(Draw(owner, "CS2_106")));
         }
+
         player->GetHero()->SetCost(9);
         player->GetFieldZone()->GetAll()[0]->SetCost(8);
         player->GetWeapon().SetCost(7);
@@ -155,13 +165,18 @@ TEST_CASE("[Observation] - Hidden information cannot change the encoding")
 
     const auto expected = EncodeObservation(*first);
     const auto randomBefore = Random::get_engine();
+
     CHECK(EncodeObservation(*second) == expected);
     CHECK(EncodeObservation(*second) == expected);
     CHECK(Random::get_engine() == randomBefore);
+
     Random::discard(19);
+
     const auto advancedRandom = Random::get_engine();
+
     CHECK(EncodeObservation(*second) == expected);
     CHECK(Random::get_engine() == advancedRandom);
+
     Random::engine() = randomBefore;
 }
 
@@ -170,8 +185,10 @@ TEST_CASE("[Observation] - Public and actor-visible differences are retained")
     auto game = ObservationGame();
     auto* player = game->GetCurrentPlayer();
     auto* opponent = player->opponent;
+
     game->Process(player, PlayCardTask(Draw(player, "CS2_182")));
     AddToZone(player, "EX1_287", player->GetSecretZone());
+
     const auto before = EncodeObservation(*game);
 
     SUBCASE("Hero damage")
@@ -230,9 +247,11 @@ TEST_CASE("[Observation] - Runtime values and zero padding follow the schema")
 {
     auto game = ObservationGame();
     auto* player = game->GetCurrentPlayer();
+
     game->Process(player, PlayCardTask(Draw(player, "CS2_182")));
     game->Process(player, PlayCardTask(Draw(player, "CS2_106")));
     game->Process(player, HeroPowerTask(player->opponent->GetHero()));
+
     auto* minion = (*player->GetFieldZone())[0];
     minion->SetAttack(7);
     minion->SetBaseHealth(9);
@@ -240,6 +259,7 @@ TEST_CASE("[Observation] - Runtime values and zero padding follow the schema")
     minion->SetSpellPower(3);
     minion->SetNumAttacksThisTurn(2);
     minion->SetAttackableByRush(true);
+
     for (const auto tag :
          { GameTag::EXHAUSTED, GameTag::FROZEN, GameTag::IMMUNE, GameTag::TAUNT,
            GameTag::DIVINE_SHIELD, GameTag::STEALTH, GameTag::WINDFURY,
@@ -249,6 +269,7 @@ TEST_CASE("[Observation] - Runtime values and zero padding follow the schema")
     {
         minion->SetGameTag(tag, 1);
     }
+
     player->GetHero()->SetArmor(6);
     player->GetHero()->SetAttack(2);
     player->GetHero()->fatigue = 4;
@@ -266,9 +287,12 @@ TEST_CASE("[Observation] - Runtime values and zero padding follow the schema")
 
     const auto handSlot = player->GetHandZone()->GetCount();
     auto* spell = Draw(player, "CS2_029");
+
     spell->SetCost(2);
+
     const auto observation = EncodeObservation(*game);
     const auto& board = observation.board[Schema::SELF][0];
+
     CHECK_EQ(board[Schema::CARD_ID], minion->card->dbfID);
     CHECK_EQ(board[Schema::COST], 0);
     CHECK_EQ(board[Schema::ATTACK], 7);
@@ -284,6 +308,7 @@ TEST_CASE("[Observation] - Runtime values and zero padding follow the schema")
     CHECK_EQ(observation.weapons[0][Schema::DURABILITY], 1);
     CHECK_EQ(observation.heroPowers[0][Schema::COST], 1);
     CHECK((observation.heroPowers[0][Schema::FLAGS] & Schema::EXHAUSTED) != 0);
+
     const Schema::Player resources{ 9,
                                     2,
                                     3,
@@ -295,16 +320,19 @@ TEST_CASE("[Observation] - Runtime values and zero padding follow the schema")
                                     4,
                                     5,
                                     1 };
+
     CHECK(observation.players[0] == resources);
     CHECK_EQ(observation.turn[Schema::TURN_NUMBER], game->GetTurn());
     CHECK_EQ(observation.turn[Schema::DECISION], Schema::MAIN_ACTION);
     CHECK_EQ(observation.hand[handSlot][Schema::COST], 2);
+
     for (std::size_t field = Schema::ATTACK; field <= Schema::ATTACKS_THIS_TURN;
          ++field)
     {
         CHECK_EQ(observation.hand[handSlot][field], 0);
         CHECK_EQ(observation.heroPowers[0][field], 0);
     }
+
     CHECK(observation.board[0][1] == Schema::Card{});
     CHECK(observation.weapons[1] == Schema::Card{});
     CHECK(observation.hand.back() == Schema::Card{});
@@ -319,16 +347,21 @@ TEST_CASE(
     auto game = ObservationGame();
     auto* first = game->GetCurrentPlayer();
     auto* second = first->opponent;
+
     AddToZone(first, "EX1_287", first->GetSecretZone());
     AddToZone(second, "EX1_289", second->GetSecretZone());
     Draw(first, "EX1_160");  // Power of the Wild
     Draw(second, "CS2_029");
+
     game->Process(first, PlayCardTask(Draw(first, "CS2_182")));
     game->Process(first, PlayCardTask(Draw(first, "CS2_120")));
+
     const auto firstView = EncodeObservation(*game);
 
     game->SetCurrentPlayer(PlayerType::PLAYER2);
+
     const auto secondView = EncodeObservation(*game);
+
     CHECK(secondView.players[0] == firstView.players[1]);
     CHECK(secondView.players[1] == firstView.players[0]);
     CHECK(secondView.heroes[0] == firstView.heroes[1]);
@@ -340,9 +373,12 @@ TEST_CASE(
     CHECK_EQ(firstView.secrets[0], Cards::FindCardByID("EX1_287")->dbfID);
     CHECK_EQ(secondView.secrets[0], Cards::FindCardByID("EX1_289")->dbfID);
     CHECK(secondView.chooseOne == decltype(secondView.chooseOne){});
+
     const auto chooseSlot = first->GetHandZone()->GetCount() - 1;
     const auto* chooseCard = Cards::FindCardByID("EX1_160");
+
     REQUIRE_EQ(chooseCard->chooseCardIDs.size(), 2);
+
     for (std::size_t option = 0; option < 2; ++option)
     {
         CHECK_EQ(firstView.chooseOne[chooseSlot][option],
@@ -357,8 +393,10 @@ TEST_CASE(
     auto* player = game->GetCurrentPlayer();
     auto* minion = AddToZone(player, "CS2_182", player->GetSetasideZone());
     auto* spell = AddToZone(player, "CS2_029", player->GetSetasideZone());
+
     minion->SetCost(1);
     player->choice = std::make_unique<Choice>(player);
+
     auto& choice = *player->choice;
     choice.choiceType = ChoiceType::GENERAL;
     choice.choiceAction = ChoiceAction::HAND;
@@ -366,15 +404,20 @@ TEST_CASE(
                        minion->GetGameTag(GameTag::ENTITY_ID) };
 
     const auto observation = EncodeObservation(*game);
+
     CHECK_EQ(observation.turn[Schema::DECISION], Schema::GENERAL_CHOICE);
     CHECK_EQ(observation.choices[0][Schema::CARD_ID], spell->card->dbfID);
     CHECK_EQ(observation.choices[1][Schema::CARD_ID], minion->card->dbfID);
     CHECK_EQ(observation.choices[1][Schema::COST], 1);
     CHECK_EQ(observation.choices[1][Schema::ATTACK], 4);
     CHECK(observation.choices[2] == Schema::Card{});
+
     choice.cardSets = { Cards::FindCardByID("CS2_120") };
+
     CHECK(EncodeObservation(*game) == observation);
+
     std::ranges::reverse(choice.choices);
+
     CHECK_FALSE(EncodeObservation(*game) == observation);
 }
 
@@ -383,20 +426,27 @@ TEST_CASE(
 {
     auto game = ObservationGame();
     auto* player = game->GetCurrentPlayer();
+
     REQUIRE_NOTHROW(EncodeObservation(*game));
+
     auto* sidequest = Draw(player, "DRG_255");  // Toxic Reinforcements
+
     game->Process(player, PlayCardTask(sidequest));
+
     REQUIRE_EQ(sidequest->GetZoneType(), ZoneType::SECRET);
     REQUIRE_EQ(player->GetSecretZone()->quest, nullptr);
 
     for (int progress = 0; progress <= 1; ++progress)
     {
         game->SetCurrentPlayer(player->playerType);
+
         if (progress == 1)
         {
             game->Process(player, HeroPowerTask(player->opponent->GetHero()));
         }
+
         REQUIRE_EQ(sidequest->GetGameTag(GameTag::QUEST_PROGRESS), progress);
+
         for (const auto seat : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
         {
             game->SetCurrentPlayer(seat);
@@ -408,14 +458,18 @@ TEST_CASE(
 TEST_CASE("[Observation] - Reborn on different public slots is rejected")
 {
     std::array games{ ObservationGame(), ObservationGame() };
+
     for (const auto& game : games)
     {
         auto* player = game->GetCurrentPlayer();
+
         game->Process(player, PlayCardTask(Draw(player, "CS2_182")));
         game->Process(player, PlayCardTask(Draw(player, "CS2_182")));
+
         REQUIRE_EQ(player->GetFieldZone()->GetCount(), 2);
         REQUIRE_NOTHROW(EncodeObservation(*game));
     }
+
     CHECK(EncodeObservation(*games[0]) == EncodeObservation(*games[1]));
 
     for (int slot = 0; slot < 2; ++slot)
@@ -423,10 +477,13 @@ TEST_CASE("[Observation] - Reborn on different public slots is rejected")
         auto& game = *games[slot];
         auto* player = game.GetCurrentPlayer();
         auto* board = player->GetFieldZone();
+
         game.Process(player,
                      PlayCardTask(Draw(player, "ULD_265"), (*board)[slot]));
+
         REQUIRE((*board)[slot]->HasReborn());
         REQUIRE_FALSE((*board)[1 - slot]->HasReborn());
+
         for (const auto seat : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
         {
             game.SetCurrentPlayer(seat);
@@ -439,6 +496,7 @@ TEST_CASE("[Observation] - Unsupported decision boundaries are rejected")
 {
     auto game = ObservationGame();
     auto* player = game->GetCurrentPlayer();
+
     SUBCASE("Terminal")
     {
         game->state = State::COMPLETE;
@@ -496,6 +554,7 @@ TEST_CASE("[Observation] - Unsupported decision boundaries are rejected")
     SUBCASE("Expanded actor hand exceeds schema capacity")
     {
         player->GetHandZone()->Expand(11);
+
         while (player->GetHandZone()->GetCount() < 11)
         {
             Draw(player, "CS2_231");
@@ -505,11 +564,13 @@ TEST_CASE("[Observation] - Unsupported decision boundaries are rejected")
     {
         auto* opponent = player->opponent;
         opponent->GetHandZone()->Expand(11);
+
         while (opponent->GetHandZone()->GetCount() < 11)
         {
             Draw(opponent, "CS2_231");
         }
     }
+
     CHECK_THROWS_AS(EncodeObservation(*game), std::invalid_argument);
 }
 
@@ -518,7 +579,9 @@ TEST_CASE("[Observation] - Unsupported or invalid choices are rejected")
     auto game = ObservationGame();
     auto* player = game->GetCurrentPlayer();
     auto* offer = AddToZone(player, "CS2_182", player->GetSetasideZone());
+
     player->choice = std::make_unique<Choice>(player);
+
     auto& choice = *player->choice;
     choice.choiceType = ChoiceType::GENERAL;
     choice.choiceAction = ChoiceAction::HAND;
@@ -566,6 +629,7 @@ TEST_CASE("[Observation] - Unsupported or invalid choices are rejected")
     }
 
     const auto entityCount = game->entityList.size();
+
     CHECK_THROWS_AS(EncodeObservation(*game), std::invalid_argument);
     CHECK_EQ(game->entityList.size(), entityCount);
 }
@@ -576,6 +640,7 @@ TEST_CASE("[Observation] - Invalid visible metadata is rejected")
     auto* entity = game->GetCurrentPlayer()->GetHandZone()->GetAll()[0];
     auto* original = entity->card;
     Card invalid = *original;
+
     entity->card = &invalid;
 
     SUBCASE("Nonpositive DBF ID")
@@ -601,5 +666,6 @@ TEST_CASE("[Observation] - Invalid visible metadata is rejected")
     }
 
     CHECK_THROWS_AS(EncodeObservation(*game), std::invalid_argument);
+
     entity->card = original;
 }
