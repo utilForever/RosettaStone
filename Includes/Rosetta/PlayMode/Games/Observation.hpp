@@ -12,6 +12,8 @@
 
 namespace RosettaStone::PlayMode
 {
+class Game;
+
 //! Versioned tensor contract; see Documents/ObservationSchema.md.
 namespace ObservationSchema
 {
@@ -116,7 +118,7 @@ constexpr std::size_t RelativePlayerIndex(PlayerType player,
 }
 }  // namespace ObservationSchema
 
-//! Fixed-shape, player-relative observation storage, not a Game encoder.
+//! Fixed-shape, player-relative observation storage.
 //! All payload values are int32, unscaled, and zero by default. Owner axes
 //! are [acting player, opponent]; slots retain engine zone/offered order.
 //! No runtime entity IDs, opponent hand identities, or deck contents belong
@@ -149,6 +151,12 @@ struct Observation
 
     bool operator==(const Observation&) const = default;
 };
+
+//! Encodes a quiescent, running MAIN_ACTION from the current player's view.
+//! Reads only visible entities and public counts; does not advance the game.
+//! Throws std::invalid_argument for states outside the v1 schema and
+//! std::overflow_error for values that cannot be represented as int32.
+Observation EncodeObservation(const Game& game);
 }  // namespace RosettaStone::PlayMode
 
 #endif  // ROSETTASTONE_PLAYMODE_OBSERVATION_HPP
