@@ -1,0 +1,55 @@
+observationVersion: 1
+turn: 3 1
+players[0]: 5 2 0 0 0 5 25 0 0 0 0
+players[1]: 4 4 0 0 0 6 25 0 0 0 0
+heroes[0]: 1 637 0 0 30 30 0 0 0 0 0
+heroes[1]: 1 7 0 0 29 30 0 0 0 0 0
+heroPowers[0]: 1 807 2 0 0 0 0 0 0 0 1
+heroPowers[1]: 1 725 2 0 0 0 0 0 0 0 0
+weapons[0]: 0 0 0 0 0 0 0 0 0 0 0
+weapons[1]: 0 0 0 0 0 0 0 0 0 0 0
+board[0][0]: 1 1369 0 2 3 3 0 0 0 0 0
+board[0][1]: 1 216 0 3 2 2 0 0 0 0 0
+board[0][2]: 0 0 0 0 0 0 0 0 0 0 0
+board[0][3]: 0 0 0 0 0 0 0 0 0 0 0
+board[0][4]: 0 0 0 0 0 0 0 0 0 0 0
+board[0][5]: 0 0 0 0 0 0 0 0 0 0 0
+board[0][6]: 0 0 0 0 0 0 0 0 0 0 0
+board[1][0]: 1 635 0 3 5 5 0 0 0 0 9
+board[1][1]: 0 0 0 0 0 0 0 0 0 0 0
+board[1][2]: 0 0 0 0 0 0 0 0 0 0 0
+board[1][3]: 0 0 0 0 0 0 0 0 0 0 0
+board[1][4]: 0 0 0 0 0 0 0 0 0 0 0
+board[1][5]: 0 0 0 0 0 0 0 0 0 0 0
+board[1][6]: 0 0 0 0 0 0 0 0 0 0 0
+hand[0]: 1 1686 6 6 7 7 0 0 0 0 0
+hand[1]: 1 1686 6 6 7 7 0 0 0 0 0
+hand[2]: 1 1686 6 6 7 7 0 0 0 0 0
+hand[3]: 1 1686 6 6 7 7 0 0 0 0 0
+hand[4]: 1 1686 6 6 7 7 0 0 0 0 0
+hand[5]: 0 0 0 0 0 0 0 0 0 0 0
+hand[6]: 0 0 0 0 0 0 0 0 0 0 0
+hand[7]: 0 0 0 0 0 0 0 0 0 0 0
+hand[8]: 0 0 0 0 0 0 0 0 0 0 0
+hand[9]: 0 0 0 0 0 0 0 0 0 0 0
+secrets: 0 0 0 0 0
+chooseOne[0]: 0 0 0 0
+chooseOne[1]: 0 0 0 0
+chooseOne[2]: 0 0 0 0
+chooseOne[3]: 0 0 0 0
+chooseOne[4]: 0 0 0 0
+chooseOne[5]: 0 0 0 0
+chooseOne[6]: 0 0 0 0
+chooseOne[7]: 0 0 0 0
+chooseOne[8]: 0 0 0 0
+chooseOne[9]: 0 0 0 0
+choices[0]: 0 0 0 0 0 0 0 0 0 0 0
+choices[1]: 0 0 0 0 0 0 0 0 0 0 0
+choices[2]: 0 0 0 0 0 0 0 0 0 0 0
+choices[3]: 0 0 0 0 0 0 0 0 0 0 0
+policyVersion: 1
+mask: uint8[4846] default=0; listed indices=1
+actions: index type source target fieldPos chooseOne choice
+0 END_TURN - - -1 0 -
+4770 ATTACK board[0][0] board[1][0] -1 0 -
+4778 ATTACK board[0][1] board[1][0] -1 0 -
