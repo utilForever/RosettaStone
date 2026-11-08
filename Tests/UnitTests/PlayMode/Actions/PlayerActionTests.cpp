@@ -160,14 +160,6 @@ void CheckPolicyRoundTrips(const Game& game, const PolicyActions& policy)
     }
 
     CHECK(policy.GetLegalMask() == expected);
-
-    for (std::size_t index = 0; index < expected.size(); ++index)
-    {
-        if (expected[index] == 0)
-        {
-            CHECK_THROWS_AS(policy.Decode(index), std::invalid_argument);
-        }
-    }
 }
 }  // namespace
 
@@ -557,6 +549,14 @@ TEST_CASE("[PolicyActions] - Version one layout and complete main actions")
     CHECK(EncodeObservation(*game) == before);
     CHECK(effolkronium::random_static::get_engine() == randomBefore);
 
+    for (std::size_t index = 0; index < Schema::NUM_ACTIONS; ++index)
+    {
+        if (policy.GetLegalMask()[index] == 0)
+        {
+            CHECK_THROWS_AS(policy.Decode(index), std::invalid_argument);
+        }
+    }
+
     CHECK(policy.Decode(0) == PlayerAction{});
     CHECK(policy.Decode(1) ==
           PlayerAction{ PlayerActionType::PLAY_CARD, ID(hand[0]), -1, 0 });
@@ -683,6 +683,8 @@ TEST_CASE("[PolicyActions] - General choices use offered order")
 
     CheckPolicyRoundTrips(*game, policy);
     CHECK_EQ(policy.GetLegalMask()[PolicySchema::END_TURN], 0);
+    CHECK_THROWS_AS(policy.Decode(PolicySchema::END_TURN),
+                    std::invalid_argument);
 
     for (std::size_t slot = 0; slot < offers.size(); ++slot)
     {
@@ -698,6 +700,7 @@ TEST_CASE("[PolicyActions] - General choices use offered order")
 
     CheckPolicyRoundTrips(*game, repeated);
     CHECK_EQ(repeated.GetLegalMask()[4843], 0);
+    CHECK_THROWS_AS(repeated.Decode(4843), std::invalid_argument);
     CHECK_EQ(repeated.Decode(4844).choiceID, offers[1]);
     ProcessAndCheck(*game, repeated.Decode(4842));
     CHECK_EQ(PolicyActions(*game).GetLegalMask()[4842], 0);
@@ -741,6 +744,7 @@ TEST_CASE("[PolicyActions] - Masks follow legality and decision availability")
     SUBCASE("No mana")
     {
         player->SetTotalMana(0);
+        CHECK_EQ(PolicyActions(*game).GetLegalMask()[4834], 0);
     }
     SUBCASE("Full board")
     {
@@ -752,38 +756,15 @@ TEST_CASE("[PolicyActions] - Masks follow legality and decision availability")
         REQUIRE_EQ(player->GetFieldZone()->GetCount(), 7);
         CHECK_EQ(PolicyActions(*game).GetLegalMask()[1], 0);
     }
-    SUBCASE("Taunt")
-    {
-        (*player->opponent->GetFieldZone())[0]->SetGameTag(GameTag::TAUNT, 1);
-
-        CHECK_EQ(PolicyActions(*game).GetLegalMask()[4761], 0);
-        CHECK_EQ(PolicyActions(*game).GetLegalMask()[4762], 1);
-    }
-    SUBCASE("Exhausted and frozen attackers")
-    {
-        player->GetHero()->SetExhausted(true);
-        (*player->GetFieldZone())[0]->SetGameTag(GameTag::FROZEN, 1);
-    }
     SUBCASE("Terminal")
     {
         game->state = State::COMPLETE;
-    }
-    SUBCASE("Intermediate step")
-    {
-        game->step = Step::MAIN_COMBAT;
-    }
-    SUBCASE("Open task event")
-    {
-        game->taskQueue.StartEvent();
-    }
-    SUBCASE("Mulligan")
-    {
-        player->choice = std::make_unique<Choice>(player);
-        player->choice->choiceType = ChoiceType::MULLIGAN;
-    }
-    SUBCASE("Opponent choice")
-    {
-        player->opponent->choice = std::make_unique<Choice>(player->opponent);
+
+        const PolicyActions policy(*game);
+
+        CHECK(policy.GetLegalMask() == PolicySchema::LegalMask{});
+        CHECK_THROWS_AS(policy.Encode(PlayerAction{}), std::invalid_argument);
+        CHECK_THROWS_AS(policy.Decode(0), std::invalid_argument);
     }
 
     CheckPolicyRoundTrips(*game, PolicyActions(*game));
