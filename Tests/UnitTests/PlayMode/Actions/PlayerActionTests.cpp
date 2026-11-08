@@ -619,8 +619,12 @@ TEST_CASE("[PolicyActions] - Untargeted and implicit-target hero powers")
     }
 }
 
-TEST_CASE("[PolicyActions] - Choose One and Choose Both retain all fields")
+TEST_CASE("[PolicyActions] - Choose One and Choose Both use fixed indices")
 {
+    // v1: hand slot 4, target slot 2, then insertion positions 0 and 1.
+    const std::array expected{ std::array{ 1961, 1962 },
+                               std::array{ 1965, 1966 } };
+
     for (const bool chooseBoth : { false, true })
     {
         auto game = ActionGame(CardClass::DRUID);
@@ -646,7 +650,8 @@ TEST_CASE("[PolicyActions] - Choose One and Choose Both retain all fields")
                                            ID(keeper),
                                            ID((*player->GetFieldZone())[0]),
                                            position, option };
-                CHECK(policy.Decode(policy.Encode(action)) == action);
+                CHECK_EQ(policy.Encode(action),
+                         expected[position][chooseBoth ? 0 : option - 1]);
             }
         }
     }
@@ -824,7 +829,7 @@ TEST_CASE("[PolicyActions] - Layout ceilings and location placement")
         const PlayerAction last{ PlayerActionType::PLAY_CARD, ID(card),
                                  ID(player->opponent->GetHero()), 0, 4 };
 
-        CHECK(policy.Decode(policy.Encode(last)) == last);
+        CHECK_EQ(policy.Encode(last), 2160);
 
         metadata.chooseCardIDs.push_back(metadata.chooseCardIDs[0]);
         CHECK_THROWS_AS(PolicyActions{ *game }, std::invalid_argument);
