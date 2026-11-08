@@ -9,6 +9,9 @@
 *.h++   text diff=cpp
 *.hh    text diff=cpp
 
+# Golden schema snapshots use canonical LF bytes on every platform.
+Resources/SchemaGolden/v1/*.txt text eol=lf
+
 # Compiled Object files
 *.slo   binary
 *.lo    binary
