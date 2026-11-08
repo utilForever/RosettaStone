@@ -1,6 +1,6 @@
 # MVP observation schema, version 1
 
-`Includes/Rosetta/PlayMode/Games/Observation.hpp` defines the C++ storage contract for [#1063](https://github.com/utilForever/RosettaStone/issues/1063) and declares `Observation EncodeObservation(const Game&)`, implemented for [#1064](https://github.com/utilForever/RosettaStone/issues/1064). The encoder reads the current player's decision without advancing the game. Policy indices and legal-action masks are separate work. Python exposure is deferred and must preserve this contract with parity tests when added.
+`Includes/Rosetta/PlayMode/Games/Observation.hpp` defines the C++ storage contract for [#1063](https://github.com/utilForever/RosettaStone/issues/1063) and declares `Observation EncodeObservation(const Game&)`, implemented for [#1064](https://github.com/utilForever/RosettaStone/issues/1064). The encoder reads the current player's decision without advancing the game. [Policy actions v1](PolicyActions.md) defines the paired indices and legal-action masks for [#1065](https://github.com/utilForever/RosettaStone/issues/1065). Python exposure is deferred and must preserve this contract with parity tests when added.
 
 The initial target is a fixed-deck PlayMode mirror match. No particular deck has been selected yet. A deck must fit the capabilities below; this schema does not promise support for arbitrary cards or a complete Markov state. Card behavior must come from generic metadata and engine state, never branches on fixed-deck card IDs.
 
@@ -34,7 +34,7 @@ All shapes above have dtype `int32`. Limits are frozen independently of engine c
 
 Renaming player 1 and player 2 everywhere, including the acting seat and their associated state, leaves an otherwise identical player-relative observation unchanged. When the acting player instead changes within a game, each public owner axis (`players`, `heroes`, `heroPowers`, `weapons`, `board`) exchanges rows. Local zone slots are not reversed. The new actor's `hand`, `secrets`, `chooseOne`, and `choices` must be selected freshly; they cannot be recovered by swapping the old observation. An actual turn transition can also change resources, exhaustion, draws, and `turn`.
 
-Card identity is the positive `Card::dbfID` from the pinned card-data version, not a contiguous deck vocabulary. Card type and static text are obtained from that metadata. Runtime entity IDs, pointers, controller IDs, absolute seat numbers, and order-of-play IDs are excluded. Semantic actions retain their own game-local entity IDs outside this observation; the later action mapping must relate them to visible slots separately.
+Card identity is the positive `Card::dbfID` from the pinned card-data version, not a contiguous deck vocabulary. Card type and static text are obtained from that metadata. Runtime entity IDs, pointers, controller IDs, absolute seat numbers, and order-of-play IDs are excluded. Semantic actions retain their own game-local entity IDs outside this observation; `PolicyActions` relates them to visible slots separately.
 
 ## Card columns
 
@@ -116,7 +116,7 @@ For `GENERAL_CHOICE`, v1 supports only a single-step `ChoiceType::GENERAL` with 
 
 The initial encoder conservatively rejects every non-null choice source, including ordinary Discover tasks that retain their source for after-choice effects. Supported offers must belong to the actor's setaside zone, as required by the `HAND` choice execution path. Candidate-pool contents are never inspected.
 
-Choose One is different: `chooseOne[h]` lists up to four metadata option IDs for hand slot `h`, in `Card::chooseCardIDs` order, with trailing zeros. It is present even when `CHOOSE_BOTH=1`; the player field records that modifier. A hand slot with no Choose One options has four zeros. The later action schema maps these slots to the engine's one-based options; choosing an option does not create a `GENERAL_CHOICE` observation by itself.
+Choose One is different: `chooseOne[h]` lists up to four metadata option IDs for hand slot `h`, in `Card::chooseCardIDs` order, with trailing zeros. It is present even when `CHOOSE_BOTH=1`; the player field records that modifier. A hand slot with no Choose One options has four zeros. The policy action schema maps these slots to the engine's one-based options; choosing an option does not create a `GENERAL_CHOICE` observation by itself.
 
 The encoder throws `std::invalid_argument` for unsupported decision states, unknown/nonpositive occupied card IDs, and any board/hand/secret/choice capacity overflow. Values that do not fit `int32` throw `std::overflow_error`. It never silently truncates, clips, or relabels an unsupported state as `NONE`. Both secret zones must contain only actual secrets; all active quest types, including sidequests, are rejected. Visible quests, sidequests, locations, dormant/untouchable entities, Reborn, and school-specific Spell Damage are also rejected. Hidden cards are not inspected for mechanic compatibility; callers must select decks whose effects fit this MVP contract. The default storage type alone does not enforce game validity or visibility.
 
