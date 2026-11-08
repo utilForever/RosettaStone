@@ -4,6 +4,7 @@
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Actions/PlayerAction.hpp>
+#include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Models/Weapon.hpp>
@@ -14,9 +15,14 @@
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/PlayCardTask.hpp>
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
+#include <Rosetta/PlayMode/Zones/SetasideZone.hpp>
+
+#include <effolkronium/random.hpp>
 
 #include <algorithm>
+#include <limits>
 #include <memory>
+#include <type_traits>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -29,13 +35,16 @@ int ID(const Entity* entity)
     return entity->GetGameTag(GameTag::ENTITY_ID);
 }
 
-std::unique_ptr<Game> ActionGame(CardClass heroClass = CardClass::MAGE)
+std::unique_ptr<Game> ActionGame(CardClass heroClass = CardClass::MAGE,
+                                 PlayerType startPlayer = PlayerType::PLAYER1)
 {
     GameConfig config;
     config.formatType = FormatType::WILD;
-    config.player1Class = heroClass;
-    config.player2Class = CardClass::WARRIOR;
-    config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class =
+        startPlayer == PlayerType::PLAYER1 ? heroClass : CardClass::WARRIOR;
+    config.player2Class =
+        startPlayer == PlayerType::PLAYER2 ? heroClass : CardClass::WARRIOR;
+    config.startPlayer = startPlayer;
     config.doShuffle = false;
     config.player1Deck.fill(Cards::FindCardByID("CS2_231"));
     config.player2Deck.fill(Cards::FindCardByID("CS2_231"));
@@ -52,9 +61,9 @@ Playable* Draw(Player* player, const char* cardID)
     return Generic::DrawCard(player, Cards::FindCardByID(cardID));
 }
 
-std::unique_ptr<Game> MixedActions()
+std::unique_ptr<Game> MixedActions(PlayerType startPlayer = PlayerType::PLAYER1)
 {
-    auto game = ActionGame();
+    auto game = ActionGame(CardClass::MAGE, startPlayer);
     auto* player = game->GetCurrentPlayer();
 
     game->Process(player, PlayCardTask(player->GetHandZone()->GetAll()[0]));
@@ -131,6 +140,33 @@ void ProcessAndCheck(Game& game, const PlayerAction& action)
 
             CHECK_FALSE(player->choice);
             break;
+    }
+}
+
+void CheckPolicyRoundTrips(const Game& game, const PolicyActions& policy)
+{
+    PolicySchema::LegalMask expected{};
+
+    for (const auto& action : EnumerateActions(game))
+    {
+        const auto index = policy.Encode(action);
+
+        REQUIRE(index < expected.size());
+        CHECK_EQ(expected[index], 0);
+
+        expected[index] = 1;
+
+        CHECK(policy.Decode(index) == action);
+    }
+
+    CHECK(policy.GetLegalMask() == expected);
+
+    for (std::size_t index = 0; index < expected.size(); ++index)
+    {
+        if (expected[index] == 0)
+        {
+            CHECK_THROWS_AS(policy.Decode(index), std::invalid_argument);
+        }
     }
 }
 }  // namespace
@@ -491,4 +527,352 @@ TEST_CASE("[PlayerAction] - Pending choices and unavailable game states")
     game->state = State::COMPLETE;
 
     CHECK(EnumerateActions(*game).empty());
+}
+
+TEST_CASE("[PolicyActions] - Version one layout and complete main actions")
+{
+    namespace Schema = PolicySchema;
+
+    static_assert(
+        std::is_same_v<Schema::LegalMask, std::array<std::uint8_t, 4846>>);
+
+    CHECK_EQ(Schema::VERSION, 1);
+    CHECK_EQ(Schema::OBSERVATION_VERSION, ObservationSchema::VERSION);
+    CHECK_EQ(Schema::END_TURN, 0);
+    CHECK_EQ(Schema::PLAY_CARD, 1);
+    CHECK_EQ(Schema::ATTACK, 4761);
+    CHECK_EQ(Schema::HERO_POWER, 4825);
+    CHECK_EQ(Schema::CHOOSE, 4842);
+    CHECK_EQ(Schema::NUM_ACTIONS, 4846);
+
+    auto game = MixedActions();
+    const auto* player = game->GetCurrentPlayer();
+    const auto hand = player->GetHandZone()->GetAll();
+    const auto before = EncodeObservation(*game);
+    const auto randomBefore = effolkronium::random_static::get_engine();
+    const PolicyActions policy(*game);
+
+    CheckPolicyRoundTrips(*game, policy);
+    CHECK(PolicyActions(*game).GetLegalMask() == policy.GetLegalMask());
+    CHECK(EncodeObservation(*game) == before);
+    CHECK(effolkronium::random_static::get_engine() == randomBefore);
+
+    CHECK(policy.Decode(0) == PlayerAction{});
+    CHECK(policy.Decode(1) ==
+          PlayerAction{ PlayerActionType::PLAY_CARD, ID(hand[0]), -1, 0 });
+    CHECK(policy.Decode(5) ==
+          PlayerAction{ PlayerActionType::PLAY_CARD, ID(hand[0]), -1, 1 });
+    CHECK(policy.Decode(477) ==
+          PlayerAction{ PlayerActionType::PLAY_CARD, ID(hand[1]), -1, 0 });
+    CHECK(policy.Decode(4761) ==
+          PlayerAction{ PlayerActionType::ATTACK, ID(player->GetHero()),
+                        ID(player->opponent->GetHero()) });
+    CHECK(policy.Decode(4770) ==
+          PlayerAction{ PlayerActionType::ATTACK,
+                        ID((*player->GetFieldZone())[0]),
+                        ID((*player->opponent->GetFieldZone())[0]) });
+    CHECK(policy.Decode(4826) == PlayerAction{ PlayerActionType::HERO_POWER,
+                                               ID(&player->GetHeroPower()),
+                                               ID(player->GetHero()) });
+    CHECK(policy.Decode(4834) ==
+          PlayerAction{ PlayerActionType::HERO_POWER,
+                        ID(&player->GetHeroPower()),
+                        ID(player->opponent->GetHero()) });
+
+    // Even ignored fields must match the canonical semantic action exactly.
+    for (const auto invalid :
+         { PlayerAction{ PlayerActionType::END_TURN, ID(hand[0]) },
+           PlayerAction{ PlayerActionType::END_TURN, -1,
+                         ID(player->GetHero()) },
+           PlayerAction{ PlayerActionType::END_TURN, -1, -1, 0 },
+           PlayerAction{ PlayerActionType::END_TURN, -1, -1, -1, 1 },
+           PlayerAction{ PlayerActionType::END_TURN, -1, -1, -1, 0, 42 },
+           PlayerAction{ static_cast<PlayerActionType>(99) },
+           PlayerAction{ PlayerActionType::PLAY_CARD, ID(hand[0]), -1, -1 },
+           PlayerAction{ PlayerActionType::PLAY_CARD, ID(hand[0]), -1, 0, 1 },
+           PlayerAction{ PlayerActionType::HERO_POWER, -1,
+                         ID(player->opponent->GetHero()) } })
+    {
+        CHECK_THROWS_AS(policy.Encode(invalid), std::invalid_argument);
+    }
+
+    CHECK_THROWS_AS(policy.Decode(Schema::NUM_ACTIONS), std::invalid_argument);
+    CHECK_THROWS_AS(policy.Decode(std::numeric_limits<std::size_t>::max()),
+                    std::invalid_argument);
+}
+
+TEST_CASE("[PolicyActions] - Untargeted and implicit-target hero powers")
+{
+    for (const auto heroClass : { CardClass::WARRIOR, CardClass::HUNTER })
+    {
+        auto game = ActionGame(heroClass);
+        const PolicyActions policy(*game);
+        const auto index = heroClass == CardClass::WARRIOR ? 4825 : 4834;
+
+        CheckPolicyRoundTrips(*game, policy);
+        CHECK_EQ(policy.Decode(index).targetID,
+                 heroClass == CardClass::WARRIOR
+                     ? -1
+                     : ID(game->GetCurrentPlayer()->opponent->GetHero()));
+        ProcessAndCheck(*game, policy.Decode(index));
+        CHECK_EQ(PolicyActions(*game).GetLegalMask()[index], 0);
+    }
+}
+
+TEST_CASE("[PolicyActions] - Choose One and Choose Both retain all fields")
+{
+    for (const bool chooseBoth : { false, true })
+    {
+        auto game = ActionGame(CardClass::DRUID);
+        auto* player = game->GetCurrentPlayer();
+
+        game->Process(player, PlayCardTask(Draw(player, "CS2_182")));
+
+        const auto* keeper = Draw(player, "EX1_166");
+
+        Draw(player, "AT_037");  // Options with different targeting rules.
+        player->playerAuraEffects.SetValue(GameTag::CHOOSE_BOTH, chooseBoth);
+
+        const PolicyActions policy(*game);
+
+        CheckPolicyRoundTrips(*game, policy);
+
+        for (int position = 0; position < 2; ++position)
+        {
+            for (int option = chooseBoth ? 0 : 1;
+                 option <= (chooseBoth ? 0 : 2); ++option)
+            {
+                const PlayerAction action{ PlayerActionType::PLAY_CARD,
+                                           ID(keeper),
+                                           ID((*player->GetFieldZone())[0]),
+                                           position, option };
+                CHECK(policy.Decode(policy.Encode(action)) == action);
+            }
+        }
+    }
+}
+
+TEST_CASE("[PolicyActions] - General choices use offered order")
+{
+    auto game = ActionGame();
+    auto* player = game->GetCurrentPlayer();
+    std::vector<int> offers;
+
+    for (int slot = 0; slot < 4; ++slot)
+    {
+        auto* offer =
+            Entity::GetFromCard(player, Cards::FindCardByID("CS2_182"));
+
+        player->GetSetasideZone()->Add(offer);
+        offers.push_back(ID(offer));
+    }
+
+    std::ranges::reverse(offers);
+
+    player->choice = std::make_unique<Choice>(player);
+    player->choice->choiceType = ChoiceType::GENERAL;
+    player->choice->choiceAction = ChoiceAction::HAND;
+    player->choice->choices = offers;
+
+    const PolicyActions policy(*game);
+
+    CheckPolicyRoundTrips(*game, policy);
+    CHECK_EQ(policy.GetLegalMask()[PolicySchema::END_TURN], 0);
+
+    for (std::size_t slot = 0; slot < offers.size(); ++slot)
+    {
+        CHECK(policy.Decode(4842 + slot) ==
+              PlayerAction{ PlayerActionType::CHOOSE, -1, -1, -1, 0,
+                            offers[slot] });
+    }
+
+    // Repeated IDs are one semantic action; only their first offer is active.
+    player->choice->choices = { offers[0], offers[0], offers[1] };
+
+    const PolicyActions repeated(*game);
+
+    CheckPolicyRoundTrips(*game, repeated);
+    CHECK_EQ(repeated.GetLegalMask()[4843], 0);
+    CHECK_EQ(repeated.Decode(4844).choiceID, offers[1]);
+    ProcessAndCheck(*game, repeated.Decode(4842));
+    CHECK_EQ(PolicyActions(*game).GetLegalMask()[4842], 0);
+}
+
+TEST_CASE("[PolicyActions] - Slots are independent of IDs and absolute seats")
+{
+    auto first = MixedActions();
+    auto second = MixedActions(PlayerType::PLAYER2);
+    std::map<int, Playable*> renamed;
+
+    for (const auto& [id, entity] : second->entityList)
+    {
+        entity->SetGameTag(GameTag::ENTITY_ID, 10000 - id);
+        renamed.emplace(10000 - id, entity);
+    }
+
+    second->entityList = std::move(renamed);
+
+    REQUIRE(EncodeObservation(*first) == EncodeObservation(*second));
+    REQUIRE(EnumerateActions(*first) != EnumerateActions(*second));
+
+    const PolicyActions firstPolicy(*first);
+    const PolicyActions secondPolicy(*second);
+
+    CheckPolicyRoundTrips(*second, secondPolicy);
+    CHECK(firstPolicy.GetLegalMask() == secondPolicy.GetLegalMask());
+    CHECK_EQ(secondPolicy.Decode(1).sourceID,
+             ID(second->GetCurrentPlayer()->GetHandZone()->GetAll()[0]));
+    CHECK_EQ(secondPolicy.Decode(4761).sourceID,
+             ID(second->GetCurrentPlayer()->GetHero()));
+    CHECK_EQ(secondPolicy.Decode(4834).targetID,
+             ID(second->GetCurrentPlayer()->opponent->GetHero()));
+}
+
+TEST_CASE("[PolicyActions] - Masks follow legality and decision availability")
+{
+    auto game = MixedActions();
+    auto* player = game->GetCurrentPlayer();
+
+    SUBCASE("No mana")
+    {
+        player->SetTotalMana(0);
+    }
+    SUBCASE("Full board")
+    {
+        for (int slot = 1; slot < 7; ++slot)
+        {
+            game->Process(player, PlayCardTask(Draw(player, "CS2_231")));
+        }
+
+        REQUIRE_EQ(player->GetFieldZone()->GetCount(), 7);
+        CHECK_EQ(PolicyActions(*game).GetLegalMask()[1], 0);
+    }
+    SUBCASE("Taunt")
+    {
+        (*player->opponent->GetFieldZone())[0]->SetGameTag(GameTag::TAUNT, 1);
+
+        CHECK_EQ(PolicyActions(*game).GetLegalMask()[4761], 0);
+        CHECK_EQ(PolicyActions(*game).GetLegalMask()[4762], 1);
+    }
+    SUBCASE("Exhausted and frozen attackers")
+    {
+        player->GetHero()->SetExhausted(true);
+        (*player->GetFieldZone())[0]->SetGameTag(GameTag::FROZEN, 1);
+    }
+    SUBCASE("Terminal")
+    {
+        game->state = State::COMPLETE;
+    }
+    SUBCASE("Intermediate step")
+    {
+        game->step = Step::MAIN_COMBAT;
+    }
+    SUBCASE("Open task event")
+    {
+        game->taskQueue.StartEvent();
+    }
+    SUBCASE("Mulligan")
+    {
+        player->choice = std::make_unique<Choice>(player);
+        player->choice->choiceType = ChoiceType::MULLIGAN;
+    }
+    SUBCASE("Opponent choice")
+    {
+        player->opponent->choice = std::make_unique<Choice>(player->opponent);
+    }
+
+    CheckPolicyRoundTrips(*game, PolicyActions(*game));
+}
+
+TEST_CASE("[PolicyActions] - Layout ceilings and location placement")
+{
+    auto game = ActionGame();
+    auto* player = game->GetCurrentPlayer();
+
+    SUBCASE("Last hand slot and insertion position")
+    {
+        for (int slot = 0; slot < 6; ++slot)
+        {
+            game->Process(player, PlayCardTask(Draw(player, "CS2_231")));
+        }
+
+        while (player->GetHandZone()->GetCount() < 10)
+        {
+            Draw(player, "CS2_231");
+        }
+
+        const PolicyActions policy(*game);
+
+        CheckPolicyRoundTrips(*game, policy);
+        CHECK(policy.Decode(4309) ==
+              PlayerAction{ PlayerActionType::PLAY_CARD,
+                            ID(player->GetHandZone()->GetAll()[9]), -1, 6 });
+    }
+    SUBCASE("Four Choose One options and overflow")
+    {
+        auto* card = Draw(player, "EX1_166");
+        auto* original = card->card;
+        Card metadata = *original;
+
+        metadata.chooseCardIDs.resize(4, metadata.chooseCardIDs[0]);
+        card->card = &metadata;
+
+        const PolicyActions policy(*game);
+
+        CheckPolicyRoundTrips(*game, policy);
+
+        const PlayerAction last{ PlayerActionType::PLAY_CARD, ID(card),
+                                 ID(player->opponent->GetHero()), 0, 4 };
+
+        CHECK(policy.Decode(policy.Encode(last)) == last);
+
+        metadata.chooseCardIDs.push_back(metadata.chooseCardIDs[0]);
+        CHECK_THROWS_AS(PolicyActions{ *game }, std::invalid_argument);
+        card->card = original;
+    }
+    SUBCASE("Hand overflow")
+    {
+        player->GetHandZone()->Expand(11);
+
+        while (player->GetHandZone()->GetCount() < 11)
+        {
+            Draw(player, "CS2_231");
+        }
+
+        CHECK_THROWS_AS(PolicyActions{ *game }, std::invalid_argument);
+    }
+    SUBCASE("Offer overflow")
+    {
+        player->choice = std::make_unique<Choice>(player);
+        player->choice->choiceType = ChoiceType::GENERAL;
+        player->choice->choices.assign(5,
+                                       ID(player->GetHandZone()->GetAll()[0]));
+
+        CHECK_THROWS_AS(PolicyActions{ *game }, std::invalid_argument);
+    }
+    SUBCASE("Phase 1 locations still use board and target slots")
+    {
+        auto* location = Draw(player, "REV_983");
+
+        game->Process(player, PlayCardTask(location));
+        game->Process(player, EndTurnTask());
+
+        player = game->GetCurrentPlayer();
+        player->SetTotalMana(10);
+
+        game->Process(player, PlayCardTask(Draw(player, "CS2_231")));
+
+        Draw(player, "REV_983");
+
+        const auto* renovator = Draw(player, "REV_023");
+        const PolicyActions policy(*game);
+
+        CheckPolicyRoundTrips(*game, policy);
+
+        const PlayerAction action{ PlayerActionType::PLAY_CARD, ID(renovator),
+                                   ID(location), 1 };
+
+        ProcessAndCheck(*game, policy.Decode(policy.Encode(action)));
+        CHECK_EQ(location->GetZoneType(), ZoneType::GRAVEYARD);
+    }
 }
