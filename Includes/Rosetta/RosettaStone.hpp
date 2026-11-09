@@ -75,6 +75,7 @@
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Agents/IAgent.hpp>
+#include <Rosetta/PlayMode/Agents/PUCTSearch.hpp>
 #include <Rosetta/PlayMode/Agents/RandomAgent.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveEffect.hpp>
