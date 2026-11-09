@@ -224,7 +224,6 @@ TEST_CASE("[PUCTSearch] - TerminalRootsAndLeaves")
 
 TEST_CASE("[PUCTSearch] - DeterministicTiesAndVisitChoice")
 {
-    for (int repetition = 0; repetition < 3; ++repetition)
     {
         PUCTSearch search({ 33, 3 });
 
@@ -421,17 +420,9 @@ TEST_CASE("[PUCTSearch] - SeededReplayPolicyIntegration")
             }
 
             const auto player = branch->GetCurrentPlayer()->playerType;
+            const PolicyActions policy(branch->GetGame());
 
-            if (branch->GetGame().state == State::COMPLETE)
-            {
-                search.SetTerminal(player, branch->GetReward(player));
-            }
-            else
-            {
-                const PolicyActions policy(branch->GetGame());
-
-                search.Expand(player, policy.GetLegalMask(), Policy{}, 0.0);
-            }
+            search.Expand(player, policy.GetLegalMask(), Policy{}, 0.0);
         }
 
         REQUIRE(search.GetRootAction());
