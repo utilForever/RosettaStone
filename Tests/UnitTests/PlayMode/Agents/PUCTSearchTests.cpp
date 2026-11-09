@@ -3,6 +3,8 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/PlayMode/Agents/PUCTSearch.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/ReplayGame.hpp>
 
 #include <limits>
 #include <stdexcept>
@@ -303,4 +305,156 @@ TEST_CASE("[PUCTSearch] - DepthAndSimulationLimits")
     CHECK_EQ(nodes[1].GetMeanValue(), 0.25);
     CHECK_FALSE(nodes[1].terminal);
     CHECK(nodes[1].children.empty());
+}
+
+TEST_CASE("[PUCTSearch] - InvalidInputsLeavePendingLeafUnchanged")
+{
+    const double nan = std::numeric_limits<double>::quiet_NaN();
+    const double infinity = std::numeric_limits<double>::infinity();
+
+    CHECK_THROWS_AS(PUCTSearch({ 0, 1 }), std::invalid_argument);
+    CHECK_THROWS_AS(PUCTSearch({ 1, 0 }), std::invalid_argument);
+
+    for (const double exploration : { -1.0, nan, infinity })
+    {
+        CHECK_THROWS_AS(PUCTSearch({ 1, 1 }, exploration),
+                        std::invalid_argument);
+    }
+
+    PUCTSearch search({ 1, 1 });
+    const auto mask = Mask({ 1 });
+
+    CHECK_THROWS_AS(search.Expand(PlayerType::PLAYER1, mask, Policy{}, 0.0),
+                    std::logic_error);
+    CHECK_THROWS_AS(search.SetTerminal(PlayerType::PLAYER1, 0.0),
+                    std::logic_error);
+    REQUIRE(search.SelectLeaf());
+    CHECK_THROWS_AS(search.SelectLeaf(), std::logic_error);
+
+    for (const double value : { -1.1, 1.1, nan, infinity })
+    {
+        CHECK_THROWS_AS(
+            search.Expand(PlayerType::PLAYER1, mask, Policy{}, value),
+            std::invalid_argument);
+        CHECK_THROWS_AS(search.SetTerminal(PlayerType::PLAYER1, value),
+                        std::invalid_argument);
+    }
+
+    for (const auto player : { PlayerType::INVALID, PlayerType::RANDOM })
+    {
+        CHECK_THROWS_AS(search.Expand(player, mask, Policy{}, 0.0),
+                        std::invalid_argument);
+        CHECK_THROWS_AS(search.SetTerminal(player, 0.0), std::invalid_argument);
+    }
+
+    for (const auto size :
+         { PolicySchema::NUM_ACTIONS - 1, PolicySchema::NUM_ACTIONS + 1 })
+    {
+        CHECK_THROWS_AS(search.Expand(PlayerType::PLAYER1, mask,
+                                      std::vector<float>(size), 0.0),
+                        std::invalid_argument);
+    }
+
+    for (const float prior : { -1.0f, std::numeric_limits<float>::quiet_NaN(),
+                               std::numeric_limits<float>::infinity() })
+    {
+        Policy priors{};
+        priors[0] = prior;  // Even masked evaluator entries must be valid.
+
+        CHECK_THROWS_AS(search.Expand(PlayerType::PLAYER1, mask, priors, 0.0),
+                        std::invalid_argument);
+    }
+
+    auto invalidMask = mask;
+    invalidMask[0] = 2;
+
+    CHECK_THROWS_AS(
+        search.Expand(PlayerType::PLAYER1, invalidMask, Policy{}, 0.0),
+        std::invalid_argument);
+    CHECK_THROWS_AS(search.Expand(PlayerType::PLAYER1, Mask({}), Policy{}, 0.0),
+                    std::invalid_argument);
+    REQUIRE_EQ(search.GetNodes().size(), 1);
+    CHECK_EQ(search.GetNodes()[0].visitCount, 0);
+    CHECK_FALSE(search.GetNodes()[0].expanded);
+    CHECK_FALSE(search.GetRootAction());
+
+    search.Expand(PlayerType::PLAYER1, mask, Policy{}, 0.0);
+
+    CHECK_FALSE(search.SelectLeaf());
+    CHECK_THROWS_AS(search.SetTerminal(PlayerType::PLAYER1, 0.0),
+                    std::logic_error);
+}
+
+TEST_CASE("[PUCTSearch] - SeededReplayPolicyIntegration")
+{
+    GameConfig config;
+    config.formatType = FormatType::WILD;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::MAGE;
+    config.player1Deck.fill(Cards::FindCardByID("CS2_231"));
+    config.player2Deck = config.player1Deck;
+
+    std::vector<PUCTNode> expected;
+    std::optional<std::size_t> expectedAction;
+
+    for (int repetition = 0; repetition < 2; ++repetition)
+    {
+        ReplayGame root(config, 1067);
+        const PolicyActions rootPolicy(root.GetGame());
+        PUCTSearch search({ 24, 2 });
+
+        while (const auto path = search.SelectLeaf())
+        {
+            auto branch = root.Branch();
+
+            for (const auto action : *path)
+            {
+                const PolicyActions policy(branch->GetGame());
+                branch->ApplyAction(policy.Decode(action));
+            }
+
+            const auto player = branch->GetCurrentPlayer()->playerType;
+
+            if (branch->GetGame().state == State::COMPLETE)
+            {
+                search.SetTerminal(player, branch->GetReward(player));
+            }
+            else
+            {
+                const PolicyActions policy(branch->GetGame());
+
+                search.Expand(player, policy.GetLegalMask(), Policy{}, 0.0);
+            }
+        }
+
+        REQUIRE(search.GetRootAction());
+        CHECK_EQ(rootPolicy.GetLegalMask()[*search.GetRootAction()], 1);
+        CHECK_NOTHROW(
+            root.ApplyAction(rootPolicy.Decode(*search.GetRootAction())));
+        CHECK_EQ(search.GetNodes()[0].visitCount, 24);
+
+        if (repetition == 0)
+        {
+            expected = search.GetNodes();
+            expectedAction = search.GetRootAction();
+            continue;
+        }
+
+        CHECK_EQ(search.GetRootAction(), expectedAction);
+
+        const auto& actual = search.GetNodes();
+
+        REQUIRE_EQ(actual.size(), expected.size());
+
+        for (std::size_t i = 0; i < actual.size(); ++i)
+        {
+            CHECK_EQ(actual[i].actionIndex, expected[i].actionIndex);
+            CHECK_EQ(actual[i].player, expected[i].player);
+            CHECK_EQ(actual[i].prior, expected[i].prior);
+            CHECK_EQ(actual[i].visitCount, expected[i].visitCount);
+            CHECK_EQ(actual[i].totalValue, expected[i].totalValue);
+            CHECK(actual[i].children == expected[i].children);
+        }
+    }
 }
