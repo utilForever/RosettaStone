@@ -2,6 +2,7 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/PlayMode/Agents/BatchedEvaluator.hpp>
 #include <Rosetta/PlayMode/Agents/PUCTSearch.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/ReplayGame.hpp>
@@ -390,7 +391,7 @@ TEST_CASE("[PUCTSearch] - InvalidInputsLeavePendingLeafUnchanged")
                     std::logic_error);
 }
 
-TEST_CASE("[PUCTSearch] - SeededReplayPolicyIntegration")
+TEST_CASE("[PUCTSearch] - SeededReplayUniformEvaluatorIntegration")
 {
     GameConfig config;
     config.formatType = FormatType::WILD;
@@ -408,6 +409,7 @@ TEST_CASE("[PUCTSearch] - SeededReplayPolicyIntegration")
         ReplayGame root(config, 1067);
         const PolicyActions rootPolicy(root.GetGame());
         PUCTSearch search({ 24, 2 });
+        UniformEvaluator evaluator;
 
         while (const auto path = search.SelectLeaf())
         {
@@ -421,8 +423,12 @@ TEST_CASE("[PUCTSearch] - SeededReplayPolicyIntegration")
 
             const auto player = branch->GetCurrentPlayer()->playerType;
             const PolicyActions policy(branch->GetGame());
+            const EvaluationInput input{ EncodeObservation(branch->GetGame()),
+                                         policy.GetLegalMask() };
+            const auto results = evaluator.Evaluate({ &input, 1 });
 
-            search.Expand(player, policy.GetLegalMask(), Policy{}, 0.0);
+            search.Expand(player, input.legalMask, results[0].priors,
+                          results[0].value);
         }
 
         REQUIRE(search.GetRootAction());
