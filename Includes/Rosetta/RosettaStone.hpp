@@ -74,6 +74,7 @@
 #include <Rosetta/PlayMode/Actions/PlayerAction.hpp>
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
+#include <Rosetta/PlayMode/Agents/BatchedEvaluator.hpp>
 #include <Rosetta/PlayMode/Agents/IAgent.hpp>
 #include <Rosetta/PlayMode/Agents/PUCTSearch.hpp>
 #include <Rosetta/PlayMode/Agents/RandomAgent.hpp>
