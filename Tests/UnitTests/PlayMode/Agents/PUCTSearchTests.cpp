@@ -109,9 +109,9 @@ TEST_CASE("[PUCTSearch] - SelectionUsesPUCTAndParentPerspective")
     REQUIRE(path);
     CHECK(*path == std::vector<std::size_t>{ 1 });
 
-    search.Expand(PlayerType::PLAYER1, Mask({ 3 }), Policy{}, -0.5);
+    search.Expand(PlayerType::PLAYER1, Mask({ 3 }), Policy{}, -0.2);
 
-    // At N(root)=2: scores are -0.5 + 0.75*sqrt(2)/2 and 0.25*sqrt(2).
+    // Using N instead of sqrt(N) would incorrectly select action 1.
     path = search.SelectLeaf();
 
     REQUIRE(path);
@@ -132,9 +132,9 @@ TEST_CASE("[PUCTSearch] - SelectionUsesPUCTAndParentPerspective")
     const auto& nodes = search.GetNodes();
 
     CHECK_EQ(nodes[0].visitCount, 4);
-    CHECK_EQ(nodes[0].totalValue, doctest::Approx(0.05));
+    CHECK_EQ(nodes[0].totalValue, doctest::Approx(0.35));
     CHECK_EQ(nodes[1].visitCount, 2);
-    CHECK_EQ(nodes[1].GetMeanValue(), doctest::Approx(0.15));
+    CHECK_EQ(nodes[1].GetMeanValue(), doctest::Approx(0.3));
     CHECK_EQ(nodes[2].visitCount, 1);
     CHECK_EQ(nodes[2].GetMeanValue(), 0.25);
 
@@ -284,11 +284,17 @@ TEST_CASE("[PUCTSearch] - DepthAndSimulationLimits")
 
     REQUIRE(search.SelectLeaf());
 
-    search.Expand(PlayerType::PLAYER1, Mask({ 1 }), Policy{}, 0.0);
+    Policy priors{};
+    priors[1] = 1.0f;
+    priors[2] = 3.0f;
+
+    search.Expand(PlayerType::PLAYER1, Mask({ 1, 2 }), priors, 0.0);
+
+    // With no exploration, the larger prior cannot break a value tie.
     const auto path = search.SelectLeaf();
 
     REQUIRE(path);
-    CHECK_EQ(path->size(), 1);
+    CHECK(*path == std::vector<std::size_t>{ 1 });
 
     search.Expand(PlayerType::PLAYER1, Mask({ 2 }), Policy{}, 0.25);
 
@@ -298,7 +304,7 @@ TEST_CASE("[PUCTSearch] - DepthAndSimulationLimits")
 
     const auto& nodes = search.GetNodes();
 
-    REQUIRE_EQ(nodes.size(), 2);
+    REQUIRE_EQ(nodes.size(), 3);
     CHECK_EQ(nodes[0].visitCount, 7);
     CHECK_EQ(nodes[0].totalValue, 1.5);
     CHECK_EQ(nodes[1].visitCount, 6);
