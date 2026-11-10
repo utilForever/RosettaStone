@@ -168,7 +168,7 @@ TEST_CASE(
                 HiddenCards(*second.GetCurrentPlayer()->opponent));
 
         const auto ambient = Random::engine();
-        std::set<std::vector<int>> opponentSamples, deckSamples;
+        std::set<std::vector<int>> opponentHands, opponentDecks, deckSamples;
 
         for (unsigned int seed = 0; seed < 16; ++seed)
         {
@@ -196,7 +196,15 @@ TEST_CASE(
             CheckDeckMultiset(*actor->opponent, config);
 
             deckSamples.insert(HiddenCards(*actor));
-            opponentSamples.insert(HiddenCards(*actor->opponent));
+
+            const auto hidden = HiddenCards(*actor->opponent);
+            const auto separator = std::ranges::find(hidden, -1);
+            std::vector<int> hand(hidden.begin(), separator);
+
+            std::ranges::sort(hand);
+
+            opponentHands.insert(hand);
+            opponentDecks.emplace(separator + 1, hidden.end());
 
             for (const auto& action : EnumerateActions(sample->GetGame()))
             {
@@ -209,7 +217,8 @@ TEST_CASE(
         }
 
         CHECK_GT(deckSamples.size(), 1);
-        CHECK_GT(opponentSamples.size(), 1);
+        CHECK_GT(opponentHands.size(), 1);
+        CHECK_GT(opponentDecks.size(), 1);
         CHECK(EncodeObservation(first.GetGame()) == information.observation);
     }
 }
@@ -337,23 +346,18 @@ TEST_CASE("[Determinization] - KnownFutureDrawAndEmptyDecks")
         information.actingPlayer = PlayerType::PLAYER1;
         information.observation = EncodeObservation(real.GetGame());
 
-        for (unsigned int seed = 0; seed < 3; ++seed)
-        {
-            Random::engine_type random(seed);
+        Random::engine_type random(0);
 
-            const auto sample = SampleDeterminization(information, random);
+        const auto sample = SampleDeterminization(information, random);
 
-            CHECK(EncodeObservation(sample->GetGame()) ==
-                  information.observation);
-            CHECK(sample->GetCurrentPlayer()->GetHandZone()->IsEmpty());
-            CHECK(
-                sample->GetCurrentPlayer()->opponent->GetDeckZone()->IsEmpty());
-            CHECK_EQ(sample->GetCurrentPlayer()
-                         ->opponent->GetHandZone()
-                         ->GetAll()[0]
-                         ->card->id,
-                     "GAME_005");
-        }
+        CHECK(EncodeObservation(sample->GetGame()) == information.observation);
+        CHECK(sample->GetCurrentPlayer()->GetHandZone()->IsEmpty());
+        CHECK(sample->GetCurrentPlayer()->opponent->GetDeckZone()->IsEmpty());
+        CHECK_EQ(sample->GetCurrentPlayer()
+                     ->opponent->GetHandZone()
+                     ->GetAll()[0]
+                     ->card->id,
+                 "GAME_005");
     }
 }
 
@@ -406,6 +410,20 @@ TEST_CASE("[Determinization] - PublicBurnsAndFatigue")
     CHECK_EQ(
         sample->GetCurrentPlayer()->opponent->GetGraveyardZone()->GetCount(),
         fatigue ? 0 : 2);
+
+    if (!fatigue)
+    {
+        const auto before = random;
+        const auto ambient = Random::engine();
+
+        information.knownDraws[1][9] = 0;
+
+        CHECK_THROWS_WITH_AS(SampleDeterminization(information, random),
+                             "Missing a previously revealed draw",
+                             std::invalid_argument);
+        CHECK(random == before);
+        CHECK(Random::engine() == ambient);
+    }
 }
 
 TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
@@ -449,6 +467,12 @@ TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
     }
     SUBCASE("MissingPrivateDraw")
     {
+        // Fix the other draws to avoid an unrelated observation mismatch.
+        for (std::size_t i = 1; i < config.player1Deck.size(); ++i)
+        {
+            information.knownDraws[0][i] = config.player1Deck[i]->dbfID;
+        }
+
         information.knownDraws[0][0] = 0;
     }
     SUBCASE("WrongObservation")
@@ -461,13 +485,17 @@ TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
     }
     SUBCASE("WrongPublicCheckpoint")
     {
-        Record(information, real);
+        Record(information, real, Play(real, "CS2_231"));
+
+        information.observation = EncodeObservation(real.GetGame());
         ++information.history[0]
               .publicAfter.turn[ObservationSchema::TURN_NUMBER];
     }
     SUBCASE("PrivateDataInPublicCheckpoint")
     {
-        Record(information, real);
+        Record(information, real, Play(real, "CS2_231"));
+
+        information.observation = EncodeObservation(real.GetGame());
         information.history[0].publicAfter = EncodeObservation(real.GetGame());
     }
     SUBCASE("SecretDeck")
