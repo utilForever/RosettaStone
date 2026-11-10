@@ -510,7 +510,21 @@ TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
 
         information = Opening(randomGame, config);
 
+        // A lone enemy hero need not consume RNG on every standard library.
+        Record(information, randomGame);
+        Record(information, randomGame, Play(randomGame, "CS2_231"));
+
+        information.knownDraws[1][0] = config.player2Deck[0]->dbfID;
+
+        Record(information, randomGame);
+
+        information.knownDraws[0][4] = config.player1Deck[4]->dbfID;
+
+        const auto before = randomGame.GetRandomState();
+
         Record(information, randomGame, Play(randomGame, "EX1_277"));
+
+        REQUIRE(randomGame.GetRandomState() != before);
 
         information.observation = EncodeObservation(randomGame.GetGame());
     }
