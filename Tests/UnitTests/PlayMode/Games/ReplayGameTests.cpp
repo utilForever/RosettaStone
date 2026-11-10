@@ -680,6 +680,79 @@ TEST_CASE("[ReplayGame] - RandomActionsAreBranchLocal")
     CHECK_GT(outcomes.size(), 1);
 }
 
+TEST_CASE("[ReplayGame] - RandomDiscardAndTutorsAdvanceBranchState")
+{
+    const auto ambient = Random::engine();
+
+    for (const auto& [cardID, cardClass] :
+         { std::pair{ "EX1_308", CardClass::WARLOCK },
+           std::pair{ "SW_315", CardClass::PALADIN },
+           std::pair{ "DMF_515", CardClass::ROGUE } })
+    {
+        CAPTURE(std::string(cardID));
+
+        auto config = ReplayConfig();
+        config.player1Class = cardClass;
+
+        const auto pool = cardClass == CardClass::ROGUE
+                              ? std::array{ "CS2_072", "CS2_074", "CS2_075" }
+                              : std::array{ "CS2_231", "CS2_120", "CS2_182" };
+
+        for (std::size_t i = 0; i < config.player1Deck.size(); ++i)
+        {
+            config.player1Deck[i] = Cards::FindCardByID(pool[i % pool.size()]);
+        }
+
+        config.player1Deck[0] = Cards::FindCardByID(cardID);
+
+        for (const unsigned int seed : { 0U, 42U })
+        {
+            CAPTURE(seed);
+
+            ReplayGame parent(config, seed);
+
+            for (int turn = 0; turn < 4; ++turn)
+            {
+                parent.ApplyAction({});
+            }
+
+            const auto before = parent.GetRandomState();
+            const auto parentState = StateOf(parent);
+            auto first = parent.Branch();
+            auto sibling = parent.Branch();
+            const PlayerAction action{
+                PlayerActionType::PLAY_CARD,
+                InHand(parent, cardID)->GetGameTag(GameTag::ENTITY_ID),
+                cardClass == CardClass::WARLOCK
+                    ? parent.GetCurrentPlayer()
+                          ->opponent->GetHero()
+                          ->GetGameTag(GameTag::ENTITY_ID)
+                    : -1,
+                cardClass == CardClass::PALADIN ? 0 : -1
+            };
+
+            first->ApplyAction(action);
+
+            CHECK(first->GetRandomState() != before);
+            CHECK(parent.GetRandomState() == before);
+            CHECK(sibling->GetRandomState() == before);
+            CHECK_EQ(StateOf(parent), parentState);
+            CHECK_EQ(StateOf(*sibling), parentState);
+
+            sibling->ApplyAction(action);
+
+            CHECK(sibling->GetRandomState() == first->GetRandomState());
+            CHECK_EQ(StateOf(*sibling), StateOf(*first));
+
+            const auto replayed = first->Branch();
+
+            CHECK(replayed->GetRandomState() == first->GetRandomState());
+            CHECK_EQ(StateOf(*replayed), StateOf(*first));
+            CHECK(Random::engine() == ambient);
+        }
+    }
+}
+
 TEST_CASE("[ReplayGame] - StructuralStateComparison")
 {
     ReplayGame parent(ReplayConfig(), 42);

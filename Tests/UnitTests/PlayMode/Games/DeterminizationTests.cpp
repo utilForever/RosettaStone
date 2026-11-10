@@ -496,6 +496,73 @@ TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
     CHECK(Random::engine() == ambient);
 }
 
+TEST_CASE("[Determinization] - RandomDiscardCannotRewritePublicHistory")
+{
+    auto config = FixedConfig();
+    config.player1Class = config.player2Class = CardClass::WARLOCK;
+
+    const std::array ids{
+        "EX1_308", "CS2_182", "CS2_120", "CS2_172", "CS1_042",
+        "CS2_231", "EX1_049", "EX1_015", "EX1_008", "CS2_119",
+        "CS2_200", "CS2_186", "CS2_171", "CS2_189", "LOEA10_3"
+    };
+
+    for (std::size_t i = 0; i < config.player1Deck.size(); ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByID(ids[i % ids.size()]);
+    }
+
+    config.player2Deck = config.player1Deck;
+
+    ReplayGame real(config, 0);
+    auto information = Opening(real, config);
+
+    Record(information, real);
+
+    const auto* opponent = real.GetCurrentPlayer();
+
+    Record(information, real,
+           Play(real, "EX1_308",
+                opponent->opponent->GetHero()->GetGameTag(GameTag::ENTITY_ID)));
+    REQUIRE_EQ(opponent->GetGraveyardZone()->GetCount(), 2);
+
+    // Record the public play and discard without assuming a library's shuffle
+    // order.
+    for (const auto* card : opponent->GetGraveyardZone()->GetAll())
+    {
+        const auto found = std::ranges::find(config.player2Deck, card->card);
+
+        if (found != config.player2Deck.end())
+        {
+            information.knownDraws[1][found - config.player2Deck.begin()] =
+                card->card->dbfID;
+        }
+    }
+
+    Record(information, real);
+
+    information.observation = EncodeObservation(real.GetGame());
+    information.knownDraws[0][4] =
+        information.observation.hand[4][ObservationSchema::CARD_ID];
+
+    const auto ambient = Random::engine();
+
+    for (unsigned int seed = 0; seed < 8; ++seed)
+    {
+        CAPTURE(seed);
+
+        Random::engine_type random(seed);
+
+        CHECK_THROWS_WITH_AS(SampleDeterminization(information, random),
+                             "Random history is unsupported",
+                             std::invalid_argument);
+        CHECK(random == Random::engine_type(seed));
+        CHECK(Random::engine() == ambient);
+    }
+
+    CHECK(EncodeObservation(real.GetGame()) == information.observation);
+}
+
 TEST_CASE("[Determinization] - AmbientRandomCannotBeShared")
 {
     const auto config = FixedConfig();

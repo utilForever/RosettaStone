@@ -77,7 +77,7 @@ TaskStatus DrawSpellTask::Impl(Player* player)
     switch (m_drawSpellType)
     {
         case DrawSpellType::DEFAULT:
-            std::ranges::shuffle(deckCards, Random::get_engine());
+            Random::shuffle(deckCards);
             break;
         case DrawSpellType::HIGHEST_COST:
             std::ranges::sort(deckCards,
