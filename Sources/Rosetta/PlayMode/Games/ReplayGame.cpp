@@ -75,6 +75,11 @@ const Player* ReplayGame::GetCurrentPlayer() const
     return m_game->GetCurrentPlayer();
 }
 
+const Random::engine_type& ReplayGame::GetRandomState() const
+{
+    return m_random;
+}
+
 void ReplayGame::CheckReady() const
 {
     if (m_failed || m_game->state != State::RUNNING ||

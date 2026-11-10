@@ -8,6 +8,8 @@
 
 #include <effolkronium/random.hpp>
 
+using Random = effolkronium::random_static;
+
 namespace RosettaStone::PlayMode
 {
 //!
@@ -38,6 +40,9 @@ class ReplayGame
     //! Returns the current player for inspection and task construction only.
     //! \return The player whose turn is active.
     const Player* GetCurrentPlayer() const;
+
+    //! Returns this replay's RNG state, never the ambient global RNG.
+    const Random::engine_type& GetRandomState() const;
 
     //! Records and executes a built-in player task for the current player.
     //! Custom tasks and pointers belonging to another game are rejected.
