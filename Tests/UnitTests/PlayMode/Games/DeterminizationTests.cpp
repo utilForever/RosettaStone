@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <set>
+#include <string_view>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -70,11 +71,11 @@ void Record(FixedDeckInformationSet& information, ReplayGame& replay,
     const auto index = PolicyActions(replay.GetGame()).Encode(action);
 
     replay.ApplyAction(action);
-    information.history.push_back(
-        { index, EncodePublicObservation(replay.GetGame()) });
+    information.history.emplace_back(index,
+                                     EncodePublicObservation(replay.GetGame()));
 }
 
-PlayerAction Play(const ReplayGame& replay, const std::string& cardID,
+PlayerAction Play(const ReplayGame& replay, std::string_view cardID,
                   int targetID = -1)
 {
     for (const auto& action : EnumerateActions(replay.GetGame()))
@@ -153,7 +154,7 @@ TEST_CASE(
                                  : alternate.player1Deck;
 
         std::reverse(actorDeck.begin() + 4, actorDeck.end());
-        std::reverse(opponentDeck.begin(), opponentDeck.end());
+        std::ranges::reverse(opponentDeck);
 
         ReplayGame second(alternate, 900);
 
@@ -168,11 +169,14 @@ TEST_CASE(
                 HiddenCards(*second.GetCurrentPlayer()->opponent));
 
         const auto ambient = Random::engine();
-        std::set<std::vector<int>> opponentHands, opponentDecks, deckSamples;
+        std::set<std::vector<int>> opponentHands;
+        std::set<std::vector<int>> opponentDecks;
+        std::set<std::vector<int>> deckSamples;
 
         for (unsigned int seed = 0; seed < 16; ++seed)
         {
-            Random::engine_type left(seed), right(seed);
+            Random::engine_type left(seed);
+            Random::engine_type right(seed);
 
             const auto sample = SampleDeterminization(information, left);
             const auto repeated = SampleDeterminization(equivalent, right);
@@ -541,7 +545,8 @@ TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
 TEST_CASE("[Determinization] - RandomDiscardCannotRewritePublicHistory")
 {
     auto config = FixedConfig();
-    config.player1Class = config.player2Class = CardClass::WARLOCK;
+    config.player1Class = CardClass::WARLOCK;
+    config.player2Class = CardClass::WARLOCK;
 
     const std::array ids{
         "EX1_308", "CS2_182", "CS2_120", "CS2_172", "CS1_042",
@@ -616,7 +621,8 @@ TEST_CASE("[Determinization] - AmbientRandomCannotBeShared")
                     std::invalid_argument);
     CHECK(Random::engine() == ambient);
 
-    Random::engine_type left(11), right(11);
+    Random::engine_type left(11);
+    Random::engine_type right(11);
 
     const auto first = SampleDeterminization(information, left);
 

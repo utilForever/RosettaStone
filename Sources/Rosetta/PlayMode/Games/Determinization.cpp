@@ -83,7 +83,7 @@ Deck SampleDeck(const Deck& deck, const KnownDraws& known,
         pool.erase(found);
     }
 
-    std::shuffle(pool.begin(), pool.end(), random);
+    std::ranges::shuffle(pool, random);
 
     auto next = pool.begin();
 
@@ -145,9 +145,9 @@ DeckHistory TrackDeck(const Player& player, const Deck& deck,
 
     for (std::size_t i = 0; i < history.entities.size(); ++i)
     {
-        const auto* entity = player.game->entityList.at(history.entities[i]);
-
-        if (entity->card != deck[i])
+        if (const auto* entity =
+                player.game->entityList.at(history.entities[i]);
+            entity->card != deck[i])
         {
             throw std::invalid_argument("Initial draw order has changed");
         }
@@ -205,9 +205,8 @@ void CheckZones(const Player& player, const Deck& deck, DeckHistory& history,
     for (const auto* card : player.GetHandZone()->GetAll())
     {
         const int id = card->GetGameTag(GameTag::ENTITY_ID);
-        const auto found = std::ranges::find(history.entities, id);
-
-        if ((id == history.coinID && card->card->id != "GAME_005") ||
+        if (const auto found = std::ranges::find(history.entities, id);
+            (id == history.coinID && card->card->id != "GAME_005") ||
             (id != history.coinID &&
              (found == history.entities.end() ||
               card->card != deck[found - history.entities.begin()])))
@@ -276,7 +275,7 @@ std::unique_ptr<ReplayGame> SampleDeterminization(
         TrackDeck(*players[1], decks[1], information.knownDraws[1])
     };
 
-    const auto check = [&](bool final) {
+    const auto check = [&](bool isFinal) {
         if (sampled->GetRandomState() != initialRandom)
         {
             throw std::invalid_argument("Random history is unsupported");
@@ -286,7 +285,7 @@ std::unique_ptr<ReplayGame> SampleDeterminization(
         {
             CheckZones(
                 *players[i], decks[i], histories[i],
-                final && players[i]->playerType == information.actingPlayer);
+                isFinal && players[i]->playerType == information.actingPlayer);
         }
     };
 
