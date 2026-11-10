@@ -6,6 +6,8 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Determinization.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/FieldZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 #include <algorithm>
@@ -60,6 +62,32 @@ FixedDeckInformationSet Opening(const ReplayGame& replay,
     }
 
     return information;
+}
+
+void Record(FixedDeckInformationSet& information, ReplayGame& replay,
+            const PlayerAction& action = {})
+{
+    const auto index = PolicyActions(replay.GetGame()).Encode(action);
+
+    replay.ApplyAction(action);
+    information.history.push_back(
+        { index, EncodePublicObservation(replay.GetGame()) });
+}
+
+PlayerAction Play(const ReplayGame& replay, const std::string& cardID,
+                  int targetID = -1)
+{
+    for (const auto& action : EnumerateActions(replay.GetGame()))
+    {
+        if (action.type == PlayerActionType::PLAY_CARD &&
+            action.targetID == targetID &&
+            replay.GetGame().entityList.at(action.sourceID)->card->id == cardID)
+        {
+            return action;
+        }
+    }
+
+    throw std::logic_error("Missing test card play");
 }
 
 std::vector<int> HiddenCards(const Player& player)
@@ -184,6 +212,318 @@ TEST_CASE(
         CHECK_GT(opponentSamples.size(), 1);
         CHECK(EncodeObservation(first.GetGame()) == information.observation);
     }
+}
+
+TEST_CASE("[Determinization] - PublicHistoryDrawsGraveyardAndRevealedBounce")
+{
+    auto config = FixedConfig();
+    ReplayGame real(config, 1069);
+    auto information = Opening(real, config);
+
+    Record(information, real, Play(real, "CS2_231"));
+    Record(information, real);
+    Record(information, real, Play(real, "CS2_231"));
+    Record(information, real);
+    Record(information, real, Play(real, "EX1_015"));
+    Record(information, real);
+
+    const auto* opponentWisp =
+        real.GetCurrentPlayer()->GetFieldZone()->GetAll()[0];
+
+    Record(information, real,
+           Play(real, "EX1_049", opponentWisp->GetGameTag(GameTag::ENTITY_ID)));
+    Record(information, real);
+
+    const auto* actor = real.GetCurrentPlayer();
+    const auto* wisp = actor->GetFieldZone()->GetAll()[1];
+    const auto* brewmaster = actor->opponent->GetFieldZone()->GetAll()[0];
+
+    Record(information, real,
+           { PlayerActionType::ATTACK, wisp->GetGameTag(GameTag::ENTITY_ID),
+             brewmaster->GetGameTag(GameTag::ENTITY_ID) });
+
+    // The observer saw its next three draws and the opponent's two plays.
+    for (std::size_t i = 4; i < 7; ++i)
+    {
+        information.knownDraws[0][i] = config.player1Deck[i]->dbfID;
+    }
+
+    information.knownDraws[1][0] = Cards::FindCardByID("CS2_231")->dbfID;
+    information.knownDraws[1][1] = Cards::FindCardByID("EX1_049")->dbfID;
+    information.observation = EncodeObservation(real.GetGame());
+
+    const auto ambient = Random::engine();
+
+    for (unsigned int seed = 0; seed < 12; ++seed)
+    {
+        Random::engine_type random(seed);
+
+        const auto sample = SampleDeterminization(information, random);
+        const auto* player = sample->GetCurrentPlayer();
+
+        CHECK(EncodeObservation(sample->GetGame()) == information.observation);
+        CHECK_EQ(player->GetGraveyardZone()->GetCount(), 1);
+        CHECK_EQ(player->GetGraveyardZone()->GetAll()[0]->card->id, "CS2_231");
+        CHECK_EQ(player->opponent->GetHandZone()->GetAll().back()->card->id,
+                 "CS2_231");
+        CHECK_EQ(player->opponent->GetFieldZone()->GetMinions()[0]->GetHealth(),
+                 1);
+        CHECK(PolicyActions(sample->GetGame()).GetLegalMask() ==
+              PolicyActions(real.GetGame()).GetLegalMask());
+
+        const auto branch = sample->Branch();
+
+        CHECK(EncodeObservation(branch->GetGame()) == information.observation);
+        CHECK(HiddenCards(*branch->GetCurrentPlayer()->opponent) ==
+              HiddenCards(*player->opponent));
+        CHECK(branch->GetRandomState() == sample->GetRandomState());
+    }
+
+    CHECK(Random::engine() == ambient);
+
+    information.knownDraws[1][0] = 0;
+
+    Random::engine_type random(5);
+
+    CHECK_THROWS_AS(SampleDeterminization(information, random),
+                    std::invalid_argument);
+    CHECK(random == Random::engine_type(5));
+}
+
+TEST_CASE("[Determinization] - KnownFutureDrawAndEmptyDecks")
+{
+    auto config = FixedConfig();
+
+    SUBCASE("KnownNextCard")
+    {
+        ReplayGame real(config, 7);
+        auto information = Opening(real, config);
+        const auto nextCard = config.player1Deck[4]->dbfID;
+
+        information.knownDraws[0][4] = nextCard;
+
+        for (unsigned int seed = 0; seed < 8; ++seed)
+        {
+            Random::engine_type random(seed);
+
+            const auto sample = SampleDeterminization(information, random);
+
+            CHECK_EQ(sample->GetCurrentPlayer()
+                         ->GetDeckZone()
+                         ->GetTopCard()
+                         ->card->dbfID,
+                     nextCard);
+
+            sample->ApplyAction({});
+            sample->ApplyAction({});
+
+            CHECK_EQ(sample->GetCurrentPlayer()
+                         ->GetHandZone()
+                         ->GetAll()
+                         .back()
+                         ->card->dbfID,
+                     nextCard);
+        }
+    }
+    SUBCASE("NoUnknownAlternatives")
+    {
+        config.player1Deck.fill(nullptr);
+        config.player2Deck.fill(nullptr);
+
+        ReplayGame real(config, 8);
+
+        FixedDeckInformationSet information;
+        information.config = config;
+        information.actingPlayer = PlayerType::PLAYER1;
+        information.observation = EncodeObservation(real.GetGame());
+
+        for (unsigned int seed = 0; seed < 3; ++seed)
+        {
+            Random::engine_type random(seed);
+
+            const auto sample = SampleDeterminization(information, random);
+
+            CHECK(EncodeObservation(sample->GetGame()) ==
+                  information.observation);
+            CHECK(sample->GetCurrentPlayer()->GetHandZone()->IsEmpty());
+            CHECK(
+                sample->GetCurrentPlayer()->opponent->GetDeckZone()->IsEmpty());
+            CHECK_EQ(sample->GetCurrentPlayer()
+                         ->opponent->GetHandZone()
+                         ->GetAll()[0]
+                         ->card->id,
+                     "GAME_005");
+        }
+    }
+}
+
+TEST_CASE("[Determinization] - PublicBurnsAndFatigue")
+{
+    auto config = FixedConfig();
+    bool fatigue = false;
+
+    SUBCASE("Burns")
+    {
+        // Do nothing special for burns, just use the default configuration
+    }
+    SUBCASE("Fatigue")
+    {
+        fatigue = true;
+        std::fill(config.player1Deck.begin() + 5, config.player1Deck.end(),
+                  nullptr);
+        config.player2Deck = config.player1Deck;
+    }
+
+    ReplayGame real(config, 17);
+    auto information = Opening(real, config);
+    const int turns = fatigue ? 4 : 14;
+
+    for (int i = 0; i < turns; ++i)
+    {
+        Record(information, real);
+    }
+
+    for (std::size_t i = 4; i < (fatigue ? 5U : 11U); ++i)
+    {
+        information.knownDraws[0][i] = config.player1Deck[i]->dbfID;
+    }
+
+    if (!fatigue)
+    {
+        information.knownDraws[1][9] = config.player2Deck[9]->dbfID;
+        information.knownDraws[1][10] = config.player2Deck[10]->dbfID;
+    }
+
+    information.observation = EncodeObservation(real.GetGame());
+
+    Random::engine_type random(19);
+    const auto sample = SampleDeterminization(information, random);
+
+    CHECK(EncodeObservation(sample->GetGame()) == information.observation);
+    CHECK_EQ(sample->GetCurrentPlayer()->GetHero()->fatigue, fatigue ? 1 : 0);
+    CHECK_EQ(sample->GetCurrentPlayer()->GetGraveyardZone()->GetCount(),
+             fatigue ? 0 : 1);
+    CHECK_EQ(
+        sample->GetCurrentPlayer()->opponent->GetGraveyardZone()->GetCount(),
+        fatigue ? 0 : 2);
+}
+
+TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
+{
+    auto config = FixedConfig();
+    ReplayGame real(config, 5);
+    auto information = Opening(real, config);
+
+    SUBCASE("InvalidObserver")
+    {
+        information.actingPlayer = PlayerType::RANDOM;
+    }
+    SUBCASE("UnknownStarter")
+    {
+        information.config.startPlayer = PlayerType::RANDOM;
+    }
+    SUBCASE("Mulligan")
+    {
+        information.config.skipMulligan = false;
+    }
+    SUBCASE("DeckFilling")
+    {
+        information.config.doFillDecks = true;
+    }
+    SUBCASE("UnknownCard")
+    {
+        information.knownDraws[0][0] = -1;
+    }
+    SUBCASE("UnknownCardMetadata")
+    {
+        information.config.player2Deck[0] = Cards::FindCardByID("missing-card");
+    }
+    SUBCASE("KnownDrawPastEnd")
+    {
+        information.config.player2Deck.back() = nullptr;
+        information.knownDraws[1].back() = config.player2Deck.back()->dbfID;
+    }
+    SUBCASE("TooManyCopies")
+    {
+        information.knownDraws[0].fill(Cards::FindCardByID("CS2_231")->dbfID);
+    }
+    SUBCASE("MissingPrivateDraw")
+    {
+        information.knownDraws[0][0] = 0;
+    }
+    SUBCASE("WrongObservation")
+    {
+        ++information.observation.heroes[0][ObservationSchema::HEALTH];
+    }
+    SUBCASE("IllegalAction")
+    {
+        information.history.push_back({ PolicySchema::NUM_ACTIONS, {} });
+    }
+    SUBCASE("WrongPublicCheckpoint")
+    {
+        Record(information, real);
+        ++information.history[0]
+              .publicAfter.turn[ObservationSchema::TURN_NUMBER];
+    }
+    SUBCASE("PrivateDataInPublicCheckpoint")
+    {
+        Record(information, real);
+        information.history[0].publicAfter = EncodeObservation(real.GetGame());
+    }
+    SUBCASE("SecretDeck")
+    {
+        information.config.player2Deck[0] = Cards::FindCardByID("EX1_287");
+    }
+    SUBCASE("RandomHistory")
+    {
+        config.player1Deck[0] = Cards::FindCardByID("EX1_277");
+
+        ReplayGame randomGame(config, 9);
+
+        information = Opening(randomGame, config);
+
+        Record(information, randomGame, Play(randomGame, "EX1_277"));
+
+        information.observation = EncodeObservation(randomGame.GetGame());
+    }
+
+    Random::engine_type random(12);
+    const auto ambient = Random::engine();
+
+    CHECK_THROWS_AS(SampleDeterminization(information, random),
+                    std::invalid_argument);
+    CHECK(random == Random::engine_type(12));
+    CHECK(Random::engine() == ambient);
+}
+
+TEST_CASE("[Determinization] - AmbientRandomCannotBeShared")
+{
+    const auto config = FixedConfig();
+    ReplayGame real(config, 10);
+    const auto information = Opening(real, config);
+    const auto ambient = Random::engine();
+
+    CHECK_THROWS_AS(SampleDeterminization(information, Random::engine()),
+                    std::invalid_argument);
+    CHECK(Random::engine() == ambient);
+
+    Random::engine_type left(11), right(11);
+
+    const auto first = SampleDeterminization(information, left);
+
+    Random::seed(444);
+
+    const auto changedAmbient = Random::engine();
+    const auto second = SampleDeterminization(information, right);
+
+    CHECK(Random::engine() == changedAmbient);
+
+    Random::engine() = ambient;
+
+    CHECK(HiddenCards(*first->GetCurrentPlayer()->opponent) ==
+          HiddenCards(*second->GetCurrentPlayer()->opponent));
+    CHECK(first->GetRandomState() == second->GetRandomState());
+    CHECK(left == right);
 }
 
 TEST_CASE("[Determinization] - PublicEncoderNeverReadsHandsOrDecks")
