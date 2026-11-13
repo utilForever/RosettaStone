@@ -38,8 +38,7 @@ TaskStatus DiscardTask::Impl(Player* player)
     {
         case DiscardType::DEFAULT:
         case DiscardType::ENEMY_MINION:
-            std::shuffle(handCards.begin(), handCards.end(),
-                         Random::get_engine());
+            Random::shuffle(handCards);
             break;
         case DiscardType::LOWEST_COST:
             std::sort(handCards.begin(), handCards.end(),

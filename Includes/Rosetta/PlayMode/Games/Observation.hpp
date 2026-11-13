@@ -157,6 +157,12 @@ struct Observation
 //! Throws std::invalid_argument for states outside the v1 schema and
 //! std::overflow_error for values that cannot be represented as int32.
 Observation EncodeObservation(const Game& game);
+
+//! Encodes only public rows in the current player's coordinate system.
+//! Hand identities, secrets, Choose One metadata and offers remain zero;
+//! neither player's hand nor either deck is inspected. Pending choices are
+//! unsupported. This is a history checkpoint, not an evaluator input.
+Observation EncodePublicObservation(const Game& game);
 }  // namespace RosettaStone::PlayMode
 
 #endif  // ROSETTASTONE_PLAYMODE_OBSERVATION_HPP

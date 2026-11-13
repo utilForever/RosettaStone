@@ -126,9 +126,8 @@ Schema::Card EncodeCard(const Playable& entity, bool includeCost)
 
     return row;
 }
-}  // namespace
 
-Observation EncodeObservation(const Game& game)
+Observation Encode(const Game& game, bool includePrivate)
 {
     if (game.state != State::RUNNING || game.step != Step::MAIN_ACTION ||
         !game.taskQueue.IsIdle() || !game.summonedMinions.empty() ||
@@ -140,7 +139,8 @@ Observation EncodeObservation(const Game& game)
 
     const auto* actor = game.GetCurrentPlayer();
 
-    if (!actor->opponent || actor->opponent->choice)
+    if (!actor->opponent || actor->opponent->choice ||
+        (!includePrivate && actor->choice))
     {
         throw std::invalid_argument("Observation requires the acting player");
     }
@@ -222,6 +222,11 @@ Observation EncodeObservation(const Game& game)
         }
     }
 
+    if (!includePrivate)
+    {
+        return observation;
+    }
+
     const auto hand = actor->GetHandZone()->GetAll();
     const auto secrets = actor->GetSecretZone()->GetAll();
 
@@ -287,5 +292,16 @@ Observation EncodeObservation(const Game& game)
     }
 
     return observation;
+}
+}  // namespace
+
+Observation EncodeObservation(const Game& game)
+{
+    return Encode(game, true);
+}
+
+Observation EncodePublicObservation(const Game& game)
+{
+    return Encode(game, false);
 }
 }  // namespace RosettaStone::PlayMode

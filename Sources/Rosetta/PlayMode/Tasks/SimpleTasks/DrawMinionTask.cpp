@@ -51,8 +51,7 @@ TaskStatus DrawMinionTask::Impl(Player* player)
     switch (m_drawMinionType)
     {
         case DrawMinionType::DEFAULT:
-            std::shuffle(deckCards.begin(), deckCards.end(),
-                         Random::get_engine());
+            Random::shuffle(deckCards);
             break;
         case DrawMinionType::LOWEST_COST:
             std::sort(deckCards.begin(), deckCards.end(),

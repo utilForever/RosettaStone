@@ -148,6 +148,7 @@
 #include <Rosetta/PlayMode/Enchants/PlayerAuraEffects.hpp>
 #include <Rosetta/PlayMode/Enchants/Power.hpp>
 #include <Rosetta/PlayMode/Enchants/SwapCostEnchant.hpp>
+#include <Rosetta/PlayMode/Games/Determinization.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Games/GameConfig.hpp>
 #include <Rosetta/PlayMode/Games/Observation.hpp>
