@@ -1047,7 +1047,8 @@ TEST_CASE("[ReplayGame] - ActionSeedsSurviveBranching")
     const auto ambient = Random::engine();
     std::set<int> health;
 
-    for (unsigned int seed = 0; seed < 16; ++seed)
+    // A short seed prefix need not produce distinct outcomes on every STL.
+    for (unsigned int seed = 0; seed < 256 && health.size() < 2; ++seed)
     {
         auto child = parent.Branch();
         const PlayerAction action{
