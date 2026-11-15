@@ -221,6 +221,11 @@ InformationSetSearchResult SearchInformationSet(
         }
     }
 
+    if (!root)
+    {
+        throw std::logic_error("Information-set search has no root decision");
+    }
+
     InformationSetSearchResult result;
     result.visitCount = root->visits;
     result.actions = std::move(root->actions);
