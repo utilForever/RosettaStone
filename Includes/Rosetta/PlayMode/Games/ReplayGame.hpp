@@ -8,6 +8,8 @@
 
 #include <effolkronium/random.hpp>
 
+#include <optional>
+
 using Random = effolkronium::random_static;
 
 namespace RosettaStone::PlayMode
@@ -48,16 +50,22 @@ class ReplayGame
     //! Custom tasks and pointers belonging to another game are rejected.
     //! Choices must contain exactly one offered entity ID.
     //! \param task The player task to record and execute.
+    //! \param randomSeed Optional fresh seed for this action's outcomes.
+    //! The override is recorded so Branch() reproduces the same history.
     //! \return The play states of player 1 and player 2, in that order.
-    std::tuple<PlayState, PlayState> Process(ITask&& task);
+    std::tuple<PlayState, PlayState> Process(
+        ITask&& task, std::optional<unsigned int> randomSeed = std::nullopt);
 
     //! Validates and records a semantic decision using the normal task path.
     //! Invalid decisions leave the game, history, and random state unchanged.
     //! \param action An action from EnumerateActions(GetGame()).
+    //! \param randomSeed Optional action-local seed, applied after validation.
     //! \return The play states of player 1 and player 2, in that order.
     //! \throws std::invalid_argument If the action is not currently legal.
     //! \throws std::logic_error If the replay failed or is not ready.
-    std::tuple<PlayState, PlayState> ApplyAction(const PlayerAction& action);
+    std::tuple<PlayState, PlayState> ApplyAction(
+        const PlayerAction& action,
+        std::optional<unsigned int> randomSeed = std::nullopt);
 
     //! Returns PLAYING, WON, LOST, or TIED from a fixed player's perspective.
     //! \param player PLAYER1 or PLAYER2, independent of whose turn it is.
@@ -83,6 +91,7 @@ class ReplayGame
         int sourceID = -1;
         int targetID = -1;
         std::unique_ptr<ITask> task;
+        std::optional<unsigned int> randomSeed;
     };
 
     //! Validates entity ownership before recording a game-local ID.

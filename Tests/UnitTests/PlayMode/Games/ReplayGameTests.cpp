@@ -1010,7 +1010,9 @@ TEST_CASE("[ReplayGame] - InvalidSemanticActionsDoNotMutate")
     {
         INFO("source=", action.sourceID, " target=", action.targetID,
              " position=", action.fieldPos, " option=", action.chooseOne);
-        CHECK_THROWS_AS(parent.ApplyAction(action), std::invalid_argument);
+
+        CHECK_THROWS_AS(parent.ApplyAction(action, 1729),
+                        std::invalid_argument);
         CHECK_EQ(StateOf(parent), before);
         CHECK(Random::get_engine() == randomBefore);
     }
@@ -1026,6 +1028,58 @@ TEST_CASE("[ReplayGame] - InvalidSemanticActionsDoNotMutate")
     CHECK_THROWS_AS(parent.ApplyAction(play), std::invalid_argument);
     CHECK_EQ(StateOf(parent), after);
     CHECK_EQ(StateOf(*parent.Branch()), after);
+}
+
+TEST_CASE("[ReplayGame] - ActionSeedsSurviveBranching")
+{
+    auto config = ReplayConfig();
+    config.player1Deck[0] = Cards::FindCardByID("EX1_277");
+    config.player1Deck[1] = Cards::FindCardByID("EX1_277");
+    config.player2Deck.fill(Cards::FindCardByID("CS2_231"));
+
+    ReplayGame parent(config, 42);
+    parent.ApplyAction({});
+    parent.Process(PlayCardTask(InHand(parent, "CS2_231")));
+    parent.ApplyAction({});
+
+    const auto before = StateOf(parent);
+    const auto parentRandom = parent.GetRandomState();
+    const auto ambient = Random::engine();
+    std::set<int> health;
+
+    for (unsigned int seed = 0; seed < 16; ++seed)
+    {
+        auto child = parent.Branch();
+        const PlayerAction action{
+            PlayerActionType::PLAY_CARD,
+            InHand(*child, "EX1_277")->GetGameTag(GameTag::ENTITY_ID)
+        };
+
+        child->ApplyAction(action, seed);
+        health.insert(
+            child->GetCurrentPlayer()->opponent->GetHero()->GetHealth());
+
+        auto branch = child->Branch();
+
+        CHECK_EQ(StateOf(*branch), StateOf(*child));
+        CHECK(branch->GetRandomState() == child->GetRandomState());
+
+        child->Process(PlayCardTask(InHand(*child, "EX1_277")), seed + 100);
+        branch->Process(PlayCardTask(InHand(*branch, "EX1_277")), seed + 100);
+
+        CHECK_EQ(StateOf(*branch), StateOf(*child));
+        CHECK(branch->GetRandomState() == child->GetRandomState());
+
+        const auto grandchild = child->Branch();
+
+        CHECK_EQ(StateOf(*grandchild), StateOf(*child));
+        CHECK(grandchild->GetRandomState() == child->GetRandomState());
+    }
+
+    CHECK_GT(health.size(), 1);
+    CHECK_EQ(StateOf(parent), before);
+    CHECK(parent.GetRandomState() == parentRandom);
+    CHECK(Random::engine() == ambient);
 }
 
 TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
