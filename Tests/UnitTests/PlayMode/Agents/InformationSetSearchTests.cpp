@@ -5,6 +5,7 @@
 #include <Rosetta/PlayMode/Agents/InformationSetSearch.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Tasks/SimpleTasks/CustomTask.hpp>
+#include <Rosetta/PlayMode/Tasks/SimpleTasks/EnqueueTask.hpp>
 
 #include <algorithm>
 #include <limits>
@@ -357,16 +358,25 @@ TEST_CASE("[InformationSetSearch] - SimulationRandomStreamsAreIndependent")
     bool consumeExtra = false;
 
     tasks.insert(tasks.begin(), std::make_shared<SimpleTasks::CustomTask>(
-                                    [&](Player*, Entity*, Playable*) {
+                                    [&starts](Player*, Entity*, Playable*) {
                                         starts.push_back(Random::engine());
                                     }));
-    tasks.push_back(std::make_shared<SimpleTasks::CustomTask>(
-        [&](Player*, Entity*, Playable*) {
-            if (consumeExtra && starts.size() == 1)
+    const auto consumeRandom = std::make_shared<SimpleTasks::CustomTask>(
+        [&starts, &consumeExtra](Player*, Entity*, Playable*) {
+            if (starts.size() == 1)
             {
-                Random::discard(1000);
+                CHECK(Random::engine() != starts.front());
+
+                if (consumeExtra)
+                {
+                    Random::discard(1000);
+                }
             }
-        }));
+        });
+
+    // Arcane Missiles enqueues its damage, so queue this probe behind it.
+    tasks.push_back(std::make_shared<SimpleTasks::EnqueueTask>(
+        TaskList{ consumeRandom }, 1));
 
     const auto missiles =
         PolicyActions(real.GetGame()).Encode(Play(real, "EX1_277"));
