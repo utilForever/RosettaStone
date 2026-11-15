@@ -12,6 +12,9 @@ if (NOT ROSETTA_ROOT)
 	set(ROSETTA_ROOT ${PROJECT_SOURCE_DIR})
 endif()
 
+# Enable testing
+enable_testing()
+
 # Set output directories
 set(DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
@@ -60,10 +63,16 @@ set(RESOURCES_JSONS
     ${RESOURCES_DIR}/cards.json)
 
 # Project modules
+option(BUILD_RL "Build optional LibTorch reinforcement-learning targets" OFF)
+
 add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
+
+if (BUILD_RL)
+    add_subdirectory(Extensions/RosettaRL)
+endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
 

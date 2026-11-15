@@ -86,6 +86,26 @@ python -m pip install .
 python -m pytest Tests/PythonTests/
 ```
 
+### Optional LibTorch RL Build
+
+`BUILD_RL` defaults to `OFF`. The core simulator and `pyRosetta` do not require LibTorch. To build the CPU smoke test, provide an existing [LibTorch installation](https://docs.pytorch.org/cppdocs/installing.html):
+
+```bash
+cmake -S . -B build/rl \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
+  -DBUILD_RL=ON \
+  -DCMAKE_PREFIX_PATH=/absolute/path/to/libtorch
+cmake --build build/rl --config Release --target RosettaRL
+ctest --test-dir build/rl -C Release -R '^RosettaRL$' --output-on-failure
+```
+
+Alternatively, set `Torch_DIR` to `/absolute/path/to/libtorch/share/cmake/Torch`. Use a LibTorch build compatible with your compiler and C++ ABI. On Windows,
+match Debug or Release with the LibTorch distribution; the smoke target copies its runtime DLLs beside the executable. On Linux, use the C++11 ABI distribution
+with the default GCC ABI. A CPU-only distribution is sufficient; CMake does not download LibTorch or configure CUDA for you.
+
+Torch headers, compiler options, and libraries are confined to `Extensions/RosettaRL`. The smoke test checks a deterministic CPU tensor calculation and returns a nonzero exit code on failure.
+
 ## Architecture at a Glance
 
 | Area                | Paths                                                               | Purpose                                               |
