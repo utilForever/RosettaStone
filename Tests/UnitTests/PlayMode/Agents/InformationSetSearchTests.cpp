@@ -550,3 +550,207 @@ TEST_CASE("[InformationSetSearch] - SearchContinuesAfterPrivateRandomActions")
         CHECK(Random::engine() == ambient);
     }
 }
+
+TEST_CASE("[InformationSetSearch] - PrivateHistoriesStayWithTheirObserver")
+{
+    auto config = MirrorConfig(PlayerType::PLAYER1);
+    config.player1Deck.fill(Cards::FindCardByID("CS2_231"));
+    config.player1Deck[0] = Cards::FindCardByID("EX1_277");
+    config.player2Deck = config.player1Deck;
+
+    ReplayGame real(config, 0);
+
+    auto information = Opening(config, real);
+    information.knownDraws[0][4] = Cards::FindCardByID("CS2_231")->dbfID;
+
+    RecordingEvaluator evaluator;
+    evaluator.onlyAction = PolicySchema::END_TURN;
+
+    SearchInformationSet(information, evaluator, { 64, 2 }, 1070);
+
+    std::size_t ownNextDecisions = 0;
+    std::set<std::array<ObservationSchema::Card, ObservationSchema::HAND_SLOTS>>
+        opponentHands;
+
+    for (const auto& observation : evaluator.observations)
+    {
+        if (observation.turn[ObservationSchema::TURN_NUMBER] == 2)
+        {
+            opponentHands.insert(observation.hand);
+        }
+        else if (observation.turn[ObservationSchema::TURN_NUMBER] == 3)
+        {
+            ++ownNextDecisions;
+        }
+    }
+
+    CHECK_GT(opponentHands.size(), 1);
+    // Opponent hand samples must not split an identical own decision.
+    CHECK_EQ(ownNextDecisions, 1);
+}
+
+TEST_CASE("[InformationSetSearch] - PublicDiscardsStayInHistory")
+{
+    auto config = MirrorConfig(PlayerType::PLAYER1);
+    config.player1Deck.fill(Cards::FindCardByID("CS2_231"));
+    config.player2Class = CardClass::WARLOCK;
+    config.player2Deck.fill(nullptr);
+
+    const std::array ids{ "EX1_308", "CS2_182", "CS2_200", "CS2_186" };
+
+    for (std::size_t i = 0; i < ids.size(); ++i)
+    {
+        config.player2Deck[i] = Cards::FindCardByID(ids[i]);
+    }
+
+    ReplayGame real(config, 0);
+    auto information = Opening(config, real);
+
+    // Fully known draw slots isolate the public discard from hidden sampling.
+    for (std::size_t i = 0; i < ids.size(); ++i)
+    {
+        information.knownDraws[1][i] = config.player2Deck[i]->dbfID;
+    }
+
+    auto opponent = real.Branch();
+    opponent->ApplyAction({});
+
+    const auto target =
+        opponent->GetCurrentPlayer()->opponent->GetHero()->GetGameTag(
+            GameTag::ENTITY_ID);
+
+    auto soulFire = Play(*opponent, "EX1_308");
+    soulFire.targetID = target;
+
+    const auto index = PolicyActions(opponent->GetGame()).Encode(soulFire);
+
+    class DiscardEvaluator final : public BatchedEvaluator
+    {
+     public:
+        std::size_t soulFire;
+        std::vector<Observation> ownNext;
+
+     private:
+        std::vector<EvaluationResult> EvaluateBatch(
+            std::span<const EvaluationInput> inputs) override
+        {
+            std::vector<EvaluationResult> results;
+
+            for (const auto& input : inputs)
+            {
+                const auto turn =
+                    input.observation.turn[ObservationSchema::TURN_NUMBER];
+
+                if (turn == 3)
+                {
+                    ownNext.push_back(input.observation);
+                }
+
+                EvaluationResult result;
+                result.priors.resize(PolicySchema::NUM_ACTIONS);
+                result.priors[turn == 2 && input.legalMask[soulFire]
+                                  ? soulFire
+                                  : PolicySchema::END_TURN] = 1.0f;
+
+                results.push_back(std::move(result));
+            }
+
+            return results;
+        }
+    } evaluator;
+
+    evaluator.soulFire = index;
+
+    SearchInformationSet(information, evaluator, { 128, 3 }, 1070);
+
+    // Same board, health and hand counts; each different public discard is
+    // nevertheless a distinct decision for the observer on the next turn.
+    REQUIRE_GT(evaluator.ownNext.size(), 1);
+
+    for (const auto& observation : evaluator.ownNext)
+    {
+        CHECK(observation == evaluator.ownNext.front());
+    }
+}
+
+TEST_CASE("[InformationSetSearch] - ValuesFollowTheDecisionPlayer")
+{
+    for (const auto starter : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
+    {
+        const auto config = MirrorConfig(starter);
+        ReplayGame real(config, 0);
+        const auto information = Opening(config, real);
+
+        RecordingEvaluator evaluator;
+        evaluator.value = 0.25f;
+
+        const auto result =
+            SearchInformationSet(information, evaluator, { 32, 1 }, 1070);
+
+        for (const auto& action : result.actions)
+        {
+            REQUIRE_GT(action.visitCount, 0);
+
+            const double expected =
+                action.actionIndex == PolicySchema::END_TURN ? -0.25 : 0.25;
+
+            CHECK_EQ(action.GetMeanValue(), expected);
+        }
+    }
+}
+
+TEST_CASE("[InformationSetSearch] - LimitsValidationAndRootOnlyBudget")
+{
+    const auto config = MirrorConfig(PlayerType::PLAYER1);
+    ReplayGame real(config, 0);
+    const auto information = Opening(config, real);
+    RecordingEvaluator evaluator;
+    const auto ambient = Random::engine();
+
+    CHECK_THROWS_AS(SearchInformationSet(information, evaluator, { 0, 1 }, 0),
+                    std::invalid_argument);
+    CHECK_THROWS_AS(SearchInformationSet(information, evaluator, { 1, 0 }, 0),
+                    std::invalid_argument);
+
+    for (const double exploration :
+         { -1.0, std::numeric_limits<double>::quiet_NaN(),
+           std::numeric_limits<double>::infinity() })
+    {
+        CHECK_THROWS_AS(SearchInformationSet(information, evaluator, { 1, 1 },
+                                             0, exploration),
+                        std::invalid_argument);
+    }
+
+    CHECK(evaluator.observations.empty());
+
+    const auto result =
+        SearchInformationSet(information, evaluator, { 1, 1 }, 0);
+
+    CHECK_EQ(result.visitCount, 1);
+    CHECK_EQ(evaluator.observations.size(), 1);
+    REQUIRE(result.GetRootAction());
+    CHECK_EQ(*result.GetRootAction(), PolicySchema::END_TURN);
+
+    for (const auto& action : result.actions)
+    {
+        CHECK_EQ(action.visitCount, 0);
+    }
+
+    const auto preferredAction =
+        PolicyActions(real.GetGame()).Encode(Play(real, "EX1_277"));
+
+    evaluator.onlyAction = preferredAction;
+
+    const auto preferred =
+        SearchInformationSet(information, evaluator, { 1, 1 }, 0);
+
+    CHECK_EQ(preferred.GetRootAction(),
+             std::optional<std::size_t>{ preferredAction });
+
+    auto invalid = information;
+    ++invalid.observation.heroes[0][ObservationSchema::HEALTH];
+
+    CHECK_THROWS_AS(SearchInformationSet(invalid, evaluator, { 2, 1 }, 0),
+                    std::invalid_argument);
+    CHECK(Random::engine() == ambient);
+}
