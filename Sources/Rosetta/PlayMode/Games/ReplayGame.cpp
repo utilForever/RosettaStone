@@ -111,7 +111,8 @@ int ReplayGame::GetEntityID(const Entity* entity) const
     return id;
 }
 
-std::tuple<PlayState, PlayState> ReplayGame::Process(ITask&& task)
+std::tuple<PlayState, PlayState> ReplayGame::Process(
+    ITask&& task, std::optional<unsigned int> randomSeed)
 {
     CheckReady();
 
@@ -160,8 +161,8 @@ std::tuple<PlayState, PlayState> ReplayGame::Process(ITask&& task)
             "Player task requires a source and valid target");
     }
 
-    RecordedTask record{ GetEntityID(source), GetEntityID(target),
-                         task.Clone() };
+    RecordedTask record{ GetEntityID(source), GetEntityID(target), task.Clone(),
+                         randomSeed };
 
     if (source && source->player != player)
     {
@@ -179,7 +180,7 @@ std::tuple<PlayState, PlayState> ReplayGame::Process(ITask&& task)
 }
 
 std::tuple<PlayState, PlayState> ReplayGame::ApplyAction(
-    const PlayerAction& action)
+    const PlayerAction& action, std::optional<unsigned int> randomSeed)
 {
     CheckReady();
 
@@ -196,16 +197,17 @@ std::tuple<PlayState, PlayState> ReplayGame::ApplyAction(
     switch (action.type)
     {
         case PlayerActionType::END_TURN:
-            return Process(EndTurnTask());
+            return Process(EndTurnTask(), randomSeed);
         case PlayerActionType::PLAY_CARD:
-            return Process(PlayCardTask(source, target, action.fieldPos,
-                                        action.chooseOne));
+            return Process(
+                PlayCardTask(source, target, action.fieldPos, action.chooseOne),
+                randomSeed);
         case PlayerActionType::ATTACK:
-            return Process(AttackTask(source, target));
+            return Process(AttackTask(source, target), randomSeed);
         case PlayerActionType::HERO_POWER:
-            return Process(HeroPowerTask(target));
+            return Process(HeroPowerTask(target), randomSeed);
         case PlayerActionType::CHOOSE:
-            return Process(ChooseTask({ action.choiceID }));
+            return Process(ChooseTask({ action.choiceID }), randomSeed);
     }
 
     throw std::invalid_argument("Unknown player action type");
@@ -243,6 +245,11 @@ int ReplayGame::GetReward(PlayerType player) const
 
 std::tuple<PlayState, PlayState> ReplayGame::Apply(const RecordedTask& record)
 {
+    if (record.randomSeed)
+    {
+        m_random.seed(*record.randomSeed);
+    }
+
     RandomScope random(m_random);
     try
     {
@@ -278,8 +285,8 @@ std::unique_ptr<ReplayGame> ReplayGame::Branch() const
 
     for (const auto& record : m_history)
     {
-        child->m_history.push_back(
-            { record.sourceID, record.targetID, record.task->Clone() });
+        child->m_history.push_back({ record.sourceID, record.targetID,
+                                     record.task->Clone(), record.randomSeed });
         child->Apply(child->m_history.back());
     }
 

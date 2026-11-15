@@ -35,6 +35,10 @@ struct PUCTNode
     std::vector<std::size_t> children;
 
     double GetMeanValue() const;
+
+    //! Q in the parent's perspective plus the PUCT exploration term.
+    double GetSelectionScore(PlayerType parent, std::size_t parentVisits,
+                             double exploration) const;
 };
 
 //! Sequential, backend-independent PUCT mechanics for one root decision.

@@ -76,6 +76,7 @@
 #include <Rosetta/PlayMode/Actions/Summon.hpp>
 #include <Rosetta/PlayMode/Agents/BatchedEvaluator.hpp>
 #include <Rosetta/PlayMode/Agents/IAgent.hpp>
+#include <Rosetta/PlayMode/Agents/InformationSetSearch.hpp>
 #include <Rosetta/PlayMode/Agents/PUCTSearch.hpp>
 #include <Rosetta/PlayMode/Agents/RandomAgent.hpp>
 #include <Rosetta/PlayMode/Auras/AdaptiveCostEffect.hpp>
