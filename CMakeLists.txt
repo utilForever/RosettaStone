@@ -60,10 +60,16 @@ set(RESOURCES_JSONS
     ${RESOURCES_DIR}/cards.json)
 
 # Project modules
+option(BUILD_RL "Build optional LibTorch reinforcement-learning targets" OFF)
+
 add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)
 add_subdirectory(Extensions/RosettaConsole)
 add_subdirectory(Extensions/RosettaTool)
+
+if (BUILD_RL)
+    add_subdirectory(Extensions/RosettaRL)
+endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Builds/setup.py.in ${CMAKE_CURRENT_SOURCE_DIR}/setup.py)
 
