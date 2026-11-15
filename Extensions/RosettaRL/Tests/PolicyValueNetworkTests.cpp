@@ -5,6 +5,9 @@
 #define DOCTEST_CONFIG_NO_SHORT_MACRO_NAMES
 #include <doctest/doctest.h>
 
+#include <torch/cuda.h>
+#include <torch/optim/sgd.h>
+#include <torch/serialize.h>
 #include <torch/utils.h>
 
 #include <RosettaRL/PolicyValueNetwork.hpp>
@@ -12,6 +15,7 @@
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
 
 #include <limits>
+#include <sstream>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -166,4 +170,157 @@ DOCTEST_TEST_CASE("[PolicyValueNetwork] - RejectsInvalidTensorContracts")
     batch[1][0] = ObservationSchema::VERSION + 1;
 
     DOCTEST_CHECK_THROWS_AS(network->forward(batch), c10::Error);
+}
+
+DOCTEST_TEST_CASE(
+    "[PolicyValueNetwork] - GradientsReachAllRegisteredParameters")
+{
+    torch::manual_seed(1072);
+
+    PolicyValueNetwork network;
+    const auto parameters = network->named_parameters();
+
+    DOCTEST_REQUIRE_EQ(network->named_children().size(), 3);
+    DOCTEST_REQUIRE_EQ(parameters.size(), 6);
+
+    torch::optim::SGD optimizer(network->parameters(), 0.01);
+
+    const auto [logits, values] = network->forward(InputBatch());
+    const auto loss = logits.square().mean() + (values - 0.5).square().mean();
+
+    loss.backward();
+
+    for (const auto& parameter : parameters)
+    {
+        DOCTEST_INFO(parameter.key());
+        DOCTEST_CHECK(parameter.value().requires_grad());
+
+        const auto gradient = parameter.value().grad();
+
+        DOCTEST_REQUIRE(gradient.defined());
+        DOCTEST_CHECK(gradient.sizes() == parameter.value().sizes());
+        DOCTEST_CHECK(torch::isfinite(gradient).all().item<bool>());
+        DOCTEST_CHECK_GT(gradient.abs().sum().item<float>(), 0.0f);
+    }
+
+    const auto before = parameters["shared.weight"].detach().clone();
+
+    optimizer.step();
+
+    DOCTEST_CHECK_FALSE(torch::equal(before, parameters["shared.weight"]));
+}
+
+DOCTEST_TEST_CASE(
+    "[PolicyValueNetwork] - FixedSeedReproducesCPUParametersAndOutputs")
+{
+    torch::manual_seed(1072);
+    PolicyValueNetwork first;
+
+    torch::manual_seed(1072);
+    PolicyValueNetwork second;
+
+    const auto firstParameters = first->named_parameters();
+    const auto secondParameters = second->named_parameters();
+
+    DOCTEST_REQUIRE_EQ(firstParameters.size(), secondParameters.size());
+
+    for (const auto& parameter : firstParameters)
+    {
+        DOCTEST_CHECK(
+            torch::equal(parameter.value(), secondParameters[parameter.key()]));
+    }
+
+    const auto batch = InputBatch();
+    const auto [firstLogits, firstValues] = first->forward(batch);
+    const auto [secondLogits, secondValues] = second->forward(batch);
+
+    DOCTEST_CHECK(torch::equal(firstLogits, secondLogits));
+    DOCTEST_CHECK(torch::equal(firstValues, secondValues));
+
+    torch::manual_seed(1073);
+    PolicyValueNetwork third;
+
+    DOCTEST_CHECK_FALSE(
+        torch::equal(firstParameters["shared.weight"],
+                     third->named_parameters()["shared.weight"]));
+}
+
+DOCTEST_TEST_CASE("[PolicyValueNetwork] - NativeArchivePreservesOutputs")
+{
+    PolicyValueNetwork network;
+    std::stringstream weights;
+
+    torch::save(network, weights);
+
+    PolicyValueNetwork restored;
+
+    torch::load(restored, weights);
+
+    const auto batch = InputBatch();
+    const auto [logits, values] = network->forward(batch);
+    const auto [restoredLogits, restoredValues] = restored->forward(batch);
+
+    DOCTEST_CHECK(torch::equal(logits, restoredLogits));
+    DOCTEST_CHECK(torch::equal(values, restoredValues));
+}
+
+DOCTEST_TEST_CASE("[PolicyValueNetwork] - DeviceAndDtypeMoves")
+{
+    PolicyValueNetwork network;
+    const auto batch = InputBatch();
+
+    network->to(torch::kFloat64);
+
+    const auto [doubleLogits, doubleValues] = network->forward(batch);
+
+    DOCTEST_CHECK((doubleLogits.scalar_type() == torch::kFloat64));
+    DOCTEST_CHECK((doubleValues.scalar_type() == torch::kFloat64));
+
+    network->to(torch::kFloat32);
+
+    if (!torch::cuda::is_available())
+    {
+        DOCTEST_MESSAGE("CUDA unavailable; CPU and dtype moves checked");
+        return;
+    }
+
+    const auto [cpuLogits, cpuValues] = network->forward(batch);
+
+    network->to(torch::kCUDA);
+
+    for (const auto& parameter : network->parameters())
+    {
+        DOCTEST_CHECK(parameter.is_cuda());
+    }
+
+    DOCTEST_CHECK_THROWS_AS(network->forward(batch), c10::Error);
+
+    const auto [cudaLogits, cudaValues] =
+        network->forward(batch.to(torch::kCUDA));
+
+    DOCTEST_CHECK(cudaLogits.is_cuda());
+    DOCTEST_CHECK(cudaValues.is_cuda());
+    DOCTEST_CHECK(torch::allclose(cpuLogits, cudaLogits.cpu(), 1e-4, 1e-5));
+    DOCTEST_CHECK(torch::allclose(cpuValues, cudaValues.cpu(), 1e-4, 1e-5));
+
+    (cudaLogits.square().mean() + cudaValues.square().mean()).backward();
+
+    for (const auto& parameter : network->parameters())
+    {
+        DOCTEST_REQUIRE(parameter.grad().defined());
+        DOCTEST_CHECK(parameter.grad().is_cuda());
+        DOCTEST_CHECK(torch::isfinite(parameter.grad()).all().item<bool>());
+    }
+
+    network->to(torch::kCPU);
+
+    for (const auto& parameter : network->parameters())
+    {
+        DOCTEST_CHECK(parameter.device().is_cpu());
+    }
+
+    const auto [restoredLogits, restoredValues] = network->forward(batch);
+
+    DOCTEST_CHECK(torch::equal(cpuLogits, restoredLogits));
+    DOCTEST_CHECK(torch::equal(cpuValues, restoredValues));
 }
