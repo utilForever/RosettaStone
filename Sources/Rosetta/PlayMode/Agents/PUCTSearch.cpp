@@ -14,6 +14,16 @@ double PUCTNode::GetMeanValue() const
     return visitCount == 0 ? 0.0 : totalValue / visitCount;
 }
 
+double PUCTNode::GetSelectionScore(PlayerType parent, std::size_t parentVisits,
+                                   double exploration) const
+{
+    const double mean = GetMeanValue();
+    const double q = player == parent ? mean : -mean;
+    const double scale = std::sqrt(static_cast<double>(parentVisits));
+
+    return q + exploration * prior * (scale / (1.0 + visitCount));
+}
+
 PUCTSearch::PUCTSearch(PUCTSearchLimits limits, double exploration)
     : m_limits(limits), m_exploration(exploration)
 {
@@ -28,18 +38,14 @@ PUCTSearch::PUCTSearch(PUCTSearchLimits limits, double exploration)
 std::size_t PUCTSearch::SelectChild(std::size_t parent) const
 {
     const auto& node = m_nodes[parent];
-    const double scale = std::sqrt(static_cast<double>(node.visitCount));
     double bestScore = -std::numeric_limits<double>::infinity();
     std::size_t best = node.children.front();
 
     for (const auto index : node.children)
     {
         const auto& child = m_nodes[index];
-        const double mean = child.GetMeanValue();
-        const double q = child.player == node.player ? mean : -mean;
-        const double u =
-            m_exploration * child.prior * (scale / (1.0 + child.visitCount));
-        const double score = q + u;
+        const double score = child.GetSelectionScore(
+            node.player, node.visitCount, m_exploration);
 
         if (score > bestScore)
         {
