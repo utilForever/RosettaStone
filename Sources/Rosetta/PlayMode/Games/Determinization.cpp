@@ -6,6 +6,7 @@
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Triggers/MultiTrigger.hpp>
 #include <Rosetta/PlayMode/Zones/DeckZone.hpp>
+#include <Rosetta/PlayMode/Zones/GraveyardZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 #include <Rosetta/PlayMode/Zones/SecretZone.hpp>
 
@@ -19,6 +20,14 @@ namespace
 {
 using Deck = std::array<Card*, START_DECK_SIZE>;
 using KnownDraws = std::array<int, START_DECK_SIZE>;
+
+std::array<const Player*, 2> Players(const Game& game)
+{
+    const auto* actor = game.GetCurrentPlayer();
+    return { actor->playerType == PlayerType::PLAYER1 ? actor : actor->opponent,
+             actor->playerType == PlayerType::PLAYER2 ? actor
+                                                      : actor->opponent };
+}
 
 void CheckCard(Card* card)
 {
@@ -235,6 +244,33 @@ void CheckZones(const Player& player, const Deck& deck, DeckHistory& history,
 }
 }  // namespace
 
+PublicAction EncodePublicAction(const Game& game, std::size_t actionIndex)
+{
+    if (actionIndex >= PolicySchema::NUM_ACTIONS)
+    {
+        throw std::invalid_argument("Invalid public action index");
+    }
+
+    PublicAction action{ actionIndex, EncodePublicObservation(game), {} };
+    const auto players = Players(game);
+
+    for (std::size_t i = 0; i < players.size(); ++i)
+    {
+        for (const auto* card : players[i]->GetGraveyardZone()->GetAll())
+        {
+            if (card->card->IsSecret())
+            {
+                throw std::invalid_argument(
+                    "Secret graveyards are unsupported");
+            }
+
+            action.graveyardsAfter[i].push_back(card->card->dbfID);
+        }
+    }
+
+    return action;
+}
+
 std::unique_ptr<ReplayGame> SampleDeterminization(
     const FixedDeckInformationSet& information,
     effolkronium::random_static::engine_type& random)
@@ -261,73 +297,162 @@ std::unique_ptr<ReplayGame> SampleDeterminization(
         SampleDeck(config.player2Deck, information.knownDraws[1], nextRandom);
 
     const auto seed = static_cast<unsigned int>(nextRandom());
-    auto sampled = std::make_unique<ReplayGame>(config, seed);
+    const ReplayGame initial(config, seed);
     const effolkronium::random_static::engine_type initialRandom(seed);
 
-    const auto* actor = sampled->GetCurrentPlayer();
-    const std::array<const Player*, 2> players{
-        actor->playerType == PlayerType::PLAYER1 ? actor : actor->opponent,
-        actor->playerType == PlayerType::PLAYER2 ? actor : actor->opponent
-    };
+    const auto players = Players(initial.GetGame());
     const std::array decks{ config.player1Deck, config.player2Deck };
-    std::array histories{
+    std::array initialHistories{
         TrackDeck(*players[0], decks[0], information.knownDraws[0]),
         TrackDeck(*players[1], decks[1], information.knownDraws[1])
     };
 
-    const auto check = [&](bool isFinal) {
-        if (sampled->GetRandomState() != initialRandom)
-        {
-            throw std::invalid_argument("Random history is unsupported");
-        }
+    const auto check = [&](const ReplayGame& game, auto& tracked,
+                           bool isFinal) {
+        const auto currentPlayers = Players(game.GetGame());
 
-        for (std::size_t i = 0; i < players.size(); ++i)
+        for (std::size_t i = 0; i < currentPlayers.size(); ++i)
         {
-            CheckZones(
-                *players[i], decks[i], histories[i],
-                isFinal && players[i]->playerType == information.actingPlayer);
+            CheckZones(*currentPlayers[i], decks[i], tracked[i],
+                       isFinal && currentPlayers[i]->playerType ==
+                                      information.actingPlayer);
         }
     };
 
-    check(false);
-
-    for (const auto& entry : information.history)
+    if (initial.GetRandomState() != initialRandom)
     {
-        const PolicyActions policy(sampled->GetGame());
-        const auto action = policy.Decode(entry.actionIndex);
+        throw std::invalid_argument("Random startup effects are unsupported");
+    }
 
-        if (action.type == PlayerActionType::CHOOSE)
+    check(initial, initialHistories, false);
+
+    for (std::size_t replayAttempt = 0; replayAttempt < 256; ++replayAttempt)
+    {
+        auto sampled = initial.Branch();
+        auto histories = initialHistories;
+        bool randomHistory = false;
+
+        try
         {
-            throw std::invalid_argument("Choice history is unsupported");
+            bool matched = true;
+
+            for (const auto& entry : information.history)
+            {
+                const PolicyActions policy(sampled->GetGame());
+                const auto action = policy.Decode(entry.actionIndex);
+
+                if (action.type == PlayerActionType::CHOOSE)
+                {
+                    throw std::invalid_argument(
+                        "Choice history is unsupported");
+                }
+
+                if (action.type == PlayerActionType::PLAY_CARD)
+                {
+                    const auto owner =
+                        sampled->GetCurrentPlayer()->playerType ==
+                                PlayerType::PLAYER1
+                            ? 0
+                            : 1;
+                    CheckKnown(histories[owner], action.sourceID);
+                }
+
+                matched = false;
+
+                for (std::size_t attempt = 0; attempt < 256; ++attempt)
+                {
+                    auto candidate = sampled->Branch();
+                    const auto outcomeSeed =
+                        static_cast<unsigned int>(nextRandom());
+
+                    candidate->ApplyAction(action, outcomeSeed);
+
+                    const bool randomOutcome = candidate->GetRandomState() !=
+                                               Random::engine_type(outcomeSeed);
+                    auto tracked = histories;
+
+                    try
+                    {
+                        check(*candidate, tracked, false);
+                    }
+                    catch (const std::invalid_argument&)
+                    {
+                        if (!randomOutcome)
+                        {
+                            throw;
+                        }
+
+                        continue;
+                    }
+
+                    const bool samePublicState =
+                        candidate->GetOutcome(information.actingPlayer) ==
+                            PlayState::PLAYING &&
+                        EncodePublicAction(candidate->GetGame(),
+                                           entry.actionIndex) == entry;
+
+                    if (!samePublicState)
+                    {
+                        if (!randomOutcome)
+                        {
+                            throw std::invalid_argument(
+                                "Sample disagrees with public history");
+                        }
+
+                        continue;
+                    }
+
+                    sampled = std::move(candidate);
+                    histories = std::move(tracked);
+                    randomHistory |= randomOutcome;
+                    matched = true;
+
+                    break;
+                }
+
+                if (!matched)
+                {
+                    break;
+                }
+            }
+
+            if (!matched)
+            {
+                if (!randomHistory)
+                {
+                    throw std::runtime_error(
+                        "Public outcome sampling budget exhausted");
+                }
+
+                continue;
+            }
+
+            check(*sampled, histories, true);
+
+            if (sampled->GetCurrentPlayer()->playerType !=
+                    information.actingPlayer ||
+                EncodeObservation(sampled->GetGame()) !=
+                    information.observation)
+            {
+                throw std::invalid_argument(
+                    "Sample disagrees with the observation");
+            }
+
+            random = nextRandom;
+            return sampled;
         }
-
-        if (action.type == PlayerActionType::PLAY_CARD)
+        catch (const std::invalid_argument&)
         {
-            const auto owner =
-                sampled->GetCurrentPlayer()->playerType == PlayerType::PLAYER1
-                    ? 0
-                    : 1;
-            CheckKnown(histories[owner], action.sourceID);
-        }
+            if (!randomHistory)
+            {
+                throw;
+            }
 
-        sampled->ApplyAction(action);
-        check(false);
-
-        if (EncodePublicObservation(sampled->GetGame()) != entry.publicAfter)
-        {
-            throw std::invalid_argument("Sample disagrees with public history");
+            // A later play or private observation can reject an earlier
+            // outcome.
         }
     }
 
-    check(true);
-
-    if (sampled->GetCurrentPlayer()->playerType != information.actingPlayer ||
-        EncodeObservation(sampled->GetGame()) != information.observation)
-    {
-        throw std::invalid_argument("Sample disagrees with the observation");
-    }
-
-    random = nextRandom;
-    return sampled;
+    throw std::runtime_error("Information set sampling budget exhausted");
 }
 }  // namespace RosettaStone::PlayMode

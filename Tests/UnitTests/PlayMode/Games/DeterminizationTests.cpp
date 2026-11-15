@@ -71,8 +71,7 @@ void Record(FixedDeckInformationSet& information, ReplayGame& replay,
     const auto index = PolicyActions(replay.GetGame()).Encode(action);
 
     replay.ApplyAction(action);
-    information.history.emplace_back(index,
-                                     EncodePublicObservation(replay.GetGame()));
+    information.history.push_back(EncodePublicAction(replay.GetGame(), index));
 }
 
 PlayerAction Play(const ReplayGame& replay, std::string_view cardID,
@@ -485,7 +484,7 @@ TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
     }
     SUBCASE("IllegalAction")
     {
-        information.history.push_back({ PolicySchema::NUM_ACTIONS, {} });
+        information.history.push_back({ PolicySchema::NUM_ACTIONS, {}, {} });
     }
     SUBCASE("WrongPublicCheckpoint")
     {
@@ -505,32 +504,6 @@ TEST_CASE("[Determinization] - InvalidKnowledgeIsAtomic")
     SUBCASE("SecretDeck")
     {
         information.config.player2Deck[0] = Cards::FindCardByID("EX1_287");
-    }
-    SUBCASE("RandomHistory")
-    {
-        config.player1Deck[0] = Cards::FindCardByID("EX1_277");
-
-        ReplayGame randomGame(config, 9);
-
-        information = Opening(randomGame, config);
-
-        // A lone enemy hero need not consume RNG on every standard library.
-        Record(information, randomGame);
-        Record(information, randomGame, Play(randomGame, "CS2_231"));
-
-        information.knownDraws[1][0] = config.player2Deck[0]->dbfID;
-
-        Record(information, randomGame);
-
-        information.knownDraws[0][4] = config.player1Deck[4]->dbfID;
-
-        const auto before = randomGame.GetRandomState();
-
-        Record(information, randomGame, Play(randomGame, "EX1_277"));
-
-        REQUIRE(randomGame.GetRandomState() != before);
-
-        information.observation = EncodeObservation(randomGame.GetGame());
     }
 
     Random::engine_type random(12);
@@ -593,21 +566,134 @@ TEST_CASE("[Determinization] - RandomDiscardCannotRewritePublicHistory")
         information.observation.hand[4][ObservationSchema::CARD_ID];
 
     const auto ambient = Random::engine();
+    const auto realRandom = real.GetRandomState();
+    const auto checkpoint = information.history.back();
+    std::set<std::vector<int>> hidden;
 
     for (unsigned int seed = 0; seed < 8; ++seed)
     {
         CAPTURE(seed);
 
         Random::engine_type random(seed);
+        Random::engine_type repeated(seed);
 
-        CHECK_THROWS_WITH_AS(SampleDeterminization(information, random),
-                             "Random history is unsupported",
-                             std::invalid_argument);
-        CHECK(random == Random::engine_type(seed));
+        const auto sampled = SampleDeterminization(information, random);
+        const auto again = SampleDeterminization(information, repeated);
+
+        CHECK(EncodePublicAction(sampled->GetGame(), checkpoint.actionIndex) ==
+              checkpoint);
+        CHECK(EncodeObservation(sampled->GetGame()) == information.observation);
+        CHECK(HiddenCards(*sampled->GetCurrentPlayer()->opponent) ==
+              HiddenCards(*again->GetCurrentPlayer()->opponent));
+        CHECK(sampled->GetRandomState() == again->GetRandomState());
+        CHECK(random == repeated);
+
+        hidden.insert(HiddenCards(*sampled->GetCurrentPlayer()->opponent));
+
+        const auto branch = sampled->Branch();
+
+        CHECK(EncodePublicAction(branch->GetGame(), checkpoint.actionIndex) ==
+              checkpoint);
+        CHECK(EncodeObservation(branch->GetGame()) == information.observation);
+        CHECK(branch->GetRandomState() == sampled->GetRandomState());
         CHECK(Random::engine() == ambient);
     }
 
+    CHECK_GT(hidden.size(), 1);
     CHECK(EncodeObservation(real.GetGame()) == information.observation);
+    CHECK(real.GetRandomState() == realRandom);
+
+    // Health and hand counts alone would accept a different public discard.
+    // An impossible graveyard must exhaust the finite budget atomically.
+    information.history[1].graveyardsAfter[1].back() = -1;
+
+    Random::engine_type random(12);
+
+    CHECK_THROWS_WITH_AS(SampleDeterminization(information, random),
+                         "Public outcome sampling budget exhausted",
+                         std::runtime_error);
+    CHECK(random == Random::engine_type(12));
+    CHECK(Random::engine() == ambient);
+}
+
+TEST_CASE("[Determinization] - LaterRandomCheckpointConstrainsEarlierOutcome")
+{
+    auto config = FixedConfig();
+    config.player1Class = CardClass::WARRIOR;
+    config.player2Class = CardClass::WARRIOR;
+    config.player1Deck.fill(nullptr);
+
+    const std::array ids{ "DMF_531", "DMF_531", "CS2_231", "CS2_182" };
+
+    for (std::size_t i = 0; i < ids.size(); ++i)
+    {
+        config.player1Deck[i] = Cards::FindCardByID(ids[i]);
+    }
+
+    config.player2Deck = config.player1Deck;
+
+    std::unique_ptr<ReplayGame> real;
+    FixedDeckInformationSet information;
+
+    for (unsigned int seed = 0; seed < 64; ++seed)
+    {
+        real = std::make_unique<ReplayGame>(config, seed);
+        information = Opening(*real, config);
+
+        for (int turn = 0; turn < 6; ++turn)
+        {
+            Record(information, *real);
+        }
+
+        Record(information, *real, Play(*real, "DMF_531"));
+
+        if (EncodeObservation(real->GetGame())
+                .hand[0][ObservationSchema::ATTACK] == 4)
+        {
+            break;
+        }
+    }
+
+    REQUIRE_EQ(
+        EncodeObservation(real->GetGame()).hand[0][ObservationSchema::ATTACK],
+        4);
+
+    // A wrong first buff makes the second Stage Hand's public stats impossible
+    // to match, regardless of how often the second Battlecry is resampled.
+    Record(information, *real, Play(*real, "DMF_531"));
+
+    information.observation = EncodeObservation(real->GetGame());
+
+    const auto checkpoint = information.history.back();
+    const auto ambient = Random::engine();
+    const auto realRandom = real->GetRandomState();
+
+    for (unsigned int seed = 0; seed < 8; ++seed)
+    {
+        CAPTURE(seed);
+
+        Random::engine_type random(seed);
+        Random::engine_type repeated(seed);
+
+        const auto sampled = SampleDeterminization(information, random);
+        const auto again = SampleDeterminization(information, repeated);
+
+        CHECK(EncodeObservation(sampled->GetGame()) == information.observation);
+        CHECK(EncodePublicAction(sampled->GetGame(), checkpoint.actionIndex) ==
+              checkpoint);
+        CHECK(EncodeObservation(again->GetGame()) == information.observation);
+        CHECK(sampled->GetRandomState() == again->GetRandomState());
+        CHECK(random == repeated);
+
+        const auto branch = sampled->Branch();
+
+        CHECK(EncodeObservation(branch->GetGame()) == information.observation);
+        CHECK(branch->GetRandomState() == sampled->GetRandomState());
+    }
+
+    CHECK(EncodeObservation(real->GetGame()) == information.observation);
+    CHECK(real->GetRandomState() == realRandom);
+    CHECK(Random::engine() == ambient);
 }
 
 TEST_CASE("[Determinization] - AmbientRandomCannotBeShared")
@@ -645,6 +731,11 @@ TEST_CASE("[Determinization] - PublicEncoderNeverReadsHandsOrDecks")
 {
     ReplayGame real(FixedConfig(), 9);
     const auto expected = EncodePublicObservation(real.GetGame());
+    const auto publicAction = EncodePublicAction(real.GetGame(), 0);
+
+    CHECK_THROWS_AS(
+        EncodePublicAction(real.GetGame(), PolicySchema::NUM_ACTIONS),
+        std::invalid_argument);
 
     CHECK(expected.hand == Observation{}.hand);
     CHECK(expected.chooseOne == Observation{}.chooseOne);
@@ -671,6 +762,7 @@ TEST_CASE("[Determinization] - PublicEncoderNeverReadsHandsOrDecks")
     }
 
     CHECK(EncodePublicObservation(real.GetGame()) == expected);
+    CHECK(EncodePublicAction(real.GetGame(), 0) == publicAction);
 
     for (const auto& [entity, card] : hidden)
     {
