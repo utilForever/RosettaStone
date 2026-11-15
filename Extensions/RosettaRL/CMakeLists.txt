@@ -23,7 +23,11 @@ target_link_libraries(RosettaRLModel
 add_executable(RosettaRL main.cpp)
 target_link_libraries(RosettaRL PRIVATE RosettaRLModel)
 
-foreach(target RosettaRLModel RosettaRL)
+# RosettaRL tests
+add_executable(RosettaRLTests Tests/PolicyValueNetworkTests.cpp)
+target_link_libraries(RosettaRLTests PRIVATE RosettaRLModel doctest::doctest)
+
+foreach(target RosettaRLModel RosettaRL RosettaRLTests)
     set_target_properties(${target} PROPERTIES ${DEFAULT_PROJECT_OPTIONS})
     target_compile_options(${target} PRIVATE ${DEFAULT_COMPILE_OPTIONS})
 endforeach()
@@ -32,7 +36,7 @@ if (MSVC)
     file(GLOB torch_dlls "${TORCH_INSTALL_PREFIX}/lib/*.dll")
 
     if (torch_dlls)
-        foreach(target RosettaRL)
+        foreach(target RosettaRL RosettaRLTests)
             add_custom_command(TARGET ${target} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different
                     ${torch_dlls} $<TARGET_FILE_DIR:${target}>
@@ -43,3 +47,4 @@ if (MSVC)
 endif()
 
 add_test(NAME RosettaRL COMMAND RosettaRL)
+add_test(NAME RosettaRLTests COMMAND RosettaRLTests)
