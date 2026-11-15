@@ -401,3 +401,152 @@ TEST_CASE("[InformationSetSearch] - SimulationRandomStreamsAreIndependent")
     CHECK(first.masks == repeated.masks);
     CHECK(Random::engine() == ambient);
 }
+
+TEST_CASE("[InformationSetSearch] - SearchContinuesAfterRandomActions")
+{
+    for (const auto starter : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
+    {
+        auto config = MirrorConfig(starter);
+        config.player1Deck[2] = Cards::FindCardByID("EX1_277");
+        config.player2Deck = config.player1Deck;
+
+        ReplayGame real(config, 42);
+        auto information = Opening(config, real);
+        const auto own = starter == PlayerType::PLAYER1 ? 0 : 1;
+
+        Record(information, real);
+        Record(information, real, Play(real, "CS2_231"));
+        Record(information, real);
+
+        information.knownDraws[1 - own][1] =
+            Cards::FindCardByID("CS2_231")->dbfID;
+        information.knownDraws[own][4] = config.player1Deck[4]->dbfID;
+
+        for (int cast = 0; cast < 2; ++cast)
+        {
+            const auto before = real.GetRandomState();
+
+            Record(information, real, Play(real, "EX1_277"));
+
+            if (cast == 0)
+            {
+                REQUIRE(real.GetRandomState() != before);
+            }
+
+            information.observation = EncodeObservation(real.GetGame());
+
+            const auto ambient = Random::engine();
+            const auto realRandom = real.GetRandomState();
+            UniformEvaluator evaluator;
+
+            const auto result =
+                SearchInformationSet(information, evaluator, { 32, 2 }, 1070);
+            const auto again =
+                SearchInformationSet(information, evaluator, { 32, 2 }, 1070);
+
+            CheckSame(result, again);
+            REQUIRE(result.GetRootAction());
+            CHECK_EQ(PolicyActions(real.GetGame())
+                         .GetLegalMask()[*result.GetRootAction()],
+                     1);
+            CHECK(EncodeObservation(real.GetGame()) == information.observation);
+            CHECK(real.GetRandomState() == realRandom);
+            CHECK(Random::engine() == ambient);
+        }
+    }
+}
+
+TEST_CASE("[InformationSetSearch] - SearchContinuesAfterPrivateRandomActions")
+{
+    for (const auto starter : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
+    {
+        auto config = MirrorConfig(starter);
+        config.player1Class = CardClass::WARRIOR;
+        config.player2Class = CardClass::WARRIOR;
+        config.player1Deck.fill(nullptr);
+
+        const std::array ids{ "DMF_531", "CS2_231", "CS2_182", "CS2_200" };
+
+        for (std::size_t i = 0; i < ids.size(); ++i)
+        {
+            config.player1Deck[i] = Cards::FindCardByID(ids[i]);
+        }
+
+        config.player2Deck = config.player1Deck;
+
+        std::unique_ptr<ReplayGame> real;
+        FixedDeckInformationSet information;
+
+        // Choose a real outcome that buffs Wisp, without assuming a library's
+        // random distribution mapping. Only the observed result enters search.
+        for (unsigned int seed = 0; seed < 64; ++seed)
+        {
+            real = std::make_unique<ReplayGame>(config, seed);
+            information = Opening(config, *real);
+
+            Record(information, *real);
+            Record(information, *real);
+            Record(information, *real, Play(*real, "DMF_531"));
+
+            information.observation = EncodeObservation(real->GetGame());
+
+            if (information.observation.hand[0][ObservationSchema::ATTACK] == 2)
+            {
+                break;
+            }
+        }
+
+        REQUIRE_EQ(information.observation.hand[0][ObservationSchema::ATTACK],
+                   2);
+
+        for (int phase = 0; phase < 3; ++phase)
+        {
+            CAPTURE(starter);
+            CAPTURE(phase);
+
+            if (phase == 1)
+            {
+                Record(information, *real, Play(*real, "CS2_231"));
+            }
+            else if (phase == 2)
+            {
+                Record(information, *real);
+                Record(information, *real);
+            }
+
+            information.observation = EncodeObservation(real->GetGame());
+
+            const auto ambient = Random::engine();
+            const auto realRandom = real->GetRandomState();
+            UniformEvaluator evaluator;
+
+            const auto result =
+                SearchInformationSet(information, evaluator, { 16, 1 }, 1070);
+            const auto repeated =
+                SearchInformationSet(information, evaluator, { 16, 1 }, 1070);
+
+            CheckSame(result, repeated);
+            REQUIRE(result.GetRootAction());
+            CHECK_EQ(PolicyActions(real->GetGame())
+                         .GetLegalMask()[*result.GetRootAction()],
+                     1);
+            CHECK(EncodeObservation(real->GetGame()) ==
+                  information.observation);
+            CHECK(real->GetRandomState() == realRandom);
+            CHECK(Random::engine() == ambient);
+        }
+
+        // Impossible private evidence must fail without advancing either RNG.
+        information.observation.hand[0][ObservationSchema::ATTACK] += 100;
+
+        Random::engine_type random(12);
+
+        const auto ambient = Random::engine();
+
+        CHECK_THROWS_WITH_AS(SampleDeterminization(information, random),
+                             "Information set sampling budget exhausted",
+                             std::runtime_error);
+        CHECK(random == Random::engine_type(12));
+        CHECK(Random::engine() == ambient);
+    }
+}
