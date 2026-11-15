@@ -233,3 +233,171 @@ TEST_CASE("[InformationSetSearch] - ReproducibleHiddenAndRandomMirrorDecisions")
             real.ApplyAction(rootPolicy.Decode(*result.GetRootAction())));
     }
 }
+
+TEST_CASE("[InformationSetSearch] - RandomTerminalBranchesAreResampled")
+{
+    for (const auto starter : { PlayerType::PLAYER1, PlayerType::PLAYER2 })
+    {
+        auto config = MirrorConfig(starter);
+        config.player1Deck.fill(nullptr);
+
+        const std::array ids{ "EX1_277", "CS2_182", "CS2_029", "CS2_186" };
+
+        for (std::size_t i = 0; i < ids.size(); ++i)
+        {
+            config.player1Deck[i] = Cards::FindCardByID(ids[i]);
+        }
+
+        config.player2Deck = config.player1Deck;
+
+        ReplayGame real(config, 0);
+        auto information = Opening(config, real);
+        const auto own = starter == PlayerType::PLAYER1 ? 0 : 1;
+
+        for (int turn = 0; turn < 14; ++turn)
+        {
+            Record(information, real);
+
+            if (turn == 6)
+            {
+                Record(information, real, Play(real, "CS2_182"));
+                information.knownDraws[1 - own][1] =
+                    Cards::FindCardByID("CS2_182")->dbfID;
+            }
+        }
+
+        information.observation = EncodeObservation(real.GetGame());
+
+        REQUIRE_EQ(information.observation.heroes[0][ObservationSchema::HEALTH],
+                   2);
+        REQUIRE_EQ(information.observation.heroes[1][ObservationSchema::HEALTH],
+                   2);
+
+        const PolicyActions policy(real.GetGame());
+        const auto missiles = policy.Encode(Play(real, "EX1_277"));
+        UniformEvaluator evaluator;
+
+        const auto ambient = Random::engine();
+
+        const auto result =
+            SearchInformationSet(information, evaluator, { 256, 1 }, 1070, 8.0);
+        const auto repeated =
+            SearchInformationSet(information, evaluator, { 256, 1 }, 1070, 8.0);
+
+        CheckSame(result, repeated);
+        CHECK(Random::engine() == ambient);
+        REQUIRE(result.GetRootAction());
+        CHECK_EQ(*result.GetRootAction(), PolicySchema::END_TURN);
+
+        const auto randomAction =
+            std::ranges::find(result.actions, missiles, &PUCTNode::actionIndex);
+
+        REQUIRE(randomAction != result.actions.end());
+        CHECK_GT(randomAction->totalValue, 0.0);
+        CHECK_LT(randomAction->totalValue,
+                 static_cast<double>(randomAction->visitCount));
+
+        const auto endTurn = std::ranges::find(
+            result.actions, PolicySchema::END_TURN, &PUCTNode::actionIndex);
+
+        REQUIRE(endTurn != result.actions.end());
+        CHECK_GT(endTurn->visitCount, 1);
+        CHECK_EQ(endTurn->GetMeanValue(), 1.0);
+
+        const auto self =
+            real.GetCurrentPlayer()->GetHero()->GetGameTag(GameTag::ENTITY_ID);
+        const auto selfFireball =
+            std::ranges::find_if(result.actions, [&](const auto& statistics) {
+                const auto action = policy.Decode(statistics.actionIndex);
+                return action.type == PlayerActionType::PLAY_CARD &&
+                       action.targetID == self;
+            });
+
+        REQUIRE(selfFireball != result.actions.end());
+        CHECK_GT(selfFireball->visitCount, 0);
+        CHECK_EQ(selfFireball->GetMeanValue(), -1.0);
+
+        real.ApplyAction(policy.Decode(*result.GetRootAction()));
+
+        CHECK_EQ(real.GetReward(starter), 1);
+    }
+}
+
+TEST_CASE("[InformationSetSearch] - SimulationRandomStreamsAreIndependent")
+{
+    const auto config = MirrorConfig(PlayerType::PLAYER1);
+    ReplayGame real(config, 0);
+    auto information = Opening(config, real);
+
+    Record(information, real);
+    Record(information, real, Play(real, "CS2_231"));
+    Record(information, real);
+
+    information.knownDraws[1][1] = Cards::FindCardByID("CS2_231")->dbfID;
+    information.observation = EncodeObservation(real.GetGame());
+    information.knownDraws[0][4] =
+        information.observation.hand[4][ObservationSchema::CARD_ID];
+
+    // Instrument the real search path. Consume extra RNG only after the first
+    // simulation's visible outcome, with no further actions at depth one.
+    auto& tasks = Cards::FindCardByID("EX1_277")->power.GetPowerTask();
+
+    struct RestoreTasks
+    {
+        std::vector<std::shared_ptr<ITask>>& tasks;
+        std::vector<std::shared_ptr<ITask>> saved;
+
+        ~RestoreTasks()
+        {
+            tasks = std::move(saved);
+        }
+    } restore{ tasks, tasks };
+
+    std::vector<Random::engine_type> starts;
+    bool consumeExtra = false;
+
+    tasks.insert(tasks.begin(), std::make_shared<SimpleTasks::CustomTask>(
+                                    [&](Player*, Entity*, Playable*) {
+                                        starts.push_back(Random::engine());
+                                    }));
+    tasks.push_back(std::make_shared<SimpleTasks::CustomTask>(
+        [&](Player*, Entity*, Playable*) {
+            if (consumeExtra && starts.size() == 1)
+            {
+                Random::discard(1000);
+            }
+        }));
+
+    const auto missiles =
+        PolicyActions(real.GetGame()).Encode(Play(real, "EX1_277"));
+    const auto ambient = Random::engine();
+
+    RecordingEvaluator first;
+    first.onlyAction = missiles;
+
+    const auto result =
+        SearchInformationSet(information, first, { 32, 1 }, 1070);
+    const auto originalStarts = starts;
+
+    REQUIRE_EQ(originalStarts.size(), 31);
+
+    starts.clear();
+    consumeExtra = true;
+
+    RecordingEvaluator repeated;
+    repeated.onlyAction = missiles;
+
+    const auto again =
+        SearchInformationSet(information, repeated, { 32, 1 }, 1070);
+
+    REQUIRE_EQ(starts.size(), originalStarts.size());
+    CHECK(starts.front() == originalStarts.front());
+
+    const bool sameStreams = starts == originalStarts;
+
+    CHECK(sameStreams);
+    CheckSame(result, again);
+    CHECK(first.observations == repeated.observations);
+    CHECK(first.masks == repeated.masks);
+    CHECK(Random::engine() == ambient);
+}
