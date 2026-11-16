@@ -51,3 +51,34 @@ endif()
 
 add_test(NAME RosettaRL COMMAND RosettaRL)
 add_test(NAME RosettaRLTests COMMAND RosettaRLTests)
+
+if (BUILD_RL_PYTHON)
+    execute_process(
+        COMMAND ${Python_EXECUTABLE} -c
+            "import torch; print(';'.join('PYBIND11_' + name + '=\"' + getattr(torch._C, '_PYBIND11_' + name) + '\"' for name in ('COMPILER_TYPE', 'STDLIB', 'BUILD_ABI') if getattr(torch._C, '_PYBIND11_' + name) is not None))"
+        OUTPUT_VARIABLE torch_python_abi
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        COMMAND_ERROR_IS_FATAL ANY
+    )
+    find_library(TORCH_PYTHON_LIBRARY torch_python
+        PATHS "${TORCH_INSTALL_PREFIX}/lib" NO_DEFAULT_PATH REQUIRED)
+
+    pybind11_add_module(pyRosettaRL Python/PolicyValueNetwork.cpp)
+    # Match the pybind11 internals used by the selected PyTorch installation.
+    target_include_directories(pyRosettaRL BEFORE PRIVATE "${TORCH_INSTALL_PREFIX}/include")
+    target_compile_definitions(pyRosettaRL PRIVATE ${torch_python_abi})
+    target_link_libraries(pyRosettaRL PRIVATE RosettaRLModel ${TORCH_PYTHON_LIBRARY})
+
+    foreach(target pyRosettaRL)
+        set_target_properties(${target} PROPERTIES ${DEFAULT_PROJECT_OPTIONS})
+        target_compile_options(${target} PRIVATE ${DEFAULT_COMPILE_OPTIONS})
+
+        if (MSVC AND torch_dlls)
+            add_custom_command(TARGET ${target} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    ${torch_dlls} $<TARGET_FILE_DIR:${target}>
+                VERBATIM
+            )
+        endif()
+    endforeach()
+endif()
