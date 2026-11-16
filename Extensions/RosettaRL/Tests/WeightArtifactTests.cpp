@@ -4,12 +4,14 @@
 #include <doctest/doctest.h>
 
 #include <c10/core/InferenceMode.h>
+#include <torch/csrc/jit/serialization/import.h>
 #include <torch/cuda.h>
 
 #include <RosettaRL/PolicyValueNetwork.hpp>
 
 #include <chrono>
 #include <filesystem>
+#include <vector>
 
 using namespace RosettaStone::RL;
 
@@ -130,5 +132,72 @@ DOCTEST_TEST_CASE("[WeightArtifact] - InferenceModeLoadPreservesTraining")
         DOCTEST_CHECK(parameter.requires_grad());
         DOCTEST_REQUIRE(parameter.grad().defined());
         DOCTEST_CHECK(torch::isfinite(parameter.grad()).all().item<bool>());
+    }
+}
+
+DOCTEST_TEST_CASE("[WeightArtifact] - FailedLoadsLeaveEveryParameterUnchanged")
+{
+    TemporaryArtifact file;
+
+    PolicyValueNetwork source;
+    source->SaveWeights(file.path);
+
+    auto artifact = torch::jit::load(file.path.string());
+
+    PolicyValueNetwork target;
+    std::vector<torch::Tensor> before;
+
+    for (const auto& parameter : target->parameters())
+    {
+        before.push_back(parameter.detach().clone());
+    }
+
+    DOCTEST_SUBCASE("Version")
+    {
+        artifact.setattr("artifact_version", 99);
+        artifact.save(file.path.string());
+
+        DOCTEST_CHECK_THROWS_WITH_AS(target->LoadWeights(file.path),
+                                     doctest::Contains("artifact_version"),
+                                     c10::Error);
+    }
+    DOCTEST_SUBCASE("LastParameterShape")
+    {
+        auto weights = artifact.attr("weights").toGenericDict();
+        weights.insert_or_assign("value.bias", torch::zeros({ 2 }));
+
+        artifact.save(file.path.string());
+
+        DOCTEST_CHECK_THROWS_WITH_AS(
+            target->LoadWeights(file.path),
+            doctest::Contains("shape mismatch: value.bias"), c10::Error);
+    }
+    DOCTEST_SUBCASE("MissingParameter")
+    {
+        DOCTEST_REQUIRE_EQ(
+            artifact.attr("weights").toGenericDict().erase("value.bias"), 1);
+
+        artifact.save(file.path.string());
+
+        DOCTEST_CHECK_THROWS_WITH_AS(target->LoadWeights(file.path),
+                                     doctest::Contains("parameter count"),
+                                     c10::Error);
+    }
+    DOCTEST_SUBCASE("Truncated")
+    {
+        std::filesystem::resize_file(file.path, 64);
+        DOCTEST_CHECK_THROWS_AS(target->LoadWeights(file.path), c10::Error);
+    }
+    DOCTEST_SUBCASE("MissingFile")
+    {
+        std::filesystem::remove(file.path);
+        DOCTEST_CHECK_THROWS_AS(target->LoadWeights(file.path), c10::Error);
+    }
+
+    const auto after = target->parameters();
+
+    for (std::size_t i = 0; i < before.size(); ++i)
+    {
+        DOCTEST_CHECK(torch::equal(before[i], after[i]));
     }
 }
