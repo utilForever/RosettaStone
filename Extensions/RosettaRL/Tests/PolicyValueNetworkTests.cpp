@@ -145,11 +145,20 @@ DOCTEST_TEST_CASE(
     extremes[1].fill_(std::numeric_limits<std::int32_t>::max());
     extremes.select(1, 0).fill_(ObservationSchema::VERSION);
 
-    const auto [extremeLogits, extremeValues] = network->forward(extremes);
+    for (const auto dtype : { torch::kFloat32, torch::kFloat16 })
+    {
+        DOCTEST_INFO("dtype: ", dtype);
 
-    DOCTEST_CHECK(torch::isfinite(extremeLogits).all().item<bool>());
-    DOCTEST_CHECK(torch::isfinite(extremeValues).all().item<bool>());
-    DOCTEST_CHECK(extremeValues.abs().le(1).all().item<bool>());
+        network->to(dtype);
+
+        const auto [extremeLogits, extremeValues] = network->forward(extremes);
+
+        DOCTEST_CHECK((extremeLogits.scalar_type() == dtype));
+        DOCTEST_CHECK((extremeValues.scalar_type() == dtype));
+        DOCTEST_CHECK(torch::isfinite(extremeLogits).all().item<bool>());
+        DOCTEST_CHECK(torch::isfinite(extremeValues).all().item<bool>());
+        DOCTEST_CHECK(extremeValues.abs().le(1).all().item<bool>());
+    }
 }
 
 DOCTEST_TEST_CASE("[PolicyValueNetwork] - RejectsInvalidTensorContracts")
