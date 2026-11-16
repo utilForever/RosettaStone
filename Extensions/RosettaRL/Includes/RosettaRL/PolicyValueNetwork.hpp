@@ -1,0 +1,60 @@
+// Copyright (c) 2026 Chris Ohk
+
+#ifndef ROSETTASTONE_RL_POLICY_VALUE_NETWORK_HPP
+#define ROSETTASTONE_RL_POLICY_VALUE_NETWORK_HPP
+
+#include <torch/nn/module.h>
+#include <torch/nn/modules/linear.h>
+
+#include <Rosetta/PlayMode/Games/Observation.hpp>
+
+#include <span>
+#include <utility>
+
+namespace RosettaStone::RL
+{
+//! Copies observation v1 scalars in member/row-major order, including version.
+//! Returns an owning CPU int32 tensor [B, 444]; an empty batch is supported.
+//! Throws std::invalid_argument for an unsupported observation version.
+torch::Tensor EncodeObservationBatch(
+    std::span<const PlayMode::Observation> observations);
+
+//! Fixed MVP network: signed log1p inputs, Linear(444, 128), ReLU, two heads.
+//! All layers are registered for normal LibTorch training, to(), and archives.
+class PolicyValueNetworkImpl : public torch::nn::Module
+{
+ public:
+    static constexpr std::int64_t INPUT_SIZE =
+        1 + PlayMode::ObservationSchema::NUM_TURN_FIELDS +
+        PlayMode::ObservationSchema::NUM_PLAYERS *
+            PlayMode::ObservationSchema::NUM_PLAYER_FIELDS +
+        (3 * PlayMode::ObservationSchema::NUM_PLAYERS +
+         PlayMode::ObservationSchema::NUM_PLAYERS *
+             PlayMode::ObservationSchema::BOARD_SLOTS +
+         PlayMode::ObservationSchema::HAND_SLOTS +
+         PlayMode::ObservationSchema::CHOICE_SLOTS) *
+            PlayMode::ObservationSchema::NUM_CARD_FIELDS +
+        PlayMode::ObservationSchema::SECRET_SLOTS +
+        PlayMode::ObservationSchema::HAND_SLOTS *
+            PlayMode::ObservationSchema::CHOICE_SLOTS;
+
+    PolicyValueNetworkImpl();
+
+    //! Accepts raw int32 [B, INPUT_SIZE] on the same device as the model.
+    //! Returns unmasked logits [B, PolicySchema::NUM_ACTIONS] and values [B]
+    //! in [-1, 1] for ObservationSchema::SELF (+1 win, 0 draw, -1 loss).
+    //! Output dtype follows the parameters (float32 by default).
+    //! Invalid shape, dtype, version, or device throws c10::Error.
+    std::pair<torch::Tensor, torch::Tensor> forward(
+        const torch::Tensor& observations);
+
+ private:
+    torch::nn::Linear m_shared{ nullptr };
+    torch::nn::Linear m_policy{ nullptr };
+    torch::nn::Linear m_value{ nullptr };
+};
+
+TORCH_MODULE(PolicyValueNetwork);
+}  // namespace RosettaStone::RL
+
+#endif  // ROSETTASTONE_RL_POLICY_VALUE_NETWORK_HPP

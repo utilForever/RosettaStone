@@ -124,7 +124,7 @@ constexpr std::size_t RelativePlayerIndex(PlayerType player,
 //! No runtime entity IDs, opponent hand identities, or deck contents belong
 //! here. Flattening order is member declaration order, then row-major order;
 //! C++ object bytes (including padding) are not a serialization format.
-//! shortcut: No graveyard/history features; revise the version when needed.
+//! No graveyard/history features; revise the version when needed.
 struct Observation
 {
     std::int32_t schemaVersion = ObservationSchema::VERSION;

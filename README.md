@@ -88,7 +88,7 @@ python -m pytest Tests/PythonTests/
 
 ### Optional LibTorch RL Build
 
-`BUILD_RL` defaults to `OFF`. The core simulator and `pyRosetta` do not require LibTorch. To build the CPU smoke test, provide an existing [LibTorch installation](https://docs.pytorch.org/cppdocs/installing.html):
+`BUILD_RL` defaults to `OFF`. The core simulator and `pyRosetta` do not require LibTorch. To build the shared policy-value model and its tests, provide an existing [LibTorch installation](https://docs.pytorch.org/cppdocs/installing.html):
 
 ```bash
 cmake -S . -B build/rl \
@@ -96,15 +96,21 @@ cmake -S . -B build/rl \
   -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
   -DBUILD_RL=ON \
   -DCMAKE_PREFIX_PATH=/absolute/path/to/libtorch
-cmake --build build/rl --config Release --target RosettaRL
-ctest --test-dir build/rl -C Release -R '^RosettaRL$' --output-on-failure
+cmake --build build/rl --config Release --target RosettaRL RosettaRLTests
+ctest --test-dir build/rl -C Release -R '^RosettaRL(Tests)?$' --output-on-failure
 ```
 
 Alternatively, set `Torch_DIR` to `/absolute/path/to/libtorch/share/cmake/Torch`. Use a LibTorch build compatible with your compiler and C++ ABI. On Windows,
-match Debug or Release with the LibTorch distribution; the smoke target copies its runtime DLLs beside the executable. On Linux, use the C++11 ABI distribution
+match Debug or Release with the LibTorch distribution; the RL targets copy their runtime DLLs beside the executables. On Linux, use the C++11 ABI distribution
 with the default GCC ABI. A CPU-only distribution is sufficient; CMake does not download LibTorch or configure CUDA for you.
 
-Torch headers, compiler options, and libraries are confined to `Extensions/RosettaRL`. The smoke test checks a deterministic CPU tensor calculation and returns a nonzero exit code on failure.
+Torch headers, compiler options, and libraries are confined to `Extensions/RosettaRL`. `RosettaRLModel` is the reusable C++ library; `RosettaRL` retains the CPU tensor smoke test. `RosettaRLTests` checks observation packing, batched outputs, value bounds, gradients, seeded initialization, native archives, and device moves (CUDA checks run only when available).
+
+`RosettaStone::RL::PolicyValueNetwork` is defined once as a `torch::nn::Module` in `<RosettaRL/PolicyValueNetwork.hpp>`. `EncodeObservationBatch` copies a span of [observation v1](Documents/ObservationSchema.md) records into an owning CPU `int32[B,444]` tensor, including `schemaVersion`, in canonical member/row-major order. `forward` accepts that tensor on the model's device and rejects incorrect shapes, dtypes, or versions. Empty batches are supported. Inputs must come from the observation encoder; the model does not revalidate game-state semantics.
+
+The fixed MVP architecture applies `sign(x) * log1p(abs(x))` in float32, then converts the normalized features to the parameter dtype. This keeps large IDs and flags from dominating and avoids overflow with float16 parameters. A shared `Linear(444,128)` + ReLU feeds two registered linear heads. IDs and flags remain scalar features for this fixed-deck baseline. Outputs are a pair of unmasked [policy v1](Documents/PolicyActions.md) logits `[B,4846]` and tanh values `[B]` in `[-1,1]`, relative to the observation's acting player (`+1` win, `0` draw, `-1` loss). Both outputs are float32 by default. Apply legal-action masking and softmax outside the model; `BatchedEvaluator` expects nonnegative weights, not logits.
+
+Call `torch::manual_seed(seed)` before construction for reproducible CPU initialization. Fixed seeds reproduce parameters and outputs for the same CPU batch and LibTorch environment; cross-version or CPU/CUDA bitwise parity is not promised. Use normal `model->to(torch::kCUDA)` and move the input tensor to the same device. All layers participate in `parameters()` and native LibTorch archives. Python bindings, a shared weight-file format, and trainers remain follow-up work.
 
 ## Architecture at a Glance
 
