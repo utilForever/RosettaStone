@@ -1,15 +1,65 @@
 # Copyright (c) 2026 Chris Ohk
 
+import os
+import subprocess
+
 import pytest
 
-torch = pytest.importorskip("torch")
-pyRosettaRL = pytest.importorskip("pyRosettaRL")
+if os.environ.get("ROSETTA_RL_INTEROP"):
+    import torch
+    import pyRosettaRL
+else:
+    torch = pytest.importorskip("torch")
+    pyRosettaRL = pytest.importorskip("pyRosettaRL")
 
 
 def input_batch():
     batch = torch.arange(888, dtype=torch.int32).reshape(2, 444)
     batch[:, 0] = 1
     return batch
+
+
+def test_cross_runtime_weight_round_trip(tmp_path):
+    native = os.environ.get("ROSETTA_RL_INTEROP")
+
+    if not native:
+        pytest.skip("Run the RosettaRLWeightInterop CTest for native exchange")
+
+    cpp_weights = tmp_path / "cpp.pt"
+    reference_path = tmp_path / "reference.pt"
+
+    subprocess.run([native, "save", str(cpp_weights), str(reference_path)], check=True)
+
+    reference = torch.jit.load(str(reference_path))
+    model = pyRosettaRL.PolicyValueNetwork()
+
+    assert isinstance(model, torch.nn.Module)
+
+    model.load_weights(str(cpp_weights))
+    logits, values = model(reference.observations)
+
+    torch.testing.assert_close(logits, reference.logits, rtol=1e-5, atol=1e-6)
+    torch.testing.assert_close(values, reference.values, rtol=1e-5, atol=1e-6)
+
+    # Distinct Python-side weights prevent a fresh native initialization passing.
+    with torch.no_grad():
+        for parameter in model.parameters():
+            parameter.add_(0.001)
+
+        logits, values = model(reference.observations)
+
+    assert not torch.equal(logits, reference.logits)
+
+    reference.logits = logits
+    reference.values = values
+    reference.save(str(reference_path))
+
+    python_weights = tmp_path / "python.pt"
+    model.save_weights(str(python_weights))
+
+    subprocess.run(
+        [native, "check", str(python_weights), str(reference_path)], check=True
+    )
 
 
 @pytest.mark.parametrize("dtype", [torch.float32, torch.float64, torch.float16])

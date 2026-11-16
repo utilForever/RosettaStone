@@ -69,7 +69,10 @@ if (BUILD_RL_PYTHON)
     target_compile_definitions(pyRosettaRL PRIVATE ${torch_python_abi})
     target_link_libraries(pyRosettaRL PRIVATE RosettaRLModel ${TORCH_PYTHON_LIBRARY})
 
-    foreach(target pyRosettaRL)
+    add_executable(RosettaRLWeightInterop Tests/WeightArtifactInterop.cpp)
+    target_link_libraries(RosettaRLWeightInterop PRIVATE RosettaRLModel)
+
+    foreach(target pyRosettaRL RosettaRLWeightInterop)
         set_target_properties(${target} PROPERTIES ${DEFAULT_PROJECT_OPTIONS})
         target_compile_options(${target} PRIVATE ${DEFAULT_COMPILE_OPTIONS})
 
@@ -81,4 +84,12 @@ if (BUILD_RL_PYTHON)
             )
         endif()
     endforeach()
+
+    add_test(NAME RosettaRLWeightInterop
+        COMMAND ${CMAKE_COMMAND} -E env
+            "PYTHONPATH=$<TARGET_FILE_DIR:pyRosettaRL>"
+            "ROSETTA_RL_INTEROP=$<TARGET_FILE:RosettaRLWeightInterop>"
+            ${Python_EXECUTABLE} -m pytest -q
+            ${PROJECT_SOURCE_DIR}/Tests/PythonTests/test_rl_weights.py
+    )
 endif()
