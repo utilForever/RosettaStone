@@ -100,3 +100,101 @@ def test_load_preserves_inference_state(tmp_path, inference_parameters, inferenc
         optimizer.step()
 
         assert not torch.equal(before, handles[0])
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("format", "AnotherModel"),
+        ("artifact_version", 2),
+        ("model_version", 2),
+        ("observation_version", 2),
+        ("policy_version", 2),
+    ],
+)
+def test_incompatible_metadata_is_atomic(tmp_path, field, value):
+    assert_failed_load_is_atomic(
+        tmp_path, field, lambda archive: setattr(archive, field, value)
+    )
+
+
+@pytest.mark.parametrize(
+    "damage,message",
+    [
+        ("shape", "shape mismatch: value.bias"),
+        ("dtype", "dtype/layout mismatch: value.bias"),
+        ("missing", "parameter count mismatch"),
+        ("extra", "parameter count mismatch"),
+        ("renamed", "Missing or invalid weight: value.bias"),
+        ("nan", "Non-finite weight: value.bias"),
+        ("inf", "Non-finite weight: value.bias"),
+    ],
+)
+def test_invalid_parameters_are_atomic(tmp_path, damage, message):
+    def corrupt(archive):
+        weights = archive.weights
+
+        if damage == "shape":
+            weights["value.bias"] = torch.zeros(2)
+        elif damage == "dtype":
+            weights["value.bias"] = weights["value.bias"].double()
+        elif damage == "missing":
+            del weights["value.bias"]
+        elif damage == "extra":
+            weights["extra"] = torch.zeros(1)
+        elif damage == "renamed":
+            weights["renamed"] = weights.pop("value.bias")
+        else:
+            weights["value.bias"].fill_(float(damage))
+
+        archive.weights = weights
+
+    assert_failed_load_is_atomic(tmp_path, message, corrupt)
+
+
+def assert_failed_load_is_atomic(tmp_path, message, corrupt):
+    path = str(tmp_path / "bad.pt")
+
+    source = pyRosettaRL.PolicyValueNetwork()
+    source.save_weights(path)
+
+    artifact = torch.jit.load(path)
+    corrupt(artifact)
+    artifact.save(path)
+
+    target = pyRosettaRL.PolicyValueNetwork()
+    before = [parameter.detach().clone() for parameter in target.parameters()]
+    outputs = target(input_batch())
+
+    with pytest.raises(RuntimeError, match=message):
+        target.load_weights(path)
+
+    for expected, actual in zip(before, target.parameters()):
+        assert torch.equal(expected, actual)
+    for expected, actual in zip(outputs, target(input_batch())):
+        assert torch.equal(expected, actual)
+
+
+@pytest.mark.parametrize("damage", ["truncated", "garbage", "missing", "no_metadata"])
+def test_unreadable_artifact_is_atomic(tmp_path, damage):
+    path = tmp_path / "bad.pt"
+
+    target = pyRosettaRL.PolicyValueNetwork()
+    target.save_weights(str(path))
+
+    if damage == "truncated":
+        path.write_bytes(path.read_bytes()[:64])
+    elif damage == "garbage":
+        path.write_bytes(b"not a weight archive")
+    elif damage == "missing":
+        path.unlink()
+    else:
+        torch.jit.script(torch.nn.Linear(1, 1)).save(str(path))
+
+    before = [parameter.detach().clone() for parameter in target.parameters()]
+
+    with pytest.raises(RuntimeError):
+        target.load_weights(str(path))
+
+    for expected, actual in zip(before, target.parameters()):
+        assert torch.equal(expected, actual)
