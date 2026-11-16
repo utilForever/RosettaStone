@@ -24,7 +24,10 @@ add_executable(RosettaRL main.cpp)
 target_link_libraries(RosettaRL PRIVATE RosettaRLModel)
 
 # RosettaRL tests
-add_executable(RosettaRLTests Tests/PolicyValueNetworkTests.cpp)
+add_executable(RosettaRLTests
+    Tests/PolicyValueNetworkTests.cpp
+    Tests/WeightArtifactTests.cpp
+)
 target_link_libraries(RosettaRLTests PRIVATE RosettaRLModel doctest::doctest)
 
 foreach(target RosettaRLModel RosettaRL RosettaRLTests)

@@ -4,7 +4,13 @@
 
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
 
+#include <c10/core/InferenceMode.h>
+#include <torch/serialize.h>
+
+#include <fstream>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 namespace RosettaStone::RL
 {
@@ -13,6 +19,14 @@ namespace
 static_assert(PlayMode::ObservationSchema::VERSION == 1 &&
               PlayMode::PolicySchema::VERSION == 1 &&
               PolicyValueNetworkImpl::INPUT_SIZE == 444);
+
+const std::pair<const char*, c10::IValue> WEIGHT_METADATA[] = {
+    { "format", "RosettaStone.PolicyValueNetwork" },
+    { "artifact_version", 1 },
+    { "model_version", 1 },
+    { "observation_version", PlayMode::ObservationSchema::VERSION },
+    { "policy_version", PlayMode::PolicySchema::VERSION }
+};
 
 void Flatten(std::int32_t*& destination, std::int32_t value)
 {
@@ -102,5 +116,104 @@ std::pair<torch::Tensor, torch::Tensor> PolicyValueNetworkImpl::forward(
 
     return { m_policy->forward(hidden),
              torch::tanh(m_value->forward(hidden)).squeeze(-1) };
+}
+
+void PolicyValueNetworkImpl::SaveWeights(
+    const std::filesystem::path& filename) const
+{
+    torch::serialize::OutputArchive archive;
+
+    for (const auto& [key, value] : WEIGHT_METADATA)
+    {
+        archive.write(key, value);
+    }
+
+    c10::Dict<std::string, torch::Tensor> weights;
+
+    for (const auto& parameter : named_parameters())
+    {
+        const auto tensor = parameter.value().detach().cpu();
+
+        TORCH_CHECK(torch::isfinite(tensor).all().item<bool>(),
+                    "Non-finite weight: ", parameter.key());
+
+        weights.insert(parameter.key(), tensor);
+    }
+
+    archive.write("weights", weights);
+
+    std::ofstream stream(filename, std::ios::binary);
+
+    TORCH_CHECK(stream.is_open(), "Cannot open weight artifact for writing");
+
+    archive.save_to(stream);
+    stream.close();
+
+    TORCH_CHECK(stream.good(), "Failed to write weight artifact");
+}
+
+void PolicyValueNetworkImpl::LoadWeights(const std::filesystem::path& filename)
+{
+    std::ifstream stream(filename, std::ios::binary);
+
+    TORCH_CHECK(stream.is_open(), "Cannot open weight artifact for reading");
+
+    torch::serialize::InputArchive archive;
+    archive.load_from(stream, torch::kCPU);
+
+    for (const auto& [key, expected] : WEIGHT_METADATA)
+    {
+        c10::IValue actual;
+
+        TORCH_CHECK(
+            archive.try_read(key, actual) &&
+                actual.tagKind() == expected.tagKind() && actual == expected,
+            "Incompatible weight artifact ", key, ": expected ", expected);
+    }
+
+    c10::IValue payload;
+
+    TORCH_CHECK(archive.try_read("weights", payload) && payload.isGenericDict(),
+                "Weight artifact requires a weights dictionary");
+
+    const auto weights = payload.toGenericDict();
+    const auto parameters = named_parameters();
+
+    TORCH_CHECK(weights.size() == parameters.size(),
+                "Weight artifact parameter count mismatch");
+
+    std::vector<torch::Tensor> staged;
+    staged.reserve(parameters.size());
+
+    for (const auto& parameter : parameters)
+    {
+        const auto entry = weights.find(parameter.key());
+
+        TORCH_CHECK(entry != weights.end() && entry->value().isTensor(),
+                    "Missing or invalid weight: ", parameter.key());
+
+        const auto tensor = entry->value().toTensor();
+        const auto& destination = parameter.value();
+
+        TORCH_CHECK(tensor.sizes() == destination.sizes(),
+                    "Weight shape mismatch: ", parameter.key(), "; expected ",
+                    destination.sizes(), ", got ", tensor.sizes());
+        TORCH_CHECK(tensor.layout() == torch::kStrided &&
+                        tensor.scalar_type() == destination.scalar_type(),
+                    "Weight dtype/layout mismatch: ", parameter.key());
+        TORCH_CHECK(torch::isfinite(tensor).all().item<bool>(),
+                    "Non-finite weight: ", parameter.key());
+
+        // Preserve parameter inference state regardless of the caller's mode.
+        const c10::InferenceMode mode(destination.is_inference());
+        staged.push_back(
+            tensor.detach().to(destination.options(), false, true));
+    }
+
+    // Finish validation and device allocations before replacing live storage.
+    for (std::size_t i = 0; i < parameters.size(); ++i)
+    {
+        parameters[i].value().set_data(staged[i]);
+    }
 }
 }  // namespace RosettaStone::RL
