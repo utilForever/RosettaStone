@@ -92,10 +92,11 @@ std::pair<torch::Tensor, torch::Tensor> PolicyValueNetworkImpl::forward(
                     .item<bool>(),
                 "Invalid network observation version");
 
-    auto features = observations.to(m_shared->weight.scalar_type());
+    auto features = observations.to(torch::kFloat32);
     // Keep large card IDs and flags from saturating the value head.
     // IDs/flags stay scalar; revisit for broader card pools.
     features = features.sign() * features.abs().log1p();
+    features = features.to(m_shared->weight.scalar_type());
 
     const auto hidden = torch::relu(m_shared->forward(features));
 
