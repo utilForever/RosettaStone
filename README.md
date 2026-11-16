@@ -110,7 +110,55 @@ Torch headers, compiler options, and libraries are confined to `Extensions/Roset
 
 The fixed MVP architecture applies `sign(x) * log1p(abs(x))` in float32, then converts the normalized features to the parameter dtype. This keeps large IDs and flags from dominating and avoids overflow with float16 parameters. A shared `Linear(444,128)` + ReLU feeds two registered linear heads. IDs and flags remain scalar features for this fixed-deck baseline. Outputs are a pair of unmasked [policy v1](Documents/PolicyActions.md) logits `[B,4846]` and tanh values `[B]` in `[-1,1]`, relative to the observation's acting player (`+1` win, `0` draw, `-1` loss). Both outputs are float32 by default. Apply legal-action masking and softmax outside the model; `BatchedEvaluator` expects nonnegative weights, not logits.
 
-Call `torch::manual_seed(seed)` before construction for reproducible CPU initialization. Fixed seeds reproduce parameters and outputs for the same CPU batch and LibTorch environment; cross-version or CPU/CUDA bitwise parity is not promised. Use normal `model->to(torch::kCUDA)` and move the input tensor to the same device. All layers participate in `parameters()` and native LibTorch archives. Python bindings, a shared weight-file format, and trainers remain follow-up work.
+Call `torch::manual_seed(seed)` before construction for reproducible CPU initialization. Fixed seeds reproduce parameters and outputs for the same CPU batch and LibTorch environment; cross-version or CPU/CUDA bitwise parity is not promised. Use normal `model->to(torch::kCUDA)` and move the input tensor to the same device. All layers participate in `parameters()` and native LibTorch archives. Trainers remain follow-up work.
+
+#### Shared model weights
+
+Use `model->SaveWeights("weights.pt")` and `model->LoadWeights("weights.pt")` for weight exchange. Both operations live in the shared C++ model. C++ accepts `std::filesystem::path`; Python accepts Unicode strings, including Korean filenames and directories on Windows. The artifact is a LibTorch `OutputArchive` with these required attributes:
+
+| Attribute | Version 1 value |
+| --- | --- |
+| `format` | String `RosettaStone.PolicyValueNetwork` |
+| `artifact_version` | Integer `1` |
+| `model_version` | Integer `1` (the fixed architecture and normalization above) |
+| `observation_version` | Integer `1` |
+| `policy_version` | Integer `1` |
+| `weights` | Dictionary from parameter name to detached CPU tensor |
+
+The six tensor names/shapes are `shared.weight [128,444]`, `shared.bias [128]`, `policy.weight [4846,128]`, `policy.bias [4846]`, `value.weight [1,128]`, and `value.bias [1]`. Their original floating-point dtypes are preserved. Set the destination model to the same dtype before loading; dtype conversion is deliberately explicit. Saved device placement is always CPU, so the file can move between CPU and CUDA runtimes.
+
+Loading checks metadata, the complete parameter set, shapes, dtypes, dense layouts, and finite values before changing any parameter. Device transfers and allocations finish before parameter storage is replaced. A failed load preserves the active weights and outputs; a successful load preserves parameter handles, device, dtype, inference state, and training/evaluation mode. Loading inside `torch.inference_mode()` leaves an existing trainable model trainable. Do not load concurrently with forward/backward or in the middle of an outstanding autograd graph. Optimizer/scheduler state, gradients, RNG state, and experiment data are not stored or restored. Native `torch::save(model, ...)` archives and Python `state_dict` files are not this versioned format. Use trusted artifacts and matching PyTorch/LibTorch installations; arbitrary future architectures and library-version migration are outside this contract.
+
+To expose the same model and weight operations to Python, opt into `BUILD_RL_PYTHON` using the installed PyTorch package as the LibTorch source (PyTorch and pytest must already be installed in the selected interpreter):
+
+```bash
+cmake -S . -B build/rl-python \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_TOOLCHAIN_FILE="$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" \
+  -DBUILD_RL=ON -DBUILD_RL_PYTHON=ON \
+  -DPython_EXECUTABLE="$(python -c 'import sys; print(sys.executable)')" \
+  -DCMAKE_PREFIX_PATH="$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')"
+cmake --build build/rl-python --config Release \
+  --target RosettaRLTests pyRosettaRL RosettaRLWeightInterop
+ctest --test-dir build/rl-python -C Release \
+  -R '^RosettaRL(Tests|WeightInterop)$' --output-on-failure
+```
+
+Add the directory containing the built `pyRosettaRL` module to `PYTHONPATH` (`build/rl-python/lib` for a single-configuration build; append `Release` for a multi-configuration build). On Windows, use explicit paths for the interpreter and its Torch CMake prefix. The optional binding uses PyTorch's C++ module wrapper, so the model is a `torch.nn.Module` backed by the same C++ parameters and forward implementation:
+
+```python
+import torch
+from pyRosettaRL import PolicyValueNetwork
+
+model = PolicyValueNetwork()
+model.load_weights("weights.pt")
+batch = torch.zeros((2, 444), dtype=torch.int32)
+batch[:, 0] = 1  # Observation schema version; real batches use the encoder.
+logits, values = model(batch)
+model.save_weights("python-weights.pt")
+```
+
+The cross-runtime test saves in a separate native C++ process, loads and changes weights through Python, then loads the Python result in C++. Fixed CPU batch outputs are compared with `rtol=1e-5, atol=1e-6`. Corrupt, incomplete, and incompatible artifact tests also check that rejected loads leave every parameter unchanged. Both RL options default to `OFF`; neither the normal simulator nor `pyRosetta` gains a Torch dependency.
 
 ## Architecture at a Glance
 
