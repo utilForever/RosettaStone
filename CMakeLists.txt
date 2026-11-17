@@ -34,7 +34,9 @@ find_package(effolkronium_random CONFIG REQUIRED)
 find_package(lyra CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 
-if (BUILD_FROM_PIP)
+option(BUILD_RL_PYTHON "Build optional Python bindings for the shared RL model" OFF)
+
+if (BUILD_FROM_PIP OR BUILD_RL_PYTHON)
     # vcpkg's Python wrapper can select headers from a different interpreter.
     if (COMMAND _find_package)
         _find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
@@ -64,6 +66,10 @@ set(RESOURCES_JSONS
 
 # Project modules
 option(BUILD_RL "Build optional LibTorch reinforcement-learning targets" OFF)
+
+if (BUILD_RL_PYTHON AND NOT BUILD_RL)
+    message(FATAL_ERROR "BUILD_RL_PYTHON=ON requires BUILD_RL=ON")
+endif()
 
 add_subdirectory(Sources/Rosetta)
 add_subdirectory(Tests/UnitTests)

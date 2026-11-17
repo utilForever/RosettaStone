@@ -8,6 +8,7 @@
 
 #include <Rosetta/PlayMode/Games/Observation.hpp>
 
+#include <filesystem>
 #include <span>
 #include <utility>
 
@@ -47,6 +48,13 @@ class PolicyValueNetworkImpl : public torch::nn::Module
     //! Invalid shape, dtype, version, or device throws c10::Error.
     std::pair<torch::Tensor, torch::Tensor> forward(
         const torch::Tensor& observations);
+
+    //! Versioned, weights-only artifact shared by C++ and Python.
+    //! Stores CPU tensors in their original dtype; loading preserves the
+    //! destination device/dtype/inference state and requires matching dtypes.
+    //! Invalid or incomplete artifacts throw before changing any parameter.
+    void SaveWeights(const std::filesystem::path& filename) const;
+    void LoadWeights(const std::filesystem::path& filename);
 
  private:
     torch::nn::Linear m_shared{ nullptr };
