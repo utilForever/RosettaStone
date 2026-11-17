@@ -139,6 +139,7 @@ DOCTEST_TEST_CASE("[WeightArtifact] - InferenceModeLoadPreservesTraining")
 DOCTEST_TEST_CASE("[WeightArtifact] - FailedLoadsLeaveEveryParameterUnchanged")
 {
     TemporaryArtifact file;
+    file.path += std::filesystem::path(u8"_\uAC00\uC911\uCE58.pt");
 
     PolicyValueNetwork source;
     source->SaveWeights(file.path);
