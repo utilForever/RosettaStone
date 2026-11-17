@@ -11,6 +11,7 @@
 
 #include <chrono>
 #include <filesystem>
+#include <fstream>
 #include <vector>
 
 using namespace RosettaStone::RL;
@@ -142,7 +143,13 @@ DOCTEST_TEST_CASE("[WeightArtifact] - FailedLoadsLeaveEveryParameterUnchanged")
     PolicyValueNetwork source;
     source->SaveWeights(file.path);
 
-    auto artifact = torch::jit::load(file.path.string());
+    std::ifstream input(file.path, std::ios::binary);
+
+    DOCTEST_REQUIRE(input.is_open());
+
+    auto artifact = torch::jit::load(input);
+
+    input.close();
 
     PolicyValueNetwork target;
     std::vector<torch::Tensor> before;
@@ -155,8 +162,15 @@ DOCTEST_TEST_CASE("[WeightArtifact] - FailedLoadsLeaveEveryParameterUnchanged")
     DOCTEST_SUBCASE("Version")
     {
         artifact.setattr("artifact_version", 99);
-        artifact.save(file.path.string());
 
+        std::ofstream output(file.path, std::ios::binary);
+
+        DOCTEST_REQUIRE(output.is_open());
+
+        artifact.save(output);
+        output.close();
+
+        DOCTEST_REQUIRE(output.good());
         DOCTEST_CHECK_THROWS_WITH_AS(target->LoadWeights(file.path),
                                      doctest::Contains("artifact_version"),
                                      c10::Error);
@@ -166,8 +180,14 @@ DOCTEST_TEST_CASE("[WeightArtifact] - FailedLoadsLeaveEveryParameterUnchanged")
         auto weights = artifact.attr("weights").toGenericDict();
         weights.insert_or_assign("value.bias", torch::zeros({ 2 }));
 
-        artifact.save(file.path.string());
+        std::ofstream output(file.path, std::ios::binary);
 
+        DOCTEST_REQUIRE(output.is_open());
+
+        artifact.save(output);
+        output.close();
+
+        DOCTEST_REQUIRE(output.good());
         DOCTEST_CHECK_THROWS_WITH_AS(
             target->LoadWeights(file.path),
             doctest::Contains("shape mismatch: value.bias"), c10::Error);
@@ -177,8 +197,14 @@ DOCTEST_TEST_CASE("[WeightArtifact] - FailedLoadsLeaveEveryParameterUnchanged")
         DOCTEST_REQUIRE_EQ(
             artifact.attr("weights").toGenericDict().erase("value.bias"), 1);
 
-        artifact.save(file.path.string());
+        std::ofstream output(file.path, std::ios::binary);
 
+        DOCTEST_REQUIRE(output.is_open());
+
+        artifact.save(output);
+        output.close();
+
+        DOCTEST_REQUIRE(output.good());
         DOCTEST_CHECK_THROWS_WITH_AS(target->LoadWeights(file.path),
                                      doctest::Contains("parameter count"),
                                      c10::Error);
