@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import sys
 
 import pytest
 
@@ -102,6 +103,27 @@ def test_unicode_weight_path_round_trip(tmp_path):
 
     for expected, actual in zip(source(input_batch()), target(input_batch())):
         torch.testing.assert_close(actual, expected, rtol=0, atol=0)
+
+
+@pytest.mark.skipif(os.name != "posix", reason="requires a POSIX file size limit")
+def test_short_weight_write_raises(tmp_path):
+    script = """
+import resource
+import signal
+import sys
+import pytest
+import torch
+from pyRosettaRL import PolicyValueNetwork
+
+model = PolicyValueNetwork()
+signal.signal(signal.SIGXFSZ, signal.SIG_IGN)
+resource.setrlimit(resource.RLIMIT_FSIZE, (32768, 32768))
+with pytest.raises(RuntimeError, match="Failed to write weight artifact"):
+    model.save_weights(sys.argv[1])
+"""
+    subprocess.run(
+        [sys.executable, "-c", script, str(tmp_path / "weights.pt")], check=True
+    )
 
 
 def test_save_reports_file_open_errors(tmp_path):
