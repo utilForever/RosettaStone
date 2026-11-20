@@ -7,6 +7,11 @@ if (NOT Torch_FOUND)
         "Use -DBUILD_RL=OFF to build without LibTorch.")
 endif()
 
+# Python interpreter for CLI tests
+if (NOT TARGET Python::Interpreter)
+    find_package(Python REQUIRED COMPONENTS Interpreter)
+endif()
+
 separate_arguments(torch_compile_options NATIVE_COMMAND "${TORCH_CXX_FLAGS}")
 
 # RosettaRL model library
@@ -57,6 +62,12 @@ endif()
 
 add_test(NAME RosettaRL COMMAND RosettaRL)
 add_test(NAME RosettaRLTests COMMAND RosettaRLTests)
+
+# CLI training and checkpoint tests
+add_test(NAME RosettaRLTrainCLI
+    COMMAND Python::Interpreter "${CMAKE_CURRENT_SOURCE_DIR}/Tests/test_train_cli.py"
+        $<TARGET_FILE:RosettaRL> $<TARGET_FILE:RosettaRLTests>
+)
 
 if (BUILD_RL_PYTHON)
     execute_process(
