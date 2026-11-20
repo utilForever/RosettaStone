@@ -3,14 +3,18 @@
 #define DOCTEST_CONFIG_NO_SHORT_MACRO_NAMES
 #include <doctest/doctest.h>
 
+#include <torch/nn/functional/loss.h>
 #include <torch/serialize.h>
 #include <torch/utils.h>
 
 #include <RosettaRL/NativeTrainer.hpp>
 
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
+#include <Rosetta/PlayMode/Cards/Cards.hpp>
+#include <Rosetta/PlayMode/Games/ReplayGame.hpp>
 
 #include <array>
+#include <cmath>
 #include <filesystem>
 #include <limits>
 #include <sstream>
@@ -26,6 +30,126 @@
 using namespace RosettaStone;
 using namespace PlayMode;
 using namespace RL;
+
+DOCTEST_TEST_CASE("[NativeTrainer] - OverfitsReplayAndResumesFromSharedWeights")
+{
+    Cards::GetInstance();
+
+    GameConfig config;
+    config.formatType = FormatType::WILD;
+    config.player1Class = config.player2Class = CardClass::MAGE;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doShuffle = false;
+    config.player1Deck.fill(
+        Cards::FindCardByID("CS2_200"));  // Boulderfist Ogre
+    config.player2Deck = config.player1Deck;
+
+    ReplayGame replay(config, 1074);
+    const auto& game = replay.GetGame();
+    const auto firstTurn = EncodeObservation(game);
+
+    replay.ApplyAction(PlayerAction{});
+
+    const auto observations = EncodeObservationBatch(
+        std::array{ firstTurn, EncodeObservation(game) });
+    const auto actions = EnumerateActions(game);
+
+    DOCTEST_REQUIRE_EQ(actions.size(), 2);
+    DOCTEST_REQUIRE(actions.back().type == PlayerActionType::PLAY_CARD);
+
+    const auto coin = PolicyActions(game).Encode(actions.back());
+
+    // The second player can spend The Coin or end the turn.
+    auto policy = torch::zeros({ 2, PolicySchema::NUM_ACTIONS });
+    policy[0][PolicySchema::END_TURN] = 1.0;
+    policy[1][PolicySchema::END_TURN] = 0.25;
+    policy[1][coin] = 0.75;
+
+    const auto outcomes = torch::tensor({ 1.0f, -1.0f });
+
+    torch::manual_seed(1074);
+
+    PolicyValueNetwork model;
+    NativeTrainer trainer(model);
+    double expectedPolicyLoss;
+    double expectedValueLoss;
+    double penalty = 0;
+
+    {
+        torch::NoGradGuard guard;
+        const auto [logits, values] = model->forward(observations);
+
+        expectedPolicyLoss =
+            torch::nn::functional::cross_entropy(logits, policy).item<double>();
+        expectedValueLoss =
+            torch::nn::functional::mse_loss(values, outcomes).item<double>();
+
+        for (const auto& parameter : model->parameters())
+        {
+            penalty += 1e-4 * parameter.square().sum().item<double>();
+        }
+    }
+
+    std::stringstream batch;
+
+    torch::save(std::vector<torch::Tensor>{ observations, policy, outcomes },
+                batch);
+
+    const auto first = trainer.TrainBatch(batch);
+
+    DOCTEST_CHECK_EQ(first.step, 1);
+    DOCTEST_CHECK_EQ(first.policyLoss, doctest::Approx(expectedPolicyLoss));
+    DOCTEST_CHECK_EQ(first.valueLoss, doctest::Approx(expectedValueLoss));
+    DOCTEST_CHECK_EQ(
+        first.totalLoss,
+        doctest::Approx(expectedPolicyLoss + expectedValueLoss + penalty));
+
+    auto last = first;
+
+    for (std::size_t step = 2; step <= 64; ++step)
+    {
+        last = trainer.TrainBatch(observations, policy, outcomes);
+
+        DOCTEST_REQUIRE_EQ(last.step, step);
+        DOCTEST_REQUIRE(std::isfinite(last.totalLoss));
+    }
+
+    DOCTEST_CHECK_LT(last.totalLoss, first.totalLoss * 0.15);
+    // The soft target puts the minimum mean policy loss at 0.2812.
+    DOCTEST_CHECK_LT(last.policyLoss, 0.35);
+    DOCTEST_CHECK_LT(last.valueLoss, 0.02);
+
+    Tests::TemporaryArtifact checkpoint;
+    trainer.SaveCheckpoint(checkpoint.path);
+
+    PolicyValueNetwork restored;
+    restored->LoadWeights(checkpoint.path);
+
+    const auto expected = model->forward(observations);
+    const auto actual = restored->forward(observations);
+
+    DOCTEST_CHECK(torch::allclose(expected.first.softmax(1), policy, 0, 0.1));
+    DOCTEST_CHECK(torch::allclose(expected.second, outcomes, 0, 0.1));
+    DOCTEST_CHECK(torch::equal(expected.first, actual.first));
+    DOCTEST_CHECK(torch::equal(expected.second, actual.second));
+
+    NativeTrainer resumed(restored);
+    const auto next = trainer.TrainBatch(observations, policy, outcomes);
+    const auto replayed = resumed.TrainBatch(observations, policy, outcomes);
+
+    DOCTEST_CHECK_EQ(next.step, 65);
+    DOCTEST_CHECK_EQ(replayed.step, 1);
+    DOCTEST_CHECK_EQ(next.totalLoss, replayed.totalLoss);
+
+    const auto parameters = restored->named_parameters();
+
+    for (const auto& parameter : model->named_parameters())
+    {
+        DOCTEST_INFO(parameter.key());
+        DOCTEST_CHECK(
+            torch::equal(parameter.value(), parameters[parameter.key()]));
+    }
+}
 
 DOCTEST_TEST_CASE("[NativeTrainer] - CheckpointFollowsRelativeSymlink")
 {
