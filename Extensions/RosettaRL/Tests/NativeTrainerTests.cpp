@@ -4,19 +4,79 @@
 #include <doctest/doctest.h>
 
 #include <torch/serialize.h>
+#include <torch/utils.h>
 
 #include <RosettaRL/NativeTrainer.hpp>
 
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
 
 #include <array>
+#include <filesystem>
 #include <limits>
 #include <sstream>
+#include <system_error>
 #include <vector>
+
+#include "TemporaryArtifact.hpp"
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 using namespace RosettaStone;
 using namespace PlayMode;
 using namespace RL;
+
+DOCTEST_TEST_CASE("[NativeTrainer] - CheckpointFollowsRelativeSymlink")
+{
+    Tests::TemporaryArtifact directory;
+
+    DOCTEST_REQUIRE(std::filesystem::create_directory(directory.path));
+
+    Tests::TemporaryArtifact target{ directory.path / "round-1.pt" };
+    Tests::TemporaryArtifact link;
+
+    const auto relative = directory.path.filename() / target.path.filename();
+    std::error_code error;
+    std::filesystem::create_symlink(relative, link.path, error);
+
+#ifdef _WIN32
+    if (error ==
+            std::error_code(ERROR_PRIVILEGE_NOT_HELD, std::system_category()) ||
+        error == std::errc::operation_not_permitted)
+    {
+        DOCTEST_MESSAGE(
+            "Creating a symlink requires Windows symlink privileges");
+        return;
+    }
+#endif
+
+    DOCTEST_REQUIRE_MESSAGE(!error, error.message());
+
+    PolicyValueNetwork model;
+
+    DOCTEST_SUBCASE("Resume an existing checkpoint")
+    {
+        model->SaveWeights(target.path);
+        torch::NoGradGuard guard;
+        model->named_parameters()["value.bias"].add_(1);
+    }
+    DOCTEST_SUBCASE("Create the first checkpoint")
+    {
+        DOCTEST_REQUIRE_FALSE(std::filesystem::exists(target.path));
+    }
+
+    NativeTrainer(model).SaveCheckpoint(link.path);
+
+    DOCTEST_REQUIRE(std::filesystem::is_symlink(link.path));
+    DOCTEST_CHECK(std::filesystem::read_symlink(link.path) == relative);
+
+    PolicyValueNetwork restored;
+    restored->LoadWeights(target.path);
+
+    DOCTEST_CHECK(torch::equal(model->named_parameters()["value.bias"],
+                               restored->named_parameters()["value.bias"]));
+}
 
 DOCTEST_TEST_CASE("[NativeTrainer] - RejectsInvalidBatchesBeforeUpdating")
 {

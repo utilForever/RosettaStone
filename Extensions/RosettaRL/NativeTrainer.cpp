@@ -4,7 +4,10 @@
 
 #include <torch/serialize.h>
 
+#include <chrono>
 #include <cmath>
+#include <fstream>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -85,5 +88,51 @@ TrainingStep NativeTrainer::TrainBatch(std::istream& input)
         "Expected observations, policy targets and outcomes in training batch");
 
     return TrainBatch(batch[0], batch[1], batch[2]);
+}
+
+void NativeTrainer::SaveCheckpoint(const std::filesystem::path& weights) const
+{
+    auto target = weights;
+
+    while (std::filesystem::is_symlink(target))
+    {
+        if (std::filesystem::exists(target))
+        {
+            target = std::filesystem::canonical(target);
+            break;
+        }
+
+        // A link may name the file that the first checkpoint will create.
+        target = target.parent_path() / std::filesystem::read_symlink(target);
+    }
+
+    const auto temporary =
+        target.parent_path() /
+        (".rosetta-weights-" +
+         std::to_string(
+             std::chrono::steady_clock::now().time_since_epoch().count()) +
+         ".tmp");
+
+    TORCH_CHECK(std::ofstream(temporary, std::ios::noreplace).is_open(),
+                "Cannot create temporary checkpoint");
+
+    try
+    {
+        const auto destination = std::filesystem::status(target);
+
+        if (std::filesystem::exists(destination))
+        {
+            std::filesystem::permissions(temporary, destination.permissions());
+        }
+
+        m_model->SaveWeights(temporary);
+        std::filesystem::rename(temporary, target);
+    }
+    catch (...)
+    {
+        std::error_code error;
+        std::filesystem::remove(temporary, error);
+        throw;
+    }
 }
 }  // namespace RosettaStone::RL

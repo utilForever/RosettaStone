@@ -9,31 +9,14 @@
 
 #include <RosettaRL/PolicyValueNetwork.hpp>
 
-#include <chrono>
 #include <filesystem>
 #include <fstream>
 #include <vector>
 
+#include "TemporaryArtifact.hpp"
+
 using namespace RosettaStone::RL;
-
-namespace
-{
-struct TemporaryArtifact
-{
-    std::filesystem::path path =
-        std::filesystem::temp_directory_path() /
-        ("rosetta-weights-" +
-         std::to_string(
-             std::chrono::steady_clock::now().time_since_epoch().count()) +
-         ".pt");
-
-    ~TemporaryArtifact()
-    {
-        std::error_code error;
-        std::filesystem::remove(path, error);
-    }
-};
-}  // namespace
+using Tests::TemporaryArtifact;
 
 DOCTEST_TEST_CASE("[WeightArtifact] - RoundTripPreservesOutputsAndModelState")
 {

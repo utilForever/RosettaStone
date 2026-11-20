@@ -8,6 +8,7 @@
 #include <RosettaRL/PolicyValueNetwork.hpp>
 
 #include <cstddef>
+#include <filesystem>
 #include <iosfwd>
 
 namespace RosettaStone::RL
@@ -37,6 +38,9 @@ class NativeTrainer
 
     //! Reads one CPU batch saved with torch::save(vector<Tensor>, stream).
     TrainingStep TrainBatch(std::istream& input);
+
+    //! Follows symlinks and atomically replaces the checkpoint at the target.
+    void SaveCheckpoint(const std::filesystem::path& weights) const;
 
  private:
     PolicyValueNetwork m_model;
