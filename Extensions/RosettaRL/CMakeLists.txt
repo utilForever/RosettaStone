@@ -10,7 +10,7 @@ endif()
 separate_arguments(torch_compile_options NATIVE_COMMAND "${TORCH_CXX_FLAGS}")
 
 # RosettaRL model library
-add_library(RosettaRLModel STATIC PolicyValueNetwork.cpp)
+add_library(RosettaRLModel STATIC PolicyValueNetwork.cpp NativeTrainer.cpp)
 target_include_directories(RosettaRLModel PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Includes)
 target_compile_options(RosettaRLModel PUBLIC ${torch_compile_options})
 target_link_libraries(RosettaRLModel
@@ -25,6 +25,7 @@ target_link_libraries(RosettaRL PRIVATE RosettaRLModel)
 
 # RosettaRL tests
 add_executable(RosettaRLTests
+    Tests/NativeTrainerTests.cpp
     Tests/PolicyValueNetworkTests.cpp
     Tests/WeightArtifactTests.cpp
 )
