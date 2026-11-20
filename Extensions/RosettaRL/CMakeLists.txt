@@ -23,6 +23,11 @@ target_link_libraries(RosettaRLModel
 add_executable(RosettaRL main.cpp)
 target_link_libraries(RosettaRL PRIVATE RosettaRLModel)
 
+# Use wmain for Unicode paths
+if (MINGW)
+    target_link_options(RosettaRL PRIVATE -municode)
+endif()
+
 # RosettaRL tests
 add_executable(RosettaRLTests
     Tests/NativeTrainerTests.cpp
