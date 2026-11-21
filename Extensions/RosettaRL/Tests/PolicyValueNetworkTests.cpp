@@ -1,6 +1,6 @@
 // Copyright (c) 2026 Chris Ohk
 
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_IMPLEMENT
 // LibTorch also defines CHECK macros.
 #define DOCTEST_CONFIG_NO_SHORT_MACRO_NAMES
 #include <doctest/doctest.h>
@@ -16,6 +16,8 @@
 
 #include <limits>
 #include <sstream>
+#include <string_view>
+#include <vector>
 
 using namespace RosettaStone;
 using namespace PlayMode;
@@ -38,6 +40,29 @@ torch::Tensor InputBatch()
     return EncodeObservationBatch(observations);
 }
 }  // namespace
+
+int main(int argc, char** argv)
+{
+    if (argc == 2 && std::string_view(argv[1]) == "--write-training-batches")
+    {
+        const auto observations = InputBatch();
+        const auto rows = observations.size(0);
+
+        auto policy = torch::zeros({ rows, PolicySchema::NUM_ACTIONS });
+        policy.select(1, PolicySchema::END_TURN).fill_(1);
+
+        std::vector<torch::Tensor> batch{ observations, policy,
+                                          torch::zeros({ rows }) };
+        torch::save(batch, "valid.pt");
+
+        batch.back().fill_(0.5);
+        torch::save(batch, "invalid.pt");
+
+        return 0;
+    }
+
+    return doctest::Context(argc, argv).run();
+}
 
 DOCTEST_TEST_CASE("[PolicyValueNetwork] - ObservationLayoutAndOwnership")
 {

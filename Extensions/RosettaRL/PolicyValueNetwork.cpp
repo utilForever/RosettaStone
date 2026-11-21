@@ -8,6 +8,7 @@
 #include <torch/serialize.h>
 
 #include <fstream>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -142,11 +143,17 @@ void PolicyValueNetworkImpl::SaveWeights(
 
     archive.write("weights", weights);
 
+    // Finalize in memory because LibTorch can abort on a short file write.
+    std::ostringstream buffer(std::ios::binary);
+
+    archive.save_to(buffer);
+
+    const auto bytes = buffer.view();
     std::ofstream stream(filename, std::ios::binary);
 
     TORCH_CHECK(stream.is_open(), "Cannot open weight artifact for writing");
 
-    archive.save_to(stream);
+    stream.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));
     stream.close();
 
     TORCH_CHECK(stream.good(), "Failed to write weight artifact");
