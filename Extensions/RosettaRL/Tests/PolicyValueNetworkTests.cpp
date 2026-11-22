@@ -19,6 +19,8 @@
 #include <string_view>
 #include <vector>
 
+#include "ReplayTrainingBatch.hpp"
+
 using namespace RosettaStone;
 using namespace PlayMode;
 using namespace RL;
@@ -45,14 +47,10 @@ int main(int argc, char** argv)
 {
     if (argc == 2 && std::string_view(argv[1]) == "--write-training-batches")
     {
-        const auto observations = InputBatch();
-        const auto rows = observations.size(0);
+        const auto [observations, policy, outcomes] =
+            Tests::ReplayTrainingBatch();
 
-        auto policy = torch::zeros({ rows, PolicySchema::NUM_ACTIONS });
-        policy.select(1, PolicySchema::END_TURN).fill_(1);
-
-        std::vector<torch::Tensor> batch{ observations, policy,
-                                          torch::zeros({ rows }) };
+        std::vector<torch::Tensor> batch{ observations, policy, outcomes };
         torch::save(batch, "valid.pt");
 
         batch.back().fill_(0.5);
