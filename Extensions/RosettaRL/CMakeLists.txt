@@ -52,7 +52,7 @@ import torch
 
 definitions = []
 for name in ("COMPILER_TYPE", "STDLIB", "BUILD_ABI"):
-    value = getattr(torch._C, f"_PYBIND11_{name}")
+    value = getattr(torch._C, f"_PYBIND11_{name}", None)
     if value is not None:
         definitions.append(f'PYBIND11_{name}="{value}"')
 print(";".join(definitions))
