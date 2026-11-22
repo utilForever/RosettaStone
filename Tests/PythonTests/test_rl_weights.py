@@ -20,6 +20,30 @@ def input_batch():
     return batch
 
 
+def test_parameters_iterate_the_native_handles():
+    model = pyRosettaRL.PolicyValueNetwork()
+    parameters = model.parameters()
+
+    assert next(parameters) is model.cpp_module.parameters()[0]
+    assert next(model.parameters()).device == torch.device("cpu")
+    assert next(model.parameters(recurse=False), None) is None
+
+
+def test_named_parameters_iterate_the_native_handles():
+    model = pyRosettaRL.PolicyValueNetwork()
+    assert next(model.named_parameters())[1] is next(model.parameters())
+    named = model.named_parameters(prefix="net", remove_duplicate=False)
+
+    for name, native in model.cpp_module.named_parameters():
+        prefixed_name, parameter = next(named)
+        assert prefixed_name == f"net.{name}"
+        assert parameter is native
+
+    assert next(named, None) is None
+    assert next(model.named_parameters(recurse=False), None) is None
+    assert next(model.named_parameters(False), None) is None
+
+
 def test_cross_runtime_weight_round_trip(tmp_path):
     native = os.environ.get("ROSETTA_RL_INTEROP")
 
