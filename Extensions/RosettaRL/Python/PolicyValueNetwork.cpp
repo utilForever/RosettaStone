@@ -36,7 +36,9 @@ PYBIND11_MODULE(pyRosettaRL, module)
             // ModuleWrapper shadows nn.Module methods on each instance.
             const py::object pop = self.attr("__dict__").attr("pop");
 
-            for (const char* name : { "parameters", "named_parameters" })
+            for (const char* name :
+                 { "to", "cpu", "cuda", "float", "double", "half", "train",
+                   "eval", "zero_grad", "parameters", "named_parameters" })
             {
                 pop(name, py::none());
             }
@@ -58,6 +60,23 @@ PYBIND11_MODULE(pyRosettaRL, module)
             return namedParameters(self, *args, **kwargs);
         },
         py::name("named_parameters"), py::is_method(modelType));
+
+    const py::object moduleTo = modelType.attr("to");
+    // Retain the C++ (dtype_or_device, non_blocking) overload.
+    const py::cpp_function nativeTo(
+        [moduleTo](const py::object& self, const py::object& destination,
+                   bool nonBlocking) {
+            return moduleTo(self, destination,
+                            py::arg("non_blocking") = nonBlocking);
+        },
+        py::name("to"), py::is_method(modelType), py::arg("dtype_or_device"),
+        py::arg("non_blocking") = false);
+
+        modelType.attr("to") = py::cpp_function(
+        [moduleTo](const py::object& self, py::args args, py::kwargs kwargs) {
+            return moduleTo(self, *args, **kwargs);
+        },
+        py::name("to"), py::is_method(modelType), py::sibling(nativeTo));
 
     module.def(
         "load_training_batch",

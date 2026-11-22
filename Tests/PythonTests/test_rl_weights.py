@@ -20,6 +20,77 @@ def input_batch():
     return batch
 
 
+def test_device_moves_return_self_and_update_native_parameters():
+    model = pyRosettaRL.PolicyValueNetwork()
+    parameter = model.cpp_module.parameters()[0]
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    if device == "cuda":
+        index = torch.cuda.current_device()
+        assert model.cuda(index) is model
+        assert parameter.device == torch.device("cuda", index)
+    else:
+        with pytest.raises((AssertionError, RuntimeError)):
+            model.cuda(0)
+    assert model.cpu() is model
+    assert parameter.device.type == "cpu"
+
+    assert model.to("cpu") is model
+    assert model.to(torch.device(device)) is model
+    assert model.to(device=device, dtype=torch.float64) is model
+    logits, _ = model(input_batch().to(device))
+    assert parameter.device.type == logits.device.type == device
+    assert parameter.dtype == logits.dtype == torch.float64
+
+    assert model.to(dtype_or_device=torch.float32) is model
+    assert model.to(torch.device("cpu"), True) is model
+    assert parameter.device.type == "cpu"
+    assert parameter.dtype == torch.float32
+
+
+def test_mode_changes_return_self_and_update_native_model():
+    model = pyRosettaRL.PolicyValueNetwork()
+    assert model.eval() is model
+    assert not model.cpp_module.training
+    assert model.train() is model
+    assert model.cpp_module.training
+
+
+def test_dtype_conversions_preserve_native_gradients_for_adamw():
+    model = pyRosettaRL.PolicyValueNetwork()
+    bias = model.cpp_module.named_parameters()["policy.bias"]
+    optimizer = torch.optim.AdamW(model.parameters(), weight_decay=0.0)
+    logits, _ = model(input_batch())
+    logits.sum().backward()
+
+    for convert, dtype in (
+        (model.half, torch.float16),
+        (model.float, torch.float32),
+        (model.double, torch.float64),
+    ):
+        assert convert() is model
+        assert bias.grad.dtype == bias.dtype == dtype
+        assert torch.all(bias.grad == logits.size(0))
+
+    before = bias.detach().clone()
+    optimizer.step()
+    assert torch.all(bias < before)
+
+
+def test_zero_grad_zeros_or_releases_the_native_gradient():
+    model = pyRosettaRL.PolicyValueNetwork()
+    bias = model.cpp_module.named_parameters()["value.bias"]
+    bias.sum().backward()
+    grad = bias.grad
+
+    model.zero_grad(set_to_none=False)
+    assert bias.grad is grad
+    assert grad.item() == 0
+
+    model.zero_grad(set_to_none=True)
+    assert bias.grad is None
+
+
 def test_parameters_iterate_the_native_handles():
     model = pyRosettaRL.PolicyValueNetwork()
     parameters = model.parameters()
