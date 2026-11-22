@@ -13756,3 +13756,129 @@ TEST_CASE("[Neutral : Minion] - CS3_038 : Redgill Razorjaw")
 {
     // Do nothing
 }
+
+// ---------------------------------------- SPELL - NEUTRAL
+// [GAME_005] The Coin - COST:0
+// - Set: CORE
+// --------------------------------------------------------
+// Text: Gain 1 Mana Crystal this turn only.
+// --------------------------------------------------------
+TEST_CASE("[Neutral : Spell] - GAME_005 : The Coin")
+{
+    for (const auto format : { FormatType::STANDARD, FormatType::WILD,
+                              FormatType::CLASSIC })
+    {
+        CAPTURE(static_cast<int>(format));
+
+        GameConfig config;
+        config.formatType = format;
+        config.player1Class = CardClass::MAGE;
+        config.player2Class = CardClass::WARRIOR;
+        config.startPlayer = PlayerType::PLAYER1;
+        config.doFillDecks = true;
+        config.autoRun = false;
+
+        Game game(config);
+        game.Start();
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        Player* firstPlayer = game.GetCurrentPlayer();
+        Player* secondPlayer = game.GetOpponentPlayer();
+        auto& secondHand = *(secondPlayer->GetHandZone());
+        REQUIRE_EQ(secondHand.GetCount(), 5);
+        const auto coin = secondHand[4];
+        REQUIRE_EQ(coin->card->id, "GAME_005");
+
+        game.Process(firstPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        const auto minion = Generic::DrawCard(
+            secondPlayer, Cards::FindCardByID(format == FormatType::CLASSIC
+                                                 ? "VAN_CS2_172"
+                                                 : "CS2_172"));
+        CHECK_EQ(secondPlayer->GetRemainingMana(), 1);
+        CHECK_FALSE(minion->IsPlayableByPlayer());
+
+        game.Process(secondPlayer, PlayCardTask::Spell(coin));
+        CHECK_EQ(secondPlayer->GetRemainingMana(), 2);
+        CHECK_EQ(secondPlayer->GetTemporaryMana(), 1);
+        CHECK_EQ(secondPlayer->GetTotalMana(), 1);
+        CHECK_EQ(secondPlayer->GetUsedMana(), 0);
+        CHECK_EQ(firstPlayer->GetTemporaryMana(), 0);
+        REQUIRE(minion->IsPlayableByPlayer());
+
+        game.Process(secondPlayer, PlayCardTask::Minion(minion));
+        CHECK_EQ(secondPlayer->GetFieldZone()->GetCount(), 1);
+        CHECK_EQ(secondPlayer->GetRemainingMana(), 0);
+        CHECK_EQ(secondPlayer->GetTemporaryMana(), 0);
+        CHECK_EQ(secondPlayer->GetTotalMana(), 1);
+        CHECK_EQ(secondPlayer->GetUsedMana(), 1);
+    }
+}
+
+TEST_CASE("[Neutral : Spell] - GAME_005 : The Coin expires and respects mana limit")
+{
+    GameConfig config;
+    config.formatType = FormatType::STANDARD;
+    config.player1Class = CardClass::MAGE;
+    config.player2Class = CardClass::WARRIOR;
+    config.startPlayer = PlayerType::PLAYER1;
+    config.doFillDecks = true;
+    config.autoRun = false;
+
+    Game game(config);
+    game.Start();
+    game.ProcessUntil(Step::MAIN_ACTION);
+
+    Player* curPlayer = game.GetCurrentPlayer();
+    Player* opPlayer = game.GetOpponentPlayer();
+    const auto coin =
+        Generic::DrawCard(curPlayer, Cards::FindCardByID("GAME_005"));
+
+    SUBCASE("Unused temporary mana expires by the next turn")
+    {
+        game.Process(curPlayer, PlayCardTask::Spell(coin));
+        CHECK_EQ(curPlayer->GetRemainingMana(), 2);
+        CHECK_EQ(curPlayer->GetTemporaryMana(), 1);
+        CHECK_EQ(curPlayer->GetTotalMana(), 1);
+
+        game.Process(curPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+        game.Process(opPlayer, EndTurnTask());
+        game.ProcessUntil(Step::MAIN_ACTION);
+
+        CHECK_EQ(curPlayer->GetRemainingMana(), 2);
+        CHECK_EQ(curPlayer->GetTemporaryMana(), 0);
+        CHECK_EQ(curPlayer->GetTotalMana(), 2);
+    }
+
+    SUBCASE("Temporary mana is capped at ten available mana")
+    {
+        curPlayer->SetTotalMana(9);
+        curPlayer->SetUsedMana(0);
+        const auto secondCoin =
+            Generic::DrawCard(curPlayer, Cards::FindCardByID("GAME_005"));
+
+        game.Process(curPlayer, PlayCardTask::Spell(coin));
+        CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+        CHECK_EQ(curPlayer->GetTemporaryMana(), 1);
+        CHECK_EQ(curPlayer->GetTotalMana(), 9);
+
+        game.Process(curPlayer, PlayCardTask::Spell(secondCoin));
+        CHECK_EQ(curPlayer->GetRemainingMana(), 10);
+        CHECK_EQ(curPlayer->GetTemporaryMana(), 1);
+        CHECK_EQ(curPlayer->GetTotalMana(), 9);
+    }
+
+    SUBCASE("The Coin still works after spending mana at ten total crystals")
+    {
+        curPlayer->SetTotalMana(10);
+        curPlayer->SetUsedMana(10);
+
+        game.Process(curPlayer, PlayCardTask::Spell(coin));
+        CHECK_EQ(curPlayer->GetRemainingMana(), 1);
+        CHECK_EQ(curPlayer->GetTemporaryMana(), 1);
+        CHECK_EQ(curPlayer->GetTotalMana(), 10);
+        CHECK_EQ(curPlayer->GetUsedMana(), 10);
+    }
+}
