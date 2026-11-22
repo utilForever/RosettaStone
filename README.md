@@ -88,7 +88,7 @@ python -m pytest Tests/PythonTests/
 
 ### Optional LibTorch RL Build
 
-RosettaRL provides a LibTorch policy-value model and a native C++ trainer (`BUILD_RL=OFF` by default). For build instructions, training examples, and Python bindings, see the [RosettaRL guide](Documents/RosettaRL.md).
+RosettaRL trains a shared LibTorch policy-value model from C++ or Python (`BUILD_RL=OFF` by default). For build instructions and training examples, see the [RosettaRL guide](Documents/RosettaRL.md).
 
 ## Architecture at a Glance
 

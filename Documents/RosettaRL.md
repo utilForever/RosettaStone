@@ -63,7 +63,7 @@ When resuming through a symbolic link, the command loads and updates the target 
 
 ## Shared model weights
 
-Use `model->SaveWeights("weights.pt")` and `model->LoadWeights("weights.pt")` for weight exchange. Both operations live in the shared C++ model. C++ accepts `std::filesystem::path`; Python accepts Unicode strings, including Korean filenames and directories on Windows. The artifact is a LibTorch `OutputArchive` with these required attributes:
+Use `model->SaveWeights("weights.pt")` and `model->LoadWeights("weights.pt")` for weight exchange. Both operations live in the shared C++ model. C++ accepts `std::filesystem::path`. Python accepts strings and `pathlib.Path` objects, including Korean filenames and directories on Windows. The LibTorch `OutputArchive` stores the following attributes.
 
 | Attribute             | Version 1 value                                              |
 | --------------------- | ------------------------------------------------------------ |
@@ -92,7 +92,7 @@ cmake -S . -B build/rl-python \
 cmake --build build/rl-python --config Release \
   --target RosettaRLTests pyRosettaRL RosettaRLWeightInterop
 ctest --test-dir build/rl-python -C Release \
-  -R '^RosettaRL(Tests|WeightInterop)$' --output-on-failure
+  -R '^RosettaRL(Tests|WeightInterop|PythonTrainer)$' --output-on-failure
 ```
 
 Add the directory containing the built `pyRosettaRL` module to `PYTHONPATH` (`build/rl-python/lib` for a single-configuration build; append `Release` for a multi-configuration build). On Windows, use explicit paths for the interpreter and its Torch CMake prefix. The optional binding uses PyTorch's C++ module wrapper, so the model is a `torch.nn.Module` backed by the same C++ parameters and forward implementation:
@@ -101,7 +101,7 @@ Add the directory containing the built `pyRosettaRL` module to `PYTHONPATH` (`bu
 import torch
 from pyRosettaRL import PolicyValueNetwork
 
-model = PolicyValueNetwork()
+model = PolicyValueNetwork().eval()
 model.load_weights("weights.pt")
 batch = torch.zeros((2, 444), dtype=torch.int32)
 batch[:, 0] = 1  # Observation schema version; real batches use the encoder.
@@ -109,4 +109,26 @@ logits, values = model(batch)
 model.save_weights("python-weights.pt")
 ```
 
+`cpu()`, `cuda(device)`, `eval()`, and `train()` return the same model. `float()`, `double()`, and `half()` also return the model and convert its parameters and existing gradients together.
+
+`named_parameters()` yields names paired with the original C++ parameters. Use `dict(model.named_parameters())["policy.weight"]` to look up a parameter by name. `zero_grad(set_to_none=False)` zeros existing gradients in place. Passing `set_to_none=True` clears them to `None`.
+
 The cross-runtime test saves in a separate native C++ process, loads and changes weights through Python, then loads the Python result in C++. Fixed CPU batch outputs are compared with `rtol=1e-5, atol=1e-6`. Corrupt, incomplete, and incompatible artifact tests also check that rejected loads leave every parameter unchanged.
+
+## Python training
+
+`rosetta_rl_trainer.train` takes the bound model, an iterable of replay batches and a checkpoint path. It updates the model once per batch with `torch.optim.SGD`. Both trainers use the same C++ target validation, policy and value losses, and L2 penalty.
+
+```python
+from pyRosettaRL import PolicyValueNetwork, load_training_batch
+from rosetta_rl_trainer import train
+
+model = PolicyValueNetwork()
+paths = ["batch-1.pt", "batch-2.pt"]
+batches = (load_training_batch(path) for path in paths)
+policy_loss, value_loss, total_loss = train(model, batches, "weights.pt")
+```
+
+`load_training_batch` reads the CPU batch files used by the native trainer. In-memory batches use the same three tensors in observation, policy target and outcome order. You can prepare batches inside `torch.inference_mode()` and train on them after leaving that context. To train on CUDA, use `model = model.to("cuda")` and move all three batch tensors to the device reported by `next(model.parameters()).device`.
+
+The returned losses describe the final batch before its update. After all batches succeed, the trainer atomically saves the updated weights in the shared format. To resume in Python, call `model.load_weights("weights.pt")` before `train`. The native trainer can resume from the same file.
