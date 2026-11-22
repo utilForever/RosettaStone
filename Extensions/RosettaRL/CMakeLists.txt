@@ -134,4 +134,12 @@ if (BUILD_RL_PYTHON)
             "${Python_EXECUTABLE}" -m pytest -q
             "${PROJECT_SOURCE_DIR}/Tests/PythonTests/test_rl_trainer.py"
     )
+
+    add_test(NAME RosettaRLTrainingParity
+        COMMAND ${CMAKE_COMMAND} -E env
+            "PYTHONPATH=$<TARGET_FILE_DIR:pyRosettaRL>"
+            "ROSETTA_RL_TRAINING_REFERENCE=$<TARGET_FILE:RosettaRLTrainingReference>"
+            "${Python_EXECUTABLE}" -m pytest -q
+            "${PROJECT_SOURCE_DIR}/Tests/PythonTests/test_rl_training_parity.py"
+    )
 endif()
