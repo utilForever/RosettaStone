@@ -52,7 +52,7 @@ import torch
 
 definitions = []
 for name in ("COMPILER_TYPE", "STDLIB", "BUILD_ABI"):
-    value = getattr(torch._C, f"_PYBIND11_{name}")
+    value = getattr(torch._C, f"_PYBIND11_{name}", None)
     if value is not None:
         definitions.append(f'PYBIND11_{name}="{value}"')
 print(";".join(definitions))
@@ -70,6 +70,9 @@ print(";".join(definitions))
     target_include_directories(pyRosettaRL BEFORE PRIVATE "${TORCH_INSTALL_PREFIX}/include")
     target_compile_definitions(pyRosettaRL PRIVATE ${torch_python_abi})
     target_link_libraries(pyRosettaRL PRIVATE RosettaRLModel ${TORCH_PYTHON_LIBRARY})
+
+    file(GENERATE OUTPUT "$<TARGET_FILE_DIR:pyRosettaRL>/rosetta_rl_trainer.py"
+        INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Python/rosetta_rl_trainer.py")
 
     # Native helper for Python weight tests
     add_executable(RosettaRLWeightInterop Tests/WeightArtifactInterop.cpp)
@@ -117,5 +120,14 @@ if (BUILD_RL_PYTHON)
             "ROSETTA_RL_INTEROP=$<TARGET_FILE:RosettaRLWeightInterop>"
             "${Python_EXECUTABLE}" -m pytest -q
             "${PROJECT_SOURCE_DIR}/Tests/PythonTests/test_rl_weights.py"
+    )
+
+    add_test(NAME RosettaRLPythonTrainer
+        COMMAND ${CMAKE_COMMAND} -E env
+            "PYTHONPATH=$<TARGET_FILE_DIR:pyRosettaRL>"
+            "ROSETTA_RL_TESTS=$<TARGET_FILE:RosettaRLTests>"
+            "ROSETTA_RL_INTEROP=$<TARGET_FILE:RosettaRLWeightInterop>"
+            "${Python_EXECUTABLE}" -m pytest -q
+            "${PROJECT_SOURCE_DIR}/Tests/PythonTests/test_rl_trainer.py"
     )
 endif()

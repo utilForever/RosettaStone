@@ -3,6 +3,7 @@
 #define DOCTEST_CONFIG_NO_SHORT_MACRO_NAMES
 #include <doctest/doctest.h>
 
+#include <c10/core/InferenceMode.h>
 #include <torch/nn/functional/loss.h>
 #include <torch/serialize.h>
 #include <torch/utils.h>
@@ -10,8 +11,6 @@
 #include <RosettaRL/NativeTrainer.hpp>
 
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
-#include <Rosetta/PlayMode/Cards/Cards.hpp>
-#include <Rosetta/PlayMode/Games/ReplayGame.hpp>
 
 #include <array>
 #include <cmath>
@@ -21,6 +20,7 @@
 #include <system_error>
 #include <vector>
 
+#include "ReplayTrainingBatch.hpp"
 #include "TemporaryArtifact.hpp"
 
 #ifdef _WIN32
@@ -33,39 +33,7 @@ using namespace RL;
 
 DOCTEST_TEST_CASE("[NativeTrainer] - OverfitsReplayAndResumesFromSharedWeights")
 {
-    Cards::GetInstance();
-
-    GameConfig config;
-    config.formatType = FormatType::WILD;
-    config.player1Class = config.player2Class = CardClass::MAGE;
-    config.startPlayer = PlayerType::PLAYER1;
-    config.doShuffle = false;
-    config.player1Deck.fill(
-        Cards::FindCardByID("CS2_200"));  // Boulderfist Ogre
-    config.player2Deck = config.player1Deck;
-
-    ReplayGame replay(config, 1074);
-    const auto& game = replay.GetGame();
-    const auto firstTurn = EncodeObservation(game);
-
-    replay.ApplyAction(PlayerAction{});
-
-    const auto observations = EncodeObservationBatch(
-        std::array{ firstTurn, EncodeObservation(game) });
-    const auto actions = EnumerateActions(game);
-
-    DOCTEST_REQUIRE_EQ(actions.size(), 2);
-    DOCTEST_REQUIRE(actions.back().type == PlayerActionType::PLAY_CARD);
-
-    const auto coin = PolicyActions(game).Encode(actions.back());
-
-    // The second player can spend The Coin or end the turn.
-    auto policy = torch::zeros({ 2, PolicySchema::NUM_ACTIONS });
-    policy[0][PolicySchema::END_TURN] = 1.0;
-    policy[1][PolicySchema::END_TURN] = 0.25;
-    policy[1][coin] = 0.75;
-
-    const auto outcomes = torch::tensor({ 1.0f, -1.0f });
+    const auto [observations, policy, outcomes] = Tests::ReplayTrainingBatch();
 
     torch::manual_seed(1074);
 
@@ -149,6 +117,27 @@ DOCTEST_TEST_CASE("[NativeTrainer] - OverfitsReplayAndResumesFromSharedWeights")
         DOCTEST_CHECK(
             torch::equal(parameter.value(), parameters[parameter.key()]));
     }
+}
+
+DOCTEST_TEST_CASE("[NativeTrainer] - TrainsOnDetachedInferenceTargets")
+{
+    const auto [observations, policy, outcomes] = Tests::ReplayTrainingBatch();
+    torch::Tensor inferencePolicy;
+
+    {
+        const c10::InferenceMode guard;
+        inferencePolicy = policy.clone().set_requires_grad(true);
+    }
+
+    DOCTEST_REQUIRE(inferencePolicy.is_inference());
+
+    PolicyValueNetwork model;
+    NativeTrainer trainer(model);
+    const auto result =
+        trainer.TrainBatch(observations, inferencePolicy, outcomes);
+
+    DOCTEST_CHECK_EQ(result.step, 1);
+    DOCTEST_CHECK_FALSE(inferencePolicy.grad().defined());
 }
 
 DOCTEST_TEST_CASE("[NativeTrainer] - CheckpointFollowsRelativeSymlink")

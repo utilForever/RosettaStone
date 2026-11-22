@@ -34,13 +34,12 @@ NativeTrainer::NativeTrainer(PolicyValueNetwork model)
     // Do nothing
 }
 
-TrainingStep NativeTrainer::TrainBatch(const torch::Tensor& observations,
-                                       const torch::Tensor& policyTargets,
-                                       const torch::Tensor& outcomes)
+std::array<torch::Tensor, 3> ComputeTrainingLosses(
+    const PolicyValueNetworkImpl& model,
+    const std::pair<torch::Tensor, torch::Tensor>& predictions,
+    const torch::Tensor& policyTargets, const torch::Tensor& outcomes)
 {
-    m_model->train();
-
-    const auto [logits, values] = m_model->forward(observations);
+    const auto& [logits, values] = predictions;
 
     TORCH_CHECK(values.numel() > 0, "Training requires a nonempty batch");
     CheckTarget(policyTargets, logits, "Policy targets");
@@ -53,21 +52,40 @@ TrainingStep NativeTrainer::TrainBatch(const torch::Tensor& observations,
         outcomes.eq(0).logical_or(outcomes.abs().eq(1)).all().item<bool>(),
         "Outcomes must be -1 (loss), 0 (draw) or +1 (win)");
 
-    const auto policyLoss =
-        -(policyTargets.detach() * logits.log_softmax(1)).sum(1).mean();
+    auto policy = policyTargets.detach();
+
+    if (policy.is_inference() && logits.requires_grad())
+    {
+        // Backward needs a version counter on the saved policy target.
+        policy = policy.clone();
+    }
+
+    const auto policyLoss = -(policy * logits.log_softmax(1)).sum(1).mean();
     const auto valueLoss = (values - outcomes.detach()).square().mean();
     auto totalLoss = policyLoss + valueLoss;
 
-    for (const auto& parameter : m_model->parameters())
+    for (const auto& parameter : model.parameters())
     {
         totalLoss = totalLoss + 1e-4 * parameter.square().sum();
     }
 
+    TORCH_CHECK(std::isfinite(totalLoss.item<double>()),
+                "Non-finite training loss");
+
+    return { policyLoss, valueLoss, totalLoss };
+}
+
+TrainingStep NativeTrainer::TrainBatch(const torch::Tensor& observations,
+                                       const torch::Tensor& policyTargets,
+                                       const torch::Tensor& outcomes)
+{
+    m_model->train();
+
+    const auto [policyLoss, valueLoss, totalLoss] = ComputeTrainingLosses(
+        *m_model, m_model->forward(observations), policyTargets, outcomes);
     const TrainingStep result{ m_steps + 1, policyLoss.item<double>(),
                                valueLoss.item<double>(),
                                totalLoss.item<double>() };
-
-    TORCH_CHECK(std::isfinite(result.totalLoss), "Non-finite training loss");
 
     m_optimizer.zero_grad();
     totalLoss.backward();
@@ -77,7 +95,7 @@ TrainingStep NativeTrainer::TrainBatch(const torch::Tensor& observations,
     return result;
 }
 
-TrainingStep NativeTrainer::TrainBatch(std::istream& input)
+std::vector<torch::Tensor> ReadTrainingBatch(std::istream& input)
 {
     std::vector<torch::Tensor> batch;
 
@@ -87,10 +105,17 @@ TrainingStep NativeTrainer::TrainBatch(std::istream& input)
         batch.size() == 3,
         "Expected observations, policy targets and outcomes in training batch");
 
+    return batch;
+}
+
+TrainingStep NativeTrainer::TrainBatch(std::istream& input)
+{
+    const auto batch = ReadTrainingBatch(input);
     return TrainBatch(batch[0], batch[1], batch[2]);
 }
 
-void NativeTrainer::SaveCheckpoint(const std::filesystem::path& weights) const
+void SaveTrainingCheckpoint(const PolicyValueNetworkImpl& model,
+                            const std::filesystem::path& weights)
 {
     auto target = weights;
 
@@ -125,7 +150,7 @@ void NativeTrainer::SaveCheckpoint(const std::filesystem::path& weights) const
             std::filesystem::permissions(temporary, destination.permissions());
         }
 
-        m_model->SaveWeights(temporary);
+        model.SaveWeights(temporary);
         std::filesystem::rename(temporary, target);
     }
     catch (...)
@@ -134,5 +159,10 @@ void NativeTrainer::SaveCheckpoint(const std::filesystem::path& weights) const
         std::filesystem::remove(temporary, error);
         throw;
     }
+}
+
+void NativeTrainer::SaveCheckpoint(const std::filesystem::path& weights) const
+{
+    SaveTrainingCheckpoint(*m_model, weights);
 }
 }  // namespace RosettaStone::RL

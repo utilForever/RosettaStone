@@ -7,12 +7,28 @@
 
 #include <RosettaRL/PolicyValueNetwork.hpp>
 
+#include <array>
 #include <cstddef>
 #include <filesystem>
 #include <iosfwd>
+#include <utility>
+#include <vector>
 
 namespace RosettaStone::RL
 {
+//! Policy, value and regularized total losses on the forward pass's graph.
+std::array<torch::Tensor, 3> ComputeTrainingLosses(
+    const PolicyValueNetworkImpl& model,
+    const std::pair<torch::Tensor, torch::Tensor>& predictions,
+    const torch::Tensor& policyTargets, const torch::Tensor& outcomes);
+
+//! Reads the native CPU archive in observation, policy target, outcome order.
+std::vector<torch::Tensor> ReadTrainingBatch(std::istream& input);
+
+//! Atomically replaces the shared weights at the checkpoint's target.
+void SaveTrainingCheckpoint(const PolicyValueNetworkImpl& model,
+                            const std::filesystem::path& weights);
+
 struct TrainingStep
 {
     std::size_t step;
