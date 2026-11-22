@@ -78,7 +78,11 @@ print(";".join(definitions))
     add_executable(RosettaRLWeightInterop Tests/WeightArtifactInterop.cpp)
     target_link_libraries(RosettaRLWeightInterop PRIVATE RosettaRLModel)
 
-    list(APPEND rl_runtime_targets pyRosettaRL RosettaRLWeightInterop)
+    add_executable(RosettaRLTrainingReference Tests/TrainingReference.cpp)
+    target_link_libraries(RosettaRLTrainingReference PRIVATE RosettaRLModel)
+
+    list(APPEND rl_runtime_targets pyRosettaRL RosettaRLWeightInterop
+        RosettaRLTrainingReference)
 endif()
 
 # Project options
