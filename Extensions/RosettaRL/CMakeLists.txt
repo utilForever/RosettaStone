@@ -78,7 +78,11 @@ print(";".join(definitions))
     add_executable(RosettaRLWeightInterop Tests/WeightArtifactInterop.cpp)
     target_link_libraries(RosettaRLWeightInterop PRIVATE RosettaRLModel)
 
-    list(APPEND rl_runtime_targets pyRosettaRL RosettaRLWeightInterop)
+    add_executable(RosettaRLTrainingReference Tests/TrainingReference.cpp)
+    target_link_libraries(RosettaRLTrainingReference PRIVATE RosettaRLModel)
+
+    list(APPEND rl_runtime_targets pyRosettaRL RosettaRLWeightInterop
+        RosettaRLTrainingReference)
 endif()
 
 # Project options
@@ -129,5 +133,13 @@ if (BUILD_RL_PYTHON)
             "ROSETTA_RL_INTEROP=$<TARGET_FILE:RosettaRLWeightInterop>"
             "${Python_EXECUTABLE}" -m pytest -q
             "${PROJECT_SOURCE_DIR}/Tests/PythonTests/test_rl_trainer.py"
+    )
+
+    add_test(NAME RosettaRLTrainingParity
+        COMMAND ${CMAKE_COMMAND} -E env
+            "PYTHONPATH=$<TARGET_FILE_DIR:pyRosettaRL>"
+            "ROSETTA_RL_TRAINING_REFERENCE=$<TARGET_FILE:RosettaRLTrainingReference>"
+            "${Python_EXECUTABLE}" -m pytest -q
+            "${PROJECT_SOURCE_DIR}/Tests/PythonTests/test_rl_training_parity.py"
     )
 endif()

@@ -90,9 +90,9 @@ cmake -S . -B build/rl-python \
   -DPython_EXECUTABLE="$(python -c 'import sys; print(sys.executable)')" \
   -DCMAKE_PREFIX_PATH="$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')"
 cmake --build build/rl-python --config Release \
-  --target RosettaRLTests pyRosettaRL RosettaRLWeightInterop
+  --target RosettaRLTests pyRosettaRL RosettaRLWeightInterop RosettaRLTrainingReference
 ctest --test-dir build/rl-python -C Release \
-  -R '^RosettaRL(Tests|WeightInterop|PythonTrainer)$' --output-on-failure
+  -R '^RosettaRL(Tests|WeightInterop|PythonTrainer|TrainingParity)$' --output-on-failure
 ```
 
 Add the directory containing the built `pyRosettaRL` module to `PYTHONPATH` (`build/rl-python/lib` for a single-configuration build; append `Release` for a multi-configuration build). On Windows, use explicit paths for the interpreter and its Torch CMake prefix. The optional binding uses PyTorch's C++ module wrapper, so the model is a `torch.nn.Module` backed by the same C++ parameters and forward implementation:
@@ -108,6 +108,8 @@ batch[:, 0] = 1  # Observation schema version; real batches use the encoder.
 logits, values = model(batch)
 model.save_weights("python-weights.pt")
 ```
+
+If PyTorch's bundled pybind11 headers and the installed development headers have different versions, select a matching package with `-Dpybind11_DIR=/path/to/pybind11/share/cmake/pybind11`. Mixing versions can fail in `pybind11/stl/filesystem.h`; the Windows CPU parity check uses PyTorch `2.7.0` with pybind11 `2.13.6`.
 
 `cpu()`, `cuda(device)`, `eval()`, and `train()` return the same model. `float()`, `double()`, and `half()` also return the model and convert its parameters and existing gradients together.
 
@@ -132,3 +134,19 @@ policy_loss, value_loss, total_loss = train(model, batches, "weights.pt")
 `load_training_batch` reads the CPU batch files used by the native trainer. In-memory batches use the same three tensors in observation, policy target and outcome order. You can prepare batches inside `torch.inference_mode()` and train on them after leaving that context. To train on CUDA, use `model = model.to("cuda")` and move all three batch tensors to the device reported by `next(model.parameters()).device`.
 
 The returned losses describe the final batch before its update. After all batches succeed, the trainer atomically saves the updated weights in the shared format. To resume in Python, call `model.load_weights("weights.pt")` before `train`. The native trainer can resume from the same file.
+
+## C++ and Python training parity
+
+`RosettaRLTrainingParity` runs `RosettaRLTrainingReference` in a separate native process and compares it with `rosetta_rl_trainer.train`, using the same C++ model and loss implementation. Both construct a CPU float32 model with seed `1074` and use one intra-op thread. The native helper serializes the existing two-row `ReplayTrainingBatch`: consecutive acting-player observations from a fixed Mage replay, an End Turn target followed by a 25% End Turn / 75% Coin target, and outcomes `[+1,-1]`.
+
+The test compares seeded parameters, both forward outputs, policy/value/regularized total losses, every named gradient, and every weight after one SGD step (`lr=0.01`, zero momentum and optimizer weight decay; L2 is included in the loss). All parity comparisons use `rtol=1e-5, atol=1e-6`, meaning `abs(python - native) <= 1e-6 + 1e-5 * abs(native)` elementwise. Shapes, dtypes, devices and parameter names must also match; non-finite values fail. Losses are computed in float32 and transported as float64 scalars. Comparison stops at the first mismatch and reports its stage and tensor name, such as `gradients.shared.weight`, together with numerical error details.
+
+Both frontends must overfit the same batch after 64 steps. The final pre-update policy loss must be below `0.35`, value loss below `0.02`, and total loss below 15% of its initial value. The soft policy target has a minimum mean cross-entropy of about `0.2812`. After the final update, every policy probability and value must be within `0.1` absolute error of its target. The final pre-update component losses are also compared across frontends.
+
+For a clean check, configure the Python-enabled build above in a new build directory, build `pyRosettaRL` and `RosettaRLTrainingReference`, then run:
+
+```bash
+ctest --test-dir build/rl-python -C Release -R '^RosettaRLTrainingParity$' --output-on-failure
+```
+
+The CTest supplies the module and helper paths. Ordinary pytest runs skip this cross-runtime test when the helper is not configured; a missing module or helper in the configured CTest is a failure. Use matching PyTorch/LibTorch installations. These are CPU tolerances within one build environment, not a promise of bitwise equality across platforms or GPUs, optimizer-state interchange, or frontend speed.
