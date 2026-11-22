@@ -67,6 +67,23 @@ def test_python_trains_native_replay_and_exchanges_weights(tmp_path, replay_path
     )
 
 
+def test_inference_replay_step_returns_pre_update_losses(tmp_path, replay_path):
+    with torch.inference_mode():
+        batch = load_training_batch(replay_path)
+    observations, policy, outcomes = batch
+    assert policy.is_inference()
+
+    model = PolicyValueNetwork()
+    with torch.no_grad():
+        losses = model.training_losses(model(observations), policy, outcomes)
+        expected = tuple(loss.item() for loss in losses)
+
+    actual = train(model, [batch], tmp_path / "trained.pt")
+
+    assert actual == pytest.approx(expected)
+    assert next(model.parameters()).grad is not None
+
+
 def test_incomplete_training_preserves_checkpoint(tmp_path, replay_path):
     model = PolicyValueNetwork()
     checkpoint = tmp_path / "weights.pt"

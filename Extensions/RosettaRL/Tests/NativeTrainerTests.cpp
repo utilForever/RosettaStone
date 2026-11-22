@@ -3,6 +3,7 @@
 #define DOCTEST_CONFIG_NO_SHORT_MACRO_NAMES
 #include <doctest/doctest.h>
 
+#include <c10/core/InferenceMode.h>
 #include <torch/nn/functional/loss.h>
 #include <torch/serialize.h>
 #include <torch/utils.h>
@@ -116,6 +117,27 @@ DOCTEST_TEST_CASE("[NativeTrainer] - OverfitsReplayAndResumesFromSharedWeights")
         DOCTEST_CHECK(
             torch::equal(parameter.value(), parameters[parameter.key()]));
     }
+}
+
+DOCTEST_TEST_CASE("[NativeTrainer] - TrainsOnDetachedInferenceTargets")
+{
+    const auto [observations, policy, outcomes] = Tests::ReplayTrainingBatch();
+    torch::Tensor inferencePolicy;
+
+    {
+        const c10::InferenceMode guard;
+        inferencePolicy = policy.clone().set_requires_grad(true);
+    }
+
+    DOCTEST_REQUIRE(inferencePolicy.is_inference());
+
+    PolicyValueNetwork model;
+    NativeTrainer trainer(model);
+    const auto result =
+        trainer.TrainBatch(observations, inferencePolicy, outcomes);
+
+    DOCTEST_CHECK_EQ(result.step, 1);
+    DOCTEST_CHECK_FALSE(inferencePolicy.grad().defined());
 }
 
 DOCTEST_TEST_CASE("[NativeTrainer] - CheckpointFollowsRelativeSymlink")

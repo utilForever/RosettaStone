@@ -52,8 +52,15 @@ std::array<torch::Tensor, 3> ComputeTrainingLosses(
         outcomes.eq(0).logical_or(outcomes.abs().eq(1)).all().item<bool>(),
         "Outcomes must be -1 (loss), 0 (draw) or +1 (win)");
 
-    const auto policyLoss =
-        -(policyTargets.detach() * logits.log_softmax(1)).sum(1).mean();
+    auto policy = policyTargets.detach();
+
+    if (policy.is_inference() && logits.requires_grad())
+    {
+        // Backward needs a version counter on the saved policy target.
+        policy = policy.clone();
+    }
+
+    const auto policyLoss = -(policy * logits.log_softmax(1)).sum(1).mean();
     const auto valueLoss = (values - outcomes.detach()).square().mean();
     auto totalLoss = policyLoss + valueLoss;
 
