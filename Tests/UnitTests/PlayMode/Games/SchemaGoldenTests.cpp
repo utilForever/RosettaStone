@@ -2,6 +2,7 @@
 
 #include "doctest_proxy.hpp"
 
+#include <Rosetta/Common/DefaultFloatEnvScope.hpp>
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
 #include <Rosetta/PlayMode/Agents/PUCTSearch.hpp>
@@ -15,6 +16,7 @@
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
 #include <bit>
+#include <cfenv>
 #include <cmath>
 #include <fstream>
 #include <iterator>
@@ -284,6 +286,49 @@ TEST_CASE("[SchemaGolden] - Version one observation and policy fixtures")
     }
 }
 
+TEST_CASE("[SelfPlaySample] - Normal turn matches the shared binary fixture")
+{
+    std::ifstream file(
+        std::string(RESOURCES_DIR) + "SchemaGolden/v1/self-play.rssp",
+        std::ios::binary);
+
+    REQUIRE(file.is_open());
+
+    const std::string golden{ std::istreambuf_iterator<char>(file), {} };
+    const auto decoded = SelfPlaySample::Deserialize(golden);
+
+    auto game = GoldenGame(PlayerType::PLAYER2);
+
+    SetUpBoard(*game);
+    Draw(game->GetCurrentPlayer(), "CS2_231");
+    Draw(game->GetCurrentPlayer(), "CS2_120");
+
+    const auto mask = PolicyActions(*game).GetLegalMask();
+
+    std::array<PUCTNode, 2> actions;
+    actions[0].actionIndex = PolicySchema::END_TURN;
+    actions[0].visitCount = 1;
+    actions[1].actionIndex = 2857;  // River Crocolisk at position zero.
+    actions[1].visitCount = 3;
+
+    SelfPlaySample sample{ FlattenObservation(EncodeObservation(*game)), mask,
+                           NormalizeVisitCounts(mask, actions) };
+
+    CHECK_THROWS_AS(sample.Serialize(), std::invalid_argument);
+
+    sample.outcome = -1;
+
+    CHECK(sample.observation == decoded.observation);
+    CHECK(sample.legalMask == decoded.legalMask);
+    CHECK(sample.policyTarget == decoded.policyTarget);
+    CHECK_EQ(decoded.outcome, -1);
+    CHECK(sample.Serialize() == golden);
+    CHECK(decoded.Serialize() == golden);
+    CHECK_THROWS_AS(
+        SelfPlaySample::Deserialize(std::string_view(golden).substr(1)),
+        std::invalid_argument);
+}
+
 TEST_CASE("[SelfPlaySample] - Invalid root action counts")
 {
     PolicySchema::LegalMask mask{};
@@ -305,6 +350,72 @@ TEST_CASE("[SelfPlaySample] - Invalid root action counts")
         actions[1].actionIndex = index;
         CHECK_THROWS_AS(NormalizeVisitCounts(mask, actions),
                         std::invalid_argument);
+    }
+}
+
+TEST_CASE("[SelfPlaySample] - Exact upper and lower visit-policy sum bounds")
+{
+    // Adding one more small legal probability crosses the upper bound.
+    VisitPolicy policy{ 1.0f, 1e-5f, 1137 * 0x1p-52f, 0x1p-54f, 0x1p-54f };
+
+    CHECK(IsNormalizedVisitPolicy(policy));
+
+    policy.back() = 0x1p-54f;
+
+    CHECK_FALSE(IsNormalizedVisitPolicy(policy));
+
+    // These adjacent binary32 tails straddle the exact lower bound.
+    policy = { 0.99999f, 0x1.d29dc6p-27f };
+
+    CHECK_FALSE(IsNormalizedVisitPolicy(policy));
+
+    policy[1] = std::nextafter(policy[1], 1.0f);
+
+    CHECK(IsNormalizedVisitPolicy(policy));
+
+    // Adjacent doubles narrow to the same float but straddle the upper bound.
+    std::array<double, PolicySchema::NUM_ACTIONS> precise{ 1.0, 1e-5 };
+
+    CHECK_FALSE(IsNormalizedVisitPolicy(precise));
+
+    precise[1] = std::nextafter(precise[1], 0.0);
+
+    CHECK(IsNormalizedVisitPolicy(precise));
+}
+
+TEST_CASE(
+    "[SelfPlaySample] - Visit ratios use the same bytes in every rounding mode")
+{
+    const DefaultFloatEnvScope restoreOnExit;
+
+    SelfPlaySample sample;
+    sample.observation.front() = ObservationSchema::VERSION;
+    sample.outcome = -1;
+    sample.legalMask[0] = sample.legalMask[2857] = 1;
+
+    std::array<PUCTNode, 2> actions;
+    actions[0].actionIndex = 0;
+    actions[0].visitCount = 1;
+    actions[1].actionIndex = 2857;
+    actions[1].visitCount = 2;
+
+    sample.policyTarget[0] = std::bit_cast<float>(0x3eaaaaabu);     // 1/3
+    sample.policyTarget[2857] = std::bit_cast<float>(0x3f2aaaabu);  // 2/3
+
+    const auto expected = sample.Serialize();
+
+    for (const int mode :
+         { FE_TONEAREST, FE_DOWNWARD, FE_UPWARD, FE_TOWARDZERO })
+    {
+        REQUIRE_EQ(std::fesetround(mode), 0);
+
+        sample.policyTarget = NormalizeVisitCounts(sample.legalMask, actions);
+
+        CHECK_EQ(std::fegetround(), mode);
+        CHECK(sample.Serialize() == expected);
+        CHECK_THROWS_AS(NormalizeVisitCounts(sample.legalMask, {}),
+                        std::invalid_argument);
+        CHECK_EQ(std::fegetround(), mode);
     }
 }
 

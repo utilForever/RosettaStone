@@ -95,10 +95,11 @@ if (BUILD_FROM_PIP)
 endif()
 add_subdirectory(Extensions/RosettaPython)
 
-# Visit probabilities use the default floating-point environment.
+# The sample codec and its rounding test change the floating-point environment.
 set_property(SOURCE
     Sources/Rosetta/PlayMode/Agents/SelfPlaySample.cpp
-    TARGET_DIRECTORY RosettaStone
+    Tests/UnitTests/PlayMode/Games/SchemaGoldenTests.cpp
+    TARGET_DIRECTORY RosettaStone UnitTests
     APPEND PROPERTY COMPILE_OPTIONS
     "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-frounding-math>"
     "$<$<CXX_COMPILER_ID:MSVC>:/fp:strict>")

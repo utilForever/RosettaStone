@@ -11,6 +11,7 @@
 
 # Golden schema snapshots use canonical LF bytes on every platform.
 Resources/SchemaGolden/v1/*.txt text eol=lf
+Resources/SchemaGolden/v1/*.rssp binary
 
 # Compiled Object files
 *.slo   binary
