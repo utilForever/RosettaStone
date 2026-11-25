@@ -3,6 +3,7 @@
 import os
 import subprocess
 from itertools import repeat
+from pathlib import Path
 
 import pytest
 
@@ -17,6 +18,9 @@ from pyRosettaRL import PolicyValueNetwork, load_training_batch
 from rosetta_rl_trainer import train
 
 
+GOLDEN = Path(__file__).resolve().parents[2] / "Resources/SchemaGolden/v1/self-play.rssp"
+
+
 @pytest.fixture
 def replay_path(tmp_path):
     subprocess.run(
@@ -25,6 +29,18 @@ def replay_path(tmp_path):
         check=True,
     )
     return tmp_path / "valid.pt"
+
+
+def test_trains_on_self_play_sample(tmp_path):
+    batch = load_training_batch(GOLDEN)
+    observations, policy, outcomes = batch
+    assert observations.shape == (1, 444) and observations.dtype == torch.int32
+    assert observations[0, :3].tolist() == [1, 3, 1]
+    assert policy.shape == (1, 4846) and policy.dtype == torch.float32
+    assert policy[0, [0, 2857]].tolist() == [0.25, 0.75]
+    assert outcomes.tolist() == [-1] and outcomes.dtype == torch.float32
+    losses = train(PolicyValueNetwork(), [batch], tmp_path / "trained.pt")
+    assert torch.isfinite(torch.tensor(losses)).all()
 
 
 def test_python_trains_native_replay_and_exchanges_weights(tmp_path, replay_path):

@@ -11,6 +11,7 @@
 #include <RosettaRL/NativeTrainer.hpp>
 
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
+#include <Rosetta/PlayMode/Agents/SelfPlaySample.hpp>
 
 #include <array>
 #include <cmath>
@@ -138,6 +139,35 @@ DOCTEST_TEST_CASE("[NativeTrainer] - TrainsOnDetachedInferenceTargets")
 
     DOCTEST_CHECK_EQ(result.step, 1);
     DOCTEST_CHECK_FALSE(inferencePolicy.grad().defined());
+}
+
+DOCTEST_TEST_CASE("[NativeTrainer] - ReadsSelfPlayWithEofExceptions")
+{
+    SelfPlaySample sample;
+    sample.observation.front() = ObservationSchema::VERSION;
+    sample.legalMask[PolicySchema::END_TURN] = 1;
+    sample.policyTarget[PolicySchema::END_TURN] = 1;
+    sample.outcome = -1;
+
+    const auto bytes = sample.Serialize();
+
+    std::istringstream input(bytes);
+    input.exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
+
+    const auto batch = ReadTrainingBatch(input);
+
+    DOCTEST_CHECK_EQ(batch.at(2).item<float>(), sample.outcome);
+
+    std::istringstream trailing(bytes + "x");
+    trailing.exceptions(input.exceptions());
+
+    DOCTEST_CHECK_THROWS_AS(ReadTrainingBatch(trailing), c10::Error);
+
+    std::istringstream truncated(bytes.substr(0, bytes.size() - 1));
+    truncated.exceptions(input.exceptions());
+
+    DOCTEST_CHECK_THROWS_AS(ReadTrainingBatch(truncated),
+                            std::ios_base::failure);
 }
 
 DOCTEST_TEST_CASE("[NativeTrainer] - CheckpointFollowsRelativeSymlink")

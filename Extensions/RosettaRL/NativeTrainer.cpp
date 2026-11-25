@@ -2,6 +2,8 @@
 
 #include <RosettaRL/NativeTrainer.hpp>
 
+#include <Rosetta/PlayMode/Agents/SelfPlaySample.hpp>
+
 #include <torch/serialize.h>
 
 #include <chrono>
@@ -97,6 +99,27 @@ TrainingStep NativeTrainer::TrainBatch(const torch::Tensor& observations,
 
 std::vector<torch::Tensor> ReadTrainingBatch(std::istream& input)
 {
+    using PlayMode::SelfPlaySample;
+
+    if (input.peek() == SelfPlaySample::MAGIC.front())
+    {
+        std::string bytes(SelfPlaySample::BYTE_SIZE, '\0');
+        input.read(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+
+        TORCH_CHECK(
+            input && input.rdbuf()->sgetc() == std::char_traits<char>::eof(),
+            "Expected one complete self-play sample");
+
+        const auto sample = SelfPlaySample::Deserialize(bytes);
+
+        return { torch::tensor(at::ArrayRef(sample.observation), torch::kInt32)
+                     .unsqueeze(0),
+                 torch::tensor(at::ArrayRef(sample.policyTarget),
+                               torch::kFloat32)
+                     .unsqueeze(0),
+                 torch::tensor({ sample.outcome }, torch::kFloat32) };
+    }
+
     std::vector<torch::Tensor> batch;
 
     torch::load(batch, input, torch::kCPU);

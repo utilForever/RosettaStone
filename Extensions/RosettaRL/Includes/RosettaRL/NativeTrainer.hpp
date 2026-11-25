@@ -22,7 +22,8 @@ std::array<torch::Tensor, 3> ComputeTrainingLosses(
     const std::pair<torch::Tensor, torch::Tensor>& predictions,
     const torch::Tensor& policyTargets, const torch::Tensor& outcomes);
 
-//! Reads the native CPU archive in observation, policy target, outcome order.
+//! Reads one self-play sample or native tensor archive as a CPU training batch.
+//! Returns observations, policy targets and outcomes in that order.
 std::vector<torch::Tensor> ReadTrainingBatch(std::istream& input);
 
 //! Atomically replaces the shared weights at the checkpoint's target.
@@ -52,7 +53,7 @@ class NativeTrainer
                             const torch::Tensor& policyTargets,
                             const torch::Tensor& outcomes);
 
-    //! Reads one CPU batch saved with torch::save(vector<Tensor>, stream).
+    //! Trains on one CPU batch from ReadTrainingBatch.
     TrainingStep TrainBatch(std::istream& input);
 
     //! Follows symlinks and atomically replaces the checkpoint at the target.
