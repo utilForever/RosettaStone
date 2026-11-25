@@ -30,6 +30,63 @@ The fixed MVP architecture applies `sign(x) * log1p(abs(x))` in float32, then co
 
 Call `torch::manual_seed(seed)` before construction for reproducible CPU initialization. Fixed seeds reproduce parameters and outputs for the same CPU batch and LibTorch environment; cross-version or CPU/CUDA bitwise parity is not promised. Use normal `model->to(torch::kCUDA)` and move the input tensor to the same device. All layers participate in `parameters()` and native LibTorch archives.
 
+## Self-play sample v1
+
+One sample records one decision. The observation belongs to the player who made that decision. Save that player's seat alongside the pending sample until the game ends. Label every decision by that seat with +1 for a win, 0 for a draw or −1 for a loss. A player can make several consecutive decisions in one turn.
+
+Given a `ReplayGame replay` and its `InformationSetSearchResult search` at the same decision, capture the inputs before applying the next action.
+
+```cpp
+using namespace RosettaStone::PlayMode;
+const auto seat = replay.GetCurrentPlayer()->playerType;
+const auto mask = PolicyActions(replay.GetGame()).GetLegalMask();
+SelfPlaySample sample{ FlattenObservation(EncodeObservation(replay.GetGame())),
+                       mask, NormalizeVisitCounts(mask, search.actions) };
+// After the episode finishes, use the seat saved with this decision.
+sample.outcome = SelfPlayOutcome(replay, seat);
+const std::string bytes = sample.Serialize();
+```
+
+`NormalizeVisitCounts` divides each action's visits by the sum of the root **action** visits. It rounds the exact integer ratio to the nearest float32, with ties to even, and restores the caller's floating-point environment. The initial root evaluation contributes no action visit. Unvisited legal moves retain mask value 1 and probability 0. A search with zero action visits has no training target. A pending sample requires a final outcome before serialization.
+
+The file contains exactly 26,022 bytes, in the following order. All multibyte scalars are little-endian, with no padding. The versions fix each field's shape. Python's standard-library `struct` layout is `<4sII444i4846s4846ff`.
+
+| Byte offset | Field               | Dtype and shape                                                                          |
+| ----------: | ------------------- | ---------------------------------------------------------------------------------------- |
+|           0 | Magic               | Four ASCII bytes `RSSP`                                                                  |
+|           4 | Sample version      | uint32, value 1                                                                          |
+|           8 | Policy version      | uint32, value 1                                                                          |
+|          12 | Observation         | int32[444], starting with observation version 1, in canonical member and row-major order |
+|       1,788 | Legal mask          | uint8[4846], in ascending policy-index order                                             |
+|       6,634 | Visit-policy target | IEEE 754 float32[4846], in the same index order                                          |
+|      26,018 | Outcome             | IEEE 754 float32 scalar, relative to the observation player                              |
+
+Readers and writers require a binary mask with at least one legal action. Each probability must be finite and in [0, 1], and each masked action must have exactly zero probability. The exact sum of the stored float32 probabilities must be in [0.99999, 1.00001], inclusive. Both trainers apply the same bounds to the values in float16, bfloat16, float32 and float64 targets. Casting a sample to a lower precision can move its sum outside these bounds. Serialization preserves positive subnormal probabilities and writes either sign of zero as positive zero. The reader rejects unknown versions, truncated records and trailing bytes. The observation and policy specifications define the meaning of individual slots. [Observation v1](ObservationSchema.md) · [Policy v1](PolicyActions.md)
+
+`SelfPlaySample::Deserialize(bytes)` reads the record in C++. Python's `pyRosetta` exposes the same codec without a Torch dependency. Supply flat rows with integer observation and mask entries, real-valued probabilities and a scalar outcome of −1, 0 or +1. Every entry must be present. The writer rejects masked NumPy entries, dates, time intervals, complex values and zero-dimensional object arrays. It checks ranges and illegal-action probabilities before rounding to the nearest float32, with ties to even. This rounding also applies to `Decimal` and `Fraction` inputs. Passing an `array.array` or `memoryview` through `iter()` preserves its stored probabilities, including subnormals. A generator computes each entry using the caller's floating-point settings. The shared golden file records the normal-turn fixture with 1 End Turn visit, 3 River Crocolisk visits and a loss for the acting Mage.
+
+```python
+from pathlib import Path
+from pyRosetta import deserialize_self_play_sample, serialize_self_play_sample
+
+data = Path("Resources/SchemaGolden/v1/self-play.rssp").read_bytes()
+observation, legal_mask, policy, outcome = deserialize_self_play_sample(data)
+assert serialize_self_play_sample(observation, legal_mask, policy, outcome) == data
+```
+
+For repeated writes from unmasked NumPy arrays, use a `memoryview` when each row has the native-endian dtype shown below (`int32` for the observation, `uint8` for the legal mask and `float32` for the policy target). This avoids creating a NumPy scalar for every entry. Pass `np.longdouble` policy arrays directly. For masked arrays, direct iteration lets the writer detect missing values.
+
+```python
+import numpy as np
+
+obs = np.asarray(observation, dtype=np.int32)
+mask = np.asarray(legal_mask, dtype=np.uint8)
+target = np.asarray(policy, dtype=np.float32)
+assert serialize_self_play_sample(
+    memoryview(obs), memoryview(mask), memoryview(target), outcome
+) == data
+```
+
 ## Native C++ training
 
 `NativeTrainer` in `<RosettaRL/NativeTrainer.hpp>` updates the supplied model once per nonempty mini-batch. Pass the three tensors in replay row order.
@@ -51,7 +108,7 @@ const auto result = trainer.TrainBatch(batch, policyTargets, outcomes);
 trainer.SaveCheckpoint("weights.pt");
 ```
 
-The CPU command reads one prepared mini-batch file per step, in argument order. Write each file with LibTorch's `torch::save(std::vector<torch::Tensor>{batch, policyTargets, outcomes}, "batch.pt")`.
+The CPU command reads one file per step, in argument order. A self-play sample feeds a batch of one after its legal mask and targets pass validation. For pre-batched tensors, use LibTorch's `torch::save(std::vector<torch::Tensor>{batch, policyTargets, outcomes}, "batch.pt")`.
 
 ```bash
 ./build/rl/bin/RosettaRL train weights.pt batch-1.pt batch-2.pt
@@ -90,7 +147,7 @@ cmake -S . -B build/rl-python \
   -DPython_EXECUTABLE="$(python -c 'import sys; print(sys.executable)')" \
   -DCMAKE_PREFIX_PATH="$(python -c 'import torch; print(torch.utils.cmake_prefix_path)')"
 cmake --build build/rl-python --config Release \
-  --target RosettaRLTests pyRosettaRL RosettaRLWeightInterop RosettaRLTrainingReference
+  --target RosettaRL RosettaRLTests pyRosettaRL RosettaRLWeightInterop RosettaRLTrainingReference
 ctest --test-dir build/rl-python -C Release \
   -R '^RosettaRL(Tests|WeightInterop|PythonTrainer|TrainingParity)$' --output-on-failure
 ```
@@ -131,7 +188,7 @@ batches = (load_training_batch(path) for path in paths)
 policy_loss, value_loss, total_loss = train(model, batches, "weights.pt")
 ```
 
-`load_training_batch` reads the CPU batch files used by the native trainer. In-memory batches use the same three tensors in observation, policy target and outcome order. You can prepare batches inside `torch.inference_mode()` and train on them after leaving that context. To train on CUDA, use `model = model.to("cuda")` and move all three batch tensors to the device reported by `next(model.parameters()).device`.
+`load_training_batch` accepts the same self-play samples and CPU tensor archives as the native trainer. In-memory batches use the same three tensors in observation, policy target and outcome order. You can prepare batches inside `torch.inference_mode()` and train on them after leaving that context. To train on CUDA, use `model = model.to("cuda")` and move all three batch tensors to the device reported by `next(model.parameters()).device`.
 
 The returned losses describe the final batch before its update. After all batches succeed, the trainer atomically saves the updated weights in the shared format. To resume in Python, call `model.load_weights("weights.pt")` before `train`. The native trainer can resume from the same file.
 
