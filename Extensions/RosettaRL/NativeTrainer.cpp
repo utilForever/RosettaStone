@@ -6,9 +6,11 @@
 
 #include <torch/serialize.h>
 
+#include <bit>
 #include <chrono>
 #include <cmath>
 #include <fstream>
+#include <limits>
 #include <string>
 #include <utility>
 #include <vector>
@@ -27,6 +29,86 @@ void CheckTarget(const torch::Tensor& target, const torch::Tensor& prediction,
                     target.device() == prediction.device(),
                 name,
                 " must be a dense tensor with the model's dtype and device");
+}
+
+template <typename Float>
+bool HasNormalizedCpuRows(const torch::Tensor& rows)
+{
+    constexpr auto width = PlayMode::PolicySchema::NUM_ACTIONS;
+    const auto* row = rows.const_data_ptr<Float>();
+
+    for (std::int64_t i = 0; i < rows.size(0); ++i, row += width)
+    {
+        if (!PlayMode::IsNormalizedVisitPolicy({ row, width }))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+std::int64_t OneBits(bool binary32)
+{
+    return binary32 ? std::bit_cast<std::int32_t>(1.0f)
+                    : std::bit_cast<std::int64_t>(1.0);
+}
+
+torch::Tensor ValidationValues(const torch::Tensor& target)
+{
+    TORCH_CHECK(target.is_floating_point(),
+                "Training targets must be real floating-point tensors");
+
+    const auto dtype = target.scalar_type() == torch::kFloat64
+                           ? torch::kFloat64
+                           : torch::kFloat32;
+    return target.detach().resolve_neg().to(dtype).contiguous();
+}
+
+bool HasNormalizedPolicyRows(const torch::Tensor& policy)
+{
+    constexpr auto tolerance = PlayMode::SelfPlaySample::POLICY_SUM_TOLERANCE;
+
+    if (policy.dim() != 2 ||
+        policy.size(1) != PlayMode::PolicySchema::NUM_ACTIONS)
+    {
+        return false;
+    }
+
+    auto rows = ValidationValues(policy);
+    const bool binary32 = rows.scalar_type() == torch::kFloat32;
+
+    if (rows.is_cuda())
+    {
+        // Float64 reduction error for 4846 nonnegative terms near one is <
+        // 1e-12. Only rows outside this safe interior need an exact CPU check.
+        const auto bits = rows.view(binary32 ? torch::kInt32 : torch::kInt64);
+        const auto inRange =
+            bits.ge(0).logical_and(bits.le(OneBits(binary32))).all(1);
+        const auto interior =
+            (rows.sum(1, false, torch::kFloat64) - 1).abs().lt(tolerance / 2);
+
+        rows = rows.index({ inRange.logical_and(interior).logical_not() });
+    }
+
+    rows = rows.cpu();
+    return binary32 ? HasNormalizedCpuRows<float>(rows)
+                    : HasNormalizedCpuRows<double>(rows);
+}
+
+bool HasValidOutcomes(const torch::Tensor& outcomes)
+{
+    const auto values = ValidationValues(outcomes);
+    const bool binary32 = values.scalar_type() == torch::kFloat32;
+    const auto bits = values.view(binary32 ? torch::kInt32 : torch::kInt64);
+    const auto mask = binary32 ? std::numeric_limits<std::int32_t>::max()
+                               : std::numeric_limits<std::int64_t>::max();
+    const auto magnitude = bits.bitwise_and(mask);
+
+    return magnitude.eq(0)
+        .logical_or(magnitude.eq(OneBits(binary32)))
+        .all()
+        .item<bool>();
 }
 }  // namespace
 
@@ -47,12 +129,10 @@ std::array<torch::Tensor, 3> ComputeTrainingLosses(
     CheckTarget(policyTargets, logits, "Policy targets");
     CheckTarget(outcomes, values, "Outcomes");
     TORCH_CHECK(
-        policyTargets.ge(0).all().item<bool>() &&
-            (policyTargets.sum(1) - 1).abs().le(1e-5).all().item<bool>(),
+        HasNormalizedPolicyRows(policyTargets),
         "Policy targets must be finite, nonnegative and sum to one per row");
-    TORCH_CHECK(
-        outcomes.eq(0).logical_or(outcomes.abs().eq(1)).all().item<bool>(),
-        "Outcomes must be -1 (loss), 0 (draw) or +1 (win)");
+    TORCH_CHECK(HasValidOutcomes(outcomes),
+                "Outcomes must be -1 (loss), 0 (draw) or +1 (win)");
 
     auto policy = policyTargets.detach();
 

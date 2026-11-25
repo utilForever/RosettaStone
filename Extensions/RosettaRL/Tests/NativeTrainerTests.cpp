@@ -141,6 +141,28 @@ DOCTEST_TEST_CASE("[NativeTrainer] - TrainsOnDetachedInferenceTargets")
     DOCTEST_CHECK_FALSE(inferencePolicy.grad().defined());
 }
 
+DOCTEST_TEST_CASE("[NativeTrainer] - Float64VisitTargetsAtTheUpperBound")
+{
+    const auto [observations, policy, outcomes] = Tests::ReplayTrainingBatch();
+    auto targets = policy.to(torch::kFloat64);
+    const auto labels = outcomes.to(torch::kFloat64);
+
+    PolicyValueNetwork model;
+    model->to(torch::kFloat64);
+
+    NativeTrainer trainer(model);
+
+    // The second decision gives 0.75 to The Coin and the rest to End Turn.
+    targets[1][PolicySchema::END_TURN] = std::nextafter(0.25001, 0.0);
+
+    DOCTEST_CHECK_EQ(trainer.TrainBatch(observations, targets, labels).step, 1);
+
+    targets[1][PolicySchema::END_TURN] = std::nextafter(0.25001, 1.0);
+
+    DOCTEST_CHECK_THROWS_AS(trainer.TrainBatch(observations, targets, labels),
+                            c10::Error);
+}
+
 DOCTEST_TEST_CASE("[NativeTrainer] - ReadsSelfPlayWithEofExceptions")
 {
     SelfPlaySample sample;

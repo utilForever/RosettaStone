@@ -129,6 +129,7 @@ if (BUILD_RL_PYTHON)
     add_test(NAME RosettaRLPythonTrainer
         COMMAND ${CMAKE_COMMAND} -E env
             "PYTHONPATH=$<TARGET_FILE_DIR:pyRosettaRL>"
+            "ROSETTA_RL_CLI=$<TARGET_FILE:RosettaRL>"
             "ROSETTA_RL_TESTS=$<TARGET_FILE:RosettaRLTests>"
             "ROSETTA_RL_INTEROP=$<TARGET_FILE:RosettaRLWeightInterop>"
             "${Python_EXECUTABLE}" -m pytest -q
