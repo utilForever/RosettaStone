@@ -1,6 +1,10 @@
 # Copyright (c) 2026 Chris Ohk
 
+import ctypes
 import struct
+import warnings
+from array import array
+from concurrent.futures import ThreadPoolExecutor
 from decimal import Decimal, FloatOperation, localcontext
 from fractions import Fraction
 from pathlib import Path
@@ -186,3 +190,166 @@ def test_fraction_rounding_on_both_sides_of_float32_midpoint(lower_bits):
         policy[2857] = value
         wire = serialize_self_play_sample(observation, mask, policy, outcome)
         assert struct.unpack_from("<I", wire, POLICY_OFFSET + 4 * 2857)[0] == expected
+
+
+def test_requires_scalar_entries_and_outcome():
+    torch = pytest.importorskip("torch")
+    for field, index in ((0, 0), (1, 0), (2, 0), (3, None)):
+        row = list(deserialize_self_play_sample(GOLDEN.read_bytes()))
+        if index is None:
+            row[field] = torch.tensor([[-1.0]])
+        else:
+            row[field][index] = torch.tensor([row[field][index]])
+        with pytest.raises((TypeError, ValueError)):
+            serialize_self_play_sample(*row)
+
+    observation, mask, policy, outcome = deserialize_self_play_sample(GOLDEN.read_bytes())
+    assert serialize_self_play_sample(
+        torch.tensor(observation), torch.tensor(mask),
+        torch.tensor(policy), torch.tensor(outcome),
+    ) == GOLDEN.read_bytes()
+    with pytest.raises(TypeError):
+        serialize_self_play_sample(observation, mask, policy, torch.tensor(-1 + 0j))
+
+
+@pytest.mark.parametrize("dtype", ["complex64", "complex128"])
+def test_rejects_numpy_complex_before_float_conversion(dtype):
+    np = pytest.importorskip("numpy")
+    observation, mask, policy, outcome = deserialize_self_play_sample(GOLDEN.read_bytes())
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        for imaginary in (0, 0.75):
+            value = np.array(complex(0.25, imaginary), dtype=dtype)
+            for scalar in (value, value[()], np.array(value[()], dtype=object)):
+                policy[0] = scalar
+                with pytest.raises(TypeError):
+                    serialize_self_play_sample(observation, mask, policy, outcome)
+
+
+@pytest.mark.parametrize(
+    "field,index,dtype",
+    [(0, 0, "int32"), (1, 0, "uint8"), (2, 0, "float64"), (3, None, "float64")],
+)
+def test_numpy_masked_scalars_require_a_value(field, index, dtype):
+    np = pytest.importorskip("numpy")
+    golden = GOLDEN.read_bytes()
+    row = list(deserialize_self_play_sample(golden))
+    entries, slot = (row, field) if index is None else (row[field], index)
+    scalar = np.ma.array(entries[slot], mask=False, dtype=dtype)
+    entries[slot] = scalar
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        assert serialize_self_play_sample(*row) == golden
+        scalar.mask = True
+        with pytest.raises(ValueError, match="masked"):
+            serialize_self_play_sample(*row)
+
+
+@pytest.mark.parametrize("dtype", ["timedelta64[ns]", "datetime64[ns]", "U1"])
+def test_rejects_nonnumeric_numpy_policy_dtype(dtype):
+    np = pytest.importorskip("numpy")
+    observation, mask, policy, outcome = deserialize_self_play_sample(GOLDEN.read_bytes())
+    policy[2857] = 0
+    value = np.array(1, dtype=dtype)
+    for entry in (value, value[()]):
+        policy[0] = entry
+        with pytest.raises(TypeError):
+            serialize_self_play_sample(observation, mask, policy, outcome)
+
+
+def test_numpy_object_rows_validate_their_individual_entries():
+    np = pytest.importorskip("numpy")
+    golden = GOLDEN.read_bytes()
+    observation, mask, policy, outcome = deserialize_self_play_sample(golden)
+    row = np.array(policy, dtype=object)
+    assert serialize_self_play_sample(observation, mask, row, outcome) == golden
+    with pytest.raises(TypeError):
+        serialize_self_play_sample(observation, mask, row, np.array(outcome, dtype=object))
+
+
+def test_lazy_policy_uses_the_callers_float_mode():
+    torch = pytest.importorskip("torch")
+    golden = GOLDEN.read_bytes()
+    observation, mask, policy, outcome = deserialize_self_play_sample(golden)
+    tensor = torch.tensor(policy, dtype=torch.float32)
+    tensor.view(torch.int32)[1] = 1  # The smallest binary32 on a masked action.
+
+    class ComputedRow(array):
+        def __iter__(self):
+            return map(float, tensor)
+
+    class ComputedItems(ctypes.c_float * len(policy)):
+        def __getitem__(self, index):
+            return float(tensor[index])
+
+    def check():
+        if not torch.set_flush_denormal(True):
+            pytest.skip("CPU does not support toggling denormal flushing")
+        for row in (
+            list(map(float, tensor)), map(float, tensor), ComputedRow("f", policy),
+            iter(ComputedItems()),
+        ):
+            assert serialize_self_play_sample(observation, mask, row, outcome) == golden
+        with pytest.raises(ValueError):
+            serialize_self_play_sample(observation, mask, tensor, outcome)
+        assert float(tensor[1]) == 0.0
+
+    with ThreadPoolExecutor(max_workers=1) as worker:
+        worker.submit(check).result()
+
+
+def test_subnormal_probability_bits_in_both_flush_modes():
+    torch = pytest.importorskip("torch")
+    golden = GOLDEN.read_bytes()
+    base_policy = deserialize_self_play_sample(golden)[2]
+    legal = POLICY_OFFSET + 4 * 2381
+
+    def check_modes():
+        for flush in (False, True):
+            if not torch.set_flush_denormal(flush):
+                pytest.skip("CPU does not support toggling denormal flushing")
+            for bits in (1, 0x007FFFFF):
+                wire = bytearray(golden)
+                struct.pack_into("<I", wire, legal, bits)
+                fields = deserialize_self_play_sample(bytes(wire))
+                assert fields[2][2381] == bits * 2.0**-149
+                assert serialize_self_play_sample(*fields) == wire
+                scalar = torch.tensor(bits, dtype=torch.int32).view(torch.float32)
+                fields[2][2381] = scalar
+                assert serialize_self_play_sample(*fields) == wire
+                buffer = array("f", base_policy)
+                words = memoryview(buffer).cast("B").cast("I")
+                words[2381] = bits
+                c_buffer = (ctypes.c_float * len(buffer)).from_buffer(buffer)
+                buffers = (buffer, memoryview(buffer), c_buffer)
+                for stored in buffers:
+                    for row in (stored, iter(stored)):
+                        assert serialize_self_play_sample(
+                            fields[0], fields[1], row, fields[3]
+                        ) == wire
+                assert serialize_self_play_sample(
+                    fields[0], fields[1], reversed(buffer[::-1]), fields[3]
+                ) == wire
+                words[1] = bits  # The same stored probability on an illegal action.
+                for stored in buffers:
+                    with pytest.raises(ValueError):
+                        serialize_self_play_sample(
+                            fields[0], fields[1], iter(stored), fields[3]
+                        )
+                assert float(scalar) == (0.0 if flush else bits * 2.0**-149)
+
+            for offset, invalid in ((POLICY_OFFSET + 4, 1), (legal, 0x80000001), (-4, 1)):
+                wire = bytearray(golden)
+                struct.pack_into("<I", wire, offset, invalid)
+                with pytest.raises(ValueError):
+                    deserialize_self_play_sample(bytes(wire))
+
+            fields = deserialize_self_play_sample(golden)
+            with pytest.raises(ValueError):
+                serialize_self_play_sample(*fields[:3], scalar)
+            assert float(scalar) == (0.0 if flush else bits * 2.0**-149)
+
+    # The floating-point mode belongs to the worker thread.
+    with ThreadPoolExecutor(max_workers=1) as worker:
+        worker.submit(check_modes).result()

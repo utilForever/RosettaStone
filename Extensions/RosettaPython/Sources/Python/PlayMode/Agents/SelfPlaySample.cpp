@@ -152,6 +152,65 @@ float ReadProbability(py::handle value, bool legal)
     return rounded;
 }
 
+bool IteratesStoredValues(py::handle entries, const py::tuple& storedIterators)
+{
+    const auto type = py::type::of(entries);
+
+    for (auto stored : storedIterators)
+    {
+        if (type.is(stored))
+        {
+            return true;
+        }
+    }
+
+    if (!PySeqIter_Check(entries.ptr()) &&
+        !Py_IS_TYPE(entries.ptr(), &PyReversed_Type))
+    {
+        return false;
+    }
+
+    // Built-in sequence iterators expose their source in their pickle args.
+    const py::tuple state = entries.attr("__reduce__")();
+    const py::object source = state[1].cast<py::tuple>()[0];
+
+    if (!PyObject_CheckBuffer(source.ptr()))
+    {
+        return false;
+    }
+
+    const auto getItem =
+        py::getattr(py::type::of(source), "__getitem__", py::none());
+
+    return Py_IS_TYPE(getItem.ptr(), &PyWrapperDescr_Type) ||
+           Py_IS_TYPE(getItem.ptr(), &PyMethodDescr_Type);
+}
+
+void ReadPolicy(py::handle policy, SelfPlaySample& sample,
+                const py::tuple& storedIterators)
+{
+    auto entries = py::iter(policy);
+    const auto read = [&sample](py::handle value, std::size_t i) {
+        return ReadProbability(value, sample.legalMask[i] != 0);
+    };
+
+    // Native float buffers may widen a stored subnormal in next().
+    if (IteratesStoredValues(entries, storedIterators))
+    {
+        const DefaultFloatEnvScope environment;
+        ReadRow(std::move(entries), sample.policyTarget, read);
+        return;
+    }
+
+    // Advance user iterators in the caller's environment, converting each
+    // yielded value immediately.
+    ReadRow(std::move(entries), sample.policyTarget,
+            [&](py::handle value, std::size_t i) {
+                const DefaultFloatEnvScope environment;
+                return read(value, i);
+            });
+}
+
 float ReadOutcome(py::handle value)
 {
     const DefaultFloatEnvScope environment;
@@ -169,10 +228,16 @@ float ReadOutcome(py::handle value)
 
 void AddSelfPlaySample(py::module& m)
 {
+    const auto array = py::module_::import("array").attr("array")("f");
+    const auto storedIterators = py::make_tuple(
+        py::type::of(py::iter(py::list())), py::type::of(py::iter(py::tuple())),
+        py::type::of(py::iter(array)),
+        py::type::of(py::iter(py::memoryview(array))));
+
     m.def(
         "serialize_self_play_sample",
-        [](py::handle observation, py::handle legalMask,
-           py::handle policy, py::handle outcome) {
+        [storedIterators](py::handle observation, py::handle legalMask,
+                          py::handle policy, py::handle outcome) {
             SelfPlaySample sample;
 
             ReadRow(py::iter(observation), sample.observation,
@@ -183,11 +248,7 @@ void AddSelfPlaySample(py::module& m)
                     [](py::handle value, std::size_t) {
                         return ReadInteger<std::uint8_t>(value);
                     });
-            ReadRow(py::iter(policy), sample.policyTarget,
-                    [&sample](py::handle value, std::size_t i) {
-                        const DefaultFloatEnvScope environment;
-                        return ReadProbability(value, sample.legalMask[i] != 0);
-                    });
+            ReadPolicy(policy, sample, storedIterators);
 
             sample.outcome = ReadOutcome(outcome);
             return py::bytes(sample.Serialize());
