@@ -94,3 +94,11 @@ if (BUILD_FROM_PIP)
     set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${DEFAULT_CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 endif()
 add_subdirectory(Extensions/RosettaPython)
+
+# Visit probabilities use the default floating-point environment.
+set_property(SOURCE
+    Sources/Rosetta/PlayMode/Agents/SelfPlaySample.cpp
+    TARGET_DIRECTORY RosettaStone
+    APPEND PROPERTY COMPILE_OPTIONS
+    "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-frounding-math>"
+    "$<$<CXX_COMPILER_ID:MSVC>:/fp:strict>")

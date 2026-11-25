@@ -4,6 +4,8 @@
 
 #include <Rosetta/PlayMode/Actions/Draw.hpp>
 #include <Rosetta/PlayMode/Actions/PolicyActions.hpp>
+#include <Rosetta/PlayMode/Agents/PUCTSearch.hpp>
+#include <Rosetta/PlayMode/Agents/SelfPlaySample.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/Game.hpp>
 #include <Rosetta/PlayMode/Tasks/PlayerTasks/EndTurnTask.hpp>
@@ -12,8 +14,11 @@
 #include <Rosetta/PlayMode/Zones/FieldZone.hpp>
 #include <Rosetta/PlayMode/Zones/HandZone.hpp>
 
+#include <bit>
+#include <cmath>
 #include <fstream>
 #include <iterator>
+#include <limits>
 #include <locale>
 #include <map>
 #include <memory>
@@ -277,4 +282,61 @@ TEST_CASE("[SchemaGolden] - Version one observation and policy fixtures")
             CHECK_EQ(actual, expected);
         }
     }
+}
+
+TEST_CASE("[SelfPlaySample] - Invalid root action counts")
+{
+    PolicySchema::LegalMask mask{};
+    mask[0] = mask[1] = 1;
+
+    std::array<PUCTNode, 2> actions;
+    actions[0].actionIndex = 0;
+    actions[1].actionIndex = 1;
+
+    CHECK_THROWS_AS(NormalizeVisitCounts(mask, actions), std::invalid_argument);
+
+    actions[0].visitCount = 1;
+
+    CHECK_EQ(NormalizeVisitCounts(mask, actions)[1], 0);
+
+    for (auto index :
+         { std::size_t{ 0 }, std::size_t{ 2 }, PolicySchema::NUM_ACTIONS })
+    {
+        actions[1].actionIndex = index;
+        CHECK_THROWS_AS(NormalizeVisitCounts(mask, actions),
+                        std::invalid_argument);
+    }
+}
+
+TEST_CASE("[SelfPlaySample] - Visit counts round the exact ratio to binary32")
+{
+    const auto firstBits = [](std::array<std::size_t, 3> counts) {
+        PolicySchema::LegalMask mask{};
+        std::array<PUCTNode, 3> actions;
+
+        for (std::size_t i = 0; i < counts.size(); ++i)
+        {
+            mask[i] = 1;
+            actions[i].actionIndex = i;
+            actions[i].visitCount = counts[i];
+        }
+
+        return std::bit_cast<std::uint32_t>(
+            NormalizeVisitCounts(mask, actions)[0]);
+    };
+
+    // On opposite sides of two midpoints. Binary64 rounds both onto the tie.
+    CHECK_EQ(firstBits({ 276'824'080, 276'824'047 }), 0x3f000001u);
+    CHECK_EQ(firstBits({ 282'416'520, 282'416'419 }), 0x3f000001u);
+    CHECK_EQ(firstBits({ 16'777'217, 16'777'215 }), 0x3f000000u);
+    CHECK_EQ(firstBits({ 16'777'219, 16'777'213 }), 0x3f000002u);
+
+    const auto maximum = std::numeric_limits<std::size_t>::max();
+    const auto half = maximum / 2 + 1;
+    const auto gap = half >> 24;
+
+    CHECK_EQ(firstBits({ half + gap + 1, half - gap - 1 }), 0x3f000001u);
+    CHECK_EQ(firstBits({ 1, maximum, maximum }),
+             std::bit_cast<std::uint32_t>(
+                 std::ldexp(0.5f, -std::numeric_limits<std::size_t>::digits)));
 }

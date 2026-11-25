@@ -3,6 +3,7 @@
 #include "doctest_proxy.hpp"
 
 #include <Rosetta/PlayMode/Actions/PlayerAction.hpp>
+#include <Rosetta/PlayMode/Agents/SelfPlaySample.hpp>
 #include <Rosetta/PlayMode/Cards/Cards.hpp>
 #include <Rosetta/PlayMode/Games/ReplayGame.hpp>
 #include <Rosetta/PlayMode/Models/Enchantment.hpp>
@@ -1117,6 +1118,8 @@ TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
             {
                 CHECK_EQ(replay.GetOutcome(seat), PlayState::PLAYING);
                 CHECK_EQ(replay.GetReward(seat), 0);
+                CHECK_THROWS_AS(SelfPlayOutcome(replay, seat),
+                                std::invalid_argument);
             }
 
             for (int turn = 0;
@@ -1160,6 +1163,8 @@ TEST_CASE("[ReplayGame] - PlayerRelativeTerminalRewards")
                                               : result == 0 ? 1
                                                             : -1);
             CHECK_EQ(replay.GetReward(start), -replay.GetReward(other));
+            CHECK_EQ(SelfPlayOutcome(replay, start), replay.GetReward(start));
+            CHECK_EQ(SelfPlayOutcome(replay, other), replay.GetReward(other));
             CHECK(EnumerateActions(replay.GetGame()).empty());
         }
     }
