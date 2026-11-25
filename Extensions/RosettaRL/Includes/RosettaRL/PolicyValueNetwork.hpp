@@ -26,18 +26,7 @@ class PolicyValueNetworkImpl : public torch::nn::Module
 {
  public:
     static constexpr std::int64_t INPUT_SIZE =
-        1 + PlayMode::ObservationSchema::NUM_TURN_FIELDS +
-        PlayMode::ObservationSchema::NUM_PLAYERS *
-            PlayMode::ObservationSchema::NUM_PLAYER_FIELDS +
-        (3 * PlayMode::ObservationSchema::NUM_PLAYERS +
-         PlayMode::ObservationSchema::NUM_PLAYERS *
-             PlayMode::ObservationSchema::BOARD_SLOTS +
-         PlayMode::ObservationSchema::HAND_SLOTS +
-         PlayMode::ObservationSchema::CHOICE_SLOTS) *
-            PlayMode::ObservationSchema::NUM_CARD_FIELDS +
-        PlayMode::ObservationSchema::SECRET_SLOTS +
-        PlayMode::ObservationSchema::HAND_SLOTS *
-            PlayMode::ObservationSchema::CHOICE_SLOTS;
+        PlayMode::ObservationSchema::FLAT_SIZE;
 
     PolicyValueNetworkImpl();
 

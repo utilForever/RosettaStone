@@ -98,8 +98,15 @@ enum Decision : std::int32_t
     GENERAL_CHOICE = 2
 };
 
+inline constexpr std::size_t FLAT_SIZE =
+    1 + NUM_TURN_FIELDS + NUM_PLAYERS * NUM_PLAYER_FIELDS +
+    (3 * NUM_PLAYERS + NUM_PLAYERS * BOARD_SLOTS + HAND_SLOTS + CHOICE_SLOTS) *
+        NUM_CARD_FIELDS +
+    SECRET_SLOTS + HAND_SLOTS * CHOICE_SLOTS;
+
 using Card = std::array<std::int32_t, NUM_CARD_FIELDS>;
 using Player = std::array<std::int32_t, NUM_PLAYER_FIELDS>;
+using Flat = std::array<std::int32_t, FLAT_SIZE>;
 
 //! Maps an absolute seat to the observation's owner axis.
 //! Both arguments must be concrete seats; RANDOM and INVALID are rejected.
@@ -151,6 +158,9 @@ struct Observation
 
     bool operator==(const Observation&) const = default;
 };
+
+//! Packs the supported version in canonical member and row-major order.
+ObservationSchema::Flat FlattenObservation(const Observation& observation);
 
 //! Encodes a quiescent, running MAIN_ACTION from the current player's view.
 //! Reads only visible entities and public counts; does not advance the game.
