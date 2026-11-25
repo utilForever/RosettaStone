@@ -95,11 +95,12 @@ if (BUILD_FROM_PIP)
 endif()
 add_subdirectory(Extensions/RosettaPython)
 
-# The sample codec and its rounding test change the floating-point environment.
+# The sample codecs and their rounding test change the floating-point environment.
 set_property(SOURCE
     Sources/Rosetta/PlayMode/Agents/SelfPlaySample.cpp
+    Extensions/RosettaPython/Sources/Python/PlayMode/Agents/SelfPlaySample.cpp
     Tests/UnitTests/PlayMode/Games/SchemaGoldenTests.cpp
-    TARGET_DIRECTORY RosettaStone UnitTests
+    TARGET_DIRECTORY RosettaStone pyRosetta UnitTests
     APPEND PROPERTY COMPILE_OPTIONS
     "$<$<CXX_COMPILER_ID:GNU,Clang,AppleClang>:-frounding-math>"
     "$<$<CXX_COMPILER_ID:MSVC>:/fp:strict>")
