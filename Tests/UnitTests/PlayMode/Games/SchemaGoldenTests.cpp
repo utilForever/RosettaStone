@@ -421,7 +421,7 @@ TEST_CASE(
 
 TEST_CASE("[SelfPlaySample] - Visit counts round the exact ratio to binary32")
 {
-    const auto firstBits = [](std::array<std::size_t, 3> counts) {
+    const auto firstBits = [](const std::array<std::size_t, 3>& counts) {
         PolicySchema::LegalMask mask{};
         std::array<PUCTNode, 3> actions;
 
