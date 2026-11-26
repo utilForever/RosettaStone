@@ -6,6 +6,8 @@
 
 #include <Python/PlayMode/Actions/PlayerAction.hpp>
 
+#include <Python/PlayMode/Agents/SelfPlaySample.hpp>
+
 #include <Python/PlayMode/Cards/Card.hpp>
 #include <Python/PlayMode/Cards/Cards.hpp>
 
@@ -33,6 +35,9 @@ PYBIND11_MODULE(pyRosetta, m)
 
     // Actions
     AddPlayerAction(m);
+
+    // Agents
+    AddSelfPlaySample(m);
 
     // Cards
     AddCard(m);

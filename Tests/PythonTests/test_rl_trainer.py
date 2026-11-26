@@ -1,8 +1,11 @@
 # Copyright (c) 2026 Chris Ohk
 
 import os
+import struct
 import subprocess
-from itertools import repeat
+from concurrent.futures import ThreadPoolExecutor
+from itertools import product, repeat
+from pathlib import Path
 
 import pytest
 
@@ -17,6 +20,9 @@ from pyRosettaRL import PolicyValueNetwork, load_training_batch
 from rosetta_rl_trainer import train
 
 
+GOLDEN = Path(__file__).resolve().parents[2] / "Resources/SchemaGolden/v1/self-play.rssp"
+
+
 @pytest.fixture
 def replay_path(tmp_path):
     subprocess.run(
@@ -25,6 +31,113 @@ def replay_path(tmp_path):
         check=True,
     )
     return tmp_path / "valid.pt"
+
+
+def test_trains_on_self_play_sample(tmp_path, subtests):
+    batch = load_training_batch(GOLDEN)
+    observations, policy, outcomes = batch
+    assert observations.shape == (1, 444)
+    assert observations.dtype == torch.int32
+    assert observations[0, :3].tolist() == [1, 3, 1]
+    assert policy.shape == (1, 4846)
+    assert policy.dtype == torch.float32
+    assert policy[0, [0, 2857]].tolist() == [0.25, 0.75]
+    assert outcomes.tolist() == [-1]
+    assert outcomes.dtype == torch.float32
+
+    # The exact binary32 sum is inside 1e-5. A float64 reduction can round outside.
+    wire = bytearray(GOLDEN.read_bytes())
+    offset = struct.calcsize("<4sII444i4846s")
+    near_limit = [0.0] * 4846
+    for index, value in (
+        (0, 1), (2381, 1e-5), (2385, 1137 * 2.0**-52),
+        (2389, 2.0**-54), (2857, 2.0**-54), (2861, 2.0**-149),
+    ):
+        near_limit[index] = value
+    struct.pack_into("<4846f", wire, offset, *near_limit)
+    path = tmp_path / "boundary.rssp"
+    path.write_bytes(wire)
+    boundary_batch = load_training_batch(path)
+    assert boundary_batch[1].view(torch.int32)[0, 2861].item() == 1
+
+    devices = ("cpu", "cuda") if torch.cuda.is_available() else ("cpu",)
+    for device, dtype in product(devices, (torch.float32, torch.float64)):
+        with subtests.test(device=device, dtype=dtype):
+            model = PolicyValueNetwork().to(device=device, dtype=dtype)
+            inputs = observations.to(device)
+            labels = outcomes.to(device=device, dtype=dtype)
+            target = boundary_batch[1].to(device=device, dtype=dtype)
+            batches = [
+                (inputs, policy.to(device=device, dtype=dtype), labels),
+                (inputs, target, labels),
+            ]
+            losses = train(model, batches, tmp_path / "trained.pt")
+            assert torch.isfinite(torch.tensor(losses)).all()
+
+            invalid_policy = target.clone()
+            invalid_policy[0, 2861] = 2.0**-54
+            predictions = model(inputs)
+            with pytest.raises(RuntimeError, match="Policy targets"):
+                model.training_losses(predictions, invalid_policy, labels)
+
+    cli = [os.environ["ROSETTA_RL_CLI"], "train", tmp_path / "native.pt", path]
+    subprocess.run(cli, check=True)
+
+    # One more legal visit probability puts the exact sum outside the tolerance.
+    struct.pack_into("<f", wire, offset + 4 * 2861, 2.0**-54)
+    path.write_bytes(wire)
+    with pytest.raises(ValueError):
+        load_training_batch(path)
+    rejected = subprocess.run(cli, capture_output=True, text=True)
+    assert rejected.returncode != 0
+    assert "sum to one" in rejected.stderr
+
+
+def test_training_rejects_subnormal_masked_mass_and_outcomes(tmp_path):
+    wire = bytearray(GOLDEN.read_bytes())
+    struct.pack_into("<I", wire, struct.calcsize("<4sII444i4846s") + 4, 1)
+    path = tmp_path / "masked.rssp"
+    path.write_bytes(wire)
+    observation, policy, _ = load_training_batch(GOLDEN)
+
+    def check():
+        if not torch.set_flush_denormal(True):
+            pytest.skip("CPU does not support toggling denormal flushing")
+        with pytest.raises(ValueError, match="Masked"):
+            load_training_batch(path)
+        for dtype, integer in (
+            (torch.float16, torch.int16), (torch.bfloat16, torch.int16),
+            (torch.float32, torch.int32), (torch.float64, torch.int64),
+        ):
+            model = PolicyValueNetwork().to(dtype)
+            predictions = model(observation)
+            targets = policy.to(dtype)
+            invalid = torch.tensor([1], dtype=integer).view(dtype)
+            with pytest.raises(RuntimeError, match="Outcomes"):
+                model.training_losses(predictions, targets, invalid)
+            negative = targets.clone()
+            negative.view(integer)[0, 2381] = torch.iinfo(integer).min + 1
+            draw = torch.zeros_like(invalid)
+            with pytest.raises(RuntimeError, match="Policy targets"):
+                model.training_losses(predictions, negative, draw)
+
+    with ThreadPoolExecutor(max_workers=1) as worker:
+        worker.submit(check).result()
+
+
+@pytest.mark.parametrize("dtype", [torch.float16, torch.bfloat16])
+def test_low_precision_models_check_the_stored_visit_probabilities(dtype):
+    observation, policy, outcome = load_training_batch(GOLDEN)
+    model = PolicyValueNetwork().to(dtype)
+    targets, labels = policy.to(dtype), outcome.to(dtype)
+    predictions = model(observation)
+    assert model.training_losses(predictions, targets, labels)[2].isfinite().item()
+
+    targets[0, 0], targets[0, 2857] = 1 / 3, 2 / 3
+    assert targets.sum().item() == 1
+    assert abs(targets.double().sum().item() - 1) > 1e-5
+    with pytest.raises(RuntimeError, match="Policy targets"):
+        model.training_losses(predictions, targets, labels)
 
 
 def test_python_trains_native_replay_and_exchanges_weights(tmp_path, replay_path):

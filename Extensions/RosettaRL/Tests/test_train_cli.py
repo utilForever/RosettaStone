@@ -87,6 +87,11 @@ def main():
         ):
             sys.exit(f"Resumed losses {resumed} differ from step two {expected}.")
 
+        sample = (
+            Path(__file__).resolve().parents[3] / "Resources/SchemaGolden/v1/self-play.rssp"
+        )
+        train(cli, checkpoint, "valid.pt", sample)
+
 
 if __name__ == "__main__":
     main()

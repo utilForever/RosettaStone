@@ -17,6 +17,20 @@ namespace
 {
 namespace Schema = ObservationSchema;
 
+void Flatten(std::int32_t*& destination, std::int32_t value)
+{
+    *destination++ = value;
+}
+
+template <typename T, std::size_t N>
+void Flatten(std::int32_t*& destination, const std::array<T, N>& values)
+{
+    for (const auto& value : values)
+    {
+        Flatten(destination, value);
+    }
+}
+
 std::int32_t EncodeValue(int value)
 {
     if (!std::in_range<std::int32_t>(value))
@@ -294,6 +308,34 @@ Observation Encode(const Game& game, bool includePrivate)
     return observation;
 }
 }  // namespace
+
+ObservationSchema::Flat FlattenObservation(const Observation& observation)
+{
+    const auto& [version, turn, players, heroes, heroPowers, weapons, board,
+                 hand, secrets, chooseOne, choices] = observation;
+
+    if (version != ObservationSchema::VERSION)
+    {
+        throw std::invalid_argument("Invalid observation version");
+    }
+
+    ObservationSchema::Flat flat;
+    auto* destination = flat.data();
+
+    Flatten(destination, version);
+    Flatten(destination, turn);
+    Flatten(destination, players);
+    Flatten(destination, heroes);
+    Flatten(destination, heroPowers);
+    Flatten(destination, weapons);
+    Flatten(destination, board);
+    Flatten(destination, hand);
+    Flatten(destination, secrets);
+    Flatten(destination, chooseOne);
+    Flatten(destination, choices);
+
+    return flat;
+}
 
 Observation EncodeObservation(const Game& game)
 {

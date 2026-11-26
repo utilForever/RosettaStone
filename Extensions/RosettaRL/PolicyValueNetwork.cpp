@@ -7,9 +7,9 @@
 #include <c10/core/InferenceMode.h>
 #include <torch/serialize.h>
 
+#include <algorithm>
 #include <fstream>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -29,19 +29,6 @@ const std::pair<const char*, c10::IValue> WEIGHT_METADATA[] = {
     { "policy_version", PlayMode::PolicySchema::VERSION }
 };
 
-void Flatten(std::int32_t*& destination, std::int32_t value)
-{
-    *destination++ = value;
-}
-
-template <typename T, std::size_t N>
-void Flatten(std::int32_t*& destination, const std::array<T, N>& values)
-{
-    for (const auto& value : values)
-    {
-        Flatten(destination, value);
-    }
-}
 }  // namespace
 
 torch::Tensor EncodeObservationBatch(
@@ -55,25 +42,8 @@ torch::Tensor EncodeObservationBatch(
 
     for (const auto& observation : observations)
     {
-        const auto& [version, turn, players, heroes, heroPowers, weapons, board,
-                     hand, secrets, chooseOne, choices] = observation;
-
-        if (version != PlayMode::ObservationSchema::VERSION)
-        {
-            throw std::invalid_argument("Invalid network observation version");
-        }
-
-        Flatten(destination, version);
-        Flatten(destination, turn);
-        Flatten(destination, players);
-        Flatten(destination, heroes);
-        Flatten(destination, heroPowers);
-        Flatten(destination, weapons);
-        Flatten(destination, board);
-        Flatten(destination, hand);
-        Flatten(destination, secrets);
-        Flatten(destination, chooseOne);
-        Flatten(destination, choices);
+        destination =
+            std::ranges::copy(FlattenObservation(observation), destination).out;
     }
 
     return batch;
