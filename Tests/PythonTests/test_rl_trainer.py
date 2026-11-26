@@ -4,7 +4,7 @@ import os
 import struct
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
-from itertools import repeat
+from itertools import product, repeat
 from pathlib import Path
 
 import pytest
@@ -33,7 +33,7 @@ def replay_path(tmp_path):
     return tmp_path / "valid.pt"
 
 
-def test_trains_on_self_play_sample(tmp_path):
+def test_trains_on_self_play_sample(tmp_path, subtests):
     batch = load_training_batch(GOLDEN)
     observations, policy, outcomes = batch
     assert observations.shape == (1, 444)
@@ -60,24 +60,25 @@ def test_trains_on_self_play_sample(tmp_path):
     boundary_batch = load_training_batch(path)
     assert boundary_batch[1].view(torch.int32)[0, 2861].item() == 1
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    for dtype in (torch.float32, torch.float64):
-        model = PolicyValueNetwork().to(device=device, dtype=dtype)
-        inputs = observations.to(device)
-        labels = outcomes.to(device=device, dtype=dtype)
-        target = boundary_batch[1].to(device=device, dtype=dtype)
-        batches = [
-            (inputs, policy.to(device=device, dtype=dtype), labels),
-            (inputs, target, labels),
-        ]
-        losses = train(model, batches, tmp_path / "trained.pt")
-        assert torch.isfinite(torch.tensor(losses)).all()
+    devices = ("cpu", "cuda") if torch.cuda.is_available() else ("cpu",)
+    for device, dtype in product(devices, (torch.float32, torch.float64)):
+        with subtests.test(device=device, dtype=dtype):
+            model = PolicyValueNetwork().to(device=device, dtype=dtype)
+            inputs = observations.to(device)
+            labels = outcomes.to(device=device, dtype=dtype)
+            target = boundary_batch[1].to(device=device, dtype=dtype)
+            batches = [
+                (inputs, policy.to(device=device, dtype=dtype), labels),
+                (inputs, target, labels),
+            ]
+            losses = train(model, batches, tmp_path / "trained.pt")
+            assert torch.isfinite(torch.tensor(losses)).all()
 
-        invalid_policy = target.clone()
-        invalid_policy[0, 2861] = 2.0**-54
-        predictions = model(inputs)
-        with pytest.raises(RuntimeError, match="Policy targets"):
-            model.training_losses(predictions, invalid_policy, labels)
+            invalid_policy = target.clone()
+            invalid_policy[0, 2861] = 2.0**-54
+            predictions = model(inputs)
+            with pytest.raises(RuntimeError, match="Policy targets"):
+                model.training_losses(predictions, invalid_policy, labels)
 
     cli = [os.environ["ROSETTA_RL_CLI"], "train", tmp_path / "native.pt", path]
     subprocess.run(cli, check=True)
