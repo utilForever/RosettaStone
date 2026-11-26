@@ -205,7 +205,7 @@ void ReadPolicy(py::handle policy, SelfPlaySample& sample,
     // Advance user iterators in the caller's environment, converting each
     // yielded value immediately.
     ReadRow(std::move(entries), sample.policyTarget,
-            [&](py::handle value, std::size_t i) {
+            [&read](py::handle value, std::size_t i) {
                 const DefaultFloatEnvScope environment;
                 return read(value, i);
             });
