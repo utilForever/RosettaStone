@@ -25,8 +25,12 @@ def test_golden_round_trip():
     wire = GOLDEN.read_bytes()
     observation, mask, policy, outcome = deserialize_self_play_sample(wire)
     assert observation[:3] == [1, 3, 1]
-    assert sum(mask) == 14 and mask[2381] == 1 and policy[2381] == 0
-    assert policy[0] == 0.25 and policy[2857] == 0.75 and sum(policy) == 1
+    assert sum(mask) == 14
+    assert mask[2381] == 1
+    assert policy[2381] == 0
+    assert policy[0] == 0.25
+    assert policy[2857] == 0.75
+    assert sum(policy) == 1
     assert outcome == -1
 
     independent = struct.pack(
@@ -34,7 +38,8 @@ def test_golden_round_trip():
         b"RSSP", 1, 1, *observation, bytes(mask), *policy, outcome,
     )
     encoded = serialize_self_play_sample(observation, mask, policy, outcome)
-    assert encoded == independent == wire
+    assert independent == wire
+    assert encoded == wire
 
     policy[1] = -0.0
     assert serialize_self_play_sample(observation, mask, policy, outcome) == wire
@@ -105,8 +110,9 @@ def test_rejects_wrong_sizes_and_invalid_fields_on_write():
         yield 0
         pytest.fail("Read beyond the first extra entry")
 
+    long_observation = too_long()
     with pytest.raises(TypeError):
-        serialize_self_play_sample(too_long(), mask, policy, outcome)
+        serialize_self_play_sample(long_observation, mask, policy, outcome)
 
     mask[2857] = 0
     with pytest.raises(ValueError):
@@ -208,8 +214,9 @@ def test_requires_scalar_entries_and_outcome():
         torch.tensor(observation), torch.tensor(mask),
         torch.tensor(policy), torch.tensor(outcome),
     ) == GOLDEN.read_bytes()
+    complex_outcome = torch.tensor(-1 + 0j)
     with pytest.raises(TypeError):
-        serialize_self_play_sample(observation, mask, policy, torch.tensor(-1 + 0j))
+        serialize_self_play_sample(observation, mask, policy, complex_outcome)
 
 
 @pytest.mark.parametrize("dtype", ["complex64", "complex128"])
@@ -264,8 +271,9 @@ def test_numpy_object_rows_validate_their_individual_entries():
     observation, mask, policy, outcome = deserialize_self_play_sample(golden)
     row = np.array(policy, dtype=object)
     assert serialize_self_play_sample(observation, mask, row, outcome) == golden
+    object_outcome = np.array(outcome, dtype=object)
     with pytest.raises(TypeError):
-        serialize_self_play_sample(observation, mask, row, np.array(outcome, dtype=object))
+        serialize_self_play_sample(observation, mask, row, object_outcome)
 
 
 def test_lazy_policy_uses_the_callers_float_mode():
@@ -333,9 +341,10 @@ def test_subnormal_probability_bits_in_both_flush_modes():
                 ) == wire
                 words[1] = bits  # The same stored probability on an illegal action.
                 for stored in buffers:
+                    row = iter(stored)
                     with pytest.raises(ValueError):
                         serialize_self_play_sample(
-                            fields[0], fields[1], iter(stored), fields[3]
+                            fields[0], fields[1], row, fields[3]
                         )
                 assert float(scalar) == (0.0 if flush else bits * 2.0**-149)
 
