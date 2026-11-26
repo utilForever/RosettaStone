@@ -53,7 +53,11 @@ class NativeTrainer
                             const torch::Tensor& policyTargets,
                             const torch::Tensor& outcomes);
 
-    //! Trains on one CPU batch from ReadTrainingBatch.
+    //! Trains on one CPU batch from ReadTrainingBatch. For RSSP, this overload
+    //! requires a CPU float32 model because both targets are stored as float32.
+    //! For other dtypes or devices, call ReadTrainingBatch, move all tensors
+    //! to the model's device, cast the policy targets and outcomes to its
+    //! dtype, and call the tensor overload.
     TrainingStep TrainBatch(std::istream& input);
 
     //! Follows symlinks and atomically replaces the checkpoint at the target.
